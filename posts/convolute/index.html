@@ -8,7 +8,7 @@
 
 <meta name="description" content="">
 
-<title>Fixing hugo terminal theme</title>
+<title>The difference between lispy&#39;s convolute function and paredit&#39;s convolute function</title>
 <meta name="generator" content="Hugo 0.59.0-DEV" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/pojoaque.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
@@ -55,7 +55,7 @@
 </div>
 <div class="col-md-9 content">
 
-<h1>Fixing hugo terminal theme</h1>
+<h1>The difference between lispy&#39;s convolute function and paredit&#39;s convolute function</h1>
 <h4>Published 01-01-0001 00:00:00</h4>
 
 <a href="https://twitter.com/share" class="twitter-share-button" data-via="kendo5731"></a>
@@ -69,7 +69,7 @@
     }
 }(document, 'script', 'twitter-wjs');</script>
 
-<div class="fb-share-button" data-href="https://mullikine.github.io/posts/hugo-setup-terminal-theme/" data-layout="button"></div>
+<div class="fb-share-button" data-href="https://mullikine.github.io/posts/convolute/" data-layout="button"></div>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -80,12 +80,64 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <article>
-    <p><a href="https://github.com/panr/hugo-theme-terminal/issues/43">https://github.com/panr/hugo-theme-terminal/issues/43</a></p>
+    
 
-<p>I had to add this to <code>config.toml</code> to get the <code>terminal</code> theme to work.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">[params]
-   fullWidthTheme = false
-   centerTheme = false</pre></div>
+<h2 id="lispy-convolute">lispy convolute</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; These two convolution functions are different</span>
+
+<span style="color:#75715e">;; (special-lispy-convolute)</span>
+<span style="color:#75715e">;; C</span>
+<span style="color:#75715e">;; Swaps parent with grandparent including their elements. Current element holds still.</span>
+<span style="color:#75715e">;; Reversible</span>
+
+<span style="color:#75715e">;; (paredit-convolute-sexp &amp;optional N)</span>
+<span style="color:#75715e">;; M-P</span>
+<span style="color:#75715e">;; ;; Swaps parent with grandparent including their elements. Current element and siblings after current hold still.</span>
+<span style="color:#75715e">;; Non-reversible</span>
+
+(a
+ a1
+ (b
+  b1
+  (c
+   c1
+   (d
+    d1
+    (e)
+    d9)
+   c9)
+  b9)
+ a9)
+
+<span style="color:#75715e">;; C on c</span>
+(b
+ b1
+ (a
+  a1
+  (c
+   c1
+   (d
+    d1
+    (e)
+    d9)
+   c9)
+  a9)
+ b9)
+
+<span style="color:#75715e">;; M-P on c</span>
+(b
+ b1
+ (a
+  a1
+  (c
+   c1
+   (d
+    d1
+    (e)
+    d9)
+   c9)
+  b9
+  a9))</code></pre></div>
 </article>
 
 

@@ -30,6 +30,8 @@
             
             <li><a href="https://mullikine.github.io/posts/hugo-setup-terminal-theme/">Fixing hugo terminal theme</a></li>
             
+            <li><a href="https://mullikine.github.io/posts/convolute/">The difference between lispy&#39;s convolute function and paredit&#39;s convolute function</a></li>
+            
         </ul>
     </div>
     
@@ -61,6 +63,11 @@
         https://github.com/panr/hugo-theme-terminal/issues/43
 I had to add this to config.toml to get the terminal theme to work.
 [params] fullWidthTheme = false centerTheme = false
+    </article>
+    
+    <article>
+        <h3><a href="https://mullikine.github.io/posts/convolute/">The difference between lispy&#39;s convolute function and paredit&#39;s convolute function</a> - 0001-01-01 00:00:00</h3>
+         lispy convolute ;; These two convolution functions are different ;; (special-lispy-convolute) ;; C ;; Swaps parent with grandparent including their elements. Current element holds still. ;; Reversible ;; (paredit-convolute-sexp &amp;optional N) ;; M-P ;; ;; Swaps parent with grandparent including their elements. Current element and siblings after current hold still. ;; Non-reversible (a a1 (b b1 (c c1 (d d1 (e) d9) c9) b9) a9) ;; C on c (b b1 (a a1 (c c1 (d d1 (e) d9) c9) a9) b9) ;; M-P on c (b b1 (a a1 (c c1 (d d1 (e) d9) c9) b9 a9))
     </article>
     
 </div>
