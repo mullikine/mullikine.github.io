@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>CodeLingo vs Linters // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.fb222e05f6f82c63ca9f2a61b40175e4c15df390babdb6f59982bd612383422c.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CodeLingo vs Linters"/>
+<meta name="twitter:description" content="Tenet&rsquo;s are 10x shorter and faster to write than Linters Comparison of size in code
+   Lines (CL) Lines (L) Words (CL) Words (L) Bytes (CL) Bytes (L) Byte % (CL/L) Tenet name (CL) linter name (L)     18 681 49 2084 524 15616 3.36% unconvert unconvert   19 110 64 275 580 2198 26.39% init gochecknoinits   18 136 67 353 623 2307 27."/>
+
+    <meta property="og:title" content="CodeLingo vs Linters" />
+<meta property="og:description" content="Tenet&rsquo;s are 10x shorter and faster to write than Linters Comparison of size in code
+   Lines (CL) Lines (L) Words (CL) Words (L) Bytes (CL) Bytes (L) Byte % (CL/L) Tenet name (CL) linter name (L)     18 681 49 2084 524 15616 3.36% unconvert unconvert   19 110 64 275 580 2198 26.39% init gochecknoinits   18 136 67 353 623 2307 27." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/codelingo-vs-linters/summary/" />
+<meta property="article:published_time" content="2018-10-05T00:00:00+13:00" />
+<meta property="article:modified_time" content="2018-10-05T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/avatar.gif" alt="John Doe" /></a>
+      <h1>Bodacious Blog</h1>
+      <p>Talk about biosemiotics and xenolingustics is welcome here</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">CodeLingo vs Linters</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 5, 2018
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          5 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      
+
+<h2 id="tenet-s-are-10x-shorter-and-faster-to-write-than-linters">Tenet&rsquo;s are 10x shorter and faster to write than Linters</h2>
+
+<p><code>Comparison of size in code</code></p>
+
+<table>
+<thead>
+<tr>
+<th>Lines (CL)</th>
+<th>Lines (L)</th>
+<th>Words (CL)</th>
+<th>Words (L)</th>
+<th>Bytes (CL)</th>
+<th>Bytes (L)</th>
+<th>Byte % (CL/L)</th>
+<th>Tenet name (CL)</th>
+<th>linter name (L)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>18</td>
+<td>681</td>
+<td>49</td>
+<td>2084</td>
+<td>524</td>
+<td>15616</td>
+<td>3.36%</td>
+<td>unconvert</td>
+<td>unconvert</td>
+</tr>
+
+<tr>
+<td>19</td>
+<td>110</td>
+<td>64</td>
+<td>275</td>
+<td>580</td>
+<td>2198</td>
+<td>26.39%</td>
+<td>init</td>
+<td>gochecknoinits</td>
+</tr>
+
+<tr>
+<td>18</td>
+<td>136</td>
+<td>67</td>
+<td>353</td>
+<td>623</td>
+<td>2307</td>
+<td>27.00%</td>
+<td>bool-param</td>
+<td>nofuncflags</td>
+</tr>
+
+<tr>
+<td>18</td>
+<td>137</td>
+<td>63</td>
+<td>310</td>
+<td>512</td>
+<td>2168</td>
+<td>23.62%</td>
+<td>todo</td>
+<td>godox</td>
+</tr>
+
+<tr>
+<td>42</td>
+<td>753</td>
+<td>115</td>
+<td>2387</td>
+<td>1154</td>
+<td>20307</td>
+<td>5.68%</td>
+<td>tested</td>
+<td>blanket</td>
+</tr>
+</tbody>
+</table>
+
+<figure class="graph">
+    <img src="https://mullikine.github.io/ox-hugo/clvsl.png"/> 
+</figure>
+
+
+<dl>
+<dt>CL</dt>
+<dd>CodeLingo</dd>
+<dt>L</dt>
+<dd>Linter</dd>
+</dl>
+
+<h2 id="making-tenets-with-clql-that-do-the-job-of-existing-linters">Making tenets with CLQL that do the job of existing linters</h2>
+
+<p>I started learning Go and CodeLingo / CLQL at the same time, so while I have found it generally easy and straightforward to create these tenets, I feel like I could&rsquo;ve knocked them out even faster if I didn&rsquo;t need to look up answers to questions such as &lsquo;<em>what is an interface in golang?</em>&rsquo;, for example. The process has been intuitive; I think in part to having a good naming convention. I&rsquo;ve had to learn what CodeLingo is, what a &lsquo;<strong>tenet</strong>&rsquo; and a &lsquo;<strong>flow</strong>&rsquo; is. Long story short, they are just as what they sound like they are.</p>
+
+<h3 id="defintions-taken-from-the-project-docs">Defintions taken from the project docs</h3>
+
+<dl>
+<dt>tenet</dt>
+<dd><p>A Tenet is an <em>encoded</em> project-specific <span class="underline">best practice</span> used to guide development.</p>
+
+<p>(an <strong><em>encoded</em> <span class="underline">best practice</span></strong>)</p></dd>
+<dt>flow</dt>
+<dd><p>A Flow is an <em>automated</em> development <span class="underline">workflow</span> that leverages Tenets to do some task, for example automating code reviews.</p>
+
+<p>(an <strong><em>automated</em> <span class="underline">workflow</span></strong>)</p></dd>
+</dl>
+
+<h3 id="the-general-process-of-writing-one-tenet">The general process of writing one tenet</h3>
+
+<h4 id="writing-the-clql">Writing the CLQL</h4>
+
+<p>What is simple to implement in CodeLingo may be difficult for 3rd party linters, however, as this write-up should demonstrate.<br />
+Writing a tenet to describe an antipattern might be trivial in CLQL, but the corresponding linter may be <em><strong>orders</strong></em> of magnitude more complex.</p>
+
+<p>The first step is usually to generate a verbose CLQL query from the CodeLingo playground.<br />
+To do this you select the part of the code you would like to match and then click the <span class="underline">generate</span><sup class="footnote-ref" id="fnref:fn-1"><a href="#fn:fn-1">1</a></sup> button.<br />
+The next step is to refine that query into something that captures the logic of what you want a tenet to match.<br />
+Typically, the generated query comprises the bulk of the code you end up with.  You can therefore choose what to leave in, or add new logic, depending on the needs of the tenet.</p>
+
+<hr />
+
+<ul>
+<li><p>Before: Generated CLQL</p>
+
+<p>This generated query contains a greater number of facts than we really need, so we can remove some of them.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">import codelingo/ast/go
+    
+go.file(depth = any):
+  go.decls:
+    @playground.highlight
+    go.func_decl:
+      go.ident:
+        child_count == <span style="color:#ae81ff">0</span>
+        name == <span style="color:#e6db74">&#34;init&#34;</span>
+        private == <span style="color:#e6db74">&#34;true&#34;</span>
+        public == <span style="color:#e6db74">&#34;false&#34;</span>
+      go.func_type:
+        go.field_list:
+          child_count == <span style="color:#ae81ff">0</span></code></pre></div></li>
+
+<li><p>Refining the CLQL</p>
+
+<p>The process of crafting CLQL is mainly subtractive, especially for simple tenets.</p>
+
+<p><div class="org-src-container">
+<pre>
+<span class="magit-diff-hunk-heading">@@ -2,13 +2,10 @@ import codelingo/ast/go
+</span><span class="magit-diff-context">
+ go.file(depth = any):
+   go.decls:
+</span><span class="magit-diff-removed">-    @playground.highlight
+</span><span class="magit-diff-context">     go.func_decl:
+</span><span class="magit-diff-added">+      @review comment
+</span><span class="magit-diff-context">       go.ident:
+</span><span class="magit-diff-removed">-        child_count == 0
+</span><span class="magit-diff-context">         name == &ldquo;init&rdquo;
+</span><span class="magit-diff-removed">-        private == &ldquo;true&rdquo;</p>
+
+<ul>
+<li>public == &ldquo;false&rdquo;
+</span><span class="magit-diff-context">       go.func_type:
+     go.field_list:
+       child_count == 0
+</span>
+</pre>
+</div></li>
+</ul></li>
+
+<li><p>After: Refined CLQL</p>
+
+<p>Short and sweet.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">import codelingo/ast/go
+    
+go.file(depth = any):
+  go.decls:
+    go.func_decl:
+      @review comment
+      go.ident:
+        name == <span style="color:#e6db74">&#34;init&#34;</span>
+      go.func_type:
+        go.field_list:
+          child_count == <span style="color:#ae81ff">0</span></code></pre></div>
+<p>See the full article <a href="https://mullikine.github.io/codelingo-vs-linters/main.html">here</a> for further explanation.</p></li>
+</ul>
+
+<h2 id="results">Results</h2>
+
+<h3 id="comparison-of-size-unit-tests">Comparison of size Unit tests</h3>
+
+<table>
+<thead>
+<tr>
+<th>Lines (CL)</th>
+<th>Lines (L)</th>
+<th>Words (CL)</th>
+<th>Words (L)</th>
+<th>Bytes (CL)</th>
+<th>Bytes (L)</th>
+<th>Byte % (CL/L)</th>
+<th>Tenet name (CL)</th>
+<th>linter name (L)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>13</td>
+<td><span class="underline">N/A</span><sup class="footnote-ref" id="fnref:fn-2"><a href="#fn:fn-2">2</a></sup></td>
+<td>25</td>
+<td><span class="underline">N/A</span><sup class="footnote-ref" id="fnref:fn-2"><a href="#fn:fn-2">2</a></sup></td>
+<td>246</td>
+<td><span class="underline">N/A</span><sup class="footnote-ref" id="fnref:fn-2"><a href="#fn:fn-2">2</a></sup></td>
+<td><span class="underline">N/A</span><sup class="footnote-ref" id="fnref:fn-2"><a href="#fn:fn-2">2</a></sup></td>
+<td>unconvert</td>
+<td>unconvert</td>
+</tr>
+
+<tr>
+<td>32</td>
+<td>201</td>
+<td>64</td>
+<td>407</td>
+<td>333</td>
+<td>3167</td>
+<td>10.51%</td>
+<td>init</td>
+<td>gochecknoinits</td>
+</tr>
+
+<tr>
+<td>16</td>
+<td>24</td>
+<td>27</td>
+<td>36</td>
+<td>166</td>
+<td>261</td>
+<td>63.60%</td>
+<td>bool-param</td>
+<td>nofuncflags</td>
+</tr>
+
+<tr>
+<td>29</td>
+<td>130</td>
+<td>80</td>
+<td>407</td>
+<td>440</td>
+<td>3000</td>
+<td>14.67%</td>
+<td>todo</td>
+<td>godox</td>
+</tr>
+
+<tr>
+<td>14</td>
+<td>124</td>
+<td>25</td>
+<td>185</td>
+<td>156</td>
+<td>1229</td>
+<td>12.69%</td>
+<td>tested</td>
+<td>blanket</td>
+</tr>
+</tbody>
+</table>
+
+<dl>
+<dt>N/A</dt>
+<dd>The original linter did not contain unit tests.</dd>
+</dl>
+
+<h4 id="links-to-source-code">Links to source code</h4>
+
+<table>
+<thead>
+<tr>
+<th>tenet name</th>
+<th>linter name</th>
+<th>tenet code</th>
+<th>forge</th>
+<th>linter code</th>
+<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>init</td>
+<td>gochecknoinits</td>
+<td><a href="https://github.com/codelingo/codelingo/blob/master/tenets/codelingo/go/init/codelingo.yaml">codelingo.yaml</a></td>
+<td>GitHub</td>
+<td><a href="https://github.com/leighmcculloch/gochecknoinits">leighmcculloch/gochecknoinits</a></td>
+<td>Check that no init functions are present in Go code.</td>
+</tr>
+
+<tr>
+<td>unconvert</td>
+<td>unconvert</td>
+<td><a href="https://github.com/codelingo/codelingo/blob/master/tenets/codelingo/go/unconvert/codelingo.yaml">codelingo.yaml</a></td>
+<td>GitHub</td>
+<td><a href="https://github.com/mdempsky/unconvert/">mdempsky/unconvert</a></td>
+<td>Remove unnecessary type conversions from Go source</td>
+</tr>
+
+<tr>
+<td>bool-param</td>
+<td>nofuncflags</td>
+<td><a href="https://github.com/mullikine/codelingo/blob/master/tenets/codelingo/go/bool-param/codelingo.yaml">codelingo.yaml</a></td>
+<td>GitHub</td>
+<td><a href="https://github.com/fsamin/nofuncflags">fsamin/nofuncflags</a></td>
+<td>because flag arguments are ugly</td>
+</tr>
+
+<tr>
+<td>todo</td>
+<td>godox</td>
+<td><a href="https://github.com/mullikine/codelingo/blob/master/tenets/codelingo/go/todo/codelingo.yaml">codelingo.yaml</a></td>
+<td>GitHub</td>
+<td><a href="https://github.com/766b/godox/">766b/godox</a></td>
+<td>extract speficic comments from Go code based on keywords</td>
+</tr>
+
+<tr>
+<td>tested<sup class="footnote-ref" id="fnref:fn-3"><a href="#fn:fn-3">3</a></sup></td>
+<td>blanket<sup class="footnote-ref" id="fnref:fn-3"><a href="#fn:fn-3">3</a></sup></td>
+<td><a href="https://github.com/codelingo/codelingo/blob/master/tenets/codelingo/go/tested/codelingo.yaml">codelingo.yaml</a></td>
+<td>GitLab</td>
+<td><a href="https://gitlab.com/verygoodsoftwarenotvirus/blanket">verygoodsoftwarenotvirus/blanket</a></td>
+<td>a coverage helper tool</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="the-work-it-took-to-write-these-tenets">The work it took to write these tenets</h3>
+
+<table>
+<thead>
+<tr>
+<th>tenet name</th>
+<th>time to write</th>
+<th>min clicks</th>
+<th>actual clicks<sup class="footnote-ref" id="fnref:fn-4"><a href="#fn:fn-4">4</a></sup></th>
+<th>reason for <strong>generate query</strong><sup class="footnote-ref" id="fnref:fn-1"><a href="#fn:fn-1">1</a></sup> click/s</th>
+<th>reason for time spent greater or less than 10 mins</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>init</td>
+<td>10 mins</td>
+<td>1</td>
+<td>1</td>
+<td>to find an initial fact for a top-level init function</td>
+<td></td>
+</tr>
+
+<tr>
+<td>unconvert</td>
+<td>20 mins</td>
+<td>1</td>
+<td>2</td>
+<td>to generalise unit test to any type conversion</td>
+<td>to create string variable to match function name with ident type</td>
+</tr>
+
+<tr>
+<td>bool-param</td>
+<td>5 mins</td>
+<td>1</td>
+<td>1</td>
+<td>to generate initial query</td>
+<td>the generated query was ~= the finished tenet</td>
+</tr>
+
+<tr>
+<td>todo</td>
+<td>10 mins</td>
+<td>1</td>
+<td>1</td>
+<td>to find the CLQL fact for comment</td>
+<td></td>
+</tr>
+
+<tr>
+<td>tested<sup class="footnote-ref" id="fnref:fn-3"><a href="#fn:fn-3">3</a></sup></td>
+<td>20 mins</td>
+<td>1</td>
+<td>2</td>
+<td>to find the initial query for a filename with identifier</td>
+<td>learning to use CLQL functions</td>
+</tr>
+</tbody>
+</table>
+
+<dl>
+<dt>min clicks</dt>
+<dd>The number of times I needed to press <span class="underline">generate query</span><sup class="footnote-ref" id="fnref:fn-1"><a href="#fn:fn-1">1</a></sup> to discover the CLQL syntax I needed.</dd>
+<dt>actual clicks</dt>
+<dd>The approximate number of times I ended up to pressing <span class="underline">generate query</span>, for exploratory purposes.</dd>
+</dl>
+
+<h3 id="the-work-it-took-to-write-their-unit-tests">The work it took to write their unit tests</h3>
+
+<table>
+<thead>
+<tr>
+<th>tenet name</th>
+<th>time to write<sup class="footnote-ref" id="fnref:fn-4"><a href="#fn:fn-4">4</a></sup></th>
+<th><span class="underline">generate</span><sup class="footnote-ref" id="fnref:fn-1"><a href="#fn:fn-1">1</a></sup> clicks<sup class="footnote-ref" id="fnref:fn-4"><a href="#fn:fn-4">4</a></sup></th>
+<th>additional time</th>
+<th>reason for additional time</th>
+<th>test runs<sup class="footnote-ref" id="fnref:fn-5"><a href="#fn:fn-5">5</a></sup></th>
+<th>reason for additional testing of unit tests</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>init</td>
+<td>10 mins</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>2</td>
+<td></td>
+</tr>
+
+<tr>
+<td>unconvert</td>
+<td>10 mins</td>
+<td>2</td>
+<td>10 mins</td>
+<td>to find example code for unit test</td>
+<td>2</td>
+<td></td>
+</tr>
+
+<tr>
+<td>bool-param</td>
+<td>5 mins</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>2</td>
+<td></td>
+</tr>
+
+<tr>
+<td>todo</td>
+<td>10 mins</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>2</td>
+<td></td>
+</tr>
+
+<tr>
+<td>tested<sup class="footnote-ref" id="fnref:fn-3"><a href="#fn:fn-3">3</a></sup></td>
+<td>20 mins</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>4</td>
+<td>ensure multi-file unit tests are working as expected</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="a-nice-surprise">A nice surprise</h3>
+
+<ul>
+<li><p>Blanket (the original linter) has a limitation. It can handle single-level selector expressions with great ease, but it doesn&rsquo;t <em><strong>recursively</strong></em> dive into those selectors for a number of reasons.</p>
+
+<p>The &lsquo;tested&rsquo; tenet, however, can find if said method was called with arbitrary nesting.</p>
+
+<p>It doesn&rsquo;t actually look at the function call to make sure it is the same object that is calling. It only checks that the method being called has the same name and that it is being called within a test function and file of appropriate name.</p>
+
+<p>So it doesn&rsquo;t have the same recursive limitation as blanket, but may give rise to false positives in some circumstances.</p></li>
+</ul>
+
+<h3 id="read-the-full-article-here-dot">Read the full article <a href="https://mullikine.github.io/codelingo-vs-linters/main.html">here</a>.</h3>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:fn-1">This is what the button looks like. <img src="https://mullikine.github.io/ox-hugo/generate.png" alt="" />
+ <a class="footnote-return" href="#fnref:fn-1"><sup>[return]</sup></a></li>
+<li id="fn:fn-2">The original linter did not contain unit tests.
+ <a class="footnote-return" href="#fnref:fn-2"><sup>[return]</sup></a></li>
+<li id="fn:fn-3">See caveats.
+ <a class="footnote-return" href="#fnref:fn-3"><sup>[return]</sup></a></li>
+<li id="fn:fn-4">These are approximations.
+ <a class="footnote-return" href="#fnref:fn-4"><sup>[return]</sup></a></li>
+<li id="fn:fn-5">The number of times I had to <strong>test</strong> the tenet.
+ <a class="footnote-return" href="#fnref:fn-5"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
