@@ -67,8 +67,10 @@ First some prerequisite functions (defmacro shut-up-c (&amp;amp;rest body) &amp;
       <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
       
       <guid>https://mullikine.github.io/posts/getting-arxiv-in-the-terminal/</guid>
-      <description>It all starts with this emacs plugin (require &amp;#39;biblio-arxiv) We create a bash script We name it arxiv-summary but also symlink it to &amp;lsquo;as&amp;rsquo;.
-#!/bin/bash export TTY # Cant name this &amp;#39;as&amp;#39; because it interferes with ~pip~ # Collect history of all arxiv-summary invocations ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null # How often do I actually need to use the assembler &amp;#39;as&amp;#39;?</description>
+      <description>It all starts with this emacs plugin (require &amp;#39;biblio-arxiv) We create a bash script We name it arxiv-summary.
+Cant name this &amp;lsquo;as&amp;rsquo; because it interferes with pip.
+Sometimes packages installed wtih pip need the assembler.
+#!/bin/bash export TTY # Collect history of all arxiv-summary invocations ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null last_arg=&amp;#34;${@: -1}&amp;#34; url=&amp;#34;$last_arg&amp;#34; set -- &amp;#34;${@:1:$(($#-1))}&amp;#34; # shift last arg # if pl &amp;#34;$url&amp;#34; | grep -q -P &amp;#39;^([a-z-]+/)?</description>
     </item>
     
     <item>
