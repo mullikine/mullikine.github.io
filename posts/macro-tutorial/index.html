@@ -165,7 +165,7 @@ First some prerequisite functions (defmacro shut-up-c (&amp;rest body) &#34;This
 <h3 id="function-arguments">Function arguments</h3>
 
 <p>What is the behaviour of function arguments?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; function arguments are evaluated before the macro starts.</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; function arguments are evaluated before the function starts.</span>
 (defun f1 (<span style="color:#66d9ef">&amp;rest</span> body)
   (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%s&#34;</span> body)))
 
@@ -181,7 +181,7 @@ First some prerequisite functions (defmacro shut-up-c (&amp;rest body) &#34;This
 
 <h3 id="macro-arguments">Macro arguments</h3>
 
-<p>Almost anything can legally go into the arguments
+<p>Almost anything (so long that it is valid emacs lisp syntax) can legally go into the arguments
 of a macro because they&rsquo;re NOT evaluated before the macro starts.</p>
 
 <p>Lets name the macros <code>m1</code>, <code>m2</code>, <code>m3</code> etc. so we can talk about them easily.</p>
