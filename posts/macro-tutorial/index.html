@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Didactic emacs-lisp macro example (ie. a tutorial) // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.fb222e05f6f82c63ca9f2a61b40175e4c15df390babdb6f59982bd612383422c.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Didactic emacs-lisp macro example (ie. a tutorial)"/>
+<meta name="twitter:description" content="This tutorial is useful for understand macros of any language.
+First some prerequisite functions (defmacro shut-up-c (&amp;rest body) &#34;This works for c functions where shut-up does not.&#34; `(let* ((inhibit-message t)) ,@body)) (defun get-dir () &#34;Gets the current working directory. Takes into account the current file name.&#34; (shut-up-c (let ((filedir (if buffer-file-name (file-name-directory buffer-file-name) (file-name-directory (my/pwd))))) (if (s-blank? filedir) (my/pwd) filedir)))) (defun my/pwd () &#34;Gets the current working directory&#34; (interactive) (substring (pwd) 10)) (defun str (thing) &#34;Converts object or string to an unformatted string."/>
+
+    <meta property="og:title" content="Didactic emacs-lisp macro example (ie. a tutorial)" />
+<meta property="og:description" content="This tutorial is useful for understand macros of any language.
+First some prerequisite functions (defmacro shut-up-c (&amp;rest body) &#34;This works for c functions where shut-up does not.&#34; `(let* ((inhibit-message t)) ,@body)) (defun get-dir () &#34;Gets the current working directory. Takes into account the current file name.&#34; (shut-up-c (let ((filedir (if buffer-file-name (file-name-directory buffer-file-name) (file-name-directory (my/pwd))))) (if (s-blank? filedir) (my/pwd) filedir)))) (defun my/pwd () &#34;Gets the current working directory&#34; (interactive) (substring (pwd) 10)) (defun str (thing) &#34;Converts object or string to an unformatted string." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/macro-tutorial/" />
+<meta property="article:published_time" content="2019-09-18T00:00:00+12:00" />
+<meta property="article:modified_time" content="2019-09-18T00:00:00+12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/avatar.gif" alt="John Doe" /></a>
+      <h1>Bodacious Blog</h1>
+      <p>Talk about biosemiotics and xenolingustics is welcome here</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Didactic emacs-lisp macro example (ie. a tutorial)</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Sep 18, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          7 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      
+
+<p>This tutorial is useful for understand macros of any language.</p>
+
+<h2 id="first-some-prerequisite-functions">First some prerequisite functions</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro shut-up-c (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#e6db74">&#34;This works for c functions where shut-up does not.&#34;</span>
+  <span style="color:#f92672">`</span>(let* ((inhibit-message <span style="color:#66d9ef">t</span>))
+     <span style="color:#f92672">,@</span>body))
+
+(defun get-dir ()
+  <span style="color:#e6db74">&#34;Gets the current working directory.
+</span><span style="color:#e6db74">Takes into account the current file name.&#34;</span>
+  (shut-up-c
+   (let ((filedir (if <span style="color:#a6e22e">buffer-file-name</span>
+                      (<span style="color:#a6e22e">file-name-directory</span> <span style="color:#a6e22e">buffer-file-name</span>)
+                    (<span style="color:#a6e22e">file-name-directory</span> (my/pwd)))))
+     (if (s-blank? filedir)
+         (my/pwd)
+       filedir))))
+
+(defun my/pwd ()
+  <span style="color:#e6db74">&#34;Gets the current working directory&#34;</span>
+  (interactive)
+  (<span style="color:#a6e22e">substring</span> (pwd) <span style="color:#ae81ff">10</span>))
+
+(defun str (thing)
+  <span style="color:#e6db74">&#34;Converts object or string to an unformatted string.&#34;</span>
+  (setq thing (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%s&#34;</span> thing))
+  (<span style="color:#a6e22e">set-text-properties</span> <span style="color:#ae81ff">0</span> (<span style="color:#a6e22e">length</span> thing) <span style="color:#66d9ef">nil</span> thing)
+  thing)
+
+(defun e/q (<span style="color:#a6e22e">string</span>)
+  <span style="color:#e6db74">&#34;Puts double quote around a string and escapes any interior backslashes or double quotes.&#34;</span>
+  (let ((print-escape-newlines <span style="color:#66d9ef">t</span>))
+    (<span style="color:#a6e22e">prin1-to-string</span> <span style="color:#a6e22e">string</span>)))
+
+(defun shellquote (input)
+  <span style="color:#e6db74">&#34;If string contains spaces or backslashes, put quotes around it.&#34;</span>
+  (if (or (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34;\\\\&#34;</span> input)
+          (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34; &#34;</span> input)
+          (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34;\&#34;&#34;</span> input))
+      (e/q input)
+    input))
+
+(defun sh-notty (<span style="color:#66d9ef">&amp;optional</span> cmd stdin dir)
+  <span style="color:#e6db74">&#34;Runs command in shell and return the result. This appears to strip ansi codes. (sh) does not.&#34;</span>
+  (interactive)
+  (if (not cmd)
+      (setq cmd <span style="color:#e6db74">&#34;false&#34;</span>))
+
+  (if (not dir)
+      (setq dir (get-dir)))
+
+  (setq tf (make-temp-file <span style="color:#e6db74">&#34;elispbash&#34;</span>))
+
+  (setq final_cmd (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;( cd &#34;</span> (e/q dir) <span style="color:#e6db74">&#34;; &#34;</span> cmd <span style="color:#e6db74">&#34;) &gt; &#34;</span> tf))
+
+  (if (not stdin)
+      (progn
+        (shell-command final_cmd))
+    (with-temp-buffer
+      (<span style="color:#a6e22e">insert</span> stdin)
+      (shell-command-on-region (<span style="color:#a6e22e">point-min</span>) (<span style="color:#a6e22e">point-max</span>) final_cmd)))
+  (setq output (with-temp-buffer
+                 (<span style="color:#a6e22e">insert-file-contents</span> tf)
+                 (<span style="color:#a6e22e">buffer-string</span>)))
+
+  output)</code></pre></div>
+<h2 id="we-will-explain-how-these-2-macros-work">We will explain how these 2 macros work</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro quote-args (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#e6db74">&#34;Join all the arguments in a sexp into a single string.
+</span><span style="color:#e6db74">Be mindful of quoting arguments correctly.&#34;</span>
+  <span style="color:#f92672">`</span>(<span style="color:#a6e22e">mapconcat</span> (lambda (input) (shellquote (str input))) <span style="color:#e6db74">&#39;,body</span> <span style="color:#e6db74">&#34; &#34;</span>))
+
+(defmacro b (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#e6db74">&#34;Runs a shell command
+</span><span style="color:#e6db74">Write straight bash within elisp syntax (it looks like emacs-lisp)&#34;</span>
+  <span style="color:#f92672">`</span>(sh-notty (<span style="color:#a6e22e">concat</span> (quote-args <span style="color:#f92672">,@</span>body))))</code></pre></div>
+<h2 id="some-macro-syntax-explanations">Some macro syntax explanations</h2>
+
+<p>This notation is called a quasiquote or &lsquo;backtick&rsquo; notation.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; quote-args</span>
+<span style="color:#75715e">;; `(...)  ;; backtick notation is not exclusive to macros. you can also use in functions</span>
+<span style="color:#75715e">;; &#39;(...)  ;; It does the same thing as single quote notation, and in its simplest form, is exactly the same.</span>
+<span style="color:#75715e">;; `(a ,b @c ,@d) ;; But you can also use , and @ or , and @ together</span>
+<span style="color:#75715e">;; , ;; while the backtick and single quote prevents the list elements from being evaluated, a single , comma before a symbol or expression allows it this one to be evaluated</span>
+<span style="color:#75715e">;; @ ;; the at symbol unpacks the list into individual symbols. therefore, you can take advantage of the backtick notation to pass a unpack the macro&#39;s parameters into the call to another macro or function</span></code></pre></div>
+<h2 id="functions">functions</h2>
+
+<p>Lets talk about functions so we can compare them with macros.</p>
+
+<h3 id="function-arguments">function arguments</h3>
+
+<p>We look at how function arguments function first.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; function arguments are evaluated before the macro starts.</span>
+(defun f1 (<span style="color:#66d9ef">&amp;rest</span> body)
+  (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%s&#34;</span> body)))
+
+(f1 <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#75715e">;; (2 1 1 1)</span>
+
+(f1 (<span style="color:#a6e22e">+</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>) <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#75715e">;; (2 1 1 1)</span>
+
+<span style="color:#75715e">;; What the function sees is exactly the same because</span>
+<span style="color:#75715e">;; the arguments are evaluated before the macro starts.</span></code></pre></div>
+<h2 id="macros">macros</h2>
+
+<h3 id="macro-arguments">macro arguments</h3>
+
+<p>Almost anything can legally go into the arguments
+of a macro because they&rsquo;re NOT evaluated before the macro starts.</p>
+
+<p>Lets name the macros <code>m1</code>, <code>m2</code>, <code>m3</code> etc. so we can talk about them easily.</p>
+
+<h4 id="m1-this-macro-returns-nil">m1 &ndash; This macro returns nil</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m1 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#75715e">;; Nothing in here</span>
+  )
+
+(m1 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)
+<span style="color:#75715e">;; Calling this macro doesn&#39;t complain that echo is not</span>
+<span style="color:#75715e">;; a variable etc. A function would complain.</span></code></pre></div>
+<p>nil</p>
+
+<h4 id="m2-returns-the-list-of-the-arguments-as-a-string">m2 &ndash; Returns the list of the arguments as a string</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m2 (<span style="color:#66d9ef">&amp;rest</span> body)
+  (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%s&#34;</span> body)))
+
+(m2 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
+<p>&rdquo;(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)&rdquo;</p>
+
+<h4 id="m3-returns-5-dot-the-last-item-is-the-one-that-is-returned-dot">m3 &ndash;  Returns 5. The last item is the one that is returned.</h4>
+
+<p>So the objective of a macro is simply to manipulate the body variable how we like them before we get to the end of the macro and then return a valid value or list as the last expression in the macro</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m3 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#ae81ff">5</span>)
+
+(m3 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
+<p>5</p>
+
+<h4 id="m4-this-gives-an-error-void-expression-body">m4 &ndash; This gives an error: &ldquo;void expression body&rdquo;</h4>
+
+<p>The error occurs because it returned an unevaluated list (body) as the last expression of the macro.</p>
+
+<p>Remember, the backtick does the same thing as the single quote, but has more optional features.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m5 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(body))
+
+(m5 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
+<h4 id="m5-this-gives-an-error-void-expression-echo">m5 &ndash; This gives an error: &ldquo;void expression echo&rdquo;</h4>
+
+<p>The error occurs because the macro returns the list <code>(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></p>
+
+<p>At the end of a macro, the last line is
+[usually] evaluated by whatever called the
+macro. So the objective is to turn body into
+something that evaluates.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m5 (<span style="color:#66d9ef">&amp;rest</span> body)
+  body)
+
+(m6 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
+<h4 id="m6-this-gives-an-error-void-function-body">m6 &ndash; This gives an error: &ldquo;void-function @body&rdquo;</h4>
+
+<p>It does not work because the list (@body) is
+returned from the macro.</p>
+
+<p>That&rsquo;s not a function.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m6 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(@body))
+
+(m6 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
+<h4 id="m7-this-gives-an-error-invalid-function--echo-hi-and-and-echo-n-hi-and-and-echo-n-hi">m7 &ndash; This gives an error: &ldquo;invalid-function (echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)&rdquo;</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m7 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(<span style="color:#f92672">,</span>body))
+
+(m7 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
+<ul>
+<li><p>Explanation of error</p>
+
+<p>The macro returned <code>((echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi))</code>.</p>
+
+<p>The problem here is that we did not expand
+body.</p>
+
+<p>It&rsquo;s still contained as a list.</p>
+
+<p>Inside the backtick, body is just a symbol
+until we give it a comma.</p>
+
+<p>But then it becomes an entire list.</p>
+
+<p>We put that list into another list with the
+backtick.</p>
+
+<p>When the macro ends, it returns a list inside
+a list and tries to evaluate it.</p></li>
+</ul>
+
+<h4 id="m8-this-gives-an-error-void-function-echo">m8 &ndash; This gives an error: &ldquo;void-function echo&rdquo;</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m8 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(<span style="color:#f92672">,@</span>body))
+
+(m8 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
+<ul>
+<li><p>Explanation of error</p>
+
+<p>The macro returns this as the last expression: <code>(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code>
+<code>echo</code> is not a function.</p></li>
+</ul>
+
+<h4 id="m9-this-is-the-same-as-m8-because-you-re-expanding-the-list-into-another-list-dot">m9 &ndash; This is the same as m8 because you&rsquo;re expanding the list into another list.</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m9 (<span style="color:#66d9ef">&amp;rest</span> body)
+  body)</code></pre></div>
+<h4 id="m10-working-macro-but-not-finished-yet">m10 &ndash; Working macro but not finished yet</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m10 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(quote <span style="color:#f92672">,</span>body))
+
+(m10 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
+<p>(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</p>
+
+<p>When the macro finishes, it returns <code>(quote (echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi))</code>.</p>
+
+<p>When the macro ends, it evaluates the quoted list and we get <code>(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></p>
+
+<h4 id="m11-this-is-the-same-as-m10">m11 &ndash; This is the same as m10</h4>
+
+<p><code>m10</code> can also be written like <code>m11</code>.</p>
+
+<p>You can quote <code>,body</code> like so <code>',body</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m11 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span><span style="color:#e6db74">&#39;,body</span>)</code></pre></div>
+<h4 id="m12-working-macro">m12 &ndash; working macro</h4>
+
+<p>We have a list of the arguments. Now reduce the list to a quoted string</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m12 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(<span style="color:#a6e22e">mapconcat</span> <span style="color:#e6db74">&#39;str</span> <span style="color:#e6db74">&#39;,body</span> <span style="color:#e6db74">&#34; &#34;</span>))
+
+(m12 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
+<p>&ldquo;echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi&rdquo;</p>
+
+<h4 id="now-we-can-build-quote-args">Now we can build <code>quote-args</code></h4>
+
+<p><code>quote-args</code> just returns the string of the arguments, but ensures they are quoted nicely.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro quote-args (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(<span style="color:#a6e22e">mapconcat</span> (lambda (input) (shellquote (str input))) <span style="color:#e6db74">&#39;,body</span> <span style="color:#e6db74">&#34; &#34;</span>))
+
+(quote-args echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
+<p>&ldquo;echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi&rdquo;</p>
+
+<h4 id="now-we-can-explain-how-b-works">Now we can explain how <code>b</code> works</h4>
+
+<p>This just feeds the string to a function, which happens to be a call to the shell.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro b (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(sh-notty (<span style="color:#a6e22e">concat</span> (quote-args <span style="color:#f92672">,@</span>body))))
+
+(b echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
+<p>&ldquo;hi
+hihi&rdquo;</p>
+
+<h2 id="in-summary">In summary</h2>
+
+<p>Macros just expand into more code. Expand the (b)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">;; (macroexpand &#39;(b echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi))
+;; =
+;; (sh-notty (concat (quote-args echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)))</code></pre></div>
+<p>quote-args is also a macro. expand it</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">;; (macroexpand &#39;(quote-args echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi))
+;; =
+;; (mapconcat (lambda (input) (shellquote (str input))) (quote (echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)))</code></pre></div>
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
