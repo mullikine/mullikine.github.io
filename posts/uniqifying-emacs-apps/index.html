@@ -103,9 +103,9 @@ with buffers.</p>
 
 <h3 id="happily-it-didn-t-take-much-more-work-to-get-that-going-as-well">Happily, it didn&rsquo;t take much more work to get that going as well</h3>
 
-<p>Therefore, I made a new advice function which
-uses the generic function above but adds some
-extra functionality.</p>
+<p>I made a new advice function which uses the
+generic function above but adds some extra
+functionality.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun perl-repl-after-advice (<span style="color:#66d9ef">&amp;rest</span> args)
   <span style="color:#e6db74">&#34;Give the buffer a unique name&#34;</span>
   (with-current-buffer <span style="color:#e6db74">&#34;*Perl-REPL*&#34;</span> (<span style="color:#a6e22e">eval</span> <span style="color:#f92672">`</span>(unique-buffer-generic-after-advice <span style="color:#f92672">,@</span>args))
