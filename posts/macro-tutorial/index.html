@@ -75,70 +75,71 @@ First some prerequisite functions (defmacro shut-up-c (&amp;rest body) &#34;This
 <p>This tutorial is useful to learn to write emacs-lisp macros but is also useful for understanding macros of any language.</p>
 
 <h2 id="first-some-prerequisite-functions">First some prerequisite functions</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro shut-up-c (<span style="color:#66d9ef">&amp;rest</span> body)
-  <span style="color:#e6db74">&#34;This works for c functions where shut-up does not.&#34;</span>
-  <span style="color:#f92672">`</span>(let* ((inhibit-message <span style="color:#66d9ef">t</span>))
-     <span style="color:#f92672">,@</span>body))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">  (defmacro shut-up-c (<span style="color:#66d9ef">&amp;rest</span> body)
+    <span style="color:#e6db74">&#34;This works for c functions where shut-up does not.&#34;</span>
+    <span style="color:#f92672">`</span>(let* ((inhibit-message <span style="color:#66d9ef">t</span>))
+       <span style="color:#f92672">,@</span>body))
 
-(defun get-dir ()
-  <span style="color:#e6db74">&#34;Gets the current working directory.
-</span><span style="color:#e6db74">Takes into account the current file name.&#34;</span>
-  (shut-up-c
-   (let ((filedir (if <span style="color:#a6e22e">buffer-file-name</span>
-                      (<span style="color:#a6e22e">file-name-directory</span> <span style="color:#a6e22e">buffer-file-name</span>)
-                    (<span style="color:#a6e22e">file-name-directory</span> (my/pwd)))))
-     (if (s-blank? filedir)
-         (my/pwd)
-       filedir))))
+  (defun get-dir ()
+    <span style="color:#e6db74">&#34;Gets the current working directory.
+</span><span style="color:#e6db74">  Takes into account the current file name.&#34;</span>
+    (shut-up-c
+     (let ((filedir (if <span style="color:#a6e22e">buffer-file-name</span>
+                        (<span style="color:#a6e22e">file-name-directory</span> <span style="color:#a6e22e">buffer-file-name</span>)
+                      (<span style="color:#a6e22e">file-name-directory</span> (my/pwd)))))
+       (if (s-blank? filedir)
+           (my/pwd)
+         filedir))))
 
-(defun my/pwd ()
-  <span style="color:#e6db74">&#34;Gets the current working directory&#34;</span>
-  (interactive)
-  (<span style="color:#a6e22e">substring</span> (pwd) <span style="color:#ae81ff">10</span>))
+  (defun my/pwd ()
+    <span style="color:#e6db74">&#34;Gets the current working directory&#34;</span>
+    (interactive)
+    (<span style="color:#a6e22e">substring</span> (pwd) <span style="color:#ae81ff">10</span>))
 
-(defun str (thing)
-  <span style="color:#e6db74">&#34;Converts object or string to an unformatted string.&#34;</span>
-  (setq thing (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%s&#34;</span> thing))
-  (<span style="color:#a6e22e">set-text-properties</span> <span style="color:#ae81ff">0</span> (<span style="color:#a6e22e">length</span> thing) <span style="color:#66d9ef">nil</span> thing)
-  thing)
+  (defun str (thing)
+    <span style="color:#e6db74">&#34;Converts object or string to an unformatted string.&#34;</span>
+    (setq thing (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%s&#34;</span> thing))
+    (<span style="color:#a6e22e">set-text-properties</span> <span style="color:#ae81ff">0</span> (<span style="color:#a6e22e">length</span> thing) <span style="color:#66d9ef">nil</span> thing)
+    thing)
 
-(defun e/q (<span style="color:#a6e22e">string</span>)
-  <span style="color:#e6db74">&#34;Puts double quote around a string and escapes any interior backslashes or double quotes.&#34;</span>
-  (let ((print-escape-newlines <span style="color:#66d9ef">t</span>))
-    (<span style="color:#a6e22e">prin1-to-string</span> <span style="color:#a6e22e">string</span>)))
+  (defun e/q (<span style="color:#a6e22e">string</span>)
+    <span style="color:#e6db74">&#34;Puts double quote around a string and escapes any interior backslashes or double quotes.&#34;</span>
+    (let ((print-escape-newlines <span style="color:#66d9ef">t</span>))
+      (<span style="color:#a6e22e">prin1-to-string</span> <span style="color:#a6e22e">string</span>)))
 
-(defun shellquote (input)
-  <span style="color:#e6db74">&#34;If string contains spaces or backslashes, put quotes around it.&#34;</span>
-  (if (or (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34;\\\\&#34;</span> input)
-          (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34; &#34;</span> input)
-          (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34;\&#34;&#34;</span> input))
-      (e/q input)
-    input))
+  (defun shellquote (input)
+    <span style="color:#e6db74">&#34;If string contains spaces or backslashes, put quotes around it.&#34;</span>
+    (if (or (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34;\\\\&#34;</span> input)
+            (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34; &#34;</span> input)
+            (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34;\&#34;&#34;</span> input))
+        (e/q input)
+      input))
 
-(defun sh-notty (<span style="color:#66d9ef">&amp;optional</span> cmd stdin dir)
-  <span style="color:#e6db74">&#34;Runs command in shell and return the result. This appears to strip ansi codes. (sh) does not.&#34;</span>
-  (interactive)
-  (if (not cmd)
-      (setq cmd <span style="color:#e6db74">&#34;false&#34;</span>))
+  (defun sh-notty (<span style="color:#66d9ef">&amp;optional</span> cmd stdin dir)
+    <span style="color:#e6db74">&#34;Runs command in shell and return the result.
+</span><span style="color:#e6db74">This appears to strip ansi codes.&#34;</span>
+    (interactive)
+    (if (not cmd)
+        (setq cmd <span style="color:#e6db74">&#34;false&#34;</span>))
 
-  (if (not dir)
-      (setq dir (get-dir)))
+    (if (not dir)
+        (setq dir (get-dir)))
 
-  (setq tf (make-temp-file <span style="color:#e6db74">&#34;elispbash&#34;</span>))
+    (setq tf (make-temp-file <span style="color:#e6db74">&#34;elispbash&#34;</span>))
 
-  (setq final_cmd (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;( cd &#34;</span> (e/q dir) <span style="color:#e6db74">&#34;; &#34;</span> cmd <span style="color:#e6db74">&#34;) &gt; &#34;</span> tf))
+    (setq final_cmd (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;( cd &#34;</span> (e/q dir) <span style="color:#e6db74">&#34;; &#34;</span> cmd <span style="color:#e6db74">&#34;) &gt; &#34;</span> tf))
 
-  (if (not stdin)
-      (progn
-        (shell-command final_cmd))
-    (with-temp-buffer
-      (<span style="color:#a6e22e">insert</span> stdin)
-      (shell-command-on-region (<span style="color:#a6e22e">point-min</span>) (<span style="color:#a6e22e">point-max</span>) final_cmd)))
-  (setq output (with-temp-buffer
-                 (<span style="color:#a6e22e">insert-file-contents</span> tf)
-                 (<span style="color:#a6e22e">buffer-string</span>)))
+    (if (not stdin)
+        (progn
+          (shell-command final_cmd))
+      (with-temp-buffer
+        (<span style="color:#a6e22e">insert</span> stdin)
+        (shell-command-on-region (<span style="color:#a6e22e">point-min</span>) (<span style="color:#a6e22e">point-max</span>) final_cmd)))
+    (setq output (with-temp-buffer
+                   (<span style="color:#a6e22e">insert-file-contents</span> tf)
+                   (<span style="color:#a6e22e">buffer-string</span>)))
 
-  output)</code></pre></div>
+    output)</code></pre></div>
 <h2 id="we-will-explain-how-these-2-macros-work">We will explain how these 2 macros work</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro quote-args (<span style="color:#66d9ef">&amp;rest</span> body)
   <span style="color:#e6db74">&#34;Join all the arguments in a sexp into a single string.
@@ -248,9 +249,6 @@ returned from the macro.</p>
   <span style="color:#f92672">`</span>(<span style="color:#f92672">,</span>body))
 
 (m7 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
-<ul>
-<li><p>Explanation of error</p>
-
 <p>The macro returned <code>((echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi))</code>.</p>
 
 <p>The problem here is that we did not expand
@@ -260,20 +258,15 @@ give it a comma. But then it becomes an
 entire list. We put that list into another
 list with the backtick. When the macro ends,
 it returns a list inside a list and tries to
-evaluate it.</p></li>
-</ul>
+evaluate it.</p>
 
 <h4 id="m8-this-gives-an-error-void-function-echo">m8 &ndash; This gives an error: &ldquo;void-function echo&rdquo;</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m8 (<span style="color:#66d9ef">&amp;rest</span> body)
   <span style="color:#f92672">`</span>(<span style="color:#f92672">,@</span>body))
 
 (m8 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
-<ul>
-<li><p>Explanation of error</p>
-
 <p>The macro returns this as the last expression: <code>(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code>
-<code>echo</code> is not a function.</p></li>
-</ul>
+<code>echo</code> is not a function.</p>
 
 <h4 id="m9-this-is-the-same-as-m8-because-you-re-expanding-the-list-into-another-list-dot">m9 &ndash; This is the same as m8 because you&rsquo;re expanding the list into another list.</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m9 (<span style="color:#66d9ef">&amp;rest</span> body)
