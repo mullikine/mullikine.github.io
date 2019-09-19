@@ -103,13 +103,13 @@ cache.</p>
   <span style="color:#f92672">`</span>(let ((result (sh-notty <span style="color:#f92672">,</span>cmd <span style="color:#f92672">,@</span>sh-notty-args)))
      (<span style="color:#a6e22e">string-equal</span> b_exit_code <span style="color:#e6db74">&#34;0&#34;</span>)))
 
-(defmacro url-is-404 (url)
+(defun url-is-404 (url)
   <span style="color:#e6db74">&#34;URL is 404&#34;</span>
-  <span style="color:#f92672">`</span>(sh-notty-true (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;curl-firefox -s -I &#34;</span> (q <span style="color:#f92672">,</span>url) <span style="color:#e6db74">&#34; | grep -q \&#34;404 Not Found\&#34;&#34;</span>)))
+  (sh-notty-true (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;curl-firefox -s -I &#34;</span> (q url) <span style="color:#e6db74">&#34; | grep -q \&#34;404 Not Found\&#34;&#34;</span>)))
 
-(defmacro url-cache-is-404 (url)
+(defun url-cache-is-404 (url)
   <span style="color:#e6db74">&#34;URL cache is 404&#34;</span>
-  <span style="color:#f92672">`</span>(url-is-404 (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:&#34;</span> <span style="color:#f92672">,</span>url)))</code></pre></div>
+  (url-is-404 (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:&#34;</span> url)))</code></pre></div>
 <h4 id="try-them-out">Try them out</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(url-is-404 <span style="color:#e6db74">&#34;https://medium.com/riselab/functional-rl-with-keras-and-tensorflow-eager-7973f81d6345&#34;</span>)
 (url-cache-is-404 <span style="color:#e6db74">&#34;https://medium.com/riselab/functional-rl-with-keras-and-tensorflow-eager-7973f81d6345&#34;</span>)
