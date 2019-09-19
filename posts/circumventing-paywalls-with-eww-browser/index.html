@@ -95,7 +95,15 @@ cache.</p>
 </span><span style="color:#75715e"></span>
 /usr/bin/curl -A <span style="color:#e6db74">&#34;Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></div>
 <h3 id="create-the-test-functions-in-emacs">Create the test functions in emacs</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro url-is-404 (url)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; See this article for ~sh-notty~</span>
+<span style="color:#75715e">;; https://mullikine.github.io/posts/macro-tutorial/</span>
+
+(defmacro sh-notty-true (cmd <span style="color:#66d9ef">&amp;rest</span> sh-notty-args)
+  <span style="color:#e6db74">&#34;Returns t if the shell command exists with 0&#34;</span>
+  <span style="color:#f92672">`</span>(let ((result (sh-notty <span style="color:#f92672">,</span>cmd <span style="color:#f92672">,@</span>sh-notty-args)))
+     (<span style="color:#a6e22e">string-equal</span> b_exit_code <span style="color:#e6db74">&#34;0&#34;</span>)))
+
+(defmacro url-is-404 (url)
   <span style="color:#e6db74">&#34;URL is 404&#34;</span>
   <span style="color:#f92672">`</span>(sh-notty-true (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;curl-firefox -s -I &#34;</span> (q <span style="color:#f92672">,</span>url) <span style="color:#e6db74">&#34; | grep -q \&#34;404 Not Found\&#34;&#34;</span>)))
 
