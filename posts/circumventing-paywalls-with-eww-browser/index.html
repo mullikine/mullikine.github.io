@@ -108,12 +108,13 @@ a more informed decision.</p>
 <h3 id="add-some-advice-to-the-eww-command-which-expands-urls-just-before-they-are-loaded">Add some advice to the eww command which expands URLs just before they are loaded</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This makes it so for certain urls, the google cache is loaded instead</span>
 (defun eww--dwim-expand-url-around-advice (proc <span style="color:#66d9ef">&amp;rest</span> args)
-  (let ((url (<span style="color:#a6e22e">car</span> args)))
+  (let* ((url (<span style="color:#a6e22e">car</span> args))
+         (cached_url (replace-regexp-in-string <span style="color:#e6db74">&#34;^&#34;</span> <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:&#34;</span> url)))
     (if (and (or (string-match-p <span style="color:#e6db74">&#34;towardsdatascience&#34;</span> url)
                  (string-match-p <span style="color:#e6db74">&#34;medium.com&#34;</span> url))
-             (not (string-match-p <span style="color:#e6db74">&#34;webcache.google&#34;</span> url)))
-        (if (url-found-p url)
-            (setq url (replace-regexp-in-string <span style="color:#e6db74">&#34;^&#34;</span> <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:&#34;</span> url))))
+             (not (string-match-p <span style="color:#e6db74">&#34;webcache.google&#34;</span> url))
+             (url-found-p cached_url))
+        (setq url cached_url))
     (let ((res (<span style="color:#a6e22e">apply</span> proc (<span style="color:#a6e22e">list</span> url))))
       res)))
 (advice-add <span style="color:#e6db74">&#39;eww--dwim-expand-url</span> :around <span style="color:#a6e22e">#&#39;</span>eww--dwim-expand-url-around-advice)</code></pre></div>
