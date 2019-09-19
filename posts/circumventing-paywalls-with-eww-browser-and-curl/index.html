@@ -85,11 +85,7 @@ the more information we bring in (such as if
 the cache exists), the better, as this leads to
 a more informed decision.</p>
 
-<h3 id="use-curl-to-check-for-the-existence-of-a-web-page">Use curl to check for the existence of a web page</h3>
-
-<p>I had originally used actual curl to make the request.</p>
-
-<h4 id="make-the-curl-firefox-script-dot-we-call-this-script-from-emacs">Make the <code>curl-firefox</code> script. We call this script from emacs</h4>
+<h3 id="make-the-curl-firefox-script-dot-we-call-this-script-from-emacs">Make the <code>curl-firefox</code> script. We call this script from emacs</h3>
 
 <p>Vanilla curl always returns 404 from Google&rsquo;s
 cache.</p>
@@ -98,7 +94,7 @@ cache.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
 </span><span style="color:#75715e"></span>
 /usr/bin/curl -A <span style="color:#e6db74">&#34;Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></div>
-<h4 id="write-the-test-functions-in-emacs-lisp">Write the test functions in emacs-lisp</h4>
+<h3 id="write-the-test-functions-in-emacs-lisp">Write the test functions in emacs-lisp</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; See this article for ~sh-notty~</span>
 <span style="color:#75715e">;; https://mullikine.github.io/posts/macro-tutorial/</span>
 
@@ -114,7 +110,7 @@ cache.</p>
 (defun url-cache-is-404 (url)
   <span style="color:#e6db74">&#34;URL cache is 404&#34;</span>
   (url-is-404 (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:&#34;</span> url)))</code></pre></div>
-<h4 id="try-them-out">Try them out</h4>
+<h3 id="try-them-out">Try them out</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(url-is-404 <span style="color:#e6db74">&#34;https://medium.com/riselab/functional-rl-with-keras-and-tensorflow-eager-7973f81d6345&#34;</span>)
 (url-cache-is-404 <span style="color:#e6db74">&#34;https://medium.com/riselab/functional-rl-with-keras-and-tensorflow-eager-7973f81d6345&#34;</span>)
 (url-is-404 <span style="color:#e6db74">&#34;https://www.cryptocompare.com/coins/nas/overview&#34;</span>)
@@ -123,12 +119,13 @@ cache.</p>
 <h3 id="add-some-advice-to-the-eww-command-which-expands-urls-just-before-they-are-loaded">Add some advice to the eww command which expands URLs just before they are loaded</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This makes it so for certain urls, the google cache is loaded instead</span>
 (defun eww--dwim-expand-url-around-advice (proc <span style="color:#66d9ef">&amp;rest</span> args)
-  (let ((url (<span style="color:#a6e22e">car</span> args)))
+  (let* ((url (<span style="color:#a6e22e">car</span> args))
+         (cached_url (replace-regexp-in-string <span style="color:#e6db74">&#34;^&#34;</span> <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:&#34;</span> url)))
     (if (and (or (string-match-p <span style="color:#e6db74">&#34;towardsdatascience&#34;</span> url)
                  (string-match-p <span style="color:#e6db74">&#34;medium.com&#34;</span> url))
-             (not (string-match-p <span style="color:#e6db74">&#34;webcache.google&#34;</span> url)))
-        (if (not (url-cache-is-404 url))
-            (setq url (replace-regexp-in-string <span style="color:#e6db74">&#34;^&#34;</span> <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:&#34;</span> url))))
+             (not (string-match-p <span style="color:#e6db74">&#34;webcache.google&#34;</span> url))
+             (not (url-cache-is-404 cached_url)))
+        (setq url cached_url))
     (let ((res (<span style="color:#a6e22e">apply</span> proc (<span style="color:#a6e22e">list</span> url))))
       res)))
 (advice-add <span style="color:#e6db74">&#39;eww--dwim-expand-url</span> :around <span style="color:#a6e22e">#&#39;</span>eww--dwim-expand-url-around-advice)</code></pre></div>
