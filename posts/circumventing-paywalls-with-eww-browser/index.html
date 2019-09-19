@@ -12,12 +12,18 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Circumventing paywalls with eww browser"/>
-<meta name="twitter:description" content="Use google cache and curl Make the curl-firefox script Vanilla curl always returns 404 from Google&rsquo;s cache.
-#!/bin/bash  /usr/bin/curl -A &#34;Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0&#34; &#34;$@&#34; Create the test functions in emacs (defmacro url-is-404 (url) &#34;URL is 404&#34; `(sh-notty-true (concat &#34;curl-firefox -s -I &#34; (q ,url) &#34; | grep -q \&#34;404 Not Found\&#34;&#34;))) (defmacro url-cache-is-404 (url) &#34;URL cache is 404&#34; `(url-is-404 (concat &#34;http://webcache.googleusercontent.com/search?q=cache:&#34; ,url))) Try them out (url-is-404 &#34;https://medium."/>
+<meta name="twitter:description" content="Use Google cache and curl Often Google cache has a full copy of an article.
+We use curl to check the existence of the cache for a given URL as some URLs may not be cached.
+This is not an accurate science.
+Make the curl-firefox script. We call this script from emacs Vanilla curl always returns 404 from Google&rsquo;s cache.
+We need to add the user agent with -A."/>
 
     <meta property="og:title" content="Circumventing paywalls with eww browser" />
-<meta property="og:description" content="Use google cache and curl Make the curl-firefox script Vanilla curl always returns 404 from Google&rsquo;s cache.
-#!/bin/bash  /usr/bin/curl -A &#34;Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0&#34; &#34;$@&#34; Create the test functions in emacs (defmacro url-is-404 (url) &#34;URL is 404&#34; `(sh-notty-true (concat &#34;curl-firefox -s -I &#34; (q ,url) &#34; | grep -q \&#34;404 Not Found\&#34;&#34;))) (defmacro url-cache-is-404 (url) &#34;URL cache is 404&#34; `(url-is-404 (concat &#34;http://webcache.googleusercontent.com/search?q=cache:&#34; ,url))) Try them out (url-is-404 &#34;https://medium." />
+<meta property="og:description" content="Use Google cache and curl Often Google cache has a full copy of an article.
+We use curl to check the existence of the cache for a given URL as some URLs may not be cached.
+This is not an accurate science.
+Make the curl-firefox script. We call this script from emacs Vanilla curl always returns 404 from Google&rsquo;s cache.
+We need to add the user agent with -A." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/circumventing-paywalls-with-eww-browser/" />
 <meta property="article:published_time" content="2019-09-18T00:00:00+12:00" />
@@ -68,11 +74,23 @@
     <div class="post-content">
       
 
-<h2 id="use-google-cache-and-curl">Use google cache and curl</h2>
+<h2 id="use-google-cache-and-curl">Use Google cache and curl</h2>
 
-<h3 id="make-the-curl-firefox-script">Make the <code>curl-firefox</code> script</h3>
+<p>Often Google cache has a full copy of an
+article.</p>
 
-<p>Vanilla curl always returns 404 from Google&rsquo;s cache.</p>
+<p>We use curl to check the existence of the
+cache for a given URL as some URLs may not be
+cached.</p>
+
+<p>This is not an accurate science.</p>
+
+<h3 id="make-the-curl-firefox-script-dot-we-call-this-script-from-emacs">Make the <code>curl-firefox</code> script. We call this script from emacs</h3>
+
+<p>Vanilla curl always returns 404 from Google&rsquo;s
+cache.</p>
+
+<p>We need to add the user agent with -A.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
 </span><span style="color:#75715e"></span>
 /usr/bin/curl -A <span style="color:#e6db74">&#34;Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></div>
