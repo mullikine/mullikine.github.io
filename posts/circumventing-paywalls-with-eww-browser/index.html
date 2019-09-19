@@ -12,13 +12,13 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Circumventing paywalls with eww browser"/>
-<meta name="twitter:description" content="Use Google cache and curl Often Google cache has a full copy of an article.
-We use curl to check the existence of the cache for a given URL as some URLs may not be cached.
+<meta name="twitter:description" content="Use Google cache Often Google cache has a full copy of an article.
+Check for the existence of the cache for a given URL as some URLs may not be cached.
 This is not an accurate science. Sometimes the cache is needed and sometimes it is not, but the more information we bring in (such as if the cache exists), the better, as this leads to a more informed decision."/>
 
     <meta property="og:title" content="Circumventing paywalls with eww browser" />
-<meta property="og:description" content="Use Google cache and curl Often Google cache has a full copy of an article.
-We use curl to check the existence of the cache for a given URL as some URLs may not be cached.
+<meta property="og:description" content="Use Google cache Often Google cache has a full copy of an article.
+Check for the existence of the cache for a given URL as some URLs may not be cached.
 This is not an accurate science. Sometimes the cache is needed and sometimes it is not, but the more information we bring in (such as if the cache exists), the better, as this leads to a more informed decision." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/circumventing-paywalls-with-eww-browser/" />
@@ -64,20 +64,19 @@ This is not an accurate science. Sometimes the cache is needed and sometimes it 
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          1 min read
         </div></div>
     </header>
     <div class="post-content">
       
 
-<h2 id="use-google-cache-and-curl">Use Google cache and curl</h2>
+<h2 id="use-google-cache">Use Google cache</h2>
 
 <p>Often Google cache has a full copy of an
 article.</p>
 
-<p>We use curl to check the existence of the
-cache for a given URL as some URLs may not be
-cached.</p>
+<p>Check for the existence of the cache for a given URL as some URLs may
+not be cached.</p>
 
 <p>This is not an accurate science. Sometimes the
 cache is needed and sometimes it is not, but
@@ -87,51 +86,17 @@ a more informed decision.</p>
 
 <h3 id="create-the-url-found-p-function">Create the <code>url-found-p</code> function</h3>
 
-<p>Thanks to <code>github-alphapapa</code> for this one.
-<a href="https://www.reddit.com/r/emacs/comments/d5dwkq/weekly%5Ftipstricketc%5Fthread/">Weekly tips/trick/etc/ thread : emacs</a></p>
+<p>Thanks to <code>github-alphapapa</code> for this one.</p>
+
+<p><a href="https://www.reddit.com/r/emacs/comments/d5dwkq/weekly%5Ftipstricketc%5Fthread/">Weekly tips/trick/etc/ thread : emacs</a></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun url-found-p (url)
   <span style="color:#e6db74">&#34;Return non-nil if URL is found, i.e. HTTP 200.&#34;</span>
   (with-current-buffer (url-retrieve-synchronously url <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span> <span style="color:#ae81ff">5</span>)
     (prog1 (<span style="color:#a6e22e">eq</span> url-http-response-status <span style="color:#ae81ff">200</span>)
-      (<span style="color:#a6e22e">kill-buffer</span>))))
-
-(url-found-p <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:https://medium.com/riselab/functional-rl-with-keras-and-tensorflow-eager-7973f81d6345&#34;</span>)
-(url-found-p <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:https://news.ycombinator.com/&#34;</span>)</code></pre></div>
-<h3 id="use-curl-to-check-for-the-existence-of-a-web-page"><span class="org-todo done DISCARD">DISCARD</span> Use curl to check for the existence of a web page</h3>
-
-<p>I had originally used actual curl to make the request.</p>
-
-<h4 id="make-the-curl-firefox-script-dot-we-call-this-script-from-emacs">Make the <code>curl-firefox</code> script. We call this script from emacs</h4>
-
-<p>Vanilla curl always returns 404 from Google&rsquo;s
-cache.</p>
-
-<p>We need to add the user agent with -A.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span>
-/usr/bin/curl -A <span style="color:#e6db74">&#34;Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></div>
-<h4 id="write-the-test-functions-in-emacs-lisp">Write the test functions in emacs-lisp</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; See this article for ~sh-notty~</span>
-<span style="color:#75715e">;; https://mullikine.github.io/posts/macro-tutorial/</span>
-
-(defmacro sh-notty-true (cmd <span style="color:#66d9ef">&amp;rest</span> sh-notty-args)
-  <span style="color:#e6db74">&#34;Returns t if the shell command exists with 0&#34;</span>
-  <span style="color:#f92672">`</span>(let ((result (sh-notty <span style="color:#f92672">,</span>cmd <span style="color:#f92672">,@</span>sh-notty-args)))
-     (<span style="color:#a6e22e">string-equal</span> b_exit_code <span style="color:#e6db74">&#34;0&#34;</span>)))
-
-(defun url-is-404 (url)
-  <span style="color:#e6db74">&#34;URL is 404&#34;</span>
-  (sh-notty-true (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;curl-firefox -s -I &#34;</span> (q url) <span style="color:#e6db74">&#34; | grep -q \&#34;404 Not Found\&#34;&#34;</span>)))
-
-(defun url-cache-is-404 (url)
-  <span style="color:#e6db74">&#34;URL cache is 404&#34;</span>
-  (url-is-404 (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:&#34;</span> url)))</code></pre></div>
+      (<span style="color:#a6e22e">kill-buffer</span>))))</code></pre></div>
 <h4 id="try-them-out">Try them out</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(url-is-404 <span style="color:#e6db74">&#34;https://medium.com/riselab/functional-rl-with-keras-and-tensorflow-eager-7973f81d6345&#34;</span>)
-(url-cache-is-404 <span style="color:#e6db74">&#34;https://medium.com/riselab/functional-rl-with-keras-and-tensorflow-eager-7973f81d6345&#34;</span>)
-(url-is-404 <span style="color:#e6db74">&#34;https://www.cryptocompare.com/coins/nas/overview&#34;</span>)
-(url-is-404 <span style="color:#e6db74">&#34;https://news.ycombinator.com/&#34;</span>)
-(url-cache-is-404 <span style="color:#e6db74">&#34;https://news.ycombinator.com/&#34;</span>)</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(url-found-p <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:https://medium.com/riselab/functional-rl-with-keras-and-tensorflow-eager-7973f81d6345&#34;</span>)
+(url-found-p <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:https://news.ycombinator.com/&#34;</span>)</code></pre></div>
 <h3 id="add-some-advice-to-the-eww-command-which-expands-urls-just-before-they-are-loaded">Add some advice to the eww command which expands URLs just before they are loaded</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This makes it so for certain urls, the google cache is loaded instead</span>
 (defun eww--dwim-expand-url-around-advice (proc <span style="color:#66d9ef">&amp;rest</span> args)
@@ -139,8 +104,7 @@ cache.</p>
     (if (and (or (string-match-p <span style="color:#e6db74">&#34;towardsdatascience&#34;</span> url)
                  (string-match-p <span style="color:#e6db74">&#34;medium.com&#34;</span> url))
              (not (string-match-p <span style="color:#e6db74">&#34;webcache.google&#34;</span> url)))
-        (if <span style="color:#75715e">;; (not (url-cache-is-404 url))</span>
-            (url-found-p url)
+        (if (url-found-p url)
             (setq url (replace-regexp-in-string <span style="color:#e6db74">&#34;^&#34;</span> <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:&#34;</span> url))))
     (let ((res (<span style="color:#a6e22e">apply</span> proc (<span style="color:#a6e22e">list</span> url))))
       res)))
