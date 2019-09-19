@@ -85,7 +85,23 @@ the more information we bring in (such as if
 the cache exists), the better, as this leads to
 a more informed decision.</p>
 
-<h3 id="make-the-curl-firefox-script-dot-we-call-this-script-from-emacs">Make the <code>curl-firefox</code> script. We call this script from emacs</h3>
+<h3 id="create-the-url-found-p-function">Create the <code>url-found-p</code> function</h3>
+
+<p>Thanks to <code>github-alphapapa</code> for this one.
+<a href="https://www.reddit.com/r/emacs/comments/d5dwkq/weekly%5Ftipstricketc%5Fthread/">Weekly tips/trick/etc/ thread : emacs</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun url-found-p (url)
+  <span style="color:#e6db74">&#34;Return non-nil if URL is found, i.e. HTTP 200.&#34;</span>
+  (with-current-buffer (url-retrieve-synchronously url <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span> <span style="color:#ae81ff">5</span>)
+    (prog1 (<span style="color:#a6e22e">eq</span> url-http-response-status <span style="color:#ae81ff">200</span>)
+      (<span style="color:#a6e22e">kill-buffer</span>))))
+
+(url-found-p <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:https://medium.com/riselab/functional-rl-with-keras-and-tensorflow-eager-7973f81d6345&#34;</span>)
+(url-found-p <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:https://news.ycombinator.com/&#34;</span>)</code></pre></div>
+<h3 id="use-curl-to-check-for-the-existence-of-a-web-page"><span class="org-todo done DISCARD">DISCARD</span> Use curl to check for the existence of a web page</h3>
+
+<p>I had originally used actual curl to make the request.</p>
+
+<h4 id="make-the-curl-firefox-script-dot-we-call-this-script-from-emacs">Make the <code>curl-firefox</code> script. We call this script from emacs</h4>
 
 <p>Vanilla curl always returns 404 from Google&rsquo;s
 cache.</p>
@@ -94,7 +110,7 @@ cache.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
 </span><span style="color:#75715e"></span>
 /usr/bin/curl -A <span style="color:#e6db74">&#34;Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></div>
-<h3 id="create-the-test-functions-in-emacs">Create the test functions in emacs</h3>
+<h4 id="write-the-test-functions-in-emacs-lisp">Write the test functions in emacs-lisp</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; See this article for ~sh-notty~</span>
 <span style="color:#75715e">;; https://mullikine.github.io/posts/macro-tutorial/</span>
 
@@ -123,7 +139,8 @@ cache.</p>
     (if (and (or (string-match-p <span style="color:#e6db74">&#34;towardsdatascience&#34;</span> url)
                  (string-match-p <span style="color:#e6db74">&#34;medium.com&#34;</span> url))
              (not (string-match-p <span style="color:#e6db74">&#34;webcache.google&#34;</span> url)))
-        (if (not (url-cache-is-404 url))
+        (if <span style="color:#75715e">;; (not (url-cache-is-404 url))</span>
+            (url-found-p url)
             (setq url (replace-regexp-in-string <span style="color:#e6db74">&#34;^&#34;</span> <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:&#34;</span> url))))
     (let ((res (<span style="color:#a6e22e">apply</span> proc (<span style="color:#a6e22e">list</span> url))))
       res)))
