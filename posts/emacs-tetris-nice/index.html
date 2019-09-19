@@ -14,14 +14,14 @@
 <meta name="twitter:title" content="Best emacs tetris in emacs 26&#43;"/>
 <meta name="twitter:description" content="emacs 27 has an update to emacs&rsquo; tetris mode which makes the glyphs display larger on higher DPI screens.
 This script will download that update from git.savannah.gnu.org and display tetris in a distraction free environment for the ultimate productivity.
-If you symlink this script to etetris-vt100 and run that instead, you will get the distractionless terminal version.
-#!/bin/bash sn=&#34;$(basename &#34;$0&#34;)&#34; if test &#34;$sn&#34; = &#34;etetris-vt100&#34;; then nw=&#34; -nw &#34; else extra=&#34;(load \&#34;/tmp/tetris-load."/>
+symlinks If you symlink this script to etetris-vt100 and run that instead, you will get the animated and striking black and white terminal version.
+ln -s etetris etetris-vt100 If you symlink this script to etetris-xterm and run that instead, you will get the vivid color terminal version."/>
 
     <meta property="og:title" content="Best emacs tetris in emacs 26&#43;" />
 <meta property="og:description" content="emacs 27 has an update to emacs&rsquo; tetris mode which makes the glyphs display larger on higher DPI screens.
 This script will download that update from git.savannah.gnu.org and display tetris in a distraction free environment for the ultimate productivity.
-If you symlink this script to etetris-vt100 and run that instead, you will get the distractionless terminal version.
-#!/bin/bash sn=&#34;$(basename &#34;$0&#34;)&#34; if test &#34;$sn&#34; = &#34;etetris-vt100&#34;; then nw=&#34; -nw &#34; else extra=&#34;(load \&#34;/tmp/tetris-load." />
+symlinks If you symlink this script to etetris-vt100 and run that instead, you will get the animated and striking black and white terminal version.
+ln -s etetris etetris-vt100 If you symlink this script to etetris-xterm and run that instead, you will get the vivid color terminal version." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/emacs-tetris-nice/" />
 <meta property="article:published_time" content="2019-09-20T00:00:00+12:00" />
@@ -70,16 +70,27 @@ If you symlink this script to etetris-vt100 and run that instead, you will get t
         </div></div>
     </header>
     <div class="post-content">
-      <p>emacs 27 has an update to emacs&rsquo; tetris mode which makes the glyphs display larger on higher DPI screens.</p>
+      
+
+<p>emacs 27 has an update to emacs&rsquo; tetris mode which makes the glyphs display larger on higher DPI screens.</p>
 
 <p>This script will download that update from <code>git.savannah.gnu.org</code> and display tetris in a distraction free environment for the ultimate productivity.</p>
 
-<p>If you symlink this script to <code>etetris-vt100</code> and run that instead, you will get the distractionless terminal version.</p>
+<h3 id="symlinks">symlinks</h3>
+
+<p>If you symlink this script to <code>etetris-vt100</code> and run that instead, you will get the animated and striking black and white terminal version.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ln -s etetris etetris-vt100</code></pre></div>
+<p>If you symlink this script to <code>etetris-xterm</code> and run that instead, you will get the vivid color terminal version.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ln -s etetris etetris-xterm</code></pre></div>
+<h2 id="the-script-etetris">The script <code>etetris</code></h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
 </span><span style="color:#75715e"></span>sn<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
 
-<span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$sn<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;etetris-vt100&#34;</span>; <span style="color:#66d9ef">then</span>
+<span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$sn<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;etetris-xterm&#34;</span>; <span style="color:#66d9ef">then</span>
     nw<span style="color:#f92672">=</span><span style="color:#e6db74">&#34; -nw &#34;</span>
+<span style="color:#66d9ef">elif</span> test <span style="color:#e6db74">&#34;</span>$sn<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;etetris-vt100&#34;</span>; <span style="color:#66d9ef">then</span>
+    nw<span style="color:#f92672">=</span><span style="color:#e6db74">&#34; -nw &#34;</span>
+    export TERM<span style="color:#f92672">=</span>vt100
 <span style="color:#66d9ef">else</span>
     extra<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(load \&#34;/tmp/tetris-load.el\&#34;)&#34;</span>
 <span style="color:#66d9ef">fi</span>
@@ -133,7 +144,7 @@ cat <span style="color:#e6db74">&lt;&lt;HEREDOC &gt; /tmp/tetris-load.el
 </span><span style="color:#e6db74">HEREDOC</span>
 
 <span style="color:#75715e"># (execute-kbd-macro (kbd \&#34;C-l\&#34;))</span>
-TERM<span style="color:#f92672">=</span>vt100 emacs $nw -q --eval <span style="color:#e6db74">&#34;(progn </span>$extra<span style="color:#e6db74">(tool-bar-mode -1)(menu-bar-mode -1)(call-interactively &#39;tetris)(setq mode-line-format &#39;())(message \&#34;\&#34;))&#34;</span></code></pre></div>
+emacs $nw -q --eval <span style="color:#e6db74">&#34;(progn </span>$extra<span style="color:#e6db74">(tool-bar-mode -1)(menu-bar-mode -1)(call-interactively &#39;tetris)(setq mode-line-format &#39;())(message \&#34;\&#34;))&#34;</span></code></pre></div>
     </div>
     <div class="post-footer">
       
