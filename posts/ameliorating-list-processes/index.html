@@ -166,7 +166,7 @@ with one big, paunchy command.</p>
                 <span style="color:#75715e">;; (fullcmdlen (length fullcmd))</span>
                 <span style="color:#75715e">;; (shortcmd (substring fullcmd 0 (min fullcmdlen (window-total-width))))</span>
                 )
-           oneliner
+           (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;{&#34;</span> oneliner <span style="color:#e6db74">&#34;}&#34;</span>) <span style="color:#75715e">; Surround with braces to allow selecting the command easily. Braces are also valid shell.</span>
            <span style="color:#75715e">;; shortcmd</span>
            ))))
        (push (<span style="color:#a6e22e">list</span> p (<span style="color:#a6e22e">vector</span> name pid status buf-label tty cmd))
