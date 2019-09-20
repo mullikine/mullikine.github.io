@@ -110,7 +110,7 @@ with one big, paunchy command.</p>
                   <span style="color:#75715e">;; (fullcmdlen (length fullcmd))</span>
                   <span style="color:#75715e">;; (shortcmd (substring fullcmd 0 (min fullcmdlen (window-total-width))))</span>
                   )
-             oneliner
+             (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;{&#34;</span> oneliner <span style="color:#e6db74">&#34;}&#34;</span>) <span style="color:#75715e">; Surround with braces to allow selecting the command easily. Braces are also valid shell.</span>
              <span style="color:#75715e">;; shortcmd</span>
              )</code></pre></div>
 <h4 id="place-the-above-fix-into-the-list-processes-refresh-function">Place the above fix into the <code>list-processes--refresh</code> function</h4>
