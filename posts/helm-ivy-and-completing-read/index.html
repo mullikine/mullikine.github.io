@@ -113,14 +113,15 @@ helm Select from a list There are different ways to select from a list.
 
 (<span style="color:#a6e22e">define-key</span> helm-map (kbd <span style="color:#e6db74">&#34;C-c o&#34;</span>)      <span style="color:#e6db74">&#39;helm-copy-to-tv</span>)</code></pre></div>
 <h3 id="copy-the-currently-selected-item">Copy the currently selected item</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun helm-copy-selection-to-clipboard ()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro helm-marked-candidates-strings (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#e6db74">&#34;&#34;</span>
+  <span style="color:#f92672">`</span>(my/join (helm-marked-candidates <span style="color:#f92672">,@</span>body) <span style="color:#e6db74">&#34;\n&#34;</span>))
+
+(defun helm-copy-selection-to-clipboard ()
   <span style="color:#e6db74">&#34;Copy selection or marked candidates to </span><span style="color:#e6db74">`helm-current-buffer&#39;</span><span style="color:#e6db74">.
 </span><span style="color:#e6db74">Note that the real values of candidates are copied and not the
 </span><span style="color:#e6db74">display values.&#34;</span>
   (interactive)
-  <span style="color:#75715e">;; (xc (my/join (helm-marked-candidates) &#34;\n&#34;))</span>
-  <span style="color:#75715e">;; the marked candidates might be &#34;buffer names&#34;, not strings.</span>
-  <span style="color:#75715e">;; strange, but true.</span>
 
   (my/copy (helm-marked-candidates-strings)))</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">define-key</span> helm-map (kbd <span style="color:#e6db74">&#34;M-c&#34;</span>) <span style="color:#a6e22e">#&#39;</span>helm-copy-selection-to-clipboard)</code></pre></div>
 <h2 id="completing-read"><code>completing-read</code></h2>
