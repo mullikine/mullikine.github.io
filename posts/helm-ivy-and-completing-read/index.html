@@ -126,22 +126,6 @@ helm Select from a list There are different ways to select from a list.
   (my/copy (helm-marked-candidates-strings)))
 
 (<span style="color:#a6e22e">define-key</span> helm-map (kbd <span style="color:#e6db74">&#34;M-c&#34;</span>) <span style="color:#a6e22e">#&#39;</span>helm-copy-selection-to-clipboard)</code></pre></div>
-<h2 id="completing-read"><code>completing-read</code></h2>
-
-<h3 id="basic-example">Basic example</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">completing-read</span> <span style="color:#e6db74">&#34;test: &#34;</span> <span style="color:#f92672">&#39;</span>(a b c d) <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>)
-(<span style="color:#a6e22e">completing-read</span> <span style="color:#e6db74">&#34;test: &#34;</span> <span style="color:#f92672">&#39;</span>(a b c d) <span style="color:#66d9ef">nil</span> <span style="color:#e6db74">&#39;confirm</span>)</code></pre></div>
-<h3 id="useful-functions">Useful functions</h3>
-
-<p>These are different ways to select from a list.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun fz-must-match (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;optional</span> prompt)
-  (setq prompt (or prompt <span style="color:#e6db74">&#34;:&#34;</span>))
-  (<span style="color:#a6e22e">completing-read</span> prompt <span style="color:#a6e22e">list</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>))
-
-<span style="color:#75715e">;; This is very useful</span>
-(defun fz-default-return-query (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;optional</span> prompt)
-  (setq prompt (or prompt <span style="color:#e6db74">&#34;:&#34;</span>))
-  (<span style="color:#a6e22e">completing-read</span> prompt <span style="color:#a6e22e">list</span> <span style="color:#66d9ef">nil</span> <span style="color:#e6db74">&#39;confirm</span>))</code></pre></div>
 <h2 id="ivy"><code>ivy</code></h2>
 
 <h3 id="copy-the-currently-selected-item-1">Copy the currently selected item</h3>
@@ -189,8 +173,22 @@ helm Select from a list There are different ways to select from a list.
        (ivy-display-style <span style="color:#e6db74">&#39;fancy</span>)
        (ivy-use-virtual-buffers <span style="color:#66d9ef">t</span>)
        :config (ivy-mode))</code></pre></div>
-<h2 id="completing-read-1">completing read</h2>
+<h2 id="completing-read"><code>completing-read</code></h2>
 
+<h3 id="basic-example">Basic example</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">completing-read</span> <span style="color:#e6db74">&#34;test: &#34;</span> <span style="color:#f92672">&#39;</span>(a b c d) <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>)
+(<span style="color:#a6e22e">completing-read</span> <span style="color:#e6db74">&#34;test: &#34;</span> <span style="color:#f92672">&#39;</span>(a b c d) <span style="color:#66d9ef">nil</span> <span style="color:#e6db74">&#39;confirm</span>)</code></pre></div>
+<h3 id="useful-functions">Useful functions</h3>
+
+<p>These are different ways to select from a list.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun fz-must-match (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;optional</span> prompt)
+  (setq prompt (or prompt <span style="color:#e6db74">&#34;:&#34;</span>))
+  (<span style="color:#a6e22e">completing-read</span> prompt <span style="color:#a6e22e">list</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>))
+
+<span style="color:#75715e">;; This is very useful</span>
+(defun fz-default-return-query (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;optional</span> prompt)
+  (setq prompt (or prompt <span style="color:#e6db74">&#34;:&#34;</span>))
+  (<span style="color:#a6e22e">completing-read</span> prompt <span style="color:#a6e22e">list</span> <span style="color:#66d9ef">nil</span> <span style="color:#e6db74">&#39;confirm</span>))</code></pre></div>
 <h3 id="prompt-using-your-favorite-completion-framework">prompt using your favorite completion framework</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">insert</span> (<span style="color:#a6e22e">completing-read</span> <span style="color:#e6db74">&#34;Prompt: &#34;</span> *my-list*))</code></pre></div>
 <p>Since all the popular ones like helm and ivy
