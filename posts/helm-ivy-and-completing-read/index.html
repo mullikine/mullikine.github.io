@@ -66,7 +66,7 @@ helm Select from a list There are different ways to select from a list.
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          3 min read
+          4 min read
         </div></div>
     </header>
     <div class="post-content">
@@ -123,7 +123,9 @@ helm Select from a list There are different ways to select from a list.
 </span><span style="color:#e6db74">display values.&#34;</span>
   (interactive)
 
-  (my/copy (helm-marked-candidates-strings)))</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">define-key</span> helm-map (kbd <span style="color:#e6db74">&#34;M-c&#34;</span>) <span style="color:#a6e22e">#&#39;</span>helm-copy-selection-to-clipboard)</code></pre></div>
+  (my/copy (helm-marked-candidates-strings)))
+
+(<span style="color:#a6e22e">define-key</span> helm-map (kbd <span style="color:#e6db74">&#34;M-c&#34;</span>) <span style="color:#a6e22e">#&#39;</span>helm-copy-selection-to-clipboard)</code></pre></div>
 <h2 id="completing-read"><code>completing-read</code></h2>
 
 <h3 id="basic-example">Basic example</h3>
@@ -148,7 +150,6 @@ helm Select from a list There are different ways to select from a list.
   (interactive)
   (if (ivy--prompt-selected-p)
       (ivy-immediate-done)
-    <span style="color:#75715e">;; (delete-minibuffer-contents)</span>
     (setq ivy-current-prefix-arg current-prefix-arg)
     (cond ((or (<span style="color:#a6e22e">&gt;</span> ivy--length <span style="color:#ae81ff">0</span>)
                <span style="color:#75715e">;; the action from `ivy-dispatching-done&#39; may not need a</span>
@@ -188,6 +189,62 @@ helm Select from a list There are different ways to select from a list.
        (ivy-display-style <span style="color:#e6db74">&#39;fancy</span>)
        (ivy-use-virtual-buffers <span style="color:#66d9ef">t</span>)
        :config (ivy-mode))</code></pre></div>
+<h2 id="completing-read-1">completing read</h2>
+
+<p>I&rsquo;d suggest just using</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">insert</span> (<span style="color:#a6e22e">completing-read</span> <span style="color:#e6db74">&#34;Prompt: &#34;</span> *complicated-names*))</code></pre></div>
+<p>which would prompt using your favorite
+completion framework , since all the popular
+ones like helm and ivy (you mention swiper, so
+I&rsquo;m guessing you use ivy) set completing-read-
+function.</p>
+
+<p>So you&rsquo;d use helper functions like these:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun insert-with-completion (strings)
+  <span style="color:#e6db74">&#34;Insert a string from STRINGS into the current buffer.
+</span><span style="color:#e6db74">Prompt for string to insert with completing-read.&#34;</span>
+  (<span style="color:#a6e22e">insert</span> (<span style="color:#a6e22e">completing-read</span> <span style="color:#e6db74">&#34;Insert: &#34;</span> strings <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>)))
+
+(defun read-lines (path)
+  <span style="color:#e6db74">&#34;Return list of lines in file at PATH.&#34;</span>
+  (with-temp-buffer
+    (<span style="color:#a6e22e">insert-file-contents</span> path)
+    (split-string (<span style="color:#a6e22e">buffer-string</span>) <span style="color:#e6db74">&#34;\n&#34;</span> <span style="color:#66d9ef">t</span>)))</code></pre></div>
+<p>For the main function you have a couple of
+options. How often do you edit the list of
+8000 complicated long names? If you change it
+frequently, you might want a function that
+always rereads the file, to pick up the latest
+changes:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun insert-complicated-name ()
+  <span style="color:#e6db74">&#34;Insert a complicated name into the current buffer, with completion.&#34;</span>
+  (interactive)
+  (insert-with-completion (read-lines <span style="color:#e6db74">&#34;~/path/to/complicated-names.txt&#34;</span>)))</code></pre></div>
+<p>If it doesn&rsquo;t change much, I think I&rsquo;d read
+the list once into a variable and use that.
+Maybe with an extra function to call if the
+list needs refreshing:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defvar *complicated-names* <span style="color:#66d9ef">nil</span>)
+
+(defun refresh-complicated-name-list ()
+  <span style="color:#e6db74">&#34;Reread list of complicated names.&#34;</span>
+  (interactive)
+  (setq *complicated-names* (read-lines <span style="color:#e6db74">&#34;~/path/to/complicated-names.txt&#34;</span>)))
+
+(defun insert-complicated-name ()
+  <span style="color:#e6db74">&#34;Insert a complicated name into the current buffer, with completion.&#34;</span>
+  (interactive)
+  (unless *complicated-names* (refresh-complicated-name-list))
+  (insert-with-completion *complicated-names*))</code></pre></div>
+<p>One of my pet peeves is helm-specific or ivy-
+specific code that would be just as good
+written in terms of completing-read and
+benefit users of both helm and ivy as well as
+other completion packages (I use the built-in
+icomplete, for example). If an interface just
+needs completion, and nothing ivy or helm
+specific, it&rsquo;s better to use completing-read.</p>
+
 <h2 id="misc"><span class="org-todo todo TODO">TODO</span> misc</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun fz (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;optional</span> input b_full-frame prompt must-match)
   (if (<span style="color:#a6e22e">stringp</span> <span style="color:#a6e22e">list</span>)
