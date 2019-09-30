@@ -424,6 +424,26 @@ writing up this script</p>
 
 <p>When we say &lsquo;clean&rsquo; we mean probabilistic inference.</p>
 
+<h4 id="with-gpt-2">With GPT-2</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># Prababilistic script
+@pclean review_row_generator begin
+  @column &#34;Positive?&#34; is_positive = flip_coin(_)
+  @column &#34;ProductType&#34; ptype = choose_proportionally(_, _)
+  prompt = if is_positive
+    &#34;I&#39;m giving this $(ptype) a very positive review, because it&#39;s fantastic.
+    A+, 5/5, amazing, best $(ptype) ever. Like, &#34;
+  else
+    &#34;I&#39;m giving this $(ptype) a very bad review, because it&#39;s awful.
+    F, 1/5, truly terrible, worst $(ptype) ever. Like, &#34;
+  end
+
+  # Somehow, we want to say:
+  @column &#34;Review&#34; = GPT2_elaborate(prompt)
+end
+
+# Cleaning
+fit!(table, review_row_generator)
+clean(table, review_row_generator)</code></pre></div>
     </div>
     <div class="post-footer">
       
