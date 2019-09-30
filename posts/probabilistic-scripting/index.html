@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>PClean: A probabilistic scripting DSL // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.fb222e05f6f82c63ca9f2a61b40175e4c15df390babdb6f59982bd612383422c.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PClean: A probabilistic scripting DSL"/>
+<meta name="twitter:description" content="Probabilistic scripts for automating common-sense tasks &ldquo;Probabilistic scripts for automating common-sense tasks&rdquo; by Alexander Lew - YouTube
+Cleaning data Fixing typos and guessing empty cells in tabular data.
+Declarative vs Imperative  Why not just use an imperative programming style?
+ The code will quickly become hard to understand as complexity increases. The code makes bad, though technically correct, guesses.  Should we use prolog?
+With Prolog and other logic programming languages (which can sort of solve constraints), you say what the constraints you want solved are and then it will find a logical solution."/>
+
+    <meta property="og:title" content="PClean: A probabilistic scripting DSL" />
+<meta property="og:description" content="Probabilistic scripts for automating common-sense tasks &ldquo;Probabilistic scripts for automating common-sense tasks&rdquo; by Alexander Lew - YouTube
+Cleaning data Fixing typos and guessing empty cells in tabular data.
+Declarative vs Imperative  Why not just use an imperative programming style?
+ The code will quickly become hard to understand as complexity increases. The code makes bad, though technically correct, guesses.  Should we use prolog?
+With Prolog and other logic programming languages (which can sort of solve constraints), you say what the constraints you want solved are and then it will find a logical solution." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/probabilistic-scripting/" />
+<meta property="article:published_time" content="2019-09-30T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-09-30T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/avatar.gif" alt="John Doe" /></a>
+      <h1>Bodacious Blog</h1>
+      <p>Talk about biosemiotics and xenolingustics is welcome here</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">PClean: A probabilistic scripting DSL</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Sep 30, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div></div>
+    </header>
+    <div class="post-content">
+      
+
+<h2 id="probabilistic-scripts-for-automating-common-sense-tasks">Probabilistic scripts for automating common-sense tasks</h2>
+
+<p><a href="https://www.youtube.com/watch?v=MiiWzJE0fEA">&ldquo;Probabilistic scripts for automating common-sense tasks&rdquo; by Alexander Lew - YouTube</a></p>
+
+<h3 id="cleaning-data">Cleaning data</h3>
+
+<p>Fixing typos and guessing empty cells in tabular data.</p>
+
+<h4 id="declarative-vs-imperative">Declarative vs Imperative</h4>
+
+<ul>
+<li><p>Why not just use an imperative programming style?</p>
+
+<ul>
+<li>The code will quickly become hard to understand as complexity increases.</li>
+<li>The code makes bad, though technically correct, guesses.</li>
+</ul></li>
+
+<li><p>Should we use prolog?</p>
+
+<p>With Prolog and other logic programming languages (which can sort of
+solve constraints), you say what the constraints you want solved are and
+then it will find a logical solution.</p>
+
+<p>The problem with that is that we don&rsquo;t know what logical constraints for
+this problem are. If we tried to write a Prolog problem program it would
+probably just have the same heuristics but encoded declaratively instead
+of imperatively. We would say, &ldquo;the correct city is the city with the
+rent that is closest to all the other&hellip;&rdquo;</p>
+
+<p>That&rsquo;s not really an improvement over what we already had.</p></li>
+</ul>
+
+<h4 id="neural-networks">Neural Networks?</h4>
+
+<p>They are declarative because you specify inputs and outputs and let it
+learn the mapping.</p>
+
+<p>Unfortunately, you need a lot of training data and you might not have
+examples of clean and dirty data tables.</p>
+
+<ul>
+<li><p>Machine Learning: The High Interest Credit Card of Technical Debt</p>
+
+<p>In a paper by Google, they admitted:</p>
+
+<ul>
+<li>When you use ML
+
+<ul>
+<li>it gives you short-term gains</li>
+<li>you you get higher performance</li>
+<li>but as the needs of your product evolve it becomes a lot harder to maintain that neural net in there</li>
+<li>when do you need to retrain</li>
+<li>how do you keep track of which data set it was trained on?</li>
+<li>what have we added a column to our data table?
+    Do we have to like completely throw away the
+    neural net which was trained on only some
+    columns?</li>
+</ul></li>
+</ul></li>
+
+<li><p>We should not use NN</p>
+
+<p>There&rsquo;s a lot of questions that it raises to
+use neural nets and also it really seems like
+we shouldn&rsquo;t need to this.</p>
+
+<p>It seems like a simple task right.</p></li>
+</ul>
+
+<h4 id="bayes-theorem">Bayes&rsquo; Theorem</h4>
+
+<table>
+<thead>
+<tr>
+<th>P(∙)</th>
+<th>Domain knowledge</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>A</td>
+<td>Unknown variables (unknowns)</td>
+</tr>
+
+<tr>
+<td>B</td>
+<td>Observed values (knowns)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="pclean">PClean</h2>
+
+<h3 id="gpt-2">GPT-2</h3>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
