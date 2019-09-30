@@ -62,7 +62,7 @@ Tools Gen  a package for the Julia programming language. consists of multiple mo
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          8 min read
+          9 min read
         </div></div>
     </header>
     <div class="post-content">
@@ -124,6 +124,48 @@ P(A|B) = -----------
 </tr>
 </tbody>
 </table>
+
+<h3 id="programmable-inference">programmable inference</h3>
+
+<p>Combines sequential Monte Carlo and expectation-maximization.</p>
+
+<h3 id="the-basic-point-of-this-talk">The basic point of this talk</h3>
+
+<p>If you have some code that&rsquo;s imperative and
+relies on a bunch of heuristics, it&rsquo;s often
+because you&rsquo;re trying to do something common
+sense that the computer doesn&rsquo;t have the
+declarative knowledge in order to solve.</p>
+
+<p>That&rsquo;s what&rsquo;s gets you into a mess.</p>
+
+<p>If you can frame your task as reasoning about
+unknown variables in the context of domain
+knowledge and observed variables then you can
+think about actually replacing this with a
+much more natural sort of scripting approach
+where you just tell it what you assume to be
+true and your normal computer would say what
+am I supposed to do with that.</p>
+
+<h4 id="in-practice">In practice</h4>
+
+<p>We replaced that with a computer that has read
+a probability theory textbook (by which I mean
+we have replaced it with a robot that whose
+internals are to compile into one of these
+powerful general-purpose probabilistic
+programming languages), get some meta data out
+and then run an inference program.</p>
+
+<ul>
+<li><p>The idea</p>
+
+<p>This should work whenever you can frame your
+problem as an inference task with domain
+knowledge unknown variables and observed
+values.</p></li>
+</ul>
 
 <h3 id="cleaning-data">Cleaning data</h3>
 
