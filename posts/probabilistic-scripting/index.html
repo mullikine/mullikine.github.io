@@ -289,29 +289,31 @@ clean(table, rent_row_generator)</code></pre></div>
 <dd>A way to find maximum-likelihood estimates for model parameters when your data is incomplete, has missing data points, or has unobserved (hidden) latent variables. It is an iterative way to approximate the maximum likelihood function.</dd>
 </dl>
 
-<p>if we can&rsquo;t solve the problem that sort of
-fatal for this approach because many domains
-don&rsquo;t have government datasets telling us
-exactly how likely different values of the
-columns are so in peak lien</p>
+<p>We don&rsquo;t have datasets telling us the liklihood of different values of
+the columns.</p>
 
-<p>we allow users to replace those parameters
-with underscores and then call this fit
+<p>Therefore, we allow users to replace those parameters
+with underscores and then call the <span class="underline">fit</span>
 function to learn the parameters from the
-messy data table itself in essence the fact
-that we have a big table of data can stand in
-for the computers lack of life experience it
-can pick up all this knowledge by looking at
-patterns in the data that you give it right
-and</p>
+messy data table itself.</p>
 
-<p>in particular the way that this learning is
-actually going to work is that it&rsquo;s going to
-begin by choosing some initial values for all
-of those parameters just setting some initial
-values and then assuming that those initial
-values are true it&rsquo;s going to clean the data
-set completely</p>
+<p>In essence the fact
+that we have a big table of data can stand in
+for the computers lack of life experience.</p>
+
+<p>It
+can pick up all this knowledge by looking at
+patterns in the data that you give it.</p>
+
+<p>In particular, the way that this learning is
+actually going to work is it&rsquo;s going to:</p>
+
+<ul>
+<li>begin by choosing some initial values for all of those parameters just
+  setting some initial values, and then</li>
+<li>(assuming that those initial values are true)
+  it&rsquo;s going to clean the data set completely.</li>
+</ul>
 
 <p>then we&rsquo;re going to get a completely clean
 data set from which we can re estimate the
@@ -397,10 +399,8 @@ probability theory is that we can benefit from
 some of the latest advances in AI to create
 more expressive models.</p>
 
-<p>but then GPT twos review will not be based on
-the sentiment and the product type that we
-just sampled right there&rsquo;s no relationship
-between these two</p>
+<p>On it&rsquo;s own, GPT-2&rsquo;s review will not be based on
+the sentiment and the product type.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># Prababilistic script
 @pclean review_row_generator begin
   @column &#34;Positive?&#34; is_positive = flip_coin(_)
@@ -413,7 +413,7 @@ end
 # Cleaning
 fit!(table, review_row_generator)
 clean(table, review_row_generator)</code></pre></div>
-<p>P clean can figure out that this was a
+<p>PClean can figure out that this was a
 positive review about a book or a negative
 review about a movie and we didn&rsquo;t have to do
 any additional training we didn&rsquo;t have to
@@ -425,7 +425,7 @@ writing up this script</p>
 <p>When we say &lsquo;clean&rsquo; we mean probabilistic inference.</p>
 
 <h4 id="with-gpt-2">With GPT-2</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># Prababilistic script
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># Probabilistic script
 @pclean review_row_generator begin
   @column &#34;Positive?&#34; is_positive = flip_coin(_)
   @column &#34;ProductType&#34; ptype = choose_proportionally(_, _)
