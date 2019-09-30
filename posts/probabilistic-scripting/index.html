@@ -13,15 +13,13 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="PClean: A probabilistic scripting DSL"/>
 <meta name="twitter:description" content="Probabilistic scripts for automating common-sense tasks &ldquo;Probabilistic scripts for automating common-sense tasks&rdquo; by Alexander Lew - YouTube
-Cleaning data Fixing typos and guessing empty cells in tabular data.
-Need a declarative solution. Imperative code is confusing  Why not just use an imperative programming style?
- The code will quickly become hard to understand as complexity increases. The code makes bad (though technically correct) guesses.  Should we use prolog?"/>
+readsubs &#34;https://www.youtube.com/watch?v=MiiWzJE0fEA&#34; Bayes&rsquo; Theorem P(B|A).P(A) P(A|B) = ----------- P(B)    POS name     P(∙) Domain knowledge   A Unknown variables (unknowns)   B Observed values (knowns)    Cleaning data Fixing typos and guessing empty cells in tabular data.
+Need a declarative solution. Imperative code is confusing  Why not just use an imperative programming style?"/>
 
     <meta property="og:title" content="PClean: A probabilistic scripting DSL" />
 <meta property="og:description" content="Probabilistic scripts for automating common-sense tasks &ldquo;Probabilistic scripts for automating common-sense tasks&rdquo; by Alexander Lew - YouTube
-Cleaning data Fixing typos and guessing empty cells in tabular data.
-Need a declarative solution. Imperative code is confusing  Why not just use an imperative programming style?
- The code will quickly become hard to understand as complexity increases. The code makes bad (though technically correct) guesses.  Should we use prolog?" />
+readsubs &#34;https://www.youtube.com/watch?v=MiiWzJE0fEA&#34; Bayes&rsquo; Theorem P(B|A).P(A) P(A|B) = ----------- P(B)    POS name     P(∙) Domain knowledge   A Unknown variables (unknowns)   B Observed values (knowns)    Cleaning data Fixing typos and guessing empty cells in tabular data.
+Need a declarative solution. Imperative code is confusing  Why not just use an imperative programming style?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/probabilistic-scripting/" />
 <meta property="article:published_time" content="2019-09-30T00:00:00+13:00" />
@@ -66,7 +64,7 @@ Need a declarative solution. Imperative code is confusing  Why not just use an i
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div></div>
     </header>
     <div class="post-content">
@@ -75,6 +73,36 @@ Need a declarative solution. Imperative code is confusing  Why not just use an i
 <h2 id="probabilistic-scripts-for-automating-common-sense-tasks">Probabilistic scripts for automating common-sense tasks</h2>
 
 <p><a href="https://www.youtube.com/watch?v=MiiWzJE0fEA">&ldquo;Probabilistic scripts for automating common-sense tasks&rdquo; by Alexander Lew - YouTube</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">readsubs <span style="color:#e6db74">&#34;https://www.youtube.com/watch?v=MiiWzJE0fEA&#34;</span></code></pre></div>
+<h3 id="bayes-theorem">Bayes&rsquo; Theorem</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">         P(B|A).P(A)
+P(A|B) = -----------
+            P(B)</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>POS</th>
+<th>name</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>P(∙)</td>
+<td>Domain knowledge</td>
+</tr>
+
+<tr>
+<td>A</td>
+<td>Unknown variables (unknowns)</td>
+</tr>
+
+<tr>
+<td>B</td>
+<td>Observed values (knowns)</td>
+</tr>
+</tbody>
+</table>
 
 <h3 id="cleaning-data">Cleaning data</h3>
 
@@ -87,7 +115,22 @@ Need a declarative solution. Imperative code is confusing  Why not just use an i
 
 <ul>
 <li>The code will quickly become hard to understand as complexity increases.</li>
-<li>The code makes bad (though technically correct) guesses.</li>
+
+<li><p>The code makes bad (though technically correct) guesses.</p></li>
+
+<li><p>Heuristic, imperative</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">for r in rows
+possible_cities = ismissing(r[:state]) ? all_cities : cities[r[:state]]
+r[:city] = nearest...
+if ismissing...
+for s in states
+if cities...</code></pre></div></li>
+
+<li><p>Probabilistic, declarative</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">1. More populated cities appear lore often
+2. Rents of different listings in same city are likely similar
+3. city names may, rarely, contain a typo
+4. Even more rarely, city nales lay contain multiple typos</code></pre></div></li>
 </ul></li>
 
 <li><p>Should we use prolog?</p>
@@ -149,39 +192,30 @@ we shouldn&rsquo;t need to this.</p>
 </ul></li>
 </ul></li>
 </ul></li>
+
+<li><p>Solution: a new probabilistic scripting language</p>
+
+<p>Probabilistic scripting is going to give us a
+declarative programming framework for applying
+probability theory to problems like data
+cleaning.</p>
+
+<ul>
+<li><p>Steps</p>
+
+<ul>
+<li><p>encode domain knowledge in a script</p></li>
+
+<li><p>encode observations in the script</p></li>
+</ul></li>
+</ul></li>
 </ul>
 
-<h4 id="bayes-theorem">Bayes&rsquo; Theorem</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">         P(B|A).P(A)
-P(A|B) = -----------
-            P(B)</code></pre></div>
-<table>
-<thead>
-<tr>
-<th>POS</th>
-<th>name</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>P(∙)</td>
-<td>Domain knowledge</td>
-</tr>
-
-<tr>
-<td>A</td>
-<td>Unknown variables (unknowns)</td>
-</tr>
-
-<tr>
-<td>B</td>
-<td>Observed values (knowns)</td>
-</tr>
-</tbody>
-</table>
-
 <h2 id="pclean">PClean</h2>
+
+<p>A general-purpose tool in which users write
+scripts encoding domain knowledge P(∙), then
+feed in a messy dataset (A and B).</p>
 
 <h3 id="gpt-2">GPT-2</h3>
 
