@@ -95,7 +95,6 @@ pretty print them.</p>
       (setq bufname <span style="color:#e6db74">&#34;*untitled*&#34;</span>))
   (let ((buffer (generate-new-buffer bufname)))
     (<span style="color:#a6e22e">set-buffer-major-mode</span> buffer)
-    <span style="color:#75715e">;; (display-buffer buffer &#39;(display-buffer-pop-up-frame . nil))</span>
     (display-buffer buffer <span style="color:#f92672">&#39;</span>(display-buffer-same-window <span style="color:#f92672">.</span> <span style="color:#66d9ef">nil</span>))
     (with-current-buffer buffer
       (<span style="color:#a6e22e">insert</span> (str contents))
@@ -117,9 +116,9 @@ pretty print them.</p>
         (setq sym <span style="color:#66d9ef">nil</span>))
     sym))
 
-<span style="color:#75715e">;; This function was taken from helpful.el</span>
+<span style="color:#75715e">;; This function was originally taken from helpful.el and modified</span>
 (defun showmap--read-symbol (prompt predicate)
-  (let* ((sym-here (symbol-at-point))
+  (let* ((sym-here (current-major-mode-map))
          (default-val
            (when (<span style="color:#a6e22e">funcall</span> predicate sym-here)
              (<span style="color:#a6e22e">symbol-name</span> sym-here))))
@@ -136,8 +135,8 @@ pretty print them.</p>
 (defmacro variable-name-re-p (re)
   <span style="color:#e6db74">&#34;Predicate for a variable with name matching regex&#34;</span>
   <span style="color:#f92672">`</span>(lambda (object)
-       (and (variable-p object)
-            (not (not (string-match-p <span style="color:#f92672">,</span>re (<span style="color:#a6e22e">symbol-name</span> object)))))))
+     (and (variable-p object)
+          (not (not (string-match-p <span style="color:#f92672">,</span>re (<span style="color:#a6e22e">symbol-name</span> object)))))))
 
 (defun show-map (mapsym)
   (interactive (<span style="color:#a6e22e">list</span> (showmap--read-symbol <span style="color:#e6db74">&#34;map: &#34;</span> (variable-name-re-p <span style="color:#e6db74">&#34;-map$&#34;</span>))))
