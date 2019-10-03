@@ -12,11 +12,13 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Conveniently learn emacs bindings"/>
-<meta name="twitter:description" content=" Here&rsquo;s the coolest thing I&rsquo;ve made in a day or two. This will allow you to fuzzy find maps and pretty print them.
+<meta name="twitter:description" content=" Here&rsquo;s the coolest thing I&rsquo;ve made in the last few days.
+This will allow you to fuzzy find maps and pretty print them.
  It&rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code ;; This function was taken from helpful.el (defun showmap--read-symbol (prompt predicate) (let* ((sym-here (symbol-at-point)) (default-val (when (funcall predicate sym-here) (symbol-name sym-here)))) (when default-val (setq prompt (replace-regexp-in-string (rx &#34;: &#34; eos) (format &#34; (default: %s): &#34; default-val) prompt))) (intern (completing-read prompt obarray predicate t nil nil default-val)))) (defmacro variable-name-re-p (re) &#34;Predicate for a variable with name matching regex&#34; `(lambda (object) (and (variable-p object) (not (not (string-match-p ,re (symbol-name object))))))) (defun show-map (mapsym) (interactive (list (showmap--read-symbol &#34;map: &#34; (variable-name-re-p &#34;-map$&#34;)))) (if (stringp mapsym) (setq mapsym (eval (str2sym (mapsym))))) (let ((mstring (concat &#34;\\{&#34; (symbol-name mapsym) &#34;}&#34;))) (new-buffer-from-string (substitute-command-keys mstring)))) Examples M-x show-map(show-map &#39;helm-map)"/>
 
     <meta property="og:title" content="Conveniently learn emacs bindings" />
-<meta property="og:description" content=" Here&rsquo;s the coolest thing I&rsquo;ve made in a day or two. This will allow you to fuzzy find maps and pretty print them.
+<meta property="og:description" content=" Here&rsquo;s the coolest thing I&rsquo;ve made in the last few days.
+This will allow you to fuzzy find maps and pretty print them.
  It&rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code ;; This function was taken from helpful.el (defun showmap--read-symbol (prompt predicate) (let* ((sym-here (symbol-at-point)) (default-val (when (funcall predicate sym-here) (symbol-name sym-here)))) (when default-val (setq prompt (replace-regexp-in-string (rx &#34;: &#34; eos) (format &#34; (default: %s): &#34; default-val) prompt))) (intern (completing-read prompt obarray predicate t nil nil default-val)))) (defmacro variable-name-re-p (re) &#34;Predicate for a variable with name matching regex&#34; `(lambda (object) (and (variable-p object) (not (not (string-match-p ,re (symbol-name object))))))) (defun show-map (mapsym) (interactive (list (showmap--read-symbol &#34;map: &#34; (variable-name-re-p &#34;-map$&#34;)))) (if (stringp mapsym) (setq mapsym (eval (str2sym (mapsym))))) (let ((mstring (concat &#34;\\{&#34; (symbol-name mapsym) &#34;}&#34;))) (new-buffer-from-string (substitute-command-keys mstring)))) Examples M-x show-map(show-map &#39;helm-map)" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/conveniently-learn-emacs-bindings/" />
@@ -68,9 +70,11 @@
     <div class="post-content">
       
 
-<p>Here&rsquo;s the coolest thing I&rsquo;ve made in a day or
-two. This will allow you to fuzzy find maps
-and pretty print them.</p>
+<p>Here&rsquo;s the coolest thing I&rsquo;ve made in the last
+few days.</p>
+
+<p>This will allow you to fuzzy find maps and
+pretty print them.</p>
 
 <ul>
 <li>It&rsquo;s useful for 2 reasons:
