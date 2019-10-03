@@ -14,12 +14,12 @@
 <meta name="twitter:title" content="Conveniently learn emacs bindings"/>
 <meta name="twitter:description" content="Here&rsquo;s the coolest thing I&rsquo;ve made in the last few days.
 This will allow you to fuzzy find maps and pretty print them.
- It&rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code (defun my-new-buffer-frame (&amp;optional contents bufname) &#34;Create a new frame with a new empty buffer."/>
+ It&rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code (require &#39;s) (defun my-new-buffer-frame (&amp;optional contents bufname) &#34;Create a new frame with a new empty buffer."/>
 
     <meta property="og:title" content="Conveniently learn emacs bindings" />
 <meta property="og:description" content="Here&rsquo;s the coolest thing I&rsquo;ve made in the last few days.
 This will allow you to fuzzy find maps and pretty print them.
- It&rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code (defun my-new-buffer-frame (&amp;optional contents bufname) &#34;Create a new frame with a new empty buffer." />
+ It&rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code (require &#39;s) (defun my-new-buffer-frame (&amp;optional contents bufname) &#34;Create a new frame with a new empty buffer." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/conveniently-learn-emacs-bindings/" />
 <meta property="article:published_time" content="2019-10-03T00:00:00+13:00" />
@@ -64,7 +64,7 @@ This will allow you to fuzzy find maps and pretty print them.
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div></div>
     </header>
     <div class="post-content">
@@ -86,7 +86,9 @@ pretty print them.</p>
 </ul>
 
 <h2 id="code">Code</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun my-new-buffer-frame (<span style="color:#66d9ef">&amp;optional</span> contents bufname)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(require <span style="color:#e6db74">&#39;s</span>)
+
+(defun my-new-buffer-frame (<span style="color:#66d9ef">&amp;optional</span> contents bufname)
   <span style="color:#e6db74">&#34;Create a new frame with a new empty buffer.&#34;</span>
   (interactive)
   (if (not bufname)
@@ -100,6 +102,20 @@ pretty print them.</p>
       (beginning-of-buffer))
     buffer))
 (defalias <span style="color:#e6db74">&#39;new-buffer-from-string</span> <span style="color:#e6db74">&#39;my-new-buffer-frame</span>)
+
+(defun str (thing)
+  <span style="color:#e6db74">&#34;Converts object or string to an unformatted string.&#34;</span>
+  (setq thing (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%s&#34;</span> thing))
+  (<span style="color:#a6e22e">set-text-properties</span> <span style="color:#ae81ff">0</span> (<span style="color:#a6e22e">length</span> thing) <span style="color:#66d9ef">nil</span> thing)
+  thing)
+
+(defun current-major-mode-map ()
+  (let ((sym (<span style="color:#a6e22e">intern</span> (<span style="color:#a6e22e">concat</span> (str major-mode) <span style="color:#e6db74">&#34;-map&#34;</span>))))
+    (if (not (<span style="color:#a6e22e">boundp</span> sym))
+        (setq sym (<span style="color:#a6e22e">intern</span> (<span style="color:#a6e22e">concat</span> (s-chop-suffix <span style="color:#e6db74">&#34;-mode&#34;</span> (str major-mode)) <span style="color:#e6db74">&#34;-map&#34;</span>))))
+    (if (not (<span style="color:#a6e22e">boundp</span> sym))
+        (setq sym <span style="color:#66d9ef">nil</span>))
+    sym))
 
 <span style="color:#75715e">;; This function was taken from helpful.el</span>
 (defun showmap--read-symbol (prompt predicate)
