@@ -127,7 +127,9 @@ Of course, for external programs such as w3m, emacs wont be able to scrape these
 (defun etv-urls-in-region ()
   (interactive)
   (if (region-active-p)
-      (new-buffer-from-string (sh/ptw/uniqnosort (sh/ptw/xurls (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%S&#34;</span> (<span style="color:#a6e22e">buffer-substring</span> (<span style="color:#a6e22e">region-beginning</span>) (<span style="color:#a6e22e">region-end</span>))))))
+      (new-buffer-from-string (sh/ptw/uniqnosort
+                               (sh/ptw/xurls
+                                (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%S&#34;</span> (<span style="color:#a6e22e">buffer-substring</span> (<span style="color:#a6e22e">region-beginning</span>) (<span style="color:#a6e22e">region-end</span>))))))
     (new-buffer-from-string (sh/ptw/uniqnosort (sh/ptw/xurls (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%S&#34;</span> (<span style="color:#a6e22e">buffer-string</span>)))))))</code></pre></div>
     </div>
     <div class="post-footer">
