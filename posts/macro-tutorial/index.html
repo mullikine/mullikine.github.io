@@ -74,7 +74,7 @@ First some prerequisite functions (defmacro shut-up-c (&amp;rest body) &#34;This
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          7 min read
+          8 min read
         </div></div>
     </header>
     <div class="post-content">
@@ -329,14 +329,47 @@ hihi&rdquo;</p>
 
 <h2 id="in-summary">In summary</h2>
 
-<p>Macros just expand into more code. Expand the (b)</p>
+<p>Macros are different from functions in that
+the arguments are not evaluated at all before
+the function is called: the arguments are
+passed in and it&rsquo;s then up to the code within
+the macro to do with the raw code what it likes.</p>
+
+<p>For example, it can alter the code passed in
+before evaluating it, alter the code passed in
+without evaluating it and return altered code
+or simply ignore what was passed in and return
+something else entirely. It can print out the
+code you passed in to it instead of running
+it, for example. That would be useful for
+logging.</p>
+
+<p>Arguments, therefore, are not like <code>pass-by-value</code>: Nor
+are they like <code>pass-by-reference</code>. They&rsquo;re
+more like <code>pass-by-raw-code</code>.</p>
+
+<h3 id="expand-the--b">Expand the <code>(b)</code></h3>
+
+<p>Usually a macro is just used to rewrite code
+before evaluation. For example, we can expand
+the call to macro <code>b</code> to see what it turns
+into.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">;; (macroexpand &#39;(b echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi))
 ;; =
 ;; (sh-notty (concat (quote-args echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)))</code></pre></div>
-<p>quote-args is also a macro. expand it</p>
+<h3 id="quote-args-is-also-a-macro-dot-expand-it"><code>quote-args</code> is also a macro. expand it</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">;; (macroexpand &#39;(quote-args echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi))
 ;; =
 ;; (mapconcat (lambda (input) (shellquote (str input))) (quote (echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)))</code></pre></div>
+<h2 id="lastly-a-macro-need-not-rewrite-code-for-it-to-be-useful">Lastly, a macro need not rewrite code for it to be useful</h2>
+
+<p>In this case, a symbol <code>helm-map</code> may be
+passed to the macro <code>show-map</code> and the name of
+the symbol is used instead of the symbol
+itself.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro show-map (m)
+  (let ((mstring (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;\\{&#34;</span> (<span style="color:#a6e22e">symbol-name</span> m) <span style="color:#e6db74">&#34;}&#34;</span>)))
+    (new-buffer-from-string (<span style="color:#a6e22e">substitute-command-keys</span> mstring))))</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(show-map <span style="color:#e6db74">&#39;helm-map</span>)</code></pre></div>
     </div>
     <div class="post-footer">
       
