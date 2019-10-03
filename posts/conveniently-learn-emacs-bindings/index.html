@@ -12,14 +12,14 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Conveniently learn emacs bindings"/>
-<meta name="twitter:description" content=" Here&rsquo;s the coolest thing I&rsquo;ve made in the last few days.
+<meta name="twitter:description" content="Here&rsquo;s the coolest thing I&rsquo;ve made in the last few days.
 This will allow you to fuzzy find maps and pretty print them.
- It&rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code ;; This function was taken from helpful.el (defun showmap--read-symbol (prompt predicate) (let* ((sym-here (symbol-at-point)) (default-val (when (funcall predicate sym-here) (symbol-name sym-here)))) (when default-val (setq prompt (replace-regexp-in-string (rx &#34;: &#34; eos) (format &#34; (default: %s): &#34; default-val) prompt))) (intern (completing-read prompt obarray predicate t nil nil default-val)))) (defmacro variable-name-re-p (re) &#34;Predicate for a variable with name matching regex&#34; `(lambda (object) (and (variable-p object) (not (not (string-match-p ,re (symbol-name object))))))) (defun show-map (mapsym) (interactive (list (showmap--read-symbol &#34;map: &#34; (variable-name-re-p &#34;-map$&#34;)))) (if (stringp mapsym) (setq mapsym (eval (str2sym (mapsym))))) (let ((mstring (concat &#34;\\{&#34; (symbol-name mapsym) &#34;}&#34;))) (new-buffer-from-string (substitute-command-keys mstring)))) Examples M-x show-map(show-map &#39;helm-map)"/>
+ It&rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code (defun my-new-buffer-frame (&amp;optional contents bufname) &#34;Create a new frame with a new empty buffer."/>
 
     <meta property="og:title" content="Conveniently learn emacs bindings" />
-<meta property="og:description" content=" Here&rsquo;s the coolest thing I&rsquo;ve made in the last few days.
+<meta property="og:description" content="Here&rsquo;s the coolest thing I&rsquo;ve made in the last few days.
 This will allow you to fuzzy find maps and pretty print them.
- It&rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code ;; This function was taken from helpful.el (defun showmap--read-symbol (prompt predicate) (let* ((sym-here (symbol-at-point)) (default-val (when (funcall predicate sym-here) (symbol-name sym-here)))) (when default-val (setq prompt (replace-regexp-in-string (rx &#34;: &#34; eos) (format &#34; (default: %s): &#34; default-val) prompt))) (intern (completing-read prompt obarray predicate t nil nil default-val)))) (defmacro variable-name-re-p (re) &#34;Predicate for a variable with name matching regex&#34; `(lambda (object) (and (variable-p object) (not (not (string-match-p ,re (symbol-name object))))))) (defun show-map (mapsym) (interactive (list (showmap--read-symbol &#34;map: &#34; (variable-name-re-p &#34;-map$&#34;)))) (if (stringp mapsym) (setq mapsym (eval (str2sym (mapsym))))) (let ((mstring (concat &#34;\\{&#34; (symbol-name mapsym) &#34;}&#34;))) (new-buffer-from-string (substitute-command-keys mstring)))) Examples M-x show-map(show-map &#39;helm-map)" />
+ It&rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code (defun my-new-buffer-frame (&amp;optional contents bufname) &#34;Create a new frame with a new empty buffer." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/conveniently-learn-emacs-bindings/" />
 <meta property="article:published_time" content="2019-10-03T00:00:00+13:00" />
@@ -86,7 +86,22 @@ pretty print them.</p>
 </ul>
 
 <h2 id="code">Code</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This function was taken from helpful.el</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun my-new-buffer-frame (<span style="color:#66d9ef">&amp;optional</span> contents bufname)
+  <span style="color:#e6db74">&#34;Create a new frame with a new empty buffer.&#34;</span>
+  (interactive)
+  (if (not bufname)
+      (setq bufname <span style="color:#e6db74">&#34;*untitled*&#34;</span>))
+  (let ((buffer (generate-new-buffer bufname)))
+    (<span style="color:#a6e22e">set-buffer-major-mode</span> buffer)
+    <span style="color:#75715e">;; (display-buffer buffer &#39;(display-buffer-pop-up-frame . nil))</span>
+    (display-buffer buffer <span style="color:#f92672">&#39;</span>(display-buffer-same-window <span style="color:#f92672">.</span> <span style="color:#66d9ef">nil</span>))
+    (with-current-buffer buffer
+      (<span style="color:#a6e22e">insert</span> (str contents))
+      (beginning-of-buffer))
+    buffer))
+(defalias <span style="color:#e6db74">&#39;new-buffer-from-string</span> <span style="color:#e6db74">&#39;my-new-buffer-frame</span>)
+
+<span style="color:#75715e">;; This function was taken from helpful.el</span>
 (defun showmap--read-symbol (prompt predicate)
   (let* ((sym-here (symbol-at-point))
          (default-val
