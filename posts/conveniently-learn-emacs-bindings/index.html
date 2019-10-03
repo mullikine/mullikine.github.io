@@ -12,16 +12,12 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Conveniently learn emacs bindings"/>
-<meta name="twitter:description" content=" Conveniently look up bindings for different modes Here&rsquo;s the coolest thing I&rsquo;ve made in a day or two. This will allow you to fuzzy find maps and pretty print them.
- It&rsquo;s useful for 2 reasons:
- there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in
-;; This function was taken from helpful.el (defun showmap--read-symbol (prompt predicate) (let* ((sym-here (symbol-at-point)) (default-val (when (funcall predicate sym-here) (symbol-name sym-here)))) (when default-val (setq prompt (replace-regexp-in-string (rx &#34;: &#34; eos) (format &#34; (default: %s): &#34; default-val) prompt))) (intern (completing-read prompt obarray predicate t nil nil default-val)))) (defmacro variable-name-re-p (re) &#34;Predicate for a variable with name matching regex&#34; `(lambda (object) (and (variable-p object) (not (not (string-match-p ,re (symbol-name object))))))) (defun show-map (mapsym) (interactive (list (showmap--read-symbol &#34;map: &#34; (variable-name-re-p &#34;-map$&#34;)))) (if (stringp mapsym) (setq mapsym (eval (str2sym (mapsym))))) (let ((mstring (concat &#34;\\{&#34; (symbol-name mapsym) &#34;}&#34;))) (new-buffer-from-string (substitute-command-keys mstring))))   Examples M-x show-map(show-map &#39;helm-map)"/>
+<meta name="twitter:description" content="Conveniently look up bindings for different modes Here&rsquo;s the coolest thing I&rsquo;ve made in a day or two. This will allow you to fuzzy find maps and pretty print them.
+ It&rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code ;; This function was taken from helpful."/>
 
     <meta property="og:title" content="Conveniently learn emacs bindings" />
-<meta property="og:description" content=" Conveniently look up bindings for different modes Here&rsquo;s the coolest thing I&rsquo;ve made in a day or two. This will allow you to fuzzy find maps and pretty print them.
- It&rsquo;s useful for 2 reasons:
- there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in
-;; This function was taken from helpful.el (defun showmap--read-symbol (prompt predicate) (let* ((sym-here (symbol-at-point)) (default-val (when (funcall predicate sym-here) (symbol-name sym-here)))) (when default-val (setq prompt (replace-regexp-in-string (rx &#34;: &#34; eos) (format &#34; (default: %s): &#34; default-val) prompt))) (intern (completing-read prompt obarray predicate t nil nil default-val)))) (defmacro variable-name-re-p (re) &#34;Predicate for a variable with name matching regex&#34; `(lambda (object) (and (variable-p object) (not (not (string-match-p ,re (symbol-name object))))))) (defun show-map (mapsym) (interactive (list (showmap--read-symbol &#34;map: &#34; (variable-name-re-p &#34;-map$&#34;)))) (if (stringp mapsym) (setq mapsym (eval (str2sym (mapsym))))) (let ((mstring (concat &#34;\\{&#34; (symbol-name mapsym) &#34;}&#34;))) (new-buffer-from-string (substitute-command-keys mstring))))   Examples M-x show-map(show-map &#39;helm-map)" />
+<meta property="og:description" content="Conveniently look up bindings for different modes Here&rsquo;s the coolest thing I&rsquo;ve made in a day or two. This will allow you to fuzzy find maps and pretty print them.
+ It&rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code ;; This function was taken from helpful." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/conveniently-learn-emacs-bindings/" />
 <meta property="article:published_time" content="2019-10-03T00:00:00+13:00" />
@@ -79,47 +75,47 @@ two. This will allow you to fuzzy find maps
 and pretty print them.</p>
 
 <ul>
-<li><p>It&rsquo;s useful for 2 reasons:</p>
+<li>It&rsquo;s useful for 2 reasons:
 
 <ul>
 <li>there are many modes which interfere with C-h k</li>
-
-<li><p>when you want to learn some bindings for a mode you are not in</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This function was taken from helpful.el</span>
-(defun showmap--read-symbol (prompt predicate)
-(let* ((sym-here (symbol-at-point))
- (default-val
-   (when (<span style="color:#a6e22e">funcall</span> predicate sym-here)
-     (<span style="color:#a6e22e">symbol-name</span> sym-here))))
-(when default-val
-(setq prompt
-    (replace-regexp-in-string
-     (rx <span style="color:#e6db74">&#34;: &#34;</span> eos)
-     (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34; (default: %s): &#34;</span> default-val)
-     prompt)))
-(<span style="color:#a6e22e">intern</span> (<span style="color:#a6e22e">completing-read</span> prompt obarray
-                     predicate <span style="color:#66d9ef">t</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">nil</span>
-                     default-val))))
-
-(defmacro variable-name-re-p (re)
-<span style="color:#e6db74">&#34;Predicate for a variable with name matching regex&#34;</span>
-<span style="color:#f92672">`</span>(lambda (object)
-(and (variable-p object)
-    (not (not (string-match-p <span style="color:#f92672">,</span>re (<span style="color:#a6e22e">symbol-name</span> object)))))))
-
-(defun show-map (mapsym)
-(interactive (<span style="color:#a6e22e">list</span> (showmap--read-symbol <span style="color:#e6db74">&#34;map: &#34;</span> (variable-name-re-p <span style="color:#e6db74">&#34;-map$&#34;</span>))))
-
-(if (<span style="color:#a6e22e">stringp</span> mapsym)
-(setq mapsym (<span style="color:#a6e22e">eval</span> (str2sym (mapsym)))))
-
-(let ((mstring (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;\\{&#34;</span> (<span style="color:#a6e22e">symbol-name</span> mapsym) <span style="color:#e6db74">&#34;}&#34;</span>)))
-(new-buffer-from-string (<span style="color:#a6e22e">substitute-command-keys</span> mstring))))</code></pre></div></li>
+<li>when you want to learn some bindings for a mode you are not in</li>
 </ul></li>
 </ul>
 
+<h3 id="code">Code</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; This function was taken from helpful.el</span>
+(defun showmap--read-symbol (prompt predicate)
+  (let* ((sym-here (symbol-at-point))
+         (default-val
+           (when (<span style="color:#a6e22e">funcall</span> predicate sym-here)
+             (<span style="color:#a6e22e">symbol-name</span> sym-here))))
+    (when default-val
+      (setq prompt
+            (replace-regexp-in-string
+             (rx <span style="color:#e6db74">&#34;: &#34;</span> eos)
+             (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34; (default: %s): &#34;</span> default-val)
+             prompt)))
+    (<span style="color:#a6e22e">intern</span> (<span style="color:#a6e22e">completing-read</span> prompt obarray
+                             predicate <span style="color:#66d9ef">t</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">nil</span>
+                             default-val))))
+
+(defmacro variable-name-re-p (re)
+  <span style="color:#e6db74">&#34;Predicate for a variable with name matching regex&#34;</span>
+  <span style="color:#f92672">`</span>(lambda (object)
+       (and (variable-p object)
+            (not (not (string-match-p <span style="color:#f92672">,</span>re (<span style="color:#a6e22e">symbol-name</span> object)))))))
+
+(defun show-map (mapsym)
+  (interactive (<span style="color:#a6e22e">list</span> (showmap--read-symbol <span style="color:#e6db74">&#34;map: &#34;</span> (variable-name-re-p <span style="color:#e6db74">&#34;-map$&#34;</span>))))
+
+  (if (<span style="color:#a6e22e">stringp</span> mapsym)
+      (setq mapsym (<span style="color:#a6e22e">eval</span> (str2sym (mapsym)))))
+
+  (let ((mstring (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;\\{&#34;</span> (<span style="color:#a6e22e">symbol-name</span> mapsym) <span style="color:#e6db74">&#34;}&#34;</span>)))
+    (new-buffer-from-string (<span style="color:#a6e22e">substitute-command-keys</span> mstring))))</code></pre></div>
 <h3 id="examples">Examples</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">M-x show-map</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(show-map <span style="color:#e6db74">&#39;helm-map</span>)</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">M-x show-map</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(show-map <span style="color:#e6db74">&#39;helm-map</span>)</code></pre></div>
     </div>
     <div class="post-footer">
       
