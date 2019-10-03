@@ -104,7 +104,12 @@ The solution: create a macro which converts the hydras into regular bindings pre
 
 <p>Wrap a <code>defhydra</code> with the <code>convert-hydra-to-sslk</code> macro to turn it into regular keybindings.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(convert-hydra-to-sslk <span style="color:#e6db74">&#34;lr&#34;</span>
-                       (defhydra h_nr (:exit <span style="color:#66d9ef">t</span> :pre (prehydra) :post (posthydra) :color blue :hint <span style="color:#66d9ef">nil</span> :columns <span style="color:#ae81ff">4</span>) <span style="color:#75715e">;; &#34;NORMAL: refactoring&#34;</span>
+                       (defhydra h_nr (:exit <span style="color:#66d9ef">t</span>
+                                             :pre (prehydra)
+                                             :post (posthydra)
+                                             :color blue
+                                             :hint <span style="color:#66d9ef">nil</span>
+                                             :columns <span style="color:#ae81ff">4</span>) <span style="color:#75715e">;; &#34;NORMAL: refactoring&#34;</span>
                          <span style="color:#e6db74">&#34;NORMAL: emacs&#34;</span>
                          (<span style="color:#e6db74">&#34;m&#34;</span> <span style="color:#a6e22e">#&#39;</span>record-keyboard-macro-string <span style="color:#e6db74">&#34;yank keys&#34;</span>)
                          (<span style="color:#e6db74">&#34;n&#34;</span> <span style="color:#a6e22e">#&#39;</span>yank-function-from-binding <span style="color:#e6db74">&#34;yank function&#34;</span>)
@@ -148,11 +153,18 @@ The solution: create a macro which converts the hydras into regular bindings pre
     <span style="color:#f92672">`</span>(progn
       (let ((spaced (sed <span style="color:#e6db74">&#34;s/./&amp; /g&#34;</span> <span style="color:#f92672">,</span>kb))
             (spaced-m (sed <span style="color:#e6db74">&#34;s/./M-&amp; /g&#34;</span> <span style="color:#f92672">,</span>kb)))
-        (<span style="color:#a6e22e">define-key</span> my-mode-map (kbd (s-replace-regexp <span style="color:#e6db74">&#34;^l&#34;</span> <span style="color:#e6db74">&#34;M-&#39;&#34;</span> (s-replace-regexp <span style="color:#e6db74">&#34; $&#34;</span> <span style="color:#e6db74">&#34;&#34;</span> spaced))) <span style="color:#f92672">,</span>f)
-        (<span style="color:#a6e22e">define-key</span> my-mode-map (kbd (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;M-&#34;</span> (s-replace-regexp <span style="color:#e6db74">&#34; $&#34;</span> <span style="color:#e6db74">&#34;&#34;</span> spaced))) <span style="color:#f92672">,</span>f)
 
-        (<span style="color:#a6e22e">define-key</span> my-mode-map (kbd (s-replace-regexp <span style="color:#e6db74">&#34;^M-l&#34;</span> <span style="color:#e6db74">&#34;M-&#39;&#34;</span> (s-replace-regexp <span style="color:#e6db74">&#34; $&#34;</span> <span style="color:#e6db74">&#34;&#34;</span> spaced-m))) <span style="color:#f92672">,</span>f)
-        (<span style="color:#a6e22e">define-key</span> my-mode-map (kbd (s-replace-regexp <span style="color:#e6db74">&#34; $&#34;</span> <span style="color:#e6db74">&#34;&#34;</span> spaced-m)) <span style="color:#f92672">,</span>f)))
+        (<span style="color:#a6e22e">define-key</span> my-mode-map
+          (kbd (s-replace-regexp <span style="color:#e6db74">&#34;^l&#34;</span> <span style="color:#e6db74">&#34;M-&#39;&#34;</span> (s-replace-regexp <span style="color:#e6db74">&#34; $&#34;</span> <span style="color:#e6db74">&#34;&#34;</span> spaced))) <span style="color:#f92672">,</span>f)
+
+        (<span style="color:#a6e22e">define-key</span> my-mode-map
+          (kbd (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;M-&#34;</span> (s-replace-regexp <span style="color:#e6db74">&#34; $&#34;</span> <span style="color:#e6db74">&#34;&#34;</span> spaced))) <span style="color:#f92672">,</span>f)
+
+        (<span style="color:#a6e22e">define-key</span> my-mode-map
+          (kbd (s-replace-regexp <span style="color:#e6db74">&#34;^M-l&#34;</span> <span style="color:#e6db74">&#34;M-&#39;&#34;</span> (s-replace-regexp <span style="color:#e6db74">&#34; $&#34;</span> <span style="color:#e6db74">&#34;&#34;</span> spaced-m))) <span style="color:#f92672">,</span>f)
+
+        (<span style="color:#a6e22e">define-key</span> my-mode-map
+          (kbd (s-replace-regexp <span style="color:#e6db74">&#34; $&#34;</span> <span style="color:#e6db74">&#34;&#34;</span> spaced-m)) <span style="color:#f92672">,</span>f)))
     ))</code></pre></div>
 <h3 id="the-results">The results</h3>
 
