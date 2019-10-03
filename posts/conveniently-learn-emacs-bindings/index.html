@@ -169,7 +169,9 @@ pretty print them.</p>
       (setq mapsym (<span style="color:#a6e22e">eval</span> (<span style="color:#a6e22e">intern</span> (mapsym)))))
 
   (let ((mstring (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;\\{&#34;</span> (<span style="color:#a6e22e">symbol-name</span> mapsym) <span style="color:#e6db74">&#34;}&#34;</span>)))
-    (with-current-buffer (new-buffer-from-string (<span style="color:#a6e22e">concat</span> (<span style="color:#a6e22e">symbol-name</span> mapsym) <span style="color:#e6db74">&#34;\n\n&#34;</span> (<span style="color:#a6e22e">substitute-command-keys</span> mstring)) (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;*&#34;</span> (<span style="color:#a6e22e">symbol-name</span> mapsym) <span style="color:#e6db74">&#34;*&#34;</span>))
+    (with-current-buffer (new-buffer-from-string
+                          (<span style="color:#a6e22e">concat</span> (<span style="color:#a6e22e">symbol-name</span> mapsym) <span style="color:#e6db74">&#34;\n\n&#34;</span> (<span style="color:#a6e22e">substitute-command-keys</span> mstring))
+                          (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;*&#34;</span> (<span style="color:#a6e22e">symbol-name</span> mapsym) <span style="color:#e6db74">&#34;*&#34;</span>))
       (view-mode <span style="color:#ae81ff">1</span>))))</code></pre></div>
 <h2 id="examples">Examples</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">M-x show-map</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(show-map <span style="color:#e6db74">&#39;helm-map</span>)</code></pre></div>
