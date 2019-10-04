@@ -109,7 +109,7 @@ Get the function This is all you need for most cases.
   <span style="color:#75715e">;; therefore, I must use str</span>
   (let ((f (get-button-action)))
     (if (<span style="color:#a6e22e">eq</span> f <span style="color:#e6db74">&#39;help-button-action</span>)
-        (setq f <span style="color:#f92672">&#39;</span>(progn (<span style="color:#a6e22e">apply</span> (button-get (button-at (<span style="color:#a6e22e">point</span>)) <span style="color:#e6db74">&#39;help-function</span>)
+        (setq f <span style="color:#f92672">`</span>(progn (<span style="color:#a6e22e">apply</span> <span style="color:#f92672">,</span>(button-get (button-at (<span style="color:#a6e22e">point</span>)) <span style="color:#e6db74">&#39;help-function</span>)
                                (button-get (button-at (<span style="color:#a6e22e">point</span>)) <span style="color:#e6db74">&#39;help-args</span>))
                         <span style="color:#66d9ef">nil</span>)))
     (my/copy (str f))))</code></pre></div>
