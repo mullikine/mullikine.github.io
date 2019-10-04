@@ -21,7 +21,7 @@
 This makes it difficult wish to extend or modify a mode that uses buttons: yasnippet, for example.
 Here is how to find out what the button does before you click on it.
 Get the function This is all you need for most cases.
-(defun get-button-action () &amp;#34;Get the action of the button at point&amp;#34; (interactive) (let ((b (button-at (point)))) (if b (button-get b &amp;#39;action)))) Special case: help-mode help-mode has one level of indirection and makes use of an additional property (help-function) to store the behaviour of the button.</description>
+(defun get-button-action () &amp;#34;Get the action of the button at point&amp;#34; (interactive) (let ((b (button-at (point)))) (if b (button-get b &amp;#39;action)))) Special case: help-mode and yasnippet Applying (get-button-action) in yasnippet very unhelpfully provides this help-button-action.</description>
     </item>
     
     <item>

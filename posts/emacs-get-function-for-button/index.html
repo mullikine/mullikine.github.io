@@ -16,14 +16,14 @@
 This makes it difficult wish to extend or modify a mode that uses buttons: yasnippet, for example.
 Here is how to find out what the button does before you click on it.
 Get the function This is all you need for most cases.
-(defun get-button-action () &#34;Get the action of the button at point&#34; (interactive) (let ((b (button-at (point)))) (if b (button-get b &#39;action)))) Special case: help-mode help-mode has one level of indirection and makes use of an additional property (help-function) to store the behaviour of the button."/>
+(defun get-button-action () &#34;Get the action of the button at point&#34; (interactive) (let ((b (button-at (point)))) (if b (button-get b &#39;action)))) Special case: help-mode and yasnippet Applying (get-button-action) in yasnippet very unhelpfully provides this help-button-action."/>
 
     <meta property="og:title" content="emacs: demystifying emacs buttons" />
 <meta property="og:description" content="Buttons in emacs are a little bit of a black box.
 This makes it difficult wish to extend or modify a mode that uses buttons: yasnippet, for example.
 Here is how to find out what the button does before you click on it.
 Get the function This is all you need for most cases.
-(defun get-button-action () &#34;Get the action of the button at point&#34; (interactive) (let ((b (button-at (point)))) (if b (button-get b &#39;action)))) Special case: help-mode help-mode has one level of indirection and makes use of an additional property (help-function) to store the behaviour of the button." />
+(defun get-button-action () &#34;Get the action of the button at point&#34; (interactive) (let ((b (button-at (point)))) (if b (button-get b &#39;action)))) Special case: help-mode and yasnippet Applying (get-button-action) in yasnippet very unhelpfully provides this help-button-action." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/emacs-get-function-for-button/" />
 <meta property="article:published_time" content="2019-10-04T00:00:00+13:00" />
@@ -98,9 +98,13 @@ Get the function This is all you need for most cases.
   (interactive)
   (let ((b (button-at (<span style="color:#a6e22e">point</span>))))
     (if b (button-get b <span style="color:#e6db74">&#39;action</span>))))</code></pre></div>
-<h2 id="special-case-help-mode">Special case: <code>help-mode</code></h2>
+<h2 id="special-case-help-mode-and-yasnippet">Special case: <code>help-mode</code> and <code>yasnippet</code></h2>
 
-<p><code>help-mode</code> has one level of indirection and makes use of an additional property (<code>help-function</code>) to store the behaviour of the button.</p>
+<p>Applying <code>(get-button-action)</code> in <code>yasnippet</code> very unhelpfully provides this <code>help-button-action</code>.</p>
+
+<p><code>help-button-action</code>, as it turns out, is from <code>help-mode</code>.</p>
+
+<p><code>help-mode</code> has uses one level of indirection when creating buttons and makes use of an additional property (<code>help-function</code>) to store the actual behaviour of the button.</p>
 
 <p>Other modes that create buttons may act like this too and you&rsquo;d then need to create more cases.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun copy-button-action ()
