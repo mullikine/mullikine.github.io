@@ -223,15 +223,15 @@ of a macro because they&rsquo;re NOT evaluated before the macro starts.</p>
 (m3 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
 <p>5</p>
 
-<h4 id="m4-this-gives-an-error-void-expression-body">m4 &ndash; This gives an error: &ldquo;void expression body&rdquo;</h4>
+<h4 id="m4-this-gives-an-error-void-function-body">m4 &ndash; This gives an error: &ldquo;void function body&rdquo;</h4>
 
-<p>The error occurs because it returned an unevaluated list (body) as the last expression of the macro.</p>
+<p>The error occurs because the last expression in the macro is <code>'(body)</code> and the last expression of a macro is evaluated.</p>
 
 <p>Remember, the backtick does the same thing as the single quote, but has more optional features.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m5 (<span style="color:#66d9ef">&amp;rest</span> body)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m4 (<span style="color:#66d9ef">&amp;rest</span> body)
   <span style="color:#f92672">`</span>(body))
 
-(m5 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
+(m4 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
 <h4 id="m5-this-gives-an-error-void-expression-echo">m5 &ndash; This gives an error: &ldquo;void expression echo&rdquo;</h4>
 
 <p>The error occurs because the macro returns the list <code>(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></p>
