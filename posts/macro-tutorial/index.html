@@ -271,13 +271,15 @@ something you want evaluated (i.e. rewrite the code).</p>
 <p>The macro returned <code>((echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi))</code>.</p>
 
 <p>The problem here is that we did not expand
-body. It&rsquo;s still contained as a list. Inside
+body with <code>@</code>. It&rsquo;s still contained as a list. Inside
 the backtick, body is just a symbol until we
 give it a comma. But then it becomes an
 entire list. We put that list into another
 list with the backtick. When the macro ends,
 it returns a list inside a list and tries to
 evaluate it.</p>
+
+<p>To expand <code>body</code> from inside the quasiquote <code>`</code> you use <code>,@</code>. See below.</p>
 
 <h4 id="m8-this-gives-an-error-void-function-echo">m8 &ndash; This gives an error: &ldquo;void-function echo&rdquo;</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m8 (<span style="color:#66d9ef">&amp;rest</span> body)
