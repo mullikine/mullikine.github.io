@@ -19,7 +19,9 @@
       <guid>https://mullikine.github.io/posts/github-search-with-bigquery/</guid>
       <description>Searching GitHub for regular expression matches in code is a tremendous task.
 prerequisites Set up the bq command https://cloud.google.com/bigquery/docs/bq-command-line-tool
-tables used bq show bigquery-public-data:github_repos.contents bq show bigquery-public-data:samples.wikipedia bq show --format=prettyjson bigquery-public-data:samples.wikipedia | jq &amp;#39;.schema.fields&amp;#39; specifying the language will make queries cheaper download the schema bq show --format json bigquery-public-data:samples.wikipedia bq show --format json bigquery-public-data:github_repos.sample_contents | python -m json.tool bq show --format=prettyjson bigquery-public-data:samples.wikipedia | jq &amp;#39;.schema.fields&amp;#39; bq show --format=prettyjson bigquery-public-data:github_repos.sample_contents | jq &amp;#39;.</description>
+Lots of money Sample search About US$5 per search.
+This is cheaper than searching all files.
+   shell variable function     $query a regular expression that searches the contents of files   $path_re a regex that matches on the file path   $path_re_exclude a regex that matches on the file path for pruning results    #standardSQL SELECT sample_repo_name, sample_path, (SELECT STRING_AGG(snip) FROM snippets.</description>
     </item>
     
     <item>

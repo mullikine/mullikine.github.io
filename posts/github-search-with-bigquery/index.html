@@ -14,12 +14,16 @@
 <meta name="twitter:title" content="Tremendous Task: Searching GitHub with BigQuery and GHTorrent"/>
 <meta name="twitter:description" content="Searching GitHub for regular expression matches in code is a tremendous task.
 prerequisites Set up the bq command https://cloud.google.com/bigquery/docs/bq-command-line-tool
-tables used bq show bigquery-public-data:github_repos.contents bq show bigquery-public-data:samples.wikipedia bq show --format=prettyjson bigquery-public-data:samples.wikipedia | jq &#39;.schema.fields&#39; specifying the language will make queries cheaper download the schema bq show --format json bigquery-public-data:samples.wikipedia bq show --format json bigquery-public-data:github_repos.sample_contents | python -m json.tool bq show --format=prettyjson bigquery-public-data:samples.wikipedia | jq &#39;.schema.fields&#39; bq show --format=prettyjson bigquery-public-data:github_repos.sample_contents | jq &#39;."/>
+Lots of money Sample search About US$5 per search.
+This is cheaper than searching all files.
+   shell variable function     $query a regular expression that searches the contents of files   $path_re a regex that matches on the file path   $path_re_exclude a regex that matches on the file path for pruning results    #standardSQL SELECT sample_repo_name, sample_path, (SELECT STRING_AGG(snip) FROM snippets."/>
 
     <meta property="og:title" content="Tremendous Task: Searching GitHub with BigQuery and GHTorrent" />
 <meta property="og:description" content="Searching GitHub for regular expression matches in code is a tremendous task.
 prerequisites Set up the bq command https://cloud.google.com/bigquery/docs/bq-command-line-tool
-tables used bq show bigquery-public-data:github_repos.contents bq show bigquery-public-data:samples.wikipedia bq show --format=prettyjson bigquery-public-data:samples.wikipedia | jq &#39;.schema.fields&#39; specifying the language will make queries cheaper download the schema bq show --format json bigquery-public-data:samples.wikipedia bq show --format json bigquery-public-data:github_repos.sample_contents | python -m json.tool bq show --format=prettyjson bigquery-public-data:samples.wikipedia | jq &#39;.schema.fields&#39; bq show --format=prettyjson bigquery-public-data:github_repos.sample_contents | jq &#39;." />
+Lots of money Sample search About US$5 per search.
+This is cheaper than searching all files.
+   shell variable function     $query a regular expression that searches the contents of files   $path_re a regex that matches on the file path   $path_re_exclude a regex that matches on the file path for pruning results    #standardSQL SELECT sample_repo_name, sample_path, (SELECT STRING_AGG(snip) FROM snippets." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/github-search-with-bigquery/" />
 <meta property="article:published_time" content="2019-10-04T00:00:00+13:00" />
@@ -88,19 +92,11 @@ tables used bq show bigquery-public-data:github_repos.contents bq show bigquery-
 
 <p><a href="https://cloud.google.com/bigquery/docs/bq-command-line-tool">https://cloud.google.com/bigquery/docs/bq-command-line-tool</a></p>
 
-<h2 id="tables-used">tables used</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">bq show bigquery-public-data:github_repos.contents
-bq show bigquery-public-data:samples.wikipedia
-bq show --format<span style="color:#f92672">=</span>prettyjson bigquery-public-data:samples.wikipedia | jq <span style="color:#e6db74">&#39;.schema.fields&#39;</span></code></pre></div>
-<h3 id="specifying-the-language-will-make-queries-cheaper">specifying the language will make queries cheaper</h3>
+<h3 id="lots-of-money">Lots of money</h3>
 
-<h3 id="download-the-schema">download the schema</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">bq show --format json bigquery-public-data:samples.wikipedia
-bq show --format json bigquery-public-data:github_repos.sample_contents | python -m json.tool
-bq show --format<span style="color:#f92672">=</span>prettyjson bigquery-public-data:samples.wikipedia | jq <span style="color:#e6db74">&#39;.schema.fields&#39;</span>
-bq show --format<span style="color:#f92672">=</span>prettyjson bigquery-public-data:github_repos.sample_contents | jq <span style="color:#e6db74">&#39;.schema.fields&#39;</span>
-bq show --schema --format<span style="color:#f92672">=</span>prettyjson bigquery-public-data:github_repos.sample_contents</code></pre></div>
-<h3 id="sample-search">Sample search</h3>
+<h2 id="sample-search">Sample search</h2>
+
+<p>About <code>US$5</code> per search.</p>
 
 <p>This is cheaper than searching all files.</p>
 
@@ -155,7 +151,9 @@ bq show --schema --format<span style="color:#f92672">=</span>prettyjson bigquery
         )
   )
 ) snippets <span style="color:#66d9ef">LIMIT</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#66d9ef">limit</span></code></pre></div>
-<h3 id="full-contents-search-search-all-files">Full contents search &ndash; Search all files</h3>
+<h2 id="full-contents-search-search-all-files">Full contents search &ndash; Search all files</h2>
+
+<p>About <code>US$20</code> per search.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span>standardSQL
 <span style="color:#66d9ef">SELECT</span>
   repo_name,
@@ -199,7 +197,7 @@ bq show --schema --format<span style="color:#f92672">=</span>prettyjson bigquery
   ) <span style="color:#66d9ef">as</span> files
   <span style="color:#66d9ef">ON</span> contents.id <span style="color:#f92672">=</span> files.id
 ) snippets <span style="color:#66d9ef">LIMIT</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#66d9ef">limit</span></code></pre></div>
-<h3 id="using-ghtorrent">Using GHTorrent</h3>
+<h2 id="using-ghtorrent">Using GHTorrent</h2>
 
 <p>Using <code>GHTorrent</code> we can sort repositories according to the number of stars.</p>
 
@@ -223,7 +221,7 @@ bq show --schema --format<span style="color:#f92672">=</span>prettyjson bigquery
 </tbody>
 </table>
 
-<h4 id="join-two-big-query-tables-with-standardsql">Join two big query tables with <code>#standardSQL</code></h4>
+<h3 id="join-two-big-query-tables-with-standardsql">Join two big query tables with <code>#standardSQL</code></h3>
 
 <p>We will do something like this but for <code>ghtorrent</code> and <code>bigquery-public-data.github_repos</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">sum</span>(a.is_male)
@@ -232,7 +230,7 @@ bq show --schema --format<span style="color:#f92672">=</span>prettyjson bigquery
 <span style="color:#66d9ef">inner</span> <span style="color:#66d9ef">join</span>
 (<span style="color:#66d9ef">select</span> <span style="color:#66d9ef">year</span> <span style="color:#66d9ef">from</span> moshap.my_years) b
 <span style="color:#66d9ef">on</span> a.<span style="color:#66d9ef">year</span> <span style="color:#f92672">=</span> b.<span style="color:#66d9ef">year</span></code></pre></div>
-<h4 id="results">Results</h4>
+<h3 id="results">Results</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span>standardSQL
 <span style="color:#66d9ef">SELECT</span>
   contents_search_results.repo_name,
@@ -319,7 +317,7 @@ bq show --schema --format<span style="color:#f92672">=</span>prettyjson bigquery
 <span style="color:#66d9ef">ON</span> contents_search_results.repo_id <span style="color:#f92672">=</span> ranking_info.repo_id
 <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> stars <span style="color:#66d9ef">DESC</span>
 <span style="color:#66d9ef">LIMIT</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#66d9ef">limit</span></code></pre></div>
-<h3 id="generate-the-org-mode-document-with-all-results">Generate the <code>org-mode</code> document with all results</h3>
+<h2 id="generate-the-org-mode-document-with-all-results">Generate the <code>org-mode</code> document with all results</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">lit <span style="color:#e6db74">&#34;* query&#34;</span>
 lit <span style="color:#e6db74">&#34;#+BEGIN_SRC sql&#34;</span>
 lit <span style="color:#e6db74">&#34;</span>$sql<span style="color:#e6db74">&#34;</span> | indent <span style="color:#ae81ff">2</span>
@@ -365,6 +363,18 @@ lit <span style="color:#e6db74">&#34;</span>$sql<span style="color:#e6db74">&#34
         count2<span style="color:#f92672">=</span><span style="color:#66d9ef">$((</span> $count2 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">))</span>
     <span style="color:#66d9ef">done</span>
 <span style="color:#f92672">}</span> | ds -q gh-query</code></pre></div>
+<h2 id="annex">annex</h2>
+
+<h3 id="tables-used">tables used</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">bq show bigquery-public-data:github_repos.contents
+bq show bigquery-public-data:samples.wikipedia
+bq show --format<span style="color:#f92672">=</span>prettyjson bigquery-public-data:samples.wikipedia | jq <span style="color:#e6db74">&#39;.schema.fields&#39;</span></code></pre></div>
+<h3 id="download-the-schema">download the schema</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">bq show --format json bigquery-public-data:samples.wikipedia
+bq show --format json bigquery-public-data:github_repos.sample_contents | python -m json.tool
+bq show --format<span style="color:#f92672">=</span>prettyjson bigquery-public-data:samples.wikipedia | jq <span style="color:#e6db74">&#39;.schema.fields&#39;</span>
+bq show --format<span style="color:#f92672">=</span>prettyjson bigquery-public-data:github_repos.sample_contents | jq <span style="color:#e6db74">&#39;.schema.fields&#39;</span>
+bq show --schema --format<span style="color:#f92672">=</span>prettyjson bigquery-public-data:github_repos.sample_contents</code></pre></div>
     </div>
     <div class="post-footer">
       
