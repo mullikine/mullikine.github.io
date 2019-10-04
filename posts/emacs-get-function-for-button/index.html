@@ -78,7 +78,7 @@ Get the function This is all you need for most cases.
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div></div>
     </header>
     <div class="post-content">
@@ -113,6 +113,15 @@ Get the function This is all you need for most cases.
                                (button-get (button-at (<span style="color:#a6e22e">point</span>)) <span style="color:#e6db74">&#39;help-args</span>))
                         <span style="color:#66d9ef">nil</span>)))
     (my/copy (str f))))</code></pre></div>
+<p>Frustratingly, the value of <code>(button-get (button-at (point)) 'help-args)</code>, above, in
+<code>yasnippet</code> is a very large sexp indeed and
+therefore it&rsquo;s not practical to evaluate it
+before copying.</p>
+
+<p>But now, running <code>copy-button-action</code> above a button when browsing snippets will result in the following command being copied to the clipboard.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(progn (<span style="color:#a6e22e">apply</span> (lambda (template) (yas--visit-snippet-file-1 template)) (button-get (button-at (<span style="color:#a6e22e">point</span>)) (quote help-args))) <span style="color:#66d9ef">nil</span>)</code></pre></div>
+<p>Useful!</p>
+
     </div>
     <div class="post-footer">
       
