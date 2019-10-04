@@ -187,7 +187,7 @@ First some prerequisite functions (defmacro shut-up-c (&amp;rest body) &#34;This
 <span style="color:#75715e">;; (2 1 1 1)</span>
 
 <span style="color:#75715e">;; What the function sees is exactly the same because</span>
-<span style="color:#75715e">;; the arguments are evaluated before the macro starts.</span></code></pre></div>
+<span style="color:#75715e">;; the arguments are evaluated before they are passed in.</span></code></pre></div>
 <h2 id="macros">Macros</h2>
 
 <h3 id="macro-arguments">Macro arguments</h3>
@@ -369,7 +369,7 @@ the symbol is used instead of the symbol
 itself.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro show-map (m)
   (let ((mstring (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;\\{&#34;</span> (<span style="color:#a6e22e">symbol-name</span> m) <span style="color:#e6db74">&#34;}&#34;</span>)))
-    (new-buffer-from-string (<span style="color:#a6e22e">substitute-command-keys</span> mstring))))</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(show-map <span style="color:#e6db74">&#39;helm-map</span>)</code></pre></div>
+    (new-buffer-from-string (<span style="color:#a6e22e">substitute-command-keys</span> mstring))))</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(show-map helm-map)</code></pre></div>
     </div>
     <div class="post-footer">
       
