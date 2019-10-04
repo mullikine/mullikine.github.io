@@ -239,7 +239,7 @@ of a macro because they&rsquo;re NOT evaluated before the macro starts.</p>
   ...</code></pre></div>
 <p>It&rsquo;s trying to run this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">eval</span>((body) <span style="color:#66d9ef">nil</span>))</code></pre></div>
-<h4 id="m5-this-gives-an-error-void-expression-echo">m5 &ndash; This gives an error: &ldquo;void expression echo&rdquo;</h4>
+<h4 id="m5-this-gives-an-error-void-expression-echo-or-void-function-echo">m5 &ndash; This gives an error: &ldquo;void expression echo&rdquo; or &ldquo;void-function echo&rdquo;</h4>
 
 <p>The error occurs because the macro returns the list <code>(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></p>
 
@@ -250,7 +250,9 @@ something that evaluates.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m5 (<span style="color:#66d9ef">&amp;rest</span> body)
   body)
 
-(m6 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
+(m5 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
+<p>Running the above in the <code>M-:</code> (<code>Eval:</code>) repl actually gives the following error</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Symbol’s function definition is void: echo</code></pre></div>
 <h4 id="m6-this-gives-an-error-void-function-body">m6 &ndash; This gives an error: &ldquo;void-function @body&rdquo;</h4>
 
 <p>It does not work because the list (@body) is
