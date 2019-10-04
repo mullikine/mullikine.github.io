@@ -255,18 +255,13 @@ something you want evaluated (i.e. rewrite the code).</p>
 <p>That&rsquo;s because it&rsquo;s trying to run this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
 <h4 id="m6-this-gives-an-error-void-function-body">m6 &ndash; This gives an error: &ldquo;void-function @body&rdquo;</h4>
-
-<p>It does not work because the list (@body) is
-returned from the macro.</p>
-
-<p>That&rsquo;s not a function.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m6 (<span style="color:#66d9ef">&amp;rest</span> body)
   <span style="color:#f92672">`</span>(@body))
 
 (m6 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
 <p>That&rsquo;s because expanding the macro generates this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(@body)</code></pre></div>
-<p>And that will not evaluate.</p>
+<p>And that will not evaluate. <code>@body</code> is not a function.</p>
 
 <h4 id="m7-this-gives-an-error-invalid-function--echo-hi-and-and-echo-n-hi-and-and-echo-n-hi">m7 &ndash; This gives an error: &ldquo;invalid-function (echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)&rdquo;</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m7 (<span style="color:#66d9ef">&amp;rest</span> body)
