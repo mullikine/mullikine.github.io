@@ -282,6 +282,8 @@ evaluate it.</p>
 <p>To expand <code>body</code> from inside the quasiquote <code>`</code> you use <code>,@</code>. See below.</p>
 
 <h4 id="m8-this-gives-an-error-void-function-echo">m8 &ndash; This gives an error: &ldquo;void-function echo&rdquo;</h4>
+
+<p>This is an improvement on <code>m7</code> as it expands <code>body</code> but we still see an error.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m8 (<span style="color:#66d9ef">&amp;rest</span> body)
   <span style="color:#f92672">`</span>(<span style="color:#f92672">,@</span>body))
 
