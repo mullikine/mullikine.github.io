@@ -288,8 +288,9 @@ evaluate it.</p>
   <span style="color:#f92672">`</span>(<span style="color:#f92672">,@</span>body))
 
 (m8 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
-<p>The macro returns this as the last expression: <code>(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code>
-<code>echo</code> is not a function.</p>
+<p>The macro returns this as the last expression: <code>(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></p>
+
+<p><code>echo</code> is not a function, however.</p>
 
 <h4 id="m9-this-is-the-same-as-m8-because-you-re-expanding-the-list-into-another-list-dot">m9 &ndash; This is the same as m8 because you&rsquo;re expanding the list into another list.</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m9 (<span style="color:#66d9ef">&amp;rest</span> body)
