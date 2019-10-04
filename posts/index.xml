@@ -12,14 +12,15 @@
     
     
     <item>
-      <title>emacs: get the function for button</title>
+      <title>emacs: get the function for the button under the point</title>
       <link>https://mullikine.github.io/posts/emacs-get-function-for-button/</link>
       <pubDate>Fri, 04 Oct 2019 00:00:00 +1300</pubDate>
       
       <guid>https://mullikine.github.io/posts/emacs-get-function-for-button/</guid>
       <description>Buttons in emacs are a little bit of a black box.
 Here is how to find out what the button does before you click on it.
-(defun get-button-action () &amp;#34;Get the action of the button at point&amp;#34; (interactive) (let ((b (button-at (point)))) (if b (button-get b &amp;#39;action)))) (defun copy-button-action () (interactive) ;; sym2str wont work here because it might be a closure/sexp instead of a function/symbol ;; therefore, I must use str (let ((f (get-button-action))) (if (eq f &amp;#39;help-button-action) (setq f (button-get (button-at (point)) &amp;#39;help-function))) (my/copy (str f))))</description>
+Get the function This is all you need for most cases.
+(defun get-button-action () &amp;#34;Get the action of the button at point&amp;#34; (interactive) (let ((b (button-at (point)))) (if b (button-get b &amp;#39;action)))) Special case: help-mode help-mode has one level of indirection and makes use of an additional property (help-function) to store the behaviour of the button.</description>
     </item>
     
     <item>
