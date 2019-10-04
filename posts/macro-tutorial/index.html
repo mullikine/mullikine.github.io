@@ -243,16 +243,15 @@ of a macro because they&rsquo;re NOT evaluated before the macro starts.</p>
 
 <p>The error occurs because the macro returns the list <code>(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></p>
 
-<p>At the end of a macro, the last line is
-[usually] evaluated by whatever called the
-macro. So the objective is to turn body into
-something that evaluates.</p>
+<p>When a macro is run, the last expression is
+evaluated by whatever called the macro.</p>
+
+<p>So the objective of most macros is to turn <code>body</code> (i.e the arguments) into
+something you want evaluated (i.e. rewrite the code).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m5 (<span style="color:#66d9ef">&amp;rest</span> body)
   body)
 
 (m5 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
-<p>Running the above in the <code>M-:</code> (<code>Eval:</code>) repl actually gives the following error</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Symbol’s function definition is void: echo</code></pre></div>
 <h4 id="m6-this-gives-an-error-void-function-body">m6 &ndash; This gives an error: &ldquo;void-function @body&rdquo;</h4>
 
 <p>It does not work because the list (@body) is
@@ -379,6 +378,14 @@ itself.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro show-map (m)
   (let ((mstring (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;\\{&#34;</span> (<span style="color:#a6e22e">symbol-name</span> m) <span style="color:#e6db74">&#34;}&#34;</span>)))
     (new-buffer-from-string (<span style="color:#a6e22e">substitute-command-keys</span> mstring))))</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(show-map helm-map)</code></pre></div>
+<h2 id="annex">Annex</h2>
+
+<p>For some of the examples above, you will see a different error message depending on how you run the sexp.</p>
+
+<p>If you run them with <code>C-x C-e</code>, you would see the same errors that I did.</p>
+
+<p>However, executing with the <code>M-:</code> (<code>Eval:</code>) repl may give errors that look more like below:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Symbol’s function definition is void: echo</code></pre></div>
     </div>
     <div class="post-footer">
       
