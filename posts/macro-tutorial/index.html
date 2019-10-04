@@ -225,17 +225,18 @@ of a macro because they&rsquo;re NOT evaluated before the macro starts.</p>
 
 <h4 id="m4-this-gives-an-error-void-function-body">m4 &ndash; This gives an error: &ldquo;void function body&rdquo;</h4>
 
-<p>The error occurs because the last expression in the macro is <code>'(body)</code> and the last expression of a macro is evaluated.</p>
+<p>The error occurs because the last expression in the macro is <code>'(body)</code> and the last expression of a macro is always evaluated.</p>
 
-<p>Remember, the backtick does the same thing as the single quote, but has more optional features.</p>
+<p>Remember, the backtick does the same thing as the single quote, but has some additional, optional features.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro m4 (<span style="color:#66d9ef">&amp;rest</span> body)
   <span style="color:#f92672">`</span>(body))
 
 (m4 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></div>
-<p>That is what the debugger is saying here.</p>
+<p>That is what the debugger says when you try to run the above:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Debugger entered--Lisp error: (void-function body)
   (body)
-  eval((body) nil)</code></pre></div>
+  eval((body) nil)
+  ...</code></pre></div>
 <p>It&rsquo;s trying to run this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">eval</span>((body) <span style="color:#66d9ef">nil</span>))</code></pre></div>
 <h4 id="m5-this-gives-an-error-void-expression-echo">m5 &ndash; This gives an error: &ldquo;void expression echo&rdquo;</h4>
