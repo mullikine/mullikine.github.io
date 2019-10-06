@@ -165,24 +165,25 @@ cd &#34;$MYGIT/kisaragi-hiu/awk-ward.el&#34;; ls -ld .git/worktrees/010/  Questi
 <h3 id="the-magic-function">The magic function</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(let ((dir (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;/home/shane/programs/git-worktrees/&#34;</span> (magit-commit-at-point))))
   (magit-worktree-checkout dir (magit-commit-at-point))
-  (sh-notty (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;cd &#34;</span> (q dir) <span style="color:#e6db74">&#34;; git checkout -b &#34;</span> (magit-commit-at-point)) <span style="color:#66d9ef">nil</span> dir)
-  )</code></pre></div>
+  (sh-notty (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;cd &#34;</span> (q dir) <span style="color:#e6db74">&#34;; git checkout -b &#34;</span> (magit-commit-at-point)) <span style="color:#66d9ef">nil</span> dir))</code></pre></div>
 <h3 id="extending-magit">extending magit</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun my/magit-make-worktree ()
   (interactive)
-  (let ((dir (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;/home/shane/programs/git-worktrees/&#34;</span> (magit-commit-at-point))))
+  (let ((dir (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;/home/shane/programs/git-worktrees/&#34;</span> (magit-commit-at-point)))
+        (commit (magit-commit-at-point)))
     (if (<span style="color:#a6e22e">file-exists-p</span> dir)
         (progn
+          (magit-worktree-checkout dir (magit-commit-at-point))
           (spv (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;zcd &#34;</span> (q dir))))
-      (progn
-        (magit-worktree-checkout dir (magit-commit-at-point))
-        (sleep <span style="color:#ae81ff">0.2</span>)
-        (if (not (<span style="color:#a6e22e">file-exists-p</span> dir))
-            (sleep <span style="color:#ae81ff">0.5</span>))
-        (if (<span style="color:#a6e22e">file-exists-p</span> dir)
-            (progn
-              (sh-notty (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;cd &#34;</span> (q dir) <span style="color:#e6db74">&#34;; git checkout -b &#34;</span> (magit-commit-at-point)) <span style="color:#66d9ef">nil</span> dir)
-              (spv (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;zcd &#34;</span> (q dir)))))))))
+        (progn
+          (magit-worktree-checkout dir commit)
+          <span style="color:#75715e">;; (if (not (file-exists-p dir))</span>
+          <span style="color:#75715e">;;     (sleep 1))</span>
+          (if (<span style="color:#a6e22e">file-exists-p</span> dir)
+              (progn
+                (sh-notty (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;cd &#34;</span> (q dir) <span style="color:#e6db74">&#34; &amp;&amp; git checkout -b &#34;</span> commit) <span style="color:#66d9ef">nil</span> dir)
+                (spv (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;zcd &#34;</span> (q dir)))
+                ))))))
 
 <span style="color:#75715e">;; The hook happens before the buffer loads. Use advice instead, then.</span>
 <span style="color:#75715e">;; (add-hook &#39;magit-log-mode-hook #&#39;my/magit-log-hook-body)</span>
