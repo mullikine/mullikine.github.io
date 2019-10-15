@@ -87,7 +87,7 @@ cd &#34;$MYGIT/kisaragi-hiu/awk-ward.el&#34;; ls -ld .git/worktrees/010/  Questi
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div></div>
     </header>
     <div class="post-content">
@@ -194,6 +194,16 @@ cd &#34;$MYGIT/kisaragi-hiu/awk-ward.el&#34;; ls -ld .git/worktrees/010/  Questi
   (<span style="color:#a6e22e">define-key</span> magit-log-mode-map (kbd <span style="color:#e6db74">&#34;M-e&#34;</span>) <span style="color:#a6e22e">#&#39;</span>magit-section-forward-sibling)
   (<span style="color:#a6e22e">define-key</span> magit-log-mode-map (kbd <span style="color:#e6db74">&#34;j S&#34;</span>) <span style="color:#a6e22e">#&#39;</span>my/magit-make-worktree)
   (<span style="color:#a6e22e">define-key</span> magit-log-mode-map (kbd <span style="color:#e6db74">&#34;j s&#34;</span>) <span style="color:#a6e22e">#&#39;</span>my/magit-make-worktree))</code></pre></div>
+<h3 id="make-it-so-git-timemachine-and-magit-blame-play-nicer-together">Make it so <code>git-timemachine</code> and <code>magit-blame</code> play nicer together</h3>
+
+<p>If you have entered into <code>magit-blame</code> from <code>git-timemachine</code> and you press <code>n</code> to call <code>git-timemachine-show-next-revision</code> before quitting your current blame with <code>b q</code> (<code>magit-blame-quit</code>) you will break <code>magit-blame</code>.
+Therefore, add this advice to make <code>magit-blame-quit</code> run automatically.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun git-timemachine-show-revision-around-advice (proc <span style="color:#66d9ef">&amp;rest</span> args)
+  (magit-blame-quit)
+  (let ((res (<span style="color:#a6e22e">apply</span> proc args)))
+    res))
+(advice-add <span style="color:#e6db74">&#39;git-timemachine-show-next-revision</span> :around <span style="color:#a6e22e">#&#39;</span>git-timemachine-show-revision-around-advice)
+(advice-add <span style="color:#e6db74">&#39;git-timemachine-show-previous-revision</span> :around <span style="color:#a6e22e">#&#39;</span>git-timemachine-show-revision-around-advice)</code></pre></div>
 <h3 id="use-this-directory">Use this directory</h3>
 
 <p>$HOME/programs/git-worktrees</p>
