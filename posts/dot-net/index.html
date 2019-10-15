@@ -255,7 +255,23 @@ data can be supplied in a number of ways, but
 the most common is with an <code>[InlineData]</code>
 attribute.</p>
 
-<p><a href="https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/">https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/</a></p></li>
+<p><a href="https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/">https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/</a></p>
+
+<p>You use <code>Theory</code> to create parameterised tests with <code>[InlineData]</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#a6e22e">[Theory]</span>
+<span style="color:#a6e22e">[InlineData(1, 2, 3)]</span>
+<span style="color:#a6e22e">[InlineData(-4, -6, -10)]</span>
+<span style="color:#a6e22e">[InlineData(-2, 2, 0)]</span>
+<span style="color:#a6e22e">[InlineData(int.MinValue, -1, int.MaxValue)]</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> CanAddTheory(<span style="color:#66d9ef">int</span> value1, <span style="color:#66d9ef">int</span> value2, <span style="color:#66d9ef">int</span> expected)
+{
+    <span style="color:#66d9ef">var</span> calculator = <span style="color:#66d9ef">new</span> Calculator();
+
+    <span style="color:#66d9ef">var</span> result = calculator.Add(value1, value2);
+
+    Assert.Equal(expected, result);
+}
+</code></pre></div></li>
 
 <li><p>what is a <code>Task</code>?</p></li>
 </ul></li>
