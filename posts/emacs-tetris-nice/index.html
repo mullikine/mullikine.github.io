@@ -203,7 +203,9 @@ cat <span style="color:#e6db74">&lt;&lt;HEREDOC &gt; /tmp/tetris-load.el
 </span><span style="color:#e6db74">(define-key tetris-mode-map (kbd &#34;l&#34;) (kbd &#34;&lt;right&gt;&#34;))
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">(defun load-tetris-update ()
-</span><span style="color:#e6db74">  (with-current-buffer (new-buffer-from-string (ecurl &#34;http://git.savannah.gnu.org/cgit/emacs.git/plain/lisp/play/gamegrid.el&#34;))
+</span><span style="color:#e6db74">  (with-current-buffer
+</span><span style="color:#e6db74">    (new-buffer-from-string
+</span><span style="color:#e6db74">      (ecurl &#34;http://git.savannah.gnu.org/cgit/emacs.git/plain/lisp/play/gamegrid.el&#34;))
 </span><span style="color:#e6db74">    (eval-buffer (current-buffer))
 </span><span style="color:#e6db74">    (kill-buffer)))
 </span><span style="color:#e6db74">
@@ -211,7 +213,18 @@ cat <span style="color:#e6db74">&lt;&lt;HEREDOC &gt; /tmp/tetris-load.el
 </span><span style="color:#e6db74">HEREDOC</span>
 
 <span style="color:#75715e"># (execute-kbd-macro (kbd \&#34;C-l\&#34;))</span>
-emacs $nw -q --eval <span style="color:#e6db74">&#34;(progn </span>$extra<span style="color:#e6db74">(tool-bar-mode -1)(menu-bar-mode -1)(call-interactively &#39;tetris)(setq mode-line-format &#39;())(message \&#34;\&#34;))&#34;</span></code></pre></div>
+
+read -r -d <span style="color:#e6db74">&#39;&#39;</span> elisp_command <span style="color:#e6db74">&lt;&lt;HEREDOC
+</span><span style="color:#e6db74">(progn
+</span><span style="color:#e6db74">  $extra
+</span><span style="color:#e6db74">  (tool-bar-mode -1)
+</span><span style="color:#e6db74">  (menu-bar-mode -1)
+</span><span style="color:#e6db74">  (call-interactively &#39;tetris)
+</span><span style="color:#e6db74">  (setq mode-line-format &#39;())
+</span><span style="color:#e6db74">  (message &#34;&#34;))
+</span><span style="color:#e6db74">HEREDOC</span>
+
+emacs $nw -q --eval <span style="color:#e6db74">&#34;</span>$elisp_command<span style="color:#e6db74">&#34;</span></code></pre></div>
     </div>
     <div class="post-footer">
       
