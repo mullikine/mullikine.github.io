@@ -13,11 +13,11 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Review of writeup.ai"/>
 <meta name="twitter:description" content="https://senrigan.io/blog/how-writeupai-runs-behind-the-scenes/#h%5F6068056784021570782144062
-TODO glossary cross entropy loss (between two probability distributions) (and over the same underlying set of events) Higher loss is bad. Measures the performance of a classification model whose output is a probability value between 0 and 1. Measures the average number of bits needed to identify an event from the set. Data scrubbing [error correction technique] Uses a background task to periodically inspect main memory or storage for errors, then correct detected errors using redundant data in the form of different checksums or copies of data."/>
+glossary cross entropy loss (between two probability distributions) (and over the same underlying set of events) Higher loss is bad. Measures the performance of a classification model whose output is a probability value between 0 and 1. Measures the average number of bits needed to identify an event from the set. Data scrubbing [error correction technique] Uses a background task to periodically inspect main memory or storage for errors, then correct detected errors using redundant data in the form of different checksums or copies of data."/>
 
     <meta property="og:title" content="Review of writeup.ai" />
 <meta property="og:description" content="https://senrigan.io/blog/how-writeupai-runs-behind-the-scenes/#h%5F6068056784021570782144062
-TODO glossary cross entropy loss (between two probability distributions) (and over the same underlying set of events) Higher loss is bad. Measures the performance of a classification model whose output is a probability value between 0 and 1. Measures the average number of bits needed to identify an event from the set. Data scrubbing [error correction technique] Uses a background task to periodically inspect main memory or storage for errors, then correct detected errors using redundant data in the form of different checksums or copies of data." />
+glossary cross entropy loss (between two probability distributions) (and over the same underlying set of events) Higher loss is bad. Measures the performance of a classification model whose output is a probability value between 0 and 1. Measures the average number of bits needed to identify an event from the set. Data scrubbing [error correction technique] Uses a background task to periodically inspect main memory or storage for errors, then correct detected errors using redundant data in the form of different checksums or copies of data." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/review-of-writeup-ai/" />
 <meta property="article:published_time" content="2019-10-16T00:00:00+13:00" />
@@ -85,7 +85,7 @@ TODO glossary cross entropy loss (between two probability distributions) (and ov
 
 <p><a href="https://senrigan.io/blog/how-writeupai-runs-behind-the-scenes/#h%5F6068056784021570782144062">https://senrigan.io/blog/how-writeupai-runs-behind-the-scenes/#h%5F6068056784021570782144062</a></p>
 
-<h2 id="glossary"><span class="org-todo todo TODO">TODO</span> glossary</h2>
+<h2 id="glossary">glossary</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">cross entropy loss
     (between two probability distributions)
     (and over the same underlying set of events)
@@ -112,6 +112,10 @@ openai/gradient-checkpointing
     [python/Tensorflow package]
 
     Handle GPU memory limitations.</code></pre></div>
+<h2 id="examples-of-usage-of-gpt-2">examples of usage of <code>GPT-2</code></h2>
+
+<p><a href="https://github.com/allenai/lm-explorer">https://github.com/allenai/lm-explorer</a></p>
+
 <h2 id="read-this-in-eww">Read this in <code>eww</code></h2>
 
 <p>The website when viewed with a gui browser, although impressive, is distracting.</p>
@@ -119,6 +123,14 @@ openai/gradient-checkpointing
 <p>The website was built with <code>hackyll</code>, a static site generator employing <code>haskell</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">eww <span style="color:#e6db74">&#34;https://www.gwern.net/GPT-2&#34;</span></code></pre></div>
 <p>Straight-forward once you understand ML jargon.</p>
+
+<h2 id="studying-gpt-2">studying GPT-2</h2>
+
+<h3 id="preprocessing">preprocessing</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd <span style="color:#e6db74">&#34;</span>$DUMP$NOTES<span style="color:#e6db74">/ws/blog/posts&#34;</span>; wget <span style="color:#e6db74">&#39;http://static.decontextualize.com/gutenberg-poetry-v001.ndjson.gz&#39;</span></code></pre></div>
+<h4 id="ndjson"><code>ndjson</code></h4>
+
+<p>Each line corresponds to an independent <code>json</code> file.</p>
 
 <h2 id="training">training</h2>
 
