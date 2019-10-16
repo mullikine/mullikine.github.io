@@ -98,6 +98,50 @@ ln -s etetris etetris-vt100 If you symlink this script to etetris-xterm and run 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ln -s etetris etetris-vt100</code></pre></div>
 <p>If you symlink this script to <code>etetris-xterm</code> and run that instead, you will get the vivid color terminal version.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ln -s etetris etetris-xterm</code></pre></div>
+<h3 id="mappings">mappings</h3>
+
+<table>
+<thead>
+<tr>
+<th>key binding</th>
+<th></th>
+<th>function</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>h</td>
+<td>left</td>
+<td>move left</td>
+</tr>
+
+<tr>
+<td>j</td>
+<td>down</td>
+<td>move down faster</td>
+</tr>
+
+<tr>
+<td>k</td>
+<td>up</td>
+<td>rotate</td>
+</tr>
+
+<tr>
+<td>l</td>
+<td>right</td>
+<td>move right</td>
+</tr>
+
+<tr>
+<td>Space</td>
+<td></td>
+<td>drop</td>
+</tr>
+</tbody>
+</table>
+
 <h2 id="the-script-etetris">The script <code>etetris</code></h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
 </span><span style="color:#75715e"></span>sn<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
@@ -150,6 +194,13 @@ cat <span style="color:#e6db74">&lt;&lt;HEREDOC &gt; /tmp/tetris-load.el
 </span><span style="color:#e6db74">    (let ((result (buffer2string (current-buffer))))
 </span><span style="color:#e6db74">      (kill-buffer)
 </span><span style="color:#e6db74">      result)))
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">(require &#39;tetris)
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">(define-key tetris-mode-map (kbd &#34;k&#34;) (kbd &#34;&lt;up&gt;&#34;))
+</span><span style="color:#e6db74">(define-key tetris-mode-map (kbd &#34;j&#34;) (kbd &#34;&lt;down&gt;&#34;))
+</span><span style="color:#e6db74">(define-key tetris-mode-map (kbd &#34;h&#34;) (kbd &#34;&lt;left&gt;&#34;))
+</span><span style="color:#e6db74">(define-key tetris-mode-map (kbd &#34;l&#34;) (kbd &#34;&lt;right&gt;&#34;))
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">(defun load-tetris-update ()
 </span><span style="color:#e6db74">  (with-current-buffer (new-buffer-from-string (ecurl &#34;http://git.savannah.gnu.org/cgit/emacs.git/plain/lisp/play/gamegrid.el&#34;))
