@@ -78,7 +78,7 @@ glossary cross entropy loss (between two probability distributions) (and over th
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div></div>
     </header>
     <div class="post-content">
@@ -157,6 +157,37 @@ openai/gradient-checkpointing
 
 <p><a href="https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9">https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9</a></p>
 
+<h2 id="backend">backend</h2>
+
+<p><a href="https://github.com/jeffshek/open">https://github.com/jeffshek/open</a></p>
+
+<p>$MYGIT/jeffshek/open</p>
+
+<h3 id="glossary-1">glossary</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Caddy
+    HTTP/2 web server with automatic HTTPS.</code></pre></div>
+<h3 id="emacs-setup">emacs setup</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">e ia caddyfile-mode</code></pre></div>
+<h3 id="caddy-setup">caddy setup</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-caddyfile" data-lang="caddyfile">:2015
+ {
+    proxy / django:8008 {
+        header_upstream Host {host}
+        header_upstream X-Real-IP {remote}
+        header_upstream X-Forwarded-For {remote}
+        header_upstream X-Forwarded-Proto {scheme}
+        websocket
+    }
+    log stdout
+    errors stdout
+    tls off # tls/ssl then is turned off between the load balancer and web services for ssl termination
+}</code></pre></div>
+<p>I guess the web server hosts <code>django on =8008</code>
+and the <code>caddy</code> command below simple outputs
+errors to <code>stdout</code>.</p>
+
+<h4 id="when-caddyfile-is-present-this-should-just-work">When <code>Caddyfile</code> is present this should just work</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">caddy</code></pre></div>
     </div>
     <div class="post-footer">
       
