@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>Review of writeup.ai // Bodacious Blog</title>
+    <title>Review of gwern GPT-2 // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.59.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,17 +11,19 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Review of writeup.ai"/>
-<meta name="twitter:description" content="https://senrigan.io/blog/how-writeupai-runs-behind-the-scenes/#h%5F6068056784021570782144062
-glossary cross entropy loss (between two probability distributions) (and over the same underlying set of events) Higher loss is bad. Measures the performance of a classification model whose output is a probability value between 0 and 1. Measures the average number of bits needed to identify an event from the set. Data scrubbing [error correction technique] Uses a background task to periodically inspect main memory or storage for errors, then correct detected errors using redundant data in the form of different checksums or copies of data."/>
+<meta name="twitter:title" content="Review of gwern GPT-2"/>
+<meta name="twitter:description" content="original article https://www.gwern.net/GPT-2  Read using eww The website when viewed with a GUI browser, although impressive, is distracting.
+The website was built with hackyll, a static site generator employing haskell.
+eww &#34;https://www.gwern.net/GPT-2&#34; Ease of reading Straight-forward once you understand ML jargon."/>
 
-    <meta property="og:title" content="Review of writeup.ai" />
-<meta property="og:description" content="https://senrigan.io/blog/how-writeupai-runs-behind-the-scenes/#h%5F6068056784021570782144062
-glossary cross entropy loss (between two probability distributions) (and over the same underlying set of events) Higher loss is bad. Measures the performance of a classification model whose output is a probability value between 0 and 1. Measures the average number of bits needed to identify an event from the set. Data scrubbing [error correction technique] Uses a background task to periodically inspect main memory or storage for errors, then correct detected errors using redundant data in the form of different checksums or copies of data." />
+    <meta property="og:title" content="Review of gwern GPT-2" />
+<meta property="og:description" content="original article https://www.gwern.net/GPT-2  Read using eww The website when viewed with a GUI browser, although impressive, is distracting.
+The website was built with hackyll, a static site generator employing haskell.
+eww &#34;https://www.gwern.net/GPT-2&#34; Ease of reading Straight-forward once you understand ML jargon." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/review-of-writeup-ai/" />
-<meta property="article:published_time" content="2019-10-16T00:00:00+13:00" />
-<meta property="article:modified_time" content="2019-10-16T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:url" content="https://mullikine.github.io/posts/review-of-gewn-gpt2/" />
+<meta property="article:published_time" content="2019-10-17T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-10-17T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
 
 
   </head>
@@ -64,14 +66,14 @@ glossary cross entropy loss (between two probability distributions) (and over th
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Review of writeup.ai</h1>
+      <h1 class ="post-title">Review of gwern GPT-2</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
   <title>calendar</title>
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
 </svg>
-          Oct 16, 2019
+          Oct 17, 2019
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
@@ -84,78 +86,20 @@ glossary cross entropy loss (between two probability distributions) (and over th
     <div class="post-content">
       
 
-<p><a href="https://senrigan.io/blog/how-writeupai-runs-behind-the-scenes/#h%5F6068056784021570782144062">https://senrigan.io/blog/how-writeupai-runs-behind-the-scenes/#h%5F6068056784021570782144062</a></p>
+<dl>
+<dt>original article</dt>
+<dd><a href="https://www.gwern.net/GPT-2">https://www.gwern.net/GPT-2</a></dd>
+</dl>
 
-<h2 id="glossary">glossary</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">cross entropy loss
-    (between two probability distributions)
-    (and over the same underlying set of events)
-
-    Higher loss is bad.
-
-    Measures the performance of a
-    classification model whose output is a
-    probability value between 0 and 1.
-
-    Measures the average number of bits needed
-    to identify an event from the set.
-
-Data scrubbing
-    [error correction technique]
-
-    Uses a background task to periodically
-    inspect main memory or storage for errors,
-    then correct detected errors using
-    redundant data in the form of different
-    checksums or copies of data.
-
-openai/gradient-checkpointing
-    [python/Tensorflow package]
-
-    Handle GPU memory limitations.</code></pre></div>
-<h2 id="examples-of-usage-of-gpt-2">examples of usage of <code>GPT-2</code></h2>
-
-<p><a href="https://github.com/allenai/lm-explorer">https://github.com/allenai/lm-explorer</a></p>
-
-<h2 id="read-this-in-eww">Read this in <code>eww</code></h2>
-
-<table>
-<thead>
-<tr>
-<th>article</th>
-<th>review</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><a href="https://www.gwern.net/GPT-2">GPT-2 Neural Network Poetry - Gwern.net</a></td>
-<td><a href="https://mullikine.github.io/posts/review-of-gewn-gpt2/">http://mullikine.github.io/posts/review-of-gewn-gpt2/</a></td>
-</tr>
-</tbody>
-</table>
+<h2 id="read-using-eww">Read using <code>eww</code></h2>
 
 <p>The website when viewed with a GUI browser, although impressive, is distracting.</p>
 
 <p>The website was built with <code>hackyll</code>, a static site generator employing <code>haskell</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">eww <span style="color:#e6db74">&#34;https://www.gwern.net/GPT-2&#34;</span></code></pre></div>
+<h2 id="ease-of-reading">Ease of reading</h2>
+
 <p>Straight-forward once you understand ML jargon.</p>
-
-<h2 id="studying-gpt-2">studying GPT-2</h2>
-
-<h3 id="preprocessing">preprocessing</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd <span style="color:#e6db74">&#34;</span>$DUMP$NOTES<span style="color:#e6db74">/ws/blog/posts&#34;</span>; wget <span style="color:#e6db74">&#39;http://static.decontextualize.com/gutenberg-poetry-v001.ndjson.gz&#39;</span></code></pre></div>
-<h4 id="ndjson"><code>ndjson</code></h4>
-
-<p>Each line corresponds to an independent <code>json</code> file.</p>
-
-<h2 id="training">training</h2>
-
-<h3 id="gradient-checkpointing-to-handle-memory-issues"><code>gradient checkpointing</code> to handle memory issues</h3>
-
-<p><strong>GPU memory</strong> is often the limiting factor for modern neural network architectures.</p>
-
-<p><a href="https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9">https://medium.com/tensorflow/fitting-larger-networks-into-memory-583e3c758ff9</a></p>
 
     </div>
     <div class="post-footer">
