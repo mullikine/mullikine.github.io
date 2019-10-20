@@ -13,13 +13,11 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Review of The Illustrated Transformer"/>
 <meta name="twitter:description" content="https://jalammar.github.io/illustrated-transformer/
-High level In a machine translation application, it would take a sentence in one language, and output its translation in another.
-input [label=&#34;foreign language&#34;] output [label=&#34;your language&#34;] subgraph transformer { decoders [label=&#34;encoders: stack of N decoders&#34;] encoders [label=&#34;encoders: stack of N encoders&#34;] -&gt; decoders } input -&gt; encoders [label=input] decoders -&gt; output [label=output]∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ foreign language ┃ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ input v ∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘ ┆ transformer ┆ ┆ ┆ ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆ ┆ ┃ encoders: stack of N encoders ┃ ┆ ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆ ┆ ┃ ┆ ┆ ┃ ┆ ┆ v ┆ ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆ ┆ ┃ encoders: stack of N decoders ┃ ┆ ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆ ┆ ┆ ∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘ ┃ ┃ output v ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ your language ┃ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ A look inside the encoder stack Sadly nested subgraphs don&rsquo;t render in ASCII."/>
+Helpful glossary Multilayer perceptron Feed-Forward Neural Network FFNN Basically, these are multi-level logistic regression classifiers. Many layers of scales are separated by non-linearities. Can be used for as autoencoders. Can be used to train a classifier or extract functions as autoencoders. self-attention intra-attention [attention mechanism] Relates different positions of a single sequence in order to compute a representation of the sequence. An attention operation of a single sequence in order to calculate the representation of the very same sequence."/>
 
     <meta property="og:title" content="Review of The Illustrated Transformer" />
 <meta property="og:description" content="https://jalammar.github.io/illustrated-transformer/
-High level In a machine translation application, it would take a sentence in one language, and output its translation in another.
-input [label=&#34;foreign language&#34;] output [label=&#34;your language&#34;] subgraph transformer { decoders [label=&#34;encoders: stack of N decoders&#34;] encoders [label=&#34;encoders: stack of N encoders&#34;] -&gt; decoders } input -&gt; encoders [label=input] decoders -&gt; output [label=output]∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ foreign language ┃ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ input v ∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘ ┆ transformer ┆ ┆ ┆ ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆ ┆ ┃ encoders: stack of N encoders ┃ ┆ ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆ ┆ ┃ ┆ ┆ ┃ ┆ ┆ v ┆ ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆ ┆ ┃ encoders: stack of N decoders ┃ ┆ ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆ ┆ ┆ ∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘ ┃ ┃ output v ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ your language ┃ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ A look inside the encoder stack Sadly nested subgraphs don&rsquo;t render in ASCII." />
+Helpful glossary Multilayer perceptron Feed-Forward Neural Network FFNN Basically, these are multi-level logistic regression classifiers. Many layers of scales are separated by non-linearities. Can be used for as autoencoders. Can be used to train a classifier or extract functions as autoencoders. self-attention intra-attention [attention mechanism] Relates different positions of a single sequence in order to compute a representation of the sequence. An attention operation of a single sequence in order to calculate the representation of the very same sequence." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/" />
 <meta property="article:published_time" content="2019-10-19T00:00:00+13:00" />
@@ -80,7 +78,7 @@ input [label=&#34;foreign language&#34;] output [label=&#34;your language&#34;] 
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div></div>
     </header>
     <div class="post-content">
@@ -88,7 +86,56 @@ input [label=&#34;foreign language&#34;] output [label=&#34;your language&#34;] 
 
 <p><a href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></p>
 
-<h2 id="high-level">High level</h2>
+<h2 id="helpful-glossary">Helpful glossary</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Multilayer perceptron
+Feed-Forward Neural Network
+FFNN
+    Basically, these are multi-level logistic
+    regression classifiers.
+
+    Many layers of scales are separated by
+    non-linearities.
+
+    Can be used for as autoencoders.
+
+    Can be used to train a classifier or
+    extract functions as autoencoders.
+
+self-attention
+intra-attention
+    [attention mechanism]
+
+    Relates different positions of a single
+    sequence in order to compute a
+    representation of the sequence.
+
+    An attention operation of a single
+    sequence in order to calculate the
+    representation of the very same sequence.
+
+    This concept has been very useful in NLP
+    tasks such as Text summarization, Machine
+    Translation and Image Description
+    Generation.</code></pre></div>
+<h3 id="optional-reading">Optional reading</h3>
+
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>URL</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Self-attention</td>
+<td><a href="https://medium.com/saarthi-ai/transformers-attention-based-seq2seq-machine-translation-a28940aaa4fe">Why do Transformers yield Superior Sequence to Sequence(Seq2Seq)Results?</a></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="high-level-overview">High level overview</h2>
 
 <p>In a machine translation application, it would
 take a sentence in one language, and output
@@ -199,6 +246,13 @@ f2 -&gt; encoderN [label=&#34;...&#34;]</code></pre></div><div class="highlight"
 <p>A <span class="underline">self-attention layer</span> helps the encoder
 look at other words in the input sentence as
 it encodes a specific word.</p>
+
+<p>The exact same <code>FFNN</code> is independently applied
+to each position. If you imagine an encoder is
+a <code>CNN</code>, you can think of the self-attention
+layer as being the sliding window but it has
+context of the entire text, not just a few
+words around it. The <code>FFNN</code></p>
 
     </div>
     <div class="post-footer">
