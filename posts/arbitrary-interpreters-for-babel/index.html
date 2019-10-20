@@ -282,7 +282,7 @@ the interpreter, for example.</p>
 <p><a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">https://mullikine.github.io/posts/review-of-the-illustrated-transformer/</a></p>
 
 <h3 id="example-1">Example 1</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :interpreter &#34;sed /delete/d&#34; :filter &#34;show-dot | sed s/node2/__2__/&#34; :results verbatim drawer
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :interpreter &#34;sed /delete/d&#34; :filter &#34;show-dot | sed s/node2/__2__/ | dot-pretty&#34; :results verbatim drawer
 </span><span style="color:#75715e"></span>  digraph Q {
   node1 -&gt; node2
   node2 -&gt; node3
@@ -290,27 +290,27 @@ the interpreter, for example.</p>
 
   node1 -&gt; deletethis
   }
-<span style="color:#75715e">#+END_SRC</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">+-------+
+<span style="color:#75715e">#+END_SRC</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">※―――――――※
 | node1 |
-+-------+
+※―――――――※
   |
   |
   v
-+-------+
+※―――――――※
 | __2__ |
-+-------+
+※―――――――※
   |
   |
   v
-+-------+
+※―――――――※
 | node3 |
-+-------+
+※―――――――※
   |
   |
   v
-+-------+
+※―――――――※
 | node4 |
-+-------+</code></pre></div>
+※―――――――※</code></pre></div>
 <h3 id="example-2">Example 2</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :filter dot-digraph :async :results verbatim drawer
 </span><span style="color:#75715e"></span>  node1 -&gt; node2
