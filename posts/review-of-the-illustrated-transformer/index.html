@@ -244,24 +244,70 @@ f2 -&gt; encoderN [label=&#34;...&#34;]</code></pre></div><div class="highlight"
   ∘━━━━━━━━━━━━━━━━━━━━━━∘
   ┃       encoderN       ┃
   ∘━━━━━━━━━━━━━━━━━━━━━━∘</code></pre></div>
-<h4 id="explanation-of-the-encoder-above">Explanation of the encoder above</h4>
+<h4 id="explanation-of-the-decoder">Explanation of the <code>decoder</code></h4>
 
-<p>A <span class="underline">self-attention layer</span> helps the encoder
-look at other words in the input sentence as
-it encodes a specific word.</p>
+<p>Each decoder contains a <span class="underline">self-attention layer</span>, an <code>encoder-decoder attention layer</code> and an <span class="underline">FFNN</span>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">subgraph &#34;decoder1&#34; {
+    f1[label=&#34;FFNN&#34;]
+    eda1[label=&#34;Encoder-Decoder-Attention layer&#34;] -&gt; f1
+    a1[label=&#34;Self-Attention layer&#34;] -&gt; eda1
+}
+subgraph &#34;decoder2&#34; {
+    f2[label=&#34;FFNN&#34;]
+    eda2[label=&#34;Encoder-Decoder-Attention layer&#34;] -&gt; f2
+    a2[label=&#34;Self-Attention layer&#34;] -&gt; eda2
+}
 
-<p>The same <code>FFNN</code> is independently applied
-to each position.</p>
-
-<dl>
-<dt>My thoughts on this&hellip;</dt>
-<dd>If you imagine an encoder is a
-<code>CNN</code>, you can think of the self-attention layer
-as being the sliding window but it has context of
-the entire input text, not just a few words around it.
-The <code>FFNN</code> takes the tensor of attention values as its input.</dd>
-</dl>
-
+f1 -&gt; a2
+f2 -&gt; decoderN [label=&#34;...&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
+┆              decoder1               ┆
+┆                                     ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆ ┃      Self━Attention layer       ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆   ┃                                 ┆
+┆   ┃                                 ┆
+┆   v                                 ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆ ┃ Encoder━Decoder━Attention layer ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆   ┃                                 ┆
+┆   ┃                                 ┆
+┆   v                                 ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆ ┃              FFNN               ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆                                     ┆
+∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
+    ┃
+    ┃
+    v
+∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
+┆              decoder2               ┆
+┆                                     ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆ ┃      Self━Attention layer       ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆   ┃                                 ┆
+┆   ┃                                 ┆
+┆   v                                 ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆ ┃ Encoder━Decoder━Attention layer ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆   ┃                                 ┆
+┆   ┃                                 ┆
+┆   v                                 ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆ ┃              FFNN               ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆                                     ┆
+∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
+    ┃
+    ┃ ...
+    v
+  ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
+  ┃            decoderN             ┃
+  ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘</code></pre></div>
     </div>
     <div class="post-footer">
       
