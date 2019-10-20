@@ -16,14 +16,14 @@
 It makes use of pagination and rate limiting.
 We like the convenience of curl on the command line and don&rsquo;t wish to learn another tool.
 Therefore we make a wrapper script around curl to take care of authentication and pagination.
- Tools used to build the gh-curl script:  jq yq curl grep   The gh-curl script #!"/>
+Tools used to build the gh-curl script:    Program Purpose     jq wrangling json   yq wrangling yaml   curl making http requests   grep matching PCRE in the URL    The gh-curl script #!"/>
 
     <meta property="og:title" content="Curling the paged GitHub API" />
 <meta property="og:description" content="The GitHub API The GitHub API is useful for many things including running searches on issues, repositories and contributors.
 It makes use of pagination and rate limiting.
 We like the convenience of curl on the command line and don&rsquo;t wish to learn another tool.
 Therefore we make a wrapper script around curl to take care of authentication and pagination.
- Tools used to build the gh-curl script:  jq yq curl grep   The gh-curl script #!" />
+Tools used to build the gh-curl script:    Program Purpose     jq wrangling json   yq wrangling yaml   curl making http requests   grep matching PCRE in the URL    The gh-curl script #!" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/curling-the-paged-github-api/" />
 <meta property="article:published_time" content="2019-09-19T00:00:00+12:00" />
@@ -84,7 +84,7 @@ Therefore we make a wrapper script around curl to take care of authentication an
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div></div>
     </header>
     <div class="post-content">
@@ -100,16 +100,38 @@ Therefore we make a wrapper script around curl to take care of authentication an
 
 <p>Therefore we make a wrapper script around curl to take care of authentication and pagination.</p>
 
-<ul>
-<li>Tools used to build the <code>gh-curl</code> script:
+<h3 id="tools-used-to-build-the-gh-curl-script">Tools used to build the <code>gh-curl</code> script:</h3>
 
-<ul>
-<li>jq</li>
-<li>yq</li>
-<li>curl</li>
-<li>grep</li>
-</ul></li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Program</th>
+<th>Purpose</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>jq</td>
+<td>wrangling json</td>
+</tr>
+
+<tr>
+<td>yq</td>
+<td>wrangling yaml</td>
+</tr>
+
+<tr>
+<td>curl</td>
+<td>making http requests</td>
+</tr>
+
+<tr>
+<td>grep</td>
+<td>matching PCRE in the URL</td>
+</tr>
+</tbody>
+</table>
 
 <h2 id="the-gh-curl-script">The <code>gh-curl</code> script</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
