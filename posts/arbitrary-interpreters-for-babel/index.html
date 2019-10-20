@@ -12,16 +12,16 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Arbitrary interpreters for Babel"/>
-<meta name="twitter:description" content="The need to specify an arbitrary interpreter arose when I needed to provide my own interpreter for generating an ASCII graph from a dot script.
-Objective Specify an :interpreter or :filter command to override the execute behaviour.
+<meta name="twitter:description" content="The need to specify an arbitrary interpreter arose when I needed to provide my own interpreter for generating an ASCII graph from a =dot script.
+Objective Specify an :interpreter and/or :filter command to override the execute behaviour.
 An interpreter should take a path to the code as its first parameter, where a filter should take the code as stdin.
-It should be possible to specify either/or. Filter may be used to clean up the output of the interpreter, for example."/>
+Filter may be used to clean up the output of the interpreter, for example."/>
 
     <meta property="og:title" content="Arbitrary interpreters for Babel" />
-<meta property="og:description" content="The need to specify an arbitrary interpreter arose when I needed to provide my own interpreter for generating an ASCII graph from a dot script.
-Objective Specify an :interpreter or :filter command to override the execute behaviour.
+<meta property="og:description" content="The need to specify an arbitrary interpreter arose when I needed to provide my own interpreter for generating an ASCII graph from a =dot script.
+Objective Specify an :interpreter and/or :filter command to override the execute behaviour.
 An interpreter should take a path to the code as its first parameter, where a filter should take the code as stdin.
-It should be possible to specify either/or. Filter may be used to clean up the output of the interpreter, for example." />
+Filter may be used to clean up the output of the interpreter, for example." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/" />
 <meta property="article:published_time" content="2019-10-20T00:00:00+13:00" />
@@ -88,24 +88,32 @@ It should be possible to specify either/or. Filter may be used to clean up the o
     <div class="post-content">
       
 
-<p>The need to specify an arbitrary interpreter arose when I needed to provide my own interpreter for generating an ASCII graph from a dot script.</p>
+<p>The need to specify an arbitrary interpreter
+arose when I needed to provide my own
+interpreter for generating an <code>ASCII</code> graph
+from a =dot script.</p>
 
 <h2 id="objective">Objective</h2>
 
-<p>Specify an <code>:interpreter</code> or <code>:filter</code> command to override the execute behaviour.</p>
+<p>Specify an <code>:interpreter</code> and/or <code>:filter</code> command
+to override the execute behaviour.</p>
 
-<p>An interpreter should take a path to the code as its first parameter, where a filter should take the code as stdin.</p>
+<p>An interpreter should take a path to the code
+as its first parameter, where a filter should
+take the code as stdin.</p>
 
-<p>It should be possible to specify either/or. Filter may be used to clean up the output of the interpreter, for example.</p>
+<p>Filter may be used to clean up the output of
+the interpreter, for example.</p>
 
 <h3 id="this-is-what-we-want">This is what we want</h3>
 
-<p><code>show-dot</code> is a script which creates an ascii graph from dot code.</p>
+<p><code>show-dot</code> is a script which creates an <code>ASCII</code> graph from dot code.</p>
 
-<p>The default behaviour of <code>ob-dot</code> is to create
-a pdf file. It only lets you specify arguments
-to the <code>dot</code> command, but does not let you
-switch the <code>dot</code> command for something else.</p>
+<p>The default behaviour of <code>ob-dot</code> is to create a <code>pdf</code> file.</p>
+
+<p>It only lets you specify arguments to the
+<code>dot</code> command, but does not let you switch the
+<code>dot</code> command for something else.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :interpreter show-dot :results verbatim drawer
 </span><span style="color:#75715e"></span>  digraph Q {
   node1 -&gt; node2
