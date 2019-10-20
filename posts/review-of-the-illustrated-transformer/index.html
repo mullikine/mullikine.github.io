@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.fa75dd7f2001860b1f56bf2253c973d6b612aa5598e5ae9695062d4fd034782a.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.4b58c05da6d4fc74ed873ffd954f420f823daf80c1b3d593071717932d87d5a6.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -176,7 +176,7 @@ decoders -&gt; output [label=output]</code></pre></div><div class="highlight"><p
   ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
   ┃         your language         ┃
   ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘</code></pre></div>
-<h4 id="a-look-inside-the-encoder-stack">A look inside the encoder stack</h4>
+<h4 id="a-look-inside-the-encoder-stack">A look inside the <code>encoder</code> stack</h4>
 
 <p>Sadly <span class="underline">nested</span> subgraphs don&rsquo;t render in ASCII.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">#+BEGIN_SRC graphviz-dot :filter dot-digraph :async :results verbatim drawer
@@ -244,23 +244,26 @@ f2 -&gt; encoderN [label=&#34;...&#34;]</code></pre></div><div class="highlight"
   ∘━━━━━━━━━━━━━━━━━━━━━━∘
   ┃       encoderN       ┃
   ∘━━━━━━━━━━━━━━━━━━━━━━∘</code></pre></div>
-<h4 id="explanation-of-the-decoder">Explanation of the <code>decoder</code></h4>
+<h4 id="a-look-inside-the-decoder-stack">A look inside the <code>decoder</code> stack</h4>
 
-<p>Each decoder contains a <span class="underline">self-attention layer</span>, an <code>encoder-decoder attention layer</code> and an <span class="underline">FFNN</span>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">subgraph &#34;decoder1&#34; {
+<p>Each decoder is the same as an <span class="underline">encoder</span> except with an <span class="underline">encoder-decoder attention</span> layer in between.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">subgraph Decoder1 {
     f1[label=&#34;FFNN&#34;]
     eda1[label=&#34;Encoder-Decoder-Attention layer&#34;] -&gt; f1
     a1[label=&#34;Self-Attention layer&#34;] -&gt; eda1
 }
-subgraph &#34;decoder2&#34; {
+subgraph Decoder2 {
     f2[label=&#34;FFNN&#34;]
     eda2[label=&#34;Encoder-Decoder-Attention layer&#34;] -&gt; f2
     a2[label=&#34;Self-Attention layer&#34;] -&gt; eda2
 }
+subgraph DecoderN {
+    etc [label=&#34;...&#34;]
+}
 
 f1 -&gt; a2
-f2 -&gt; decoderN [label=&#34;...&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-┆              decoder1               ┆
+f2 -&gt; etc [label=&#34;...&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
+┆              Decoder1               ┆
 ┆                                     ┆
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
 ┆ ┃      Self━Attention layer       ┃ ┆
@@ -283,7 +286,7 @@ f2 -&gt; decoderN [label=&#34;...&#34;]</code></pre></div><div class="highlight"
     ┃
     v
 ∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-┆              decoder2               ┆
+┆              Decoder2               ┆
 ┆                                     ┆
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
 ┆ ┃      Self━Attention layer       ┃ ┆
@@ -305,9 +308,14 @@ f2 -&gt; decoderN [label=&#34;...&#34;]</code></pre></div><div class="highlight"
     ┃
     ┃ ...
     v
-  ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
-  ┃            decoderN             ┃
-  ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘</code></pre></div>
+∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
+┆              DecoderN               ┆
+┆                                     ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆ ┃               ...               ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆                                     ┆
+∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘</code></pre></div>
     </div>
     <div class="post-footer">
       
