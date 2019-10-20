@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.05e80417f72996c0b102ae49f04ebb531302315f2100c700d2a95eb8c40cf172.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.ec1274de64d173631cfdbba156a2c556b6941a74ed14cb60fcd3df5abdbf46cd.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -243,16 +243,23 @@ f2 -&gt; encoderN [label=&#34;...&#34;]</code></pre></div><div class="highlight"
   ∘━━━━━━━━━━━━━━━━━━━━━━∘
   ┃       encoderN       ┃
   ∘━━━━━━━━━━━━━━━━━━━━━━∘</code></pre></div>
+<h4 id="explanation-of-the-encoder-above">Explanation of the encoder above</h4>
+
 <p>A <span class="underline">self-attention layer</span> helps the encoder
 look at other words in the input sentence as
 it encodes a specific word.</p>
 
 <p>The exact same <code>FFNN</code> is independently applied
-to each position. If you imagine an encoder is
-a <code>CNN</code>, you can think of the self-attention
-layer as being the sliding window but it has
-context of the entire text, not just a few
-words around it. The <code>FFNN</code></p>
+to each position.</p>
+
+<dl>
+<dt>My thoughts on this&hellip;</dt>
+<dd>If you imagine an encoder is a
+<code>CNN</code>, you can think of the self-attention layer
+as being the sliding window but it has context of
+the entire input text, not just a few words around it.
+The <code>FFNN</code> takes the tensor of attention values as its input.</dd>
+</dl>
 
     </div>
     <div class="post-footer">
