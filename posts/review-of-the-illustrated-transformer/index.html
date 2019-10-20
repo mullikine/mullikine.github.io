@@ -149,12 +149,12 @@ subgraph transformer {
     encoders [label=&#34;encoders: stack of N encoders&#34;] -&gt; decoders
 }
 
-input -&gt; encoders [label=input]
+input -&gt; encoders [label=&#34;input (word embeddings 512D)&#34;]
 decoders -&gt; output [label=output]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">  ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
   ┃       foreign language        ┃
   ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
     ┃
-    ┃ input
+    ┃ input (word embeddings 512D)
     v
 ∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
 ┆            transformer            ┆
@@ -197,53 +197,61 @@ decoders -&gt; output [label=output]</code></pre></div><div class="highlight"><p
 <p>Each stack contains <code>N</code> encoders.</p>
 
 <p>Each encoder contains a <span class="underline">self-attention layer</span> and an <span class="underline">FFNN</span>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">subgraph &#34;encoder1&#34; {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">subgraph Encoder1 {
     f1[label=&#34;FFNN&#34;]
     a1[label=&#34;Self-Attention layer&#34;] -&gt; f1
 }
-subgraph &#34;encoder2&#34; {
+subgraph Encoder2 {
     f2[label=&#34;FFNN&#34;]
     a2[label=&#34;Self-Attention layer&#34;] -&gt; f2
 }
+subgraph EncoderN {
+    etc [label=&#34;...&#34;]
+}
 
-f1 -&gt; a2
-f2 -&gt; encoderN [label=&#34;...&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-┆         encoder1         ┆
-┆                          ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃ Self-Attention layer ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆   ┃                      ┆
-┆   ┃                      ┆
-┆   v                      ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃         FFNN         ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆                          ┆
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
+f1 -&gt; a2 [label=&#34;list of 512D vectors&#34;]
+f2 -&gt; etc [label=&#34;list of 512D vectors&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
+┆         Encoder1          ┆
+┆                           ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆ ┃ Self-Attention layer  ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆   ┃                       ┆
+┆   ┃                       ┆
+┆   v                       ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆ ┃         FFNN          ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆                           ┆
+∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
     ┃
-    ┃
+    ┃ list of 512D vectors
     v
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-┆         encoder2         ┆
-┆                          ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃ Self-Attention layer ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆   ┃                      ┆
-┆   ┃                      ┆
-┆   v                      ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃         FFNN         ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆                          ┆
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
+∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
+┆         Encoder2          ┆
+┆                           ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆ ┃ Self-Attention layer  ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆   ┃                       ┆
+┆   ┃                       ┆
+┆   v                       ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆ ┃         FFNN          ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆                           ┆
+∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
     ┃
-    ┃ ...
+    ┃ list of 512D vectors
     v
-  ∘━━━━━━━━━━━━━━━━━━━━━━∘
-  ┃       encoderN       ┃
-  ∘━━━━━━━━━━━━━━━━━━━━━━∘</code></pre></div>
+∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
+┆         EncoderN          ┆
+┆                           ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆ ┃          ...          ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆                           ┆
+∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘</code></pre></div>
 <h4 id="explanation-of-the-encoder-above">Explanation of the encoder above</h4>
 
 <p>A <span class="underline">self-attention layer</span> helps the encoder
@@ -346,6 +354,10 @@ seq2seq models).</p>
 <dd>It seems as though the decoder&rsquo;s extra attention layer
 learns a more macroscopic attention than the self-attention layer.</dd>
 </dl>
+
+<h2 id="input">Input</h2>
+
+<p>Each word is embedded into a vector of size 512.</p>
 
     </div>
     <div class="post-footer">
