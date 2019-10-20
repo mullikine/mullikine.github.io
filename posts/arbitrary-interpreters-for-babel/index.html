@@ -311,6 +311,16 @@ the interpreter, for example.</p>
 ※―――――――※
 | node4 |
 ※―――――――※</code></pre></div>
+<h4 id="dot-pretty"><code>dot-pretty</code></h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+sed -e <span style="color:#e6db74">&#39;s/|/┃/g&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -e <span style="color:#e6db74">&#39;s/-/━/g&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -e <span style="color:#e6db74">&#39;s/+/∘/g&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -e <span style="color:#e6db74">&#34;s/&#39;/┆/g&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -e <span style="color:#e6db74">&#39;s/ ━/┄┄/g&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -e <span style="color:#e6db74">&#39;s/[┄━] /┄┄/g&#39;</span></code></pre></div>
 <h3 id="example-2">Example 2</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :filter dot-digraph :async :results verbatim drawer
 </span><span style="color:#75715e"></span>  node1 -&gt; node2
