@@ -82,7 +82,7 @@ Filter may be used to clean up the output of the interpreter, for example." />
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          4 min read
+          5 min read
         </div></div>
     </header>
     <div class="post-content">
@@ -276,6 +276,8 @@ the interpreter, for example.</p>
             (<span style="color:#a6e22e">run-hooks</span> <span style="color:#e6db74">&#39;org-babel-after-execute-hook</span>)
             result)))))))</code></pre></div>
 <h2 id="results">Results!</h2>
+
+<h3 id="example-1">Example 1</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :interpreter &#34;sed /delete/d&#34; :filter &#34;show-dot | sed s/node2/__2__/&#34; :results verbatim drawer
 </span><span style="color:#75715e"></span>  digraph Q {
   node1 -&gt; node2
@@ -305,6 +307,51 @@ the interpreter, for example.</p>
 +-------+
 | node4 |
 +-------+</code></pre></div>
+<h3 id="example-2">Example 2</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :filter dot-digraph :async :results verbatim drawer
+</span><span style="color:#75715e"></span>  node1 -&gt; node2
+<span style="color:#75715e">#+END_SRC</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">+-------+
+| node1 |
++-------+
+  |
+  |
+  v
++-------+
+| node2 |
++-------+</code></pre></div>
+<h4 id="dot-digraph"><code>dot-digraph</code></h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">{</span>
+    echo <span style="color:#e6db74">&#34;digraph Q {&#34;</span>
+    cat
+    echo <span style="color:#e6db74">&#34;}&#34;</span>
+<span style="color:#f92672">}</span> | show-dot <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></div>
+<h3 id="example-3">Example 3</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :filter show-dot :async :results verbatim drawer
+</span><span style="color:#75715e"></span>  digraph Q {
+      node1 -&gt; cluster_R
+      subgraph cluster_R {
+          nodeA -&gt; nodeB
+      }
+  }
+<span style="color:#75715e">#+END_SRC</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">+-------+       +-----------+
+| node1 | --&gt;   | cluster_R |
++-------+       +-----------+
+              + - - - - - - - +
+              &#39;   cluster_R   &#39;
+              &#39;               &#39;
+              &#39; +-----------+ &#39;
+              &#39; |   nodeA   | &#39;
+              &#39; +-----------+ &#39;
+              &#39;   |           &#39;
+              &#39;   |           &#39;
+              &#39;   v           &#39;
+              &#39; +-----------+ &#39;
+              &#39; |   nodeB   | &#39;
+              &#39; +-----------+ &#39;
+              &#39;               &#39;
+              + - - - - - - - +</code></pre></div>
     </div>
     <div class="post-footer">
       
