@@ -76,7 +76,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          3 min read
+          4 min read
         </div></div>
     </header>
     <div class="post-content">
@@ -211,7 +211,7 @@ f2 -&gt; encoderN [label=&#34;...&#34;]</code></pre></div><div class="highlight"
 ┆         encoder1         ┆
 ┆                          ┆
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃ Self━Attention layer ┃ ┆
+┆ ┃ Self-Attention layer ┃ ┆
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘ ┆
 ┆   ┃                      ┆
 ┆   ┃                      ┆
@@ -228,7 +228,7 @@ f2 -&gt; encoderN [label=&#34;...&#34;]</code></pre></div><div class="highlight"
 ┆         encoder2         ┆
 ┆                          ┆
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃ Self━Attention layer ┃ ┆
+┆ ┃ Self-Attention layer ┃ ┆
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘ ┆
 ┆   ┃                      ┆
 ┆   ┃                      ┆
@@ -244,6 +244,24 @@ f2 -&gt; encoderN [label=&#34;...&#34;]</code></pre></div><div class="highlight"
   ∘━━━━━━━━━━━━━━━━━━━━━━∘
   ┃       encoderN       ┃
   ∘━━━━━━━━━━━━━━━━━━━━━━∘</code></pre></div>
+<h4 id="explanation-of-the-encoder-above">Explanation of the encoder above</h4>
+
+<p>A <span class="underline">self-attention layer</span> helps the encoder
+look at other words in the input sentence as
+it encodes a specific word.</p>
+
+<p>The exact same <code>FFNN</code> is independently applied
+to each position.</p>
+
+<dl>
+<dt>My thoughts on this&hellip;</dt>
+<dd>If you imagine an encoder is a
+<code>CNN</code>, you can think of the self-attention layer
+as being the sliding window but it has context of
+the entire input text, not just a few words around it.
+The <code>FFNN</code> takes the tensor of attention values as its input.</dd>
+</dl>
+
 <h4 id="a-look-inside-the-decoder-stack">A look inside the <code>decoder</code> stack</h4>
 
 <p>Each decoder is the same as an <span class="underline">encoder</span> except with an <span class="underline">encoder-decoder attention</span> layer in between.</p>
@@ -266,13 +284,13 @@ f2 -&gt; etc [label=&#34;...&#34;]</code></pre></div><div class="highlight"><pre
 ┆              Decoder1               ┆
 ┆                                     ┆
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃      Self━Attention layer       ┃ ┆
+┆ ┃      Self-Attention layer       ┃ ┆
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
 ┆   ┃                                 ┆
 ┆   ┃                                 ┆
 ┆   v                                 ┆
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃ Encoder━Decoder━Attention layer ┃ ┆
+┆ ┃ Encoder-Decoder-Attention layer ┃ ┆
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
 ┆   ┃                                 ┆
 ┆   ┃                                 ┆
@@ -289,13 +307,13 @@ f2 -&gt; etc [label=&#34;...&#34;]</code></pre></div><div class="highlight"><pre
 ┆              Decoder2               ┆
 ┆                                     ┆
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃      Self━Attention layer       ┃ ┆
+┆ ┃      Self-Attention layer       ┃ ┆
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
 ┆   ┃                                 ┆
 ┆   ┃                                 ┆
 ┆   v                                 ┆
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃ Encoder━Decoder━Attention layer ┃ ┆
+┆ ┃ Encoder-Decoder-Attention layer ┃ ┆
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
 ┆   ┃                                 ┆
 ┆   ┃                                 ┆
@@ -316,6 +334,20 @@ f2 -&gt; etc [label=&#34;...&#34;]</code></pre></div><div class="highlight"><pre
 ┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
 ┆                                     ┆
 ∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘</code></pre></div>
+<h4 id="explanation-of-the-decoder-above">Explanation of the decoder above</h4>
+
+<p>The <span class="underline">encoder-decoder attention layer</span> helps
+the decoder focus on relevant parts of the
+input sentence (similar what attention does in
+seq2seq models).</p>
+
+<dl>
+<dt>My thoughts on this&hellip;</dt>
+<dd>It seems as though the decoder&rsquo;s extra attention layer
+learns a more macroscopic attention than the self-attention layer.
+I don&rsquo;t know about this as I&rsquo;m writing it.</dd>
+</dl>
+
     </div>
     <div class="post-footer">
       
