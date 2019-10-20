@@ -1,20 +1,20 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>Review of The Illustrated Transformer // Bodacious Blog</title>
+    <title>Overview of The Illustrated Transformer // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.59.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.4b58c05da6d4fc74ed873ffd954f420f823daf80c1b3d593071717932d87d5a6.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.b6c9cd415cefe2f109db5f6c8e15cd2a2250a1205e28d495afd82d14b0340005.css" />
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Review of The Illustrated Transformer"/>
+<meta name="twitter:title" content="Overview of The Illustrated Transformer"/>
 <meta name="twitter:description" content="Original article https://jalammar.github.io/illustrated-transformer/  Helpful glossary Multilayer perceptron Feed-Forward Neural Network FFNN Basically, these are multi-level logistic regression classifiers. Many layers of scales are separated by non-linearities. Can be used for as autoencoders. Can be used to train a classifier or extract functions as autoencoders. self-attention intra-attention [attention mechanism] Relates different positions of a single sequence in order to compute a representation of the sequence. An attention operation of a single sequence in order to calculate the representation of the very same sequence."/>
 
-    <meta property="og:title" content="Review of The Illustrated Transformer" />
+    <meta property="og:title" content="Overview of The Illustrated Transformer" />
 <meta property="og:description" content="Original article https://jalammar.github.io/illustrated-transformer/  Helpful glossary Multilayer perceptron Feed-Forward Neural Network FFNN Basically, these are multi-level logistic regression classifiers. Many layers of scales are separated by non-linearities. Can be used for as autoencoders. Can be used to train a classifier or extract functions as autoencoders. self-attention intra-attention [attention mechanism] Relates different positions of a single sequence in order to compute a representation of the sequence. An attention operation of a single sequence in order to calculate the representation of the very same sequence." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/" />
@@ -62,7 +62,7 @@
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Review of The Illustrated Transformer</h1>
+      <h1 class ="post-title">Overview of The Illustrated Transformer</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -76,7 +76,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          4 min read
+          5 min read
         </div></div>
     </header>
     <div class="post-content">
@@ -149,36 +149,36 @@ subgraph transformer {
     encoders [label=&#34;encoders: stack of N encoders&#34;] -&gt; decoders
 }
 
-input -&gt; encoders [label=&#34;input (word embeddings 512D)&#34;]
-decoders -&gt; output [label=output]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">  ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
-  ┃       foreign language        ┃
-  ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
+input -&gt; encoders [label=&#34;input (embed the training set)&#34;]
+decoders -&gt; output [label=output]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">  ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
+  ┃        foreign language         ┃
+  ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
     ┃
-    ┃ input (word embeddings 512D)
+    ┃ input (embed the training set)
     v
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-┆            transformer            ┆
-┆                                   ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃ encoders: stack of N encoders ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆   ┃                               ┆
-┆   ┃                               ┆
-┆   v                               ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃ encoders: stack of N decoders ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆                                   ┆
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
+∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
+┆             transformer             ┆
+┆                                     ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆ ┃  encoders: stack of N encoders  ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆   ┃                                 ┆
+┆   ┃                                 ┆
+┆   v                                 ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆ ┃  encoders: stack of N decoders  ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
+┆                                     ┆
+∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
     ┃
     ┃ output
     v
-  ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
-  ┃         your language         ┃
-  ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘</code></pre></div>
-<h4 id="a-look-inside-the-encoder-stack">A look inside the <code>encoder</code> stack</h4>
+  ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
+  ┃          your language          ┃
+  ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘</code></pre></div>
+<h3 id="a-look-inside-the-encoder-stack">A look inside the <code>encoder</code> stack</h3>
 
-<p>Sadly <span class="underline">nested</span> subgraphs don&rsquo;t render in ASCII.</p>
+<p>Sadly, <span class="underline">nested</span> subgraphs don&rsquo;t render in ASCII.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">#+BEGIN_SRC graphviz-dot :filter dot-digraph :async :results verbatim
   subgraph encoders {
       label = &#34;Parent&#34;;
@@ -195,6 +195,11 @@ decoders -&gt; output [label=output]</code></pre></div><div class="highlight"><p
   }
 #+END_SRC</code></pre></div>
 <p>Each stack contains <code>N</code> encoders.</p>
+
+<dl>
+<dt>list of 512D vectors</dt>
+<dd>This is a list of words (initially, at least). It refers to either the input sentence or the output of an encoder.</dd>
+</dl>
 
 <p>Each encoder contains a <span class="underline">self-attention layer</span> and an <span class="underline">FFNN</span>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">subgraph Encoder1 {
@@ -254,6 +259,19 @@ f2 -&gt; etc [label=&#34;list of 512D vectors&#34;]</code></pre></div><div class
 ∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘</code></pre></div>
 <h4 id="explanation-of-the-encoder-above">Explanation of the encoder above</h4>
 
+<p>The first encoder receives one sentence [at a time]
+as input.</p>
+
+<p>Subsequent encoders receive the output of the
+previous encoder (which is of the same
+dimensionality).</p>
+
+<p>Each word of the sentence is embedded into a
+vector of size 512 and the length of the
+embedded sentence is the number of words of
+the longest sentence in our training dataset ×
+512 (the size of a word).</p>
+
 <p>A <span class="underline">self-attention layer</span> helps the encoder
 look at other words in the input sentence as
 it encodes a specific word.</p>
@@ -266,11 +284,21 @@ to each position.</p>
 <dd>If you imagine an encoder is a
 <code>CNN</code>, you can think of the self-attention layer
 as being the sliding window but it has context of
-the entire input text, not just a few words around it.
+the entire input text (the sentence), not merely the few words around it.
 The <code>FFNN</code> takes the tensor of attention values as its input.</dd>
+<dt>A key property of the transformer</dt>
+<dd>The word in each position flows through its own path in the encoder.
+There are dependencies between
+these paths in the self-attention
+layer. The feed-forward layer
+does not have those dependencies,
+however, and thus the various
+paths can be executed in parallel
+while flowing through the
+feed-forward layer.</dd>
 </dl>
 
-<h4 id="a-look-inside-the-decoder-stack">A look inside the <code>decoder</code> stack</h4>
+<h3 id="a-look-inside-the-decoder-stack">A look inside the <code>decoder</code> stack</h3>
 
 <p>Each decoder is the same as an <span class="underline">encoder</span> except with an <span class="underline">encoder-decoder attention</span> layer in between.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">subgraph Decoder1 {
@@ -347,17 +375,13 @@ f2 -&gt; etc [label=&#34;...&#34;]</code></pre></div><div class="highlight"><pre
 <p>The <span class="underline">encoder-decoder attention layer</span> helps
 the decoder focus on relevant parts of the
 input sentence (similar what attention does in
-seq2seq models).</p>
+<span class="underline">seq2seq</span> models).</p>
 
 <dl>
 <dt>My thoughts on this&hellip;</dt>
 <dd>It seems as though the decoder&rsquo;s extra attention layer
 learns a more macroscopic attention than the self-attention layer.</dd>
 </dl>
-
-<h2 id="input">Input</h2>
-
-<p>Each word is embedded into a vector of size 512.</p>
 
     </div>
     <div class="post-footer">
