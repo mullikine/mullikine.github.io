@@ -98,8 +98,8 @@ from a <code>dot</code> script.</p>
 <p>Specify an <code>:interpreter</code> and/or <code>:filter</code> command
 to override the execute behaviour.</p>
 
-<p>An <em>interpreter</em> should take a path to the code
-as its first parameter, where a <em>filter</em> should
+<p>An <span class="underline">interpreter</span> should take a path to the code
+as its first parameter, where a <span class="underline">filter</span> should
 take the code as <code>stdin</code>.</p>
 
 <p>Filter may be used to clean up the output of
@@ -114,7 +114,7 @@ the interpreter, for example.</p>
 <p>It only lets you specify arguments to the
 <code>dot</code> command, but does not let you switch the
 <code>dot</code> command for something else.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :interpreter show-dot :results verbatim drawer
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :interpreter show-dot :results verbatim
 </span><span style="color:#75715e"></span>  digraph Q {
   node1 -&gt; node2
   }
@@ -132,7 +132,7 @@ the interpreter, for example.</p>
 <p>The problem with this is that you are forced to use <code>sh-mode</code> highlighting and you don&rsquo;t have access to <code>yasnippets</code> that way either.</p>
 
 <p>Another frustration is that the interpreter (e.g. <code>show-dot</code>) must be shebang compatible (i.e. its first argument must be the path of a file containing the code).</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">sh</span><span style="color:#75715e"> :shebang &#34;#!/usr/bin/env show-dot&#34; :results verbatim drawer
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">sh</span><span style="color:#75715e"> :shebang &#34;#!/usr/bin/env show-dot&#34; :results verbatim
 </span><span style="color:#75715e"></span>  digraph Q <span style="color:#f92672">{</span>
   node1 -&gt; node2
   <span style="color:#f92672">}</span>
@@ -282,7 +282,7 @@ the interpreter, for example.</p>
 <p><a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">https://mullikine.github.io/posts/review-of-the-illustrated-transformer/</a></p>
 
 <h3 id="example-1">Example 1</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :interpreter &#34;sed /delete/d&#34; :filter &#34;show-dot | sed s/node2/__2__/ | dot-pretty&#34; :results verbatim drawer
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :interpreter &#34;sed /delete/d&#34; :filter &#34;show-dot | sed s/node2/__2__/ | dot-pretty&#34; :results verbatim
 </span><span style="color:#75715e"></span>  digraph Q {
   node1 -&gt; node2
   node2 -&gt; node3
@@ -322,7 +322,7 @@ sed -e <span style="color:#e6db74">&#39;s/|/┃/g&#39;</span> <span style="color
 </span><span style="color:#ae81ff"></span>    -e <span style="color:#e6db74">&#39;s/ ━/┄┄/g&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    -e <span style="color:#e6db74">&#39;s/[┄━] /┄┄/g&#39;</span></code></pre></div>
 <h3 id="example-2">Example 2</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :filter dot-digraph :async :results verbatim drawer
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :filter dot-digraph :async :results verbatim
 </span><span style="color:#75715e"></span>  node1 -&gt; node2
 <span style="color:#75715e">#+END_SRC</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">+-------+
 | node1 |
@@ -342,7 +342,7 @@ sed -e <span style="color:#e6db74">&#39;s/|/┃/g&#39;</span> <span style="color
     echo <span style="color:#e6db74">&#34;}&#34;</span>
 <span style="color:#f92672">}</span> | show-dot <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></div>
 <h3 id="example-3">Example 3</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :filter show-dot :async :results verbatim drawer
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :filter show-dot :async :results verbatim
 </span><span style="color:#75715e"></span>  digraph Q {
       node1 -&gt; cluster_R
       subgraph cluster_R {
