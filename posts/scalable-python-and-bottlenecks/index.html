@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Scalable Python and bottlenecks"/>
-<meta name="twitter:description" content="  Original article https://instagram-engineering.com/python-at-scale-strict-modules-c0bb9245c834  Sources of slowness import re from mywebframework import db, route VALID_NAME_RE = re.compile(&#34;^[a-zA-Z0-9]&#43;$&#34;) @route(&#39;/&#39;) def home(): return &#34;Hello World!&#34; class Person(db.Model): name: str  top level scope defines &ndash; running regex compiles decorator class definition base class may have a meta-class or __init_subclass__ method.  "/>
+<meta name="twitter:description" content="Original article https://instagram-engineering.com/python-at-scale-strict-modules-c0bb9245c834     term description see     import-time when imports are executed     Sources of slowness import re from mywebframework import db, route VALID_NAME_RE = re.compile(&#34;^[a-zA-Z0-9]&#43;$&#34;) @route(&#39;/&#39;) def home(): return &#34;Hello World!&#34; class Person(db.Model): name: str  top level scope defines &ndash; regex compilation decorator with unknown behaviour class definition: runs code contained within base class may have a meta-class or __init_subclass__ method."/>
 
     <meta property="og:title" content="Scalable Python and bottlenecks" />
-<meta property="og:description" content="  Original article https://instagram-engineering.com/python-at-scale-strict-modules-c0bb9245c834  Sources of slowness import re from mywebframework import db, route VALID_NAME_RE = re.compile(&#34;^[a-zA-Z0-9]&#43;$&#34;) @route(&#39;/&#39;) def home(): return &#34;Hello World!&#34; class Person(db.Model): name: str  top level scope defines &ndash; running regex compiles decorator class definition base class may have a meta-class or __init_subclass__ method.  " />
+<meta property="og:description" content="Original article https://instagram-engineering.com/python-at-scale-strict-modules-c0bb9245c834     term description see     import-time when imports are executed     Sources of slowness import re from mywebframework import db, route VALID_NAME_RE = re.compile(&#34;^[a-zA-Z0-9]&#43;$&#34;) @route(&#39;/&#39;) def home(): return &#34;Hello World!&#34; class Person(db.Model): name: str  top level scope defines &ndash; regex compilation decorator with unknown behaviour class definition: runs code contained within base class may have a meta-class or __init_subclass__ method." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/scalable-python-and-bottlenecks/" />
 <meta property="article:published_time" content="2019-10-21T00:00:00+13:00" />
@@ -93,6 +93,24 @@
 <dd><a href="https://instagram-engineering.com/python-at-scale-strict-modules-c0bb9245c834">https://instagram-engineering.com/python-at-scale-strict-modules-c0bb9245c834</a></dd>
 </dl>
 
+<table>
+<thead>
+<tr>
+<th>term</th>
+<th>description</th>
+<th>see</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>import-time</td>
+<td>when imports are executed</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
 <h2 id="sources-of-slowness">Sources of slowness</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> re
 <span style="color:#f92672">from</span> mywebframework <span style="color:#f92672">import</span> db, route
@@ -103,10 +121,17 @@ VALID_NAME_RE <span style="color:#f92672">=</span> re<span style="color:#f92672"
 <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>(db<span style="color:#f92672">.</span>Model):
     name: str</code></pre></div>
 <ul>
-<li>top level scope defines &ndash; running regex compiles</li>
-<li>decorator</li>
-<li>class definition</li>
+<li>top level scope defines &ndash; regex compilation</li>
+<li>decorator with unknown behaviour</li>
+<li>class definition: runs code contained within</li>
 <li>base class may have a <code>meta-class</code> or <code>__init_subclass__</code> method.</li>
+</ul>
+
+<h2 id="safety-at-scale">safety at scale</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># fetching config from a network source</span>
+MY_CONFIG <span style="color:#f92672">=</span> get_config_from_network_service()</code></pre></div>
+<ul>
+<li>unsafe import side effects</li>
 </ul>
 
     </div>

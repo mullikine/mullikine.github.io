@@ -453,36 +453,41 @@ and thinking about attention.</p>
 <th>long name</th>
 <th>size</th>
 <th>created by</th>
+<th>equation</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>\(X1\)</td>
-<td>word embedding</td>
+<td>\(X_1\)</td>
+<td>first word embedding</td>
 <td>512 (input word)</td>
 <td>embed a single word from input sentence</td>
+<td></td>
 </tr>
 
 <tr>
-<td>\(q1\)</td>
+<td>\(q_1\)</td>
 <td><span class="underline">Query</span> vector</td>
 <td>64 (&lt; the input word)</td>
-<td>multiplying the embedding/word by \(W^Q\)</td>
+<td>multiply embedding by weight</td>
+<td>\(X_1\cdotp W^Q\)</td>
 </tr>
 
 <tr>
-<td>\(k1\)</td>
+<td>\(k_1\)</td>
 <td><span class="underline">Key</span> vector</td>
 <td>64</td>
-<td>multiplying the embedding/word by \(W^K\)</td>
+<td>multiply embedding by weight</td>
+<td>\(X_1\cdotp W^K\)</td>
 </tr>
 
 <tr>
-<td>\(v1\)</td>
+<td>\(v_1\)</td>
 <td><span class="underline">Value</span> vector</td>
 <td>64</td>
-<td>multiplying the embedding/word by \(W^V\)</td>
+<td>multiply embedding by weight</td>
+<td>\(X_1\cdotp W^V\)</td>
 </tr>
 </tbody>
 </table>
