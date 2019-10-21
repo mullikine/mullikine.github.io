@@ -12,14 +12,12 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="(WIP) Taming term-mode"/>
-<meta name="twitter:description" content="Problems with term.el Bindings from other modes are an interference C-c C-l    kb f      C-c C-l downcase-region why is this downcase-region?    For example, in my own setup a prefix key has taken the position of an important binding C-c C-a.
-This means I can&rsquo;t send C-a to the subprocess.
-gud-mode stole C-c C-a C-a is important in many programs for going to the start of the line."/>
+<meta name="twitter:description" content="Problems with term.el Give C-a to term This is needed so we can use C-a in whatever application needs it. Bash recognises C-a as the command to go to the start of the line, for instance..
+(define-key term-raw-map (kbd &#34;C-a&#34;) #&#39;term-send-raw) Bindings from other modes are an interference C-c C-l    kb f      C-c C-l downcase-region why is this downcase-region?    For example, in my own setup a prefix key has taken the position of an important binding C-c C-a."/>
 
     <meta property="og:title" content="(WIP) Taming term-mode" />
-<meta property="og:description" content="Problems with term.el Bindings from other modes are an interference C-c C-l    kb f      C-c C-l downcase-region why is this downcase-region?    For example, in my own setup a prefix key has taken the position of an important binding C-c C-a.
-This means I can&rsquo;t send C-a to the subprocess.
-gud-mode stole C-c C-a C-a is important in many programs for going to the start of the line." />
+<meta property="og:description" content="Problems with term.el Give C-a to term This is needed so we can use C-a in whatever application needs it. Bash recognises C-a as the command to go to the start of the line, for instance..
+(define-key term-raw-map (kbd &#34;C-a&#34;) #&#39;term-send-raw) Bindings from other modes are an interference C-c C-l    kb f      C-c C-l downcase-region why is this downcase-region?    For example, in my own setup a prefix key has taken the position of an important binding C-c C-a." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/taming-term/" />
 <meta property="article:published_time" content="2019-10-07T00:00:00+13:00" />
@@ -97,6 +95,13 @@ gud-mode stole C-c C-a C-a is important in many programs for going to the start 
 
 <h2 id="problems-with-term-dot-el">Problems with <code>term.el</code></h2>
 
+<h3 id="give-c-a-to-term">Give <code>C-a</code> to term</h3>
+
+<p>This is needed so we can use <code>C-a</code> in whatever
+application needs it. Bash recognises <code>C-a</code> as
+the command to go to the start of the line,
+for instance..</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-a&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw)</code></pre></div>
 <h3 id="bindings-from-other-modes-are-an-interference">Bindings from other modes are an interference</h3>
 
 <h4 id="c-c-c-l"><code>C-c C-l</code></h4>
