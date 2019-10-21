@@ -13,11 +13,11 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Taming term-mode"/>
 <meta name="twitter:description" content="easy mistakes Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
-;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) If you can, disable modes which interfere with term using manage-minor-mode (term-mode (off my-mode)) Problems with term."/>
+;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) If you can, disable modes that interfere with term using manage-minor-mode (term-mode (off my-mode)) Problems with term."/>
 
     <meta property="og:title" content="Taming term-mode" />
 <meta property="og:description" content="easy mistakes Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
-;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) If you can, disable modes which interfere with term using manage-minor-mode (term-mode (off my-mode)) Problems with term." />
+;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) If you can, disable modes that interfere with term using manage-minor-mode (term-mode (off my-mode)) Problems with term." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/taming-term/" />
 <meta property="article:published_time" content="2019-10-07T00:00:00+13:00" />
@@ -108,7 +108,7 @@ mappings instead.</p>
 
 <span style="color:#75715e">;; Replace with this</span>
 (<span style="color:#a6e22e">define-key</span> global-map (kbd <span style="color:#e6db74">&#34;M-k&#34;</span>) <span style="color:#e6db74">&#39;avy-goto-char</span>)</code></pre></div>
-<h3 id="if-you-can-disable-modes-which-interfere-with-term-using-manage-minor-mode">If you can, disable modes which interfere with term using <code>manage-minor-mode</code></h3>
+<h3 id="if-you-can-disable-modes-that-interfere-with-term-using-manage-minor-mode">If you can, disable modes that interfere with term using <code>manage-minor-mode</code></h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(term-mode
  (off my-mode))</code></pre></div>
 <h2 id="problems-with-term-dot-el">Problems with <code>term.el</code></h2>
@@ -119,7 +119,10 @@ mappings instead.</p>
 application needs it. Bash recognises <code>C-a</code> as
 the command to go to the start of the line,
 for instance.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-a&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw)</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-a&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw)
+
+<span style="color:#75715e">;; We also need C-x. term-send-raw sends the last char typed, so this should send C-x</span>
+(<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c C-x&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw)</code></pre></div>
 <h3 id="bindings-from-other-modes-are-an-interference">Bindings from other modes are an interference</h3>
 
 <h4 id="c-c-c-l"><code>C-c C-l</code></h4>
@@ -135,8 +138,8 @@ for instance.</p>
 
 <tbody>
 <tr>
-<td>C-c C-l</td>
-<td>downcase-region</td>
+<td><code>C-c C-l</code></td>
+<td><code>downcase-region</code></td>
 <td>why is this downcase-region?</td>
 </tr>
 </tbody>
@@ -172,6 +175,10 @@ for instance.</p>
  (off which-key-mode)
  (off company-mode)
  (off gud-minor-mode))</code></pre></div>
+<h2 id="demonstration">demonstration</h2>
+
+<p><a href="https://asciinema.org/a/8oYDfnB7xJgkQd2fkuag4548W" target="_blank"><img src="https://asciinema.org/a/8oYDfnB7xJgkQd2fkuag4548W.svg" /></a></p>
+
     </div>
     <div class="post-footer">
       
