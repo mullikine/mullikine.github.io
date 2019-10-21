@@ -76,7 +76,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          6 min read
+          7 min read
         </div></div>
     </header>
     
@@ -410,9 +410,41 @@ and thinking about attention.</p>
 
 <p>You create a \(q\), \(k\) and \(v\) vector for each word / 512D input vector.</p>
 
-<h3 id="for-the-first-word-we-make--q1----k1--and--v1--from--x1">For the first word we make \(q1\), \(k1\) and \(v1\) from \(X1\)</h3>
+<h3 id="step-1-make--q1----k1--and--v1--from--x1----the-first-word-of-the-input-sentence">Step 1: Make \(q1\), \(k1\) and \(v1\) from \(X1\) (the first word of the input sentence)</h3>
 
 <p>This is the path of one word of the input sentence through an encoder.</p>
+
+<p>Firstly we need the weight matrices.</p>
+
+<p>We trained these during the training process. When was that? This is explained later, maybe.</p>
+
+<table>
+<thead>
+<tr>
+<th>matrix</th>
+<th>long name</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>\(W^Q\)</td>
+<td>WQ weight matrix</td>
+</tr>
+
+<tr>
+<td>\(W^K\)</td>
+<td>WK weight matrix</td>
+</tr>
+
+<tr>
+<td>\(W^V\)</td>
+<td>WV weight matrix</td>
+</tr>
+</tbody>
+</table>
+
+<p>Then we compute \(q\), \(k\) and \(v\) from the weight matrices.</p>
 
 <table>
 <thead>
@@ -461,35 +493,21 @@ and thinking about attention.</p>
 of <code>multiheaded attention</code> (mostly) constant.</dd>
 </dl>
 
-<table>
-<thead>
-<tr>
-<th>vector</th>
-<th>long name</th>
-<th>size</th>
-</tr>
-</thead>
+<h3 id="step-2-calculate-a-score">Step 2: calculate a score</h3>
 
-<tbody>
-<tr>
-<td>\(W^Q\)</td>
-<td>WQ weight matrix</td>
-<td><code>64</code> (smaller than the input word)</td>
-</tr>
+<p>We are calculating the <span class="underline">self-attention</span> for
+the first word in the sentence.</p>
 
-<tr>
-<td>\(W^K\)</td>
-<td>WK weight matrix</td>
-<td>64</td>
-</tr>
+<p>We score each word of the input sentence
+against this word.</p>
 
-<tr>
-<td>\(W^V\)</td>
-<td>WV weight matrix</td>
-<td>64</td>
-</tr>
-</tbody>
-</table>
+<p>The score determines how much focus to place
+on otehr parts of the input sentence as we
+encode a word at a certain position.</p>
+
+<p>Take the dot product of the <span class="underline">query fector</span>
+with the <span class="underline">key vector</span> of the respective word
+we&rsquo;re scoring.</p>
 
     </div>
     <div class="post-footer">
