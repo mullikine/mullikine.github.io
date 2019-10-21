@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.655afa47ded4690675e28ee898e49dfaf3466eaaa1e28dd8795b89edba032812.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.6a4ae772f1a6c5cca8e22eef962be08132b717dc02ac314f7199d52b7fdffd75.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -404,37 +404,89 @@ words into the one we’re currently processing.</dd>
 
 <h2 id="self-attention">Self-attention</h2>
 
-<h3 id="create-3-vectors-for-each-word-512d-input-vector">Create 3 vectors for each word / 512D input vector</h3>
+<p>The <span class="underline">query</span>, <span class="underline">key</span>, and <span class="underline">value</span> vectors are
+abstractions that are useful for calculating
+and thinking about attention.</p>
 
-<p>\begin{equation}
-\label{eq:1}
-C = W\log_{2} (1+\mathrm{SNR})
-\end{equation}</p>
+<p>You create a \(q\), \(k\) and \(v\) vector for each word / 512D input vector.</p>
 
-<p>\(W^Q\)</p>
+<h3 id="for-the-first-word-we-make--q1----k1--and--v1--from--x1">For the first word we make \(q1\), \(k1\) and \(v1\) from \(X1\)</h3>
+
+<p>This is the path of one word of the input sentence through an encoder.</p>
 
 <table>
 <thead>
 <tr>
 <th>vector</th>
+<th>long name</th>
+<th>size</th>
 <th>created by</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
+<td>\(X1\)</td>
+<td>word embedding</td>
+<td>512 (input word)</td>
+<td>embed a single word from input sentence</td>
+</tr>
+
+<tr>
+<td>\(q1\)</td>
 <td><span class="underline">Query</span> vector</td>
+<td>64 (&lt; the input word)</td>
 <td>multiplying the embedding/word by \(W^Q\)</td>
 </tr>
 
 <tr>
+<td>\(k1\)</td>
 <td><span class="underline">Key</span> vector</td>
+<td>64</td>
 <td>multiplying the embedding/word by \(W^K\)</td>
 </tr>
 
 <tr>
+<td>\(v1\)</td>
 <td><span class="underline">Value</span> vector</td>
+<td>64</td>
 <td>multiplying the embedding/word by \(W^V\)</td>
+</tr>
+</tbody>
+</table>
+
+<dl>
+<dt><code>64</code></dt>
+<dd>The <code>q,k,v</code> vectors don’t <strong>have</strong> to be smaller. This is an architecture choice to make the computation
+of <code>multiheaded attention</code> (mostly) constant.</dd>
+</dl>
+
+<table>
+<thead>
+<tr>
+<th>vector</th>
+<th>long name</th>
+<th>size</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>\(W^Q\)</td>
+<td>WQ weight matrix</td>
+<td><code>64</code> (smaller than the input word)</td>
+</tr>
+
+<tr>
+<td>\(W^K\)</td>
+<td>WK weight matrix</td>
+<td>64</td>
+</tr>
+
+<tr>
+<td>\(W^V\)</td>
+<td>WV weight matrix</td>
+<td>64</td>
 </tr>
 </tbody>
 </table>
