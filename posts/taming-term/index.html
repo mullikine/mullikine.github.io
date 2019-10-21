@@ -13,11 +13,11 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Taming term-mode"/>
 <meta name="twitter:description" content="easy mistakes Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
-;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) Problems with term.el Give C-a to term This is needed so we can use C-a in whatever application needs it."/>
+;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) If you can, disable modes which interfere with term using manage-minor-mode (term-mode (off my-mode)) Problems with term."/>
 
     <meta property="og:title" content="Taming term-mode" />
 <meta property="og:description" content="easy mistakes Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
-;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) Problems with term.el Give C-a to term This is needed so we can use C-a in whatever application needs it." />
+;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) If you can, disable modes which interfere with term using manage-minor-mode (term-mode (off my-mode)) Problems with term." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/taming-term/" />
 <meta property="article:published_time" content="2019-10-07T00:00:00+13:00" />
@@ -108,6 +108,9 @@ mappings instead.</p>
 
 <span style="color:#75715e">;; Replace with this</span>
 (<span style="color:#a6e22e">define-key</span> global-map (kbd <span style="color:#e6db74">&#34;M-k&#34;</span>) <span style="color:#e6db74">&#39;avy-goto-char</span>)</code></pre></div>
+<h3 id="if-you-can-disable-modes-which-interfere-with-term-using-manage-minor-mode">If you can, disable modes which interfere with term using <code>manage-minor-mode</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(term-mode
+ (off my-mode))</code></pre></div>
 <h2 id="problems-with-term-dot-el">Problems with <code>term.el</code></h2>
 
 <h3 id="give-c-a-to-term">Give <code>C-a</code> to term</h3>
