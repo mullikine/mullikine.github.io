@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>(WIP) Taming term-mode // Bodacious Blog</title>
+    <title>Taming term-mode // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.59.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,13 +11,13 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="(WIP) Taming term-mode"/>
-<meta name="twitter:description" content="Problems with term.el Give C-a to term This is needed so we can use C-a in whatever application needs it. Bash recognises C-a as the command to go to the start of the line, for instance..
-(define-key term-raw-map (kbd &#34;C-a&#34;) #&#39;term-send-raw) Bindings from other modes are an interference C-c C-l    kb f      C-c C-l downcase-region why is this downcase-region?    For example, in my own setup a prefix key has taken the position of an important binding C-c C-a."/>
+<meta name="twitter:title" content="Taming term-mode"/>
+<meta name="twitter:description" content="easy mistakes Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
+;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) Problems with term.el Give C-a to term This is needed so we can use C-a in whatever application needs it."/>
 
-    <meta property="og:title" content="(WIP) Taming term-mode" />
-<meta property="og:description" content="Problems with term.el Give C-a to term This is needed so we can use C-a in whatever application needs it. Bash recognises C-a as the command to go to the start of the line, for instance..
-(define-key term-raw-map (kbd &#34;C-a&#34;) #&#39;term-send-raw) Bindings from other modes are an interference C-c C-l    kb f      C-c C-l downcase-region why is this downcase-region?    For example, in my own setup a prefix key has taken the position of an important binding C-c C-a." />
+    <meta property="og:title" content="Taming term-mode" />
+<meta property="og:description" content="easy mistakes Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
+;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) Problems with term.el Give C-a to term This is needed so we can use C-a in whatever application needs it." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/taming-term/" />
 <meta property="article:published_time" content="2019-10-07T00:00:00+13:00" />
@@ -64,7 +64,7 @@
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">(WIP) Taming term-mode</h1>
+      <h1 class ="post-title">Taming term-mode</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -78,7 +78,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div></div>
     </header>
     
@@ -93,6 +93,21 @@
     <div class="post-content">
       
 
+<h2 id="easy-mistakes">easy mistakes</h2>
+
+<h3 id="any-minor-mode-which-is-enabled-while-term-is-running-will-override-bindings">Any minor mode which is enabled while term is running will override bindings</h3>
+
+<p>Therefore, if you can, make any such bindings
+that may interfere with term into global
+mappings instead.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; Comment this out</span>
+<span style="color:#75715e">;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char)</span>
+
+<span style="color:#75715e">;; Unload binding</span>
+(<span style="color:#a6e22e">define-key</span> my-mode-map (kbd <span style="color:#e6db74">&#34;M-k&#34;</span>) <span style="color:#66d9ef">nil</span>)
+
+<span style="color:#75715e">;; Replace with this</span>
+(<span style="color:#a6e22e">define-key</span> global-map (kbd <span style="color:#e6db74">&#34;M-k&#34;</span>) <span style="color:#e6db74">&#39;avy-goto-char</span>)</code></pre></div>
 <h2 id="problems-with-term-dot-el">Problems with <code>term.el</code></h2>
 
 <h3 id="give-c-a-to-term">Give <code>C-a</code> to term</h3>
@@ -100,7 +115,7 @@
 <p>This is needed so we can use <code>C-a</code> in whatever
 application needs it. Bash recognises <code>C-a</code> as
 the command to go to the start of the line,
-for instance..</p>
+for instance.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-a&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw)</code></pre></div>
 <h3 id="bindings-from-other-modes-are-an-interference">Bindings from other modes are an interference</h3>
 

@@ -196,16 +196,6 @@ A recent, fascinating discovery points to an entirely new type of representation
     </item>
     
     <item>
-      <title>(WIP) Taming term-mode</title>
-      <link>https://mullikine.github.io/posts/taming-term/</link>
-      <pubDate>Mon, 07 Oct 2019 00:00:00 +1300</pubDate>
-      
-      <guid>https://mullikine.github.io/posts/taming-term/</guid>
-      <description>Problems with term.el Give C-a to term This is needed so we can use C-a in whatever application needs it. Bash recognises C-a as the command to go to the start of the line, for instance..
-(define-key term-raw-map (kbd &amp;#34;C-a&amp;#34;) #&amp;#39;term-send-raw) Bindings from other modes are an interference C-c C-l    kb f      C-c C-l downcase-region why is this downcase-region?    For example, in my own setup a prefix key has taken the position of an important binding C-c C-a.</description>
-    </item>
-    
-    <item>
       <title>Sensible Splits: Extending shackle.el</title>
       <link>https://mullikine.github.io/posts/making-shackle-split-sensibly/</link>
       <pubDate>Mon, 07 Oct 2019 00:00:00 +1300</pubDate>
@@ -214,6 +204,16 @@ A recent, fascinating discovery points to an entirely new type of representation
       <description>shackle.el provides a single interface for managing the way windows are displayed in emacs. This means you don&amp;rsquo;t have to dig into plugin code to provide ad-hoc advice to specific functions.
 Unfortunately, it doesn&amp;rsquo;t provide an option to split sensibly, allowing you only to specify exactly how you want windows to be displayed.
 For example, it will allow to you specify that all help buffers split to the right with the following rule.</description>
+    </item>
+    
+    <item>
+      <title>Taming term-mode</title>
+      <link>https://mullikine.github.io/posts/taming-term/</link>
+      <pubDate>Mon, 07 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/taming-term/</guid>
+      <description>easy mistakes Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
+;; Comment this out ;; (define-key my-mode-map (kbd &amp;#34;M-k&amp;#34;) &amp;#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &amp;#34;M-k&amp;#34;) nil) ;; Replace with this (define-key global-map (kbd &amp;#34;M-k&amp;#34;) &amp;#39;avy-goto-char) Problems with term.el Give C-a to term This is needed so we can use C-a in whatever application needs it.</description>
     </item>
     
     <item>
