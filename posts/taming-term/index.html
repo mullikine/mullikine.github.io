@@ -12,12 +12,12 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Taming term-mode"/>
-<meta name="twitter:description" content="easy mistakes Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
-;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) If you can, disable modes that interfere with term using manage-minor-mode (term-mode (off my-mode)) Problems with term."/>
+<meta name="twitter:description" content="attempt 1 &ndash; you can skip this Problems with term.el Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
+;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) gud-mode stole C-c C-a C-a is important in many programs for going to the start of the line."/>
 
     <meta property="og:title" content="Taming term-mode" />
-<meta property="og:description" content="easy mistakes Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
-;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) If you can, disable modes that interfere with term using manage-minor-mode (term-mode (off my-mode)) Problems with term." />
+<meta property="og:description" content="attempt 1 &ndash; you can skip this Problems with term.el Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
+;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) gud-mode stole C-c C-a C-a is important in many programs for going to the start of the line." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/taming-term/" />
 <meta property="article:published_time" content="2019-10-07T00:00:00+13:00" />
@@ -78,7 +78,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          5 min read
         </div></div>
     </header>
     
@@ -93,9 +93,11 @@
     <div class="post-content">
       
 
-<h2 id="easy-mistakes">easy mistakes</h2>
+<h2 id="attempt-1-you-can-skip-this">attempt 1 &ndash; you can skip this</h2>
 
-<h3 id="any-minor-mode-which-is-enabled-while-term-is-running-will-override-bindings">Any minor mode which is enabled while term is running will override bindings</h3>
+<h3 id="problems-with-term-dot-el">Problems with <code>term.el</code></h3>
+
+<h4 id="any-minor-mode-which-is-enabled-while-term-is-running-will-override-bindings">Any minor mode which is enabled while term is running will override bindings</h4>
 
 <p>Therefore, if you can, make any such bindings
 that may interfere with term into global
@@ -108,52 +110,14 @@ mappings instead.</p>
 
 <span style="color:#75715e">;; Replace with this</span>
 (<span style="color:#a6e22e">define-key</span> global-map (kbd <span style="color:#e6db74">&#34;M-k&#34;</span>) <span style="color:#e6db74">&#39;avy-goto-char</span>)</code></pre></div>
-<h3 id="if-you-can-disable-modes-that-interfere-with-term-using-manage-minor-mode">If you can, disable modes that interfere with term using <code>manage-minor-mode</code></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(term-mode
- (off my-mode))</code></pre></div>
-<h2 id="problems-with-term-dot-el">Problems with <code>term.el</code></h2>
-
-<h3 id="give-c-a-to-term">Give <code>C-a</code> to term</h3>
-
-<p>This is needed so we can use <code>C-a</code> in whatever
-application needs it. Bash recognises <code>C-a</code> as
-the command to go to the start of the line,
-for instance.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-a&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw)
-
-<span style="color:#75715e">;; We also need C-x. term-send-raw sends the last char typed, so this should send C-x</span>
-(<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c C-x&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw)</code></pre></div>
-<h3 id="bindings-from-other-modes-are-an-interference">Bindings from other modes are an interference</h3>
-
-<h4 id="c-c-c-l"><code>C-c C-l</code></h4>
-
-<table>
-<thead>
-<tr>
-<th>kb</th>
-<th>f</th>
-<th></th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>C-c C-l</code></td>
-<td><code>downcase-region</code></td>
-<td>why is this downcase-region?</td>
-</tr>
-</tbody>
-</table>
-
-<p>For example, in my own setup a prefix key has taken the position of an important binding <code>C-c C-a</code>.</p>
-
-<p>This means I can&rsquo;t send <code>C-a</code> to the subprocess.</p>
-
 <h4 id="gud-mode-stole-c-c-c-a"><code>gud-mode</code> stole <code>C-c C-a</code></h4>
 
 <p><code>C-a</code> is important in many programs for going to the start of the line.</p>
 
-<h3 id="load-this-early-before-gud-is-required">Load this early before <code>gud</code> is required</h3>
+<p><code>gud-mode</code> creates a global prefix before we have time to prevent that from happening</p>
+
+<ul>
+<li><p>Load this early before <code>gud</code> is required</p>
 
 <p>That way it will set its global binding to this prefix instead.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This prefix must never be accessible</span>
@@ -163,10 +127,30 @@ for instance.</p>
 
 (setq gud-key-prefix (kbd <span style="color:#e6db74">&#34;✓&#34;</span>))
 
-(provide <span style="color:#e6db74">&#39;my-gud</span>)</code></pre></div>
-<h2 id="obstacles-to-fixing-term-dot-el">Obstacles to fixing <code>term.el</code></h2>
+(provide <span style="color:#e6db74">&#39;my-gud</span>)</code></pre></div></li>
+</ul>
 
-<h3 id="it-does-not-play-well-with-manage-minor-mode-dot-el">It does not play well with <code>manage-minor-mode.el</code></h3>
+<h4 id="if-you-can-disable-modes-that-interfere-with-term-using-manage-minor-mode">If you can, disable modes that interfere with term using <code>manage-minor-mode</code></h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(term-mode
+ (off my-mode))</code></pre></div>
+<h4 id="give-c-a-to-term">Give <code>C-a</code> to term</h4>
+
+<p>This is needed so we can use <code>C-a</code> in whatever
+application needs it. Bash recognises <code>C-a</code> as
+the command to go to the start of the line,
+for instance.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-a&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw)
+
+<span style="color:#75715e">;; We also need C-x. term-send-raw sends the last char typed, so this should send C-x</span>
+(<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c C-x&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw)</code></pre></div>
+<h3 id="obstacles-to-fixing-term-dot-el">Obstacles to fixing <code>term.el</code></h3>
+
+<h4 id="it-does-not-play-well-with-manage-minor-mode-dot-el">It does not play well with <code>manage-minor-mode.el</code></h4>
+
+<p>Also, <code>manage-minor-mode</code> is not all-powerful:
+you can&rsquo;t enable a minor mode globally but
+disable it for a single major mode, for
+instance.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This does not work sadly</span>
 (term-mode
  (off yas-minor-mode)
@@ -175,6 +159,148 @@ for instance.</p>
  (off which-key-mode)
  (off company-mode)
  (off gud-minor-mode))</code></pre></div>
+<h3 id="the-term-raw-mode-escape-char-is-a-problem-dot-set-it-somewhere">The <code>term-raw-mode</code> escape char is a problem. Set it somewhere</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(term-set-escape-char <span style="color:#e6db74">?✓</span>)</code></pre></div>
+<h2 id="the-solution-it-requires-a-fair-bit-of-emacs-lisp">The solution: It requires a fair bit of emacs lisp</h2>
+
+<p>I can&rsquo;t abolish C-c from all the minor modes,
+but at least I can control what happens when I
+press it!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(setq explicit-shell-file-name <span style="color:#e6db74">&#34;/bin/bash&#34;</span>)
+
+<span style="color:#75715e">;; These prefixes are required for my-term-set-raw-map</span>
+(<span style="color:#a6e22e">define-prefix-command</span> <span style="color:#e6db74">&#39;my-term-c-c</span>)
+(<span style="color:#a6e22e">define-prefix-command</span> <span style="color:#e6db74">&#39;my-term-c-c-esc</span>)
+
+<span style="color:#75715e">;; When the program ends, use C-d to kill the buffer</span>
+(defun term-raw-or-kill ()
+  (interactive)
+  (if (not (term-check-proc (<span style="color:#a6e22e">current-buffer</span>)))
+      (<span style="color:#a6e22e">kill-buffer</span>)
+    (term-send-raw)))
+
+(defun my-term-set-raw-map ()
+  (interactive)
+        (let* ((map (<span style="color:#a6e22e">make-keymap</span>))
+               (esc-map (<span style="color:#a6e22e">make-keymap</span>))
+               (i <span style="color:#ae81ff">0</span>))
+
+          (<span style="color:#a6e22e">define-key</span> map (kbd <span style="color:#e6db74">&#34;C-c&#34;</span>) <span style="color:#a6e22e">#&#39;</span>my-term-c-c)
+          (<span style="color:#a6e22e">define-key</span> map (kbd <span style="color:#e6db74">&#34;C-c ESC&#34;</span>) <span style="color:#a6e22e">#&#39;</span>my-term-c-c-esc)
+
+          (while (<span style="color:#a6e22e">&lt;</span> i <span style="color:#ae81ff">128</span>)
+            <span style="color:#75715e">;; if not C-c</span>
+            (if (not (equalp i <span style="color:#ae81ff">3</span>))
+                (<span style="color:#a6e22e">define-key</span> map (<span style="color:#a6e22e">make-string</span> <span style="color:#ae81ff">1</span> i) <span style="color:#a6e22e">#&#39;</span>term-send-raw))
+
+            (<span style="color:#a6e22e">define-key</span> map (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;\C-c&#34;</span> (<span style="color:#a6e22e">make-string</span> <span style="color:#ae81ff">1</span> i)) <span style="color:#e6db74">&#39;term-send-raw</span>)
+            <span style="color:#75715e">;; Avoid O and [. They are used in escape sequences for various keys.</span>
+            (unless (or (<span style="color:#a6e22e">eq</span> i <span style="color:#e6db74">?O</span>) (<span style="color:#a6e22e">eq</span> i <span style="color:#ae81ff">91</span>))
+              (<span style="color:#a6e22e">define-key</span> esc-map (<span style="color:#a6e22e">make-string</span> <span style="color:#ae81ff">1</span> i) <span style="color:#e6db74">&#39;term-send-raw-meta</span>))
+            (setq i (<span style="color:#a6e22e">1+</span> i)))
+          (<span style="color:#a6e22e">define-key</span> map [remap <span style="color:#a6e22e">self-insert-command</span>] <span style="color:#e6db74">&#39;term-send-raw</span>)
+          (<span style="color:#a6e22e">define-key</span> map <span style="color:#e6db74">&#34;\e&#34;</span> esc-map)
+
+          <span style="color:#75715e">;; Added nearly all the &#39;gray keys&#39; -mm</span>
+
+          (if (featurep <span style="color:#e6db74">&#39;xemacs</span>)
+              (<span style="color:#a6e22e">define-key</span> map [button2] <span style="color:#e6db74">&#39;term-mouse-paste</span>)
+            (<span style="color:#a6e22e">define-key</span> map [mouse-2] <span style="color:#e6db74">&#39;term-mouse-paste</span>))
+          (<span style="color:#a6e22e">define-key</span> map (kbd <span style="color:#e6db74">&#34;C-p&#34;</span>) <span style="color:#e6db74">&#39;term-send-raw</span>)
+          (<span style="color:#a6e22e">define-key</span> map [up] <span style="color:#e6db74">&#39;term-send-up</span>)
+          (<span style="color:#a6e22e">define-key</span> map [down] <span style="color:#e6db74">&#39;term-send-down</span>)
+          (<span style="color:#a6e22e">define-key</span> map [right] <span style="color:#e6db74">&#39;term-send-right</span>)
+          (<span style="color:#a6e22e">define-key</span> map [left] <span style="color:#e6db74">&#39;term-send-left</span>)
+          (<span style="color:#a6e22e">define-key</span> map [C-up] <span style="color:#e6db74">&#39;term-send-ctrl-up</span>)
+          (<span style="color:#a6e22e">define-key</span> map [C-down] <span style="color:#e6db74">&#39;term-send-ctrl-down</span>)
+          (<span style="color:#a6e22e">define-key</span> map [C-right] <span style="color:#e6db74">&#39;term-send-ctrl-right</span>)
+          (<span style="color:#a6e22e">define-key</span> map [C-left] <span style="color:#e6db74">&#39;term-send-ctrl-left</span>)
+          (<span style="color:#a6e22e">define-key</span> map [<span style="color:#a6e22e">delete</span>] <span style="color:#e6db74">&#39;term-send-del</span>)
+          (<span style="color:#a6e22e">define-key</span> map [deletechar] <span style="color:#e6db74">&#39;term-send-del</span>)
+          (<span style="color:#a6e22e">define-key</span> map [backspace] <span style="color:#e6db74">&#39;term-send-backspace</span>)
+          (<span style="color:#a6e22e">define-key</span> map [home] <span style="color:#e6db74">&#39;term-send-home</span>)
+          (<span style="color:#a6e22e">define-key</span> map [end] <span style="color:#e6db74">&#39;term-send-end</span>)
+          (<span style="color:#a6e22e">define-key</span> map [<span style="color:#a6e22e">insert</span>] <span style="color:#e6db74">&#39;term-send-insert</span>)
+          (<span style="color:#a6e22e">define-key</span> map [S-prior] <span style="color:#e6db74">&#39;scroll-down</span>)
+          (<span style="color:#a6e22e">define-key</span> map [S-next] <span style="color:#e6db74">&#39;scroll-up</span>)
+          (<span style="color:#a6e22e">define-key</span> map [S-insert] <span style="color:#e6db74">&#39;term-paste</span>)
+          (<span style="color:#a6e22e">define-key</span> map [prior] <span style="color:#e6db74">&#39;term-send-prior</span>)
+          (<span style="color:#a6e22e">define-key</span> map [next] <span style="color:#e6db74">&#39;term-send-next</span>)
+          (<span style="color:#a6e22e">define-key</span> map [xterm-paste] <span style="color:#a6e22e">#&#39;</span>term--xterm-paste)
+          (<span style="color:#a6e22e">define-key</span> map (kbd <span style="color:#e6db74">&#34;C-d&#34;</span>) <span style="color:#e6db74">&#39;term-raw-or-kill</span>)
+          (setq term-raw-map map)
+          (setq term-raw-escape-map esc-map))
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;M-l&#34;</span>) <span style="color:#66d9ef">nil</span>)
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c ESC&#34;</span>) <span style="color:#a6e22e">#&#39;</span>my-term-c-c-esc)
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c M-l&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw-meta)
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c M-:&#34;</span>) <span style="color:#a6e22e">#&#39;</span>pp-eval-expression)
+  <span style="color:#75715e">;; (define-key term-raw-map (kbd &#34;C-s&#34;) #&#39;term-line-mode)</span>
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c C-j&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-line-mode)
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c C-h&#34;</span>) <span style="color:#a6e22e">#&#39;</span>describe-mode)
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-d&#34;</span>) <span style="color:#e6db74">&#39;term-raw-or-kill</span>))
+
+<span style="color:#75715e">;; This is required because something keeps resetting the map.</span>
+<span style="color:#75715e">;; I think (require &#39;term), for one, will redefine the value of the map</span>
+(defun term-around-advice (proc <span style="color:#66d9ef">&amp;rest</span> args)
+  (my-term-set-raw-map)
+  (let ((res (<span style="color:#a6e22e">apply</span> proc args)))
+    res))
+(advice-add <span style="color:#e6db74">&#39;term</span> :around <span style="color:#a6e22e">#&#39;</span>term-around-advice)
+
+<span style="color:#75715e">;; Not sure why this is not sufficient</span>
+(my-term-set-raw-map)
+
+<span style="color:#75715e">;; We make the term escape char something we can never hit. Not unless you have a tick key on your keyboard, that is</span>
+(term-set-escape-char <span style="color:#e6db74">?✓</span>)
+
+<span style="color:#75715e">;; We don&#39;t want to move the terminal around as we are trying to use it</span>
+(defun my-term-set-scroll-margin ()
+  (<span style="color:#a6e22e">make-local-variable</span> <span style="color:#e6db74">&#39;scroll-margin</span>)
+  (setq scroll-margin <span style="color:#ae81ff">0</span>)
+  (<span style="color:#a6e22e">make-local-variable</span> <span style="color:#e6db74">&#39;scroll-conservatively</span>)
+  (setq scroll-conservatively <span style="color:#ae81ff">10000</span>))
+
+(add-hook <span style="color:#e6db74">&#39;term-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>my-term-set-scroll-margin)
+
+
+<span style="color:#75715e">;; Redefining this is required to prevent C-s from stopping programs in the terminal</span>
+(defun term-exec-1 (name buffer command switches)
+  <span style="color:#75715e">;; We need to do an extra (fork-less) exec to run stty.</span>
+  <span style="color:#75715e">;; (This would not be needed if we had suitable Emacs primitives.)</span>
+  <span style="color:#75715e">;; The &#39;if ...; then shift; fi&#39; hack is because Bourne shell</span>
+  <span style="color:#75715e">;; loses one arg when called with -c, and newer shells (bash,  ksh) don&#39;t.</span>
+  <span style="color:#75715e">;; Thus we add an extra dummy argument &#34;..&#34;, and then remove it.</span>
+  (let ((process-environment
+       (<span style="color:#a6e22e">nconc</span>
+  	(<span style="color:#a6e22e">list</span>
+  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;TERM=%s&#34;</span> term-term-name)
+  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;TERMINFO=%s&#34;</span> data-directory)
+  	 (<span style="color:#a6e22e">format</span> term-termcap-format <span style="color:#e6db74">&#34;TERMCAP=&#34;</span>
+  		 term-term-name term-height term-width)
+
+  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;INSIDE_EMACS=%s,term:%s&#34;</span> emacs-version term-protocol-version)
+  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;LINES=%d&#34;</span> term-height)
+  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;COLUMNS=%d&#34;</span> term-width))
+  	process-environment))
+      (process-connection-type <span style="color:#66d9ef">t</span>)
+      <span style="color:#75715e">;; We should suppress conversion of end-of-line format.</span>
+      (inhibit-eol-conversion <span style="color:#66d9ef">t</span>)
+      <span style="color:#75715e">;; The process&#39;s output contains not just chars but also binary</span>
+      <span style="color:#75715e">;; escape codes, so we need to see the raw output.  We will have to</span>
+      <span style="color:#75715e">;; do the decoding by hand on the parts that are made of chars.</span>
+      (coding-system-for-read <span style="color:#e6db74">&#39;binary</span>))
+    (when (term--bash-needs-EMACSp)
+      (push (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;EMACS=%s (term:%s)&#34;</span> emacs-version term-protocol-version)
+            process-environment))
+    (<span style="color:#a6e22e">apply</span> <span style="color:#e6db74">&#39;start-process</span> name buffer
+  	 <span style="color:#e6db74">&#34;/bin/sh&#34;</span> <span style="color:#e6db74">&#34;-c&#34;</span>
+  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;trap &#39;&#39; INT; stty stop undef; stty start undef; stty -nl echo rows %d columns %d sane 2&gt;/dev/null;\
+</span><span style="color:#e6db74">if [ $1 = .. ]; then shift; fi; exec \&#34;$@\&#34;&#34;</span>
+  		 term-height term-width)
+  	 <span style="color:#e6db74">&#34;..&#34;</span>
+  	 command switches)))
+
+(provide <span style="color:#e6db74">&#39;my-term</span>)</code></pre></div>
 <h2 id="demonstration">demonstration</h2>
 
 <p><a href="https://asciinema.org/a/8oYDfnB7xJgkQd2fkuag4548W" target="_blank"><img src="https://asciinema.org/a/8oYDfnB7xJgkQd2fkuag4548W.svg" /></a></p>
