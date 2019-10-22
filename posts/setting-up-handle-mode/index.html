@@ -12,12 +12,12 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Consolidating bindings with handle.el"/>
-<meta name="twitter:description" content="The problem Having a generic display docs or go to definition function becomes unwieldly.
-(defun my/doc-thing-at-point (arg &amp;optional immediate winfunc) &#34;Show doc for thing under pointl. winfunc = &#39;spv or &#39;sph elisp function&#34; (interactive &#34;P&#34;) (if (not winfunc) (setq winfunc &#39;sph)) (cond ((string-equal (preceding-sexp-or-element) &#34;#lang&#34;) (progn ;; (racket--repl-command &#34;doc %s&#34; (concat &#34;H:&#34; (str (sexp-at-point)))) (str (racket--cmd/async `(doc ,(concat &#34;H:&#34; (str (sexp-at-point)))))) (sleep 1) (let ((url (cl/xc nil :notify t))) (if immediate (if (string-match-p &#34;racket/search/index."/>
+<meta name="twitter:description" content="The problem Having a makeshift, monolithic function for displaying documentation for the thing under the cursor or for going to the definition of said thing becomes unwieldly.
+Example of an unwieldly function (defun my/doc-thing-at-point (arg &amp;optional immediate winfunc) &#34;Show doc for thing under pointl. winfunc = &#39;spv or &#39;sph elisp function&#34; (interactive &#34;P&#34;) (if (not winfunc) (setq winfunc &#39;sph)) (cond ((string-equal (preceding-sexp-or-element) &#34;#lang&#34;) (progn ;; (racket--repl-command &#34;doc %s&#34; (concat &#34;H:&#34; (str (sexp-at-point)))) (str (racket--cmd/async `(doc ,(concat &#34;H:&#34; (str (sexp-at-point)))))) (sleep 1) (let ((url (cl/xc nil :notify t))) (if immediate (if (string-match-p &#34;racket/search/index."/>
 
     <meta property="og:title" content="Consolidating bindings with handle.el" />
-<meta property="og:description" content="The problem Having a generic display docs or go to definition function becomes unwieldly.
-(defun my/doc-thing-at-point (arg &amp;optional immediate winfunc) &#34;Show doc for thing under pointl. winfunc = &#39;spv or &#39;sph elisp function&#34; (interactive &#34;P&#34;) (if (not winfunc) (setq winfunc &#39;sph)) (cond ((string-equal (preceding-sexp-or-element) &#34;#lang&#34;) (progn ;; (racket--repl-command &#34;doc %s&#34; (concat &#34;H:&#34; (str (sexp-at-point)))) (str (racket--cmd/async `(doc ,(concat &#34;H:&#34; (str (sexp-at-point)))))) (sleep 1) (let ((url (cl/xc nil :notify t))) (if immediate (if (string-match-p &#34;racket/search/index." />
+<meta property="og:description" content="The problem Having a makeshift, monolithic function for displaying documentation for the thing under the cursor or for going to the definition of said thing becomes unwieldly.
+Example of an unwieldly function (defun my/doc-thing-at-point (arg &amp;optional immediate winfunc) &#34;Show doc for thing under pointl. winfunc = &#39;spv or &#39;sph elisp function&#34; (interactive &#34;P&#34;) (if (not winfunc) (setq winfunc &#39;sph)) (cond ((string-equal (preceding-sexp-or-element) &#34;#lang&#34;) (progn ;; (racket--repl-command &#34;doc %s&#34; (concat &#34;H:&#34; (str (sexp-at-point)))) (str (racket--cmd/async `(doc ,(concat &#34;H:&#34; (str (sexp-at-point)))))) (sleep 1) (let ((url (cl/xc nil :notify t))) (if immediate (if (string-match-p &#34;racket/search/index." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/setting-up-handle-mode/" />
 <meta property="article:published_time" content="2019-10-22T00:00:00+13:00" />
@@ -95,7 +95,11 @@
 
 <h2 id="the-problem">The problem</h2>
 
-<p>Having a generic display docs or go to definition function becomes unwieldly.</p>
+<p>Having a makeshift, monolithic function for displaying documentation for
+the thing under the cursor or for going to the definition of said thing
+becomes unwieldly.</p>
+
+<h3 id="example-of-an-unwieldly-function">Example of an unwieldly function</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun my/doc-thing-at-point (arg <span style="color:#66d9ef">&amp;optional</span> immediate winfunc)
   <span style="color:#e6db74">&#34;Show doc for thing under pointl. winfunc = &#39;spv or &#39;sph elisp function&#34;</span>
   (interactive <span style="color:#e6db74">&#34;P&#34;</span>)
@@ -141,14 +145,14 @@
    <span style="color:#75715e">;; (t (search-google-for-doc))</span>
    <span style="color:#75715e">;; (t (message &#34;%s&#34; &#34;unknown mode&#34;))</span>
    ))</code></pre></div>
-<h2 id="the-solution">The solution</h2>
+<h2 id="the-solution-handle-dot-el">The solution: <code>handle.el</code></h2>
 
 <dl>
 <dt><code>handle.el</code></dt>
 <dd><a href="https://gitlab.com/jjzmajic/handle">https://gitlab.com/jjzmajic/handle</a></dd>
 </dl>
 
-<p>$EMACSD/config/my-handle.el</p>
+<h3 id="emacsd-config-my-handle-dot-el"><code>$EMACSD/config/my-handle.el</code></h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This must come before require to generate the functions</span>
 (add-to-list <span style="color:#e6db74">&#39;handle-keywords</span> :godef)
 (require <span style="color:#e6db74">&#39;handle</span>)
@@ -191,7 +195,7 @@
 <span style="color:#75715e">;; (handle-docs)</span>
 
 (provide <span style="color:#e6db74">&#39;my-handle</span>)</code></pre></div>
-<h2 id="unbind-keys-from-major-modes">Unbind keys from major modes</h2>
+<h2 id="unbind-keys-from-major-and-minor-modes-occupying-the-chords-you-want">Unbind keys from major and minor modes occupying the chords you want</h2>
 
 <h2 id="bind-handle-functions-to-keys-in-prog-mode">Bind handle functions to keys in <code>prog-mode</code></h2>
 
