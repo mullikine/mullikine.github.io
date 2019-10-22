@@ -168,7 +168,13 @@ instance.</p>
  (off which-key-mode)
  (off company-mode)
  (off gud-minor-mode))</code></pre></div>
-<h3 id="the-term-raw-mode-escape-char-is-a-problem-dot-set-it-somewhere">The <code>term-raw-mode</code> escape char is a problem. Set it somewhere</h3>
+<h3 id="the-term-raw-mode-escape-char-is-a-problem-dot-reassign-it-to-a-key-that-doesn-t-exist">The <code>term-raw-mode</code> escape char is a problem. Reassign it to a key that doesn&rsquo;t exist</h3>
+
+<p>Unfortunately, the <code>C-c</code> prefix is populated with all manor of things.</p>
+
+<p>There is no way to avoid it.</p>
+
+<p>Reassign this key.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(term-set-escape-char <span style="color:#e6db74">?✓</span>)</code></pre></div>
 <h2 id="the-solution-it-requires-a-fair-bit-of-emacs-lisp">The solution: It requires a fair bit of emacs lisp</h2>
 
@@ -239,9 +245,12 @@ press it!</p>
           (<span style="color:#a6e22e">define-key</span> map (kbd <span style="color:#e6db74">&#34;C-d&#34;</span>) <span style="color:#e6db74">&#39;term-raw-or-kill</span>)
           (setq term-raw-map map)
           (setq term-raw-escape-map esc-map))
+  <span style="color:#75715e">;; This means that M-l will not pass though. I have it set to a hydra menu</span>
   (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;M-l&#34;</span>) <span style="color:#66d9ef">nil</span>)
   (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c ESC&#34;</span>) <span style="color:#a6e22e">#&#39;</span>my-term-c-c-esc)
+  <span style="color:#75715e">;; To send M-l, you do C-c M-l</span>
   (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c M-l&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw-meta)
+  <span style="color:#75715e">;; To bring up the eval repl, press C-c M-:</span>
   (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c M-:&#34;</span>) <span style="color:#a6e22e">#&#39;</span>pp-eval-expression)
   <span style="color:#75715e">;; (define-key term-raw-map (kbd &#34;C-s&#34;) #&#39;term-line-mode)</span>
   (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c C-j&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-line-mode)
