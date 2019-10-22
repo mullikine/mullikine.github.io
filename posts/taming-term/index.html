@@ -12,11 +12,11 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Taming term-mode"/>
-<meta name="twitter:description" content="attempt 1 &ndash; you can skip this Problems with term.el Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
+<meta name="twitter:description" content="First attempt &ndash; you can skip this Problems with term.el Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
 ;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) gud-mode stole C-c C-a C-a is important in many programs for going to the start of the line."/>
 
     <meta property="og:title" content="Taming term-mode" />
-<meta property="og:description" content="attempt 1 &ndash; you can skip this Problems with term.el Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
+<meta property="og:description" content="First attempt &ndash; you can skip this Problems with term.el Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
 ;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) gud-mode stole C-c C-a C-a is important in many programs for going to the start of the line." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/taming-term/" />
@@ -93,7 +93,7 @@
     <div class="post-content">
       
 
-<h2 id="attempt-1-you-can-skip-this">attempt 1 &ndash; you can skip this</h2>
+<h2 id="first-attempt-you-can-skip-this">First attempt &ndash; you can skip this</h2>
 
 <h3 id="problems-with-term-dot-el">Problems with <code>term.el</code></h3>
 
@@ -294,7 +294,7 @@ press it!</p>
             process-environment))
     (<span style="color:#a6e22e">apply</span> <span style="color:#e6db74">&#39;start-process</span> name buffer
   	 <span style="color:#e6db74">&#34;/bin/sh&#34;</span> <span style="color:#e6db74">&#34;-c&#34;</span>
-  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;trap &#39;&#39; INT; stty stop undef; stty start undef; stty -nl echo rows %d columns %d sane 2&gt;/dev/null;\
+  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;stty stop undef; stty start undef; stty -nl echo rows %d columns %d sane 2&gt;/dev/null;\
 </span><span style="color:#e6db74">if [ $1 = .. ]; then shift; fi; exec \&#34;$@\&#34;&#34;</span>
   		 term-height term-width)
   	 <span style="color:#e6db74">&#34;..&#34;</span>
