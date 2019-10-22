@@ -12,16 +12,12 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Consolidating bindings with handle.el"/>
-<meta name="twitter:description" content="The solution  handle.el https://gitlab.com/jjzmajic/handle  $EMACSD/config/my-handle.el
-#&#43;BEGIN_SRC emacs-lisp :async :results verbatim drawer ;; This must come before require to generate the functions (add-to-list &lsquo;handle-keywords :godef) (require &lsquo;handle)
-;; I don&rsquo;t think we need to actually have the definitions to create handlers ;; (require &lsquo;haskell-mode)
-(handle &lsquo;(python-mode inferior-python-mode) :repls &lsquo;(run-python) :formatters &lsquo;(lsp-format-buffer) :docs &lsquo;(lsp-describe-thing-at-point python-help-for-region-or-symbol"/>
+<meta name="twitter:description" content="The problem Having a generic display docs or go to definition function becomes unwieldly.
+(defun my/doc-thing-at-point (arg &amp;optional immediate winfunc) &#34;Show doc for thing under pointl. winfunc = &#39;spv or &#39;sph elisp function&#34; (interactive &#34;P&#34;) (if (not winfunc) (setq winfunc &#39;sph)) (cond ((string-equal (preceding-sexp-or-element) &#34;#lang&#34;) (progn ;; (racket--repl-command &#34;doc %s&#34; (concat &#34;H:&#34; (str (sexp-at-point)))) (str (racket--cmd/async `(doc ,(concat &#34;H:&#34; (str (sexp-at-point)))))) (sleep 1) (let ((url (cl/xc nil :notify t))) (if immediate (if (string-match-p &#34;racket/search/index."/>
 
     <meta property="og:title" content="Consolidating bindings with handle.el" />
-<meta property="og:description" content="The solution  handle.el https://gitlab.com/jjzmajic/handle  $EMACSD/config/my-handle.el
-#&#43;BEGIN_SRC emacs-lisp :async :results verbatim drawer ;; This must come before require to generate the functions (add-to-list &lsquo;handle-keywords :godef) (require &lsquo;handle)
-;; I don&rsquo;t think we need to actually have the definitions to create handlers ;; (require &lsquo;haskell-mode)
-(handle &lsquo;(python-mode inferior-python-mode) :repls &lsquo;(run-python) :formatters &lsquo;(lsp-format-buffer) :docs &lsquo;(lsp-describe-thing-at-point python-help-for-region-or-symbol" />
+<meta property="og:description" content="The problem Having a generic display docs or go to definition function becomes unwieldly.
+(defun my/doc-thing-at-point (arg &amp;optional immediate winfunc) &#34;Show doc for thing under pointl. winfunc = &#39;spv or &#39;sph elisp function&#34; (interactive &#34;P&#34;) (if (not winfunc) (setq winfunc &#39;sph)) (cond ((string-equal (preceding-sexp-or-element) &#34;#lang&#34;) (progn ;; (racket--repl-command &#34;doc %s&#34; (concat &#34;H:&#34; (str (sexp-at-point)))) (str (racket--cmd/async `(doc ,(concat &#34;H:&#34; (str (sexp-at-point)))))) (sleep 1) (let ((url (cl/xc nil :notify t))) (if immediate (if (string-match-p &#34;racket/search/index." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/setting-up-handle-mode/" />
 <meta property="article:published_time" content="2019-10-22T00:00:00+13:00" />
@@ -82,7 +78,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div></div>
     </header>
     
@@ -97,6 +93,54 @@
     <div class="post-content">
       
 
+<h2 id="the-problem">The problem</h2>
+
+<p>Having a generic display docs or go to definition function becomes unwieldly.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun my/doc-thing-at-point (arg <span style="color:#66d9ef">&amp;optional</span> immediate winfunc)
+  <span style="color:#e6db74">&#34;Show doc for thing under pointl. winfunc = &#39;spv or &#39;sph elisp function&#34;</span>
+  (interactive <span style="color:#e6db74">&#34;P&#34;</span>)
+
+  (if (not winfunc)
+      (setq winfunc <span style="color:#e6db74">&#39;sph</span>))
+
+  (cond
+   ((<span style="color:#a6e22e">string-equal</span> (preceding-sexp-or-element) <span style="color:#e6db74">&#34;#lang&#34;</span>)
+    (progn
+      <span style="color:#75715e">;; (racket--repl-command &#34;doc %s&#34; (concat &#34;H:&#34; (str (sexp-at-point))))</span>
+      (str (racket--cmd/async <span style="color:#f92672">`</span>(doc <span style="color:#f92672">,</span>(<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;H:&#34;</span> (str (sexp-at-point))))))
+      (sleep <span style="color:#ae81ff">1</span>)
+      (let ((url (cl/xc <span style="color:#66d9ef">nil</span> :notify <span style="color:#66d9ef">t</span>)))
+        (if immediate
+            (if (string-match-p <span style="color:#e6db74">&#34;racket/search/index.html\\?q=&#34;</span> url)
+                <span style="color:#75715e">;; (eval `(,winfunc (concat &#34;browsh &#34; (e/q url))))</span>
+                (<span style="color:#a6e22e">eval</span> <span style="color:#f92672">`</span>(<span style="color:#f92672">,</span>winfunc (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;ff &#34;</span> (e/q url))))
+              (<span style="color:#a6e22e">eval</span> <span style="color:#f92672">`</span>(<span style="color:#f92672">,</span>winfunc (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;eww &#34;</span> (e/q url))))))
+        (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;%s&#34;</span> url))))
+   ((derived-mode-p <span style="color:#e6db74">&#39;clojure-mode</span> <span style="color:#e6db74">&#39;cider-repl-mode</span> <span style="color:#e6db74">&#39;inf-clojure</span>)
+    <span style="color:#75715e">;; (condition-case nil (cider-doc-thing-at-point) (error (message &#34;%s&#34; &#34;You may need to enable the default cider jack-in repl&#34;)))</span>
+    (cider-doc-thing-at-point))
+   ((derived-mode-p <span style="color:#e6db74">&#39;lisp-mode</span>)
+    (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;slime-documentation</span>)
+    <span style="color:#75715e">;; (slime-documentation (symbol-name (intern (format &#34;%s&#34; (thing-at-point &#39;symbol)))))</span>
+    <span style="color:#75715e">;; This is docs, not goto definition</span>
+    <span style="color:#75715e">;; ((derived-mode-p &#39;go-mode)</span>
+    <span style="color:#75715e">;;  (progn (spacemacs/jump-to-definition)))</span>
+    ((derived-mode-p <span style="color:#e6db74">&#39;go-mode</span>) (progn (godoc-at-point (<span style="color:#a6e22e">point</span>)))))
+   ((derived-mode-p <span style="color:#e6db74">&#39;c-mode</span>) (man (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;3 &#34;</span> (thing-at-point <span style="color:#e6db74">&#39;symbol</span>))))
+   ((derived-mode-p <span style="color:#e6db74">&#39;python-mode</span>) (if arg (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;pydoc-at-point</span>) (anaconda-mode-show-doc)))
+   <span style="color:#75715e">;; (spacemacs/jump-to-definition)</span>
+   <span style="color:#75715e">;; ((derived-mode-p &#39;haskell-mode) (progn (hoogle (my/thing-at-point) t)))</span>
+   ((derived-mode-p <span style="color:#e6db74">&#39;haskell-mode</span>) (progn (shut-up (my/nil (ns <span style="color:#e6db74">&#34;implement hs-doc&#34;</span>)))))
+   ((derived-mode-p <span style="color:#e6db74">&#39;racket-mode</span>) (progn (my-racket-doc immediate winfunc) (deselect)))
+
+   ((derived-mode-p <span style="color:#e6db74">&#39;emacs-lisp-mode</span>) (describe-thing-at-point))
+   <span style="color:#75715e">;; ((derived-mode-p &#39;emacs-lisp-mode) (helpful-symbol (symbol-at-point)))</span>
+   ((derived-mode-p <span style="color:#e6db74">&#39;hy-mode</span>) (hy-describe-thing-at-point))
+   <span style="color:#75715e">;; This is also used by evil while navigating, so only allow it to do things for specific modes, such as python</span>
+   <span style="color:#75715e">;; ((derived-mode-p &#39;text-mode) (progn (message &#34;%s&#34; &#34;text mode. probably minibuffer&#34;) (describe-thing-at-point)))</span>
+   <span style="color:#75715e">;; (t (search-google-for-doc))</span>
+   <span style="color:#75715e">;; (t (message &#34;%s&#34; &#34;unknown mode&#34;))</span>
+   ))</code></pre></div>
 <h2 id="the-solution">The solution</h2>
 
 <dl>
@@ -105,20 +149,60 @@
 </dl>
 
 <p>$EMACSD/config/my-handle.el</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This must come before require to generate the functions</span>
+(add-to-list <span style="color:#e6db74">&#39;handle-keywords</span> :godef)
+(require <span style="color:#e6db74">&#39;handle</span>)
 
-<p>#+BEGIN_SRC emacs-lisp :async :results verbatim drawer
-  ;; This must come before require to generate the functions
-  (add-to-list &lsquo;handle-keywords :godef)
-  (require &lsquo;handle)</p>
+<span style="color:#75715e">;; I don&#39;t think we need to actually have the definitions to create handlers</span>
+<span style="color:#75715e">;; (require &#39;haskell-mode)</span>
 
-<p>;; I don&rsquo;t think we need to actually have the definitions to create handlers
-;; (require &lsquo;haskell-mode)</p>
+(handle <span style="color:#f92672">&#39;</span>(python-mode inferior-python-mode)
+        :repls <span style="color:#f92672">&#39;</span>(run-python)
+        :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)
+        :docs <span style="color:#f92672">&#39;</span>(lsp-describe-thing-at-point
+                python-help-for-region-or-symbol
+                python-eldoc-for-region-or-symbol
+                python-shell-print-region-or-symbol)
+        :godef <span style="color:#f92672">&#39;</span>(helm-gtags-dwim))
 
-<p>(handle &lsquo;(python-mode inferior-python-mode)
-        :repls &lsquo;(run-python)
-        :formatters &lsquo;(lsp-format-buffer)
-        :docs &lsquo;(lsp-describe-thing-at-point
-                python-help-for-region-or-symbol</p>
+(handle <span style="color:#f92672">&#39;</span>(haskell-mode)
+        :repls <span style="color:#f92672">&#39;</span>(haskell-intero/pop-to-repl)
+        :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)
+        :docs <span style="color:#f92672">&#39;</span>(hoogle-thing-at-point)
+        :godef <span style="color:#f92672">&#39;</span>(helm-gtags-dwim))
+
+(handle <span style="color:#f92672">&#39;</span>(emacs-lisp-mode)
+        :repls <span style="color:#f92672">&#39;</span>(ielm)
+        :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)s
+        :docs <span style="color:#f92672">&#39;</span>(describe-thing-at-point
+                helpful-symbol-at-point)
+        :godef <span style="color:#f92672">&#39;</span>(lispy-goto-symbol))
+
+(handle <span style="color:#f92672">&#39;</span>(hy-mode)
+        :repls <span style="color:#f92672">&#39;</span>(run-hy)
+        :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)
+        :docs <span style="color:#f92672">&#39;</span>(hy-describe-thing-at-point)
+        :godef <span style="color:#f92672">&#39;</span>(lispy-goto-symbol))
+
+<span style="color:#75715e">;; Runs the interpreter</span>
+<span style="color:#75715e">;; (handle-repls)</span>
+
+<span style="color:#75715e">;; Runs the docs for thing at point</span>
+<span style="color:#75715e">;; (handle-docs)</span>
+
+(provide <span style="color:#e6db74">&#39;my-handle</span>)</code></pre></div>
+<h2 id="unbind-keys-from-major-modes">Unbind keys from major modes</h2>
+
+<h2 id="bind-handle-functions-to-keys-in-prog-mode">Bind handle functions to keys in <code>prog-mode</code></h2>
+
+<p>$EMACSD/config/my-prog.el</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(require <span style="color:#e6db74">&#39;my-handle</span>)
+
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-9&#34;</span>) <span style="color:#e6db74">&#39;handle-docs</span>)
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-.&#34;</span>) <span style="color:#e6db74">&#39;handle-godef</span>)
+
+(provide <span style="color:#e6db74">&#39;my-prog</span>)</code></pre></div>
+<h2 id="restart-emacs-so-major-modes-inherit-from-prog-mode">Restart emacs so major modes inherit from <code>prog-mode</code></h2>
 
     </div>
     <div class="post-footer">

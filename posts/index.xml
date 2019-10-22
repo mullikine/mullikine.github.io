@@ -17,10 +17,8 @@
       <pubDate>Tue, 22 Oct 2019 00:00:00 +1300</pubDate>
       
       <guid>https://mullikine.github.io/posts/setting-up-handle-mode/</guid>
-      <description>The solution  handle.el https://gitlab.com/jjzmajic/handle  $EMACSD/config/my-handle.el
-#+BEGIN_SRC emacs-lisp :async :results verbatim drawer ;; This must come before require to generate the functions (add-to-list &amp;lsquo;handle-keywords :godef) (require &amp;lsquo;handle)
-;; I don&amp;rsquo;t think we need to actually have the definitions to create handlers ;; (require &amp;lsquo;haskell-mode)
-(handle &amp;lsquo;(python-mode inferior-python-mode) :repls &amp;lsquo;(run-python) :formatters &amp;lsquo;(lsp-format-buffer) :docs &amp;lsquo;(lsp-describe-thing-at-point python-help-for-region-or-symbol</description>
+      <description>The problem Having a generic display docs or go to definition function becomes unwieldly.
+(defun my/doc-thing-at-point (arg &amp;amp;optional immediate winfunc) &amp;#34;Show doc for thing under pointl. winfunc = &amp;#39;spv or &amp;#39;sph elisp function&amp;#34; (interactive &amp;#34;P&amp;#34;) (if (not winfunc) (setq winfunc &amp;#39;sph)) (cond ((string-equal (preceding-sexp-or-element) &amp;#34;#lang&amp;#34;) (progn ;; (racket--repl-command &amp;#34;doc %s&amp;#34; (concat &amp;#34;H:&amp;#34; (str (sexp-at-point)))) (str (racket--cmd/async `(doc ,(concat &amp;#34;H:&amp;#34; (str (sexp-at-point)))))) (sleep 1) (let ((url (cl/xc nil :notify t))) (if immediate (if (string-match-p &amp;#34;racket/search/index.</description>
     </item>
     
     <item>
