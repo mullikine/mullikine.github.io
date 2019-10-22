@@ -80,7 +80,7 @@ Example of an unwieldly function (defun my/doc-thing-at-point (arg &amp;optional
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          3 min read
+          4 min read
         </div></div>
     </header>
     
@@ -160,10 +160,17 @@ accommodate more languages and modes.</p>
 <h3 id="emacsd-config-my-handle-dot-el"><code>$EMACSD/config/my-handle.el</code></h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This must come before require to generate the functions</span>
 (add-to-list <span style="color:#e6db74">&#39;handle-keywords</span> :godef)
+(add-to-list <span style="color:#e6db74">&#39;handle-keywords</span> :docsearch)
 (require <span style="color:#e6db74">&#39;handle</span>)
 
 <span style="color:#75715e">;; I don&#39;t think we need to actually have the definitions to create handlers</span>
 <span style="color:#75715e">;; (require &#39;haskell-mode)</span>
+
+<span style="color:#75715e">;; docsearch allows you to enter the symbol to search for</span>
+
+<span style="color:#75715e">;; I need a default mode handler for handle</span>
+<span style="color:#75715e">;; If non exists then I should not actually call handle-docs by default but call my own thing which tests</span>
+<span style="color:#75715e">;; Perhaps I can put a prog-mode handler</span>
 
 (handle <span style="color:#f92672">&#39;</span>(python-mode inferior-python-mode)
         :repls <span style="color:#f92672">&#39;</span>(run-python)
@@ -172,32 +179,81 @@ accommodate more languages and modes.</p>
                 python-help-for-region-or-symbol
                 python-eldoc-for-region-or-symbol
                 python-shell-print-region-or-symbol)
-        :godef <span style="color:#f92672">&#39;</span>(helm-gtags-dwim))
+        :godef <span style="color:#f92672">&#39;</span>(lsp-find-definition
+                 xref-find-definitions
+                 helm-gtags-dwim)
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc))
+
+(handle <span style="color:#f92672">&#39;</span>(clojure-mode cider-repl-mode inf-clojure)
+        :repls <span style="color:#f92672">&#39;</span>(run-python)
+        :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)
+        :docs <span style="color:#f92672">&#39;</span>(lsp-describe-thing-at-point
+                cider-doc-thing-at-point)
+        :godef <span style="color:#f92672">&#39;</span>(lsp-find-definition
+                 xref-find-definitions
+                 helm-gtags-dwim)
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc))
 
 (handle <span style="color:#f92672">&#39;</span>(haskell-mode)
         :repls <span style="color:#f92672">&#39;</span>(haskell-intero/pop-to-repl)
         :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)
         :docs <span style="color:#f92672">&#39;</span>(hoogle-thing-at-point)
-        :godef <span style="color:#f92672">&#39;</span>(helm-gtags-dwim))
+        :godef <span style="color:#f92672">&#39;</span>(haskell-mode-jump-to-def
+                 haskell-mode-jump-to-def-or-tag
+                 lsp-find-definition
+                 xref-find-definitions
+                 helm-gtags-dwim)
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc))
 
 (handle <span style="color:#f92672">&#39;</span>(emacs-lisp-mode)
         :repls <span style="color:#f92672">&#39;</span>(ielm)
-        :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)s
+        :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)
         :docs <span style="color:#f92672">&#39;</span>(describe-thing-at-point
                 helpful-symbol-at-point)
-        :godef <span style="color:#f92672">&#39;</span>(lispy-goto-symbol))
+        :godef <span style="color:#f92672">&#39;</span>(lispy-goto-symbol
+                 elisp-slime-nav-find-elisp-thing-at-point
+                 lsp-find-definition
+                 xref-find-definitions
+                 helm-gtags-dwim)
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc))
+
+(handle <span style="color:#f92672">&#39;</span>(racket-mode)
+        :repls <span style="color:#f92672">&#39;</span>(ielm)
+        :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)
+        :docs <span style="color:#f92672">&#39;</span>(describe-thing-at-point
+                helpful-symbol-at-point)
+        :godef <span style="color:#f92672">&#39;</span>(racket-visit-definition
+                 lsp-find-definition
+                 xref-find-definitions
+                 helm-gtags-dwim)
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc))
 
 (handle <span style="color:#f92672">&#39;</span>(hy-mode)
         :repls <span style="color:#f92672">&#39;</span>(run-hy)
         :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)
         :docs <span style="color:#f92672">&#39;</span>(hy-describe-thing-at-point)
-        :godef <span style="color:#f92672">&#39;</span>(lispy-goto-symbol))
+        :godef <span style="color:#f92672">&#39;</span>(helm-gtags-dwim)
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc))
+
+<span style="color:#75715e">;; It&#39;s worth testing if this works</span>
+(handle <span style="color:#f92672">&#39;</span>(prog-mode)
+        :repls <span style="color:#f92672">&#39;</span>()
+        :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)
+        :docs <span style="color:#f92672">&#39;</span>(my/doc-thing-at-point)
+        :godef <span style="color:#f92672">&#39;</span>(lsp-find-definition
+                 xref-find-definitions
+                 helm-gtags-dwim)
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc))
 
 <span style="color:#75715e">;; Runs the interpreter</span>
 <span style="color:#75715e">;; (handle-repls)</span>
 
 <span style="color:#75715e">;; Runs the docs for thing at point</span>
 <span style="color:#75715e">;; (handle-docs)</span>
+
+<span style="color:#75715e">;; TODO</span>
+(defun handle-setup-keybindings ()
+  )
 
 (provide <span style="color:#e6db74">&#39;my-handle</span>)</code></pre></div>
 <h2 id="unbind-keys-from-major-and-minor-modes-occupying-the-chords-you-want">Unbind keys from major and minor modes occupying the chords you want</h2>
@@ -246,7 +302,9 @@ docs</code>, etc.</p>
 <ul>
 <li><p>Automate this for each mode defined in handle</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">define-key</span> emacs-lisp-mode-map (kbd <span style="color:#e6db74">&#34;M-9&#34;</span>) <span style="color:#e6db74">&#39;handle-docs</span>)
-(<span style="color:#a6e22e">define-key</span> emacs-lisp-mode-map (kbd <span style="color:#e6db74">&#34;M-.&#34;</span>) <span style="color:#e6db74">&#39;handle-godef</span>)</code></pre></div></li>
+(<span style="color:#a6e22e">define-key</span> emacs-lisp-mode-map (kbd <span style="color:#e6db74">&#34;M-.&#34;</span>) <span style="color:#e6db74">&#39;handle-godef</span>)</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun handle-setup-keybindings ()
+  <span style="color:#75715e">;; ...</span>
+  )</code></pre></div></li>
 </ul>
 
     </div>
