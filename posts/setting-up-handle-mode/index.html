@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>Consolidating bindings with handle.el // Bodacious Blog</title>
+    <title>Muddled Monoliths: consolidating key bindings with handle.el // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.59.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,12 +11,14 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Consolidating bindings with handle.el"/>
-<meta name="twitter:description" content="The problem Having a makeshift, monolithic function for displaying documentation for the thing under the cursor or for going to the definition of said thing becomes unwieldly.
+<meta name="twitter:title" content="Muddled Monoliths: consolidating key bindings with handle.el"/>
+<meta name="twitter:description" content="The problem I have a few makeshift, monolithic functions for consolidating documentation and code navigation commands under a single function.
+They have become unwieldly as they grow to accommodate more languages and modes.
 Example of an unwieldly function (defun my/doc-thing-at-point (arg &amp;optional immediate winfunc) &#34;Show doc for thing under pointl. winfunc = &#39;spv or &#39;sph elisp function&#34; (interactive &#34;P&#34;) (if (not winfunc) (setq winfunc &#39;sph)) (cond ((string-equal (preceding-sexp-or-element) &#34;#lang&#34;) (progn ;; (racket--repl-command &#34;doc %s&#34; (concat &#34;H:&#34; (str (sexp-at-point)))) (str (racket--cmd/async `(doc ,(concat &#34;H:&#34; (str (sexp-at-point)))))) (sleep 1) (let ((url (cl/xc nil :notify t))) (if immediate (if (string-match-p &#34;racket/search/index."/>
 
-    <meta property="og:title" content="Consolidating bindings with handle.el" />
-<meta property="og:description" content="The problem Having a makeshift, monolithic function for displaying documentation for the thing under the cursor or for going to the definition of said thing becomes unwieldly.
+    <meta property="og:title" content="Muddled Monoliths: consolidating key bindings with handle.el" />
+<meta property="og:description" content="The problem I have a few makeshift, monolithic functions for consolidating documentation and code navigation commands under a single function.
+They have become unwieldly as they grow to accommodate more languages and modes.
 Example of an unwieldly function (defun my/doc-thing-at-point (arg &amp;optional immediate winfunc) &#34;Show doc for thing under pointl. winfunc = &#39;spv or &#39;sph elisp function&#34; (interactive &#34;P&#34;) (if (not winfunc) (setq winfunc &#39;sph)) (cond ((string-equal (preceding-sexp-or-element) &#34;#lang&#34;) (progn ;; (racket--repl-command &#34;doc %s&#34; (concat &#34;H:&#34; (str (sexp-at-point)))) (str (racket--cmd/async `(doc ,(concat &#34;H:&#34; (str (sexp-at-point)))))) (sleep 1) (let ((url (cl/xc nil :notify t))) (if immediate (if (string-match-p &#34;racket/search/index." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/setting-up-handle-mode/" />
@@ -64,7 +66,7 @@ Example of an unwieldly function (defun my/doc-thing-at-point (arg &amp;optional
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Consolidating bindings with handle.el</h1>
+      <h1 class ="post-title">Muddled Monoliths: consolidating key bindings with handle.el</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -95,9 +97,12 @@ Example of an unwieldly function (defun my/doc-thing-at-point (arg &amp;optional
 
 <h2 id="the-problem">The problem</h2>
 
-<p>Having a makeshift, monolithic function for displaying documentation for
-the thing under the cursor or for going to the definition of said thing
-becomes unwieldly.</p>
+<p>I have a few makeshift, monolithic functions
+for consolidating documentation and code
+navigation commands under a single function.</p>
+
+<p>They have become unwieldly as they grow to
+accommodate more languages and modes.</p>
 
 <h3 id="example-of-an-unwieldly-function">Example of an unwieldly function</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun my/doc-thing-at-point (arg <span style="color:#66d9ef">&amp;optional</span> immediate winfunc)
@@ -196,7 +201,8 @@ becomes unwieldly.</p>
 
 (provide <span style="color:#e6db74">&#39;my-handle</span>)</code></pre></div>
 <h2 id="unbind-keys-from-major-and-minor-modes-occupying-the-chords-you-want">Unbind keys from major and minor modes occupying the chords you want</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(require <span style="color:#e6db74">&#39;elisp-slime-nav</span>)
+(<span style="color:#a6e22e">define-key</span> elisp-slime-nav-mode-map (kbd <span style="color:#e6db74">&#34;M-.&#34;</span>) <span style="color:#66d9ef">nil</span>)</code></pre></div>
 <h2 id="bind-handle-functions-to-keys-in-prog-mode">Bind handle functions to keys in <code>prog-mode</code></h2>
 
 <h3 id="emacsd-config-my-prog-dot-el"><code>$EMACSD/config/my-prog.el</code></h3>
