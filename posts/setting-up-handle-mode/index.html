@@ -80,7 +80,7 @@ Example of an unwieldly function (defun my/doc-thing-at-point (arg &amp;optional
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div></div>
     </header>
     
@@ -201,8 +201,17 @@ accommodate more languages and modes.</p>
 
 (provide <span style="color:#e6db74">&#39;my-handle</span>)</code></pre></div>
 <h2 id="unbind-keys-from-major-and-minor-modes-occupying-the-chords-you-want">Unbind keys from major and minor modes occupying the chords you want</h2>
+
+<p>The process of integrating new bindings now becomes subtractive as opposed to additive.</p>
+
+<p><a href="https://daviddquillinarchitecture.com/design-elements/design-elements-2/">Additive/Subtractive | David D Quillin Architecture</a></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(require <span style="color:#e6db74">&#39;elisp-slime-nav</span>)
-(<span style="color:#a6e22e">define-key</span> elisp-slime-nav-mode-map (kbd <span style="color:#e6db74">&#34;M-.&#34;</span>) <span style="color:#66d9ef">nil</span>)</code></pre></div>
+(<span style="color:#a6e22e">define-key</span> elisp-slime-nav-mode-map (kbd <span style="color:#e6db74">&#34;M-.&#34;</span>) <span style="color:#66d9ef">nil</span>)
+(<span style="color:#a6e22e">define-key</span> lispy-mode-map (kbd <span style="color:#e6db74">&#34;M-.&#34;</span>) <span style="color:#66d9ef">nil</span>)
+
+(require <span style="color:#e6db74">&#39;helm-gtags</span>)
+(<span style="color:#a6e22e">define-key</span> helm-gtags-mode-map (kbd <span style="color:#e6db74">&#34;M-.&#34;</span>) <span style="color:#66d9ef">nil</span>)
+(<span style="color:#a6e22e">define-key</span> ggtags-mode-map (kbd <span style="color:#e6db74">&#34;M-.&#34;</span>) <span style="color:#66d9ef">nil</span>)</code></pre></div>
 <h2 id="bind-handle-functions-to-keys-in-prog-mode">Bind handle functions to keys in <code>prog-mode</code></h2>
 
 <h3 id="emacsd-config-my-prog-dot-el"><code>$EMACSD/config/my-prog.el</code></h3>
