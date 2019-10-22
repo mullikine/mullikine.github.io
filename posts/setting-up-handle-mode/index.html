@@ -225,6 +225,30 @@ accommodate more languages and modes.</p>
 (provide <span style="color:#e6db74">&#39;my-prog</span>)</code></pre></div>
 <h2 id="restart-emacs-so-major-modes-inherit-from-prog-mode">Restart emacs so major modes inherit from <code>prog-mode</code></h2>
 
+<h3 id="caveats">caveats</h3>
+
+<h4 id="keymap-inheritance">keymap inheritance</h4>
+
+<p>Unfortunately, there is no guarantee that a keymap will inherit from <code>prog-mode-map</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defvar emacs-lisp-mode-map
+  (let ((map (<span style="color:#a6e22e">make-sparse-keymap</span> <span style="color:#e6db74">&#34;Emacs-Lisp&#34;</span>))
+        (menu-map (<span style="color:#a6e22e">make-sparse-keymap</span> <span style="color:#e6db74">&#34;Emacs-Lisp&#34;</span>))
+        (lint-map (<span style="color:#a6e22e">make-sparse-keymap</span>))
+        (prof-map (<span style="color:#a6e22e">make-sparse-keymap</span>))
+        (tracing-map (<span style="color:#a6e22e">make-sparse-keymap</span>)))
+    (<span style="color:#a6e22e">set-keymap-parent</span> map lisp-mode-shared-map)
+    <span style="color:#960050;background-color:#1e0010">…</span>
+    map))</code></pre></div>
+<p>Therefore, it may be necessary to manually
+bind for each major mode the call to <code>handle-
+docs</code>, etc.</p>
+
+<ul>
+<li><p>Automate this for each mode defined in handle</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">define-key</span> emacs-lisp-mode-map (kbd <span style="color:#e6db74">&#34;M-9&#34;</span>) <span style="color:#e6db74">&#39;handle-docs</span>)
+(<span style="color:#a6e22e">define-key</span> emacs-lisp-mode-map (kbd <span style="color:#e6db74">&#34;M-.&#34;</span>) <span style="color:#e6db74">&#39;handle-godef</span>)</code></pre></div></li>
+</ul>
+
     </div>
     <div class="post-footer">
       
