@@ -76,7 +76,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          5 min read
+          6 min read
         </div></div>
     </header>
     
@@ -318,6 +318,18 @@ press it!</p>
   	 command switches)))
 
 (provide <span style="color:#e6db74">&#39;my-term</span>)</code></pre></div>
+<h2 id="another-issue-is-that-you-can-t-have-multiple-terms-unless-you-rename-the-buffer">Another issue is that you can&rsquo;t have multiple terms unless you rename the buffer</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(advice-add <span style="color:#e6db74">&#39;term</span> :after <span style="color:#e6db74">&#39;unique-buffer-generic-after-advice</span>)</code></pre></div>
+<p>See one of my other blog posts to see how this is done.</p>
+
+<p><a href="https://mullikine.github.io/posts/uniqifying-emacs-apps/">Uniqifying emacs apps // Bodacious Blog</a></p>
+
+<h2 id="one-last-issue-is-that-sometimes-it-s-necessary-to-resize-the-program-within-term">One last issue is that sometimes it&rsquo;s necessary to resize the program within term</h2>
+
+<p><code>term-mode</code> appears to only downsize the program but never upsize.</p>
+
+<p>I will try to figure that out and return to this blog post.</p>
+
 <h2 id="demonstration">demonstration</h2>
 
 <p><a href="https://asciinema.org/a/8oYDfnB7xJgkQd2fkuag4548W" target="_blank"><img src="https://asciinema.org/a/8oYDfnB7xJgkQd2fkuag4548W.svg" /></a></p>
