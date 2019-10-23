@@ -78,7 +78,7 @@ Objective Specify an :interpreter and/or :filter command to override the execute
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          5 min read
+          6 min read
         </div></div>
     </header>
     
@@ -163,8 +163,10 @@ the interpreter, for example.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun org-babel-execute:generic (body params)
   <span style="color:#e6db74">&#34;:interpreter executes body like &#39;interpreter file&#39;
 </span><span style="color:#e6db74">:interpreter filters the source like &#39;cat source | filter&#39;&#34;</span>
-  (let ((interpreter (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">assoc</span> :interpreter params)))
-        (filter (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">assoc</span> :filter params)))
+  (let ((interpreter (or (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">assoc</span> :interpreter params))
+                         (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">assoc</span> :i params))))
+        (filter (or (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">assoc</span> :filter params))
+                    (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">assoc</span> :f params))))
         (tmp (org-babel-temp-file <span style="color:#e6db74">&#34;generic-&#34;</span>)))
     (with-temp-file tmp (<span style="color:#a6e22e">insert</span> body))
     (if (not (and (<span style="color:#a6e22e">boundp</span> <span style="color:#e6db74">&#39;interpreter</span>) interpreter))
@@ -207,8 +209,10 @@ the interpreter, for example.</p>
     (when (org-babel-check-evaluate info)
       (cl-callf org-babel-process-params (<span style="color:#a6e22e">nth</span> <span style="color:#ae81ff">2</span> info))
       (let* ((params (<span style="color:#a6e22e">nth</span> <span style="color:#ae81ff">2</span> info))
-             (interpreter (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">assq</span> :interpreter params)))
-             (filter (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">assq</span> :filter params)))
+             (interpreter (or (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">assq</span> :interpreter params))
+                              (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">assq</span> :i params))))
+             (filter (or (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">assq</span> :filter params))
+                         (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">assq</span> :f params))))
              (cache (let ((c (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">assq</span> :cache params))))
                       (and (not arg) c (string= <span style="color:#e6db74">&#34;yes&#34;</span> c))))
              (new-hash (and cache (org-babel-sha1-hash info)))
@@ -378,6 +382,21 @@ sed -e <span style="color:#e6db74">&#39;s/|/┃/g&#39;</span> <span style="color
               &#39; +-----------+ &#39;
               &#39;               &#39;
               + - - - - - - - +</code></pre></div>
+<h2 id="example">example</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">echo hi | vim -</code></pre></div>
+<h3 id="org-babel-hydra">org babel hydra</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#e6db74">&#34;V&#34;</span> (hot-expand <span style="color:#e6db74">&#34;&lt;s&#34;</span> <span style="color:#e6db74">&#34;spv&#34;</span>) <span style="color:#e6db74">&#34;sh&#34;</span>)</code></pre></div>
+<h3 id="babel-template-script">babel template script</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">vim +/<span style="color:#e6db74">&#34;spv&#34;</span> <span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/scripts/org-template-gen&#34;</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">spv<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    echo <span style="color:#e6db74">&#34;#+BEGIN_SRC sh :interpreter \&#34;spv bash\&#34; :async :results none&#34;</span>
+    cat <span style="color:#e6db74">&#34;</span>$input_fp<span style="color:#e6db74">&#34;</span> | sed <span style="color:#e6db74">&#39;s/^\(\s*\)#+/,\1#+/&#39;</span> | indent <span style="color:#ae81ff">2</span> | awk <span style="color:#ae81ff">1</span>
+    echo -n <span style="color:#e6db74">&#34;#+END_SRC&#34;</span>
+<span style="color:#f92672">}</span>
+;;</code></pre></div>
+<h3 id="demonstration">demonstration</h3>
+
+<p><a href="https://asciinema.org/a/kgrl1M2VhohRmqbK88ixc99RY" target="_blank"><img src="https://asciinema.org/a/kgrl1M2VhohRmqbK88ixc99RY.svg" /></a></p>
+
     </div>
     <div class="post-footer">
       
