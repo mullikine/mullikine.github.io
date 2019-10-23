@@ -383,15 +383,23 @@ sed -e <span style="color:#e6db74">&#39;s/|/┃/g&#39;</span> <span style="color
               &#39;               &#39;
               + - - - - - - - +</code></pre></div>
 <h2 id="example">example</h2>
+
+<p>This should open vim in a tmux split pane with <code>hi</code> as input.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">#+BEGIN_SRC sh :i &#34;spv bash&#34; :async :results none
   echo hi | vim -
 #+END_SRC</code></pre></div>
 <h3 id="org-babel-hydra">org babel hydra</h3>
+
+<p>This is an entry for my hydra to expand a babel template for a vertical split.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#e6db74">&#34;V&#34;</span> (hot-expand <span style="color:#e6db74">&#34;&lt;s&#34;</span> <span style="color:#e6db74">&#34;spv&#34;</span>) <span style="color:#e6db74">&#34;sh&#34;</span>)</code></pre></div>
 <h3 id="babel-template-script">babel template script</h3>
+
+<p>This is an external script I use which contains templates for babel.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">#+BEGIN_SRC sh :interpreter &#34;spv bash&#34; :async :results none
   vim +/&#34;spv&#34; &#34;$HOME/scripts/org-template-gen&#34;
-#+END_SRC</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">spv<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+#+END_SRC</code></pre></div>
+<p>This is the relevant section that expands the template for a shell babel that executes with a tmux vertical split.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">spv<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
     echo <span style="color:#e6db74">&#34;#+BEGIN_SRC sh :interpreter \&#34;spv bash\&#34; :async :results none&#34;</span>
     cat <span style="color:#e6db74">&#34;</span>$input_fp<span style="color:#e6db74">&#34;</span> | sed <span style="color:#e6db74">&#39;s/^\(\s*\)#+/,\1#+/&#39;</span> | indent <span style="color:#ae81ff">2</span> | awk <span style="color:#ae81ff">1</span>
     echo -n <span style="color:#e6db74">&#34;#+END_SRC&#34;</span>
