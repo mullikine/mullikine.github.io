@@ -140,15 +140,15 @@ Automate the process of changing the babel block wrapper (defun org-babel-raise 
 
 (<span style="color:#a6e22e">define-key</span> org-mode-map (kbd <span style="color:#e6db74">&#34;&gt;&#34;</span>) <span style="color:#e6db74">&#39;org-babel-change-block-type</span>)</code></pre></div>
 <p>I have accidentally made this into the wrong type of babel (i.e. <code>sh</code>).</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">#+BEGIN_SRC sh :async :results verbatim drawer
-  # This is a command to grep my emacs config directory for some bindings
-  cd $EMACSD/config; ead &#34;define-key.*M-l&#34;
-#+END_SRC</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">sh</span><span style="color:#75715e"> :async :results verbatim drawer
+</span><span style="color:#75715e"></span>  <span style="color:#75715e"># This is a command to grep my emacs config directory for some bindings</span>
+  cd $EMACSD/config; ead <span style="color:#e6db74">&#34;define-key.*M-l&#34;</span>
+<span style="color:#75715e">#+END_SRC</span></code></pre></div>
 <p>I can turn it into a different one by pressing <code>&gt;</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">#+BEGIN_SRC sh :interpreter &#34;spv bash&#34; :async :results none
-  # This is a command to grep my emacs config directory for some bindings
-  cd $EMACSD/config; ead &#34;define-key.*M-l&#34;
-#+END_SRC</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">sh</span><span style="color:#75715e"> :interpreter &#34;spv bash&#34; :async :results none
+</span><span style="color:#75715e"></span>  <span style="color:#75715e"># This is a command to grep my emacs config directory for some bindings</span>
+  cd $EMACSD/config; ead <span style="color:#e6db74">&#34;define-key.*M-l&#34;</span>
+<span style="color:#75715e">#+END_SRC</span></code></pre></div>
 <p>I just turned it into an &ldquo;spv bash&rdquo; babel!</p>
 
 <p><a href="https://asciinema.org/a/qK1Tqlj295HzxTydWcuT8Dmkd" target="_blank"><img src="https://asciinema.org/a/qK1Tqlj295HzxTydWcuT8Dmkd.svg" /></a></p>
