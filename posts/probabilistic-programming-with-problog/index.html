@@ -12,12 +12,12 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="(WIP) Probabilistic programming with problog"/>
-<meta name="twitter:description" content=" Syntactic sugar Clauses can be constructed by virtue of overloading of Python operators:
-   Prolog Python English     :- &lt;&lt; clause   , &amp; and   ; bar symbol or   \&#43; ~ not    "/>
+<meta name="twitter:description" content="Syntactic sugar Clauses can be constructed by virtue of overloading of Python operators:
+   Prolog Python English     :- &lt;&lt; clause   , &amp; and   ; bar symbol or   \&#43; ~ not    Glossary stochastic memoization [#probabilistic programming] Remembering probabilistic events that have already occurred. Example: $MYGIT/mullikine/problog-examples/stochastic-memoisation.problog Example2: $MYGIT/mullikine/problog-examples/stochastic-memoisation-zeros.problog The reason that most sequences have probability zero, is that if it encounters the same die a second time, it will not roll it again, but reuse the (memoized) result of the previous roll."/>
 
     <meta property="og:title" content="(WIP) Probabilistic programming with problog" />
-<meta property="og:description" content=" Syntactic sugar Clauses can be constructed by virtue of overloading of Python operators:
-   Prolog Python English     :- &lt;&lt; clause   , &amp; and   ; bar symbol or   \&#43; ~ not    " />
+<meta property="og:description" content="Syntactic sugar Clauses can be constructed by virtue of overloading of Python operators:
+   Prolog Python English     :- &lt;&lt; clause   , &amp; and   ; bar symbol or   \&#43; ~ not    Glossary stochastic memoization [#probabilistic programming] Remembering probabilistic events that have already occurred. Example: $MYGIT/mullikine/problog-examples/stochastic-memoisation.problog Example2: $MYGIT/mullikine/problog-examples/stochastic-memoisation-zeros.problog The reason that most sequences have probability zero, is that if it encounters the same die a second time, it will not roll it again, but reuse the (memoized) result of the previous roll." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/probabilistic-programming-with-problog/" />
 <meta property="article:published_time" content="2019-10-25T00:00:00+13:00" />
@@ -141,6 +141,50 @@
 </tr>
 </tbody>
 </table>
+
+<h2 id="glossary">Glossary</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">stochastic memoization
+    [#probabilistic programming]
+    Remembering probabilistic events that have
+    already occurred.
+
+    Example:
+        $MYGIT/mullikine/problog-examples/stochastic-memoisation.problog
+
+    Example2:
+        $MYGIT/mullikine/problog-examples/stochastic-memoisation-zeros.problog
+
+        The reason that most sequences have
+        probability zero, is that if it
+        encounters the same die a second time,
+        it will not roll it again, but reuse
+        the (memoized) result of the previous
+        roll.
+
+Meta-predicates
+    Apply a predicate on all members of a list
+    (or higher-order functions) such as map,
+    partition, fold, and scan.</code></pre></div>
+<h2 id="factoids">Factoids</h2>
+
+<h3 id="noisy-or-from-multiple-rules">noisy-or from multiple rules</h3>
+
+<p>If {multiple rules with the same head}, they will be combined as:</p>
+
+<ul>
+<li>a noisy-or, or</li>
+<li>a determistic or (if all heads are deterministic)</li>
+</ul>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="basic-examples">Basic examples</h3>
+
+<p><a href="https://github.com/mullikine/problog-examples/">https://github.com/mullikine/problog-examples/</a></p>
+
+<h3 id="problog-compbined-with-spacy"><code>Problog</code> compbined with <code>spaCy</code></h3>
+
+<p><a href="https://github.com/mmxgn/sprl-spacy">https://github.com/mmxgn/sprl-spacy</a></p>
 
     </div>
     <div class="post-footer">
