@@ -15,13 +15,13 @@
 <meta name="twitter:description" content="The problem: which-key doesn&rsquo;t work with hydra I had made a bunch of hydras which I would simply use as basic menu systems
 This is a bit of an anti-pattern.
 Hydras should only be used for creating temporary modes.
-The solution: create a macro which converts the hydras into regular bindings prerequisites (defun sed (command stdin) &#34;wrapper around sed&#34; (interactive) (setq stdin (str stdin)) (setq command (concat &#34;sed &#39;&#34; (str command) &#34;&#39;&#34;)) (sh-notty command stdin) ) The aim Wrap a defhydra with the convert-hydra-to-sslk macro to turn it into regular keybindings."/>
+The solution: create a macro which converts the hydras into regular bindings Prerequisites (defun sed (command stdin) &#34;wrapper around sed&#34; (interactive) (setq stdin (str stdin)) (setq command (concat &#34;sed &#39;&#34; (str command) &#34;&#39;&#34;)) (sh-notty command stdin) ) The aim Wrap a defhydra with the convert-hydra-to-sslk macro to turn it into regular keybindings."/>
 
     <meta property="og:title" content="Convert hydra to regular bindings" />
 <meta property="og:description" content="The problem: which-key doesn&rsquo;t work with hydra I had made a bunch of hydras which I would simply use as basic menu systems
 This is a bit of an anti-pattern.
 Hydras should only be used for creating temporary modes.
-The solution: create a macro which converts the hydras into regular bindings prerequisites (defun sed (command stdin) &#34;wrapper around sed&#34; (interactive) (setq stdin (str stdin)) (setq command (concat &#34;sed &#39;&#34; (str command) &#34;&#39;&#34;)) (sh-notty command stdin) ) The aim Wrap a defhydra with the convert-hydra-to-sslk macro to turn it into regular keybindings." />
+The solution: create a macro which converts the hydras into regular bindings Prerequisites (defun sed (command stdin) &#34;wrapper around sed&#34; (interactive) (setq stdin (str stdin)) (setq command (concat &#34;sed &#39;&#34; (str command) &#34;&#39;&#34;)) (sh-notty command stdin) ) The aim Wrap a defhydra with the convert-hydra-to-sslk macro to turn it into regular keybindings." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/convert-hydra-to-regular-bindings/" />
 <meta property="article:published_time" content="2019-09-21T00:00:00+12:00" />
@@ -116,7 +116,7 @@ The solution: create a macro which converts the hydras into regular bindings pre
 
 <h2 id="the-solution-create-a-macro-which-converts-the-hydras-into-regular-bindings">The solution: create a macro which converts the hydras into regular bindings</h2>
 
-<h3 id="prerequisites">prerequisites</h3>
+<h3 id="prerequisites">Prerequisites</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun sed (command stdin)
        <span style="color:#e6db74">&#34;wrapper around sed&#34;</span>
        (interactive)
@@ -140,7 +140,7 @@ The solution: create a macro which converts the hydras into regular bindings pre
                          (<span style="color:#e6db74">&#34;k&#34;</span> <span style="color:#a6e22e">#&#39;</span>ead-binding <span style="color:#e6db74">&#34;ead binding&#34;</span>)
                          (<span style="color:#e6db74">&#34;f&#34;</span> <span style="color:#a6e22e">#&#39;</span>goto-function-from-binding <span style="color:#e6db74">&#34;goto function from binding&#34;</span>)
                          (<span style="color:#e6db74">&#34;g&#34;</span> <span style="color:#a6e22e">#&#39;</span>find-function <span style="color:#e6db74">&#34;find function from binding&#34;</span>)))</code></pre></div>
-<h3 id="steps">steps</h3>
+<h3 id="steps">Steps</h3>
 
 <h4 id="create-the-convert-hydra-to-sslk-macro">Create the <code>convert-hydra-to-sslk</code> macro</h4>
 

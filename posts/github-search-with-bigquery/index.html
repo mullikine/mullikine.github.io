@@ -13,14 +13,14 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Tremendous Task: Searching GitHub with BigQuery and GHTorrent"/>
 <meta name="twitter:description" content="Searching GitHub for regular expression matches in code is a tremendous task.
-prerequisites Set up the bq command https://cloud.google.com/bigquery/docs/bq-command-line-tool
+Prerequisites Set up the bq command https://cloud.google.com/bigquery/docs/bq-command-line-tool
 Lots of money Sample search About US$5 per search.
 This is cheaper than searching all files.
    shell variable function     $query a regular expression that searches the contents of files   $path_re a regex that matches on the file path   $path_re_exclude a regex that matches on the file path for pruning results    #standardSQL SELECT sample_repo_name, sample_path, (SELECT STRING_AGG(snip) FROM snippets."/>
 
     <meta property="og:title" content="Tremendous Task: Searching GitHub with BigQuery and GHTorrent" />
 <meta property="og:description" content="Searching GitHub for regular expression matches in code is a tremendous task.
-prerequisites Set up the bq command https://cloud.google.com/bigquery/docs/bq-command-line-tool
+Prerequisites Set up the bq command https://cloud.google.com/bigquery/docs/bq-command-line-tool
 Lots of money Sample search About US$5 per search.
 This is cheaper than searching all files.
    shell variable function     $query a regular expression that searches the contents of files   $path_re a regex that matches on the file path   $path_re_exclude a regex that matches on the file path for pruning results    #standardSQL SELECT sample_repo_name, sample_path, (SELECT STRING_AGG(snip) FROM snippets." />
@@ -110,7 +110,7 @@ This is cheaper than searching all files.
 
 <p>Searching <code>GitHub</code> for regular expression matches in code is a <em>tremendous task</em>.</p>
 
-<h2 id="prerequisites">prerequisites</h2>
+<h2 id="prerequisites">Prerequisites</h2>
 
 <h3 id="set-up-the-bq-command">Set up the <code>bq</code> command</h3>
 
@@ -387,13 +387,13 @@ lit <span style="color:#e6db74">&#34;</span>$sql<span style="color:#e6db74">&#34
         count2<span style="color:#f92672">=</span><span style="color:#66d9ef">$((</span> $count2 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">))</span>
     <span style="color:#66d9ef">done</span>
 <span style="color:#f92672">}</span> | ds -q gh-query</code></pre></div>
-<h2 id="annex">annex</h2>
+<h2 id="annex">Annex</h2>
 
-<h3 id="tables-used">tables used</h3>
+<h3 id="tables-used">Tables used</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">bq show bigquery-public-data:github_repos.contents
 bq show bigquery-public-data:samples.wikipedia
 bq show --format<span style="color:#f92672">=</span>prettyjson bigquery-public-data:samples.wikipedia | jq <span style="color:#e6db74">&#39;.schema.fields&#39;</span></code></pre></div>
-<h3 id="download-the-schema">download the schema</h3>
+<h3 id="download-the-schema">Download the schema</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">bq show --format json bigquery-public-data:samples.wikipedia
 bq show --format json bigquery-public-data:github_repos.sample_contents | python -m json.tool
 bq show --format<span style="color:#f92672">=</span>prettyjson bigquery-public-data:samples.wikipedia | jq <span style="color:#e6db74">&#39;.schema.fields&#39;</span>

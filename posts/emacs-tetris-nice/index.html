@@ -14,13 +14,13 @@
 <meta name="twitter:title" content="Best emacs tetris in emacs 26&#43;"/>
 <meta name="twitter:description" content="emacs 27 has an update to emacs&rsquo; tetris mode which makes the glyphs display larger on higher DPI screens.
 This script will download that update from git.savannah.gnu.org and display tetris in a distraction free environment for the ultimate productivity.
-symlinks If you symlink this script to etetris-vt100 and run that instead, you will get the animated and striking black and white terminal version.
+Symlinks If you symlink this script to etetris-vt100 and run that instead, you will get the animated and striking black and white terminal version.
 ln -s etetris etetris-vt100 If you symlink this script to etetris-xterm and run that instead, you will get the vivid color terminal version."/>
 
     <meta property="og:title" content="Best emacs tetris in emacs 26&#43;" />
 <meta property="og:description" content="emacs 27 has an update to emacs&rsquo; tetris mode which makes the glyphs display larger on higher DPI screens.
 This script will download that update from git.savannah.gnu.org and display tetris in a distraction free environment for the ultimate productivity.
-symlinks If you symlink this script to etetris-vt100 and run that instead, you will get the animated and striking black and white terminal version.
+Symlinks If you symlink this script to etetris-vt100 and run that instead, you will get the animated and striking black and white terminal version.
 ln -s etetris etetris-vt100 If you symlink this script to etetris-xterm and run that instead, you will get the vivid color terminal version." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/emacs-tetris-nice/" />
@@ -110,13 +110,13 @@ ln -s etetris etetris-vt100 If you symlink this script to etetris-xterm and run 
 
 <p>This script will download that update from <code>git.savannah.gnu.org</code> and display tetris in a distraction free environment for the ultimate productivity.</p>
 
-<h3 id="symlinks">symlinks</h3>
+<h3 id="symlinks">Symlinks</h3>
 
 <p>If you symlink this script to <code>etetris-vt100</code> and run that instead, you will get the animated and striking black and white terminal version.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ln -s etetris etetris-vt100</code></pre></div>
 <p>If you symlink this script to <code>etetris-xterm</code> and run that instead, you will get the vivid color terminal version.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ln -s etetris etetris-xterm</code></pre></div>
-<h3 id="mappings">mappings</h3>
+<h3 id="mappings">Mappings</h3>
 
 <table>
 <thead>
@@ -235,6 +235,7 @@ cat <span style="color:#e6db74">&lt;&lt;HEREDOC &gt; /tmp/tetris-load.el
 read -r -d <span style="color:#e6db74">&#39;&#39;</span> elisp_command <span style="color:#e6db74">&lt;&lt;HEREDOC
 </span><span style="color:#e6db74">(progn
 </span><span style="color:#e6db74">  $extra
+</span><span style="color:#e6db74">  (define-key global-map (kbd &#34;q&#34;) #&#39;save-buffers-kill-terminal)
 </span><span style="color:#e6db74">  (tool-bar-mode -1)
 </span><span style="color:#e6db74">  (menu-bar-mode -1)
 </span><span style="color:#e6db74">  (call-interactively &#39;tetris)

@@ -14,12 +14,12 @@
 <meta name="twitter:title" content="Reading YouTube rather than watching it"/>
 <meta name="twitter:description" content="It all starts with youtube-dl youtube-dl is a YouTube video downloader. You can install it with sudo pip install youtube-dl.
 Let&rsquo;s make some scripts Use the spaCy NLP library to semantically segregate sentences.
-segment-sentences #!/usr/bin/env python3.5 #!/usr/bin/env python3.6 # -*- coding: utf-8 -*- # python3.6 -m spacy download en import sys import spacy text = sys.stdin.read() nlp = spacy.load(&#34;en&#34;) doc = nlp(str(text)) for span in doc.sents: print(str(span)) clean-subs This script helps to make the subtitles very easy to read."/>
+Segment-sentences #!/usr/bin/env python3.5 #!/usr/bin/env python3.6 # -*- coding: utf-8 -*- # python3.6 -m spacy download en import sys import spacy text = sys.stdin.read() nlp = spacy.load(&#34;en&#34;) doc = nlp(str(text)) for span in doc.sents: print(str(span)) clean-subs This script helps to make the subtitles very easy to read."/>
 
     <meta property="og:title" content="Reading YouTube rather than watching it" />
 <meta property="og:description" content="It all starts with youtube-dl youtube-dl is a YouTube video downloader. You can install it with sudo pip install youtube-dl.
 Let&rsquo;s make some scripts Use the spaCy NLP library to semantically segregate sentences.
-segment-sentences #!/usr/bin/env python3.5 #!/usr/bin/env python3.6 # -*- coding: utf-8 -*- # python3.6 -m spacy download en import sys import spacy text = sys.stdin.read() nlp = spacy.load(&#34;en&#34;) doc = nlp(str(text)) for span in doc.sents: print(str(span)) clean-subs This script helps to make the subtitles very easy to read." />
+Segment-sentences #!/usr/bin/env python3.5 #!/usr/bin/env python3.6 # -*- coding: utf-8 -*- # python3.6 -m spacy download en import sys import spacy text = sys.stdin.read() nlp = spacy.load(&#34;en&#34;) doc = nlp(str(text)) for span in doc.sents: print(str(span)) clean-subs This script helps to make the subtitles very easy to read." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/reading-youtube-rather-than-watching-it/" />
 <meta property="article:published_time" content="2019-09-18T00:00:00+12:00" />
@@ -112,7 +112,7 @@ segment-sentences #!/usr/bin/env python3.5 #!/usr/bin/env python3.6 # -*- coding
 
 <p>Use the spaCy NLP library to semantically segregate sentences.</p>
 
-<h3 id="segment-sentences">segment-sentences</h3>
+<h3 id="segment-sentences">Segment-sentences</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/env python3.5</span>
 <span style="color:#75715e">#!/usr/bin/env python3.6</span>
 <span style="color:#75715e"># -*- coding: utf-8 -*-</span>
@@ -129,7 +129,7 @@ nlp <span style="color:#f92672">=</span> spacy<span style="color:#f92672">.</spa
 doc <span style="color:#f92672">=</span> nlp(str(text))
 <span style="color:#66d9ef">for</span> span <span style="color:#f92672">in</span> doc<span style="color:#f92672">.</span>sents:
     <span style="color:#66d9ef">print</span>(str(span))</code></pre></div>
-<h3 id="clean-subs">clean-subs</h3>
+<h3 id="clean-subs"><code>clean-subs</code></h3>
 
 <p>This script helps to make the subtitles very easy to read.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/sh
@@ -137,7 +137,7 @@ doc <span style="color:#f92672">=</span> nlp(str(text))
 
 sed -e <span style="color:#e6db74">&#39;0,/^$/d&#39;</span> -e <span style="color:#e6db74">&#39;s/ align:start.*//&#39;</span> -e <span style="color:#e6db74">&#39;s/&lt;[^&gt;]*&gt;//g&#39;</span> -e <span style="color:#e6db74">&#39;/^[0-9]/d&#39;</span> -e <span style="color:#e6db74">&#39;/^\s*$/d&#39;</span> | uniq | <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>tr -s <span style="color:#e6db74">&#39;\n&#39;</span> <span style="color:#e6db74">&#39; &#39;</span> | segment-sentences</code></pre></div>
-<h3 id="yt-subs-dot-sh">yt-subs.sh</h3>
+<h3 id="yt-subs-dot-sh"><code>yt-subs.sh</code></h3>
 
 <p>The business logic script. Let&rsquo;s get down to business.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
@@ -184,7 +184,7 @@ clean_while_downloading<span style="color:#f92672">()</span> <span style="color:
     echo <span style="color:#e6db74">&#34;getting auto subs&#34;</span> <span style="color:#ae81ff">1</span>&gt;&amp;<span style="color:#ae81ff">2</span>
     youtube-dl --sub-lang en --write-auto-sub --skip-download <span style="color:#e6db74">&#34;</span>$url<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">2</span>&gt;/dev/null | soak | sed -u -n <span style="color:#e6db74">&#39;s/.*Writing video subtitles to: \(.*\)/\1/p&#39;</span> | tee /dev/stderr | clean_while_downloading
 <span style="color:#66d9ef">fi</span></code></pre></div>
-<h3 id="ttp">ttp</h3>
+<h3 id="ttp"><code>ttp</code></h3>
 
 <p>This is a handy little script we use to format the subtitles nicely when used in an editor such as emacs or vim.</p>
 
@@ -217,7 +217,7 @@ cat <span style="color:#e6db74">&#34;</span>$tf_input<span style="color:#e6db74"
     sed <span style="color:#e6db74">&#34;s/\s\+/ /g&#34;</span> |
     sed <span style="color:#e6db74">&#39;${/^$/d;}&#39;</span> |
     sed <span style="color:#e6db74">&#34;s/^/</span>$initalwhitespace<span style="color:#e6db74">/&#34;</span></code></pre></div>
-<h3 id="readsubs">readsubs</h3>
+<h3 id="readsubs"><code>readsubs</code></h3>
 
 <p>The nice interface. This is the one we end up calling on the command line</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash

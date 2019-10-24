@@ -165,7 +165,7 @@ P(A|B) = -----------
 </tbody>
 </table>
 
-<h3 id="programmable-inference">programmable inference</h3>
+<h3 id="programmable-inference">Programmable inference</h3>
 
 <p>Combines sequential Monte Carlo and expectation-maximization.</p>
 
@@ -310,7 +310,7 @@ cleaning.</p>
 
 <p>That&rsquo;s impractical.</p></li>
 
-<li><p>language purpose / challenges</p>
+<li><p>Language purpose / challenges</p>
 
 <ul>
 <li>must be able to encode domain knowledge in a script, flexibly</li>
@@ -318,7 +318,7 @@ cleaning.</p>
 
 <li><p>must be an efficient way to do data cleaning</p></li>
 
-<li><p>encoding domain knowledge</p>
+<li><p>Encoding domain knowledge</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">P(typed city and rent | city and state)</code></pre></div>
 <p>The different kinds of knowledge can be
 thought of as helping to specify probability
@@ -336,7 +336,7 @@ are more or less likely, etc.</p>
 
 <p>Rents depend on city. Therefore, randomly generate rent based on city.</p></li>
 
-<li><p>city names may, rarely, contain a typo</p>
+<li><p>City names may, rarely, contain a typo</p>
 
 <p>City names might contain typos. Therefore, randomly add typos to city name.</p></li>
 
@@ -366,7 +366,7 @@ end
 # Cleaning
 
 clean(table, rent_row_generator)</code></pre></div>
-<h3 id="underscores">underscores</h3>
+<h3 id="underscores">Underscores</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># Probabilistic script
 @pclean rent_row_generator begin
     @column &#34;State&#34; state = choose_proportionally(states, _)

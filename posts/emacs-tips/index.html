@@ -12,12 +12,14 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Emacs tips"/>
-<meta name="twitter:description" content=" Multiple actions as single undo entry https://www.reddit.com/r/emacs/comments/6scoyy/multiple%5Factions%5Fas%5Fsingle%5Fundo%5Fentry/
-(defun org-babel-raise () (interactive) (evil-with-single-undo (ekm &#34;C-c &#39;&#34;) (ekm &#34;C-x h&#34;) (ekm &#34;C-x h&#34;) (ekm &#34;M-w&#34;) (ekm &#34;C-c &#39;&#34;) (call-interactively &#39;org-babel-mark-block) (ekm &#34;&lt;up&gt;&#34;) (ekm &#34;C-x C-x&#34;) (ekm &#34;&lt;down&gt;&#34;) (ekm &#34;C-y&#34;) (ekm &#34;C-x C-x&#34;)))"/>
+<meta name="twitter:description" content="Just a glimpse into the kinds of things I am recording in my notes.
+Multiple actions as single undo entry https://www.reddit.com/r/emacs/comments/6scoyy/multiple%5Factions%5Fas%5Fsingle%5Fundo%5Fentry/
+(defun org-babel-raise () (interactive) (evil-with-single-undo (ekm &#34;C-c &#39;&#34;) (ekm &#34;C-x h&#34;) (ekm &#34;C-x h&#34;) (ekm &#34;M-w&#34;) (ekm &#34;C-c &#39;&#34;) (call-interactively &#39;org-babel-mark-block) (ekm &#34;&lt;up&gt;&#34;) (ekm &#34;C-x C-x&#34;) (ekm &#34;&lt;down&gt;&#34;) (ekm &#34;C-y&#34;) (ekm &#34;C-x C-x&#34;))) High precedence key binding If you want a highest precedence global map, general.el has an override mode."/>
 
     <meta property="og:title" content="Emacs tips" />
-<meta property="og:description" content=" Multiple actions as single undo entry https://www.reddit.com/r/emacs/comments/6scoyy/multiple%5Factions%5Fas%5Fsingle%5Fundo%5Fentry/
-(defun org-babel-raise () (interactive) (evil-with-single-undo (ekm &#34;C-c &#39;&#34;) (ekm &#34;C-x h&#34;) (ekm &#34;C-x h&#34;) (ekm &#34;M-w&#34;) (ekm &#34;C-c &#39;&#34;) (call-interactively &#39;org-babel-mark-block) (ekm &#34;&lt;up&gt;&#34;) (ekm &#34;C-x C-x&#34;) (ekm &#34;&lt;down&gt;&#34;) (ekm &#34;C-y&#34;) (ekm &#34;C-x C-x&#34;)))" />
+<meta property="og:description" content="Just a glimpse into the kinds of things I am recording in my notes.
+Multiple actions as single undo entry https://www.reddit.com/r/emacs/comments/6scoyy/multiple%5Factions%5Fas%5Fsingle%5Fundo%5Fentry/
+(defun org-babel-raise () (interactive) (evil-with-single-undo (ekm &#34;C-c &#39;&#34;) (ekm &#34;C-x h&#34;) (ekm &#34;C-x h&#34;) (ekm &#34;M-w&#34;) (ekm &#34;C-c &#39;&#34;) (call-interactively &#39;org-babel-mark-block) (ekm &#34;&lt;up&gt;&#34;) (ekm &#34;C-x C-x&#34;) (ekm &#34;&lt;down&gt;&#34;) (ekm &#34;C-y&#34;) (ekm &#34;C-x C-x&#34;))) High precedence key binding If you want a highest precedence global map, general.el has an override mode." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/emacs-tips/" />
 <meta property="article:published_time" content="2019-10-24T00:00:00+13:00" />
@@ -102,6 +104,8 @@
     <div class="post-content">
       
 
+<p>Just a glimpse into the kinds of things I am recording in my notes.</p>
+
 <h2 id="multiple-actions-as-single-undo-entry">Multiple actions as single undo entry</h2>
 
 <p><a href="https://www.reddit.com/r/emacs/comments/6scoyy/multiple%5Factions%5Fas%5Fsingle%5Fundo%5Fentry/">https://www.reddit.com/r/emacs/comments/6scoyy/multiple%5Factions%5Fas%5Fsingle%5Fundo%5Fentry/</a></p>
@@ -119,6 +123,43 @@
     (ekm <span style="color:#e6db74">&#34;&lt;down&gt;&#34;</span>)
     (ekm <span style="color:#e6db74">&#34;C-y&#34;</span>)
     (ekm <span style="color:#e6db74">&#34;C-x C-x&#34;</span>)))</code></pre></div>
+<h2 id="high-precedence-key-binding">High precedence key binding</h2>
+
+<p>If you want a highest precedence global map,
+<code>general.el</code> has an override mode.</p>
+
+<p>The examples in the readme are for evil, but
+it works for emacs (without evil) as well.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(general-def :keymaps <span style="color:#e6db74">&#39;override</span> <span style="color:#e6db74">&#34;C-x C-f&#34;</span> <span style="color:#e6db74">&#39;my-find-file-command</span>)</code></pre></div>
+<p>This is a global map. What if I want a minor / maor jode map to override?</p>
+
+<h2 id="keymap-inheritance">keymap inheritance</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defvar emacs-lisp-mode-map
+  (let ((map (<span style="color:#a6e22e">make-sparse-keymap</span> <span style="color:#e6db74">&#34;Emacs-Lisp&#34;</span>))
+        (menu-map (<span style="color:#a6e22e">make-sparse-keymap</span> <span style="color:#e6db74">&#34;Emacs-Lisp&#34;</span>))
+        (lint-map (<span style="color:#a6e22e">make-sparse-keymap</span>))
+        (prof-map (<span style="color:#a6e22e">make-sparse-keymap</span>))
+        (tracing-map (<span style="color:#a6e22e">make-sparse-keymap</span>)))
+    (<span style="color:#a6e22e">set-keymap-parent</span> map lisp-mode-shared-map)
+    <span style="color:#960050;background-color:#1e0010">…</span>
+    map))</code></pre></div>
+<h2 id="wrap-a-script-like-a-template">wrap a script &ndash; like a template</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun ob-coffee-wrap (body)
+  (with-temp-buffer
+    (<span style="color:#a6e22e">insert</span> body)
+    (when (ob-coffee-find-last-expression)
+      (<span style="color:#a6e22e">insert</span> <span style="color:#e6db74">&#34;__ob_coffee_last__ = &#34;</span>)
+      (<span style="color:#a6e22e">goto-char</span> (<span style="color:#a6e22e">point-max</span>))
+      (<span style="color:#a6e22e">insert</span> (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;
+</span><span style="color:#e6db74">__ob_coffee_log__ = (obj)-&gt;
+</span><span style="color:#e6db74">    console.log obj
+</span><span style="color:#e6db74">    process.stdout.write(&#39;%s&#39;) and undefined
+</span><span style="color:#e6db74">if &#39;function&#39; is typeof __ob_coffee_last__\?.then
+</span><span style="color:#e6db74">    __ob_coffee_last__.then __ob_coffee_log__, __ob_coffee_log__
+</span><span style="color:#e6db74">    console.log \&#34;Promise:\&#34;
+</span><span style="color:#e6db74">else
+</span><span style="color:#e6db74">    __ob_coffee_log__ __ob_coffee_last__&#34;</span> ob-coffee-eoe)))
+    (<span style="color:#a6e22e">buffer-string</span>)))</code></pre></div>
     </div>
     <div class="post-footer">
       

@@ -225,9 +225,9 @@ helm Select from a list There are different ways to select from a list.
 (defun fz-default-return-query (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;optional</span> prompt)
   (setq prompt (or prompt <span style="color:#e6db74">&#34;:&#34;</span>))
   (<span style="color:#a6e22e">completing-read</span> prompt <span style="color:#a6e22e">list</span> <span style="color:#66d9ef">nil</span> <span style="color:#e6db74">&#39;confirm</span>))</code></pre></div>
-<h3 id="prompt-using-your-favorite-completion-framework">prompt using your favorite completion framework</h3>
+<h3 id="prompt-using-your-favorite-completion-framework">Prompt using your favorite completion framework</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">insert</span> (<span style="color:#a6e22e">completing-read</span> <span style="color:#e6db74">&#34;Prompt: &#34;</span> *my-list*))</code></pre></div>
-<h4 id="helper-functions">helper functions</h4>
+<h4 id="helper-functions">Helper functions</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun insert-with-completion (strings)
   <span style="color:#e6db74">&#34;Insert a string from STRINGS into the current buffer.
 </span><span style="color:#e6db74">Prompt for string to insert with completing-read.&#34;</span>
@@ -238,13 +238,13 @@ helm Select from a list There are different ways to select from a list.
   (with-temp-buffer
     (<span style="color:#a6e22e">insert-file-contents</span> path)
     (split-string (<span style="color:#a6e22e">buffer-string</span>) <span style="color:#e6db74">&#34;\n&#34;</span> <span style="color:#66d9ef">t</span>)))</code></pre></div>
-<h4 id="example">example</h4>
+<h4 id="example">Example</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun insert-from-my-list ()
   <span style="color:#e6db74">&#34;Insert a line into the current buffer, with completion.&#34;</span>
   (interactive)
   (insert-with-completion (read-lines <span style="color:#e6db74">&#34;~/path/to/my-list.txt&#34;</span>)))</code></pre></div>
 <ul>
-<li><p>cache it</p>
+<li><p>Cache it</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defvar *my-list* <span style="color:#66d9ef">nil</span>)
 
 (defun refresh-my-list ()
