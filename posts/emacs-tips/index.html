@@ -133,7 +133,7 @@ it works for emacs (without evil) as well.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(general-def :keymaps <span style="color:#e6db74">&#39;override</span> <span style="color:#e6db74">&#34;C-x C-f&#34;</span> <span style="color:#e6db74">&#39;my-find-file-command</span>)</code></pre></div>
 <p>This is a global map. What if I want a minor / maor jode map to override?</p>
 
-<h2 id="keymap-inheritance">keymap inheritance</h2>
+<h2 id="keymap-inheritance">Keymap inheritance</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defvar emacs-lisp-mode-map
   (let ((map (<span style="color:#a6e22e">make-sparse-keymap</span> <span style="color:#e6db74">&#34;Emacs-Lisp&#34;</span>))
         (menu-map (<span style="color:#a6e22e">make-sparse-keymap</span> <span style="color:#e6db74">&#34;Emacs-Lisp&#34;</span>))
@@ -143,7 +143,7 @@ it works for emacs (without evil) as well.</p>
     (<span style="color:#a6e22e">set-keymap-parent</span> map lisp-mode-shared-map)
     <span style="color:#960050;background-color:#1e0010">…</span>
     map))</code></pre></div>
-<h2 id="wrap-a-script-like-a-template">wrap a script &ndash; like a template</h2>
+<h2 id="wrap-a-script-make-string-templates-in-emacs-lisp">Wrap a script / make string templates in emacs lisp</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun ob-coffee-wrap (body)
   (with-temp-buffer
     (<span style="color:#a6e22e">insert</span> body)
