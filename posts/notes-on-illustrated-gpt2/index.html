@@ -12,10 +12,14 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="(WIP) Notes on &#34;The Illustrated GPT-2&#34;"/>
-<meta name="twitter:description" content="Original article The Illustrated GPT-2 (Visualizing Transformer Language Models) Jay Alammar Visualizing machine learning one concept at a time  Prereading Overview of The Illustrated Transformer // Bodacious Blog"/>
+<meta name="twitter:description" content="Original article The Illustrated GPT-2 (Visualizing Transformer Language Models) Jay Alammar Visualizing machine learning one concept at a time  Prereading Overview of The Illustrated Transformer // Bodacious Blog
+Goal Supplement The Illustrated Transformer with more visuals explaining the inner-workings of transformers, and how they’ve evolved since the original paper.
+Contents Part 1: GPT2 And Language Modeling What is a Language Model Transformers for Language Modeling One Difference From BERT The Evolution of The Transformer Block Crash Course in Brain Surgery: Looking Inside GPT-2 A Deeper Look Inside End of part #1: The GPT-2, Ladies and Gentlemen Part 2: The Illustrated Self-Attention Self-Attention (without masking) 1- Create Query, Key, and Value Vectors 2- Score 3- Sum The Illustrated Masked Self-Attention GPT-2 Masked Self-Attention Beyond Language modeling You’ve Made it!"/>
 
     <meta property="og:title" content="(WIP) Notes on &#34;The Illustrated GPT-2&#34;" />
-<meta property="og:description" content="Original article The Illustrated GPT-2 (Visualizing Transformer Language Models) Jay Alammar Visualizing machine learning one concept at a time  Prereading Overview of The Illustrated Transformer // Bodacious Blog" />
+<meta property="og:description" content="Original article The Illustrated GPT-2 (Visualizing Transformer Language Models) Jay Alammar Visualizing machine learning one concept at a time  Prereading Overview of The Illustrated Transformer // Bodacious Blog
+Goal Supplement The Illustrated Transformer with more visuals explaining the inner-workings of transformers, and how they’ve evolved since the original paper.
+Contents Part 1: GPT2 And Language Modeling What is a Language Model Transformers for Language Modeling One Difference From BERT The Evolution of The Transformer Block Crash Course in Brain Surgery: Looking Inside GPT-2 A Deeper Look Inside End of part #1: The GPT-2, Ladies and Gentlemen Part 2: The Illustrated Self-Attention Self-Attention (without masking) 1- Create Query, Key, and Value Vectors 2- Score 3- Sum The Illustrated Masked Self-Attention GPT-2 Masked Self-Attention Beyond Language modeling You’ve Made it!" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/notes-on-illustrated-gpt2/" />
 <meta property="article:published_time" content="2019-10-24T00:00:00+13:00" />
@@ -87,7 +91,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div></div>
     </header>
     
@@ -110,6 +114,100 @@
 <h2 id="prereading">Prereading</h2>
 
 <p><a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">Overview of The Illustrated Transformer // Bodacious Blog</a></p>
+
+<h2 id="goal">Goal</h2>
+
+<p>Supplement <code>The Illustrated Transformer</code> with
+more visuals explaining the inner-workings of
+transformers, and how they’ve evolved since
+the original paper.</p>
+
+<h2 id="contents">Contents</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Part 1: GPT2 And Language Modeling
+    What is a Language Model
+    Transformers for Language Modeling
+    One Difference From BERT
+    The Evolution of The Transformer Block
+    Crash Course in Brain Surgery: Looking Inside GPT-2
+    A Deeper Look Inside
+    End of part #1: The GPT-2, Ladies and Gentlemen
+
+Part 2: The Illustrated Self-Attention
+    Self-Attention (without masking)
+    1- Create Query, Key, and Value Vectors
+    2- Score
+    3- Sum
+    The Illustrated Masked Self-Attention
+    GPT-2 Masked Self-Attention
+    Beyond Language modeling
+    You’ve Made it!
+
+Part 3: Beyond Language Modeling
+    Machine Translation
+    Summarization
+    Transfer Learning
+    Music Generation</code></pre></div>
+<h2 id="glossary">Glossary</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">WebText
+    [dataset]
+
+    The OpenAI researchers crawled it from the
+    internet as part of research into GPT-2.</code></pre></div>
+<h3 id="model-variants">Model variants</h3>
+
+<p>Here, M means Million. Sometimes it can mean 1000.</p>
+
+<p><a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf">https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf</a></p>
+
+<table>
+<thead>
+<tr>
+<th>GPT-2 variant</th>
+<th>Parameters (M=Million)</th>
+<th>Layers</th>
+<th>\(\mathit{d}_\mathit{model}\) (Model dimension)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>SMALL</td>
+<td>117M</td>
+<td>12</td>
+<td>768</td>
+</tr>
+
+<tr>
+<td>MEDIUM</td>
+<td>345M</td>
+<td>24</td>
+<td>1024</td>
+</tr>
+
+<tr>
+<td>LARGE</td>
+<td>762M</td>
+<td>36</td>
+<td>1280</td>
+</tr>
+
+<tr>
+<td>EXTRA LARGE</td>
+<td>1542M</td>
+<td>48</td>
+<td>1600</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="factoids">Factoids</h2>
+
+<h3 id="gpt-2-was-trained-on-webtext">GPT-2 was trained on <code>WebText</code></h3>
+
+<p>The GPT-2 was trained on a massive 40GB
+dataset called WebText that the OpenAI
+researchers crawled from the internet as part
+of the research effort.</p>
 
     </div>
     <div class="post-footer">
