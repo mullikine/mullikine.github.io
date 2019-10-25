@@ -199,8 +199,15 @@ pretty print them.</p>
                           (<span style="color:#a6e22e">concat</span> (<span style="color:#a6e22e">symbol-name</span> mapsym) <span style="color:#e6db74">&#34;\n\n&#34;</span> (<span style="color:#a6e22e">substitute-command-keys</span> mstring))
                           (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;*&#34;</span> (<span style="color:#a6e22e">symbol-name</span> mapsym) <span style="color:#e6db74">&#34;*&#34;</span>))
       (view-mode <span style="color:#ae81ff">1</span>))))</code></pre></div>
+<h2 id="another-useful-function-is-to-get-the-keymap-from-a-binding-you-have-just-entered">Another useful function is to get the keymap from a binding you have just entered</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun get-map-for-key-binding (sequence)
+  <span style="color:#e6db74">&#34;This works&#34;</span>
+  (interactive (<span style="color:#a6e22e">list</span> (uq (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%S&#34;</span> (<span style="color:#a6e22e">key-description</span> (<span style="color:#a6e22e">read-key-sequence-vector</span> <span style="color:#e6db74">&#34;Key: &#34;</span>))))))
+  <span style="color:#75715e">;; (my/copy sequence)</span>
+  (my/copy (sym2str (help--binding-locus (kbd sequence) <span style="color:#66d9ef">nil</span>))))</code></pre></div>
 <h2 id="examples">Examples</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">M-x show-map</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(show-map <span style="color:#e6db74">&#39;helm-map</span>)</code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">M-x show-map</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(show-map <span style="color:#e6db74">&#39;helm-map</span>)
+(get-map-for-key-binding <span style="color:#e6db74">&#34;M-m a d&#34;</span>)</code></pre></div>
 <h2 id="update">Update</h2>
 
 <p>I found a function in <code>help-fns+</code> that does what <code>show-map</code> does.</p>
