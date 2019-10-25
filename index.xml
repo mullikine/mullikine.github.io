@@ -101,8 +101,9 @@ org-google.el source ;;; org-man.el - Support for links to google queries in Org
       
       <guid>https://mullikine.github.io/posts/emacs-tips/</guid>
       <description>Just a glimpse into the kinds of things I am recording in my notes.
-Multiple actions as single undo entry https://www.reddit.com/r/emacs/comments/6scoyy/multiple%5Factions%5Fas%5Fsingle%5Fundo%5Fentry/
-(defun org-babel-raise () (interactive) (evil-with-single-undo (ekm &amp;#34;C-c &amp;#39;&amp;#34;) (ekm &amp;#34;C-x h&amp;#34;) (ekm &amp;#34;C-x h&amp;#34;) (ekm &amp;#34;M-w&amp;#34;) (ekm &amp;#34;C-c &amp;#39;&amp;#34;) (call-interactively &amp;#39;org-babel-mark-block) (ekm &amp;#34;&amp;lt;up&amp;gt;&amp;#34;) (ekm &amp;#34;C-x C-x&amp;#34;) (ekm &amp;#34;&amp;lt;down&amp;gt;&amp;#34;) (ekm &amp;#34;C-y&amp;#34;) (ekm &amp;#34;C-x C-x&amp;#34;))) High precedence key binding If you want a highest precedence global map, general.el has an override mode.</description>
+Help key &amp;ndash; interpretted by emacs, not tmux This is because you would have to modify both terminfo and tmux c source to get the help key this way.
+It was simply easier to intercept the raw ansi in emacs and translate it.
+(define-key key-translation-map (kbd &amp;#34;C-M-]&amp;#34;) (kbd &amp;#34;&amp;lt;help&amp;gt;&amp;#34;))    kb tr          Multiple actions as single undo entry https://www.</description>
     </item>
     
     <item>
