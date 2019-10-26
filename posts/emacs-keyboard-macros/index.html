@@ -15,13 +15,13 @@
 <meta name="twitter:description" content="This is how people should use emacs.
 magit diff before    kb f     q exit diff. go back to log   M-n go to next commit in log   dd show diff of commit    And repeat.
 
-new key bindings ;; For speed (define-key magit-diff-mode-map (kbd &#34;M-P&#34;) (lambda () (interactive) (ekm &#34;q M-p dd&#34;))) (define-key magit-diff-mode-map (kbd &#34;M-N&#34;) (lambda () (interactive) (ekm &#34;q M-n dd&#34;))) after    kb f     M-N exit diff."/>
+new key bindings ;; For speed (define-key magit-diff-mode-map (kbd &#34;M-P&#34;) (lambda () (interactive) (execute-kbd-macro (kbd &#34;q M-p dd&#34;)))) (define-key magit-diff-mode-map (kbd &#34;M-N&#34;) (lambda () (interactive) (execute-kbd-macro (kbd &#34;q M-n dd&#34;)))) after    kb f     M-N exit diff."/>
 
     <meta property="og:title" content="emacs - Editing MACroS" />
 <meta property="og:description" content="This is how people should use emacs.
 magit diff before    kb f     q exit diff. go back to log   M-n go to next commit in log   dd show diff of commit    And repeat.
 
-new key bindings ;; For speed (define-key magit-diff-mode-map (kbd &#34;M-P&#34;) (lambda () (interactive) (ekm &#34;q M-p dd&#34;))) (define-key magit-diff-mode-map (kbd &#34;M-N&#34;) (lambda () (interactive) (ekm &#34;q M-n dd&#34;))) after    kb f     M-N exit diff." />
+new key bindings ;; For speed (define-key magit-diff-mode-map (kbd &#34;M-P&#34;) (lambda () (interactive) (execute-kbd-macro (kbd &#34;q M-p dd&#34;)))) (define-key magit-diff-mode-map (kbd &#34;M-N&#34;) (lambda () (interactive) (execute-kbd-macro (kbd &#34;q M-n dd&#34;)))) after    kb f     M-N exit diff." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/emacs-keyboard-macros/" />
 <meta property="article:published_time" content="2019-10-26T00:00:00+13:00" />
@@ -146,8 +146,8 @@ new key bindings ;; For speed (define-key magit-diff-mode-map (kbd &#34;M-P&#34;
 
 <h3 id="new-key-bindings">new key bindings</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; For speed</span>
-(<span style="color:#a6e22e">define-key</span> magit-diff-mode-map (kbd <span style="color:#e6db74">&#34;M-P&#34;</span>) (lambda () (interactive) (ekm <span style="color:#e6db74">&#34;q M-p dd&#34;</span>)))
-(<span style="color:#a6e22e">define-key</span> magit-diff-mode-map (kbd <span style="color:#e6db74">&#34;M-N&#34;</span>) (lambda () (interactive) (ekm <span style="color:#e6db74">&#34;q M-n dd&#34;</span>)))</code></pre></div>
+(<span style="color:#a6e22e">define-key</span> magit-diff-mode-map (kbd <span style="color:#e6db74">&#34;M-P&#34;</span>) (lambda () (interactive) (<span style="color:#a6e22e">execute-kbd-macro</span> (kbd <span style="color:#e6db74">&#34;q M-p dd&#34;</span>))))
+(<span style="color:#a6e22e">define-key</span> magit-diff-mode-map (kbd <span style="color:#e6db74">&#34;M-N&#34;</span>) (lambda () (interactive) (<span style="color:#a6e22e">execute-kbd-macro</span> (kbd <span style="color:#e6db74">&#34;q M-n dd&#34;</span>))))</code></pre></div>
 <h3 id="after">after</h3>
 
 <table>
