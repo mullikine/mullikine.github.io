@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>emacs on Bodacious Blog</title>
+    <link>https://mullikine.github.io/tags/emacs/</link>
+    <description>Recent content in emacs on Bodacious Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 26 Oct 2019 00:00:00 +1300</lastBuildDate>
+    
+	<atom:link href="https://mullikine.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>emacs for beginners - Editing MACroS</title>
+      <link>https://mullikine.github.io/posts/emacs-keyboard-macros/</link>
+      <pubDate>Sat, 26 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-keyboard-macros/</guid>
+      <description>emacs becomes more powerful when you use it in the way it was designed to be used.
+You should be using keyboard macros.
+ keyboard macros vs lisp macros Keyboard macros and lisp macros are entirely different things.
+The article you are reading is about using keyboard macros.
+If you want to read about lisp macros then read my other article.
+https://mullikine.github.io/posts/macro-tutorial/
+  Using keyboard macros to speed up processes An example: Using magit-diff; before and after Before    kb f     q exit diff.</description>
+    </item>
+    
+    <item>
+      <title>emacs for scraping Google search results</title>
+      <link>https://mullikine.github.io/posts/use-emacs-to-scrape-google-search-results/</link>
+      <pubDate>Fri, 25 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/use-emacs-to-scrape-google-search-results/</guid>
+      <description>I have had issues with using python libraries for scraping Google search results.
+It appears that pip libraries keep going out of order.
+Therefore, I switched to scraping with emacs.
+I have developed a faith in the eww browser due to its reliability.
+Create the elisp function which uses xurls to scrape URLs from text (defun google-scrape-after-loaded () ;; (new-buffer-from-string (sh/ptw/uniqnosort (sh/ptw/xurls (format &amp;#34;%S&amp;#34; (buffer-string)))) &amp;#34;*google-results*&amp;#34;) (let ((results (sh/ptw/uniqnosort (sh/ptw/xurls (format &amp;#34;%S&amp;#34; (buffer-string)))))) (write-string-to-file results &amp;#34;/tmp/eww-scrape-output.</description>
+    </item>
+    
+    <item>
+      <title>Searching awesome lists for curated web browsing</title>
+      <link>https://mullikine.github.io/posts/curated-surfing/</link>
+      <pubDate>Fri, 25 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/curated-surfing/</guid>
+      <description>Here I demonstrate searching through and reading lists of things from the command line.
+I ran into some issues with the googlesearch pip module It seems to have been taken down from pip.
+I changed my script to use emacs&amp;rsquo; eww browser to scrape the results instead eww is pretty reliable.
+Demonstration Please be patient as I bypass the problem above.
+
+Some search results from the demonstration above http://linear.</description>
+    </item>
+    
+    <item>
+      <title>Custom Org Links</title>
+      <link>https://mullikine.github.io/posts/custom-org-links/</link>
+      <pubDate>Thu, 24 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/custom-org-links/</guid>
+      <description>org links are useful for making your org-mode documents more terse.
+$EMACSD/config/org/org-google.el $EMACSD/config/org/org-man.el $EMACSD/config/org/org-rifle.el $EMACSD/config/org/org-youtube.el org-google.el, for instance will allow you to write google searches into your org mode.
+org-google Example You can then type C-c C-o on the link to run the google search.
+[[google:emacs plugins]] This is how it appears in org-mode.
+google:emacs plugins
+org-google.el source ;;; org-man.el - Support for links to google queries in Org (require &amp;#39;org) ;; org-add-link-type removes the google: from the start, I think (org-add-link-type &amp;#34;google&amp;#34; &amp;#39;org-g-open) (org-add-link-type &amp;#34;goo&amp;#34; &amp;#39;org-g-open) (org-add-link-type &amp;#34;gl&amp;#34; &amp;#39;org-g-open) (org-add-link-type &amp;#34;gr&amp;#34; &amp;#39;org-g-open) (org-add-link-type &amp;#34;gg&amp;#34; &amp;#39;org-g-open) (add-hook &amp;#39;org-store-link-functions &amp;#39;org-g-store-link) ;; create a function, gr to open googler in a tmux split given search terms ;; vim +/&amp;#34;(defun my-google (&amp;amp;optional terms)&amp;#34; &amp;#34;$EMACSD/config/my-utils.</description>
+    </item>
+    
+    <item>
+      <title>Extending Babel</title>
+      <link>https://mullikine.github.io/posts/extending-babel/</link>
+      <pubDate>Thu, 24 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/extending-babel/</guid>
+      <description>previous article Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog  Automate the process of changing the babel block wrapper (defun org-babel-raise () &amp;#34;Move the interior of a babel to the outside: remove the babel block chrome and keep only the source code.&amp;#34; (interactive) (evil-with-single-undo ;; put a line after the block (call-interactively &amp;#39;org-mark-element) (ekm &amp;#34;C-x C-x&amp;#34;) (insert &amp;#34;\n&amp;#34;) (ekm &amp;#34;&amp;lt;up&amp;gt;&amp;#34;) (ekm &amp;#34;C-x C-x&amp;#34;) (ekm &amp;#34;C-c &amp;#39;&amp;#34;) (ekm &amp;#34;C-x h&amp;#34;) (ekm &amp;#34;C-x h&amp;#34;) (ekm &amp;#34;M-w&amp;#34;) (ekm &amp;#34;C-c &amp;#39;&amp;#34;) (call-interactively &amp;#39;org-babel-mark-block) (ekm &amp;#34;&amp;lt;up&amp;gt;&amp;#34;) (ekm &amp;#34;C-x C-x&amp;#34;) (ekm &amp;#34;&amp;lt;down&amp;gt;&amp;#34;) (ekm &amp;#34;C-y&amp;#34;) (ekm &amp;#34;C-x C-x&amp;#34;))) (defun org-babel-change-block-type () (interactive) (if (org-in-src-block-p) (progn (call-interactively &amp;#39;org-babel-raise) (call-interactively &amp;#39;hydra-org-template/body)) (self-insert-command 1))) (define-key org-mode-map (kbd &amp;#34;&amp;gt;&amp;#34;) &amp;#39;org-babel-change-block-type) I have accidentally made this into the wrong type of babel (i.</description>
+    </item>
+    
+    <item>
+      <title>Random emacs tips</title>
+      <link>https://mullikine.github.io/posts/emacs-tips/</link>
+      <pubDate>Thu, 24 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-tips/</guid>
+      <description>Just a glimpse into the kinds of things I am recording in my notes.
+Help key &amp;ndash; interpretted by emacs, not tmux This is because you would have to modify both terminfo and tmux c source to get the help key this way.
+It was simply easier to intercept the raw ansi in emacs and translate it.
+(define-key key-translation-map (kbd &amp;#34;C-M-]&amp;#34;) (kbd &amp;#34;&amp;lt;help&amp;gt;&amp;#34;))    kb tr     &amp;lt;C-M-]&amp;gt; &amp;lt;help&amp;gt;    Multiple actions as single undo entry https://www.</description>
+    </item>
+    
+    <item>
+      <title>Meta &amp; Inception</title>
+      <link>https://mullikine.github.io/posts/meta-inception/</link>
+      <pubDate>Wed, 23 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/meta-inception/</guid>
+      <description>This is a blog article about writing a blog article about recording myself recording myself playing tetris inside emacs inside tmux inside neovim inside spacemacs, inside the 5 nested tmux sessions seen at the bottom of the screen.
+DONE tetris inside of emacs etetris-vt100 DONE tetris inside of neovim terminal inside of tmux nvt etetris-vt100 DONE tetris inside of neovim terminal inside of tmux inside of spacemacs sp -sh nvt etetris-vt100 DONE asciinema recording of an asciinema recording of tetris inside of neovim terminal inside of tmux inside of spacemacs Meta inception</description>
+    </item>
+    
+    <item>
+      <title>Muddled Monoliths: consolidating key bindings with handle.el</title>
+      <link>https://mullikine.github.io/posts/setting-up-handle-mode/</link>
+      <pubDate>Tue, 22 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/setting-up-handle-mode/</guid>
+      <description>The problem I have a few makeshift, monolithic functions for consolidating documentation and code navigation commands under a single function.
+They have become unwieldly as they grow to accommodate more languages and modes.
+Example of an unwieldly function (defun my/doc-thing-at-point (arg &amp;amp;optional immediate winfunc) &amp;#34;Show doc for thing under pointl. winfunc = &amp;#39;spv or &amp;#39;sph elisp function&amp;#34; (interactive &amp;#34;P&amp;#34;) (if (not winfunc) (setq winfunc &amp;#39;sph)) (cond ((string-equal (preceding-sexp-or-element) &amp;#34;#lang&amp;#34;) (progn ;; (racket--repl-command &amp;#34;doc %s&amp;#34; (concat &amp;#34;H:&amp;#34; (str (sexp-at-point)))) (str (racket--cmd/async `(doc ,(concat &amp;#34;H:&amp;#34; (str (sexp-at-point)))))) (sleep 1) (let ((url (cl/xc nil :notify t))) (if immediate (if (string-match-p &amp;#34;racket/search/index.</description>
+    </item>
+    
+    <item>
+      <title>Compounding Confoundment: arbitrary interpreters for Babel</title>
+      <link>https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/</link>
+      <pubDate>Sun, 20 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/</guid>
+      <description>Genesis 11:7 “&amp;hellip;Come, let us go down and confuse their language so they will not understand each other.” If supporting many languages in Babel was not confounding enough, lets support arbitrary interpreters too!  The need to specify a custom interpreter arose when I needed to provide my own interpreter for generating an ASCII graph from a dot script.
+Objective Specify an :interpreter and/or :filter command to override the execute behaviour.</description>
+    </item>
+    
+    <item>
+      <title>(WIP) Extending WordNut for generating blog titles</title>
+      <link>https://mullikine.github.io/posts/extending-wordnut-for-generating-blog-titles/</link>
+      <pubDate>Mon, 07 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/extending-wordnut-for-generating-blog-titles/</guid>
+      <description> Obtain an org-mode parser https://orgmode.org/worg/org-tools/index.html
+Parse wordnut output to scrape synonyms from the buffer Given 2 words, create a list of synonyms for each Look for one word from each list with the same starting letter </description>
+    </item>
+    
+    <item>
+      <title>Sensible Splits: Extending shackle.el</title>
+      <link>https://mullikine.github.io/posts/making-shackle-split-sensibly/</link>
+      <pubDate>Mon, 07 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/making-shackle-split-sensibly/</guid>
+      <description>shackle.el provides a single interface for managing the way windows are displayed in emacs. This means you don&amp;rsquo;t have to dig into plugin code to provide ad-hoc advice to specific functions.
+Unfortunately, it doesn&amp;rsquo;t provide an option to split sensibly, allowing you only to specify exactly how you want windows to be displayed.
+For example, it will allow to you specify that all help buffers split to the right with the following rule.</description>
+    </item>
+    
+    <item>
+      <title>Taming term-mode</title>
+      <link>https://mullikine.github.io/posts/taming-term/</link>
+      <pubDate>Mon, 07 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/taming-term/</guid>
+      <description>libertyprime to #emacs i found myself recording an asciinema recording of me making an asciinema recording of me playing tetris inside of tmux inside of neovim inside of emacs inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about  First attempt You can skip this and scroll down to the solution or read it to see some of the problems I was having with term.</description>
+    </item>
+    
+    <item>
+      <title>awk-ward mode for emacs</title>
+      <link>https://mullikine.github.io/posts/awk-ward/</link>
+      <pubDate>Sun, 06 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/awk-ward/</guid>
+      <description>https://gitlab.com/kisaragi-hiu/awk-ward.el
+This is a neat plugin that lets you edit awk scripts with real time feedback, displaying both the output and any errors.
+Update awk-ward to enable updates on any buffer modification The problem as it has been designed to updates only when you are typing text in to the program.
+Patch Use post-command-hook instead of post-self-insert-hook (07a56482) Commits Shane Mulligan / awk-ward.el GitLab
+Demonstration of awk-ward with the patch working</description>
+    </item>
+    
+    <item>
+      <title>Review of CI tools for emacs</title>
+      <link>https://mullikine.github.io/posts/continuous-integration-emacs/</link>
+      <pubDate>Sun, 06 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/continuous-integration-emacs/</guid>
+      <description> Emacs plugins  plugin list  jenkins jenkins-watch travis org-link-travis magit-circleci   Demonstration of jenkins.el for emacs 
+TODO Review these jenkins plugins  plugin list  folders OWASP markup formatter build timeout crenditials binding timestamper workspace cleanup ant gradle pipeline github branch source pipeline: github groovy libraries pipeline: stage view git subversion ssh slaves matrix authorization strategy PAM authentication LDAP Email extension mailer   </description>
+    </item>
+    
+    <item>
+      <title>Extending magit with more convenient worktrees</title>
+      <link>https://mullikine.github.io/posts/extending-magit/</link>
+      <pubDate>Sat, 05 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/extending-magit/</guid>
+      <description>What is magit? It&amp;rsquo;s a really awesome git porcelain.
+Using git worktree with magit to browse different versions of a repository https://magit.vc/manual/magit/Worktree.html
+http://webcache.googleusercontent.com/search?q=cache:https://medium.com/@gaurav5430/git-using-git-worktree-to-run-2-versions-of-the-code-at-the-same-time-1b4586315a6c
+Basic git worktree bindings This is because git manages the set of worktrees.
+Magit makes use of this % g (magit-worktree-status)j magit-list-worktreesfind-function magit-list-worktrees  Example
+cd &amp;#34;$MYGIT/kisaragi-hiu/awk-ward.el&amp;#34;; git worktree list --porcelain This is where the info is stored:
+cd &amp;#34;$MYGIT/kisaragi-hiu/awk-ward.el&amp;#34;; ls -ld .git/worktrees/010/  Questions about the workings of magit&amp;rsquo;s worktree support  Does the worktree get added to the parent repo if I add it?</description>
+    </item>
+    
+    <item>
+      <title>emacs: demystifying emacs buttons</title>
+      <link>https://mullikine.github.io/posts/emacs-get-function-for-button/</link>
+      <pubDate>Fri, 04 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-get-function-for-button/</guid>
+      <description>Buttons in emacs are a little bit of a black box.
+This makes it difficult wish to extend or modify a mode that uses buttons: yasnippet, for example.
+Here is how to find out what the button does before you click on it.
+Get the function This is all you need for most cases.
+(defun get-button-action () &amp;#34;Get the action of the button at point&amp;#34; (interactive) (let ((b (button-at (point)))) (if b (button-get b &amp;#39;action)))) Special case: help-mode and yasnippet Applying (get-button-action) in yasnippet very unhelpfully provides this help-button-action.</description>
+    </item>
+    
+    <item>
+      <title>Conveniently learn emacs bindings</title>
+      <link>https://mullikine.github.io/posts/conveniently-learn-emacs-bindings/</link>
+      <pubDate>Thu, 03 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/conveniently-learn-emacs-bindings/</guid>
+      <description>Here&amp;rsquo;s the coolest thing I&amp;rsquo;ve made in the last few days.
+This will allow you to fuzzy find maps and pretty print them.
+ It&amp;rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code (require &amp;#39;s) (defun my-new-buffer-frame (&amp;amp;optional contents bufname) &amp;#34;Create a new frame with a new empty buffer.</description>
+    </item>
+    
+    <item>
+      <title>Scrape URLs from eww region selection</title>
+      <link>https://mullikine.github.io/posts/scrape-urls-from-eww-region-selection/</link>
+      <pubDate>Thu, 03 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/scrape-urls-from-eww-region-selection/</guid>
+      <description>The idea is you select a region of text on the screen and the text properties will be searched for URLs.
+A new buffer is created with all the list of URLs in the region you selected.
+This works on any emacs mode.
+This also works with w3m for emacs.
+If a browser is used through ansi-term or the like then emacs most likely wont be able to scrape these URLs from the text properties.</description>
+    </item>
+    
+  </channel>
+</rss>

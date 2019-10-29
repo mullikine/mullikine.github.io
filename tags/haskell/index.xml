@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>haskell on Bodacious Blog</title>
+    <link>https://mullikine.github.io/tags/haskell/</link>
+    <description>Recent content in haskell on Bodacious Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 25 Oct 2019 00:00:00 +1300</lastBuildDate>
+    
+	<atom:link href="https://mullikine.github.io/tags/haskell/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>(WIP) Syntax transformers step by step</title>
+      <link>https://mullikine.github.io/posts/monad-transformers-step-by-step/</link>
+      <pubDate>Fri, 25 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/monad-transformers-step-by-step/</guid>
+      <description>Demonstrate monad transformers Build an interpreter for the little language below. type Name = String -- variable names data Exp = Lit Integer -- expressions | Var Name | Plus Exp Exp | Abs Name Exp | App Exp Exp deriving (Show) data Value = IntVal Integer -- values | FunVal Env Name Exp deriving (Show) type Env = Map.Map Name Value -- mapping from names to values Add the header module Transformers where import Control.</description>
+    </item>
+    
+    <item>
+      <title>Write You A Haskell</title>
+      <link>https://mullikine.github.io/posts/write-you-a-haskell/</link>
+      <pubDate>Fri, 25 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/write-you-a-haskell/</guid>
+      <description>This is just a casual writeup of WYAH as I read through it.
+Prereading Glossary monad transformer You have an innermost monad (usually Identity or IO but you can use any monad). You then wrap monad transformers around this monad to make bigger, better monads. https://page.mi.fu-berlin.de/scravy/realworldhaskell/materialien/monad-transformers-step-by-step.pdf It is possible to create custom monads simply by composing the necessary monad transformers. For example, if you need a monad with state and error handling, just take the StateT and ErrorT monad transformers and combine them.</description>
+    </item>
+    
+    <item>
+      <title>Alternative preludes for Haskell</title>
+      <link>https://mullikine.github.io/posts/alternative-preludes-for-haskell/</link>
+      <pubDate>Thu, 17 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/alternative-preludes-for-haskell/</guid>
+      <description>Glossary Lazy IO haskell
+Foundation Provide a better and more efficient prelude than base&amp;rsquo;s prelude.
+https://hackage.haskell.org/package/foundation
+be self-sufficient: no external dependencies apart from base.
+provide better data-types: packed unicode string by default, arrays.
+Better numerical classes that better represent mathematical thing (No more all-in-one Num).
+Better I/O system with less Lazy IO
+Usual partial functions distinguished through type system
+Lazy IO https://stackoverflow.com/questions/5892653/whats-so-bad-about-lazy-i-o
+Lazy IO has the problem that releasing whatever resource you have acquired is somewhat unpredictable, as it depends on how your program consumes the data &amp;ndash; its &amp;ldquo;demand pattern&amp;rdquo;.</description>
+    </item>
+    
+    <item>
+      <title>Blogs and Vlogs</title>
+      <link>https://mullikine.github.io/posts/blogs-and-vlogs/</link>
+      <pubDate>Mon, 14 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/blogs-and-vlogs/</guid>
+      <description> These are some of my favourite learning resources.
+   source type url Topics     Math4IQB vlog https://www.youtube.com/user/Math4IQB/videos Information Theory   Gwern Bransen blog https://www.gwern.net/GPT-2 Haskell, NLP, R    Misc articles NLP writeup.ai https://senrigan.io/blog/how-writeupai-runs-behind-the-scenes/#h%5F6068056784021570782144062
+Text generator with Keras https://www.thepythoncode.com/article/text-generation-keras-python
+Keyword extraction  nltk, sklearn
+https://medium.com/analytics-vidhya/automated-keyword-extraction-from-articles-using-nlp-bfd864f41b34
+ numpy, spacy
+https://towardsdatascience.com/textrank-for-keyword-extraction-by-python-c0bae21bcec0
+ ngram, modified skip-gram, spacy
+https://medium.com/reputation-com-datascience-blog/keywords-extraction-with-ngram-and-modified-skip-gram-based-on-spacy-14e5625fce23
+  </description>
+    </item>
+    
+  </channel>
+</rss>
