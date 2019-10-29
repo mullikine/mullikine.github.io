@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.27443c05a11ff17b5e03169667d995eed69c184ba25fd904512b70fd4ff9c59a.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.45cc45217000f7775f5af96a21e710dbfc6b9a6fdbe051640e5722b0cbeadf4c.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -230,7 +230,7 @@ decoders -&gt; output [label=output]</code></pre></div><div class="highlight"><p
 <p>Each stack contains <code>N</code> encoders.</p>
 
 <dl>
-<dt>list of 512D vectors</dt>
+<dt>list of <code>512</code> D vectors</dt>
 <dd>This is a list of words (initially, at least). It refers to either the input sentence or the output of an encoder.</dd>
 </dl>
 
@@ -300,10 +300,10 @@ previous encoder (which is of the same
 dimensionality).</p>
 
 <p>Each word of the sentence is embedded into a
-vector of size 512 and the length of the
-embedded sentence is the number of words of
-the longest sentence in our training dataset ×
-512 (the size of a word).</p>
+vector of size <code>512</code> and the length of the
+embedded sentence is <span class="underline">the number of words in
+the longest sentence</span> of our training dataset ×
+<code>512</code>, the size of a word.</p>
 
 <p>A <span class="underline">self-attention layer</span> helps the encoder
 look at other words in the input sentence as
@@ -417,7 +417,7 @@ input sentence (similar what attention does in
 learns a more macroscopic attention than the self-attention layer.</dd>
 <dt>The intuition of self-attention&hellip;</dt>
 <dd>Reflects on its own position/context within a greater whole.
-                                   Each 512D row reflects on its own position/context
+                                   Each \(512D\) row reflects on its own position/context
 within the entire matrix.  If you’re familiar with RNNs, think of how maintaining a
 hidden state allows an RNN to incorporate its representation of previous
 words/vectors it has processed with the current one it’s processing. Self-attention
@@ -431,7 +431,7 @@ words into the one we’re currently processing.</dd>
 abstractions that are useful for calculating
 and thinking about attention.</p>
 
-<h3 id="step-1-create-a--q----k--and--v--vector-for-each-word-512d-input-vector-dot">Step 1: Create a \(q\), \(k\) and \(v\) vector for each word / 512D input vector.</h3>
+<h3 id="step-1-create-a--q----k--and--v--vector-for-each-word--512d--input-vector-dot">Step 1: Create a \(q\), \(k\) and \(v\) vector for each word / \(512D\) input vector.</h3>
 
 <h4 id="e-dot-g-dot-make--q-1----k-1--and--v-1--from--x-1----the-first-word-of-the-input-sentence">e.g. make \(q_1\), \(k_1\) and \(v_1\) from \(X_1\) (the first word of the input sentence)</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">&#34;the first word of the input sentence&#34; -&gt; &#34;the first vector of the input list&#34; [label=&#34;is analogous to&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
@@ -574,7 +574,7 @@ we&rsquo;re scoring.</p>
 <span style="color:#66d9ef">\EndFor</span>
 <span style="color:#66d9ef">\EndProcedure</span></code></pre></div>
 <figure>
-    <img src="https://mullikine.github.io/ox-hugo/name.svg"/> 
+    <img src="https://mullikine.github.io/ox-hugo/score.svg"/> 
 </figure>
 
 
@@ -600,15 +600,41 @@ paper.</p>
 <p>Softmax normalizes the scores so they’re all
 positive and add up to 1.</p>
 
-<p>The softmax score determines how much how much
-each word will be expressed at this position.</p>
+<dl>
+<dt>softmax score</dt>
+<dd>determines how much how much
+each word will be expressed at this position.</dd>
+</dl>
 
 <h3 id="step-5-multiply-each-value-vector-by-the-softmax-score">Step 5: multiply each value vector by the softmax score</h3>
 
-<p>This is in preparation
-to sum them up). The intuition here is to keep intact the values of the word(s) we
-want to focus on, and drown-out irrelevant words (by multiplying them by tiny numbers
-like 0.001, for example).</p>
+<p>This is in preparation to sum them up.</p>
+
+<dl>
+<dt>the intuition</dt>
+<dd>To keep intact the values of the word or words
+we want to focus on, and drown-out irrelevant
+words (by multiplying them by tiny numbers
+like 0.001, for example).</dd>
+</dl>
+
+<h3 id="step-6-sum-up-the-weighted-value-vectors">Step 6: sum up the weighted value vectors</h3>
+
+<p>This produces the output of the self-attention
+layer at this position (for the 1st word).</p>
+
+<h3 id="in-conclusion-of-explaining-the-self-attention-calculation">In conclusion of explaining the self-attention calculation</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\Procedure</span>{Score}{<span style="color:#e6db74">$</span>i,j<span style="color:#e6db74">$</span>}
+<span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{each word }i<span style="color:#e6db74">$</span>}
+<span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{each word }j<span style="color:#e6db74">$</span>}
+<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>\mathit{score}_\mathit{i,j} <span style="color:#f92672">=</span> q_i \cdot k_j<span style="color:#e6db74">$</span>
+<span style="color:#66d9ef">\EndFor</span>
+<span style="color:#66d9ef">\EndFor</span>
+<span style="color:#66d9ef">\EndProcedure</span></code></pre></div>
+<figure>
+    <img src="https://mullikine.github.io/ox-hugo/self-attention.svg"/> 
+</figure>
+
 
     </div>
     <div class="post-footer">
