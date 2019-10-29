@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>elisp on Bodacious Blog</title>
+    <link>https://mullikine.github.io/tags/elisp/</link>
+    <description>Recent content in elisp on Bodacious Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 24 Oct 2019 00:00:00 +1300</lastBuildDate>
+    
+	<atom:link href="https://mullikine.github.io/tags/elisp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Custom Org Links</title>
+      <link>https://mullikine.github.io/posts/custom-org-links/</link>
+      <pubDate>Thu, 24 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/custom-org-links/</guid>
+      <description>org links are useful for making your org-mode documents more terse.
+$EMACSD/config/org/org-google.el $EMACSD/config/org/org-man.el $EMACSD/config/org/org-rifle.el $EMACSD/config/org/org-youtube.el org-google.el, for instance will allow you to write google searches into your org mode.
+org-google Example You can then type C-c C-o on the link to run the google search.
+[[google:emacs plugins]] This is how it appears in org-mode.
+google:emacs plugins
+org-google.el source ;;; org-man.el - Support for links to google queries in Org (require &amp;#39;org) ;; org-add-link-type removes the google: from the start, I think (org-add-link-type &amp;#34;google&amp;#34; &amp;#39;org-g-open) (org-add-link-type &amp;#34;goo&amp;#34; &amp;#39;org-g-open) (org-add-link-type &amp;#34;gl&amp;#34; &amp;#39;org-g-open) (org-add-link-type &amp;#34;gr&amp;#34; &amp;#39;org-g-open) (org-add-link-type &amp;#34;gg&amp;#34; &amp;#39;org-g-open) (add-hook &amp;#39;org-store-link-functions &amp;#39;org-g-store-link) ;; create a function, gr to open googler in a tmux split given search terms ;; vim +/&amp;#34;(defun my-google (&amp;amp;optional terms)&amp;#34; &amp;#34;$EMACSD/config/my-utils.</description>
+    </item>
+    
+    <item>
+      <title>Music playlists in emacs lisp</title>
+      <link>https://mullikine.github.io/posts/music-playlists-in-emacs-lisp/</link>
+      <pubDate>Thu, 17 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/music-playlists-in-emacs-lisp/</guid>
+      <description>Build the emacs-script command emacs-script is a script to treat emacs lisp as a normal scripting language for the command line.
+It loads some basic functionality so we can use emacs lisp for scripting.
+Yes, it downloads from youtube and caches the videos.
+#!/bin/bash export TTY # This is so I can supply multiple options to emacs in a shebang line QUIET=y sn=&amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; case &amp;#34;$sn&amp;#34; in emacs-script-debug) { QUIET=n } ;; *) esac while [ $# -gt 0 ]; do opt=&amp;#34;$1&amp;#34;; case &amp;#34;$opt&amp;#34; in -v|-d) { QUIET=n shift } ;; *) break; esac; done script_path=&amp;#34;$1&amp;#34; script_path=&amp;#34;$(p &amp;#34;$script_path&amp;#34; | q -ftln | q -ftln)&amp;#34; # This is redundant now.</description>
+    </item>
+    
+    <item>
+      <title>Sensible Splits: Extending shackle.el</title>
+      <link>https://mullikine.github.io/posts/making-shackle-split-sensibly/</link>
+      <pubDate>Mon, 07 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/making-shackle-split-sensibly/</guid>
+      <description>shackle.el provides a single interface for managing the way windows are displayed in emacs. This means you don&amp;rsquo;t have to dig into plugin code to provide ad-hoc advice to specific functions.
+Unfortunately, it doesn&amp;rsquo;t provide an option to split sensibly, allowing you only to specify exactly how you want windows to be displayed.
+For example, it will allow to you specify that all help buffers split to the right with the following rule.</description>
+    </item>
+    
+    <item>
+      <title>Conveniently learn emacs bindings</title>
+      <link>https://mullikine.github.io/posts/conveniently-learn-emacs-bindings/</link>
+      <pubDate>Thu, 03 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/conveniently-learn-emacs-bindings/</guid>
+      <description>Here&amp;rsquo;s the coolest thing I&amp;rsquo;ve made in the last few days.
+This will allow you to fuzzy find maps and pretty print them.
+ It&amp;rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code (require &amp;#39;s) (defun my-new-buffer-frame (&amp;amp;optional contents bufname) &amp;#34;Create a new frame with a new empty buffer.</description>
+    </item>
+    
+  </channel>
+</rss>
