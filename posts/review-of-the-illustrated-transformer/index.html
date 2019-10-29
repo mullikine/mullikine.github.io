@@ -12,11 +12,11 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Overview of The Illustrated Transformer"/>
-<meta name="twitter:description" content="Original article https://jalammar.github.io/illustrated-transformer/  Prereading https://jalammar.github.io/illustrated-word2vec/
+<meta name="twitter:description" content="Original article https://jalammar.github.io/illustrated-transformer/ Source https://github.com/tensorflow/tensor2tensor  Prereading https://jalammar.github.io/illustrated-word2vec/
 Helpful glossary Multilayer perceptron Feed-Forward Neural Network FFNN Basically, these are multi-level logistic regression classifiers. Many layers of scales are separated by non-linearities. Can be used for as autoencoders. Can be used to train a classifier or extract functions as autoencoders. self-attention intra-attention [attention mechanism] Intuition: Reflects on its own position/context within a greater whole. Relates different positions of a single sequence in order to compute a representation of the sequence."/>
 
     <meta property="og:title" content="Overview of The Illustrated Transformer" />
-<meta property="og:description" content="Original article https://jalammar.github.io/illustrated-transformer/  Prereading https://jalammar.github.io/illustrated-word2vec/
+<meta property="og:description" content="Original article https://jalammar.github.io/illustrated-transformer/ Source https://github.com/tensorflow/tensor2tensor  Prereading https://jalammar.github.io/illustrated-word2vec/
 Helpful glossary Multilayer perceptron Feed-Forward Neural Network FFNN Basically, these are multi-level logistic regression classifiers. Many layers of scales are separated by non-linearities. Can be used for as autoencoders. Can be used to train a classifier or extract functions as autoencoders. self-attention intra-attention [attention mechanism] Intuition: Reflects on its own position/context within a greater whole. Relates different positions of a single sequence in order to compute a representation of the sequence." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/" />
@@ -107,6 +107,8 @@ Helpful glossary Multilayer perceptron Feed-Forward Neural Network FFNN Basicall
 <dl>
 <dt>Original article</dt>
 <dd><a href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></dd>
+<dt>Source</dt>
+<dd><a href="https://github.com/tensorflow/tensor2tensor">https://github.com/tensorflow/tensor2tensor</a></dd>
 </dl>
 
 <h2 id="prereading">Prereading</h2>
@@ -425,7 +427,7 @@ is the method the Transformer uses to bake the “understanding” of other rele
 words into the one we’re currently processing.</dd>
 </dl>
 
-<h2 id="self-attention">Self-attention</h2>
+<h2 id="self-attention-in-detail">Self-attention in detail</h2>
 
 <p>The <span class="underline">query</span>, <span class="underline">key</span>, and <span class="underline">value</span> vectors are
 abstractions that are useful for calculating
@@ -633,6 +635,22 @@ layer at this position (for the 1st word).</p>
 <span style="color:#66d9ef">\EndProcedure</span></code></pre></div>
 <figure>
     <img src="https://mullikine.github.io/ox-hugo/self-attention.svg"/> 
+</figure>
+
+
+<h2 id="calculating-self-attention-with-matrices">Calculating self-attention with matrices</h2>
+
+<h3 id="first-step-calculate--q----k--and--v">First step - calculate \(Q\), \(K\) and \(V\)</h3>
+
+<p>The 1st step is to calculate the Query, Key,
+and Value matrices.</p>
+
+<p>We do that by packing our embeddings into a
+matrix \(X\), and multiplying it by the weight
+matrices we’ve trained (\(W^Q\), \(W^K\), \(W^V\)).</p>
+
+<figure>
+    <img src="https://jalammar.github.io/images/t/self-attention-matrix-calculation.png"/> 
 </figure>
 
 
