@@ -91,7 +91,7 @@ Example of an unwieldly function (defun my/doc-thing-at-point (arg &amp;optional
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          4 min read
+          5 min read
         </div></div>
     </header>
     
@@ -168,10 +168,34 @@ accommodate more languages and modes.</p>
 <dd><a href="https://gitlab.com/jjzmajic/handle">https://gitlab.com/jjzmajic/handle</a></dd>
 </dl>
 
-<h3 id="emacsd-config-my-handle-dot-el"><code>$EMACSD/config/my-handle.el</code></h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This must come before require to generate the functions</span>
+<h2 id="add-to-handle-keywords">Add to <code>handle-keywords</code></h2>
+
+<dl>
+<dt>my fork of <code>handle.el</code></dt>
+<dd><a href="https://gitlab.com/mullikine/handle">https://gitlab.com/mullikine/handle</a></dd>
+</dl>
+
+<p>I modified the original package because
+modifying this list externally had no effect.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(add-to-list <span style="color:#e6db74">&#39;handle-keywords</span> :playground)
 (add-to-list <span style="color:#e6db74">&#39;handle-keywords</span> :godef)
 (add-to-list <span style="color:#e6db74">&#39;handle-keywords</span> :docsearch)
+(add-to-list <span style="color:#e6db74">&#39;handle-keywords</span> :nextdef)
+(add-to-list <span style="color:#e6db74">&#39;handle-keywords</span> :prevdef)
+(add-to-list <span style="color:#e6db74">&#39;handle-keywords</span> :nexterr)
+(add-to-list <span style="color:#e6db74">&#39;handle-keywords</span> :preverr)
+(add-to-list <span style="color:#e6db74">&#39;handle-keywords</span> :assignments)
+(add-to-list <span style="color:#e6db74">&#39;handle-keywords</span> :references)
+<span style="color:#75715e">;; This may use GPT-2 at some stage</span>
+(add-to-list <span style="color:#e6db74">&#39;handle-keywords</span> :spellcorrect)</code></pre></div>
+<h3 id="emacsd-config-my-handle-dot-el"><code>$EMACSD/config/my-handle.el</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This must come before require to generate the functions</span>
+
+<span style="color:#75715e">;; This may not have been good enough. I have added to the package source instead</span>
+<span style="color:#75715e">;; (add-to-list &#39;handle-keywords :godef)</span>
+<span style="color:#75715e">;; (add-to-list &#39;handle-keywords :docsearch)</span>
+<span style="color:#75715e">;; (add-to-list &#39;handle-keywords :nextdef)</span>
+<span style="color:#75715e">;; (add-to-list &#39;handle-keywords :prevdef)</span>
 (require <span style="color:#e6db74">&#39;handle</span>)
 
 <span style="color:#75715e">;; I don&#39;t think we need to actually have the definitions to create handlers</span>
@@ -186,14 +210,21 @@ accommodate more languages and modes.</p>
 (handle <span style="color:#f92672">&#39;</span>(python-mode inferior-python-mode)
         :repls <span style="color:#f92672">&#39;</span>(run-python)
         :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)
-        :docs <span style="color:#f92672">&#39;</span>(lsp-describe-thing-at-point
+        :docs <span style="color:#f92672">&#39;</span>(
+                anaconda-mode-show-doc
+                lsp-describe-thing-at-point
                 python-help-for-region-or-symbol
                 python-eldoc-for-region-or-symbol
                 python-shell-print-region-or-symbol)
-        :godef <span style="color:#f92672">&#39;</span>(lsp-find-definition
+        :godef <span style="color:#f92672">&#39;</span>(anaconda-mode-find-definitions
+                 lsp-find-definition
                  xref-find-definitions
                  helm-gtags-dwim)
-        :docsearch <span style="color:#f92672">&#39;</span>(my/doc))
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc)
+        :complete <span style="color:#f92672">&#39;</span>(anaconda-mode-complete)
+        :assignments <span style="color:#f92672">&#39;</span>(anaconda-mode-find-assignments)
+        :references <span style="color:#f92672">&#39;</span>(anaconda-mode-find-references)
+        )
 
 (handle <span style="color:#f92672">&#39;</span>(clojure-mode cider-repl-mode inf-clojure)
         :repls <span style="color:#f92672">&#39;</span>(run-python)
@@ -203,7 +234,8 @@ accommodate more languages and modes.</p>
         :godef <span style="color:#f92672">&#39;</span>(lsp-find-definition
                  xref-find-definitions
                  helm-gtags-dwim)
-        :docsearch <span style="color:#f92672">&#39;</span>(my/doc))
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc)
+        :nextdef <span style="color:#f92672">&#39;</span>(lispy-flow))
 
 (handle <span style="color:#f92672">&#39;</span>(haskell-mode)
         :repls <span style="color:#f92672">&#39;</span>(haskell-intero/pop-to-repl)
@@ -214,7 +246,25 @@ accommodate more languages and modes.</p>
                  lsp-find-definition
                  xref-find-definitions
                  helm-gtags-dwim)
-        :docsearch <span style="color:#f92672">&#39;</span>(my/doc))
+        :nextdef <span style="color:#f92672">&#39;</span>(haskell-cabal-next-section)
+        :prevdef <span style="color:#f92672">&#39;</span>(haskell-cabal-previous-section)
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc)
+        :spellcorrect <span style="color:#f92672">&#39;</span>()
+        )
+
+(handle <span style="color:#f92672">&#39;</span>(org-mode)
+        :repls <span style="color:#f92672">&#39;</span>()
+        :formatters <span style="color:#f92672">&#39;</span>()
+        :docs <span style="color:#f92672">&#39;</span>()
+        :godef <span style="color:#f92672">&#39;</span>()
+        :nextdef <span style="color:#f92672">&#39;</span>(next-defun)
+        :prevdef <span style="color:#f92672">&#39;</span>(previous-defun)
+        :nexterr <span style="color:#f92672">&#39;</span>(flycheck-next-error
+                   my-flyspell-next)
+        :preverr <span style="color:#f92672">&#39;</span>(flycheck-previous-error
+                   my-flyspell-prev)
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc)
+        :spellcorrect <span style="color:#f92672">&#39;</span>(my-flyspell-correct))
 
 (handle <span style="color:#f92672">&#39;</span>(emacs-lisp-mode)
         :repls <span style="color:#f92672">&#39;</span>(ielm)
@@ -226,7 +276,26 @@ accommodate more languages and modes.</p>
                  lsp-find-definition
                  xref-find-definitions
                  helm-gtags-dwim)
-        :docsearch <span style="color:#f92672">&#39;</span>(my/doc))
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc)
+        :nextdef <span style="color:#f92672">&#39;</span>(my-prog-next-def
+                   lispy-flow)
+        :prevdef <span style="color:#f92672">&#39;</span>(my-prog-prev-def))
+
+(handle <span style="color:#f92672">&#39;</span>(go-mode)
+        :repls <span style="color:#f92672">&#39;</span>(go-playground)
+        :playground <span style="color:#f92672">&#39;</span>(go-playground)
+        :formatters <span style="color:#f92672">&#39;</span>(gofmt
+                      lsp-format-buffer)
+        :docs <span style="color:#f92672">&#39;</span>(godoc-at-point
+                )
+        :godef <span style="color:#f92672">&#39;</span>(go-guru-definition
+                 lsp-find-definition
+                 xref-find-definitions
+                 helm-gtags-dwim)
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc)
+        :nextdef <span style="color:#f92672">&#39;</span>(my-prog-next-def)
+        :prevdef <span style="color:#f92672">&#39;</span>(my-prog-prev-def)
+        )
 
 (handle <span style="color:#f92672">&#39;</span>(racket-mode)
         :repls <span style="color:#f92672">&#39;</span>(ielm)
@@ -237,17 +306,27 @@ accommodate more languages and modes.</p>
                  lsp-find-definition
                  xref-find-definitions
                  helm-gtags-dwim)
-        :docsearch <span style="color:#f92672">&#39;</span>(my/doc))
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc)
+        :nextdef <span style="color:#f92672">&#39;</span>(lispy-flow))
 
 (handle <span style="color:#f92672">&#39;</span>(hy-mode)
         :repls <span style="color:#f92672">&#39;</span>(run-hy)
         :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)
         :docs <span style="color:#f92672">&#39;</span>(hy-describe-thing-at-point)
         :godef <span style="color:#f92672">&#39;</span>(helm-gtags-dwim)
-        :docsearch <span style="color:#f92672">&#39;</span>(my/doc))
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc)
+        :nextdef <span style="color:#f92672">&#39;</span>(lispy-flow))
 
-<span style="color:#75715e">;; It&#39;s worth testing if this works</span>
-<span style="color:#75715e">;; TODO Test if this works for modes which are not referenced above</span>
+(handle <span style="color:#f92672">&#39;</span>(biblio-selection-mode)
+        :repls <span style="color:#f92672">&#39;</span>()
+        :formatters <span style="color:#f92672">&#39;</span>()
+        :docs <span style="color:#f92672">&#39;</span>()
+        :godef <span style="color:#f92672">&#39;</span>()
+        :docsearch <span style="color:#f92672">&#39;</span>()
+        :nextdef <span style="color:#f92672">&#39;</span>(biblio--selection-next)
+        :prevdef <span style="color:#f92672">&#39;</span>(biblio--selection-previous))
+
+<span style="color:#75715e">;; This works for prog-derived modes which do not have a handle defined</span>
 (handle <span style="color:#f92672">&#39;</span>(prog-mode)
         :repls <span style="color:#f92672">&#39;</span>()
         :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)
@@ -255,7 +334,11 @@ accommodate more languages and modes.</p>
         :godef <span style="color:#f92672">&#39;</span>(lsp-find-definition
                  xref-find-definitions
                  helm-gtags-dwim)
-        :docsearch <span style="color:#f92672">&#39;</span>(my/doc))
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc)
+        :nextdef <span style="color:#f92672">&#39;</span>(my-prog-next-def)
+        :prevdef <span style="color:#f92672">&#39;</span>(my-prog-prev-def)
+        :nexterr <span style="color:#f92672">&#39;</span>(flycheck-next-error)
+        :preverr <span style="color:#f92672">&#39;</span>(flycheck-previous-error))
 
 <span style="color:#75715e">;; Runs the interpreter</span>
 <span style="color:#75715e">;; (handle-repls)</span>
@@ -263,11 +346,39 @@ accommodate more languages and modes.</p>
 <span style="color:#75715e">;; Runs the docs for thing at point</span>
 <span style="color:#75715e">;; (handle-docs)</span>
 
-<span style="color:#75715e">;; TODO</span>
+
 (defun handle-setup-keybindings ()
   )
 
 (provide <span style="color:#e6db74">&#39;my-handle</span>)</code></pre></div>
+<h2 id="example-generic-navigation-functions">Example generic navigation functions</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun my-prog-prev-def ()
+  (interactive)
+  (backward-to-indentation <span style="color:#ae81ff">0</span>)
+  (search-backward-regexp <span style="color:#e6db74">&#34;^[^#;/ \t]+ &#34;</span>)
+  (backward-to-indentation <span style="color:#ae81ff">0</span>))
+
+(defun my-prog-next-def ()
+  (interactive)
+  (backward-to-indentation <span style="color:#ae81ff">0</span>)
+  (if (looking-at-p <span style="color:#e6db74">&#34;^[^#;/ \t]+ &#34;</span>)
+      (progn
+        (<span style="color:#a6e22e">forward-char</span>)))
+  (try (search-forward-regexp <span style="color:#e6db74">&#34;^[^#;/ \t]+ &#34;</span>))
+  (backward-to-indentation <span style="color:#ae81ff">0</span>))</code></pre></div>
+<h3 id="use-these-with-the-default-prog-mode-handle">Use these with the default <code>prog-mode</code> handle</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(handle <span style="color:#f92672">&#39;</span>(prog-mode)
+          :repls <span style="color:#f92672">&#39;</span>()
+          :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)
+          :docs <span style="color:#f92672">&#39;</span>(my/doc-thing-at-point)
+          :godef <span style="color:#f92672">&#39;</span>(lsp-find-definition
+                   xref-find-definitions
+                   helm-gtags-dwim)
+          :docsearch <span style="color:#f92672">&#39;</span>(my/doc)
+          :nextdef <span style="color:#f92672">&#39;</span>(my-prog-next-def)
+          :prevdef <span style="color:#f92672">&#39;</span>(my-prog-prev-def)
+          :nexterr <span style="color:#f92672">&#39;</span>(flycheck-next-error)
+          :preverr <span style="color:#f92672">&#39;</span>(flycheck-previous-error))</code></pre></div>
 <h2 id="unbind-keys-from-major-and-minor-modes-occupying-the-chords-you-want">Unbind keys from major and minor modes occupying the chords you want</h2>
 
 <p>The process of integrating new bindings now becomes subtractive as opposed to additive.</p>
