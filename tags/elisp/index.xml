@@ -60,6 +60,101 @@ This will allow you to fuzzy find maps and pretty print them.
     </item>
     
     <item>
+      <title>Differentiate org-mode bold face</title>
+      <link>https://mullikine.github.io/posts/org-mode-bold/</link>
+      <pubDate>Sun, 22 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/org-mode-bold/</guid>
+      <description>The issue is that in a terminal, the generic bold face alone is not differentiable.
+org-mode uses the generic bold face for text within asterisks.
+Therefore we create a new face and give it a similar look but different colour to org-verbatim.
+(defface org-bold &amp;#39;((t :foreground &amp;#34;#d2268b&amp;#34; :background &amp;#34;#2e2e2e&amp;#34; :weight bold :underline t )) &amp;#34;Face for org-mode bold.&amp;#34; :group &amp;#39;org-faces ) (setq org-emphasis-alist &amp;#39;((&amp;#34;*&amp;#34; ;; (bold :foreground &amp;#34;Orange&amp;#34; ) org-bold) (&amp;#34;/&amp;#34; italic) (&amp;#34;_&amp;#34; underline) (&amp;#34;=&amp;#34; ;; (:background &amp;#34;maroon&amp;#34; :foreground &amp;#34;white&amp;#34;) org-verbatim verbatim) (&amp;#34;~&amp;#34; ;; (:background &amp;#34;deep sky blue&amp;#34; :foreground &amp;#34;MidnightBlue&amp;#34;) org-code verbatim) (&amp;#34;+&amp;#34; (:strike-through t)))) ;; Because spacemacs had different ideas about the verbatim background (set-face-background &amp;#39;org-bold &amp;#34;#2e2e2e&amp;#34;) (set-face-background &amp;#39;org-verbatim &amp;#34;#2e2e2e&amp;#34;)</description>
+    </item>
+    
+    <item>
+      <title>Convert hydra to regular bindings</title>
+      <link>https://mullikine.github.io/posts/convert-hydra-to-regular-bindings/</link>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/convert-hydra-to-regular-bindings/</guid>
+      <description>The problem: which-key doesn&amp;rsquo;t work with hydra I had made a bunch of hydras which I would simply use as basic menu systems
+This is a bit of an anti-pattern.
+Hydras should only be used for creating temporary modes.
+The solution: create a macro which converts the hydras into regular bindings Prerequisites (defun sed (command stdin) &amp;#34;wrapper around sed&amp;#34; (interactive) (setq stdin (str stdin)) (setq command (concat &amp;#34;sed &amp;#39;&amp;#34; (str command) &amp;#34;&amp;#39;&amp;#34;)) (sh-notty command stdin) ) The aim Wrap a defhydra with the convert-hydra-to-sslk macro to turn it into regular keybindings.</description>
+    </item>
+    
+    <item>
+      <title>fzf vs helm, ivy and completing-read</title>
+      <link>https://mullikine.github.io/posts/helm-ivy-and-completing-read/</link>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/helm-ivy-and-completing-read/</guid>
+      <description>Helm, ivy and completing-read are 3 emacs-lisp alternatives to fzf.
+They are all a little different to hack on / configure though.
+helm Select from a list There are different ways to select from a list.
+(defun fz-must-match (list &amp;amp;optional prompt) (setq prompt (or prompt &amp;#34;:&amp;#34;)) (helm-comp-read prompt list :must-match t)) ;; This is very useful (defun fz-default-return-query (list &amp;amp;optional prompt) (setq prompt (or prompt &amp;#34;:&amp;#34;)) (helm-comp-read prompt list :must-match &amp;#39;confirm)) ;; But I don&amp;#39;t like confirm things (defun fz-default-return-query (list &amp;amp;optional prompt) (setq prompt (or prompt &amp;#34;:&amp;#34;)) (helm-comp-read prompt list :must-match &amp;#39;nil)) Getting the list of options in another window tv takes a string and opens a window with it.</description>
+    </item>
+    
+    <item>
+      <title>Interesting emacs packages (Sep 2019)</title>
+      <link>https://mullikine.github.io/posts/emacs-packages-21.09.19/</link>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-packages-21.09.19/</guid>
+      <description>Helpful.el GitHub - Wilfred/helpful: A better Emacs help buffer
+Helpful is a replacement for help buffers that provides much more contextual information
+Interesting features It can search all loaded elisp files for references to a symbol.
+(define-button-type &amp;#39;helpful-all-references-button &amp;#39;action #&amp;#39;helpful--all-references &amp;#39;symbol nil &amp;#39;callable-p nil &amp;#39;follow-link t &amp;#39;help-echo &amp;#34;Find all references to this symbol&amp;#34;)(defun helpful--all-references (button) &amp;#34;Find all the references to the symbol that this BUTTON represents.&amp;#34; (let ((sym (button-get button &amp;#39;symbol)) (callable-p (button-get button &amp;#39;callable-p))) (cond ((not callable-p) (elisp-refs-variable sym)) ((functionp sym) (elisp-refs-function sym)) ((macrop sym) (elisp-refs-macro sym))))) parsec.</description>
+    </item>
+    
+    <item>
+      <title>Best emacs tetris in emacs 26&#43;</title>
+      <link>https://mullikine.github.io/posts/emacs-tetris-nice/</link>
+      <pubDate>Fri, 20 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-tetris-nice/</guid>
+      <description>emacs 27 has an update to emacs&amp;rsquo; tetris mode which makes the glyphs display larger on higher DPI screens.
+This script will download that update from git.savannah.gnu.org and display tetris in a distraction free environment for the ultimate productivity.
+Symlinks If you symlink this script to etetris-vt100 and run that instead, you will get the animated and striking black and white terminal version.
+ln -s etetris etetris-vt100 If you symlink this script to etetris-xterm and run that instead, you will get the vivid color terminal version.</description>
+    </item>
+    
+    <item>
+      <title>Circumventing paywalls with eww browser</title>
+      <link>https://mullikine.github.io/posts/circumventing-paywalls-with-eww-browser/</link>
+      <pubDate>Thu, 19 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/circumventing-paywalls-with-eww-browser/</guid>
+      <description>Use Google cache Often Google cache has a full copy of an article.
+Check for the existence of the cache for a given URL as some URLs may not be cached.
+I had originally used curl for this.
+Circumventing paywalls with eww browser and curl // Bodacious Blog
+This is not an accurate science. Sometimes the cache is needed and sometimes it is not, but the more information we bring in (such as if the cache exists), the better, as this leads to a more informed decision.</description>
+    </item>
+    
+    <item>
+      <title>Ameliorating list-processes</title>
+      <link>https://mullikine.github.io/posts/ameliorating-list-processes/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/ameliorating-list-processes/</guid>
+      <description>What is list-processes? list-processes is an emacs-lisp function which displays daemons running as subprocesses under emacs.
+The trouble with list-processes  It doesn&amp;rsquo;t format the command string  Commands with multiline arguments are printed verbatim Arguments are not quoted   This means that commands may flow several lines (as many as it takes to print out the full command).
+Also, 90% of the time you can&amp;rsquo;t copy the command and paste in the terminal because individual parameters with spaces are split into separate arguments.</description>
+    </item>
+    
+    <item>
+      <title>Didactic emacs-lisp macro example (ie. a tutorial)</title>
+      <link>https://mullikine.github.io/posts/macro-tutorial/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/macro-tutorial/</guid>
+      <description>In this tutorial we build a function b which allows you to run shell code within elisp syntax (it looks like emacs lisp).
+This tutorial is useful for learning to write emacs-lisp macros but is also useful for understanding macros of any language.
+First some prerequisite functions (defmacro shut-up-c (&amp;amp;rest body) &amp;#34;This works for c functions where shut-up does not.&amp;#34; `(let* ((inhibit-message t)) ,@body)) (defun get-dir () &amp;#34;Gets the current working directory.</description>
+    </item>
+    
+    <item>
       <title>Getting arxiv in the terminal</title>
       <link>https://mullikine.github.io/posts/getting-arxiv-in-the-terminal/</link>
       <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
@@ -69,6 +164,16 @@ This will allow you to fuzzy find maps and pretty print them.
 Cant name this &amp;lsquo;as&amp;rsquo; because it interferes with pip.
 Sometimes packages installed wtih pip need the assembler.
 #!/bin/bash export TTY # Collect history of all arxiv-summary invocations ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null last_arg=&amp;#34;${@: -1}&amp;#34; url=&amp;#34;$last_arg&amp;#34; set -- &amp;#34;${@:1:$(($#-1))}&amp;#34; # shift last arg # if pl &amp;#34;$url&amp;#34; | grep -q -P &amp;#39;^([a-z-]+/)?</description>
+    </item>
+    
+    <item>
+      <title>Uniqifying emacs apps</title>
+      <link>https://mullikine.github.io/posts/uniqifying-emacs-apps/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/uniqifying-emacs-apps/</guid>
+      <description>The problem Many useful emacs apps can only have one instance running at a time due to working with a fixed buffer name.
+ Examples of useful apps which you can only run one of  eww Perl-REPL dictionary-search calculator   The fix: rename the buffer to tack on a hash after it is created Create the advice function (defun unique-buffer-generic-after-advice (&amp;amp;rest args) &amp;#34;Give the buffer a unique name&amp;#34; (ignore-errors (let* ((hash (short-hash (str (time-to-seconds)))) (new-buffer-name (pcre-replace-string &amp;#34;(\\*?</description>
     </item>
     
   </channel>
