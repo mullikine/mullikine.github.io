@@ -89,7 +89,7 @@ Helpful glossary Multilayer perceptron Feed-Forward Neural Network FFNN Basicall
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          7 min read
+          8 min read
         </div></div>
     </header>
     
@@ -160,6 +160,13 @@ dot product
         The dot product can be used for
         computing the angle α between two
         vectors a and b: a⋅b=|a|⋅|b|⋅cos(α).</code></pre></div>
+<h3 id="flowchart">Flowchart</h3>
+
+<figure>
+    <img src="https://mchromiak.github.io/articles/2017/Sep/12/Transformer-Attention-is-all-you-need/img/transform20fps.gif"/> 
+</figure>
+
+
 <h3 id="optional-reading">Optional reading</h3>
 
 <table>
@@ -443,14 +450,14 @@ and thinking about attention.</p>
 <h3 id="step-1-create-a--q----k--and--v--vector-for-each-word-512d-input-vector-dot">Step 1: Create a \(q\), \(k\) and \(v\) vector for each word / 512D input vector.</h3>
 
 <h4 id="e-dot-g-dot-make--q-1----k-1--and--v-1--from--x-1----the-first-word-of-the-input-sentence">e.g. make \(q_1\), \(k_1\) and \(v_1\) from \(X_1\) (the first word of the input sentence)</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">&#34;the first word of the input sentence&#34; -&gt; &#34;the first vector of the input&#34; [label=&#34;is analogous to&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">&#34;the first word of the input sentence&#34; -&gt; &#34;the first vector of the input list&#34; [label=&#34;is analogous to&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
 ┃ the first word of the input sentence ┃
 ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
   ┃
   ┃ is analogous to
   v
 ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
-┃    the first vector of the input     ┃
+┃  the first vector of the input list  ┃
 ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘</code></pre></div>
 <table>
 <thead>
@@ -574,7 +581,7 @@ encode a word at a certain position.</dd>
 with the <span class="underline">key vector</span> of the respective word
 we&rsquo;re scoring.</p>
 
-<p>\(\mathit{score}_\mathit{i,j} = q_i . k_j\)</p>
+<p>\(\mathit{score}_\mathit{i,j} = q_i \cdot k_j\)</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\Procedure</span>{Score}{<span style="color:#e6db74">$</span>i,j<span style="color:#e6db74">$</span>}
 <span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{each word }i<span style="color:#e6db74">$</span>}
 <span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{each word }j<span style="color:#e6db74">$</span>}
@@ -586,6 +593,38 @@ we&rsquo;re scoring.</p>
     <img src="https://mullikine.github.io/ox-hugo/name.svg"/> 
 </figure>
 
+
+<p>If we’re processing the self-attention for the
+word in position <code>#1</code>, the <span class="underline"><strong>1st</strong></span> score would be
+the dot product of \(q_1\) and \(k_1\).</p>
+
+<p>The <span class="underline"><strong>2nd</strong></span> score would be the dot product of \(q_1\)
+and \(k_2\).</p>
+
+<h3 id="step-3-divide-the-scores-by-8">Step 3: divide the scores by 8</h3>
+
+<p><code>8</code> is obtained by taking the square root of
+the dimension of the key vectors used in the
+paper.</p>
+
+<p>See <code>64</code> earlier in this document.</p>
+
+<p>Dividing the scores leads to more stable gradients.</p>
+
+<h3 id="step-4-pass-the-scores-through-softmax">Step 4: pass the scores through softmax</h3>
+
+<p>Softmax normalizes the scores so they’re all
+positive and add up to 1.</p>
+
+<p>The softmax score determines how much how much
+each word will be expressed at this position.</p>
+
+<h3 id="step-5-multiply-each-value-vector-by-the-softmax-score">Step 5: multiply each value vector by the softmax score</h3>
+
+<p>This is in preparation
+to sum them up). The intuition here is to keep intact the values of the word(s) we
+want to focus on, and drown-out irrelevant words (by multiplying them by tiny numbers
+like 0.001, for example).</p>
 
     </div>
     <div class="post-footer">
