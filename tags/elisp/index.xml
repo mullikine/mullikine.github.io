@@ -59,5 +59,17 @@ This will allow you to fuzzy find maps and pretty print them.
  It&amp;rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code (require &amp;#39;s) (defun my-new-buffer-frame (&amp;amp;optional contents bufname) &amp;#34;Create a new frame with a new empty buffer.</description>
     </item>
     
+    <item>
+      <title>Getting arxiv in the terminal</title>
+      <link>https://mullikine.github.io/posts/getting-arxiv-in-the-terminal/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/getting-arxiv-in-the-terminal/</guid>
+      <description>It all starts with this emacs plugin (require &amp;#39;biblio-arxiv) We create a bash script We name it arxiv-summary.
+Cant name this &amp;lsquo;as&amp;rsquo; because it interferes with pip.
+Sometimes packages installed wtih pip need the assembler.
+#!/bin/bash export TTY # Collect history of all arxiv-summary invocations ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null last_arg=&amp;#34;${@: -1}&amp;#34; url=&amp;#34;$last_arg&amp;#34; set -- &amp;#34;${@:1:$(($#-1))}&amp;#34; # shift last arg # if pl &amp;#34;$url&amp;#34; | grep -q -P &amp;#39;^([a-z-]+/)?</description>
+    </item>
+    
   </channel>
 </rss>
