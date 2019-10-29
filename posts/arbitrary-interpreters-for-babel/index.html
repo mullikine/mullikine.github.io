@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.45cc45217000f7775f5af96a21e710dbfc6b9a6fdbe051640e5722b0cbeadf4c.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.8a9490701cd0106ea5c20f0bb8ea6c369a19aa43c89488196378a052314afaf0.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -89,7 +89,7 @@ Objective Specify an :interpreter and/or :filter command to override the execute
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          6 min read
+          7 min read
         </div></div>
     </header>
     
@@ -107,8 +107,8 @@ Objective Specify an :interpreter and/or :filter command to override the execute
 <dl>
 <dt>Genesis 11:7 “&hellip;Come, let us go down and confuse their language so they will not understand each other.”</dt>
 <dd>If supporting many languages in Babel was not
-<strong>confounding</strong> enough, lets support arbitrary
-interpreters too!</dd>
+  <strong>confounding</strong> enough, lets support arbitrary
+  interpreters too!</dd>
 </dl>
 
 <p>The need to specify a custom interpreter
@@ -422,6 +422,91 @@ sed -e <span style="color:#e6db74">&#39;s/|/┃/g&#39;</span> <span style="color
 
 <p><a href="https://asciinema.org/a/kgrl1M2VhohRmqbK88ixc99RY" target="_blank"><img src="https://asciinema.org/a/kgrl1M2VhohRmqbK88ixc99RY.svg" /></a></p>
 
+<h3 id="another-example-latex">Another example &ndash; latex</h3>
+
+<p>We want to write pseudocode and have it displayed as <code>png</code>.</p>
+
+<p>We use a filter script called <code>texalg2png</code>
+which wraps the procedure code inside a
+template and send it to <code>tex2png</code> which
+creates the <code>png</code>.</p>
+
+<p>Specifying <code>raw</code> in the options allows the <code>png</code>
+to be immediately embedded in the blog.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">latex</span><span style="color:#75715e"> :f texalg2png self-attention :async :results raw drawer
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">\Procedure</span>{Score}{<span style="color:#e6db74">$</span>i,j<span style="color:#e6db74">$</span>}
+<span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{each word }i<span style="color:#e6db74">$</span>}
+<span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{each word }j<span style="color:#e6db74">$</span>}
+<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>\mathit{score}_\mathit{i,j} <span style="color:#f92672">=</span> q_i \cdot k_j<span style="color:#e6db74">$</span>
+<span style="color:#66d9ef">\EndFor</span>
+<span style="color:#66d9ef">\EndFor</span>
+<span style="color:#66d9ef">\EndProcedure</span>
+<span style="color:#75715e">#+END_SRC</span></code></pre></div>
+<figure>
+    <img src="https://mullikine.github.io/ox-hugo/self-attention.svg"/> 
+</figure>
+
+
+<h4 id="texalg2png"><code>texalg2png</code></h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+read -r -d <span style="color:#e6db74">&#39;&#39;</span> texcode <span style="color:#e6db74">&lt;&lt;HEREDOC
+</span><span style="color:#e6db74">\documentclass{standalone}
+</span><span style="color:#e6db74">\usepackage{varwidth}
+</span><span style="color:#e6db74">\usepackage{algorithm} %ctan.org\pkg\algorithms
+</span><span style="color:#e6db74">\usepackage{algpseudocode}
+</span><span style="color:#e6db74">\begin{document}
+</span><span style="color:#e6db74">\begin{varwidth}{\linewidth}
+</span><span style="color:#e6db74">\par\noindent
+</span><span style="color:#e6db74">\begin{algorithmic}[1]
+</span><span style="color:#e6db74">$(cat)
+</span><span style="color:#e6db74">\end{algorithmic}
+</span><span style="color:#e6db74">\end{varwidth}
+</span><span style="color:#e6db74">\end{document}
+</span><span style="color:#e6db74">HEREDOC</span>
+
+printf -- <span style="color:#e6db74">&#34;%s&#34;</span> <span style="color:#e6db74">&#34;</span>$texcode<span style="color:#e6db74">&#34;</span> | tex2png <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></div>
+<h4 id="tex2png"><code>tex2png</code></h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+tf_tex<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ux tf tex <span style="color:#f92672">||</span> echo /dev/null<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+trap <span style="color:#e6db74">&#34;rm \&#34;</span>$tf_tex<span style="color:#e6db74">\&#34; 2&gt;/dev/null&#34;</span> <span style="color:#ae81ff">0</span>
+
+fp<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$tf_tex<span style="color:#e6db74">&#34;</span>
+
+name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+
+<span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$name<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> nil; <span style="color:#66d9ef">then</span>
+    name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+fn<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$fp<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span>
+dn<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>dirname <span style="color:#e6db74">&#34;</span>$fp<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span>
+ext<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>fn##*.<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+mant<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>fn%.*<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+
+orig_dir<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+cd <span style="color:#e6db74">&#34;</span>$dn<span style="color:#e6db74">&#34;</span>
+
+out<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>pdflatex <span style="color:#e6db74">&#34;</span>$fn<span style="color:#e6db74">&#34;</span>; pdf2svg <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>mant<span style="color:#e6db74">}</span><span style="color:#e6db74">.pdf&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>mant<span style="color:#e6db74">}</span><span style="color:#e6db74">.svg&#34;</span> <span style="color:#ae81ff">2</span>&gt;&amp;<span style="color:#ae81ff">1</span><span style="color:#66d9ef">)</span>
+
+genf<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$dn<span style="color:#e6db74">/</span><span style="color:#e6db74">${</span>mant<span style="color:#e6db74">}</span><span style="color:#e6db74">.svg&#34;</span>
+cd <span style="color:#e6db74">&#34;</span>$orig_dir<span style="color:#e6db74">&#34;</span>
+
+<span style="color:#66d9ef">if</span> ! test -f <span style="color:#e6db74">&#34;</span>$genf<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">then</span>
+    echo <span style="color:#e6db74">&#34;</span>$out<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">1</span>&gt;&amp;<span style="color:#ae81ff">2</span>
+    exit <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">fi</span>
+
+: <span style="color:#e6db74">${</span>name:=<span style="color:#e6db74">&#34;</span>$mant<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">}</span>
+<span style="color:#75715e"># echo &#34;[[file:${name}.svg][$name]]&#34;</span>
+
+nf<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">.svg&#34;</span>
+cp -a <span style="color:#e6db74">&#34;</span>$genf<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$orig_dir<span style="color:#e6db74">/</span>$nf<span style="color:#e6db74">&#34;</span>
+
+echo <span style="color:#e6db74">&#34;[[file:</span>$nf<span style="color:#e6db74">]]&#34;</span></code></pre></div>
     </div>
     <div class="post-footer">
       
