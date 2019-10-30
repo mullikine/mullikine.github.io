@@ -93,6 +93,7 @@ An simple example project Why I Ripped The Same CD 300 Times" />
 <a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
 <a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
 <a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
 <a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
 <a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
 <a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
@@ -256,6 +257,30 @@ rustup default nightly</code></pre></div>
 
 <h4 id="insatall-rust-sources-so-racer-autocomplete-can-work-in-emacs">Insatall rust sources so racer autocomplete can work in emacs</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">rustup component add rust-src</code></pre></div>
+<h4 id="this-solved-all-rust-lsp-problems">This solved all rust lsp problems</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(progn
+  <span style="color:#75715e">;; Rust settings</span>
+  (require <span style="color:#e6db74">&#39;rust-mode</span>)
+  (with-eval-after-load <span style="color:#e6db74">&#39;rust-mode</span>
+    <span style="color:#75715e">;; Rust Formatter. Run rustfmt before saving rust buffers</span>
+    (setq rust-format-on-save <span style="color:#66d9ef">t</span>))
+
+  (require <span style="color:#e6db74">&#39;lsp-mode</span>) <span style="color:#75715e">;; language server protocol</span>
+  (with-eval-after-load <span style="color:#e6db74">&#39;lsp-mode</span>
+    (add-hook <span style="color:#e6db74">&#39;rust-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp))
+  <span style="color:#75715e">;; (add-hook &#39;rust-mode-hook #&#39;flycheck-mode))</span>
+
+  <span style="color:#75715e">;; excessive UI feedback for light reading between coding</span>
+  (require <span style="color:#e6db74">&#39;lsp-ui</span>)
+  (with-eval-after-load <span style="color:#e6db74">&#39;lsp-ui</span>
+    (add-hook <span style="color:#e6db74">&#39;lsp-mode-hook</span> <span style="color:#e6db74">&#39;lsp-ui-mode</span>))
+
+  <span style="color:#75715e">;; autocompletions for lsp (available with melpa enabled)</span>
+  (require <span style="color:#e6db74">&#39;company-lsp</span>)
+  (push <span style="color:#e6db74">&#39;company-lsp</span> company-backends)
+
+  <span style="color:#75715e">;; tell company to complete on tabs instead of sitting there like a moron</span>
+  (<span style="color:#a6e22e">define-key</span> rust-mode-map (kbd <span style="color:#e6db74">&#34;TAB&#34;</span>) <span style="color:#a6e22e">#&#39;</span>company-indent-or-complete-common))</code></pre></div>
     </div>
     <div class="post-footer">
       
