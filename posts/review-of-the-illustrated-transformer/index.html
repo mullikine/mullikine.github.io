@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.65ccf07fbaa03d7eeb1033c9229ccb3a7147dd46f96195ac675ee7d183b8ec35.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.dba83cc17161befc730015ea16407e3b1734f826b71ed2028f8c804a12ac6444.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -460,9 +460,9 @@ words into the one we’re currently processing.</dd>
 abstractions that are useful for calculating
 and thinking about attention.</p>
 
-<h3 id="step-1-create-a--q----k--and--v--vector-for-each-word--512d--input-vector-dot">Step 1: Create a \(q\), \(k\) and \(v\) vector for each word / \(512D\) input vector.</h3>
+<p>The self-attention must be calculated for each word.</p>
 
-<h4 id="e-dot-g-dot-make--q-1----k-1--and--v-1--from--x-1----the-first-word-of-the-input-sentence">e.g. make \(q_1\), \(k_1\) and \(v_1\) from \(X_1\) (the first word of the input sentence)</h4>
+<h3 id="step-1-create-a--q----k--and--v--vector-for-each-word--512d--input-vector-dot">Step 1: Create a \(q\), \(k\) and \(v\) vector for each word / \(512D\) input vector.</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">&#34;the first word of the input sentence&#34; -&gt; &#34;the first vector of the input list&#34; [label=&#34;is analogous to&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
 ┃ the first word of the input sentence ┃
 ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
@@ -524,6 +524,8 @@ and thinking about attention.</p>
 
 <p>Then we compute \(q\), \(k\) and \(v\) from the weight matrices.</p>
 
+<h4 id="e-dot-g-dot-make--q-1----k-1--and--v-1--from--x-1----the-first-word-of-the-input-sentence">e.g. make \(q_1\), \(k_1\) and \(v_1\) from \(X_1\) (the first word of the input sentence)</h4>
+
 <table>
 <thead>
 <tr>
@@ -576,12 +578,7 @@ and thinking about attention.</p>
 of <code>multiheaded attention</code> (mostly) constant.</dd>
 </dl>
 
-<h3 id="step-2-calculate-a-score">Step 2: calculate a score</h3>
-
-<h4 id="e-dot-g-dot-calculate-the-for-the-1st-word-in-the-sentence">e.g. calculate the <span class="underline">self-attention</span> for the 1st word in the sentence</h4>
-
-<p>Score each word of the input sentence against
-the 1st word.</p>
+<h3 id="step-2-calculate--n-times-n---scores--n--for-each-word-as-we-compare-each-word-with-every-other-word">Step 2: calculate (\(n\times n\)) scores, \(n\) for each word as we compare each word with every other word</h3>
 
 <dl>
 <dt>The score</dt>
@@ -595,17 +592,11 @@ with the <span class="underline">key vector</span> of the respective word
 we&rsquo;re scoring.</p>
 
 <p>\(\mathit{score}_\mathit{i,j} = q_i \cdot k_j\)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\Procedure</span>{Score}{<span style="color:#e6db74">$</span>i,j<span style="color:#e6db74">$</span>}
-<span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{each word }i<span style="color:#e6db74">$</span>}
-<span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{each word }j<span style="color:#e6db74">$</span>}
-<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>\mathit{score}_\mathit{i,j} <span style="color:#f92672">=</span> q_i \cdot k_j<span style="color:#e6db74">$</span>
-<span style="color:#66d9ef">\EndFor</span>
-<span style="color:#66d9ef">\EndFor</span>
-<span style="color:#66d9ef">\EndProcedure</span></code></pre></div>
-<figure>
-    <img src="https://mullikine.github.io/ox-hugo/score.svg"/> 
-</figure>
 
+<h4 id="e-dot-g-dot-calculate-the-for-the-1st-word-in-the-sentence">e.g. calculate the <span class="underline">self-attention</span> for the 1st word in the sentence</h4>
+
+<p>Score each word of the input sentence against
+the 1st word.</p>
 
 <p>If we’re processing the self-attention for the
 word in position <code>#1</code>, the <span class="underline"><strong>1st</strong></span> score would be
@@ -653,13 +644,21 @@ like 0.001, for example).</dd>
 layer at this position (for the 1st word).</p>
 
 <h3 id="in-conclusion-of-explaining-the-self-attention-calculation">In conclusion of explaining the self-attention calculation</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\Procedure</span>{Score}{<span style="color:#e6db74">$</span>i,j<span style="color:#e6db74">$</span>}
-<span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{each word }i<span style="color:#e6db74">$</span>}
-<span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{each word }j<span style="color:#e6db74">$</span>}
-<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>\mathit{score}_\mathit{i,j} <span style="color:#f92672">=</span> q_i \cdot k_j<span style="color:#e6db74">$</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\Function</span>{Self-attention}{<span style="color:#e6db74">$</span>{word}_i<span style="color:#e6db74">$</span>}
+<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>X_i\gets embed<span style="color:#f92672">(</span>{word}_i<span style="color:#f92672">)</span><span style="color:#e6db74">$</span>
+<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>q_i\gets X_i\cdotp W^Q<span style="color:#e6db74">$</span>
+<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>k_i\gets X_i\cdotp W^K<span style="color:#e6db74">$</span>
+<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>v_i\gets X_i\cdotp W^V<span style="color:#e6db74">$</span>
+<span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{every other word }j<span style="color:#e6db74">$</span>}
+<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>\mathit{score}_\mathit{i,j}\gets q_i \cdot k_j<span style="color:#e6db74">$</span>
 <span style="color:#66d9ef">\EndFor</span>
+<span style="color:#66d9ef">\EndFunction</span>
+<span style="color:#66d9ef">\newline</span>
+<span style="color:#66d9ef">\Function</span>{Self-attention-layer}{<span style="color:#e6db74">$</span>sentence<span style="color:#e6db74">$</span>}
+<span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{each } word_i \textrm{ in } sentence<span style="color:#e6db74">$</span>}
+<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>\mathit{self<span style="color:#f92672">-</span>attention}_\mathit{i}\gets Self<span style="color:#f92672">-</span>attention<span style="color:#f92672">(</span>{word}_i<span style="color:#f92672">)</span><span style="color:#e6db74">$</span>
 <span style="color:#66d9ef">\EndFor</span>
-<span style="color:#66d9ef">\EndProcedure</span></code></pre></div>
+<span style="color:#66d9ef">\EndFunction</span></code></pre></div>
 <figure>
     <img src="https://mullikine.github.io/ox-hugo/self-attention.svg"/> 
 </figure>
