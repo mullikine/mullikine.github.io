@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>Asking for help: methods // Bodacious Blog</title>
+    <title>Generating C with racket // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.59.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,21 +11,15 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Asking for help: methods"/>
-<meta name="twitter:description" content="IRC and asciinema I will usually create a recording of my terminal and ask over IRC.
-Recordings 
+<meta name="twitter:title" content="Generating C with racket"/>
+<meta name="twitter:description" content="related reading Practical macros in Racket // Bodacious Blog  #&#43;BEGIN_SRC racket:async :results verbatim code  #!/usr/local/racket/bin/racket #lang racket (require syntax/parse/define (for-syntax racket)) (define-syntax-parser Cstat ([_ ((~datum &#43;) x ...)] #:with x* (string-join (map (lambda (x) (writeln x) (if (symbol? (syntax-e x)) (symbol-&gt;string (syntax-e x)) (number-&gt;string (syntax-e x)))) (attribute x)) &#34; &#43; &#34;) #&#39;(string-append &#39;x*))) (define-syntax-parser Cfun ([_ name:id ((type:expr param:id) ...) (return:expr ...) body ...&#43;] #&#39;(string-append ;; Here, return needs to be a symbol (symbol-&gt;string &#39;return) ."/>
 
-&lt;2019-10-30 Wed&gt;  #racket 20:03 &lt; libertyprime&gt; hey guys. how would i hide the output of the sexps being evaluated? https://asciinema.org/a/qZolO6uyMFvCma8RvYNI0k9YK I can&#39;t wrap in (void (begin ...)) because it will complain 20:04 &lt; libertyprime&gt; http://ix.io/20jR/rkt"/>
-
-    <meta property="og:title" content="Asking for help: methods" />
-<meta property="og:description" content="IRC and asciinema I will usually create a recording of my terminal and ask over IRC.
-Recordings 
-
-&lt;2019-10-30 Wed&gt;  #racket 20:03 &lt; libertyprime&gt; hey guys. how would i hide the output of the sexps being evaluated? https://asciinema.org/a/qZolO6uyMFvCma8RvYNI0k9YK I can&#39;t wrap in (void (begin ...)) because it will complain 20:04 &lt; libertyprime&gt; http://ix.io/20jR/rkt" />
+    <meta property="og:title" content="Generating C with racket" />
+<meta property="og:description" content="related reading Practical macros in Racket // Bodacious Blog  #&#43;BEGIN_SRC racket:async :results verbatim code  #!/usr/local/racket/bin/racket #lang racket (require syntax/parse/define (for-syntax racket)) (define-syntax-parser Cstat ([_ ((~datum &#43;) x ...)] #:with x* (string-join (map (lambda (x) (writeln x) (if (symbol? (syntax-e x)) (symbol-&gt;string (syntax-e x)) (number-&gt;string (syntax-e x)))) (attribute x)) &#34; &#43; &#34;) #&#39;(string-append &#39;x*))) (define-syntax-parser Cfun ([_ name:id ((type:expr param:id) ...) (return:expr ...) body ...&#43;] #&#39;(string-append ;; Here, return needs to be a symbol (symbol-&gt;string &#39;return) ." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/asking-for-help-irc-asciinema/" />
-<meta property="article:published_time" content="2019-09-18T00:00:00+12:00" />
-<meta property="article:modified_time" content="2019-09-18T00:00:00+12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:url" content="https://mullikine.github.io/posts/generating-c-with-racket/" />
+<meta property="article:published_time" content="2019-10-30T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-10-30T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
 
 
   </head>
@@ -101,14 +95,14 @@ Recordings
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Asking for help: methods</h1>
+      <h1 class ="post-title">Generating C with racket</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
   <title>calendar</title>
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
 </svg>
-          Sep 18, 2019
+          Oct 30, 2019
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
@@ -121,7 +115,7 @@ Recordings
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/irc/">IRC</a><a class="tag" href="http://mullikine.github.io/tags/racket/">racket</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a></div></div>
     </header>
     
 
@@ -133,23 +127,51 @@ Recordings
 
 
     <div class="post-content">
-      
+      <dl>
+<dt>related reading</dt>
+<dd><a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket // Bodacious Blog</a></dd>
+</dl>
 
-<h2 id="irc-and-asciinema"><code>IRC</code> and <code>asciinema</code></h2>
+<hr />
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">racket</span><span style="color:#75715e"> :async :results verbatim code
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">#!/usr/local/racket/bin/racket</span>
+  <span style="color:#f92672">#lang </span>racket
 
-<p>I will usually create a recording of my terminal and ask over IRC.</p>
+  (<span style="color:#66d9ef">require</span> syntax/parse/define (<span style="color:#66d9ef">for-syntax</span> racket))
 
-<h3 id="recordings">Recordings</h3>
+  (define-syntax-parser Cstat
+    ([<span style="color:#66d9ef">_</span> ((~datum +) x <span style="color:#66d9ef">...</span>)]
+     <span style="color:#66d9ef">#:with</span> x* (string-join
+                (map
+                 (<span style="color:#66d9ef">lambda</span> (x)
+                   (writeln x)
+                   (<span style="color:#66d9ef">if</span> (symbol? (syntax-e x))
+                       (symbol-&gt;string (syntax-e x))
+                       (number-&gt;string (syntax-e x))))
+                 (attribute x))
+                <span style="color:#e6db74">&#34; + &#34;</span>)
+     <span style="color:#f92672">#&#39;</span>(string-append <span style="color:#f92672">&#39;</span><span style="color:#e6db74">x*</span>)))
 
-<p><a href="https://asciinema.org/a/MZHwj8SkSJooAE3HXG6w6Q2AG" target="_blank"><img src="https://asciinema.org/a/MZHwj8SkSJooAE3HXG6w6Q2AG.svg" /></a></p>
+  (define-syntax-parser Cfun
+    ([<span style="color:#66d9ef">_</span> name:id ((type:expr param:id) <span style="color:#66d9ef">...</span>) (return:expr <span style="color:#66d9ef">...</span>)
+        body ...+]
+     <span style="color:#f92672">#&#39;</span>(string-append
+        <span style="color:#75715e">;; Here, return needs to be a symbol</span>
+        (symbol-&gt;string <span style="color:#f92672">&#39;</span><span style="color:#e6db74">return</span>) <span style="color:#66d9ef">...</span>
+        <span style="color:#e6db74">&#34; &#34;</span>
+        (symbol-&gt;string <span style="color:#f92672">&#39;</span><span style="color:#e6db74">name</span>)
+        <span style="color:#e6db74">&#34;(&#34;</span>
+        (string-append (symbol-&gt;string <span style="color:#f92672">&#39;</span><span style="color:#e6db74">type</span>) (symbol-&gt;string <span style="color:#f92672">&#39;</span><span style="color:#e6db74">param</span>) <span style="color:#e6db74">&#34;,&#34;</span>) <span style="color:#66d9ef">...</span>
+        <span style="color:#e6db74">&#34;) {</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+        (Cstat body) <span style="color:#66d9ef">...</span>
+        <span style="color:#e6db74">&#34;}&#34;</span>)))
 
-<p><a href="https://asciinema.org/a/RCNtR8O5i6OJrNjJeWTJSolP7" target="_blank"><img src="https://asciinema.org/a/RCNtR8O5i6OJrNjJeWTJSolP7.svg" /></a></p>
-
-<h4 id="racket"><span class="timestamp-wrapper"><span class="timestamp">&lt;2019-10-30 Wed&gt; </span></span> <code>#racket</code></h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">20:03 &lt; libertyprime&gt; hey guys. how would i hide the output of the sexps being evaluated? https://asciinema.org/a/qZolO6uyMFvCma8RvYNI0k9YK I can&#39;t wrap in (void (begin ...)) because it will complain
-20:04 &lt; libertyprime&gt; http://ix.io/20jR/rkt</code></pre></div>
-<p><a href="https://asciinema.org/a/qZolO6uyMFvCma8RvYNI0k9YK" target="_blank"><img src="https://asciinema.org/a/qZolO6uyMFvCma8RvYNI0k9YK.svg" /></a></p>
-
+  (Cfun whatever [(int value) (char b)] (void)
+        (+ <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> value))<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">#+END_SRC</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">#&lt;syntax:/tmp/babel-kB9LRp/racket-OnbW5w:34:9 1&gt;
+#&lt;syntax:/tmp/babel-kB9LRp/racket-OnbW5w:34:11 2&gt;
+#&lt;syntax:/tmp/babel-kB9LRp/racket-OnbW5w:34:13 value&gt;
+<span style="color:#e6db74">&#34;void whatever(intvalue,charb,) {</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">1 + 2 + value}&#34;</span></code></pre></div>
     </div>
     <div class="post-footer">
       

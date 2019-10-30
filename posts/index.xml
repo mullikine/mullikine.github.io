@@ -32,6 +32,15 @@
     </item>
     
     <item>
+      <title>Generating C with racket</title>
+      <link>https://mullikine.github.io/posts/generating-c-with-racket/</link>
+      <pubDate>Wed, 30 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/generating-c-with-racket/</guid>
+      <description>related reading Practical macros in Racket // Bodacious Blog  #+BEGIN_SRC racket:async :results verbatim code  #!/usr/local/racket/bin/racket #lang racket (require syntax/parse/define (for-syntax racket)) (define-syntax-parser Cstat ([_ ((~datum +) x ...)] #:with x* (string-join (map (lambda (x) (writeln x) (if (symbol? (syntax-e x)) (symbol-&amp;gt;string (syntax-e x)) (number-&amp;gt;string (syntax-e x)))) (attribute x)) &amp;#34; + &amp;#34;) #&amp;#39;(string-append &amp;#39;x*))) (define-syntax-parser Cfun ([_ name:id ((type:expr param:id) ...) (return:expr ...) body ...+] #&amp;#39;(string-append ;; Here, return needs to be a symbol (symbol-&amp;gt;string &amp;#39;return) .</description>
+    </item>
+    
+    <item>
       <title>Haskell modes for emacs</title>
       <link>https://mullikine.github.io/posts/haskell-modes-for-emacs/</link>
       <pubDate>Wed, 30 Oct 2019 00:00:00 +1300</pubDate>
@@ -831,7 +840,9 @@ Also, 90% of the time you can&amp;rsquo;t copy the command and paste in the term
       
       <guid>https://mullikine.github.io/posts/asking-for-help-irc-asciinema/</guid>
       <description>IRC and asciinema I will usually create a recording of my terminal and ask over IRC.
-Recordings</description>
+Recordings 
+
+&amp;lt;2019-10-30 Wed&amp;gt;  #racket 20:03 &amp;lt; libertyprime&amp;gt; hey guys. how would i hide the output of the sexps being evaluated? https://asciinema.org/a/qZolO6uyMFvCma8RvYNI0k9YK I can&amp;#39;t wrap in (void (begin ...)) because it will complain 20:04 &amp;lt; libertyprime&amp;gt; http://ix.io/20jR/rkt</description>
     </item>
     
     <item>
