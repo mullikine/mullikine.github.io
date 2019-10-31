@@ -113,7 +113,7 @@ Helpful glossary Multilayer perceptron Feed-Forward Neural Network FFNN Basicall
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          8 min read
+          7 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -266,61 +266,27 @@ decoders -&gt; output [label=output]</code></pre></div><div class="highlight"><p
 </dl>
 
 <p>Each encoder contains a <span class="underline">self-attention layer</span> and an <span class="underline">FFNN</span>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">subgraph Encoder1 {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">subgraph Encoder1 {
     f1[label=&#34;FFNN&#34;]
-    a1[label=&#34;Self-Attention layer&#34;] -&gt; f1
+    a1[label=&#34;Self-Attention layer&#34;]
+    a1 -&gt; f1
 }
 subgraph Encoder2 {
     f2[label=&#34;FFNN&#34;]
-    a2[label=&#34;Self-Attention layer&#34;] -&gt; f2
+    a2[label=&#34;Self-Attention layer&#34;]
+    a2 -&gt; f2
 }
 subgraph EncoderN {
     etc [label=&#34;...&#34;]
 }
 
 f1 -&gt; a2 [label=&#34;list of 512D vectors&#34;]
-f2 -&gt; etc [label=&#34;list of 512D vectors&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-┆         Encoder1          ┆
-┆                           ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃ Self-Attention layer  ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆   ┃                       ┆
-┆   ┃                       ┆
-┆   v                       ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃         FFNN          ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆                           ┆
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-    ┃
-    ┃ list of 512D vectors
-    v
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-┆         Encoder2          ┆
-┆                           ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃ Self-Attention layer  ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆   ┃                       ┆
-┆   ┃                       ┆
-┆   v                       ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃         FFNN          ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆                           ┆
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-    ┃
-    ┃ list of 512D vectors
-    v
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-┆         EncoderN          ┆
-┆                           ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃          ...          ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆                           ┆
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘</code></pre></div>
+f2 -&gt; etc [label=&#34;list of 512D vectors&#34;]</code></pre></div>
+<figure>
+    <img src="https://mullikine.github.io/ox-hugo/attention-layer.png"/> 
+</figure>
+
+
 <h4 id="explanation-of-the-encoder-above">Explanation of the encoder above</h4>
 
 <p>The first encoder receives one sentence [at a time]
@@ -381,60 +347,8 @@ subgraph DecoderN {
 }
 
 f1 -&gt; a2
-f2 -&gt; etc [label=&#34;...&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-┆              Decoder1               ┆
-┆                                     ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃      Self-Attention layer       ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆   ┃                                 ┆
-┆   ┃                                 ┆
-┆   v                                 ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃ Encoder-Decoder-Attention layer ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆   ┃                                 ┆
-┆   ┃                                 ┆
-┆   v                                 ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃              FFNN               ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆                                     ┆
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-    ┃
-    ┃
-    v
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-┆              Decoder2               ┆
-┆                                     ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃      Self-Attention layer       ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆   ┃                                 ┆
-┆   ┃                                 ┆
-┆   v                                 ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃ Encoder-Decoder-Attention layer ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆   ┃                                 ┆
-┆   ┃                                 ┆
-┆   v                                 ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃              FFNN               ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆                                     ┆
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-    ┃
-    ┃ ...
-    v
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘
-┆              DecoderN               ┆
-┆                                     ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆ ┃               ...               ┃ ┆
-┆ ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┆
-┆                                     ┆
-∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘</code></pre></div>
+f2 -&gt; etc [label=&#34;...&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Error: /tmp/file_tempfile_aT3RHi_rand-7619_pid-9038.dot: syntax error in line 4 near &#39;-&gt;&#39;
+file_tempfile_aT3RHi_rand-7619_pid-9038.png</code></pre></div>
 <h4 id="explanation-of-the-decoder-above">Explanation of the decoder above</h4>
 
 <p>The <span class="underline">encoder-decoder attention layer</span> helps
