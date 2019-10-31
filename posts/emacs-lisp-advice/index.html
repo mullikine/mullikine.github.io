@@ -159,6 +159,23 @@
 (advice-add <span style="color:#e6db74">&#39;org-kill-line</span> :around <span style="color:#a6e22e">#&#39;</span>org-kill-line-around-advice)</code></pre></div>
 <p><code>cl-letf</code> is also used here to override the definition of a function.</p>
 
+<h2 id="avoiding-advice">Avoiding advice</h2>
+
+<p>Sometimes it&rsquo;s better to use <code>let</code> or <code>letf</code> than to use advice.</p>
+
+<p>Using advice would mean that the modifications
+would run <strong>wherever</strong> and <strong>whenever</strong> the
+function is called.</p>
+
+<p>We may only want to extend a function for independent use.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun quoted-insert-nooctal (args)
+  (interactive <span style="color:#e6db74">&#34;P&#34;</span>)
+  (let* ((overwrite-mode <span style="color:#e6db74">&#39;overwrite-mode-textual</span>))
+
+    (setq current-prefix-arg args)
+    (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;quoted-insert</span>)))
+
+(<span style="color:#a6e22e">define-key</span> global-map (kbd <span style="color:#e6db74">&#34;C-q&#34;</span>) <span style="color:#a6e22e">#&#39;</span>quoted-insert-nooctal)</code></pre></div>
     </div>
     <div class="post-footer">
       
