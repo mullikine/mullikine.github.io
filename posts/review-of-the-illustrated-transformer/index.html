@@ -119,7 +119,7 @@ Helpful glossary Multilayer perceptron Feed-Forward Neural Network FFNN Basicall
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          7 min read
+          8 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -220,7 +220,7 @@ dot product
 <p>In a machine translation application, it would
 take a sentence in one language, and output
 its translation in another.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">input [label=&#34;foreign language&#34;]
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">input [label=&#34;foreign language&#34;]
 output [label=&#34;your language&#34;]
 
 subgraph transformer {
@@ -272,7 +272,7 @@ decoders -&gt; output [label=output]</code></pre></div><div class="highlight"><p
 </dl>
 
 <p>Each encoder contains a <span class="underline">self-attention layer</span> and an <span class="underline">FFNN</span>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">subgraph clusterEncoders {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">subgraph clusterEncoders {
     style = filled
     fillcolor = lightgrey
     node [style=filled,fillcolor=lightgrey,shape=circle];
@@ -351,23 +351,31 @@ feed-forward layer.</dd>
 <h3 id="a-look-inside-the-decoder-stack">A look inside the <code>decoder</code> stack</h3>
 
 <p>Each decoder is the same as an <span class="underline">encoder</span> except with an <span class="underline">encoder-decoder attention</span> layer in between.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">subgraph Decoder1 {
-    f1[label=&#34;FFNN&#34;]
-    eda1[label=&#34;Encoder-Decoder-Attention layer&#34;] -&gt; f1
-    a1[label=&#34;Self-Attention layer&#34;] -&gt; eda1
-}
-subgraph Decoder2 {
-    f2[label=&#34;FFNN&#34;]
-    eda2[label=&#34;Encoder-Decoder-Attention layer&#34;] -&gt; f2
-    a2[label=&#34;Self-Attention layer&#34;] -&gt; eda2
-}
-subgraph DecoderN {
-    etc [label=&#34;...&#34;]
-}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">graphviz-dot</span><span style="color:#75715e"> :filter dot-digraph-ascii-lr :async :results verbatim code
+</span><span style="color:#75715e"></span>  subgraph Decoder1 {
+      f1[label=&#34;FFNN&#34;]
+      eda1[label=&#34;Encoder-Decoder-Attention layer&#34;] -&gt; f1
+      a1[label=&#34;Self-Attention layer&#34;] -&gt; eda1
+  }
+  subgraph Decoder2 {
+      f2[label=&#34;FFNN&#34;]
+      eda2[label=&#34;Encoder-Decoder-Attention layer&#34;] -&gt; f2
+      a2[label=&#34;Self-Attention layer&#34;] -&gt; eda2
+  }
+  subgraph DecoderN {
+      etc [label=&#34;...&#34;]
+  }
 
-f1 -&gt; a2
-f2 -&gt; etc [label=&#34;...&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Error: /tmp/file_tempfile_aT3RHi_rand-7619_pid-9038.dot: syntax error in line 4 near &#39;-&gt;&#39;
-file_tempfile_aT3RHi_rand-7619_pid-9038.png</code></pre></div>
+  f1 -&gt; a2
+  f2 -&gt; etc [label=&#34;...&#34;]
+<span style="color:#75715e">#+END_SRC</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘     ∘ ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘        ∘┄┄┄┄┄┄┄┄┄┄┄┄∘
+┆                                           Decoder1                            ┆     ┆                                           Decoder2                            ┆        ┆  DecoderN  ┆
+┆                                                                               ┆     ┆                                                                               ┆        ┆            ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘     ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘     ∘━━━━━━∘ ┆     ┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘     ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘     ∘━━━━━━∘ ┆  ...   ┆ ∘━━━━━━━━∘ ┆
+┆ ┃ Self-Attention layer ┃ ━━&gt; ┃ Encoder-Decoder-Attention layer ┃ ━━&gt; ┃ FFNN ┃ ┆ ━━&gt; ┆ ┃ Self-Attention layer ┃ ━━&gt; ┃ Encoder-Decoder-Attention layer ┃ ━━&gt; ┃ FFNN ┃ ┆ ━━━━-&gt; ┆ ┃  ...   ┃ ┆
+┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘     ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘     ∘━━━━━━∘ ┆     ┆ ∘━━━━━━━━━━━━━━━━━━━━━━∘     ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘     ∘━━━━━━∘ ┆        ┆ ∘━━━━━━━━∘ ┆
+┆                                                                               ┆     ┆                                                                               ┆        ┆            ┆
+∘┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘     ∘ ┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄∘        ∘┄┄┄┄┄┄┄┄┄┄┄┄∘</code></pre></div>
 <h4 id="explanation-of-the-decoder-above">Explanation of the decoder above</h4>
 
 <p>The <span class="underline">encoder-decoder attention layer</span> helps
@@ -398,7 +406,7 @@ and thinking about attention.</p>
 <p>The self-attention must be calculated for each word.</p>
 
 <h3 id="step-1-create-a--q----k--and--v--vector-for-each-word--512d--input-vector-dot">Step 1: Create a \(q\), \(k\) and \(v\) vector for each word / \(512D\) input vector.</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">&#34;the first word of the input sentence&#34; -&gt; &#34;the first vector of the input list&#34; [label=&#34;is analogous to&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">&#34;the first word of the input sentence&#34; -&gt; &#34;the first vector of the input list&#34; [label=&#34;is analogous to&#34;]</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
 ┃ the first word of the input sentence ┃
 ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘
   ┃
