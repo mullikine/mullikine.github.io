@@ -15,14 +15,16 @@
 <meta name="twitter:description" content="Original article Practical macros in Racket and how to work with them  This is a copy of Kevin R. Stravers article above, formatted in org-mode with some minor changes.
  TLDR You can ignore everything except define-syntax-parser if you&rsquo;re new.
 In essence it&rsquo;s a way to define macros in a clean manner.
-I don&rsquo;t get it, how does syntax-parse work?
+define-syntax-parser = define-syntax ∘ syntax-parser
+define-syntax-parser example
   Practical macros in Racket and how to work with them A macro is central in any Lisp and must be mastered in order to master the language."/>
 
     <meta property="og:title" content="Practical macros in Racket" />
 <meta property="og:description" content="Original article Practical macros in Racket and how to work with them  This is a copy of Kevin R. Stravers article above, formatted in org-mode with some minor changes.
  TLDR You can ignore everything except define-syntax-parser if you&rsquo;re new.
 In essence it&rsquo;s a way to define macros in a clean manner.
-I don&rsquo;t get it, how does syntax-parse work?
+define-syntax-parser = define-syntax ∘ syntax-parser
+define-syntax-parser example
   Practical macros in Racket and how to work with them A macro is central in any Lisp and must be mastered in order to master the language." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/" />
@@ -154,7 +156,9 @@ I don&rsquo;t get it, how does syntax-parse work?
 <p>In essence it&rsquo;s a way to define macros in
 a clean manner.</p>
 
-<p><span class="underline"><a href="#org6a85f13">I don&rsquo;t get it, how does <code>syntax-parse</code> work?</a></span></p></dd>
+<p><code>define-syntax-parser</code> = <code>define-syntax</code> ∘ <code>syntax-parser</code></p>
+
+<p><span class="underline"><a href="#org0379e08">define-syntax-parser example</a></span></p></dd>
 </dl>
 
 <h2 id="practical-macros-in-racket-and-how-to-work-with-them">Practical macros in Racket and how to work with them</h2>
@@ -172,7 +176,7 @@ complete picture.</p>
 syntax transformers there. Here are the biggest ones and some utility
 functions.</p>
 
-<p><a id="org6ae05a7"></a></p>
+<p><a id="org1a8b172"></a></p>
 
 <figure>
     <img src="https://mullikine.github.io/ox-hugo/macro-graph.png"/> 
@@ -386,7 +390,8 @@ racket (as far as I know).</p>
 
 <hr />
 
-<p><code>define-syntax-parser</code> = <code>define-syntax</code> ∘ <code>syntax-parser</code></p>
+<p><a id="org0379e08"></a>
+<code>define-syntax-parser</code> = <code>define-syntax</code> ∘ <code>syntax-parser</code></p>
 
 <hr />
 
@@ -741,7 +746,7 @@ scratch his head.</p>
 <span style="color:#75715e">;;   at: it</span>
 <span style="color:#75715e">;;   in: (syntax-parameterize ((it (syntax-parser (_ (syntax</span>
 <span style="color:#75715e">;; t))))) (if t (displayln it) (void)))</span></code></pre></div>
-<p><a id="org6a85f13"></a></p>
+<p><a id="org5c8f44f"></a></p>
 
 <h2 id="i-don-t-get-it-how-does-syntax-parse-work">I don&rsquo;t get it, how does <code>syntax-parse</code> work?</h2>
 
