@@ -125,7 +125,7 @@ Helpful glossary Multilayer perceptron Feed-Forward Neural Network FFNN Basicall
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a><a class="tag" href="http://mullikine.github.io/tags/transformer/">transformer</a><a class="tag" href="http://mullikine.github.io/tags/attention/">attention</a><a class="tag" href="http://mullikine.github.io/tags/nlp/">NLP</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a><a class="tag" href="http://mullikine.github.io/tags/transformer/">transformer</a><a class="tag" href="http://mullikine.github.io/tags/attention/">attention</a><a class="tag" href="http://mullikine.github.io/tags/nlp/">NLP</a><a class="tag" href="http://mullikine.github.io/tags/review/">review</a></div></div>
     </header>
     
 
@@ -332,20 +332,20 @@ through it separately).</p>
 <dl>
 <dt>My thoughts on this&hellip;</dt>
 <dd>If you imagine an encoder is a
-<code>CNN</code>, you can think of the self-attention layer
-as being the sliding window but it has context of
-the entire input text (the sentence), not merely the few words around it.
-The <code>FFNN</code> takes the tensor of attention values as its input.</dd>
+                       <code>CNN</code>, you can think of the self-attention layer
+                       as being the sliding window but it has context of
+                       the entire input text (the sentence), not merely the few words around it.
+                       The <code>FFNN</code> takes the tensor of attention values as its input.</dd>
 <dt>A key property of the transformer</dt>
 <dd>The word in each position flows through its own path in the encoder.
-There are dependencies between
-these paths in the self-attention
-layer. The feed-forward layer
-does not have those dependencies,
-however, and thus the various
-paths can be executed in parallel
-while flowing through the
-feed-forward layer.</dd>
+                                       There are dependencies between
+                                       these paths in the self-attention
+                                       layer. The feed-forward layer
+                                       does not have those dependencies,
+                                       however, and thus the various
+                                       paths can be executed in parallel
+                                       while flowing through the
+                                       feed-forward layer.</dd>
 </dl>
 
 <h3 id="a-look-inside-the-decoder-stack">A look inside the <code>decoder</code> stack</h3>
@@ -386,15 +386,15 @@ input sentence (similar what attention does in
 <dl>
 <dt>My thoughts on this&hellip;</dt>
 <dd>It seems as though the decoder&rsquo;s extra attention layer
-learns a more macroscopic attention than the self-attention layer.</dd>
+                            learns a more macroscopic attention than the self-attention layer.</dd>
 <dt>The intuition of self-attention&hellip;</dt>
 <dd>Reflects on its own position/context within a greater whole.
-                                   Each \(512D\) row reflects on its own position/context
-within the entire matrix.  If you’re familiar with RNNs, think of how maintaining a
-hidden state allows an RNN to incorporate its representation of previous
-words/vectors it has processed with the current one it’s processing. Self-attention
-is the method the Transformer uses to bake the “understanding” of other relevant
-words into the one we’re currently processing.</dd>
+                                        Each \(512D\) row reflects on its own position/context
+     within the entire matrix.  If you’re familiar with RNNs, think of how maintaining a
+     hidden state allows an RNN to incorporate its representation of previous
+     words/vectors it has processed with the current one it’s processing. Self-attention
+     is the method the Transformer uses to bake the “understanding” of other relevant
+     words into the one we’re currently processing.</dd>
 </dl>
 
 <h2 id="self-attention-in-detail">Self-attention in detail</h2>
@@ -518,7 +518,7 @@ and thinking about attention.</p>
 <dl>
 <dt><code>64</code></dt>
 <dd>The <code>q,k,v</code> vectors don’t <strong>have</strong> to be smaller. This is an architecture choice to make the computation
-of <code>multiheaded attention</code> (mostly) constant.</dd>
+    of <code>multiheaded attention</code> (mostly) constant.</dd>
 </dl>
 
 <h3 id="step-2-calculate--n-times-n---scores--n--for-each-word-as-we-compare-each-word-with-every-other-word">Step 2: calculate (\(n\times n\)) scores, \(n\) for each word as we compare each word with every other word</h3>
@@ -526,8 +526,8 @@ of <code>multiheaded attention</code> (mostly) constant.</dd>
 <dl>
 <dt>The score</dt>
 <dd>determines how much focus to place
-on other parts of the input sentence as we
-encode a word at a certain position.</dd>
+    on other parts of the input sentence as we
+    encode a word at a certain position.</dd>
 </dl>
 
 <p>Take the dot product of the <span class="underline">query vector</span>
@@ -566,7 +566,7 @@ positive and add up to 1.</p>
 <dl>
 <dt>softmax score</dt>
 <dd>determines how much how much
-each word will be expressed at this position.</dd>
+    each word will be expressed at this position.</dd>
 </dl>
 
 <h3 id="step-5-multiply-each-value-vector-by-the-softmax-score">Step 5: multiply each value vector by the softmax score</h3>
@@ -576,9 +576,9 @@ each word will be expressed at this position.</dd>
 <dl>
 <dt>the intuition</dt>
 <dd>To keep intact the values of the word or words
-we want to focus on, and drown-out irrelevant
-words (by multiplying them by tiny numbers
-like 0.001, for example).</dd>
+    we want to focus on, and drown-out irrelevant
+    words (by multiplying them by tiny numbers
+    like 0.001, for example).</dd>
 </dl>
 
 <h3 id="step-6-sum-up-the-weighted-value-vectors">Step 6: sum up the weighted value vectors</h3>
