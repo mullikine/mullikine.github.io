@@ -147,7 +147,8 @@ Tooling is a huge deficiency with haskell, not just for emacs.
       <pubDate>Wed, 30 Oct 2019 00:00:00 +1300</pubDate>
       
       <guid>https://mullikine.github.io/posts/latex-in-emacs/</guid>
-      <description>Prereading Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog
+      <description>\(\LaTeX\)
+Prereading Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog
 Setup Create the texalg2png script #!/bin/bash export TTY read -r -d &amp;#39;&amp;#39; texcode &amp;lt;&amp;lt;HEREDOC \documentclass{standalone} \usepackage{varwidth} \usepackage{algorithm} %ctan.org\pkg\algorithms \usepackage{algpseudocode} \begin{document} \begin{varwidth}{\linewidth} \par\noindent \begin{algorithmic}[1] $(cat) \end{algorithmic} \end{varwidth} \end{document} HEREDOC printf -- &amp;#34;%s&amp;#34; &amp;#34;$texcode&amp;#34; | tex2png &amp;#34;$@&amp;#34; Create the tex2png script #!/bin/bash export TTY tf_tex=&amp;#34;$(ux tf tex || echo /dev/null)&amp;#34; trap &amp;#34;rm \&amp;#34;$tf_tex\&amp;#34; 2&amp;gt;/dev/null&amp;#34; 0 fp=&amp;#34;$tf_tex&amp;#34; name=&amp;#34;$1&amp;#34; if test &amp;#34;$name&amp;#34; = nil; then name=&amp;#34;&amp;#34; fi fn=$(basename &amp;#34;$fp&amp;#34;) dn=$(dirname &amp;#34;$fp&amp;#34;) ext=&amp;#34;${fn##*.</description>
     </item>
     

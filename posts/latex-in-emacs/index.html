@@ -12,11 +12,13 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="LaTeX in emacs"/>
-<meta name="twitter:description" content="Prereading Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog
+<meta name="twitter:description" content="\(\LaTeX\)
+Prereading Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog
 Setup Create the texalg2png script #!/bin/bash export TTY read -r -d &#39;&#39; texcode &lt;&lt;HEREDOC \documentclass{standalone} \usepackage{varwidth} \usepackage{algorithm} %ctan.org\pkg\algorithms \usepackage{algpseudocode} \begin{document} \begin{varwidth}{\linewidth} \par\noindent \begin{algorithmic}[1] $(cat) \end{algorithmic} \end{varwidth} \end{document} HEREDOC printf -- &#34;%s&#34; &#34;$texcode&#34; | tex2png &#34;$@&#34; Create the tex2png script #!/bin/bash export TTY tf_tex=&#34;$(ux tf tex || echo /dev/null)&#34; trap &#34;rm \&#34;$tf_tex\&#34; 2&gt;/dev/null&#34; 0 fp=&#34;$tf_tex&#34; name=&#34;$1&#34; if test &#34;$name&#34; = nil; then name=&#34;&#34; fi fn=$(basename &#34;$fp&#34;) dn=$(dirname &#34;$fp&#34;) ext=&#34;${fn##*."/>
 
     <meta property="og:title" content="LaTeX in emacs" />
-<meta property="og:description" content="Prereading Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog
+<meta property="og:description" content="\(\LaTeX\)
+Prereading Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog
 Setup Create the texalg2png script #!/bin/bash export TTY read -r -d &#39;&#39; texcode &lt;&lt;HEREDOC \documentclass{standalone} \usepackage{varwidth} \usepackage{algorithm} %ctan.org\pkg\algorithms \usepackage{algpseudocode} \begin{document} \begin{varwidth}{\linewidth} \par\noindent \begin{algorithmic}[1] $(cat) \end{algorithmic} \end{varwidth} \end{document} HEREDOC printf -- &#34;%s&#34; &#34;$texcode&#34; | tex2png &#34;$@&#34; Create the tex2png script #!/bin/bash export TTY tf_tex=&#34;$(ux tf tex || echo /dev/null)&#34; trap &#34;rm \&#34;$tf_tex\&#34; 2&gt;/dev/null&#34; 0 fp=&#34;$tf_tex&#34; name=&#34;$1&#34; if test &#34;$name&#34; = nil; then name=&#34;&#34; fi fn=$(basename &#34;$fp&#34;) dn=$(dirname &#34;$fp&#34;) ext=&#34;${fn##*." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/latex-in-emacs/" />
@@ -140,6 +142,8 @@ Setup Create the texalg2png script #!/bin/bash export TTY read -r -d &#39;&#39; 
     <div class="post-content">
       
 
+<p>\(\LaTeX\)</p>
+
 <h2 id="prereading">Prereading</h2>
 
 <p><a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog</a></p>
@@ -231,9 +235,9 @@ echo <span style="color:#e6db74">&#34;[[file:$nf]]&#34;</span></code></pre></div
 
 <h2 id="bayes-rule">Bayes&rsquo; Rule</h2>
 
-<p>MathJax interprets the latex in the browser.</p>
+<p>MathJax interprets the \(\LaTeX\) in the browser.</p>
 
-<p>This means that latex is actually in the page
+<p>This means that \(\LaTeX\) is actually in the page
 already.</p>
 
 <p>You just need to find the element where it
