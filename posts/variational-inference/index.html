@@ -178,6 +178,20 @@ expected information
     Conversely, if the weather varies a lot,
     the entropy will be much larger.
 
+    Optimising codes:
+        For example, when we use a 2-bit
+        message for sunny weather, we’re
+        implicitly assuming that it will be
+        sunny every 4 days (2 to the power of
+        2), at least on average.
+
+        In other words, by using this code,
+        we’re implicitly predicting a
+        probability of 25% for sunny weather,
+        or else our code will not be optimal.
+
+        https://youtu.be/ErfnhcEV1O8?t=425
+
 Kullback-Leibler Divergence
 KL Divergence
 relative entropy
@@ -237,6 +251,37 @@ evidence
     A likelihood function in which some
     parameter variables have been
     marginalized.</code></pre></div>
+<h2 id="predicted-distribution-vs-true-distribution">Predicted distribution vs true distribution</h2>
+
+<h3 id="predicted-distribution">Predicted distribution</h3>
+
+<p>When designing a code to represent weather
+predictions, you try to assign fewer bits for
+outcomes which are probably going to be more
+common.</p>
+
+<p>You can compute the assumed probabily of an
+outcome based on the number of bits that have
+been assigned to represent a prediction for
+that outcome.</p>
+
+<h3 id="true-distribution">True distribution</h3>
+
+<p>The true distribution contains the actual
+probabilities of the events you are trying to
+represent with a code.</p>
+
+<p>The code cannot exactly match the true
+distribution but you can optimise the code to
+more accurately represent it.</p>
+
+<h2 id="cross-entropy">Cross entropy</h2>
+
+<p>A function of the predicted distribution \(q\) and
+the true distribution \(p\).</p>
+
+<p>\(H(p, q) = -\sum_{i} p_i log_2(q_i)\)</p>
+
 <h2 id="bayes-theorm">Bayes&rsquo; Theorm</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">\begin{equation}
 \underbrace{p(\mathbf{z} \mid

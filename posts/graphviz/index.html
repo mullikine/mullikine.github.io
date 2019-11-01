@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Graphviz and Hugo"/>
-<meta name="twitter:description" content="#&#43;BEGIN_SRC dot:filter dot-digraph-ascii :async :results verbatim code  &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;s1&#34; -&gt; &#34;low-priority&#34;; &#34;s2&#34; -&gt; &#34;low-priority&#34;; &#34;s3&#34; -&gt; &#34;low-priority&#34;; &#34;low-priority&#34; -&gt; &#34;s4&#34;; &#34;low-priority&#34; -&gt; &#34;s5&#34;; &#34;low-priority&#34; -&gt; &#34;high-priority&#34; [label=&#34;wait-time exceeded&#34;]; &#34;high-priority&#34; -&gt; &#34;s4&#34;; &#34;high-priority&#34; -&gt; &#34;s5&#34;; #&#43;END_SRC #&#43;END_SRC#&#43;RESULTS: #&#43;BEGIN_SRC dot ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ s1 ┃ ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ v ∘━━━━∘ #================================# ∘━━━━∘ ┃ s5 ┃ &lt;━┄┄H low-priority H &lt;━┄┄┃ s2 ┃ ∘━━━━∘ #================================# ∘━━━━∘ ^ ┃ ┃ ^ ┃ ┃ wait-time exceeded ┃ ┃ ┃ v ┃ ┃ ┃ #=====================# ┃ ∘━━━━∘ ∘━━━━━━┄┄H high-priority H ┃ ┃ s3 ┃ #=====================# ┃ ∘━━━━∘ ┃ ┃ ┃ ┃ v ┃ ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ s4 ┃ &lt;∘ ∘━━━━━━━━━━━━━━━━━━━━━∘#&#43;BEGIN_SRC dot:filter dot-digraph priority :async :results raw drawer  &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;s1&#34; -&gt; &#34;low-priority&#34;; &#34;s2&#34; -&gt; &#34;low-priority&#34;; &#34;s3&#34; -&gt; &#34;low-priority&#34;; &#34;low-priority&#34; -&gt; &#34;s4&#34;; &#34;low-priority&#34; -&gt; &#34;s5&#34;; &#34;low-priority&#34; -&gt; &#34;high-priority&#34; [label=&#34;wait-time exceeded&#34;]; &#34;high-priority&#34; -&gt; &#34;s4&#34;; &#34;high-priority&#34; -&gt; &#34;s5&#34;; #&#43;END_SRC   #&#43;BEGIN_SRC dot:filter dot-digraph-ascii-lr :async :results verbatim code  &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;s1&#34; -&gt; &#34;low-priority&#34;; &#34;s2&#34; -&gt; &#34;low-priority&#34;; &#34;s3&#34; -&gt; &#34;low-priority&#34;; &#34;low-priority&#34; -&gt; &#34;s4&#34;; &#34;low-priority&#34; -&gt; &#34;s5&#34;; &#34;low-priority&#34; -&gt; &#34;high-priority&#34; [label=&#34;wait-time exceeded&#34;]; &#34;high-priority&#34; -&gt; &#34;s4&#34;; &#34;high-priority&#34; -&gt; &#34;s5&#34;; #&#43;END_SRC∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ ┃ ∘━━━━∘ #==============# wait-time exceeded #===============# ∘━━━━∘ ┃ ┃ s1 ┃ ━━&gt; H H ━━━━━━━━━━━━━━━━━━━━&gt; H high-priority H ━━&gt; ┃ s4 ┃ ┃ ∘━━━━∘ H H #===============# ∘━━━━∘ ┃ H H ^ ┃ H low-priority H ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ H H ┃ ∘━━━━∘ H H ∘━━━━━━━━━━━━━━━∘ ┃ ┃ s2 ┃ ━━&gt; H H &lt;━━━━━━━━━━━━━━━━━━━┄┄┃ s3 ┃ ┃ ∘━━━━∘ #==============# ∘━━━━━━━━━━━━━━━∘ ┃ ┃ ┃ ┃ ┃ v ┃ ∘━━━━━━━━━━━━━━∘ ∘━━━━━━━━━━-&gt; ┃ s5 ┃ ∘━━━━━━━━━━━━━━∘&#34;Back&#34; [shape=&#34;egg&#34; color=&#34;green&#34; style=&#34;filled&#34; fillcolor=&#34;yellow&#34;]; &#34;Forth&#34; [shape=&#34;house&#34; color=&#34;red&#34;]; &#34;Other&#34; [shape=&#34;invtriangle&#34; color=&#34;blue&#34;]; &#34;Back&#34; -&gt; &#34;Forth&#34; [color=&#34;orange&#34; label=&#34;weee&#34;]; &#34;Forth&#34; -&gt; &#34;Back&#34; [color=&#34;purple&#34; label=&#34;eeew&#34;]; &#34;Other&#34; -&gt; &#34;Forth&#34; &#34;Other&#34; -&gt; &#34;Back&#34;   subgraph clusterEncoders { style = filled fillcolor = lightgrey node [style=filled,fillcolor=lightgrey,shape=circle]; label = &#34;Set of encoders&#34; subgraph clusterEncoder1 { fillcolor = white label = &#34;Encoder 1&#34;; f1[label=&#34;FFNN&#34;] a1[label=&#34;Self-Attention layer&#34;] a1 -&gt; f1 } subgraph clusterEncoder2 { fillcolor = white label = &#34;Encoder 2&#34;; f2[label=&#34;FFNN&#34;] a2[label=&#34;Self-Attention layer&#34;] a2 -&gt; f2 } subgraph clusterEncoderN { fillcolor = white label = &#34;Encoder N&#34;; etc [label=&#34;."/>
+<meta name="twitter:description" content="#&#43;BEGIN_SRC graphviz-dot:filter dot-digraph-ascii :async :results verbatim code  &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;s1&#34; -&gt; &#34;low-priority&#34;; &#34;s2&#34; -&gt; &#34;low-priority&#34;; &#34;s3&#34; -&gt; &#34;low-priority&#34;; &#34;low-priority&#34; -&gt; &#34;s4&#34;; &#34;low-priority&#34; -&gt; &#34;s5&#34;; &#34;low-priority&#34; -&gt; &#34;high-priority&#34; [label=&#34;wait-time exceeded&#34;]; &#34;high-priority&#34; -&gt; &#34;s4&#34;; &#34;high-priority&#34; -&gt; &#34;s5&#34;; #&#43;END_SRC #&#43;END_SRC#&#43;RESULTS: #&#43;BEGIN_SRC dot ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ s1 ┃ ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ v ∘━━━━∘ #================================# ∘━━━━∘ ┃ s5 ┃ &lt;━┄┄H low-priority H &lt;━┄┄┃ s2 ┃ ∘━━━━∘ #================================# ∘━━━━∘ ^ ┃ ┃ ^ ┃ ┃ wait-time exceeded ┃ ┃ ┃ v ┃ ┃ ┃ #=====================# ┃ ∘━━━━∘ ∘━━━━━━┄┄H high-priority H ┃ ┃ s3 ┃ #=====================# ┃ ∘━━━━∘ ┃ ┃ ┃ ┃ v ┃ ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ s4 ┃ &lt;∘ ∘━━━━━━━━━━━━━━━━━━━━━∘#&#43;BEGIN_SRC graphviz-dot:filter dot-digraph priority :async :results raw drawer  &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;s1&#34; -&gt; &#34;low-priority&#34;; &#34;s2&#34; -&gt; &#34;low-priority&#34;; &#34;s3&#34; -&gt; &#34;low-priority&#34;; &#34;low-priority&#34; -&gt; &#34;s4&#34;; &#34;low-priority&#34; -&gt; &#34;s5&#34;; &#34;low-priority&#34; -&gt; &#34;high-priority&#34; [label=&#34;wait-time exceeded&#34;]; &#34;high-priority&#34; -&gt; &#34;s4&#34;; &#34;high-priority&#34; -&gt; &#34;s5&#34;; #&#43;END_SRC   #&#43;BEGIN_SRC graphviz-dot:filter dot-digraph-ascii-lr :async :results verbatim code  &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;s1&#34; -&gt; &#34;low-priority&#34;; &#34;s2&#34; -&gt; &#34;low-priority&#34;; &#34;s3&#34; -&gt; &#34;low-priority&#34;; &#34;low-priority&#34; -&gt; &#34;s4&#34;; &#34;low-priority&#34; -&gt; &#34;s5&#34;; &#34;low-priority&#34; -&gt; &#34;high-priority&#34; [label=&#34;wait-time exceeded&#34;]; &#34;high-priority&#34; -&gt; &#34;s4&#34;; &#34;high-priority&#34; -&gt; &#34;s5&#34;; #&#43;END_SRC∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ ┃ ∘━━━━∘ #==============# wait-time exceeded #===============# ∘━━━━∘ ┃ ┃ s1 ┃ ━━&gt; H H ━━━━━━━━━━━━━━━━━━━━&gt; H high-priority H ━━&gt; ┃ s4 ┃ ┃ ∘━━━━∘ H H #===============# ∘━━━━∘ ┃ H H ^ ┃ H low-priority H ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ H H ┃ ∘━━━━∘ H H ∘━━━━━━━━━━━━━━━∘ ┃ ┃ s2 ┃ ━━&gt; H H &lt;━━━━━━━━━━━━━━━━━━━┄┄┃ s3 ┃ ┃ ∘━━━━∘ #==============# ∘━━━━━━━━━━━━━━━∘ ┃ ┃ ┃ ┃ ┃ v ┃ ∘━━━━━━━━━━━━━━∘ ∘━━━━━━━━━━-&gt; ┃ s5 ┃ ∘━━━━━━━━━━━━━━∘&#34;Back&#34; [shape=&#34;egg&#34; color=&#34;green&#34; style=&#34;filled&#34; fillcolor=&#34;yellow&#34;]; &#34;Forth&#34; [shape=&#34;house&#34; color=&#34;red&#34;]; &#34;Other&#34; [shape=&#34;invtriangle&#34; color=&#34;blue&#34;]; &#34;Back&#34; -&gt; &#34;Forth&#34; [color=&#34;orange&#34; label=&#34;weee&#34;]; &#34;Forth&#34; -&gt; &#34;Back&#34; [color=&#34;purple&#34; label=&#34;eeew&#34;]; &#34;Other&#34; -&gt; &#34;Forth&#34; &#34;Other&#34; -&gt; &#34;Back&#34;   subgraph clusterEncoders { style = filled fillcolor = lightgrey node [style=filled,fillcolor=lightgrey,shape=circle]; label = &#34;Set of encoders&#34; subgraph clusterEncoder1 { fillcolor = white label = &#34;Encoder 1&#34;; f1[label=&#34;FFNN&#34;] a1[label=&#34;Self-Attention layer&#34;] a1 -&gt; f1 } subgraph clusterEncoder2 { fillcolor = white label = &#34;Encoder 2&#34;; f2[label=&#34;FFNN&#34;] a2[label=&#34;Self-Attention layer&#34;] a2 -&gt; f2 } subgraph clusterEncoderN { fillcolor = white label = &#34;Encoder N&#34;; etc [label=&#34;."/>
 
     <meta property="og:title" content="Graphviz and Hugo" />
-<meta property="og:description" content="#&#43;BEGIN_SRC dot:filter dot-digraph-ascii :async :results verbatim code  &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;s1&#34; -&gt; &#34;low-priority&#34;; &#34;s2&#34; -&gt; &#34;low-priority&#34;; &#34;s3&#34; -&gt; &#34;low-priority&#34;; &#34;low-priority&#34; -&gt; &#34;s4&#34;; &#34;low-priority&#34; -&gt; &#34;s5&#34;; &#34;low-priority&#34; -&gt; &#34;high-priority&#34; [label=&#34;wait-time exceeded&#34;]; &#34;high-priority&#34; -&gt; &#34;s4&#34;; &#34;high-priority&#34; -&gt; &#34;s5&#34;; #&#43;END_SRC #&#43;END_SRC#&#43;RESULTS: #&#43;BEGIN_SRC dot ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ s1 ┃ ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ v ∘━━━━∘ #================================# ∘━━━━∘ ┃ s5 ┃ &lt;━┄┄H low-priority H &lt;━┄┄┃ s2 ┃ ∘━━━━∘ #================================# ∘━━━━∘ ^ ┃ ┃ ^ ┃ ┃ wait-time exceeded ┃ ┃ ┃ v ┃ ┃ ┃ #=====================# ┃ ∘━━━━∘ ∘━━━━━━┄┄H high-priority H ┃ ┃ s3 ┃ #=====================# ┃ ∘━━━━∘ ┃ ┃ ┃ ┃ v ┃ ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ s4 ┃ &lt;∘ ∘━━━━━━━━━━━━━━━━━━━━━∘#&#43;BEGIN_SRC dot:filter dot-digraph priority :async :results raw drawer  &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;s1&#34; -&gt; &#34;low-priority&#34;; &#34;s2&#34; -&gt; &#34;low-priority&#34;; &#34;s3&#34; -&gt; &#34;low-priority&#34;; &#34;low-priority&#34; -&gt; &#34;s4&#34;; &#34;low-priority&#34; -&gt; &#34;s5&#34;; &#34;low-priority&#34; -&gt; &#34;high-priority&#34; [label=&#34;wait-time exceeded&#34;]; &#34;high-priority&#34; -&gt; &#34;s4&#34;; &#34;high-priority&#34; -&gt; &#34;s5&#34;; #&#43;END_SRC   #&#43;BEGIN_SRC dot:filter dot-digraph-ascii-lr :async :results verbatim code  &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;s1&#34; -&gt; &#34;low-priority&#34;; &#34;s2&#34; -&gt; &#34;low-priority&#34;; &#34;s3&#34; -&gt; &#34;low-priority&#34;; &#34;low-priority&#34; -&gt; &#34;s4&#34;; &#34;low-priority&#34; -&gt; &#34;s5&#34;; &#34;low-priority&#34; -&gt; &#34;high-priority&#34; [label=&#34;wait-time exceeded&#34;]; &#34;high-priority&#34; -&gt; &#34;s4&#34;; &#34;high-priority&#34; -&gt; &#34;s5&#34;; #&#43;END_SRC∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ ┃ ∘━━━━∘ #==============# wait-time exceeded #===============# ∘━━━━∘ ┃ ┃ s1 ┃ ━━&gt; H H ━━━━━━━━━━━━━━━━━━━━&gt; H high-priority H ━━&gt; ┃ s4 ┃ ┃ ∘━━━━∘ H H #===============# ∘━━━━∘ ┃ H H ^ ┃ H low-priority H ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ H H ┃ ∘━━━━∘ H H ∘━━━━━━━━━━━━━━━∘ ┃ ┃ s2 ┃ ━━&gt; H H &lt;━━━━━━━━━━━━━━━━━━━┄┄┃ s3 ┃ ┃ ∘━━━━∘ #==============# ∘━━━━━━━━━━━━━━━∘ ┃ ┃ ┃ ┃ ┃ v ┃ ∘━━━━━━━━━━━━━━∘ ∘━━━━━━━━━━-&gt; ┃ s5 ┃ ∘━━━━━━━━━━━━━━∘&#34;Back&#34; [shape=&#34;egg&#34; color=&#34;green&#34; style=&#34;filled&#34; fillcolor=&#34;yellow&#34;]; &#34;Forth&#34; [shape=&#34;house&#34; color=&#34;red&#34;]; &#34;Other&#34; [shape=&#34;invtriangle&#34; color=&#34;blue&#34;]; &#34;Back&#34; -&gt; &#34;Forth&#34; [color=&#34;orange&#34; label=&#34;weee&#34;]; &#34;Forth&#34; -&gt; &#34;Back&#34; [color=&#34;purple&#34; label=&#34;eeew&#34;]; &#34;Other&#34; -&gt; &#34;Forth&#34; &#34;Other&#34; -&gt; &#34;Back&#34;   subgraph clusterEncoders { style = filled fillcolor = lightgrey node [style=filled,fillcolor=lightgrey,shape=circle]; label = &#34;Set of encoders&#34; subgraph clusterEncoder1 { fillcolor = white label = &#34;Encoder 1&#34;; f1[label=&#34;FFNN&#34;] a1[label=&#34;Self-Attention layer&#34;] a1 -&gt; f1 } subgraph clusterEncoder2 { fillcolor = white label = &#34;Encoder 2&#34;; f2[label=&#34;FFNN&#34;] a2[label=&#34;Self-Attention layer&#34;] a2 -&gt; f2 } subgraph clusterEncoderN { fillcolor = white label = &#34;Encoder N&#34;; etc [label=&#34;." />
+<meta property="og:description" content="#&#43;BEGIN_SRC graphviz-dot:filter dot-digraph-ascii :async :results verbatim code  &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;s1&#34; -&gt; &#34;low-priority&#34;; &#34;s2&#34; -&gt; &#34;low-priority&#34;; &#34;s3&#34; -&gt; &#34;low-priority&#34;; &#34;low-priority&#34; -&gt; &#34;s4&#34;; &#34;low-priority&#34; -&gt; &#34;s5&#34;; &#34;low-priority&#34; -&gt; &#34;high-priority&#34; [label=&#34;wait-time exceeded&#34;]; &#34;high-priority&#34; -&gt; &#34;s4&#34;; &#34;high-priority&#34; -&gt; &#34;s5&#34;; #&#43;END_SRC #&#43;END_SRC#&#43;RESULTS: #&#43;BEGIN_SRC dot ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ s1 ┃ ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ v ∘━━━━∘ #================================# ∘━━━━∘ ┃ s5 ┃ &lt;━┄┄H low-priority H &lt;━┄┄┃ s2 ┃ ∘━━━━∘ #================================# ∘━━━━∘ ^ ┃ ┃ ^ ┃ ┃ wait-time exceeded ┃ ┃ ┃ v ┃ ┃ ┃ #=====================# ┃ ∘━━━━∘ ∘━━━━━━┄┄H high-priority H ┃ ┃ s3 ┃ #=====================# ┃ ∘━━━━∘ ┃ ┃ ┃ ┃ v ┃ ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ s4 ┃ &lt;∘ ∘━━━━━━━━━━━━━━━━━━━━━∘#&#43;BEGIN_SRC graphviz-dot:filter dot-digraph priority :async :results raw drawer  &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;s1&#34; -&gt; &#34;low-priority&#34;; &#34;s2&#34; -&gt; &#34;low-priority&#34;; &#34;s3&#34; -&gt; &#34;low-priority&#34;; &#34;low-priority&#34; -&gt; &#34;s4&#34;; &#34;low-priority&#34; -&gt; &#34;s5&#34;; &#34;low-priority&#34; -&gt; &#34;high-priority&#34; [label=&#34;wait-time exceeded&#34;]; &#34;high-priority&#34; -&gt; &#34;s4&#34;; &#34;high-priority&#34; -&gt; &#34;s5&#34;; #&#43;END_SRC   #&#43;BEGIN_SRC graphviz-dot:filter dot-digraph-ascii-lr :async :results verbatim code  &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;s1&#34; -&gt; &#34;low-priority&#34;; &#34;s2&#34; -&gt; &#34;low-priority&#34;; &#34;s3&#34; -&gt; &#34;low-priority&#34;; &#34;low-priority&#34; -&gt; &#34;s4&#34;; &#34;low-priority&#34; -&gt; &#34;s5&#34;; &#34;low-priority&#34; -&gt; &#34;high-priority&#34; [label=&#34;wait-time exceeded&#34;]; &#34;high-priority&#34; -&gt; &#34;s4&#34;; &#34;high-priority&#34; -&gt; &#34;s5&#34;; #&#43;END_SRC∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ ┃ ∘━━━━∘ #==============# wait-time exceeded #===============# ∘━━━━∘ ┃ ┃ s1 ┃ ━━&gt; H H ━━━━━━━━━━━━━━━━━━━━&gt; H high-priority H ━━&gt; ┃ s4 ┃ ┃ ∘━━━━∘ H H #===============# ∘━━━━∘ ┃ H H ^ ┃ H low-priority H ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ H H ┃ ∘━━━━∘ H H ∘━━━━━━━━━━━━━━━∘ ┃ ┃ s2 ┃ ━━&gt; H H &lt;━━━━━━━━━━━━━━━━━━━┄┄┃ s3 ┃ ┃ ∘━━━━∘ #==============# ∘━━━━━━━━━━━━━━━∘ ┃ ┃ ┃ ┃ ┃ v ┃ ∘━━━━━━━━━━━━━━∘ ∘━━━━━━━━━━-&gt; ┃ s5 ┃ ∘━━━━━━━━━━━━━━∘&#34;Back&#34; [shape=&#34;egg&#34; color=&#34;green&#34; style=&#34;filled&#34; fillcolor=&#34;yellow&#34;]; &#34;Forth&#34; [shape=&#34;house&#34; color=&#34;red&#34;]; &#34;Other&#34; [shape=&#34;invtriangle&#34; color=&#34;blue&#34;]; &#34;Back&#34; -&gt; &#34;Forth&#34; [color=&#34;orange&#34; label=&#34;weee&#34;]; &#34;Forth&#34; -&gt; &#34;Back&#34; [color=&#34;purple&#34; label=&#34;eeew&#34;]; &#34;Other&#34; -&gt; &#34;Forth&#34; &#34;Other&#34; -&gt; &#34;Back&#34;   subgraph clusterEncoders { style = filled fillcolor = lightgrey node [style=filled,fillcolor=lightgrey,shape=circle]; label = &#34;Set of encoders&#34; subgraph clusterEncoder1 { fillcolor = white label = &#34;Encoder 1&#34;; f1[label=&#34;FFNN&#34;] a1[label=&#34;Self-Attention layer&#34;] a1 -&gt; f1 } subgraph clusterEncoder2 { fillcolor = white label = &#34;Encoder 2&#34;; f2[label=&#34;FFNN&#34;] a2[label=&#34;Self-Attention layer&#34;] a2 -&gt; f2 } subgraph clusterEncoderN { fillcolor = white label = &#34;Encoder N&#34;; etc [label=&#34;." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/graphviz/" />
 <meta property="article:published_time" content="2019-10-31T00:00:00+13:00" />
@@ -118,7 +118,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          5 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -136,7 +136,9 @@
 
 
     <div class="post-content">
-      <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">  #+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :filter dot-digraph-ascii :async :results verbatim code
+      
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">  #+BEGIN_SRC </span><span style="color:#75715e">graphviz-dot</span><span style="color:#75715e"> :filter dot-digraph-ascii :async :results verbatim code
 </span><span style="color:#75715e"></span>    &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;];
     &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;];
 
@@ -175,7 +177,7 @@
              v                      ┃
            ∘━━━━━━━━━━━━━━━━━━━━━∘  ┃
            ┃         s4          ┃ &lt;∘
-           ∘━━━━━━━━━━━━━━━━━━━━━∘</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :filter dot-digraph priority :async :results raw drawer
+           ∘━━━━━━━━━━━━━━━━━━━━━∘</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">graphviz-dot</span><span style="color:#75715e"> :filter dot-digraph priority :async :results raw drawer
 </span><span style="color:#75715e"></span>  &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;];
   &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;];
 
@@ -194,7 +196,7 @@
     <img src="https://mullikine.github.io/ox-hugo/priority.png"/> 
 </figure>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :filter dot-digraph-ascii-lr :async :results verbatim code
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">graphviz-dot</span><span style="color:#75715e"> :filter dot-digraph-ascii-lr :async :results verbatim code
 </span><span style="color:#75715e"></span>  &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;];
   &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;];
 
@@ -224,7 +226,7 @@
 ┃               v
 ┃             ∘━━━━━━━━━━━━━━∘
 ∘━━━━━━━━━━-&gt; ┃      s5      ┃
-              ∘━━━━━━━━━━━━━━∘</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">&#34;Back&#34; [shape=&#34;egg&#34; color=&#34;green&#34; style=&#34;filled&#34; fillcolor=&#34;yellow&#34;];
+              ∘━━━━━━━━━━━━━━∘</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">&#34;Back&#34; [shape=&#34;egg&#34; color=&#34;green&#34; style=&#34;filled&#34; fillcolor=&#34;yellow&#34;];
 &#34;Forth&#34; [shape=&#34;house&#34; color=&#34;red&#34;];
 &#34;Other&#34; [shape=&#34;invtriangle&#34; color=&#34;blue&#34;];
 
@@ -237,7 +239,7 @@
     <img src="https://mullikine.github.io/ox-hugo/shapes.png"/> 
 </figure>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dot" data-lang="dot">subgraph clusterEncoders {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">subgraph clusterEncoders {
     style = filled
     fillcolor = lightgrey
     node [style=filled,fillcolor=lightgrey,shape=circle];
@@ -270,6 +272,121 @@
     <img src="https://mullikine.github.io/ox-hugo/gv-self-attention-layer.png"/> 
 </figure>
 
+
+<h2 id="sparce-matrix">Sparce Matrix</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">node [shape=box]
+
+/* add group 1 for vertical alignment */
+Mt[ label = &#34;Matrix&#34;, width = 1.5, style = filled, fillcolor = firebrick1, group = 1 ];
+
+/* empty nodes, needed to override graphiz&#39; default node placement */
+e0[ shape = point, width = 0 ];
+e1[ shape = point, width = 0 ];
+
+
+//(^&lt; ............ ............ ............ ............ ............ U S U A R I O S
+/* groups added for vertical alignment */
+U0 [label = &#34;Estructuras&#34;    pos = &#34;5.3,3.5!&#34; width = 1.5 style = filled, fillcolor = bisque1, group = 1 ];
+U1 [label = &#34;Redes&#34;          width = 1.5 style = filled, fillcolor = bisque1, group = 1 ];
+U2 [label = &#34;Compiladores&#34;   width = 1.5 style = filled, fillcolor = bisque1, group = 1 ];
+U3 [label = &#34;Investigacion&#34;  width = 1.5 style = filled, fillcolor = bisque1, group = 1 ];
+U4 [label = &#34;Lenguajes&#34;      width = 1.5 style = filled, fillcolor = bisque1, group = 1 ];
+
+//(^&lt; ............ Links
+U0 -&gt; U1;
+U1 -&gt; U0;
+U1 -&gt; U2;
+U2 -&gt; U1;
+U2 -&gt; U3;
+U3 -&gt; U2;
+U3 -&gt; U4;
+U4 -&gt; U3;
+
+//(^&lt; ............ ............ ............ ............ ............ A R C H I V O S
+/* groups 2 to 6 added for vertical alignment */
+A0 [label = &#34;Josefina&#34;   width = 1.5 style = filled, fillcolor = lightskyblue, group = 2 ];
+A1 [label = &#34;Alejandro&#34;  width = 1.5 style = filled, fillcolor = lightskyblue, group = 3 ];
+A2 [label = &#34;Marco&#34;      width = 1.5 style = filled, fillcolor = lightskyblue, group = 4 ];
+A3 [label = &#34;Julian&#34;     width = 1.5 style = filled, fillcolor = lightskyblue, group = 5 ];
+A4 [label = &#34;Pamela&#34;     width = 1.5 style = filled, fillcolor = lightskyblue, group = 6 ];
+
+//(^&lt; ............ Links
+A0 -&gt; A1;
+A1 -&gt; A0;
+A1 -&gt; A2;
+A2 -&gt; A1;
+A2 -&gt; A3;
+A3 -&gt; A2;
+A3 -&gt; A4;
+A4 -&gt; A3;
+
+Mt -&gt; U0;
+Mt -&gt; A0;
+
+{ rank = same; Mt; A0; A1; A2; A3; A4; }
+
+//(^&lt; ............ ............ ............ ............ ............ P E R M I S O S
+//(^&lt; ............ ............ L E V E L   0
+/* groups 2 to 6 added for vertical alignment */
+N0_L0 [label = &#34;Jose-Estr&#34; width = 1.5, group = 2 ];
+N1_L0 [label = &#34;Marc-Estr&#34; width = 1.5, group = 4 ];
+N2_L0 [label = &#34;Juli-Estr&#34; width = 1.5, group = 5 ];
+
+//(^&lt; ............ ............ L E V E L   2
+N0_L2 [label = &#34;Marc-Comp&#34; width = 1.5, group = 4 ];
+N1_L2 [label = &#34;Juli-Comp&#34; width = 1.5, group = 5 ];
+
+//(^&lt; ............ ............ L E V E L   4
+N0_L4 [label = &#34;Marc-Leng&#34; width = 1.5, group = 4 ];
+N1_L4 [label = &#34;Juli-Leng&#34; width = 1.5, group = 5 ];
+N2_L4 [label = &#34;Pame-Leng&#34; width = 1.5, group = 6 ];
+
+
+//(^&lt; ............ ............ ............ ............ ............ L I N K I N G
+//(^&lt; ............ ............ L E V E L   0
+
+U0 -&gt; N0_L0;
+A0 -&gt; N0_L0;
+N0_L0 -&gt; N1_L0;
+N1_L0 -&gt; N0_L0;
+A2 -&gt; N1_L0;
+N1_L0 -&gt; N2_L0;
+N2_L0 -&gt; N1_L0;
+A3 -&gt; N2_L0;
+
+{ rank = same; U0; N0_L0;N1_L0;N2_L0; }
+//(^&lt; ............ ............ L E V E L   2
+
+U2 -&gt; N0_L2;
+N0_L2 -&gt;N1_L0;
+N1_L0 -&gt;N0_L2;
+N0_L2 -&gt; N1_L2;
+N1_L2 -&gt; N0_L2;
+N1_L2 -&gt;N2_L0;
+N2_L0 -&gt;N1_L2;
+
+{ rank = same; U2; N0_L2;N1_L2; }
+//(^&lt; ............ ............ L E V E L   4
+
+U4 -&gt; N0_L4;
+N0_L4 -&gt; N0_L2;
+N0_L2 -&gt; N0_L4;
+N0_L4 -&gt; N1_L4;
+N1_L4 -&gt; N0_L4;
+N1_L4 -&gt; N1_L2;
+N1_L2 -&gt; N1_L4;
+N1_L4 -&gt; N2_L4;
+N2_L4 -&gt; N1_L4;
+
+{ rank = same; U4; N0_L4;N1_L4;N2_L4; }
+
+/* we divide the edge from A4 to N2_L4 into &#39;sub-edges&#39;,
+   thus indirectly making sure that the U nodes stay in their place */
+{ rank = same; U2; e0 }
+{ rank = same; U3; e1 }
+A4 -&gt; e0 -&gt; e1[ dir = none ];
+e1 -&gt; N2_L4;</code></pre></div>
+<p>sparse-matrix.png</p>
 
     </div>
     <div class="post-footer">
