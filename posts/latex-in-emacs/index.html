@@ -12,13 +12,11 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="LaTeX in emacs"/>
-<meta name="twitter:description" content="\(\LaTeX\)
-Prereading Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog
+<meta name="twitter:description" content="Prereading Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog
 Setup Create the texalg2png script #!/bin/bash export TTY read -r -d &#39;&#39; texcode &lt;&lt;HEREDOC \documentclass{standalone} \usepackage{varwidth} \usepackage{algorithm} %ctan.org\pkg\algorithms \usepackage{algpseudocode} \begin{document} \begin{varwidth}{\linewidth} \par\noindent \begin{algorithmic}[1] $(cat) \end{algorithmic} \end{varwidth} \end{document} HEREDOC printf -- &#34;%s&#34; &#34;$texcode&#34; | tex2png &#34;$@&#34; Create the tex2png script #!/bin/bash export TTY tf_tex=&#34;$(ux tf tex || echo /dev/null)&#34; trap &#34;rm \&#34;$tf_tex\&#34; 2&gt;/dev/null&#34; 0 fp=&#34;$tf_tex&#34; name=&#34;$1&#34; if test &#34;$name&#34; = nil; then name=&#34;&#34; fi fn=$(basename &#34;$fp&#34;) dn=$(dirname &#34;$fp&#34;) ext=&#34;${fn##*."/>
 
     <meta property="og:title" content="LaTeX in emacs" />
-<meta property="og:description" content="\(\LaTeX\)
-Prereading Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog
+<meta property="og:description" content="Prereading Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog
 Setup Create the texalg2png script #!/bin/bash export TTY read -r -d &#39;&#39; texcode &lt;&lt;HEREDOC \documentclass{standalone} \usepackage{varwidth} \usepackage{algorithm} %ctan.org\pkg\algorithms \usepackage{algpseudocode} \begin{document} \begin{varwidth}{\linewidth} \par\noindent \begin{algorithmic}[1] $(cat) \end{algorithmic} \end{varwidth} \end{document} HEREDOC printf -- &#34;%s&#34; &#34;$texcode&#34; | tex2png &#34;$@&#34; Create the tex2png script #!/bin/bash export TTY tf_tex=&#34;$(ux tf tex || echo /dev/null)&#34; trap &#34;rm \&#34;$tf_tex\&#34; 2&gt;/dev/null&#34; 0 fp=&#34;$tf_tex&#34; name=&#34;$1&#34; if test &#34;$name&#34; = nil; then name=&#34;&#34; fi fn=$(basename &#34;$fp&#34;) dn=$(dirname &#34;$fp&#34;) ext=&#34;${fn##*." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/latex-in-emacs/" />
@@ -142,8 +140,6 @@ Setup Create the texalg2png script #!/bin/bash export TTY read -r -d &#39;&#39; 
     <div class="post-content">
       
 
-<p>\(\LaTeX\)</p>
-
 <h2 id="prereading">Prereading</h2>
 
 <p><a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog</a></p>
@@ -211,7 +207,7 @@ cp -a <span style="color:#e6db74">&#34;$genf&#34;</span> <span style="color:#e6d
 
 echo <span style="color:#e6db74">&#34;[[file:$nf]]&#34;</span></code></pre></div>
 <h2 id="example">Example</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">latex</span><span style="color:#75715e"> :f texalg2png self-attention :async :results raw drawer
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">latex</span><span style="color:#75715e"> :f texalg2png latex-self-attention :async :results raw drawer
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">\Function</span>{Self-attention}{<span style="color:#e6db74">$</span>{word}_i<span style="color:#e6db74">$</span>}
   <span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>X_i\gets embed<span style="color:#f92672">(</span>{word}_i<span style="color:#f92672">)</span><span style="color:#e6db74">$</span>
   <span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>q_i\gets X_i\cdotp W^Q<span style="color:#e6db74">$</span>
@@ -229,7 +225,7 @@ echo <span style="color:#e6db74">&#34;[[file:$nf]]&#34;</span></code></pre></div
   <span style="color:#66d9ef">\EndFunction</span>
 <span style="color:#75715e">#+END_SRC</span></code></pre></div>
 <figure>
-    <img src="https://mullikine.github.io/ox-hugo/self-attention.svg"/> 
+    <img src="https://mullikine.github.io/ox-hugo/latex-self-attention.svg"/> 
 </figure>
 
 
