@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.7325b97119d95e06b25bd992573b7dac2e492cd37abf9997f8b84111ea457638.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.1b5e09ef9ddca3e5953ef0303e589138dcac1f6446b4a989d407f4ba464c8bfb.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -118,7 +118,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          6 min read
+          7 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -440,7 +440,23 @@ To get the fibonaccy sequence, translate across the grid in an L shape. 1 right,
 1  8 36 120 330 792  1716 3432  6435  11440
 1  9 45 165 495 1287 3003 6435  12870 24310
 1 10 55 220 715 2002 5005 11440 24310 48620</code></pre></div>
-<h2 id="euclid">Euclid</h2>
+<h2 id="bayes-rule">Bayes&rsquo; Rule</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">\begin{equation}
+\underbrace{p(\mathbf{z} \mid
+\mathbf{x})}_{\text{Posterior}} =
+\underbrace{p(\mathbf{z})}_{\text{Prior}}
+\times \frac{\overbrace{p(\mathbf{x} \mid \mat
+hbf{z})}^{\text{Likelihood}}}{\underbrace{\int
+p(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z})
+\, \mathrm{d}\mathbf{z}}_{\text{Marginal
+Likelihood}}} \enspace ,
+\end{equation}
+where $\mathbf{z}$ denotes latent parameters we want to infer and $\mathbf{x}$ denotes data.</code></pre></div>
+<p>\begin{equation}
+\underbrace{p(\mathbf{z} \mid \mathbf{x})}_{\text{Posterior}} = \underbrace{p(\mathbf{z})}_{\text{Prior}} \times \frac{\overbrace{p(\mathbf{x} \mid \mathbf{z})}^{\text{Likelihood}}}{\underbrace{\int p(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z}) \, \mathrm{d}\mathbf{z}}_{\text{Marginal Likelihood}}} \enspace ,
+\end{equation}</p>
+
+<p>where \(\mathbf{z}\) denotes latent parameters we want to infer and \(\mathbf{x}\) denotes data.** Euclid</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\Procedure</span>{Euclid}{<span style="color:#e6db74">$</span>a,b<span style="color:#e6db74">$</span>}
 <span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>r\gets a\bmod b<span style="color:#e6db74">$</span>
 <span style="color:#66d9ef">\While</span>{<span style="color:#e6db74">$</span>r\not<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span><span style="color:#e6db74">$</span>}
