@@ -6,10 +6,20 @@
     <description>Recent content in bash on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 25 Oct 2019 00:00:00 +1300</lastBuildDate>
+    <lastBuildDate>Fri, 01 Nov 2019 00:00:00 +1300</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/bash/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Automating tcl/expect</title>
+      <link>https://mullikine.github.io/posts/automating-expect/</link>
+      <pubDate>Fri, 01 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/automating-expect/</guid>
+      <description>Using tmux, expect and bash I made a script which you can use to automate practically anything on the command line in an easy way.
+Build the x script #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;lt;/dev/tty ` # Disable tty to pipe content into hs ` ) # Consider using this # man expect-lite # Related: scripts using x # $HOME/scripts/xs # example 1: this adds and starts a git commit message # x -m &amp;#34;\`&amp;#34; -m t -m e -m v -i PANE_ID=&amp;#34;$(tmux display-message -p -t $TMUX_PANE &amp;#39;#{pane_id}&amp;#39; 2&amp;gt;/dev/null)&amp;#34; SHELL=zsh input_filter() { # I don&amp;#39;t want to escape \n sed &amp;#39;s/\([[;$&amp;#34;]\)/\\\1/g&amp;#39; # qne # cat return 0 } export TMUX= tf_script=&amp;#34;$(ux tf script exp | ds xlast || echo /dev/null)&amp;#34; script_append() { # printf -- &amp;#34;$1&amp;#34; &amp;gt;&amp;gt; &amp;#34;$tf_script&amp;#34; # echo -e &amp;#34;$1&amp;#34; &amp;gt;&amp;gt; &amp;#34;$tf_script&amp;#34; lit &amp;#34;$1&amp;#34; &amp;gt;&amp;gt; &amp;#34;$tf_script&amp;#34; return 0 } script_append &amp;#34;#!</description>
+    </item>
     
     <item>
       <title>Searching awesome lists for curated web browsing</title>

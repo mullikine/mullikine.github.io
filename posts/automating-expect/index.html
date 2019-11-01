@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Automating tcl/expect // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.1b5e09ef9ddca3e5953ef0303e589138dcac1f6446b4a989d407f4ba464c8bfb.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Automating tcl/expect"/>
+<meta name="twitter:description" content="Using tmux, expect and bash I made a script which you can use to automate practically anything on the command line in an easy way.
+Build the x script #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &lt;/dev/tty ` # Disable tty to pipe content into hs ` ) # Consider using this # man expect-lite # Related: scripts using x # $HOME/scripts/xs # example 1: this adds and starts a git commit message # x -m &#34;\`&#34; -m t -m e -m v -i PANE_ID=&#34;$(tmux display-message -p -t $TMUX_PANE &#39;#{pane_id}&#39; 2&gt;/dev/null)&#34; SHELL=zsh input_filter() { # I don&#39;t want to escape \n sed &#39;s/\([[;$&#34;]\)/\\\1/g&#39; # qne # cat return 0 } export TMUX= tf_script=&#34;$(ux tf script exp | ds xlast || echo /dev/null)&#34; script_append() { # printf -- &#34;$1&#34; &gt;&gt; &#34;$tf_script&#34; # echo -e &#34;$1&#34; &gt;&gt; &#34;$tf_script&#34; lit &#34;$1&#34; &gt;&gt; &#34;$tf_script&#34; return 0 } script_append &#34;#!"/>
+
+    <meta property="og:title" content="Automating tcl/expect" />
+<meta property="og:description" content="Using tmux, expect and bash I made a script which you can use to automate practically anything on the command line in an easy way.
+Build the x script #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &lt;/dev/tty ` # Disable tty to pipe content into hs ` ) # Consider using this # man expect-lite # Related: scripts using x # $HOME/scripts/xs # example 1: this adds and starts a git commit message # x -m &#34;\`&#34; -m t -m e -m v -i PANE_ID=&#34;$(tmux display-message -p -t $TMUX_PANE &#39;#{pane_id}&#39; 2&gt;/dev/null)&#34; SHELL=zsh input_filter() { # I don&#39;t want to escape \n sed &#39;s/\([[;$&#34;]\)/\\\1/g&#39; # qne # cat return 0 } export TMUX= tf_script=&#34;$(ux tf script exp | ds xlast || echo /dev/null)&#34; script_append() { # printf -- &#34;$1&#34; &gt;&gt; &#34;$tf_script&#34; # echo -e &#34;$1&#34; &gt;&gt; &#34;$tf_script&#34; lit &#34;$1&#34; &gt;&gt; &#34;$tf_script&#34; return 0 } script_append &#34;#!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/automating-expect/" />
+<meta property="article:published_time" content="2019-11-01T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-11-01T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="John Doe" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/main/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">information theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Automating tcl/expect</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Nov 1, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          8 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/tcl/">tcl</a><a class="tag" href="http://mullikine.github.io/tags/expect/">expect</a><a class="tag" href="http://mullikine.github.io/tags/bash/">bash</a><a class="tag" href="http://mullikine.github.io/tags/tmux/">tmux</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      
+
+<p>Using <code>tmux</code>, <code>expect</code> and <code>bash</code> I made a
+script which you can use to automate practically anything
+on the command line in an easy way.</p>
+
+<h2 id="build-the-x-script">Build the <code>x</code> script</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> &lt;/dev/tty <span style="color:#e6db74">`</span> <span style="color:#75715e"># Disable tty to pipe content into hs ` )</span>
+
+<span style="color:#75715e"># Consider using this</span>
+<span style="color:#75715e"># man expect-lite</span>
+
+<span style="color:#75715e"># Related: scripts using x</span>
+<span style="color:#75715e"># $HOME/scripts/xs</span>
+
+<span style="color:#75715e"># example 1: this adds and starts a git commit message</span>
+<span style="color:#75715e"># x -m &#34;\`&#34; -m t -m e -m v -i</span>
+
+PANE_ID<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux display-message -p -t $TMUX_PANE <span style="color:#e6db74">&#39;#{pane_id}&#39;</span> <span style="color:#ae81ff">2</span>&gt;/dev/null<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+SHELL<span style="color:#f92672">=</span>zsh
+
+input_filter<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e"># I don&#39;t want to escape \n</span>
+    sed <span style="color:#e6db74">&#39;s/\([[;$&#34;]\)/\\\1/g&#39;</span>
+
+    <span style="color:#75715e"># qne</span>
+    <span style="color:#75715e"># cat</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+<span style="color:#f92672">}</span>
+
+
+export TMUX<span style="color:#f92672">=</span>
+
+tf_script<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ux tf script exp | ds xlast <span style="color:#f92672">||</span> echo /dev/null<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+script_append<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e"># printf -- &#34;$1&#34; &gt;&gt; &#34;$tf_script&#34;</span>
+    <span style="color:#75715e"># echo -e &#34;$1&#34; &gt;&gt; &#34;$tf_script&#34;</span>
+
+    lit <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> &gt;&gt; <span style="color:#e6db74">&#34;</span>$tf_script<span style="color:#e6db74">&#34;</span>
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+<span style="color:#f92672">}</span>
+
+script_append <span style="color:#e6db74">&#34;#!/usr/bin/expect -f&#34;</span>
+
+timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">3600</span>
+uses_tmux<span style="color:#f92672">=</span>n
+debug_mode<span style="color:#f92672">=</span>n
+tmux_command<span style="color:#f92672">=</span>
+attach_tmux<span style="color:#f92672">=</span>n
+print_output<span style="color:#f92672">=</span>n
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">[</span> $# -gt <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">do</span> opt<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$opt<span style="color:#e6db74">&#34;</span> in
+    -d<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        debug_mode<span style="color:#f92672">=</span>y
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -n|-g|-dr<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">#gen</span>
+        DRY_RUN<span style="color:#f92672">=</span>y
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -sh<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        SHELL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -shs<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        SHELL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>eval <span style="color:#e6db74">&#34;nsfa arxiv </span>$2<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -cd <span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        cd <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        export CWD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -h<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># hide output until interactive</span>
+        script_append <span style="color:#e6db74">&#34;log_user 0&#34;</span>
+        <span style="color:#75715e"># script_append &#34;stty -echo&#34;</span>
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -tm<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        uses_tmux<span style="color:#f92672">=</span>y
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -z <span style="color:#e6db74">&#34;</span>$PANE_ID<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+            echo <span style="color:#e6db74">&#34;No tmux pane. Can&#39;t swap pane so not trying.&#34;</span>
+            exit <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">fi</span>
+        tmux_session<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>TMUX<span style="color:#f92672">=</span> tmux new -F <span style="color:#e6db74">&#34;#{session_id}&#34;</span> -P -d<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        tmux_session_qne<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$tmux_session<span style="color:#e6db74">&#34;</span> | input_filter<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        SHELL<span style="color:#f92672">=</span>tmux
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -tmc<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        uses_tmux<span style="color:#f92672">=</span>y
+        tmux_session<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>TMUX<span style="color:#f92672">=</span> tmux new -F <span style="color:#e6db74">&#34;#{session_id}&#34;</span> -P -d<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        tmux_session_qne<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$tmux_session<span style="color:#e6db74">&#34;</span> | input_filter<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        SHELL<span style="color:#f92672">=</span>tmux
+        tmux_command<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -to<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        timeout<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -nto|-notimeout<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># No timeout</span>
+        timeout<span style="color:#f92672">=</span>-1
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -zsh<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        SHELL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;zsh&#34;</span>
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    *<span style="color:#f92672">)</span> break;
+<span style="color:#66d9ef">esac</span>; <span style="color:#66d9ef">done</span>
+
+<span style="color:#66d9ef">if</span> ! test <span style="color:#e6db74">&#34;</span>$debug_mode<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+    exec <span style="color:#ae81ff">2</span>&gt;/dev/null
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># I should design this script first to use tmux</span>
+
+<span style="color:#75715e"># The final expect script:</span>
+<span style="color:#75715e"># script=&#34;&#34;</span>
+
+read -r -d <span style="color:#e6db74">&#39;&#39;</span> expect_script <span style="color:#e6db74">&lt;&lt;&#39;HEREDOC&#39;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">#trap sigwinch and pass it to the child we spawned
+</span><span style="color:#e6db74">trap {
+</span><span style="color:#e6db74">    set rows [stty rows]
+</span><span style="color:#e6db74">    set cols [stty columns]
+</span><span style="color:#e6db74">    stty rows $rows columns $cols &lt; $spawn_out(slave,name)
+</span><span style="color:#e6db74">} WINCH
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">proc getctrl {char} {
+</span><span style="color:#e6db74">    set ctrl [expr (&#34;$char&#34; &amp; 01xF)]
+</span><span style="color:#e6db74">    return $ctrl
+</span><span style="color:#e6db74">}
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">set force_conservative 0
+</span><span style="color:#e6db74">if {$force_conservative} {
+</span><span style="color:#e6db74">    set send_slow {1 .1}
+</span><span style="color:#e6db74">    proc send {ignore arg} {
+</span><span style="color:#e6db74">        sleep .1
+</span><span style="color:#e6db74">        exp_send -s -- $arg
+</span><span style="color:#e6db74">    }
+</span><span style="color:#e6db74">}
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"># For send -h
+</span><span style="color:#e6db74">set send_human {.4 .4 .2 .5 100}
+</span><span style="color:#e6db74">HEREDOC</span>
+script_append <span style="color:#e6db74">&#34;</span>$expect_script<span style="color:#e6db74">&#34;</span>
+
+read -r -d <span style="color:#e6db74">&#39;&#39;</span> expect_script <span style="color:#e6db74">&lt;&lt;&#39;HEREDOC&#39;
+</span><span style="color:#e6db74">set timeout -1
+</span><span style="color:#e6db74">match_max 100000
+</span><span style="color:#e6db74">HEREDOC</span>
+script_append <span style="color:#e6db74">&#34;</span>$expect_script<span style="color:#e6db74">&#34;</span>
+
+<span style="color:#75715e"># script_append &#34;spawn -noecho \&#34;\$env(SHELL)\&#34;&#34;</span>
+<span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$SHELL<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;zsh&#34;</span>; <span style="color:#66d9ef">then</span>
+    <span style="color:#75715e"># script_append &#34;spawn \&#34;\$env(SHELL)\&#34;&#34;</span>
+    script_append <span style="color:#e6db74">&#34;spawn \&#34;zsh\&#34;&#34;</span>
+    script_append <span style="color:#e6db74">&#34;expect -exact \&#34;»\&#34;&#34;</span>
+<span style="color:#66d9ef">elif</span> test <span style="color:#e6db74">&#34;</span>$SHELL<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;tmux&#34;</span>; <span style="color:#66d9ef">then</span>
+    <span style="color:#75715e"># sleep</span>
+    <span style="color:#75715e"># tmux ls &gt; /tmp/tms.txt</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$tmux_command<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        <span style="color:#75715e"># this does what it&#39;s supposed to. the session ID is correct but</span>
+        <span style="color:#75715e"># it must not be ready. if i call without the target, it</span>
+        <span style="color:#75715e"># works though. how annoying.</span>
+
+        <span style="color:#75715e">#script_append &#34;spawn \&#34;\$env(SHELL)\&#34; \&#34;respawn-pane\&#34; \&#34;-t\&#34; \&#34;${tmux_session_qne}:1.0\&#34; \&#34;-k\&#34; \&#34;$tmux_command\&#34; \&#34;\\;\&#34; \&#34;attach\&#34; \&#34;-t\&#34; \&#34;$tmux_session_qne\&#34;&#34;</span>
+
+        <span style="color:#75715e"># TODO For the moment, don&#39;t use the target. This is dodgy, I</span>
+        <span style="color:#75715e"># know. Hmm, it&#39;s still not working.</span>
+        <span style="color:#75715e"># script_append &#34;spawn \&#34;tmux\&#34; \&#34;respawn-pane\&#34; \&#34;-k\&#34; \&#34;$tmux_command\&#34; \&#34;\\;\&#34; \&#34;attach\&#34; \&#34;-t\&#34; \&#34;$tmux_session_qne\&#34;&#34;</span>
+
+        <span style="color:#75715e"># script_append &#34;spawn \&#34;tmux\&#34; \&#34;respawn-pane\&#34; \&#34;-k\&#34; \&#34;$tmux_command\&#34;&#34;</span>
+        <span style="color:#75715e"># It might be slightly more stable with the sleep here.</span>
+        script_append <span style="color:#e6db74">&#34;sleep 0.2&#34;</span>
+        <span style="color:#75715e"># Write tmux explicitly instead of $env(SHELL)</span>
+        <span style="color:#75715e"># This way I can run the script after printing it to stdout</span>
+        script_append <span style="color:#e6db74">&#34;spawn \&#34;tmux\&#34; \&#34;respawn-pane\&#34; \&#34;-t\&#34; \&#34;</span>$tmux_session_qne<span style="color:#e6db74">\&#34; \&#34;-k\&#34; </span><span style="color:#66d9ef">$(</span>aqf <span style="color:#e6db74">&#34;</span>$tmux_command<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        <span style="color:#75715e"># script_append &#34;sleep 0.5&#34;</span>
+        <span style="color:#75715e"># Separating the 2 commands appears to make it a little more</span>
+        <span style="color:#75715e"># stable.</span>
+        <span style="color:#75715e"># Using \&#34;\$env(SHELL)\&#34; instead of tmux appears to make no</span>
+        <span style="color:#75715e"># difference here</span>
+        script_append <span style="color:#e6db74">&#34;spawn \&#34;tmux\&#34; \&#34;attach\&#34; \&#34;-t\&#34; \&#34;</span>$tmux_session_qne<span style="color:#e6db74">\&#34;&#34;</span>
+
+        <span style="color:#75715e"># script_append &#34;spawn \&#34;tmux\&#34; \&#34;respawn-pane\&#34; \&#34;-k\&#34; \&#34;$tmux_command\&#34; \&#34;\\;\&#34; \&#34;attach\&#34; \&#34;-t\&#34; \&#34;$tmux_session_qne\&#34;&#34;</span>
+        <span style="color:#75715e"># script_append &#34;expect -exact \&#34;sh\&#34;&#34;</span>
+    <span style="color:#66d9ef">else</span>
+        script_append <span style="color:#e6db74">&#34;spawn \&#34;\$env(SHELL)\&#34; \&#34;attach\&#34; \&#34;-t\&#34; \&#34;</span>$tmux_session_qne<span style="color:#e6db74">\&#34;&#34;</span>
+        script_append <span style="color:#e6db74">&#34;expect -exact \&#34;sh\&#34;&#34;</span>
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">else</span>
+    <span style="color:#75715e"># script_append &#34;spawn \&#34;\$env(SHELL)\&#34;&#34;</span>
+    <span style="color:#75715e"># This is required if I want to spawn this way:</span>
+    <span style="color:#75715e"># x -cd &#34;$(pwd)&#34; -sh &#34;racket -iI racket&#34; -e &#34;&gt;&#34; -i</span>
+    script_append <span style="color:#e6db74">&#34;spawn </span>$SHELL<span style="color:#e6db74">&#34;</span>
+
+    <span style="color:#75715e"># script_append &#34;expect -exact \&#34;\r\&#34;&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">[</span> $# -gt <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">do</span> opt<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$opt<span style="color:#e6db74">&#34;</span> in
+    -e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># Expect something</span>
+        input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> | input_filter<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+        script_append <span style="color:#e6db74">&#34;expect -exact \&#34;</span>$input<span style="color:#e6db74">\&#34;&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -r<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># Expect a pattern / regex</span>
+        input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> | input_filter<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+        script_append <span style="color:#e6db74">&#34;expect -re \&#34;</span>$input<span style="color:#e6db74">\&#34;&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -u<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># Expect user input</span>
+        input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> | input_filter<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+        script_append <span style="color:#e6db74">&#34;expect_user -timeout </span>$timeout<span style="color:#e6db74"> \&#34;</span>$input<span style="color:#e6db74">\&#34;;&#34;</span>
+        script_append <span style="color:#e6db74">&#34;set user_input \&#34;\$expect_out(0,string)\&#34;&#34;</span>
+        script_append <span style="color:#e6db74">&#34;send -- \&#34;\$user_input\\r\&#34;&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -ur<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># Expect user input matching regex</span>
+        input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> | input_filter<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+        <span style="color:#75715e"># example:</span>
+        <span style="color:#75715e"># -ur &#34;(.*)\[\r\n]&#34;</span>
+        <span style="color:#75715e"># x -nto -e » -s &#34;vim\n&#34; -ur &#34;(.*hi.*)&#34; -i</span>
+
+        <span style="color:#75715e"># script_append &#34;send -- {getctrl {l}}&#34;</span>
+        script_append <span style="color:#e6db74">&#34;expect_user -timeout </span>$timeout<span style="color:#e6db74"> -re \&#34;</span>$input<span style="color:#e6db74">\&#34;;&#34;</span>
+        script_append <span style="color:#e6db74">&#34;set user_input \&#34;\$expect_out(1,string)\&#34;&#34;</span> <span style="color:#75715e"># 1 must be capture group 1. 0 is entire string</span>
+        script_append <span style="color:#e6db74">&#34;send -- \&#34;\$user_input\\r\&#34;&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -p<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># Expect user input password</span>
+        input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> | input_filter<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+        script_append <span style="color:#e6db74">&#34;stty -echo&#34;</span>
+        script_append <span style="color:#e6db74">&#34;expect_user -timeout </span>$timeout<span style="color:#e6db74"> \&#34;</span>$input<span style="color:#e6db74">\&#34;&#34;</span>
+        script_append <span style="color:#e6db74">&#34;set user_input \&#34;\$expect_out(1,string)\&#34;&#34;</span> <span style="color:#75715e"># 1 must be capture group 1. 0 is entire string</span>
+        script_append <span style="color:#e6db74">&#34;send -- \&#34;\$user_input\\r\&#34;&#34;</span>
+        script_append <span style="color:#e6db74">&#34;stty echo&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -pr<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># Expect user input password matching regex</span>
+        <span style="color:#75715e"># input=&#34;$(p &#34;$2&#34; | input_filter)&#34;</span>
+
+        input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+
+        <span style="color:#75715e"># example:</span>
+        <span style="color:#75715e"># -ur &#34;(.*)\[\r\n]&#34;</span>
+
+        script_append <span style="color:#e6db74">&#34;stty -echo&#34;</span>
+        script_append <span style="color:#e6db74">&#34;expect_user -timeout </span>$timeout<span style="color:#e6db74"> -re \&#34;</span>$input<span style="color:#e6db74">\&#34;&#34;</span>
+        script_append <span style="color:#e6db74">&#34;set user_input \&#34;\$expect_out(1,string)\&#34;&#34;</span> <span style="color:#75715e"># 1 must be capture group 1. 0 is entire string</span>
+        script_append <span style="color:#e6db74">&#34;send -- \&#34;\$user_input\\r\&#34;&#34;</span>
+        script_append <span style="color:#e6db74">&#34;stty echo&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -c|-scc<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># Send control character</span>
+        <span style="color:#75715e"># script_append &#34;send {getctrl {$2}}&#34;</span>
+        script_append <span style="color:#e6db74">&#34;send -- </span><span style="color:#66d9ef">$(</span>cchar $2<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -m<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># Send meta</span>
+        char<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> | input_filter<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        script_append <span style="color:#e6db74">&#34;send -- \\033</span>$char<span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -cm<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># Send control-meta</span>
+        script_append <span style="color:#e6db74">&#34;send -- \\033</span><span style="color:#66d9ef">$(</span>cchar $2<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -sec<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># Send escape char</span>
+        script_append <span style="color:#e6db74">&#34;send -- \\033</span>$2<span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -esc<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># Send escape char</span>
+        script_append <span style="color:#e6db74">&#34;send -- \\033&#34;</span>
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -sl<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        script_append <span style="color:#e6db74">&#34;sleep </span>$2<span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -s1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        script_append <span style="color:#e6db74">&#34;sleep 1&#34;</span>
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -sf|-send-file<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># Send contents of file</span>
+        input_fp<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        <span style="color:#75715e"># The bs have to be separated</span>
+        input_fp<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>printf -- <span style="color:#e6db74">&#34;%s&#34;</span> <span style="color:#e6db74">&#34;</span>$input_fp<span style="color:#e6db74">&#34;</span> | bs <span style="color:#e6db74">&#34;\\&#34;</span> | bs <span style="color:#e6db74">&#34;[&#34;</span> | bs <span style="color:#e6db74">&#34;]&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+        <span style="color:#75715e">## tcl</span>
+        <span style="color:#75715e">## set somevar [ exec cat &#34;/home/shane/source/git/woodrush/py2hy/src/py2hy/py2hy.hy&#34; ]</span>
+
+        script_append <span style="color:#e6db74">&#34;set fp [ exec cat </span><span style="color:#66d9ef">$(</span>aqfd <span style="color:#e6db74">&#34;</span>$input_fp<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74"> ]&#34;</span>
+        script_append <span style="color:#e6db74">&#34;send -- \$fp&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -s|-send<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># Send something</span>
+        <span style="color:#75715e"># input=&#34;$(p &#34;$2&#34; | input_filter)&#34;</span>
+
+        input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        <span style="color:#75715e"># The bs have to be separated</span>
+        input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>printf -- <span style="color:#e6db74">&#34;%s&#34;</span> <span style="color:#e6db74">&#34;</span>$input<span style="color:#e6db74">&#34;</span> | bs <span style="color:#e6db74">&#34;\\&#34;</span> | bs <span style="color:#e6db74">&#34;[&#34;</span> | bs <span style="color:#e6db74">&#34;]&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+        script_append <span style="color:#e6db74">&#34;send -- </span><span style="color:#66d9ef">$(</span>aqfd <span style="color:#e6db74">&#34;</span>$input<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    <span style="color:#75715e"># Frustratingly, can&#39;t work out why this doesn&#39;t work</span>
+    -ss|-send-slow<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># Send something</span>
+        input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> | input_filter<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+        script_append <span style="color:#e6db74">&#34;set send_slow {2 0.5}&#34;</span>
+        script_append <span style="color:#e6db74">&#34;send -s </span><span style="color:#66d9ef">$(</span>aqfd <span style="color:#e6db74">&#34;</span>$input<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -i<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$uses_tmux<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+            <span style="color:#75715e"># This sleep appears to help the script catch the final</span>
+            <span style="color:#75715e"># expect statement</span>
+            script_append <span style="color:#e6db74">&#34;sleep 0.2&#34;</span>
+            script_append <span style="color:#e6db74">&#34;exit&#34;</span>
+        <span style="color:#66d9ef">else</span>
+            script_append <span style="color:#e6db74">&#34;interact&#34;</span>
+        <span style="color:#66d9ef">fi</span>
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -o<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$uses_tmux<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+            attach_tmux<span style="color:#f92672">=</span>n
+            print_output<span style="color:#f92672">=</span>y
+            <span style="color:#75715e"># This sleep appears to help the script catch the final</span>
+            <span style="color:#75715e"># expect statement</span>
+            script_append <span style="color:#e6db74">&#34;sleep 0.2&#34;</span>
+            script_append <span style="color:#e6db74">&#34;exit&#34;</span>
+        <span style="color:#66d9ef">else</span>
+            script_append <span style="color:#e6db74">&#34;interact&#34;</span>
+        <span style="color:#66d9ef">fi</span>
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -a<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$uses_tmux<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+            attach_tmux<span style="color:#f92672">=</span>y
+            print_output<span style="color:#f92672">=</span>n
+            <span style="color:#75715e"># This sleep appears to help the script catch the final</span>
+            <span style="color:#75715e"># expect statement</span>
+            script_append <span style="color:#e6db74">&#34;sleep 0.2&#34;</span>
+            script_append <span style="color:#e6db74">&#34;exit&#34;</span>
+        <span style="color:#66d9ef">else</span>
+            script_append <span style="color:#e6db74">&#34;interact&#34;</span>
+        <span style="color:#66d9ef">fi</span>
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -fc<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e"># Set some expect options</span>
+
+        script_append <span style="color:#e6db74">&#34;set force_conservative 0&#34;</span>
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -ts<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e"># tm n &#34;$opt :: NOT IMPLEMENTED&#34;</span>
+        <span style="color:#75715e"># Tmux-Send something</span>
+
+        input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> | input_filter<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        script_append <span style="color:#e6db74">&#34;spawn \&#34;\$env(SHELL)\&#34; \&#34;send\&#34; \&#34;-t\&#34; \&#34;</span><span style="color:#e6db74">${</span>tmux_session_qne<span style="color:#e6db74">}</span><span style="color:#e6db74">\&#34; \&#34;</span>$input<span style="color:#e6db74">\&#34;&#34;</span>
+
+        <span style="color:#75715e"># script_append &#34;$2&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -tsl<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e"># tm n &#34;$opt :: NOT IMPLEMENTED&#34;</span>
+        <span style="color:#75715e"># Tmux-Send something</span>
+
+        input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> | input_filter<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        script_append <span style="color:#e6db74">&#34;spawn \&#34;\$env(SHELL)\&#34; \&#34;send\&#34; \&#34;-t\&#34; \&#34;</span><span style="color:#e6db74">${</span>tmux_session_qne<span style="color:#e6db74">}</span><span style="color:#e6db74">\&#34; -l \&#34;</span>$input<span style="color:#e6db74">\&#34;&#34;</span>
+
+        <span style="color:#75715e"># script_append &#34;$2&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -tssl<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#75715e"># tm n &#34;$opt :: NOT IMPLEMENTED&#34;</span>
+        <span style="color:#75715e"># Tmux-Send something</span>
+
+        input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> | input_filter<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        script_append <span style="color:#e6db74">&#34;spawn \&#34;tm\&#34; \&#34;type\&#34; \&#34;</span>$input<span style="color:#e6db74">\&#34;&#34;</span>
+
+        <span style="color:#75715e"># script_append &#34;$2&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    *<span style="color:#f92672">)</span> break;
+<span style="color:#66d9ef">esac</span>; <span style="color:#66d9ef">done</span>
+
+read -r -d <span style="color:#e6db74">&#39;&#39;</span> expect_script <span style="color:#e6db74">&lt;&lt;&#39;HEREDOC&#39;
+</span><span style="color:#e6db74">expect eof
+</span><span style="color:#e6db74">close
+</span><span style="color:#e6db74">HEREDOC</span>
+
+script_append <span style="color:#e6db74">&#34;</span>$expect_script<span style="color:#e6db74">&#34;</span>
+
+printf -- <span style="color:#e6db74">&#34;%s&#34;</span> <span style="color:#e6db74">&#34;</span>$script<span style="color:#e6db74">&#34;</span> &gt;&gt; <span style="color:#e6db74">&#34;</span>$tf_script<span style="color:#e6db74">&#34;</span>
+
+export SHELL
+
+<span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$DRY_RUN<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+    cat <span style="color:#e6db74">&#34;</span>$tf_script<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">else</span>
+    <span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$print_output<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+        expect -f <span style="color:#e6db74">&#34;</span>$tf_script<span style="color:#e6db74">&#34;</span> &amp;&gt;/dev/null
+    <span style="color:#66d9ef">else</span>
+        expect -f <span style="color:#e6db74">&#34;</span>$tf_script<span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#75715e"># The session must be guaranteed to exist before attaching.</span>
+<span style="color:#75715e"># This is risky</span>
+
+<span style="color:#75715e"># sleep 1</span>
+
+<span style="color:#66d9ef">if</span> ! test <span style="color:#e6db74">&#34;</span>$DRY_RUN<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+    <span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$attach_tmux<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+        tmux attach -t <span style="color:#e6db74">&#34;</span>$tmux_session<span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">elif</span> test <span style="color:#e6db74">&#34;</span>$print_output<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+        tm catp <span style="color:#e6db74">&#34;</span>$tmux_session<span style="color:#e6db74">&#34;</span>
+        <span style="color:#75715e"># cmd tm catp &#34;$tmux_session&#34;</span>
+        tmux kill-session -t <span style="color:#e6db74">&#34;</span>$tmux_session<span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">elif</span> test <span style="color:#e6db74">&#34;</span>$uses_tmux<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+        tmux swap-pane -s <span style="color:#e6db74">&#34;</span>$tmux_session<span style="color:#e6db74">:1.0&#34;</span> -t <span style="color:#e6db74">&#34;</span>$PANE_ID<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\;</span> kill-session -t <span style="color:#e6db74">&#34;</span>$tmux_session<span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> ! test <span style="color:#e6db74">&#34;</span>$debug_mode<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+    trap <span style="color:#e6db74">&#34;rm \&#34;</span>$tf_script<span style="color:#e6db74">\&#34; 2&gt;/dev/null&#34;</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">else</span>
+    echo
+    echo <span style="color:#e6db74">&#34;</span>$tf_script<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">1</span>&gt;&amp;<span style="color:#ae81ff">2</span>
+<span style="color:#66d9ef">fi</span></code></pre></div>
+<h3 id="examples-of-usage">Examples of usage</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">x -nto -e » -s <span style="color:#e6db74">&#34;pti3\n&#34;</span> -e <span style="color:#e6db74">&#34;In&#34;</span> -s <span style="color:#e6db74">&#34;%matplotlib tk\n&#34;</span> -i
+x -nto -sh <span style="color:#e6db74">&#34;pti3&#34;</span> -e <span style="color:#e6db74">&#34;In [&#34;</span> -scc c -s yo -scc m -i
+x -tmc pti3 -nto -e <span style="color:#e6db74">&#34;In [&#34;</span> -scc c -s yo -scc m -i
+x -h -d -tmc pti3 -nto -e <span style="color:#e6db74">&#34;In [&#34;</span> -scc c -s <span style="color:#e6db74">&#34;%matplotlib tk\n&#34;</span> -scc m -e <span style="color:#e6db74">&#34;In [&#34;</span> -i
+x -h -d -tmc pti3 -nto -e <span style="color:#e6db74">&#34;In [&#34;</span> -scc c -s <span style="color:#e6db74">&#34;%matplotlib tk\n&#34;</span> -scc m -e <span style="color:#e6db74">&#34;In [&#34;</span> -a
+x -d -tmc htop -e running -a</code></pre></div>
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
