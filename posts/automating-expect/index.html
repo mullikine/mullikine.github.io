@@ -675,12 +675,25 @@ export SHELL
     echo <span style="color:#e6db74">&#34;</span>$tf_script<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">1</span>&gt;&amp;<span style="color:#ae81ff">2</span>
 <span style="color:#66d9ef">fi</span></code></pre></div>
 <h3 id="examples-of-usage">Examples of usage</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">x -nto -e » -s <span style="color:#e6db74">&#34;pti3\n&#34;</span> -e <span style="color:#e6db74">&#34;In&#34;</span> -s <span style="color:#e6db74">&#34;%matplotlib tk\n&#34;</span> -i
-x -nto -sh <span style="color:#e6db74">&#34;pti3&#34;</span> -e <span style="color:#e6db74">&#34;In [&#34;</span> -scc c -s yo -scc m -i
-x -tmc pti3 -nto -e <span style="color:#e6db74">&#34;In [&#34;</span> -scc c -s yo -scc m -i
-x -h -d -tmc pti3 -nto -e <span style="color:#e6db74">&#34;In [&#34;</span> -scc c -s <span style="color:#e6db74">&#34;%matplotlib tk\n&#34;</span> -scc m -e <span style="color:#e6db74">&#34;In [&#34;</span> -i
-x -h -d -tmc pti3 -nto -e <span style="color:#e6db74">&#34;In [&#34;</span> -scc c -s <span style="color:#e6db74">&#34;%matplotlib tk\n&#34;</span> -scc m -e <span style="color:#e6db74">&#34;In [&#34;</span> -a
-x -d -tmc htop -e running -a</code></pre></div>
+
+<h4 id="turtle">turtle</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">x -sh <span style="color:#e6db74">&#34;ghci&#34;</span> -e <span style="color:#e6db74">&#34;ghci&gt;&#34;</span> -s <span style="color:#e6db74">&#34;:set -XOverloadedStrings&#34;</span> -c m -s <span style="color:#e6db74">&#34;import Turtle&#34;</span> -c m -e <span style="color:#e6db74">&#34;ghci&gt;&#34;</span> -s <span style="color:#e6db74">&#34;echo </span><span style="color:#66d9ef">$(</span>aqf <span style="color:#e6db74">&#34;hi&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> -c m -i</code></pre></div>
+<p>Start <code>ghci</code>, load the <code>Turtle</code> DSL and enter
+one command into the repl.</p>
+
+<p>Hand over interaction to the user.</p>
+
+<p><a href="https://asciinema.org/a/s6CaycuD1hVo3VIHNf8GQfXXK" target="_blank"><img src="https://asciinema.org/a/s6CaycuD1hVo3VIHNf8GQfXXK.svg" /></a></p>
+
+<h4 id="trello">trello</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">x -sh 3llo -e <span style="color:#e6db74">&#34;&gt;&#34;</span> -s <span style="color:#e6db74">&#34;board select&#34;</span> -c m -e Alpha -s <span style="color:#e6db74">&#34;Alpha Sprint&#34;</span> -c m -e <span style="color:#e6db74">&#34;&gt;&#34;</span> -s <span style="color:#e6db74">&#34;card list mine&#34;</span> -c m -i</code></pre></div>
+<h4 id="fish">fish</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">x -sh <span style="color:#e6db74">&#34;fish&#34;</span> -e <span style="color:#e6db74">&#34;&gt;&#34;</span> -s <span style="color:#e6db74">&#34;</span>$CMD<span style="color:#e6db74">&#34;</span> -c i -i</code></pre></div>
+<p>Demonstration:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">xs fish-complete vim -
+xs fish-complete vim -C</code></pre></div>
+<p><a href="https://asciinema.org/a/438OZBWbNRO1Za7fY0jhOZAXp" target="_blank"><img src="https://asciinema.org/a/438OZBWbNRO1Za7fY0jhOZAXp.svg" /></a></p>
+
     </div>
     <div class="post-footer">
       
