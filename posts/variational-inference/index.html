@@ -12,11 +12,11 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Variational Inference"/>
-<meta name="twitter:description" content="Original article https://fabiandablander.com/r/Variational-Inference.html  Watch A Short Introduction to Entropy, Cross-Entropy and KL-Divergence - YouTube
+<meta name="twitter:description" content="Original article https://fabiandablander.com/r/Variational-Inference.html  Watch Optimal message sending A Short Introduction to Entropy, Cross-Entropy and KL-Divergence - YouTube
 glossary entropy expected information Measures the average amount of information that you get when you learn the weather each day, or more generally the average amount of information that you get from one sample drawn from a given probability distribution p. It tells you how unpredictable that probability distribution is. If you live in the middle of a desert where it’s sunny every day, on average you won’t get much information from the weather station."/>
 
     <meta property="og:title" content="Variational Inference" />
-<meta property="og:description" content="Original article https://fabiandablander.com/r/Variational-Inference.html  Watch A Short Introduction to Entropy, Cross-Entropy and KL-Divergence - YouTube
+<meta property="og:description" content="Original article https://fabiandablander.com/r/Variational-Inference.html  Watch Optimal message sending A Short Introduction to Entropy, Cross-Entropy and KL-Divergence - YouTube
 glossary entropy expected information Measures the average amount of information that you get when you learn the weather each day, or more generally the average amount of information that you get from one sample drawn from a given probability distribution p. It tells you how unpredictable that probability distribution is. If you live in the middle of a desert where it’s sunny every day, on average you won’t get much information from the weather station." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/variational-inference/" />
@@ -147,6 +147,8 @@ glossary entropy expected information Measures the average amount of information
 
 <h2 id="watch">Watch</h2>
 
+<h3 id="optimal-message-sending">Optimal message sending</h3>
+
 <p><a href="https://www.youtube.com/watch?v=ErfnhcEV1O8">A Short Introduction to Entropy, Cross-Entropy and KL-Divergence - YouTube</a></p>
 
 <h2 id="glossary">glossary</h2>
@@ -217,6 +219,24 @@ cross-entropy
     message will have 3 bits, so the average
     message length will of course be 3 bits,
     and that’s the cross-entropy.</code></pre></div>
+<h2 id="bayes-theorm">Bayes&rsquo; Theorm</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">\begin{equation}
+\underbrace{p(\mathbf{z} \mid
+\mathbf{x})}_{\text{Posterior}} =
+\underbrace{p(\mathbf{z})}_{\text{Prior}}
+\times \frac{\overbrace{p(\mathbf{x} \mid \mat
+hbf{z})}^{\text{Likelihood}}}{\underbrace{\int
+p(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z})
+\, \mathrm{d}\mathbf{z}}_{\text{Marginal
+Likelihood}}} \enspace ,
+\end{equation}
+where $\mathbf{z}$ denotes latent parameters we want to infer and $\mathbf{x}$ denotes data.</code></pre></div>
+<p>\begin{equation}
+\underbrace{p(\mathbf{z} \mid \mathbf{x})}_{\text{Posterior}} = \underbrace{p(\mathbf{z})}_{\text{Prior}} \times \frac{\overbrace{p(\mathbf{x} \mid \mathbf{z})}^{\text{Likelihood}}}{\underbrace{\int p(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z}) \, \mathrm{d}\mathbf{z}}_{\text{Marginal Likelihood}}} \enspace ,
+\end{equation}</p>
+
+<p>where \(\mathbf{z}\) denotes latent parameters we want to infer and \(\mathbf{x}\) denotes data.</p>
+
     </div>
     <div class="post-footer">
       
