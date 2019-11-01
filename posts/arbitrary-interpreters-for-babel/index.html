@@ -173,7 +173,7 @@ the interpreter, for example.</p>
 <p>It only lets you specify arguments to the
 <code>dot</code> command, but does not let you switch the
 <code>dot</code> command for something else.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :interpreter show-dot :results verbatim
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">graphviz-dot</span><span style="color:#75715e"> :interpreter show-dot :results verbatim
 </span><span style="color:#75715e"></span>  digraph Q {
   node1 -&gt; node2
   }
@@ -345,7 +345,7 @@ the interpreter, for example.</p>
 <p><a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">https://mullikine.github.io/posts/review-of-the-illustrated-transformer/</a></p>
 
 <h3 id="example-1">Example 1</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :interpreter &#34;sed /delete/d&#34; :filter &#34;show-dot | sed s/node2/__2__/ | dot-pretty&#34; :results verbatim
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">graphviz-dot</span><span style="color:#75715e"> :interpreter &#34;sed /delete/d&#34; :filter &#34;show-dot | sed s/node2/__2__/ | dot-pretty&#34; :results verbatim
 </span><span style="color:#75715e"></span>  digraph Q {
   node1 -&gt; node2
   node2 -&gt; node3
@@ -385,7 +385,7 @@ sed -e <span style="color:#e6db74">&#39;s/|/┃/g&#39;</span> <span style="color
 </span><span style="color:#ae81ff"></span>    -e <span style="color:#e6db74">&#39;s/ ━/┄┄/g&#39;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    -e <span style="color:#e6db74">&#39;s/[┄━] /┄┄/g&#39;</span></code></pre></div>
 <h3 id="example-2">Example 2</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :filter dot-digraph :async :results verbatim
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">graphviz-dot</span><span style="color:#75715e"> :filter dot-digraph :async :results verbatim
 </span><span style="color:#75715e"></span>  node1 -&gt; node2
 <span style="color:#75715e">#+END_SRC</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">+-------+
 | node1 |
@@ -405,7 +405,7 @@ sed -e <span style="color:#e6db74">&#39;s/|/┃/g&#39;</span> <span style="color
     echo <span style="color:#e6db74">&#34;}&#34;</span>
 <span style="color:#f92672">}</span> | show-dot <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></div>
 <h3 id="example-3">Example 3</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">dot</span><span style="color:#75715e"> :filter show-dot :async :results verbatim
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">graphviz-dot</span><span style="color:#75715e"> :filter show-dot :async :results verbatim
 </span><span style="color:#75715e"></span>  digraph Q {
       node1 -&gt; cluster_R
       subgraph cluster_R {
