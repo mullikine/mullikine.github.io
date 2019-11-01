@@ -13,11 +13,13 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Variational Inference"/>
 <meta name="twitter:description" content="Original article https://fabiandablander.com/r/Variational-Inference.html  Watch Optimal message sending A Short Introduction to Entropy, Cross-Entropy and KL-Divergence - YouTube
-glossary entropy expected information Measures the average amount of information that you get when you learn the weather each day, or more generally the average amount of information that you get from one sample drawn from a given probability distribution p. It tells you how unpredictable that probability distribution is. If you live in the middle of a desert where it’s sunny every day, on average you won’t get much information from the weather station."/>
+A good explanation of KL-Divergence.
+glossary entropy expected information Measures the average amount of information that you get when you learn the weather each day, or more generally the average amount of information that you get from one sample drawn from a given probability distribution p. It tells you how unpredictable that probability distribution is."/>
 
     <meta property="og:title" content="Variational Inference" />
 <meta property="og:description" content="Original article https://fabiandablander.com/r/Variational-Inference.html  Watch Optimal message sending A Short Introduction to Entropy, Cross-Entropy and KL-Divergence - YouTube
-glossary entropy expected information Measures the average amount of information that you get when you learn the weather each day, or more generally the average amount of information that you get from one sample drawn from a given probability distribution p. It tells you how unpredictable that probability distribution is. If you live in the middle of a desert where it’s sunny every day, on average you won’t get much information from the weather station." />
+A good explanation of KL-Divergence.
+glossary entropy expected information Measures the average amount of information that you get when you learn the weather each day, or more generally the average amount of information that you get from one sample drawn from a given probability distribution p. It tells you how unpredictable that probability distribution is." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/variational-inference/" />
 <meta property="article:published_time" content="2019-11-01T00:00:00+13:00" />
@@ -151,6 +153,8 @@ glossary entropy expected information Measures the average amount of information
 
 <p><a href="https://www.youtube.com/watch?v=ErfnhcEV1O8">A Short Introduction to Entropy, Cross-Entropy and KL-Divergence - YouTube</a></p>
 
+<p>A good explanation of <code>KL-Divergence</code>.</p>
+
 <h2 id="glossary">glossary</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">entropy
 expected information
@@ -218,7 +222,21 @@ cross-entropy
     using a 3-bit code like this then every
     message will have 3 bits, so the average
     message length will of course be 3 bits,
-    and that’s the cross-entropy.</code></pre></div>
+    and that’s the cross-entropy.
+
+marginalized
+    Treated as insignificant or peripheral.
+
+marginal likelihood function
+integrated likelihood
+model evidence
+evidence
+    [#statistics]
+    [#bayesian statistics]
+
+    A likelihood function in which some
+    parameter variables have been
+    marginalized.</code></pre></div>
 <h2 id="bayes-theorm">Bayes&rsquo; Theorm</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">\begin{equation}
 \underbrace{p(\mathbf{z} \mid
@@ -236,6 +254,11 @@ where $\mathbf{z}$ denotes latent parameters we want to infer and $\mathbf{x}$ d
 \end{equation}</p>
 
 <p>where \(\mathbf{z}\) denotes latent parameters we want to infer and \(\mathbf{x}\) denotes data.</p>
+
+<dl>
+<dt>my thoughts</dt>
+<dd>Is it that by integrating we marginalise some of the parameter variables?</dd>
+</dl>
 
     </div>
     <div class="post-footer">
