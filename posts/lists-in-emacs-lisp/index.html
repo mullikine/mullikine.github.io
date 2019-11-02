@@ -7,18 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="John Doe" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.7c3c564d6f7424cbc3c3cb4f47b7137fabd2701ff12d700cddcb848d77ad8aa4.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.86d733e4e0fcf8182bef1a305fc9762aae9b3be5ea3ceba6141df9c468ca0857.css" />
 
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Lists in emacs lisp"/>
 <meta name="twitter:description" content="What is a list? A list in emacs is a list of cons cells. A cons cell has a car and a cdr. The car is a value. The cdr is a pointer.
-e.g. This allows you to set the nth item of a list (setcar (nthcdr 2 list) &#39;epsilon) Useful pages https://www.emacswiki.org/emacs/ListModification#toc7
+e.g. This allows you to set the nth item of a list 1  (setcar (nthcdr 2 list) &#39;epsilon)   Useful pages https://www.emacswiki.org/emacs/ListModification#toc7
 functions  mod orig destructive to original variable     f/m mod orig macro dedup (slow) d     delete ✓   removes all matching elements from list   remove    same as &lsquo;delete&rsquo;   add-to-list ✓  ✓ push element to front   push ?"/>
 
     <meta property="og:title" content="Lists in emacs lisp" />
 <meta property="og:description" content="What is a list? A list in emacs is a list of cons cells. A cons cell has a car and a cdr. The car is a value. The cdr is a pointer.
-e.g. This allows you to set the nth item of a list (setcar (nthcdr 2 list) &#39;epsilon) Useful pages https://www.emacswiki.org/emacs/ListModification#toc7
+e.g. This allows you to set the nth item of a list 1  (setcar (nthcdr 2 list) &#39;epsilon)   Useful pages https://www.emacswiki.org/emacs/ListModification#toc7
 functions  mod orig destructive to original variable     f/m mod orig macro dedup (slow) d     delete ✓   removes all matching elements from list   remove    same as &lsquo;delete&rsquo;   add-to-list ✓  ✓ push element to front   push ?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/lists-in-emacs-lisp/" />
@@ -150,7 +150,16 @@ The car is a value.
 The cdr is a pointer.</p>
 
 <h4 id="e-dot-g-dot-this-allows-you-to-set-the-nth-item-of-a-list">e.g. This allows you to set the nth item of a list</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">setcar</span> (<span style="color:#a6e22e">nthcdr</span> <span style="color:#ae81ff">2</span> <span style="color:#a6e22e">list</span>) <span style="color:#e6db74">&#39;epsilon</span>)</code></pre></div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a6e22e">setcar</span> (<span style="color:#a6e22e">nthcdr</span> <span style="color:#ae81ff">2</span> <span style="color:#a6e22e">list</span>) <span style="color:#e6db74">&#39;epsilon</span>)</code></pre></td></tr></table>
+</div>
+</div>
+
 <h2 id="useful-pages">Useful pages</h2>
 
 <p><a href="https://www.emacswiki.org/emacs/ListModification#toc7">https://www.emacswiki.org/emacs/ListModification#toc7</a></p>
@@ -260,13 +269,28 @@ The cdr is a pointer.</p>
 Is it really a list alteration function then?</p>
 
 <h3 id="examples">Examples</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">delete</span> <span style="color:#e6db74">&#39;beta</span> list1)
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a6e22e">delete</span> <span style="color:#e6db74">&#39;beta</span> list1)
 (remove <span style="color:#e6db74">&#39;beta</span> list1)
 (add-to-list <span style="color:#e6db74">&#39;list1</span> <span style="color:#e6db74">&#39;omega</span>)
 (push newcar list1)
 (remove-duplicates list1 :test <span style="color:#e6db74">&#39;string=</span>)
 (<span style="color:#a6e22e">nconc</span> list1 list2)
-(<span style="color:#a6e22e">append</span> list1 list2)</code></pre></div>
+(<span style="color:#a6e22e">append</span> list1 list2)</code></pre></td></tr></table>
+</div>
+</div>
+
     </div>
     <div class="post-footer">
       
