@@ -263,43 +263,49 @@ represent with a code.</p>
 distribution but you can optimise the code to
 more accurately represent it.</p>
 
+<h2 id="entropy">entropy</h2>
+
+<p>A function of the true distribution \(p\).</p>
+
+<p>\begin{equation}
+  S = -\sum_{i} p_i log_2(p_i)
+\end{equation}</p>
+
 <h2 id="cross-entropy">Cross entropy</h2>
 
 <p>A function of the predicted distribution \(q\) and
 the true distribution \(p\).</p>
 
-<p>\(H(p, q) = -\sum_{i} p_i log_2(q_i)\)</p>
-
-<h2 id="bayes-theorm">Bayes&rsquo; Theorm</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">\begin{equation}
-\underbrace{p(\mathbf{z} \mid
-\mathbf{x})}_{\text{Posterior}} =
-\underbrace{p(\mathbf{z})}_{\text{Prior}}
-\times \frac{\overbrace{p(\mathbf{x} \mid \mat
-hbf{z})}^{\text{Likelihood}}}{\underbrace{\int
-p(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z})
-\, \mathrm{d}\mathbf{z}}_{\text{Marginal
-Likelihood}}} \enspace ,
-\end{equation}
-where $\mathbf{z}$ denotes latent parameters we want to infer and $\mathbf{x}$ denotes data.</code></pre></div>
 <p>\begin{equation}
-\underbrace{p(\mathbf{z} \mid \mathbf{x})}_{\text{Posterior}} = \underbrace{p(\mathbf{z})}_{\text{Prior}} \times \frac{\overbrace{p(\mathbf{x} \mid \mathbf{z})}^{\text{Likelihood}}}{\underbrace{\int p(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z}) \, \mathrm{d}\mathbf{z}}_{\text{Marginal Likelihood}}} \enspace ,
+  H(p, q) = -\sum_{i} p_i log_2(q_i)
 \end{equation}</p>
 
-<p>where \(\mathbf{z}\) denotes latent parameters we want to infer and \(\mathbf{x}\) denotes data.</p>
+<p>As you can see, it looks pretty similar to the
+equation for the Entropy, but instead of
+computing the log of the true probability, we
+use the log of the predicted probability,
+which is equal to the message length.</p>
 
-<dl>
-<dt>my thoughts</dt>
-<dd>Is it that by integrating we marginalise some of the parameter variables?</dd>
-</dl>
+<h3 id="if-our-predictions-are-perfect">If our predictions are perfect</h3>
 
-<p>Bayes&rsquo; Rule involves integration.</p>
+<p>If the predicted distribution is equal to the
+true distribution then the cross-entropy is
+simply equal to the entropy.</p>
 
-<p>Optimization, involves taking derivatives
-instead of integrating, is much easier and
-generally faster than the latter, and so our
-goal will be to reframe this integration
-problem as one of optimization.</p>
+<h3 id="if-the-distributions-differ">If the distributions differ</h3>
+
+<p>The cross-entropy will be greater than the entropy
+by some number of bits.</p>
+
+<p>This amount by which the cross-entropy exceeds
+the entropy is called the relative entropy, or
+more commonly the <code>KL Divergence</code>.</p>
+
+<h2 id="kl-divergence">KL Divergence</h2>
+
+<p>\begin{equation}
+  \text{KL}\left(q(\mathbf{z}) \, \lvert\lvert \, p(\mathbf{z} \mid \mathbf{x}) \right) = \int q(\mathbf{z}) \, \text{log } \frac{q(\mathbf{z})}{p(\mathbf{z} \mid \mathbf{x})} \mathrm{d}\mathbf{z} \enspace .
+\end{equation}</p>
 
     </div>
     <div class="post-footer">

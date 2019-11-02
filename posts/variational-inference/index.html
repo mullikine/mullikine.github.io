@@ -12,14 +12,14 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Variational Inference"/>
-<meta name="twitter:description" content="Original article https://fabiandablander.com/r/Variational-Inference.html  Watch Optimal message sending A Short Introduction to Entropy, Cross-Entropy and KL-Divergence - YouTube
-A good explanation of KL-Divergence.
-Glossary entropy expected information Measures the average amount of information that you get when you learn the weather each day, or more generally the average amount of information that you get from one sample drawn from a given probability distribution p. It tells you how unpredictable that probability distribution is."/>
+<meta name="twitter:description" content="Original article https://fabiandablander.com/r/Variational-Inference.html  Prereading https://mullikine.github.io/posts/entropy-cross-entropy-and-kl-divergence/
+Bayes&rsquo; Theorm \begin{equation} \underbrace{p(\mathbf{z} \mid \mathbf{x})}_{\text{Posterior}} = \underbrace{p(\mathbf{z})}_{\text{Prior}} \times \frac{\overbrace{p(\mathbf{x} \mid \mat hbf{z})}^{\text{Likelihood}}}{\underbrace{\int p(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z}) \, \mathrm{d}\mathbf{z}}_{\text{Marginal Likelihood}}} \enspace , \end{equation} where $\mathbf{z}$ denotes latent parameters we want to infer and $\mathbf{x}$ denotes data. \begin{equation} \underbrace{p(\mathbf{z} \mid \mathbf{x})}_{\text{Posterior}} = \underbrace{p(\mathbf{z})}_{\text{Prior}} \times \frac{\overbrace{p(\mathbf{x} \mid \mathbf{z})}^{\text{Likelihood}}}{\underbrace{\int p(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z}) \, \mathrm{d}\mathbf{z}}_{\text{Marginal Likelihood}}} \enspace , \end{equation}
+where \(\mathbf{z}\) denotes latent parameters we want to infer and \(\mathbf{x}\) denotes data."/>
 
     <meta property="og:title" content="Variational Inference" />
-<meta property="og:description" content="Original article https://fabiandablander.com/r/Variational-Inference.html  Watch Optimal message sending A Short Introduction to Entropy, Cross-Entropy and KL-Divergence - YouTube
-A good explanation of KL-Divergence.
-Glossary entropy expected information Measures the average amount of information that you get when you learn the weather each day, or more generally the average amount of information that you get from one sample drawn from a given probability distribution p. It tells you how unpredictable that probability distribution is." />
+<meta property="og:description" content="Original article https://fabiandablander.com/r/Variational-Inference.html  Prereading https://mullikine.github.io/posts/entropy-cross-entropy-and-kl-divergence/
+Bayes&rsquo; Theorm \begin{equation} \underbrace{p(\mathbf{z} \mid \mathbf{x})}_{\text{Posterior}} = \underbrace{p(\mathbf{z})}_{\text{Prior}} \times \frac{\overbrace{p(\mathbf{x} \mid \mat hbf{z})}^{\text{Likelihood}}}{\underbrace{\int p(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z}) \, \mathrm{d}\mathbf{z}}_{\text{Marginal Likelihood}}} \enspace , \end{equation} where $\mathbf{z}$ denotes latent parameters we want to infer and $\mathbf{x}$ denotes data. \begin{equation} \underbrace{p(\mathbf{z} \mid \mathbf{x})}_{\text{Posterior}} = \underbrace{p(\mathbf{z})}_{\text{Prior}} \times \frac{\overbrace{p(\mathbf{x} \mid \mathbf{z})}^{\text{Likelihood}}}{\underbrace{\int p(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z}) \, \mathrm{d}\mathbf{z}}_{\text{Marginal Likelihood}}} \enspace , \end{equation}
+where \(\mathbf{z}\) denotes latent parameters we want to infer and \(\mathbf{x}\) denotes data." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/variational-inference/" />
 <meta property="article:published_time" content="2019-11-01T00:00:00+13:00" />
@@ -122,7 +122,7 @@ Glossary entropy expected information Measures the average amount of information
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          3 min read
+          1 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -147,140 +147,9 @@ Glossary entropy expected information Measures the average amount of information
 <dd><a href="https://fabiandablander.com/r/Variational-Inference.html">https://fabiandablander.com/r/Variational-Inference.html</a></dd>
 </dl>
 
-<h2 id="watch">Watch</h2>
+<h2 id="prereading">Prereading</h2>
 
-<h3 id="optimal-message-sending">Optimal message sending</h3>
-
-<p><a href="https://www.youtube.com/watch?v=ErfnhcEV1O8">A Short Introduction to Entropy, Cross-Entropy and KL-Divergence - YouTube</a></p>
-
-<p>A good explanation of <code>KL-Divergence</code>.</p>
-
-<h2 id="glossary">Glossary</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">entropy
-expected information
-    Measures the average amount of information
-    that you get when you learn the weather
-    each day, or more generally the average
-    amount of information that you get from
-    one sample drawn from a given probability
-    distribution p.
-
-    It tells you how unpredictable that
-    probability distribution is.
-
-    If you live in the middle of a desert
-    where it’s sunny every day, on average you
-    won’t get much information from the
-    weather station.
-
-    The entropy will be close to zero.
-
-    Conversely, if the weather varies a lot,
-    the entropy will be much larger.
-
-    Optimising codes:
-        For example, when we use a 2-bit
-        message for sunny weather, we’re
-        implicitly assuming that it will be
-        sunny every 4 days (2 to the power of
-        2), at least on average.
-
-        In other words, by using this code,
-        we’re implicitly predicting a
-        probability of 25% for sunny weather,
-        or else our code will not be optimal.
-
-        https://youtu.be/ErfnhcEV1O8?t=425
-
-Kullback-Leibler Divergence
-KL Divergence
-relative entropy
-    The amount by which the cross-entropy
-    exceeds the entropy.
-
-    cross-entropy is equal to the entropy plus
-    the KL divergence.
-
-    D_KL(p||q) = H(p,q) - H(p)
-        KL divergence D_KL(p||q) is equal to
-        the cross-entropy H(p,q) minus the
-        entropy H(p).
-
-    Example:
-        cross-entropy = 4.58 bits,
-        entropy = 2.23 bits,
-        KL Divergence = 2.35 bits.
-
-    A measure of how one probability
-    distribution is different from a second,
-    reference probability distribution.
-
-    Applications include characterizing the
-    relative (Shannon) entropy in information
-    systems, randomness in continuous time-
-    series, and information gain when
-    comparing statistical models of inference.
-
-cross entropy
-cross-entropy
-    [#information theory]
-
-    [[https://www.youtube.com/watch?v=ErfnhcEV1O8][A Short Introduction to Entropy, Cross-Entropy and KL-Divergence - YouTube]]
-
-    readsubs &#34;https://www.youtube.com/watch?v=ErfnhcEV1O8&#34; | v +/&#34;average message length&#34;
-
-    The average message length.
-
-    For example, if the weather station
-    encodes each of the 8 possible options
-    using a 3-bit code like this then every
-    message will have 3 bits, so the average
-    message length will of course be 3 bits,
-    and that’s the cross-entropy.
-
-marginalized
-    Treated as insignificant or peripheral.
-
-marginal likelihood function
-integrated likelihood
-model evidence
-evidence
-    [#statistics]
-    [#bayesian statistics]
-
-    A likelihood function in which some
-    parameter variables have been
-    marginalized.</code></pre></div>
-<h2 id="predicted-distribution-vs-true-distribution">Predicted distribution vs true distribution</h2>
-
-<h3 id="predicted-distribution">Predicted distribution</h3>
-
-<p>When designing a code to represent weather
-predictions, you try to assign fewer bits for
-outcomes which are probably going to be more
-common.</p>
-
-<p>You can compute the assumed probabily of an
-outcome based on the number of bits that have
-been assigned to represent a prediction for
-that outcome.</p>
-
-<h3 id="true-distribution">True distribution</h3>
-
-<p>The true distribution contains the actual
-probabilities of the events you are trying to
-represent with a code.</p>
-
-<p>The code cannot exactly match the true
-distribution but you can optimise the code to
-more accurately represent it.</p>
-
-<h2 id="cross-entropy">Cross entropy</h2>
-
-<p>A function of the predicted distribution \(q\) and
-the true distribution \(p\).</p>
-
-<p>\(H(p, q) = -\sum_{i} p_i log_2(q_i)\)</p>
+<p><a href="https://mullikine.github.io/posts/entropy-cross-entropy-and-kl-divergence/">https://mullikine.github.io/posts/entropy-cross-entropy-and-kl-divergence/</a></p>
 
 <h2 id="bayes-theorm">Bayes&rsquo; Theorm</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">\begin{equation}
@@ -300,18 +169,26 @@ where $\mathbf{z}$ denotes latent parameters we want to infer and $\mathbf{x}$ d
 
 <p>where \(\mathbf{z}\) denotes latent parameters we want to infer and \(\mathbf{x}\) denotes data.</p>
 
+<h2 id="integration-vs-derivative">Integration vs derivative</h2>
+
 <dl>
 <dt>my thoughts</dt>
 <dd>Is it that by integrating we marginalise some of the parameter variables?</dd>
 </dl>
 
-<p>Bayes&rsquo; Rule involves integrating.</p>
+<p>Bayes&rsquo; Rule involves integration.</p>
 
 <p>Optimization, involves taking derivatives
 instead of integrating, is much easier and
 generally faster than the latter, and so our
 goal will be to reframe this integration
 problem as one of optimization.</p>
+
+<h2 id="kl-divergence">KL Divergence</h2>
+
+<p>\begin{equation}
+  \text{KL}\left(q(\mathbf{z}) \, \lvert\lvert \, p(\mathbf{z} \mid \mathbf{x}) \right) = \int q(\mathbf{z}) \, \text{log } \frac{q(\mathbf{z})}{p(\mathbf{z} \mid \mathbf{x})} \mathrm{d}\mathbf{z} \enspace .
+\end{equation}</p>
 
     </div>
     <div class="post-footer">
