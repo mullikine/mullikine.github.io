@@ -123,7 +123,7 @@ If we know the value of one of the random variables in a system there is a corre
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -171,10 +171,18 @@ other one and mutual information measures that
 reduction in uncertainty.</p>
 
 <p>\begin{equation}
-\textbf{I}(X_1 ; X_2) = \sum_{X_1} \sum_{X_2} = \textbf{H}(X_1) - \textbf{H}(X_1 | X_2)
+\textbf{I}(X_1 ; X_2) = \textbf{I}(X_1, X_2) = \sum_{X_1} \sum_{X_2} = \textbf{H}(X_1) - \textbf{H}(X_1 | X_2) = P(X_1, X_2) log \dfrac{P(X_1, X_2)}{\underbrace{P(X_1)P(X_2)}_{\text{Marginal Likelihood}}}
 \end{equation}</p>
 
 <p>Where \(X_1\) and \(X_2\) are random variables and \(\textbf{I}(X_1 ; X_2)\) is the mutual information for \(X_1\) and \(X_2\).</p>
+
+<h3 id="bayes-rule">Bayes&rsquo; Rule</h3>
+
+<p>\begin{equation}
+\underbrace{p(\mathbf{z} \mid \mathbf{x})}_{\text{Posterior}} = \underbrace{p(\mathbf{z})}_{\text{Prior}} \times \frac{\overbrace{p(\mathbf{x} \mid \mathbf{z})}^{\text{Likelihood}}}{\underbrace{\int p(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z}) \, \mathrm{d}\mathbf{z}}_{\text{Marginal Likelihood}}} \enspace ,
+\end{equation}</p>
+
+<p>where \(\mathbf{z}\) denotes latent parameters we want to infer and \(\mathbf{x}\) denotes data.** Euclid</p>
 
 <h2 id="glossary">Glossary</h2>
 
@@ -221,9 +229,48 @@ reduction in uncertainty.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">mutual information
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">bit
+shannon
+Sh
+    A unit of information and of entropy
+    defined by IEC 80000-13.
+
+    One shannon is the information content of
+    an event occurring when its probability is
+    1⁄2.
+
+    It is also the entropy of a system with
+    two equally probable states.
+
+    If a message is made of a sequence of a
+    given number of bits, with all possible
+    bit strings being equally likely, the
+    message&#39;s information content expressed in
+    shannons is equal to the number of bits in
+    the sequence.
+
+mutual information
 MI
     ...of two random variables.
 
@@ -252,11 +299,10 @@ MI
     A measure of the mutual dependence between
     the two variables.
 
-    More specifically, it quantifies the
-    &#34;amount of information&#34; (in units such as
-    shannons, commonly called bits) obtained
-    about one random variable through
-    observing the other random variable.
+    Quantifies the &#34;amount of information&#34;
+    in bits (shannons) obtained about one
+    random variable through observing the
+    other random variable.
 
     The concept of mutual information is
     intricately linked to that of entropy of a
