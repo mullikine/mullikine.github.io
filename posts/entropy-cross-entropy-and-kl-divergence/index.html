@@ -119,7 +119,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          4 min read
+          5 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -405,8 +405,9 @@ information entropy.</p>
 value (i.e., when a low-probability event occurs), the event carries
 more &ldquo;information&rdquo; (&ldquo;surprisal&rdquo;) than when the source data produces
 a high-probability value.</dd>
-<dt><code>Information gain</code>
-:</dt>
+<dt><code>Information gain</code></dt>
+<dd>Information gain&hellip;
+<a href="https://medium.com/@rishabhjain%5F22692/decision-trees-it-begins-here-93ff54ef134">https://medium.com/@rishabhjain%5F22692/decision-trees-it-begins-here-93ff54ef134</a></dd>
 </dl>
 
 <h2 id="cross-entropy">Cross entropy</h2>
@@ -439,11 +440,23 @@ by some number of bits.</p>
 the entropy is called the relative entropy, or
 more commonly the <code>KL Divergence</code>.</p>
 
+<h2 id="bayes-rule">Bayes&rsquo; Rule</h2>
+
+<p>\begin{equation}
+\underbrace{p(\mathbf{z} \mid \mathbf{x})}_{\text{Posterior}} = \underbrace{p(\mathbf{z})}_{\text{Prior}} \times \frac{\overbrace{p(\mathbf{x} \mid \mathbf{z})}^{\text{Likelihood}}}{\underbrace{\int p(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z}) \, \mathrm{d}\mathbf{z}}_{\text{Marginal Likelihood}}} \enspace ,
+\end{equation}</p>
+
+<p>where \(\mathbf{z}\) denotes latent parameters we want to infer and \(\mathbf{x}\) denotes data.</p>
+
 <h2 id="kl-divergence">KL Divergence</h2>
+
+<p>The amount by which the cross-entropy exceeds the entropy.</p>
 
 <p>\begin{equation}
   \text{KL}\left(q(\mathbf{z}) \, \lvert\lvert \, p(\mathbf{z} \mid \mathbf{x}) \right) = \int q(\mathbf{z}) \, \text{log } \frac{q(\mathbf{z})}{p(\mathbf{z} \mid \mathbf{x})} \mathrm{d}\mathbf{z} \enspace .
 \end{equation}</p>
+
+<p>where \(\mathbf{z}\) denotes latent parameters we want to infer and \(\mathbf{x}\) denotes data.</p>
 
     </div>
     <div class="post-footer">
