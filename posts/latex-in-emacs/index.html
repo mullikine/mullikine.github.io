@@ -285,7 +285,7 @@ echo <span style="color:#e6db74">&#34;[[file:$nf]]&#34;</span></code></pre></td>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
@@ -300,27 +300,23 @@ echo <span style="color:#e6db74">&#34;[[file:$nf]]&#34;</span></code></pre></td>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">#+BEGIN_SRC </span><span style="color:#75715e">latex</span><span style="color:#75715e"> -n :f texalg2png latex-self-attention :async :results raw drawer
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">\Function</span>{Self-attention}{<span style="color:#e6db74">$</span>{word}_i<span style="color:#e6db74">$</span>}
-  <span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>X_i\gets embed<span style="color:#f92672">(</span>{word}_i<span style="color:#f92672">)</span><span style="color:#e6db74">$</span>
-  <span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>q_i\gets X_i\cdotp W^Q<span style="color:#e6db74">$</span>
-  <span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>k_i\gets X_i\cdotp W^K<span style="color:#e6db74">$</span>
-  <span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>v_i\gets X_i\cdotp W^V<span style="color:#e6db74">$</span>
-  <span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{every other word }j<span style="color:#e6db74">$</span>}
-  <span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>\mathit{score}_\mathit{i,j}\gets q_i \cdot k_j<span style="color:#e6db74">$</span>
-  <span style="color:#66d9ef">\EndFor</span>
-  <span style="color:#66d9ef">\EndFunction</span>
-  <span style="color:#66d9ef">\newline</span>
-  <span style="color:#66d9ef">\Function</span>{Self-attention-layer}{<span style="color:#e6db74">$</span>sentence<span style="color:#e6db74">$</span>}
-  <span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{each } word_i \textrm{ in } sentence<span style="color:#e6db74">$</span>}
-  <span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>\mathit{self<span style="color:#f92672">-</span>attention}_\mathit{i}\gets Self<span style="color:#f92672">-</span>attention<span style="color:#f92672">(</span>{word}_i<span style="color:#f92672">)</span><span style="color:#e6db74">$</span>
-  <span style="color:#66d9ef">\EndFor</span>
-  <span style="color:#66d9ef">\EndFunction</span>
-<span style="color:#75715e">#+END_SRC</span></code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\Function</span>{Self-attention}{<span style="color:#e6db74">$</span>{word}_i<span style="color:#e6db74">$</span>}
+<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>X_i\gets embed<span style="color:#f92672">(</span>{word}_i<span style="color:#f92672">)</span><span style="color:#e6db74">$</span>
+<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>q_i\gets X_i\cdotp W^Q<span style="color:#e6db74">$</span>
+<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>k_i\gets X_i\cdotp W^K<span style="color:#e6db74">$</span>
+<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>v_i\gets X_i\cdotp W^V<span style="color:#e6db74">$</span>
+<span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{every other word }j<span style="color:#e6db74">$</span>}
+<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>\mathit{score}_\mathit{i,j}\gets q_i \cdot k_j<span style="color:#e6db74">$</span>
+<span style="color:#66d9ef">\EndFor</span>
+<span style="color:#66d9ef">\EndFunction</span>
+<span style="color:#66d9ef">\newline</span>
+<span style="color:#66d9ef">\Function</span>{Self-attention-layer}{<span style="color:#e6db74">$</span>sentence<span style="color:#e6db74">$</span>}
+<span style="color:#66d9ef">\For</span>{<span style="color:#e6db74">$</span>\textrm{each } word_i \textrm{ in } sentence<span style="color:#e6db74">$</span>}
+<span style="color:#66d9ef">\State</span> <span style="color:#e6db74">$</span>\mathit{self\char`_attention}_\mathit{i}\gets \verb|Self<span style="color:#f92672">-</span>attention|<span style="color:#f92672">(</span>{word}_i<span style="color:#f92672">)</span><span style="color:#e6db74">$</span>
+<span style="color:#66d9ef">\EndFor</span>
+<span style="color:#66d9ef">\EndFunction</span></code></pre></td></tr></table>
 </div>
 </div>
 
@@ -358,7 +354,7 @@ lives.</p>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
@@ -371,17 +367,17 @@ lives.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">\begin{equation}
-\underbrace{p(\mathbf{z} \mid
-\mathbf{x})}_{\text{Posterior}} =
-\underbrace{p(\mathbf{z})}_{\text{Prior}}
-\times \frac{\overbrace{p(\mathbf{x} \mid \mat
-hbf{z})}^{\text{Likelihood}}}{\underbrace{\int
-p(\mathbf{x} \mid \mathbf{z}) \, p(\mathbf{z})
-\, \mathrm{d}\mathbf{z}}_{\text{Marginal
-Likelihood}}} \enspace ,
-\end{equation}
-where $\mathbf{z}$ denotes latent parameters we want to infer and $\mathbf{x}$ denotes data.</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\begin</span>{equation}
+<span style="color:#66d9ef">\underbrace</span>{p(<span style="color:#66d9ef">\mathbf</span>{z} <span style="color:#66d9ef">\mid</span>
+<span style="color:#66d9ef">\mathbf</span>{x})}_{<span style="color:#66d9ef">\text</span>{Posterior}} =
+<span style="color:#66d9ef">\underbrace</span>{p(<span style="color:#66d9ef">\mathbf</span>{z})}_{<span style="color:#66d9ef">\text</span>{Prior}}
+<span style="color:#66d9ef">\times</span> <span style="color:#66d9ef">\frac</span>{<span style="color:#66d9ef">\overbrace</span>{p(<span style="color:#66d9ef">\mathbf</span>{x} <span style="color:#66d9ef">\mid</span> <span style="color:#66d9ef">\mat</span>
+hbf{z})}^{<span style="color:#66d9ef">\text</span>{Likelihood}}}{<span style="color:#66d9ef">\underbrace</span>{<span style="color:#66d9ef">\int</span>
+p(<span style="color:#66d9ef">\mathbf</span>{x} <span style="color:#66d9ef">\mid</span> <span style="color:#66d9ef">\mathbf</span>{z}) <span style="color:#66d9ef">\,</span> p(<span style="color:#66d9ef">\mathbf</span>{z})
+<span style="color:#66d9ef">\,</span> <span style="color:#66d9ef">\mathrm</span>{d}<span style="color:#66d9ef">\mathbf</span>{z}}_{<span style="color:#66d9ef">\text</span>{Marginal
+Likelihood}}} <span style="color:#66d9ef">\enspace</span> ,
+<span style="color:#66d9ef">\end</span>{equation}
+where <span style="color:#e6db74">$</span>\mathbf{z}<span style="color:#e6db74">$</span> denotes latent parameters we want to infer and <span style="color:#e6db74">$</span>\mathbf{x}<span style="color:#e6db74">$</span> denotes data.</code></pre></td></tr></table>
 </div>
 </div>
 
@@ -408,21 +404,9 @@ where $\mathbf{z}$ denotes latent parameters we want to infer and $\mathbf{x}$ d
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#66d9ef">\documentclass</span>{standalone}
-<span style="color:#66d9ef">\usepackage</span>{varwidth}
-<span style="color:#66d9ef">\usepackage</span>{mathtools}
-<span style="color:#66d9ef">\begin</span>{document}
-<span style="color:#66d9ef">\begin</span>{varwidth}{<span style="color:#66d9ef">\linewidth</span>}
-This example shows <span style="color:#66d9ef">\verb</span>|aligned| equations within
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex">This example shows <span style="color:#66d9ef">\verb</span>|aligned| equations within
 an <span style="color:#66d9ef">\verb</span>|align| environment.
 <span style="color:#66d9ef">\begin</span>{align}
   <span style="color:#66d9ef">\phantom</span>{i + j + k}
@@ -434,14 +418,48 @@ an <span style="color:#66d9ef">\verb</span>|align| environment.
     <span style="color:#66d9ef">\mathllap</span>{i + j + k} &amp;= l + m + n<span style="color:#66d9ef">\\</span>
       &amp;<span style="color:#66d9ef">\qquad</span> + o + p + q
   <span style="color:#66d9ef">\end</span>{aligned}
-<span style="color:#66d9ef">\end</span>{align}
-<span style="color:#66d9ef">\end</span>{varwidth}
-<span style="color:#66d9ef">\end</span>{document}</code></pre></td></tr></table>
+<span style="color:#66d9ef">\end</span>{align}</code></pre></td></tr></table>
 </div>
 </div>
 
 <figure>
     <img src="https://mullikine.github.io/ox-hugo/aligned.svg"/> 
+</figure>
+
+
+<h2 id="verbs">verbs</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#e6db74">$</span>\verb|Self<span style="color:#f92672">-</span>attention|<span style="color:#f92672">(</span>{word}_i<span style="color:#f92672">)</span><span style="color:#e6db74">$</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<figure>
+    <img src="https://mullikine.github.io/ox-hugo/verb.svg"/> 
+</figure>
+
+
+<h2 id="underscore">underscore</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#e6db74">$</span>\mathit{self\char`_attention}_\mathit{i}<span style="color:#e6db74">$</span>
+<span style="color:#66d9ef">\newline</span>
+<span style="color:#e6db74">$</span>\mathit{self\texttt{\char`_}attention}_\mathit{i}<span style="color:#e6db74">$</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<figure>
+    <img src="https://mullikine.github.io/ox-hugo/underscore.svg"/> 
 </figure>
 
 
