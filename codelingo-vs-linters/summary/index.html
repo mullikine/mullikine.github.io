@@ -265,8 +265,7 @@ Typically, the generated query comprises the bulk of the code you end up with.  
 
 <hr />
 
-<ul>
-<li><p>Before: Generated CLQL</p>
+<p><span class="underline"><strong>Before: Generated CLQL</strong></span></p>
 
 <p>This generated query contains a greater number of facts than we really need, so we can remove some of them.</p>
 
@@ -286,35 +285,33 @@ Typically, the generated query comprises the bulk of the code you end up with.  
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">    import codelingo/ast/go
-    
-    go.file(depth = any):
-      go.decls:
-        @playground.highlight
-        go.func_decl:
-          go.ident:
-            child_count == <span style="color:#ae81ff">0</span>
-            name == <span style="color:#e6db74">&#34;init&#34;</span>
-            private == <span style="color:#e6db74">&#34;true&#34;</span>
-            public == <span style="color:#e6db74">&#34;false&#34;</span>
-          go.func_type:
-            go.field_list:
-              child_count == <span style="color:#ae81ff">0</span>
-    </code></pre></td></tr></table>
-</div>
-</div></li>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">import codelingo/ast/go
 
-<li><p>Refining the CLQL</p>
+go.file(depth = any):
+  go.decls:
+    @playground.highlight
+    go.func_decl:
+      go.ident:
+        child_count == <span style="color:#ae81ff">0</span>
+        name == <span style="color:#e6db74">&#34;init&#34;</span>
+        private == <span style="color:#e6db74">&#34;true&#34;</span>
+        public == <span style="color:#e6db74">&#34;false&#34;</span>
+      go.func_type:
+        go.field_list:
+          child_count == <span style="color:#ae81ff">0</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p><span class="underline"><strong>Refining the CLQL</strong></span></p>
 
 <p>The process of crafting CLQL is mainly subtractive, especially for simple tenets.</p>
 
-<p><div class="org-src-container">
+<div class="org-src-container">
 <pre>
 <span class="magit-diff-hunk-heading">@@ -2,13 +2,10 @@ import codelingo/ast/go
-</span><span class="magit-diff-context">
+</span><span class="magit-diff-context"> 
  go.file(depth = any):
    go.decls:
 </span><span class="magit-diff-removed">-    @playground.highlight
@@ -322,20 +319,17 @@ Typically, the generated query comprises the bulk of the code you end up with.  
 </span><span class="magit-diff-added">+      @review comment
 </span><span class="magit-diff-context">       go.ident:
 </span><span class="magit-diff-removed">-        child_count == 0
-</span><span class="magit-diff-context">         name == &ldquo;init&rdquo;
-</span><span class="magit-diff-removed">-        private == &ldquo;true&rdquo;</p>
-
-<ul>
-<li>public == &ldquo;false&rdquo;
+</span><span class="magit-diff-context">         name == "init"
+</span><span class="magit-diff-removed">-        private == "true"
+-        public == "false"
 </span><span class="magit-diff-context">       go.func_type:
-     go.field_list:
-       child_count == 0
+         go.field_list:
+           child_count == 0
 </span>
 </pre>
-</div></li>
-</ul></li>
+</div>
 
-<li><p>After: Refined CLQL</p>
+<p><span class="underline"><strong>After: Refined CLQL</strong></span></p>
 
 <p>Short and sweet.</p>
 
@@ -352,26 +346,23 @@ Typically, the generated query comprises the bulk of the code you end up with.  
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">    import codelingo/ast/go
-    
-    go.file(depth = any):
-      go.decls:
-        go.func_decl:
-          @review comment
-          go.ident:
-            name == <span style="color:#e6db74">&#34;init&#34;</span>
-          go.func_type:
-            go.field_list:
-              child_count == <span style="color:#ae81ff">0</span>
-    </code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">import codelingo/ast/go
+
+go.file(depth = any):
+  go.decls:
+    go.func_decl:
+      @review comment
+      go.ident:
+        name == <span style="color:#e6db74">&#34;init&#34;</span>
+      go.func_type:
+        go.field_list:
+          child_count == <span style="color:#ae81ff">0</span></code></pre></td></tr></table>
 </div>
 </div>
 
-<p>See the full article <a href="https://mullikine.github.io/codelingo-vs-linters/main/">here</a> for further explanation.</p></li>
-</ul>
+<p>See the full article <a href="https://mullikine.github.io/codelingo-vs-linters/main/">here</a> for further explanation.</p>
 
 <h2 id="results">Results</h2>
 
