@@ -122,7 +122,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -248,10 +248,49 @@ Meta-predicates
 
 <h2 id="examples">Examples</h2>
 
-<h3 id="basic-examples">Basic examples</h3>
+<h3 id="taken-from-https-dtai-dot-cs-dot-kuleuven-dot-be-problog">Taken from <a href="https://dtai.cs.kuleuven.be/problog/">https://dtai.cs.kuleuven.be/problog/</a></h3>
 
-<p><a href="https://github.com/mullikine/problog-examples/">https://github.com/mullikine/problog-examples/</a></p>
+<dl>
+<dt>Source code</dt>
+<dd><a href="https://github.com/mullikine/problog-examples/">https://github.com/mullikine/problog-examples/</a></dd>
+</dl>
 
+<h4 id="stochastic-memoisation">Stochastic Memoisation</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog">% https://dtai.cs.kuleuven.be/problog/tutorial/tutslides/03_stochmem.html
+
+0.4::p5(N,N);0.6::p5(N,M) :- M is N+5.
+lp5([],[]).
+lp5([N|L],[M|K]) :-
+    p5(N,M),
+    lp5(L,K).
+
+query(lp5([1,2],_)).
+query(lp5([1,1],_)).</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog">lp5([1, 1],[1, 1]):	0.4
+lp5([1, 1],[1, 6]):	0
+lp5([1, 1],[6, 1]):	0
+lp5([1, 1],[6, 6]):	0.6
+lp5([1, 2],[1, 2]):	0.16
+lp5([1, 2],[1, 7]):	0.24
+lp5([1, 2],[6, 2]):	0.24
+lp5([1, 2],[6, 7]):	0.36</code></pre></div>
 <h3 id="problog-combined-with-spacy"><code>Problog</code> combined with <code>spaCy</code></h3>
 
 <p><a href="https://github.com/mmxgn/sprl-spacy">https://github.com/mmxgn/sprl-spacy</a></p>
