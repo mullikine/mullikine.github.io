@@ -124,7 +124,7 @@ Download and install the pre-built binary Write some elisp Without -background-i
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -176,10 +176,10 @@ folder.</p>
 <dl>
 <dt><code>compile_commands.json</code></dt>
 <dd><p>Clangd tries to locate the
-    “compile_commands.json” file in the root of
-    the project, so it’s useful to make a symlink in the
-    project root and to where it’s located in
-    a build folder.</p>
+“compile_commands.json” file in the root of
+the project, so it’s useful to make a symlink in the
+project root and to where it’s located in
+a build folder.</p>
 
 <p>Most build tools can output
 “compile_commands.json”.</p>
@@ -197,6 +197,302 @@ folder.</p>
 </div>
 </div></dd>
 </dl>
+
+<h2 id="disable-lsp-mode-auto-formatting">Disable <code>lsp-mode</code> auto-formatting</h2>
+
+<p><code>lsp-mode</code> autoformats when the buffer is changed.</p>
+
+<p>It was breaking <code>C++</code>.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(add-hook <span style="color:#e6db74">&#39;lsp--managed-mode-hook</span> (lambda <span style="color:#66d9ef">nil</span> (interactive) (remove-hook <span style="color:#e6db74">&#39;post-self-insert-hook</span> <span style="color:#e6db74">&#39;lsp--on-self-insert</span> <span style="color:#66d9ef">t</span>)))</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="lsp-ui-uses-return-rather-than-ret-when-setting-bindings"><code>lsp-ui</code> uses <code>&lt;return&gt;</code> rather than <code>RET</code> when setting bindings</h2>
+
+<p>Set <code>RET</code> too. I want all <code>&lt;return&gt;</code> bindings
+to be <code>RET</code> bindings everywhere in my
+<code>emacs.d</code>.</p>
+
+<p>On the surface level it might appear to work
+fine but you might scratch your head when
+things go wrong wondering why prefix keys are
+not working or bindings are not being
+overridden, etc.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a6e22e">define-key</span> lsp-ui-imenu-mode-map (kbd <span style="color:#e6db74">&#34;&lt;return&gt;&#34;</span>) <span style="color:#e6db74">&#39;lsp-ui-imenu--view</span>)
+(<span style="color:#a6e22e">define-key</span> lsp-ui-imenu-mode-map (kbd <span style="color:#e6db74">&#34;RET&#34;</span>) <span style="color:#e6db74">&#39;lsp-ui-imenu--view</span>)
+
+(<span style="color:#a6e22e">define-key</span> lsp-ui-flycheck-list-mode-map (kbd <span style="color:#e6db74">&#34;&lt;M-RET&gt;&#34;</span>) <span style="color:#e6db74">&#39;lsp-ui-flycheck-list--visit</span>)
+(<span style="color:#a6e22e">define-key</span> lsp-ui-flycheck-list-mode-map (kbd <span style="color:#e6db74">&#34;RET&#34;</span>) <span style="color:#e6db74">&#39;lsp-ui-flycheck-list--view</span>)</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="lsp-peek-would-close-when-i-hit-pgup-or-pgdown"><code>lsp-peek</code> would close when I hit <code>PgUp</code> or <code>PgDown</code></h2>
+
+<p>Set these to make the keys do something useful.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a6e22e">define-key</span> lsp-ui-peek-mode-map (kbd <span style="color:#e6db74">&#34;&lt;prior&gt;&#34;</span>) <span style="color:#a6e22e">#&#39;</span>lsp-ui-peek--select-prev-file)
+(<span style="color:#a6e22e">define-key</span> lsp-ui-peek-mode-map (kbd <span style="color:#e6db74">&#34;&lt;next&gt;&#34;</span>) <span style="color:#a6e22e">#&#39;</span>lsp-ui-peek--select-next-file)</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="for-sanity-group-all-the-custom-config-together">For sanity, group all the <code>custom</code> config together</h2>
+
+<p>They were being set in different <code>use-package</code> blocks.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(use-package lsp-mode
+  :custom
+  <span style="color:#75715e">;; ...</span>
+  )</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Some of these switches toggle various UI
+features and if it&rsquo;s tucked away inside
+an automatically generated <code>custom-set-
+variables</code> somewhere, this could be confusing.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(custom-set-variables
+ <span style="color:#75715e">;; debug</span>
+ <span style="color:#f92672">&#39;</span>(lsp-print-io <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-trace <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-print-performance <span style="color:#66d9ef">t</span>)
+
+ <span style="color:#75715e">;; general</span>
+ <span style="color:#f92672">&#39;</span>(lsp-auto-guess-root <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-document-sync-method <span style="color:#e6db74">&#39;incremental</span>) <span style="color:#75715e">;; none, full, incremental, or nil</span>
+ <span style="color:#f92672">&#39;</span>(lsp-response-timeout <span style="color:#ae81ff">10</span>)
+
+ <span style="color:#75715e">;; (lsp-prefer-flymake t)</span>
+ <span style="color:#f92672">&#39;</span>(lsp-prefer-flymake <span style="color:#66d9ef">nil</span>) <span style="color:#75715e">;; t(flymake), nil(lsp-ui), or :none</span>
+ <span style="color:#75715e">;; flymake is shit. do not use it</span>
+
+ <span style="color:#75715e">;; go-client</span>
+ <span style="color:#f92672">&#39;</span>(lsp-clients-go-server-args <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">&#34;--cache-style=always&#34;</span> <span style="color:#e6db74">&#34;--diagnostics-style=onsave&#34;</span> <span style="color:#e6db74">&#34;--format-style=goimports&#34;</span>))
+
+ <span style="color:#f92672">&#39;</span>(company-lsp-cache-candidates <span style="color:#66d9ef">t</span>) <span style="color:#75715e">;; auto, t(always using a cache), or nil</span>
+ <span style="color:#f92672">&#39;</span>(company-lsp-async <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(company-lsp-enable-recompletion <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(company-lsp-enable-snippet <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-clients-go-server-args <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">&#34;--cache-style=always&#34;</span> <span style="color:#e6db74">&#34;--diagnostics-style=onsave&#34;</span> <span style="color:#e6db74">&#34;--format-style=goimports&#34;</span>))
+ <span style="color:#f92672">&#39;</span>(lsp-document-sync-method (quote incremental))
+
+                                        <span style="color:#75715e">;top right docs</span>
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-enable <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-header <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-include-signature <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-max-height <span style="color:#ae81ff">30</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-max-width <span style="color:#ae81ff">120</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-position (quote at-point))
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-use-childframe <span style="color:#66d9ef">t</span>)
+
+ <span style="color:#75715e">;; If this is true then you can&#39;t see the docs in terminal</span>
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-use-webkit <span style="color:#66d9ef">nil</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-flycheck-enable <span style="color:#66d9ef">t</span>)
+
+ <span style="color:#f92672">&#39;</span>(lsp-ui-imenu-enable <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-imenu-kind-position (quote top))
+ <span style="color:#f92672">&#39;</span>(lsp-ui-peek-enable <span style="color:#66d9ef">t</span>)
+
+ <span style="color:#f92672">&#39;</span>(lsp-ui-peek-fontify <span style="color:#e6db74">&#39;on-demand</span>) <span style="color:#75715e">;; never, on-demand, or always</span>
+ <span style="color:#f92672">&#39;</span>(lsp-ui-peek-list-width <span style="color:#ae81ff">50</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-peek-peek-height <span style="color:#ae81ff">20</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-sideline-code-actions-prefix <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">t</span>)
+
+                                        <span style="color:#75715e">;inline right flush docs</span>
+ <span style="color:#f92672">&#39;</span>(lsp-ui-sideline-enable <span style="color:#66d9ef">t</span>)
+
+ <span style="color:#f92672">&#39;</span>(lsp-ui-sideline-ignore-duplicate <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-sideline-show-code-actions <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-sideline-show-diagnostics <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-sideline-show-hover <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-sideline-show-symbol <span style="color:#66d9ef">t</span>))</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="handle-dot-el"><code>handle.el</code></h2>
+
+<p>If you want to use <code>handle.el</code> then do something like this.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-=&#34;</span>) <span style="color:#e6db74">&#39;handle-repls</span>)
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-)&#34;</span>) <span style="color:#e6db74">&#39;handle-assignments</span>)
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-*&#34;</span>) <span style="color:#e6db74">&#39;handle-references</span>)
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-^&#34;</span>) <span style="color:#e6db74">&#39;handle-errors</span>)
+<span style="color:#75715e">;; This is reserved</span>
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-+&#34;</span>) <span style="color:#66d9ef">nil</span>)
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-_&#34;</span>) <span style="color:#66d9ef">nil</span>)
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-9&#34;</span>) <span style="color:#e6db74">&#39;handle-docs</span>)
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-.&#34;</span>) <span style="color:#e6db74">&#39;handle-godef</span>)
+
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-p&#34;</span>) <span style="color:#e6db74">&#39;handle-prevdef</span>)
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-n&#34;</span>) <span style="color:#e6db74">&#39;handle-nextdef</span>)
+
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-P&#34;</span>) <span style="color:#e6db74">&#39;handle-preverr</span>)
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-N&#34;</span>) <span style="color:#e6db74">&#39;handle-nexterr</span>)
+
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-l M-j M-w&#34;</span>) <span style="color:#e6db74">&#39;handle-spellcorrect</span>)</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(handle <span style="color:#f92672">&#39;</span>(prog-mode)
+        :complete <span style="color:#f92672">&#39;</span>(indent-for-tab-command)
+        :repls <span style="color:#f92672">&#39;</span>()
+        :formatters <span style="color:#f92672">&#39;</span>(lsp-format-buffer)
+        :docs <span style="color:#f92672">&#39;</span>(
+                <span style="color:#75715e">;; lsp-ui-doc-show</span>
+                my/doc-thing-at-point)
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc-ask)
+        :godec <span style="color:#f92672">&#39;</span>(lsp-find-declaration)
+        :godef <span style="color:#f92672">&#39;</span>(lsp-find-definition
+                 xref-find-definitions
+                 helm-gtags-dwim)
+        :nextdef <span style="color:#f92672">&#39;</span>(my-prog-next-def)
+        :prevdef <span style="color:#f92672">&#39;</span>(my-prog-prev-def)
+        :nexterr <span style="color:#f92672">&#39;</span>(flycheck-next-error)
+        :preverr <span style="color:#f92672">&#39;</span>(flycheck-previous-error)
+        <span style="color:#75715e">;; select from multiple</span>
+        :errors <span style="color:#f92672">&#39;</span>(lsp-ui-flycheck-list)
+        :assignments <span style="color:#f92672">&#39;</span>()
+        :references <span style="color:#f92672">&#39;</span>(lsp-ui-peek-find-references)
+        :definitions <span style="color:#f92672">&#39;</span>(lsp-ui-peek-find-definitions)
+        :implementations <span style="color:#f92672">&#39;</span>(lsp-ui-peek-find-implementation))</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
