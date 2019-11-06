@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>Deconstructing Cocomel // Bodacious Blog</title>
+    <title>Deconstructing the Cocomel search engine // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.59.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,15 +11,13 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Deconstructing Cocomel"/>
+<meta name="twitter:title" content="Deconstructing the Cocomel search engine"/>
 <meta name="twitter:description" content="This is my attempt to understand Vaughan Kitchen&rsquo;s search engine.
- Source code https://github.com/vkitchen/cocomel  Headers    header     bst.h   dynamic_array.h   hash_table.h   str.h    building the index what makes it faster memory compression store them in smaller amounts of memory. access the memory faster
- continuing bit continuing bit  order RBT and hash table is slow because it&rsquo;s not ordered."/>
+ Source code https://github.com/vkitchen/cocomel  Headers    header     bst.h   dynamic_array.h   hash_table.h   str.h    building the index functions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20  size_t file_slurp(char const *filename, char **into) { FILE *fh; struct stat details; size_t file_length = 0; if ((fh = fopen(filename, &#34;rb&#34;)) !"/>
 
-    <meta property="og:title" content="Deconstructing Cocomel" />
+    <meta property="og:title" content="Deconstructing the Cocomel search engine" />
 <meta property="og:description" content="This is my attempt to understand Vaughan Kitchen&rsquo;s search engine.
- Source code https://github.com/vkitchen/cocomel  Headers    header     bst.h   dynamic_array.h   hash_table.h   str.h    building the index what makes it faster memory compression store them in smaller amounts of memory. access the memory faster
- continuing bit continuing bit  order RBT and hash table is slow because it&rsquo;s not ordered." />
+ Source code https://github.com/vkitchen/cocomel  Headers    header     bst.h   dynamic_array.h   hash_table.h   str.h    building the index functions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20  size_t file_slurp(char const *filename, char **into) { FILE *fh; struct stat details; size_t file_length = 0; if ((fh = fopen(filename, &#34;rb&#34;)) !" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/deconstructing-cocomel/" />
 <meta property="article:published_time" content="2019-11-06T00:00:00+13:00" />
@@ -110,7 +108,7 @@
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Deconstructing Cocomel</h1>
+      <h1 class ="post-title">Deconstructing the Cocomel search engine</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -180,6 +178,56 @@
 </table>
 
 <h2 id="building-the-index">building the index</h2>
+
+<h2 id="functions">functions</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">size_t <span style="color:#a6e22e">file_slurp</span>(<span style="color:#66d9ef">char</span> <span style="color:#66d9ef">const</span> <span style="color:#f92672">*</span>filename, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>into) {
+  FILE <span style="color:#f92672">*</span>fh;
+  <span style="color:#66d9ef">struct</span> stat details;
+  size_t file_length <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+  <span style="color:#66d9ef">if</span> ((fh <span style="color:#f92672">=</span> fopen(filename, <span style="color:#e6db74">&#34;rb&#34;</span>)) <span style="color:#f92672">!=</span> NULL) {
+    <span style="color:#66d9ef">if</span> (fstat(fileno(fh), <span style="color:#f92672">&amp;</span>details) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+      <span style="color:#66d9ef">if</span> ((file_length <span style="color:#f92672">=</span> details.st_size) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+        <span style="color:#f92672">*</span>into <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)malloc(file_length <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+        (<span style="color:#f92672">*</span>into)[file_length] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
+        <span style="color:#66d9ef">if</span> (fread(<span style="color:#f92672">*</span>into, details.st_size, <span style="color:#ae81ff">1</span>, fh) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>) {
+          free(<span style="color:#f92672">*</span>into);
+          file_length <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        }
+      }
+    fclose(fh);
+  }
+
+  <span style="color:#66d9ef">return</span> file_length;
+}
+</code></pre></td></tr></table>
+</div>
+</div>
 
 <h2 id="what-makes-it-faster">what makes it faster</h2>
 
