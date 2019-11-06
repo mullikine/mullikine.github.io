@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Taming term-mode // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.9200f15e5b522081b40b32c05f72d83bb782a224350597f86f00e6730c54d6ca.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Taming term-mode"/>
+<meta name="twitter:description" content="libertyprime to #emacs i found myself recording an asciinema recording of me making an asciinema recording of me playing tetris inside of tmux inside of neovim inside of emacs inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about  First attempt You can skip this and scroll down to the solution or read it to see some of the problems I was having with term."/>
+
+    <meta property="og:title" content="Taming term-mode" />
+<meta property="og:description" content="libertyprime to #emacs i found myself recording an asciinema recording of me making an asciinema recording of me playing tetris inside of tmux inside of neovim inside of emacs inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about  First attempt You can skip this and scroll down to the solution or read it to see some of the problems I was having with term." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/taming-term/" />
+<meta property="article:published_time" content="2019-10-07T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-10-07T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="John Doe" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">information theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Taming term-mode</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 7, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          6 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      
+
+<dl>
+<dt>libertyprime to #emacs</dt>
+<dd>i found myself recording an asciinema recording of me making an asciinema
+recording of me playing tetris inside of tmux inside of neovim inside of emacs
+inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about</dd>
+</dl>
+
+<h2 id="first-attempt">First attempt</h2>
+
+<p>You can skip this and scroll down to the
+solution or read it to see some of the
+problems I was having with <code>term.el</code>.</p>
+
+<h3 id="problems-with-term-dot-el">Problems with <code>term.el</code></h3>
+
+<h4 id="any-minor-mode-which-is-enabled-while-term-is-running-will-override-bindings">Any minor mode which is enabled while term is running will override bindings</h4>
+
+<p>Therefore, if you can, make any such bindings
+that may interfere with term into global
+mappings instead.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; Comment this out</span>
+<span style="color:#75715e">;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char)</span>
+
+<span style="color:#75715e">;; Unload binding</span>
+(<span style="color:#a6e22e">define-key</span> my-mode-map (kbd <span style="color:#e6db74">&#34;M-k&#34;</span>) <span style="color:#66d9ef">nil</span>)
+
+<span style="color:#75715e">;; Replace with this</span>
+(<span style="color:#a6e22e">define-key</span> global-map (kbd <span style="color:#e6db74">&#34;M-k&#34;</span>) <span style="color:#e6db74">&#39;avy-goto-char</span>)</code></pre></div>
+<h4 id="gud-mode-stole-c-c-c-a"><code>gud-mode</code> stole <code>C-c C-a</code></h4>
+
+<p><code>C-a</code> is important in many programs for going to the start of the line.</p>
+
+<p><code>gud-mode</code> creates a global prefix before we have time to prevent that from happening</p>
+
+<ul>
+<li><p>Load this early before <code>gud</code> is required</p>
+
+<p>That way it will set its global binding to this prefix instead.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This prefix must never be accessible</span>
+(<span style="color:#a6e22e">define-prefix-command</span> <span style="color:#e6db74">&#39;my-prefix-tick</span>)
+<span style="color:#75715e">;; This is not a real key. Therefore it won&#39;t be pressed.</span>
+(global-set-key (kbd <span style="color:#e6db74">&#34;✓&#34;</span>) <span style="color:#e6db74">&#39;my-prefix-tick</span>)
+
+(setq gud-key-prefix (kbd <span style="color:#e6db74">&#34;✓&#34;</span>))
+
+(provide <span style="color:#e6db74">&#39;my-gud</span>)</code></pre></div></li>
+</ul>
+
+<h4 id="if-you-can-disable-modes-that-interfere-with-term-using-manage-minor-mode">If you can, disable modes that interfere with term using <code>manage-minor-mode</code></h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(term-mode
+ (off my-mode))</code></pre></div>
+<h4 id="give-c-a-to-term">Give <code>C-a</code> to term</h4>
+
+<p>This is needed so we can use <code>C-a</code> in whatever
+application needs it. Bash recognises <code>C-a</code> as
+the command to go to the start of the line,
+for instance.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-a&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw)
+
+<span style="color:#75715e">;; We also need C-x. term-send-raw sends the last char typed, so this should send C-x</span>
+(<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c C-x&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw)</code></pre></div>
+<h3 id="obstacles-to-fixing-term-dot-el">Obstacles to fixing <code>term.el</code></h3>
+
+<h4 id="it-does-not-play-well-with-manage-minor-mode-dot-el">It does not play well with <code>manage-minor-mode.el</code></h4>
+
+<p>Also, <code>manage-minor-mode</code> is not all-powerful:
+you can&rsquo;t enable a minor mode globally but
+disable it for a single major mode, for
+instance.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This does not work sadly</span>
+(term-mode
+ (off yas-minor-mode)
+ (off org-indent-mode)
+ (off persp-mode)
+ (off which-key-mode)
+ (off company-mode)
+ (off gud-minor-mode))</code></pre></div>
+<h3 id="the-term-raw-mode-escape-char-is-a-problem-dot-reassign-it-to-a-key-that-doesn-t-exist">The <code>term-raw-mode</code> escape char is a problem. Reassign it to a key that doesn&rsquo;t exist</h3>
+
+<p>Unfortunately, the <code>C-c</code> prefix is populated with all manor of things.</p>
+
+<p>There is no way to avoid it.</p>
+
+<p>Reassign this key.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(term-set-escape-char <span style="color:#e6db74">?✓</span>)</code></pre></div>
+<h2 id="the-solution-it-requires-a-fair-bit-of-emacs-lisp">The solution: It requires a fair bit of emacs lisp</h2>
+
+<p>I can&rsquo;t abolish C-c from all the minor modes,
+but at least I can control what happens when I
+press it!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(setq explicit-shell-file-name <span style="color:#e6db74">&#34;/bin/bash&#34;</span>)
+
+<span style="color:#75715e">;; These prefixes are required for my-term-set-raw-map</span>
+(<span style="color:#a6e22e">define-prefix-command</span> <span style="color:#e6db74">&#39;my-term-c-c</span>)
+(<span style="color:#a6e22e">define-prefix-command</span> <span style="color:#e6db74">&#39;my-term-c-c-esc</span>)
+
+<span style="color:#75715e">;; When the program ends, use C-d to kill the buffer</span>
+(defun term-raw-or-kill ()
+  (interactive)
+  (if (not (term-check-proc (<span style="color:#a6e22e">current-buffer</span>)))
+      (<span style="color:#a6e22e">kill-buffer</span>)
+    (term-send-raw)))
+
+(defun my-term-set-raw-map ()
+  (interactive)
+        (let* ((map (<span style="color:#a6e22e">make-keymap</span>))
+               (esc-map (<span style="color:#a6e22e">make-keymap</span>))
+               (i <span style="color:#ae81ff">0</span>))
+
+          (<span style="color:#a6e22e">define-key</span> map (kbd <span style="color:#e6db74">&#34;C-c&#34;</span>) <span style="color:#a6e22e">#&#39;</span>my-term-c-c)
+          (<span style="color:#a6e22e">define-key</span> map (kbd <span style="color:#e6db74">&#34;C-c ESC&#34;</span>) <span style="color:#a6e22e">#&#39;</span>my-term-c-c-esc)
+
+          (while (<span style="color:#a6e22e">&lt;</span> i <span style="color:#ae81ff">128</span>)
+            <span style="color:#75715e">;; if not C-c</span>
+            (if (not (equalp i <span style="color:#ae81ff">3</span>))
+                (<span style="color:#a6e22e">define-key</span> map (<span style="color:#a6e22e">make-string</span> <span style="color:#ae81ff">1</span> i) <span style="color:#a6e22e">#&#39;</span>term-send-raw))
+
+            (<span style="color:#a6e22e">define-key</span> map (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;\C-c&#34;</span> (<span style="color:#a6e22e">make-string</span> <span style="color:#ae81ff">1</span> i)) <span style="color:#e6db74">&#39;term-send-raw</span>)
+            <span style="color:#75715e">;; Avoid O and [. They are used in escape sequences for various keys.</span>
+            (unless (or (<span style="color:#a6e22e">eq</span> i <span style="color:#e6db74">?O</span>) (<span style="color:#a6e22e">eq</span> i <span style="color:#ae81ff">91</span>))
+              (<span style="color:#a6e22e">define-key</span> esc-map (<span style="color:#a6e22e">make-string</span> <span style="color:#ae81ff">1</span> i) <span style="color:#e6db74">&#39;term-send-raw-meta</span>))
+            (setq i (<span style="color:#a6e22e">1+</span> i)))
+          (<span style="color:#a6e22e">define-key</span> map [remap <span style="color:#a6e22e">self-insert-command</span>] <span style="color:#e6db74">&#39;term-send-raw</span>)
+          (<span style="color:#a6e22e">define-key</span> map <span style="color:#e6db74">&#34;\e&#34;</span> esc-map)
+
+          <span style="color:#75715e">;; Added nearly all the &#39;gray keys&#39; -mm</span>
+
+          (if (featurep <span style="color:#e6db74">&#39;xemacs</span>)
+              (<span style="color:#a6e22e">define-key</span> map [button2] <span style="color:#e6db74">&#39;term-mouse-paste</span>)
+            (<span style="color:#a6e22e">define-key</span> map [mouse-2] <span style="color:#e6db74">&#39;term-mouse-paste</span>))
+          (<span style="color:#a6e22e">define-key</span> map (kbd <span style="color:#e6db74">&#34;C-p&#34;</span>) <span style="color:#e6db74">&#39;term-send-raw</span>)
+          (<span style="color:#a6e22e">define-key</span> map [up] <span style="color:#e6db74">&#39;term-send-up</span>)
+          (<span style="color:#a6e22e">define-key</span> map [down] <span style="color:#e6db74">&#39;term-send-down</span>)
+          (<span style="color:#a6e22e">define-key</span> map [right] <span style="color:#e6db74">&#39;term-send-right</span>)
+          (<span style="color:#a6e22e">define-key</span> map [left] <span style="color:#e6db74">&#39;term-send-left</span>)
+          (<span style="color:#a6e22e">define-key</span> map [C-up] <span style="color:#e6db74">&#39;term-send-ctrl-up</span>)
+          (<span style="color:#a6e22e">define-key</span> map [C-down] <span style="color:#e6db74">&#39;term-send-ctrl-down</span>)
+          (<span style="color:#a6e22e">define-key</span> map [C-right] <span style="color:#e6db74">&#39;term-send-ctrl-right</span>)
+          (<span style="color:#a6e22e">define-key</span> map [C-left] <span style="color:#e6db74">&#39;term-send-ctrl-left</span>)
+          (<span style="color:#a6e22e">define-key</span> map [<span style="color:#a6e22e">delete</span>] <span style="color:#e6db74">&#39;term-send-del</span>)
+          (<span style="color:#a6e22e">define-key</span> map [deletechar] <span style="color:#e6db74">&#39;term-send-del</span>)
+          (<span style="color:#a6e22e">define-key</span> map [backspace] <span style="color:#e6db74">&#39;term-send-backspace</span>)
+          (<span style="color:#a6e22e">define-key</span> map [home] <span style="color:#e6db74">&#39;term-send-home</span>)
+          (<span style="color:#a6e22e">define-key</span> map [end] <span style="color:#e6db74">&#39;term-send-end</span>)
+          (<span style="color:#a6e22e">define-key</span> map [<span style="color:#a6e22e">insert</span>] <span style="color:#e6db74">&#39;term-send-insert</span>)
+          (<span style="color:#a6e22e">define-key</span> map [S-prior] <span style="color:#e6db74">&#39;scroll-down</span>)
+          (<span style="color:#a6e22e">define-key</span> map [S-next] <span style="color:#e6db74">&#39;scroll-up</span>)
+          (<span style="color:#a6e22e">define-key</span> map [S-insert] <span style="color:#e6db74">&#39;term-paste</span>)
+          (<span style="color:#a6e22e">define-key</span> map [prior] <span style="color:#e6db74">&#39;term-send-prior</span>)
+          (<span style="color:#a6e22e">define-key</span> map [next] <span style="color:#e6db74">&#39;term-send-next</span>)
+          (<span style="color:#a6e22e">define-key</span> map [xterm-paste] <span style="color:#a6e22e">#&#39;</span>term--xterm-paste)
+          (<span style="color:#a6e22e">define-key</span> map (kbd <span style="color:#e6db74">&#34;C-d&#34;</span>) <span style="color:#e6db74">&#39;term-raw-or-kill</span>)
+          (setq term-raw-map map)
+          (setq term-raw-escape-map esc-map))
+  <span style="color:#75715e">;; This means that M-l will not pass though. I have it set to a hydra menu</span>
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;M-l&#34;</span>) <span style="color:#66d9ef">nil</span>)
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c ESC&#34;</span>) <span style="color:#a6e22e">#&#39;</span>my-term-c-c-esc)
+  <span style="color:#75715e">;; To send M-l, you do C-c M-l</span>
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c M-l&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw-meta)
+  <span style="color:#75715e">;; To bring up the eval repl, press C-c M-:</span>
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c M-:&#34;</span>) <span style="color:#a6e22e">#&#39;</span>pp-eval-expression)
+  <span style="color:#75715e">;; (define-key term-raw-map (kbd &#34;C-s&#34;) #&#39;term-line-mode)</span>
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c C-j&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-line-mode)
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c C-h&#34;</span>) <span style="color:#a6e22e">#&#39;</span>describe-mode)
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-d&#34;</span>) <span style="color:#e6db74">&#39;term-raw-or-kill</span>))
+
+<span style="color:#75715e">;; This is required because something keeps resetting the map.</span>
+<span style="color:#75715e">;; I think (require &#39;term), for one, will redefine the value of the map</span>
+(defun term-around-advice (proc <span style="color:#66d9ef">&amp;rest</span> args)
+  (my-term-set-raw-map)
+  (let ((res (<span style="color:#a6e22e">apply</span> proc args)))
+    res))
+(advice-add <span style="color:#e6db74">&#39;term</span> :around <span style="color:#a6e22e">#&#39;</span>term-around-advice)
+
+<span style="color:#75715e">;; Not sure why this is not sufficient</span>
+(my-term-set-raw-map)
+
+<span style="color:#75715e">;; We make the term escape char something we can never hit. Not unless you have a tick key on your keyboard, that is</span>
+(term-set-escape-char <span style="color:#e6db74">?✓</span>)
+
+<span style="color:#75715e">;; We don&#39;t want to move the terminal around as we are trying to use it</span>
+(defun my-term-set-scroll-margin ()
+  (<span style="color:#a6e22e">make-local-variable</span> <span style="color:#e6db74">&#39;scroll-margin</span>)
+  (setq scroll-margin <span style="color:#ae81ff">0</span>)
+  (<span style="color:#a6e22e">make-local-variable</span> <span style="color:#e6db74">&#39;scroll-conservatively</span>)
+  (setq scroll-conservatively <span style="color:#ae81ff">10000</span>))
+
+(add-hook <span style="color:#e6db74">&#39;term-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>my-term-set-scroll-margin)
+
+<span style="color:#75715e">;; Redefining this is required to prevent C-s from stopping programs in the terminal</span>
+(defun term-exec-1 (name buffer command switches)
+  <span style="color:#75715e">;; We need to do an extra (fork-less) exec to run stty.</span>
+  <span style="color:#75715e">;; (This would not be needed if we had suitable Emacs primitives.)</span>
+  <span style="color:#75715e">;; The &#39;if ...; then shift; fi&#39; hack is because Bourne shell</span>
+  <span style="color:#75715e">;; loses one arg when called with -c, and newer shells (bash,  ksh) don&#39;t.</span>
+  <span style="color:#75715e">;; Thus we add an extra dummy argument &#34;..&#34;, and then remove it.</span>
+  (let ((process-environment
+       (<span style="color:#a6e22e">nconc</span>
+  	(<span style="color:#a6e22e">list</span>
+  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;TERM=%s&#34;</span> term-term-name)
+  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;TERMINFO=%s&#34;</span> data-directory)
+  	 (<span style="color:#a6e22e">format</span> term-termcap-format <span style="color:#e6db74">&#34;TERMCAP=&#34;</span>
+  		 term-term-name term-height term-width)
+
+  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;INSIDE_EMACS=%s,term:%s&#34;</span> emacs-version term-protocol-version)
+  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;LINES=%d&#34;</span> term-height)
+  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;COLUMNS=%d&#34;</span> term-width))
+  	process-environment))
+      (process-connection-type <span style="color:#66d9ef">t</span>)
+      <span style="color:#75715e">;; We should suppress conversion of end-of-line format.</span>
+      (inhibit-eol-conversion <span style="color:#66d9ef">t</span>)
+      <span style="color:#75715e">;; The process&#39;s output contains not just chars but also binary</span>
+      <span style="color:#75715e">;; escape codes, so we need to see the raw output.  We will have to</span>
+      <span style="color:#75715e">;; do the decoding by hand on the parts that are made of chars.</span>
+      (coding-system-for-read <span style="color:#e6db74">&#39;binary</span>))
+    (when (term--bash-needs-EMACSp)
+      (push (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;EMACS=%s (term:%s)&#34;</span> emacs-version term-protocol-version)
+            process-environment))
+    (<span style="color:#a6e22e">apply</span> <span style="color:#e6db74">&#39;start-process</span> name buffer
+  	 <span style="color:#e6db74">&#34;/bin/sh&#34;</span> <span style="color:#e6db74">&#34;-c&#34;</span>
+  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;stty stop undef; stty start undef; stty -nl echo rows %d columns %d sane 2&gt;/dev/null;\
+</span><span style="color:#e6db74">if [ $1 = .. ]; then shift; fi; exec \&#34;$@\&#34;&#34;</span>
+  		 term-height term-width)
+  	 <span style="color:#e6db74">&#34;..&#34;</span>
+  	 command switches)))
+
+(provide <span style="color:#e6db74">&#39;my-term</span>)</code></pre></div>
+<h2 id="another-issue-is-that-you-can-t-have-multiple-terms-unless-you-rename-the-buffer">Another issue is that you can&rsquo;t have multiple terms unless you rename the buffer</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(advice-add <span style="color:#e6db74">&#39;term</span> :after <span style="color:#e6db74">&#39;unique-buffer-generic-after-advice</span>)</code></pre></div>
+<p>See one of my other blog posts to see how this is done.</p>
+
+<p><a href="https://mullikine.github.io/posts/uniqifying-emacs-apps/">Uniqifying emacs apps // Bodacious Blog</a></p>
+
+<h2 id="one-last-issue-is-that-sometimes-it-s-necessary-to-resize-the-program-within-term">One last issue is that sometimes it&rsquo;s necessary to resize the program within term</h2>
+
+<p><code>term-mode</code> appears to only downsize the program but never upsize.</p>
+
+<p>I will try to figure that out and return to this blog post.</p>
+
+<h2 id="demonstration">Demonstration</h2>
+
+<p><a href="https://asciinema.org/a/8oYDfnB7xJgkQd2fkuag4548W" target="_blank"><img src="https://asciinema.org/a/8oYDfnB7xJgkQd2fkuag4548W.svg" /></a></p>
+
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_NmomXxAGEX" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Random emacs tips // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.9200f15e5b522081b40b32c05f72d83bb782a224350597f86f00e6730c54d6ca.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Random emacs tips"/>
+<meta name="twitter:description" content="Just a glimpse into the kinds of things I am recording in my notes.
+Help key &ndash; interpretted by emacs, not tmux This is because you would have to modify both terminfo and tmux c source to get the help key this way.
+It was simply easier to intercept the raw ansi in emacs and translate it.
+(define-key key-translation-map (kbd &#34;C-M-]&#34;) (kbd &#34;&lt;help&gt;&#34;))    kb tr     &lt;C-M-]&gt; &lt;help&gt;    Multiple actions as single undo entry https://www."/>
+
+    <meta property="og:title" content="Random emacs tips" />
+<meta property="og:description" content="Just a glimpse into the kinds of things I am recording in my notes.
+Help key &ndash; interpretted by emacs, not tmux This is because you would have to modify both terminfo and tmux c source to get the help key this way.
+It was simply easier to intercept the raw ansi in emacs and translate it.
+(define-key key-translation-map (kbd &#34;C-M-]&#34;) (kbd &#34;&lt;help&gt;&#34;))    kb tr     &lt;C-M-]&gt; &lt;help&gt;    Multiple actions as single undo entry https://www." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/emacs-tips/" />
+<meta property="article:published_time" content="2019-10-24T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-10-24T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="John Doe" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">information theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Random emacs tips</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 24, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      
+
+<p>Just a glimpse into the kinds of things I am recording in my notes.</p>
+
+<h2 id="help-key-interpretted-by-emacs-not-tmux">Help key &ndash; interpretted by <code>emacs</code>, not <code>tmux</code></h2>
+
+<p>This is because you would have to modify both
+<code>terminfo</code> and <code>tmux</code> <code>c</code> source to get the
+help key this way.</p>
+
+<p>It was simply easier to intercept the raw ansi in emacs and translate it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">define-key</span> key-translation-map (kbd <span style="color:#e6db74">&#34;C-M-]&#34;</span>) (kbd <span style="color:#e6db74">&#34;&lt;help&gt;&#34;</span>))</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>kb</th>
+<th>tr</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>&lt;C-M-]&gt;</code></td>
+<td><code>&lt;help&gt;</code></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="multiple-actions-as-single-undo-entry">Multiple actions as single undo entry</h3>
+
+<p><a href="https://www.reddit.com/r/emacs/comments/6scoyy/multiple%5Factions%5Fas%5Fsingle%5Fundo%5Fentry/">https://www.reddit.com/r/emacs/comments/6scoyy/multiple%5Factions%5Fas%5Fsingle%5Fundo%5Fentry/</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun org-babel-raise ()
+  (interactive)
+  (evil-with-single-undo
+    (ekm <span style="color:#e6db74">&#34;C-c &#39;&#34;</span>)
+    (ekm <span style="color:#e6db74">&#34;C-x h&#34;</span>)
+    (ekm <span style="color:#e6db74">&#34;C-x h&#34;</span>)
+    (ekm <span style="color:#e6db74">&#34;M-w&#34;</span>)
+    (ekm <span style="color:#e6db74">&#34;C-c &#39;&#34;</span>)
+    (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;org-babel-mark-block</span>)
+    (ekm <span style="color:#e6db74">&#34;&lt;up&gt;&#34;</span>)
+    (ekm <span style="color:#e6db74">&#34;C-x C-x&#34;</span>)
+    (ekm <span style="color:#e6db74">&#34;&lt;down&gt;&#34;</span>)
+    (ekm <span style="color:#e6db74">&#34;C-y&#34;</span>)
+    (ekm <span style="color:#e6db74">&#34;C-x C-x&#34;</span>)))</code></pre></div>
+<h3 id="high-precedence-key-binding">High precedence key binding</h3>
+
+<p>If you want a highest precedence global map,
+<code>general.el</code> has an override mode.</p>
+
+<p>The examples in the readme are for evil, but
+it works for emacs (without evil) as well.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(general-def :keymaps <span style="color:#e6db74">&#39;override</span> <span style="color:#e6db74">&#34;C-x C-f&#34;</span> <span style="color:#e6db74">&#39;my-find-file-command</span>)</code></pre></div>
+<p>This is a global map. What if I want a minor / maor jode map to override?</p>
+
+<h3 id="keymap-inheritance">Keymap inheritance</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defvar emacs-lisp-mode-map
+  (let ((map (<span style="color:#a6e22e">make-sparse-keymap</span> <span style="color:#e6db74">&#34;Emacs-Lisp&#34;</span>))
+        (menu-map (<span style="color:#a6e22e">make-sparse-keymap</span> <span style="color:#e6db74">&#34;Emacs-Lisp&#34;</span>))
+        (lint-map (<span style="color:#a6e22e">make-sparse-keymap</span>))
+        (prof-map (<span style="color:#a6e22e">make-sparse-keymap</span>))
+        (tracing-map (<span style="color:#a6e22e">make-sparse-keymap</span>)))
+    (<span style="color:#a6e22e">set-keymap-parent</span> map lisp-mode-shared-map)
+    <span style="color:#960050;background-color:#1e0010">…</span>
+    map))</code></pre></div>
+<h3 id="wrap-a-script-make-string-templates-in-emacs-lisp">Wrap a script / make string templates in emacs lisp</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun ob-coffee-wrap (body)
+  (with-temp-buffer
+    (<span style="color:#a6e22e">insert</span> body)
+    (when (ob-coffee-find-last-expression)
+      (<span style="color:#a6e22e">insert</span> <span style="color:#e6db74">&#34;__ob_coffee_last__ = &#34;</span>)
+      (<span style="color:#a6e22e">goto-char</span> (<span style="color:#a6e22e">point-max</span>))
+      (<span style="color:#a6e22e">insert</span> (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;
+</span><span style="color:#e6db74">__ob_coffee_log__ = (obj)-&gt;
+</span><span style="color:#e6db74">    console.log obj
+</span><span style="color:#e6db74">    process.stdout.write(&#39;%s&#39;) and undefined
+</span><span style="color:#e6db74">if &#39;function&#39; is typeof __ob_coffee_last__\?.then
+</span><span style="color:#e6db74">    __ob_coffee_last__.then __ob_coffee_log__, __ob_coffee_log__
+</span><span style="color:#e6db74">    console.log \&#34;Promise:\&#34;
+</span><span style="color:#e6db74">else
+</span><span style="color:#e6db74">    __ob_coffee_log__ __ob_coffee_last__&#34;</span> ob-coffee-eoe)))
+    (<span style="color:#a6e22e">buffer-string</span>)))</code></pre></div>
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_NmomXxAGEX" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

@@ -1,0 +1,1389 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Practical macros in Racket // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.9200f15e5b522081b40b32c05f72d83bb782a224350597f86f00e6730c54d6ca.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Practical macros in Racket"/>
+<meta name="twitter:description" content="Original article Practical macros in Racket and how to work with them  This is a copy of Kevin R. Stravers article above, formatted in org-mode with some minor changes.
+ TLDR You can ignore everything except define-syntax-parser if you&rsquo;re new.
+In essence it&rsquo;s a way to define macros in a clean manner.
+Explanation of syntax: define-syntax-parser
+An example of define-syntax-parser: Generating C with racket // Bodacious Blog"/>
+
+    <meta property="og:title" content="Practical macros in Racket" />
+<meta property="og:description" content="Original article Practical macros in Racket and how to work with them  This is a copy of Kevin R. Stravers article above, formatted in org-mode with some minor changes.
+ TLDR You can ignore everything except define-syntax-parser if you&rsquo;re new.
+In essence it&rsquo;s a way to define macros in a clean manner.
+Explanation of syntax: define-syntax-parser
+An example of define-syntax-parser: Generating C with racket // Bodacious Blog" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/" />
+<meta property="article:published_time" content="2017-11-17T00:00:00+13:00" />
+<meta property="article:modified_time" content="2017-11-17T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="John Doe" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">information theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Practical macros in Racket</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Nov 17, 2017
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          14 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      
+
+<dl>
+<dt>Original article</dt>
+<dd><a href="https://kevin.stravers.net/2017/11/practical-macros-in-racket-and-how-to-work-with-them.html">Practical macros in Racket and how to work with them</a></dd>
+</dl>
+
+<p>This is a copy of <strong>Kevin R. Stravers</strong> article above, formatted in <code>org-mode</code> with some minor changes.</p>
+
+<dl>
+<dt><em><strong><code>TLDR</code></strong></em></dt>
+<dd><p>You can ignore everything except <code>define-syntax-parser</code> if you&rsquo;re new.</p>
+
+<p>In essence it&rsquo;s a way to define macros in
+a clean manner.</p>
+
+<p>Explanation of syntax: <span class="underline"><a href="#orgcd8baf3">define-syntax-parser</a></span></p>
+
+<p>An example of <code>define-syntax-parser</code>: <span class="underline"><a href="https://mullikine.github.io/posts/generating-c-with-racket/">Generating C with racket // Bodacious Blog</a></span></p></dd>
+</dl>
+
+<h2 id="practical-macros-in-racket-and-how-to-work-with-them">Practical macros in Racket and how to work with them</h2>
+
+<p>A macro is central in any Lisp and must be mastered in order to master
+the language. However, Racket is in a state of macro chaos - at least in
+the official documentation. There&rsquo;s <code>define-syntax-rule</code>, <code>syntax-parse</code>,
+<code>syntax-case</code>, and so many more. How do we make sense of it? In this
+tutorial we&rsquo;ll investigate syntax transformers in Racket so we can get a
+complete picture.</p>
+
+<h2 id="what-s-all-this-racket">What&rsquo;s all this racket?</h2>
+
+<p>I&rsquo;ve looked through the racket documentation and connected most of the
+syntax transformers there. Here are the biggest ones and some utility
+functions.</p>
+
+<p><a id="orgbf1d1e3"></a></p>
+
+<figure>
+    <img src="https://mullikine.github.io/ox-hugo/macro-graph.png"/> 
+</figure>
+
+
+<table>
+<thead>
+<tr>
+<th>symbol</th>
+<th>meaning</th>
+<th>example</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><span class="underline"><strong>Arrows</strong></span></td>
+<td>Denote that <code>one</code> <em>(<code>-&gt;</code> can be defined in terms of)</em> <code>the other</code></td>
+<td><code>define-simple-macro</code> <em>(<code>-&gt;</code> can be defined in terms of)</em> <code>define-syntax-parser</code>.</td>
+</tr>
+
+<tr>
+<td><span class="underline"><strong>Red boxes</strong></span></td>
+<td>Indicate what I believe to be important <span class="underline">tools</span></td>
+<td><code>define-syntax-parser</code>, <code>define/syntax-parse</code>, <code>syntax-protect</code>, <code>make-set!-transformer</code></td>
+</tr>
+
+<tr>
+<td><span class="underline"><strong>circles</strong></span></td>
+<td>Denote important <span class="underline">syntax primitives</span>.</td>
+<td><code>define-syntax</code>, <code>syntax-parse</code>, <code>syntax-case</code></td>
+</tr>
+
+<tr>
+<td>Bold boxes</td>
+<td>Important but not essential.</td>
+<td><code>define-syntaxes</code>, <code>begin-for-syntax</code>, <code>define-simple-macro</code>, <code>syntax-parser</code></td>
+</tr>
+
+<tr>
+<td>Normal boxes</td>
+<td>Not that important, but good to know.</td>
+<td><code>define</code>, <code>syntax-arm</code>, <code>local-expand</code>, <code>free-identifier=?</code></td>
+</tr>
+
+<tr>
+<td>Dashed boxes</td>
+<td>Unimportant tools that ought to be deprecated.</td>
+<td><code>define-syntax-rule</code>, <code>syntax-rules</code>, <code>with-syntax</code>, <code>with-syntax*</code>, <code>define-with-syntax</code>, <code>syntax-id-rules</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>For the new macro programmer this is quite a lot to take in, and there&rsquo;s
+a myriad of other tools that supplement these, but I can safely say that
+you can ignore everything except <code>define-syntax-parser</code> if you&rsquo;re new.
+Why? Because it&rsquo;s a typechecking syntax transformer and allows you to
+manipulate syntax in a complex manner. It also prevents you from having
+to use <code>define-syntax</code> together with <code>syntax-parse</code>. In essence it&rsquo;s a way
+to define macros in a clean manner.</p>
+
+<h3 id="table-of-forms">Table of forms</h3>
+
+<p>Keep this in mind as you continue reading.</p>
+
+<table>
+<thead>
+<tr>
+<th>syntax</th>
+<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>...</code></td>
+<td>a postfix operator that makes <code>syntax-parse</code> consider whatever is before as a list of that pattern. It will expand this list in the expander when it is encountered. This allows us to create pretty complex macros</td>
+</tr>
+
+<tr>
+<td><code>...+</code></td>
+<td>means one or more.</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="syntax-case--the-typeless-version-of-syntax-parse--dot-don-t-use-it"><span class="org-todo done DISCARD">DISCARD</span> <code>syntax-case</code> (the <strong>typeless</strong> version of <code>syntax-parse</code>). Don&rsquo;t use it!</h2>
+
+<dl>
+<dt><code>syntax-case</code></dt>
+<dd><span class="underline">Sucks</span> because you must write additional code to check the type during <em>macro</em>-time.</dd>
+<dt><code>syntax-parse</code></dt>
+<dd><span class="underline">Rules</span> because you can assert that a term is an <em>identifier</em> <strong>or</strong> a <em>keyword</em> in a declarative manner.</dd>
+</dl>
+
+<hr />
+
+<ul>
+<li><p>There are also some other differences in how <span class="underline">arguments are applied</span> and <span class="underline">errors are reported</span>.</p></li>
+
+<li><p><code>syntax-parse</code> is widely superior to <code>syntax-case</code>.</p></li>
+</ul>
+
+<hr />
+
+<dl>
+<dt><code>with-syntax</code></dt>
+<dd>It&rsquo;s <code>syntax-case</code>&rsquo;s sibling and used a little differently.</dd>
+</dl>
+
+<h3 id="if-you-do-use-syntax-case-then-you-can--and-should--use-with-syntax-too">If you do use <code>syntax-case</code> then you can (and should) use <code>with-syntax</code> too</h3>
+
+<h4 id="with-syntax-should-be-used-alongside-syntax-case"><code>with-syntax</code> should be used alongside <code>syntax-case</code></h4>
+
+<p><code>with-syntax</code> is part of the same family of <strong><span class="underline"><a href="http://racket/reference/stx-patterns.html#%28form.%5F%28%28lib.%5Fracket%2Fprivate%2Fstxcase-scheme..rkt%29.%5Fwith-syntax%29%29">Pattern-Based Syntax Matching</a></span></strong> forms as <code>syntax-case</code> and is nearly identical to <code>syntax-case</code> under the hood:</p>
+
+<table>
+<thead>
+<tr>
+<th><strong>Similar</strong> to <code>syntax-case</code></th>
+<th>it matches a pattern to a syntax object</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>Unlike</strong> <code>syntax-case</code></td>
+<td>all patterns are matched, each to the result of a corresponding <code>stx-expr</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>The <strong>result</strong> of the <code>with-syntax</code> form is the result of the <span class="underline">last body</span>, which is in tail position with respect to the <code>with-syntax</code> form. This is what <code>syntax-case</code> does too.</p>
+
+<p>But <em>don&rsquo;t</em> use <code>with-syntax</code> with <code>syntax-parse</code>!</p>
+
+<ul>
+<li><code>with-syntax</code> is incredibly useful in and alongside <code>syntax-case</code>, but</li>
+<li>inside <code>syntax-parse</code> we should use <code>#:with</code> instead for the same type of functionality.</li>
+</ul>
+
+<h4 id="examples-with-vs-with-syntax-for-use-with-define-syntax-parser">Examples: <code>#:with</code> vs <code>with-syntax</code> for use with <code>define-syntax-parser</code></h4>
+
+<p>The advantage of <code>#:with</code> over <code>with-syntax</code> is the <span class="underline">use of types and better
+error reporting</span> for <code>syntax-parse</code>.</p>
+
+<p>These examples are awkwardly under the <code>syntax-case</code> section.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="color:#75715e">; Define this so we can use (define-syntax-parser)</span>
+(<span style="color:#66d9ef">require</span> syntax/parse/define)</code></pre></td></tr></table>
+</div>
+</div>
+
+<ul>
+<li><p><code>#:with</code></p>
+
+<p><a id="code-snippet--with"></a>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">    (define-syntax-parser with-example
+      [(<span style="color:#66d9ef">_</span> a)
+       <span style="color:#66d9ef">#:with</span> (b:id <span style="color:#66d9ef">...</span>) <span style="color:#f92672">#&#39;</span>(one two three)
+       <span style="color:#f92672">#&#39;</span>(list a <span style="color:#f92672">&#39;</span><span style="color:#e6db74">b</span> <span style="color:#66d9ef">...</span>)])
+
+    (with-example <span style="color:#f92672">&#39;</span><span style="color:#e6db74">zero</span>)
+    <span style="color:#75715e">; &#39;(zero one two three)</span>
+    </code></pre></td></tr></table>
+</div>
+</div></p>
+
+<p>But what is this doing?&nbsp;<sup class="footnote-ref" id="fnref:fn-1"><a href="#fn:fn-1">1</a></sup></p></li>
+
+<li><p><code>with-syntax</code></p>
+
+<p><a id="code-snippet--with-syntax"></a>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">    (define-syntax-parser with-example
+      [(<span style="color:#66d9ef">_</span> a)
+       (<span style="color:#66d9ef">with-syntax</span> ([(b <span style="color:#66d9ef">...</span>) <span style="color:#f92672">#&#39;</span>(one two three)])
+         <span style="color:#f92672">#&#39;</span>(list a <span style="color:#f92672">&#39;</span><span style="color:#e6db74">b</span> <span style="color:#66d9ef">...</span>))])
+
+    (with-example <span style="color:#f92672">&#39;</span><span style="color:#e6db74">zero</span>)
+    <span style="color:#75715e">; &#39;(zero one two three)</span>
+    </code></pre></td></tr></table>
+</div>
+</div></p></li>
+
+<li><p><code>#:with</code> vs <code>with-syntax</code></p>
+
+<ul>
+<li><code>with-syntax</code> uses more parentheses.</li>
+<li><code>#:with</code> specifies type <code>:id</code> for <code>b</code></li>
+</ul>
+
+<div class="org-src-container">
+    <pre class="src">
+ (define-syntax-parser with-example
+   [(_ a)
+</span><span class="magit-diff-removed">-   </span><span class="magit-diff-removed"><span class="diff-refine-removed">#:</span></span><span class="magit-diff-removed">with (b</span><span class="magit-diff-removed"><span class="diff-refine-removed">:id</span></span><span class="magit-diff-removed"> ...) #'(one two three)
+-   #'(list a 'b ...)])
+</span><span class="magit-diff-added">+   </span><span class="magit-diff-added"><span class="diff-refine-added">(</span></span><span class="magit-diff-added">with</span><span class="magit-diff-added"><span class="diff-refine-added">-syntax</span></span><span class="magit-diff-added"> (</span><span class="magit-diff-added"><span class="diff-refine-added">[(</span></span><span class="magit-diff-added">b ...) #'(one two three)</span><span class="magit-diff-added"><span class="diff-refine-added">])</span></span><span class="magit-diff-added">
++     #'(list a 'b ...</span><span class="magit-diff-added"><span class="diff-refine-added">)</span></span><span class="magit-diff-added">)])
+</span>
+</pre>
+</div></li>
+</ul>
+
+<h2 id="learn-to-use-the-syntax-parse-family"><span class="org-todo todo TODO">TODO</span> Learn to use the <code>syntax-parse</code> family</h2>
+
+<p><code>syntax-parse</code> is the primitive of the most advanced syntax transformer in
+racket (as far as I know).</p>
+
+<p>Above, we used <code>define-syntax-parser</code>. Expanded out, you can see that it uses the <code>syntax-parse</code> primitive.</p>
+
+<p>Here are some examples of how to use <code>syntax-parse</code>.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="color:#75715e">;; Remember to require this</span>
+(<span style="color:#66d9ef">require</span> syntax/parse syntax/parse/define)
+
+<span style="color:#75715e">;; Or do you do this? -- either/or I guess</span>
+(<span style="color:#66d9ef">require</span> syntax/parse/define (<span style="color:#66d9ef">for-syntax</span> racket))</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="example-a--most-concise--dot-uses-define-syntax-parser">Example A: (most concise). Uses <code>define-syntax-parser</code></h3>
+
+<p>Most of the time we want to use <code>define-syntax-parser</code> because it saves us the effort of typing <code>syntax-parse</code> and <code>stx</code>, as in the examples that follow.</p>
+
+<hr />
+
+<p><a id="orgcd8baf3"></a>
+<code>define-syntax-parser</code> = <code>define-syntax</code> ∘ <code>syntax-parser</code></p>
+
+<hr />
+
+<p>It uses the <code>syntax-parser</code> function (not <code>syntax-parse</code>), which is why it doesn&rsquo;t need the <code>stx</code>.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(define-syntax-parser name
+  [(<span style="color:#66d9ef">_</span> a b ...+)
+   <span style="color:#f92672">#&#39;</span>(+ a (- b <span style="color:#66d9ef">...</span>))])
+
+(name <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span>)
+<span style="color:#75715e">; -4</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">-4</code></pre></div>
+<p>This defines some syntax which itself is defined by a parser, just like below.</p>
+
+<h3 id="perfectly-fine-example-b-define-syntax-syntax-parse">Perfectly fine Example, B: <code>define-syntax</code> ∘ <code>syntax-parse</code></h3>
+
+<p>This is an expanded version of Example A.</p>
+
+<hr />
+
+<p>This uses the naked, authentic <code>syntax-parse</code> form, resulting in the most expanded of the 3 examples.
+They&rsquo;re all great examples though. It depends on the situation as to the way you want to make this syntax parser.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">define-syntax</span> (name stx)
+  (syntax-parse stx
+    [(<span style="color:#66d9ef">_</span> a b ...+)
+     <span style="color:#f92672">#&#39;</span>(+ a (- b <span style="color:#66d9ef">...</span>))]))
+
+(name <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span>)
+<span style="color:#75715e">; -4</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="perfectly-fine-example-c-define-syntax-syntax-parser">Perfectly fine Example, C: <code>define-syntax</code> ∘ <code>syntax-parser</code> <span class="underline">r</span>!</h3>
+
+<p>The <code>syntax-parser</code> function (with an &lsquo;r&rsquo;). I guess it needs fewer arguments than <code>syntax-parse</code>.</p>
+
+<hr />
+
+<ul>
+<li><code>stx</code> is inferred here?</li>
+</ul>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">define-syntax</span> name
+  (syntax-parser
+    [(<span style="color:#66d9ef">_</span> a b ...+)
+     <span style="color:#f92672">#&#39;</span>(+ a (- b <span style="color:#66d9ef">...</span>))]))
+
+(name <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span>)
+<span style="color:#75715e">; -4</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="define-syntax-parser-vs-shorthand-define-syntax"><code>define-syntax-parser</code> vs shorthand <code>define-syntax</code></h3>
+
+<div class="org-src-container">
+    <pre>
+<span class="magit-diff-removed">-(define-syntax-parser </span><span class="magit-diff-removed"><span class="diff-refine-removed">name</span></span><span class="magit-diff-removed">
+-  [(_ a b ...+)
+-   #'(+ a (- b ...))])
+</span><span class="magit-diff-added">+(define-syntax </span><span class="magit-diff-added"><span class="diff-refine-added">name
++  (syntax</span></span><span class="magit-diff-added">-parser
++    [(_ a b ...+)
++     #'(+ a (- b ...))]</span><span class="magit-diff-added"><span class="diff-refine-added">)</span></span><span class="magit-diff-added">)
+</span>
+</pre>
+</div>
+
+<h2 id="miscellaneous-ancillary-syntax-transformers">Miscellaneous ancillary syntax transformers</h2>
+
+<h3 id="make-rename-transformer--for-aliasing-things"><code>make-rename-transformer</code> (for aliasing things?)</h3>
+
+<p>This special transformer is basically an alias that preserves identifier
+equality.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">define-syntax</span> l (make-rename-transformer <span style="color:#f92672">#&#39;</span><span style="color:#66d9ef">let</span>))
+(<span style="color:#66d9ef">let</span> ([a <span style="color:#ae81ff">1</span>] [b <span style="color:#ae81ff">2</span>]) (+ a b))
+<span style="color:#75715e">;; 3</span>
+
+(l ([a <span style="color:#ae81ff">1</span>] [b <span style="color:#ae81ff">2</span>]) (+ a b))
+<span style="color:#75715e">;; 3</span>
+
+(free-identifier=? <span style="color:#f92672">#&#39;</span><span style="color:#66d9ef">let</span> <span style="color:#f92672">#&#39;</span>l)
+<span style="color:#75715e">;; #t</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Maybe we should use it to rename itself to something simpler&hellip;</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">define-syntax</span> mrt (make-rename-transformer <span style="color:#f92672">#&#39;</span>make-rename-transformer))
+(<span style="color:#66d9ef">define-syntax</span> p (mrt <span style="color:#f92672">#&#39;</span>display))
+<span style="color:#75715e">;; Nope! It appears that does not work.</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="make-set-transformer"><code>make-set!-transformer</code></h3>
+
+<p>Another special transformer is the <code>set!-transformer</code>, it allows you to
+transform a mutation of an identifier.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">define</span> a <span style="color:#ae81ff">0</span>)
+(<span style="color:#66d9ef">define</span> b <span style="color:#ae81ff">1</span>)
+
+(<span style="color:#66d9ef">let-syntax</span> ([a (make-set!-transformer
+                 (syntax-parser <span style="color:#66d9ef">#:literals</span> (<span style="color:#66d9ef">set!</span>)
+                                [(<span style="color:#66d9ef">set!</span> <span style="color:#66d9ef">_</span> v) <span style="color:#f92672">#&#39;</span>(<span style="color:#66d9ef">set!</span> b v)]
+                                [i:id <span style="color:#f92672">#&#39;</span>a]))])
+  (<span style="color:#66d9ef">set!</span> a <span style="color:#ae81ff">2</span>)
+  (list a b))
+
+<span style="color:#75715e">;; &#39;(0 2)</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>I haven&rsquo;t had much use for this in my code so far, but I guess it&rsquo;s fine
+to keep in mind in case you need it.</p>
+
+<h2 id="syntax-taints-what-are-they"><strong>Syntax taints</strong>, what are they?</h2>
+
+<p>The documentation on syntax taints is confusing to me. Here&rsquo;s my
+synopsis:</p>
+
+<hr />
+
+<dl>
+<dt>syntax taint</dt>
+<dd><p>Prevents the arbitrary use of identifiers.</p>
+
+<p>If you extract any part of another macro&rsquo;s armed result, then that extracted part is
+tainted and can&rsquo;t be used further.</p></dd>
+</dl>
+
+<hr />
+
+<h3 id="examples-of-syntax-taints">Examples of syntax taints:</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">require</span> syntax/parse/define)
+
+(define-syntax-parser a
+  [(<span style="color:#66d9ef">_</span>) (syntax-protect <span style="color:#f92672">#&#39;</span>(c))])
+<span style="color:#75715e">; (c) is armed here</span>
+
+(define-syntax-parser b
+  [(<span style="color:#66d9ef">_</span>)
+   <span style="color:#75715e">; c is extracted from (c), which taints the result c</span>
+   <span style="color:#66d9ef">#:with</span> d (car (syntax-e (local-expand <span style="color:#f92672">#&#39;</span>(a) <span style="color:#f92672">&#39;</span><span style="color:#e6db74">expression</span> <span style="color:#66d9ef">#f</span>)))
+   <span style="color:#75715e">; the macro expander inserts d which results in #&#39;(+ TAINTED:c),</span>
+   <span style="color:#75715e">; so the expander rejects this</span>
+   <span style="color:#f92672">#&#39;</span>(+ d)])
+
+(b)
+<span style="color:#75715e">;; eval:22:0: #%top: cannot use identifier tainted by macro</span>
+<span style="color:#75715e">;; transformation</span>
+<span style="color:#75715e">;; in: #%top</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>This rejects the expression <code>(+ c)</code> because the identifier <code>c</code> is <strong>tainted</strong>.
+Why is it tainted? Because <code>syntax-e</code> tainted it. Why did it taint it?
+Because the <code>syntax-object</code> was <strong>armed</strong>.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">require</span> syntax/parse/define)
+(<span style="color:#66d9ef">define</span> c <span style="color:#ae81ff">10</span>)
+
+(define-syntax-parser a
+  [(<span style="color:#66d9ef">_</span>) (syntax-protect <span style="color:#f92672">#&#39;</span>c)])
+
+(define-syntax-parser b
+  [(<span style="color:#66d9ef">_</span>)
+   <span style="color:#66d9ef">#:with</span> d <span style="color:#f92672">#&#39;</span>(a)
+   <span style="color:#f92672">#&#39;</span>(displayln d)])
+
+(b)
+<span style="color:#75715e">;; 10</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>This shows that the expander</p>
+
+<ul>
+<li>accepts
+
+<ul>
+<li><em>armed</em>, and</li>
+<li><em>clean</em> syntax objects, but</li>
+</ul></li>
+<li>rejects
+
+<ul>
+<li><em>tainted</em> syntax objects.</li>
+</ul></li>
+</ul>
+
+<h2 id="literals">Literals</h2>
+
+<p><code>syntax-parse</code> allows the use of literals:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">require</span> syntax/parse/define)
+
+(define-syntax-parser my-parser
+  <span style="color:#66d9ef">#:datum-literals</span> (a-word)
+  [(<span style="color:#66d9ef">_</span> a-word b-word)
+   <span style="color:#f92672">#&#39;</span>(<span style="color:#66d9ef">begin</span>
+       (displayln <span style="color:#f92672">&#39;</span><span style="color:#e6db74">a-word</span>)
+       (displayln <span style="color:#f92672">&#39;</span><span style="color:#e6db74">b-word</span>))])
+
+(my-parser a-word <span style="color:#ae81ff">10</span>)
+
+a-word
+<span style="color:#75715e">;; 10</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p><code>#:literals</code> is also possible. Then there&rsquo;s a need for an identifier to
+exist in the enclosing phase:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(define-syntax-parser my-parser
+  <span style="color:#66d9ef">#:literals</span> (is-this-bound?)
+  [(<span style="color:#66d9ef">_</span> is-this-bound? b-word)
+   <span style="color:#f92672">#&#39;</span>(<span style="color:#66d9ef">begin</span>
+       (displayln <span style="color:#f92672">&#39;</span><span style="color:#e6db74">a-word</span>)
+       (displayln <span style="color:#f92672">&#39;</span><span style="color:#e6db74">b-word</span>))])
+
+(my-parser is-this-bound? <span style="color:#ae81ff">10</span>)
+<span style="color:#75715e">;; eval:33:0: syntax-parser: literal is unbound in phase 0</span>
+<span style="color:#75715e">;; (phase 0 relative to the enclosing module)</span>
+<span style="color:#75715e">;;   at: is-this-bound?</span>
+<span style="color:#75715e">;;   in: (syntax-parser #:literals (is-this-bound?) ((_</span>
+<span style="color:#75715e">;; is-this-bound? b-word) (syntax (begin (displayln (quote</span>
+<span style="color:#75715e">;; a-word)) (displayln (quote b-word))))))</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>We can use literals to discriminate between real and fake identifiers:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(define-syntax-parser is-it-let?
+  [(<span style="color:#66d9ef">_</span> (~literal <span style="color:#66d9ef">let</span>)) <span style="color:#f92672">#&#39;</span><span style="color:#66d9ef">#t</span>]
+  [(<span style="color:#66d9ef">_</span> (~datum <span style="color:#66d9ef">let</span>)) <span style="color:#f92672">#&#39;</span><span style="color:#66d9ef">#f</span>]
+  [<span style="color:#66d9ef">_</span> <span style="color:#f92672">#&#39;</span><span style="color:#66d9ef">#f</span>])
+
+(is-it-let? <span style="color:#66d9ef">let</span>)
+<span style="color:#75715e">;; #t</span>
+
+(<span style="color:#66d9ef">let</span> ([<span style="color:#66d9ef">let</span> <span style="color:#ae81ff">0</span>])
+  (is-it-let? <span style="color:#66d9ef">let</span>))
+<span style="color:#75715e">;; #f</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Note that <code>(~literal x)</code> as a pattern is the same as specifying <code>#:literals
+(x)</code> as keyword argument and using <code>x</code> as a pattern. Similarly for
+<code>#:datum-literals (x)</code>.</p>
+
+<h2 id="experimenting-with-the-lowest-level">Experimenting with the lowest level</h2>
+
+<p>Using <code>define-syntax</code> we can define simple functions that are essentially
+macros that don&rsquo;t pattern match. This style allows you to get to know
+the low-level API, and I believe it to be very important to experiment
+with to understand what <code>syntax-parse</code> is actually doing.</p>
+
+<p>Vision is the most important thing, let&rsquo;s look at what&rsquo;s going on!</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="color:#75715e">; Note: a macro only takes on argument, which contains the entire syntax object</span>
+(<span style="color:#66d9ef">define-syntax</span> (name stx)
+  (displayln stx))
+
+(name hello world)
+<span style="color:#75715e">;; #&lt;syntax:39:0 (name hello world)&gt;</span>
+<span style="color:#75715e">;; name: received value from syntax expander was not syntax</span>
+<span style="color:#75715e">;; received: #&lt;void&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>We need to add a result that is a syntax object:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">define-syntax</span> (name stx)
+  (displayln stx)
+  <span style="color:#f92672">#&#39;</span>(void))
+
+(name hello world)
+<span style="color:#75715e">;; #&lt;syntax:41:0 (name hello world)&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Now to extract some values. There are primitives used to extract
+information from syntax objects.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">define-syntax</span> (name stx)
+  (displayln <span style="color:#f92672">`</span>(<span style="color:#e6db74">&#34;stx&#34;</span> <span style="color:#f92672">,</span>stx))
+  (displayln <span style="color:#f92672">`</span>(<span style="color:#e6db74">&#34;syntax-e&#34;</span> <span style="color:#f92672">,</span>(syntax-e stx)))
+  (displayln <span style="color:#f92672">`</span>(<span style="color:#e6db74">&#34;syntax-&gt;list&#34;</span> <span style="color:#f92672">,</span>(syntax-&gt;list stx)))
+  (displayln <span style="color:#f92672">`</span>(<span style="color:#e6db74">&#34;syntax-source&#34;</span> <span style="color:#f92672">,</span>(syntax-source stx)))
+  (displayln <span style="color:#f92672">`</span>(<span style="color:#e6db74">&#34;syntax-line&#34;</span> <span style="color:#f92672">,</span>(syntax-line stx)))
+  (displayln <span style="color:#f92672">`</span>(<span style="color:#e6db74">&#34;syntax-column&#34;</span> <span style="color:#f92672">,</span>(syntax-column stx)))
+  (displayln <span style="color:#f92672">`</span>(<span style="color:#e6db74">&#34;syntax-position&#34;</span> <span style="color:#f92672">,</span>(syntax-position stx)))
+  (displayln <span style="color:#f92672">`</span>(<span style="color:#e6db74">&#34;syntax?&#34;</span> <span style="color:#f92672">,</span>(syntax? stx)))
+  (displayln <span style="color:#f92672">`</span>(<span style="color:#e6db74">&#34;syntax-span&#34;</span> <span style="color:#f92672">,</span>(syntax-span stx)))
+  (displayln <span style="color:#f92672">`</span>(<span style="color:#e6db74">&#34;syntax-original?&#34;</span> <span style="color:#f92672">,</span>(syntax-original? stx)))
+  (displayln <span style="color:#f92672">`</span>(<span style="color:#e6db74">&#34;syntax-source-module&#34;</span> <span style="color:#f92672">,</span>(syntax-source-module stx)))
+  (displayln <span style="color:#f92672">`</span>(<span style="color:#e6db74">&#34;syntax-&gt;datum&#34;</span> <span style="color:#f92672">,</span>(syntax-&gt;datum stx)))
+  <span style="color:#f92672">#&#39;</span>(void))
+
+(name hello world)
+<span style="color:#75715e">;; (stx #&lt;syntax:43:0 (name hello world)&gt;)</span>
+<span style="color:#75715e">;; (syntax-e (#&lt;syntax:43:0 name&gt; #&lt;syntax:43:0 hello&gt; #&lt;syntax:43:0 world&gt;))</span>
+<span style="color:#75715e">;; (syntax-&gt;list (#&lt;syntax:43:0 name&gt; #&lt;syntax:43:0 hello&gt; #&lt;syntax:43:0 world&gt;))</span>
+<span style="color:#75715e">;; (syntax-source eval)</span>
+<span style="color:#75715e">;; (syntax-line 43)</span>
+<span style="color:#75715e">;; (syntax-column 0)</span>
+<span style="color:#75715e">;; (syntax-position 43)</span>
+<span style="color:#75715e">;; (syntax? #t)</span>
+<span style="color:#75715e">;; (syntax-span 1)</span>
+<span style="color:#75715e">;; (syntax-original? #f)</span>
+<span style="color:#75715e">;; (syntax-source-module #f)</span>
+<span style="color:#75715e">;; (syntax-&gt;datum (name hello world))</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>These are some of the functions that we can use on syntax objects.
+There&rsquo;s another one that allows us to turn datums into syntax called
+<code>datum-&gt;syntax</code>. Let&rsquo;s see if we can construct a simple macro based on
+this and <code>syntax-e</code>:</p>
+
+<p>We&rsquo;re gonna make <code>(infix 1 + 2)</code> return <code>(+ 1 2)</code>.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">define-syntax</span> (infix stx)
+  (<span style="color:#66d9ef">let</span> ([elems (syntax-e stx)])
+    (<span style="color:#66d9ef">when</span> (not (= (length elems) <span style="color:#ae81ff">4</span>))
+      (raise-syntax-error <span style="color:#e6db74">&#34;there should be 3 elements&#34;</span>))
+    (datum-&gt;syntax stx <span style="color:#f92672">`</span>(<span style="color:#f92672">,</span>(caddr elems) <span style="color:#f92672">,</span>(cadr elems) <span style="color:#f92672">,</span>(cadddr elems)))))
+
+(infix <span style="color:#ae81ff">1</span> + <span style="color:#ae81ff">2</span>)
+<span style="color:#75715e">; 3</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Notice how there are 4 elements in the list, because infix is inside it
+too. We also need to provide a context for <code>datum-&gt;syntax</code>. The
+identifiers used in the result will be referenced from that context. In
+this case we used stx as the context. If you use <code>#f</code>, then <code>+</code> won&rsquo;t be
+found and we have an error. The macro is essentially equivalent to:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(define-syntax-parser infix
+  [(<span style="color:#66d9ef">_</span> a op b)
+   <span style="color:#f92672">#&#39;</span>(op a b)])
+
+(infix <span style="color:#ae81ff">1</span> + <span style="color:#ae81ff">2</span>)
+<span style="color:#75715e">;; 3</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>With <code>syntax-parse</code> the context is dependent on the input. This way we can
+safely refer to variables from the caller&rsquo;s scope. This safety is what
+we call &ldquo;macro hygiene&rdquo;, and allows us to compose macros without
+breaking them.</p>
+
+<h2 id="syntax-parameters-what-are-they-for">Syntax parameters, what are they for?</h2>
+
+<dl>
+<dt>anaphoric macro</dt>
+<dd>A macro that can define <em>macro-local</em> variables.</dd>
+</dl>
+
+<p>This isn&rsquo;t composable because replacing code with anaphoric macros may
+break it, I present you exhibit A, the unhygienic macro:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">define-syntax</span> (aif stx)
+  (<span style="color:#66d9ef">let</span> ([elems (syntax-e stx)])
+    (datum-&gt;syntax stx
+                   <span style="color:#f92672">`</span>(<span style="color:#e6db74">let</span> ([<span style="color:#e6db74">it</span> <span style="color:#f92672">,</span>(cadr elems)])
+                      (<span style="color:#e6db74">if</span> <span style="color:#e6db74">it</span> <span style="color:#f92672">,</span>(caddr elems) <span style="color:#f92672">,</span>(cadddr elems))))))
+
+(<span style="color:#66d9ef">define</span> it <span style="color:#ae81ff">10</span>)
+(aif (member <span style="color:#ae81ff">2</span> <span style="color:#f92672">&#39;</span>(<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span>))
+     (displayln it)
+     (void))
+<span style="color:#75715e">;; (2 3)</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>The programmer wanted to print 10 but instead something else got
+printed. This is a trivial example but quickly balloons with bigger
+programs and bigger macros.</p>
+
+<p>Let&rsquo;s instead use <code>syntax-parameters</code>. These can be used hygienically:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">require</span> racket/stxparam)
+
+(define-syntax-parameter it (syntax-parser))
+
+(define-syntax-parser aif
+  [(<span style="color:#66d9ef">_</span> condition then otherwise)
+   <span style="color:#f92672">#&#39;</span>(<span style="color:#66d9ef">let</span> ([t condition])
+       (syntax-parameterize ([it (syntax-parser [<span style="color:#66d9ef">_</span> <span style="color:#f92672">#&#39;</span>t])])
+         (<span style="color:#66d9ef">if</span> t then otherwise)))])
+
+(aif (member <span style="color:#ae81ff">2</span> <span style="color:#f92672">&#39;</span>(<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span>))
+     (displayln it)
+     (void))
+<span style="color:#75715e">;; (2 3)</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>If we now have a declaration of it, that will override the syntax
+parameter.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">let</span> ([it <span style="color:#ae81ff">10</span>])
+  (aif (member <span style="color:#ae81ff">2</span> <span style="color:#f92672">&#39;</span>(<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span>))
+       (displayln it)
+       (void)))
+<span style="color:#75715e">;; 10</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>During normal racket evaluation (i.e. from a file) you&rsquo;ll get a
+<code>duplicate-identifier</code> error, in this context there&rsquo;s another error, but
+the point is that there is an error instead of letting the programmer
+scratch his head.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(<span style="color:#66d9ef">define</span> it <span style="color:#ae81ff">10</span>)
+(aif (member <span style="color:#ae81ff">2</span> <span style="color:#f92672">&#39;</span>(<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span>))
+     (displayln it)
+     (void))
+<span style="color:#75715e">;; eval:53:0: syntax-parameterize: not bound as a syntax</span>
+<span style="color:#75715e">;; parameter</span>
+<span style="color:#75715e">;;   at: it</span>
+<span style="color:#75715e">;;   in: (syntax-parameterize ((it (syntax-parser (_ (syntax</span>
+<span style="color:#75715e">;; t))))) (if t (displayln it) (void)))</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p><a id="org0a5fb79"></a></p>
+
+<h2 id="i-don-t-get-it-how-does-syntax-parse-work">I don&rsquo;t get it, how does <code>syntax-parse</code> work?</h2>
+
+<p><code>syntax-parse</code> works by <strong>replacing</strong> <span class="underline">all syntax objects after the pattern
+match</span> with the results from the pattern match:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(syntax-parse <span style="color:#f92672">#&#39;</span>(<span style="color:#66d9ef">this</span> is some <span style="color:#66d9ef">syntax</span>)
+  [(here is the pattern) <span style="color:#f92672">#&#39;</span>(pattern is put here)])
+<span style="color:#75715e">;; #&lt;syntax:58:0 (syntax is put this)&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p><code>put</code> is <span class="underline"><strong>not</strong> in the pattern</span>, so it&rsquo;s just pasted <em>as-is</em>.</p>
+
+<h3 id="another-cool-thing-you-can-run-arbitrary-code-in-the-body">Another cool thing: you can run arbitrary code in the body:</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(syntax-parse <span style="color:#f92672">#&#39;</span>(<span style="color:#66d9ef">this</span> is some <span style="color:#66d9ef">syntax</span>)
+  [(here is the pattern)
+   (displayln <span style="color:#e6db74">&#34;This is arbitrary code, we could download webpages for use in this macro, whatever you wish&#34;</span>)
+   <span style="color:#f92672">#&#39;</span>(pattern is put here)])
+
+<span style="color:#75715e">;; This is arbitrary code, we could download webpages for use in this macro, whatever you wish</span>
+<span style="color:#75715e">;; #&lt;syntax:59:0 (syntax is put this)&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="there-are-also-some-special-pattern-forms">There are also some special pattern forms:</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(syntax-parse <span style="color:#f92672">#&#39;</span>(<span style="color:#66d9ef">this</span> is some <span style="color:#66d9ef">syntax</span>)
+  [(here <span style="color:#66d9ef">...</span>) <span style="color:#f92672">#&#39;</span>(here <span style="color:#66d9ef">...</span> put stuff)])
+<span style="color:#75715e">;; #&lt;syntax:60:0 (this is some syntax put stuff)&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="table-of-forms-1">Table of forms</h4>
+
+<table>
+<thead>
+<tr>
+<th>syntax</th>
+<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>...</code></td>
+<td>a postfix operator that makes <code>syntax-parse</code> consider whatever is before as a list of that pattern. It will expand this list in the expander when it is encountered. This allows us to create pretty complex macros</td>
+</tr>
+
+<tr>
+<td><code>...+</code></td>
+<td>means one or more.</td>
+</tr>
+</tbody>
+</table>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(syntax-parse <span style="color:#f92672">#&#39;</span>((<span style="color:#66d9ef">this</span> is) (some <span style="color:#66d9ef">syntax</span>))
+  [((here there) ...+) <span style="color:#f92672">#&#39;</span>(here <span style="color:#66d9ef">...</span> there <span style="color:#66d9ef">...</span> put stuff)])
+<span style="color:#75715e">;; #&lt;syntax:61:0 (this some is syntax put stuff)&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="they-can-even-be-nested">They can even be nested</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-racket" data-lang="racket">(syntax-parse <span style="color:#f92672">#&#39;</span>((<span style="color:#66d9ef">this</span> is) (some more stuff <span style="color:#66d9ef">syntax</span>))
+  [((here <span style="color:#66d9ef">...</span> there) ...+) <span style="color:#f92672">#&#39;</span>(here <span style="color:#66d9ef">...</span> <span style="color:#66d9ef">...</span> there <span style="color:#66d9ef">...</span> put stuff)])
+<span style="color:#75715e">;; #&lt;syntax:62:0 (this some more stuff is synt...&gt;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Note that the <code>...</code> operator in the syntax has left-associativity, so:</p>
+
+<ul>
+<li><code>here ... ...</code> <em>reduces to</em> (in this case) <code>((this) (some more stuff)) ...  ...</code></li>
+<li>which <em>reduces to</em> <code>(this) ... (some more stuff) ...</code></li>
+<li>which <em>reduces to</em> <code>this some more stuff</code></li>
+</ul>
+
+<h2 id="read-the-original-article-dot">Read the original article <a href="https://kevin.stravers.net/2017/11/practical-macros-in-racket-and-how-to-work-with-them.html"><span class="underline">here</span></a>.</h2>
+
+<h2 id="take-away-notes">Take-away notes</h2>
+
+<h3 id="parts-of-syntax">Parts of syntax</h3>
+
+<table>
+<thead>
+<tr>
+<th>syntax</th>
+<th>description</th>
+<th>family</th>
+<th>use</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>#with</code></td>
+<td></td>
+<td><code>syntax-parse</code></td>
+<td>✓</td>
+</tr>
+
+<tr>
+<td><code>with-syntax</code></td>
+<td></td>
+<td><code>syntax-case</code></td>
+<td>✗</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="syntax-transformer-families">Syntax transformer families</h3>
+
+<table>
+<thead>
+<tr>
+<th>family</th>
+<th>description</th>
+<th>use</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>syntax-parse</code></td>
+<td>the most advanced</td>
+<td>✓</td>
+</tr>
+
+<tr>
+<td><code>syntax-case</code></td>
+<td>the typeless version of syntax-parse</td>
+<td>✗</td>
+</tr>
+</tbody>
+</table>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:fn-1"><a href="https://docs.racket-lang.org/syntax-parse-example/index.html">Syntax Parse Examples - A syntax-parse Crash Course</a>
+ <a class="footnote-return" href="#fnref:fn-1"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_NmomXxAGEX" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

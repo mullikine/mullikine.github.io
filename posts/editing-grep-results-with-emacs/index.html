@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Editing grep results with emacs // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.9200f15e5b522081b40b32c05f72d83bb782a224350597f86f00e6730c54d6ca.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Editing grep results with emacs"/>
+<meta name="twitter:description" content="Either require ivy or steal it&rsquo;s function 1 2 3 4 5 6  (defun ivy-wgrep-change-to-wgrep-mode () &#34;Forward to `wgrep-change-to-wgrep-mode&#39;.&#34; (interactive) (if (require &#39;wgrep nil &#39;noerror) (wgrep-change-to-wgrep-mode) (error &#34;Package wgrep isn&#39;t installed&#34;)))   When grep-mode is started, wgrep-setup must run to prepare wgrep 1 2 3 4 5 6 7 8 9 10 11 12  (defun grep-mode-hook-run () ;; This saves the keymap so it can be restored (wgrep-setup) (define-key compilation-button-map (kbd &#34;C-m&#34;) &#39;compile-goto-error) (define-key grep-mode-map (kbd &#34;C-m&#34;) &#39;compile-goto-error) ;; (define-key grep-mode-map (kbd &#34;C-c C-p&#34;) #&#39;wgrep-change-to-wgrep-mode) ) (add-hook &#39;grep-mode-hook &#39;grep-mode-hook-run t) ;; If =C-x C-q= is not available we can use this binding instead (define-key grep-mode-map (kbd &#34;C-c C-p&#34;) #&#39;ivy-wgrep-change-to-wgrep-mode)   Set up grep-mode 1 2 3 4 5 6  ;; Unmap some keys so we can type in grep-mode (define-key grep-mode-map (kbd &#34;h&#34;) nil) (define-key grep-mode-map (kbd &#34;g&#34;) nil) ;; This connects grep-mode to wgrep (define-key grep-mode-map (kbd &#34;C-x C-q&#34;) #&#39;ivy-wgrep-change-to-wgrep-mode)   Set up wgrep-mode 1 2  (setq wgrep-auto-save-buffer t) (define-key wgrep-mode-map (kbd &#34;C-m&#34;) #&#39;compile-goto-error)   wgrep-auto-save-buffer is needed so that when grep results are edited, they save automatically."/>
+
+    <meta property="og:title" content="Editing grep results with emacs" />
+<meta property="og:description" content="Either require ivy or steal it&rsquo;s function 1 2 3 4 5 6  (defun ivy-wgrep-change-to-wgrep-mode () &#34;Forward to `wgrep-change-to-wgrep-mode&#39;.&#34; (interactive) (if (require &#39;wgrep nil &#39;noerror) (wgrep-change-to-wgrep-mode) (error &#34;Package wgrep isn&#39;t installed&#34;)))   When grep-mode is started, wgrep-setup must run to prepare wgrep 1 2 3 4 5 6 7 8 9 10 11 12  (defun grep-mode-hook-run () ;; This saves the keymap so it can be restored (wgrep-setup) (define-key compilation-button-map (kbd &#34;C-m&#34;) &#39;compile-goto-error) (define-key grep-mode-map (kbd &#34;C-m&#34;) &#39;compile-goto-error) ;; (define-key grep-mode-map (kbd &#34;C-c C-p&#34;) #&#39;wgrep-change-to-wgrep-mode) ) (add-hook &#39;grep-mode-hook &#39;grep-mode-hook-run t) ;; If =C-x C-q= is not available we can use this binding instead (define-key grep-mode-map (kbd &#34;C-c C-p&#34;) #&#39;ivy-wgrep-change-to-wgrep-mode)   Set up grep-mode 1 2 3 4 5 6  ;; Unmap some keys so we can type in grep-mode (define-key grep-mode-map (kbd &#34;h&#34;) nil) (define-key grep-mode-map (kbd &#34;g&#34;) nil) ;; This connects grep-mode to wgrep (define-key grep-mode-map (kbd &#34;C-x C-q&#34;) #&#39;ivy-wgrep-change-to-wgrep-mode)   Set up wgrep-mode 1 2  (setq wgrep-auto-save-buffer t) (define-key wgrep-mode-map (kbd &#34;C-m&#34;) #&#39;compile-goto-error)   wgrep-auto-save-buffer is needed so that when grep results are edited, they save automatically." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/editing-grep-results-with-emacs/" />
+<meta property="article:published_time" content="2019-11-04T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-11-04T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="John Doe" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">information theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Editing grep results with emacs</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Nov 4, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          6 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      
+
+<h2 id="either-require-ivy-or-steal-it-s-function">Either require <code>ivy</code> or steal it&rsquo;s function</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun ivy-wgrep-change-to-wgrep-mode ()
+  <span style="color:#e6db74">&#34;Forward to </span><span style="color:#e6db74">`wgrep-change-to-wgrep-mode&#39;</span><span style="color:#e6db74">.&#34;</span>
+  (interactive)
+  (if (require <span style="color:#e6db74">&#39;wgrep</span> <span style="color:#66d9ef">nil</span> <span style="color:#e6db74">&#39;noerror</span>)
+      (wgrep-change-to-wgrep-mode)
+    (<span style="color:#a6e22e">error</span> <span style="color:#e6db74">&#34;Package wgrep isn&#39;t installed&#34;</span>)))</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="when-grep-mode-is-started-wgrep-setup-must-run-to-prepare-wgrep">When <code>grep-mode</code> is started, <code>wgrep-setup</code> must run to prepare <code>wgrep</code></h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun grep-mode-hook-run ()
+  <span style="color:#75715e">;; This saves the keymap so it can be restored</span>
+  (wgrep-setup)
+
+  (<span style="color:#a6e22e">define-key</span> compilation-button-map (kbd <span style="color:#e6db74">&#34;C-m&#34;</span>) <span style="color:#e6db74">&#39;compile-goto-error</span>)
+  (<span style="color:#a6e22e">define-key</span> grep-mode-map (kbd <span style="color:#e6db74">&#34;C-m&#34;</span>) <span style="color:#e6db74">&#39;compile-goto-error</span>)
+  <span style="color:#75715e">;; (define-key grep-mode-map (kbd &#34;C-c C-p&#34;) #&#39;wgrep-change-to-wgrep-mode)</span>
+  )
+(add-hook <span style="color:#e6db74">&#39;grep-mode-hook</span> <span style="color:#e6db74">&#39;grep-mode-hook-run</span> <span style="color:#66d9ef">t</span>)
+
+<span style="color:#75715e">;; If =C-x C-q= is not available we can use this binding instead</span>
+(<span style="color:#a6e22e">define-key</span> grep-mode-map (kbd <span style="color:#e6db74">&#34;C-c C-p&#34;</span>) <span style="color:#a6e22e">#&#39;</span>ivy-wgrep-change-to-wgrep-mode)</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="set-up-grep-mode">Set up <code>grep-mode</code></h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; Unmap some keys so we can type in grep-mode</span>
+(<span style="color:#a6e22e">define-key</span> grep-mode-map (kbd <span style="color:#e6db74">&#34;h&#34;</span>) <span style="color:#66d9ef">nil</span>)
+(<span style="color:#a6e22e">define-key</span> grep-mode-map (kbd <span style="color:#e6db74">&#34;g&#34;</span>) <span style="color:#66d9ef">nil</span>)
+
+<span style="color:#75715e">;; This connects grep-mode to wgrep</span>
+(<span style="color:#a6e22e">define-key</span> grep-mode-map (kbd <span style="color:#e6db74">&#34;C-x C-q&#34;</span>) <span style="color:#a6e22e">#&#39;</span>ivy-wgrep-change-to-wgrep-mode)</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="set-up-wgrep-mode">Set up <code>wgrep-mode</code></h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(setq wgrep-auto-save-buffer <span style="color:#66d9ef">t</span>)
+(<span style="color:#a6e22e">define-key</span> wgrep-mode-map (kbd <span style="color:#e6db74">&#34;C-m&#34;</span>) <span style="color:#a6e22e">#&#39;</span>compile-goto-error)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p><code>wgrep-auto-save-buffer</code> is needed so that when grep results are edited, they save automatically.</p>
+
+<h2 id="build-the-eack-script">Build the <code>eack</code> script</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">128
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">129
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">130
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">131
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">132
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">133
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">134
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">141
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">142
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">143
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">144
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">145
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">146
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">149
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">150
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">151
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">152
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">153
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">154
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">155
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">156
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">157
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">158
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">159
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">160
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">161
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">162
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">163
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">164
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">165
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">166
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">167
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">168
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">169
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">170
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">171
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">172
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">173
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">174
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">175
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">176
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">177
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">178
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">179
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">180
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">181
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">182
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">183
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">184
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">185
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">186
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">187
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">188
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">189
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">190
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">191
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">192
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">193
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">194
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">195
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">196
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">197
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">198
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">199
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">200
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">201
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">202
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">203
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">204
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">205
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">206
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">207
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">208
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">209
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">210
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">211
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">212
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">213
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">214
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">215
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">216
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">217
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">218
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">219
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">220
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">221
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">222
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">223
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">224
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">225
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">226
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">227
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">228
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">229
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">230
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">231
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">232
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">233
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">234
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">235
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">236
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">237
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">238
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">239
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">240
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">241
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">242
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">243
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">244
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">245
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">246
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">247
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">248
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">249
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">250
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">251
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">252
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">253
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">254
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">255
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">256
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">257
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">258
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">259
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">260
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">261
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">262
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">263
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">264
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">265
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">266
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">267
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">268
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">269
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">270
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">271
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">272
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">273
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">274
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">275
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">276
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">277
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">278
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">279
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">280
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">281
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">282
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">283
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">284
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">285
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">286
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">287
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">288
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">289
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">290
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">291
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">292
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">293
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">294
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> &lt;/dev/tty <span style="color:#e6db74">`</span> <span style="color:#75715e"># Disable tty to pipe content into hs ` )</span>
+
+CWD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+FOLLOW<span style="color:#f92672">=</span>n
+EXCLUDE_VENDOR<span style="color:#f92672">=</span>y
+EXCLUDE_GIT<span style="color:#f92672">=</span>y
+OCCUR<span style="color:#f92672">=</span>y
+PCRE<span style="color:#f92672">=</span>n
+CASE_INSENSITIVE<span style="color:#f92672">=</span>n
+LITERAL<span style="color:#f92672">=</span>n
+TOP<span style="color:#f92672">=</span>n
+KNOWN_TEXT_FILES_ONLY<span style="color:#f92672">=</span>n
+filename_pattern<span style="color:#f92672">=</span>
+
+<span style="color:#75715e"># empty by default</span>
+paths_file<span style="color:#f92672">=</span>
+
+: <span style="color:#e6db74">${</span>depth:=<span style="color:#e6db74">&#34;3&#34;</span><span style="color:#e6db74">}</span>
+: <span style="color:#e6db74">${</span>context:=<span style="color:#e6db74">&#34;0&#34;</span><span style="color:#e6db74">}</span> <span style="color:#75715e"># Used for both grep AND occur. This makes -A and -B tricky</span>
+: <span style="color:#e6db74">${</span>before_context:=<span style="color:#e6db74">&#34;0&#34;</span><span style="color:#e6db74">}</span>
+: <span style="color:#e6db74">${</span>after_context:=<span style="color:#e6db74">&#34;0&#34;</span><span style="color:#e6db74">}</span>
+
+sn<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$sn<span style="color:#e6db74">&#34;</span> in
+    dack<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># deep ack from top</span>
+        TOP<span style="color:#f92672">=</span>y
+        depth<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
+    <span style="color:#f92672">}</span>
+    ;;
+
+    eat<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        WORD_BOUNDARIES<span style="color:#f92672">=</span>y
+        depth<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
+    <span style="color:#f92672">}</span>
+    ;;
+
+    dac|ead|eackd<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># deep ack</span>
+        depth<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
+    <span style="color:#f92672">}</span>
+    ;;
+
+    eai<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># deep ack, insensitive</span>
+        depth<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
+        CASE_INSENSITIVE<span style="color:#f92672">=</span>y
+    <span style="color:#f92672">}</span>
+    ;;
+
+    lack<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># literal ack</span>
+        TOP<span style="color:#f92672">=</span>y
+        LITERAL<span style="color:#f92672">=</span>y
+        depth<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>
+    <span style="color:#f92672">}</span>
+    ;;
+<span style="color:#66d9ef">esac</span>
+
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">[</span> $# -gt <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">do</span> opt<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$opt<span style="color:#e6db74">&#34;</span> in
+    -d<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        depth<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        <span style="color:#66d9ef">if</span> tt -i <span style="color:#e6db74">&#34;</span>$depth<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">then</span>
+            <span style="color:#75715e"># -d was supplied an integer, use it</span>
+            shift
+        <span style="color:#66d9ef">else</span>
+            depth<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>
+            <span style="color:#75715e"># Do not shift for the parameter which is not an integer</span>
+        <span style="color:#66d9ef">fi</span>
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -F|-paths-file<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># A file containing a list of files to grep over</span>
+        paths_file<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -p|-path<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        filename_pattern<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -g|-pathglob<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        filename_glob<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        paths_file<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>eg -b <span style="color:#e6db74">&#34;</span>$filename_glob<span style="color:#e6db74">&#34;</span> | tf txt<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -C|-context<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        context<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        before_context<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        after_context<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -B<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        before_context<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -A<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        after_context<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+        shift
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -f|--follow<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        FOLLOW<span style="color:#f92672">=</span>y
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -o|--occur<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        OCCUR<span style="color:#f92672">=</span>y
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -no|--nooccur<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        OCCUR<span style="color:#f92672">=</span>n
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -T|--top<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        TOP<span style="color:#f92672">=</span>y
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -t|--text-only<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># This is a terribly inefficient option. Never use this</span>
+        <span style="color:#75715e"># I&#39;ve given -I to grep. That should be sufficient.</span>
+        KNOWN_TEXT_FILES_ONLY<span style="color:#f92672">=</span>y
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -i|--insensitive<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        CASE_INSENSITIVE<span style="color:#f92672">=</span>y
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -l|--literal<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        LITERAL<span style="color:#f92672">=</span>y
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -P|--pcre<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        PCRE<span style="color:#f92672">=</span>y
+        OCCUR<span style="color:#f92672">=</span>n <span style="color:#75715e"># &#39;\(&#39; will break it</span>
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    *<span style="color:#f92672">)</span> break;
+<span style="color:#66d9ef">esac</span>; <span style="color:#66d9ef">done</span>
+
+
+printf -- <span style="color:#e6db74">&#34;%s\n&#34;</span> <span style="color:#e6db74">&#34;Depth </span>$depth<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">1</span>&gt;&amp;<span style="color:#ae81ff">2</span>
+
+<span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$TOP<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+    export CWD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>vc git get-top-level<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>; cd <span style="color:#e6db74">&#34;</span>$CWD<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> pwd
+<span style="color:#66d9ef">fi</span>
+
+CMD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>lit -s <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+<span style="color:#75715e"># Need to be able to have multiple patterns here</span>
+<span style="color:#75715e"># except it might also trip up occur-mode</span>
+<span style="color:#75715e"># So run each file path through a gauntlet of pattern matching before</span>
+<span style="color:#75715e"># feeding to eack</span>
+
+pattern<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$CMD<span style="color:#e6db74">&#34;</span>
+
+<span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$WORD_BOUNDARIES<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+    pattern<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;\b</span>$pattern<span style="color:#e6db74">\b&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -z <span style="color:#e6db74">&#34;</span>$pattern<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    printf -- <span style="color:#e6db74">&#34;%s\n&#34;</span> <span style="color:#e6db74">&#34;No pattern&#34;</span> <span style="color:#ae81ff">1</span>&gt;&amp;<span style="color:#ae81ff">2</span>
+    exit <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$FOLLOW<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+    OPTION<span style="color:#f92672">=</span>-L
+<span style="color:#66d9ef">else</span>
+    OPTION<span style="color:#f92672">=</span>-P
+<span style="color:#66d9ef">fi</span>
+
+grep_opts<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-Hn&#34;</span>
+test <span style="color:#e6db74">&#34;</span>$EXCLUDE_VENDOR<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span> <span style="color:#f92672">&amp;&amp;</span> grep_opts<span style="color:#f92672">+=</span><span style="color:#e6db74">&#34; --exclude=\&#34;*vendor/*\&#34; --exclude=\&#34;*Godeps/*\&#34;&#34;</span>
+test <span style="color:#e6db74">&#34;</span>$EXCLUDE_GIT<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span> <span style="color:#f92672">&amp;&amp;</span> grep_opts<span style="color:#f92672">+=</span><span style="color:#e6db74">&#34; --exclude=\&#34;*.git/*\&#34;&#34;</span>
+test <span style="color:#e6db74">&#34;</span>$CASE_INSENSITIVE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span> <span style="color:#f92672">&amp;&amp;</span> grep_opts<span style="color:#f92672">+=</span><span style="color:#e6db74">&#34; -i&#34;</span>
+test <span style="color:#e6db74">&#34;</span>$LITERAL<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span> <span style="color:#f92672">&amp;&amp;</span> grep_opts<span style="color:#f92672">+=</span><span style="color:#e6db74">&#34; -F&#34;</span>
+test <span style="color:#e6db74">&#34;</span>$PCRE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span> <span style="color:#f92672">&amp;&amp;</span> grep_opts<span style="color:#f92672">+=</span><span style="color:#e6db74">&#34; -P&#34;</span>
+
+file_filter<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$KNOWN_TEXT_FILES_ONLY<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+            awk1 | <span style="color:#66d9ef">while</span> IFS<span style="color:#f92672">=</span><span style="color:#e6db74">$&#39;\n&#39;</span> read -r line; <span style="color:#66d9ef">do</span>
+                <span style="color:#66d9ef">if</span> tt -t <span style="color:#e6db74">&#34;</span>$line<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">then</span>
+                    printf -- <span style="color:#e6db74">&#34;%s\n&#34;</span> <span style="color:#e6db74">&#34;</span>$line<span style="color:#e6db74">&#34;</span>
+                <span style="color:#66d9ef">fi</span>
+            <span style="color:#66d9ef">done</span>
+        <span style="color:#66d9ef">else</span>
+            cat
+        <span style="color:#66d9ef">fi</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+file_path_pcre_filter<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    pattern<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$pattern<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        grep -P <span style="color:#e6db74">&#34;</span>$pattern<span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">else</span>
+        cat
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#f92672">}</span>
+
+find_and_grep<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    cmd<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;xargs -0 grep -s -I </span>$grep_opts<span style="color:#e6db74"> </span><span style="color:#66d9ef">$(</span> test <span style="color:#e6db74">&#34;</span>$context<span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#f92672">&amp;&amp;</span> printf -- <span style="color:#e6db74">&#34;%s&#34;</span> <span style="color:#e6db74">&#34;-C </span>$context<span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">)</span><span style="color:#e6db74"> -- </span><span style="color:#66d9ef">$(</span>aqf <span style="color:#e6db74">&#34;</span>$pattern<span style="color:#e6db74">&#34;</span> | bs <span style="color:#e6db74">&#39;$&#39;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$paths_file<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+            cat <span style="color:#e6db74">&#34;</span>$paths_file<span style="color:#e6db74">&#34;</span> | umn
+        <span style="color:#66d9ef">else</span>
+            find $OPTION . -maxdepth <span style="color:#e6db74">&#34;</span>$depth<span style="color:#e6db74">&#34;</span>
+        <span style="color:#66d9ef">fi</span>
+    <span style="color:#f92672">}</span> | file_path_pcre_filter <span style="color:#e6db74">&#34;</span>$filename_pattern<span style="color:#e6db74">&#34;</span> | file_filter | tr <span style="color:#e6db74">&#39;\n&#39;</span> <span style="color:#e6db74">&#39;\0&#39;</span> | eval <span style="color:#e6db74">&#34;</span>$cmd<span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+<span style="color:#f92672">}</span>
+
+read -r -d <span style="color:#e6db74">&#39;&#39;</span> maps <span style="color:#e6db74">&lt;&lt;- &#39;HEREDOC&#39;
+</span><span style="color:#e6db74">  (define-key compilation-button-map (kbd &#34;C-m&#34;) &#39;compile-goto-error)
+</span><span style="color:#e6db74">  HEREDOC</span>
+
+<span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$OCCUR<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+    slug<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$pattern<span style="color:#e6db74">&#34;</span> | slugify<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    occur_string<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(goto-char (point-min))(search-forward </span><span style="color:#66d9ef">$(</span>aqf <span style="color:#e6db74">&#34;</span>$pattern<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">)(iedit-mode)&#34;</span>
+<span style="color:#66d9ef">else</span>
+    occur_string<span style="color:#f92672">=</span>
+<span style="color:#66d9ef">fi</span>
+
+is_tty<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e"># If stout is a tty</span>
+    <span style="color:#f92672">[[</span> -t <span style="color:#ae81ff">1</span> <span style="color:#f92672">]]</span>
+<span style="color:#f92672">}</span>
+
+pager<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">if</span> is_tty; <span style="color:#66d9ef">then</span>
+        tless -rS $@
+    <span style="color:#66d9ef">else</span>
+        cat
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#f92672">}</span>
+
+find_and_grep | <span style="color:#f92672">{</span>
+    IFS<span style="color:#f92672">=</span> read -rd <span style="color:#e6db74">&#39;&#39;</span> input &lt; &lt;<span style="color:#f92672">(</span>cat /dev/stdin<span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$input<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        ecmd<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(cd </span><span style="color:#66d9ef">$(</span>aqf <span style="color:#e6db74">&#34;</span>$CWD<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">)(grep-mode)(ivy-wgrep-change-to-wgrep-mode)</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$maps<span style="color:#e6db74">&#34;</span> | tr -d <span style="color:#e6db74">&#39;\n&#39;</span><span style="color:#66d9ef">)</span>$occur_string<span style="color:#e6db74">(visual-line-mode -1)&#34;</span>
+
+        <span style="color:#75715e"># This is needed to prevent emacs from closing instantly if the command fails for whatever reason.</span>
+        ecmd<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(ignore-errors </span>$ecmd<span style="color:#e6db74">)&#34;</span>
+
+        <span style="color:#f92672">{</span>
+            echo
+            echo These extra lines are needed <span style="color:#66d9ef">for</span> the compilation-mode issue
+            echo See <span style="color:#e6db74">&#34;wgrep-prepare-header/footer&#34;</span>
+            echo
+            printf -- <span style="color:#e6db74">&#34;%s\n&#34;</span> <span style="color:#e6db74">&#34;</span>$input<span style="color:#e6db74">&#34;</span>
+        <span style="color:#f92672">}</span> | or e sp -noonly -e <span style="color:#e6db74">&#34;</span>$ecmd<span style="color:#e6db74">&#34;</span>
+
+        result<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$?<span style="color:#e6db74">&#34;</span>
+        <span style="color:#66d9ef">if</span> ! test <span style="color:#e6db74">&#34;</span>$result<span style="color:#e6db74">&#34;</span> -eq <span style="color:#ae81ff">0</span>; <span style="color:#66d9ef">then</span>
+            printf -- <span style="color:#e6db74">&#34;%s\n&#34;</span> <span style="color:#e6db74">&#34;</span>$input<span style="color:#e6db74">&#34;</span> | pager
+        <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">else</span>
+        printf -- <span style="color:#e6db74">&#34;%s\n&#34;</span> <span style="color:#e6db74">&#34;No results&#34;</span> <span style="color:#ae81ff">1</span>&gt;&amp;<span style="color:#ae81ff">2</span>
+        exit <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#f92672">}</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="symlink-the-script">Symlink the script</h3>
+
+<p>These provide different options based on the logic above.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">eat -&gt; eack
+eai -&gt; eack
+dac -&gt; eack
+ead -&gt; eack
+eackd -&gt; eack
+lack -&gt; eack
+dack -&gt; eack</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>My go-to command is <code>ead</code>.</p>
+
+<h2 id="demonstration">Demonstration</h2>
+
+<p><a href="https://asciinema.org/a/HJtJLyXjCoSpMoTpeS8W11n53" target="_blank"><img src="https://asciinema.org/a/HJtJLyXjCoSpMoTpeS8W11n53.svg" /></a></p>
+
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "disqus_NmomXxAGEX" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
