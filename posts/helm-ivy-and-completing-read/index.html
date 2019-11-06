@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>fzf vs helm, ivy and completing-read // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.9200f15e5b522081b40b32c05f72d83bb782a224350597f86f00e6730c54d6ca.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="fzf vs helm, ivy and completing-read"/>
+<meta name="twitter:description" content="Helm, ivy and completing-read are 3 emacs-lisp alternatives to fzf.
+They are all a little different to hack on / configure though.
+helm Select from a list There are different ways to select from a list.
+(defun fz-must-match (list &amp;optional prompt) (setq prompt (or prompt &#34;:&#34;)) (helm-comp-read prompt list :must-match t)) ;; This is very useful (defun fz-default-return-query (list &amp;optional prompt) (setq prompt (or prompt &#34;:&#34;)) (helm-comp-read prompt list :must-match &#39;confirm)) ;; But I don&#39;t like confirm things (defun fz-default-return-query (list &amp;optional prompt) (setq prompt (or prompt &#34;:&#34;)) (helm-comp-read prompt list :must-match &#39;nil)) Getting the list of options in another window tv takes a string and opens a window with it."/>
+
+    <meta property="og:title" content="fzf vs helm, ivy and completing-read" />
+<meta property="og:description" content="Helm, ivy and completing-read are 3 emacs-lisp alternatives to fzf.
+They are all a little different to hack on / configure though.
+helm Select from a list There are different ways to select from a list.
+(defun fz-must-match (list &amp;optional prompt) (setq prompt (or prompt &#34;:&#34;)) (helm-comp-read prompt list :must-match t)) ;; This is very useful (defun fz-default-return-query (list &amp;optional prompt) (setq prompt (or prompt &#34;:&#34;)) (helm-comp-read prompt list :must-match &#39;confirm)) ;; But I don&#39;t like confirm things (defun fz-default-return-query (list &amp;optional prompt) (setq prompt (or prompt &#34;:&#34;)) (helm-comp-read prompt list :must-match &#39;nil)) Getting the list of options in another window tv takes a string and opens a window with it." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/helm-ivy-and-completing-read/" />
+<meta property="article:published_time" content="2019-09-21T00:00:00+12:00" />
+<meta property="article:modified_time" content="2019-09-21T00:00:00+12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="John Doe" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">information theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">fzf vs helm, ivy and completing-read</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Sep 21, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/elisp/">elisp</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      
+
+<p>Helm, ivy and completing-read are 3 emacs-lisp alternatives to <code>fzf</code>.</p>
+
+<p>They are all a little different to hack on / configure though.</p>
+
+<h2 id="helm"><code>helm</code></h2>
+
+<h3 id="select-from-a-list">Select from a list</h3>
+
+<p>There are different ways to select from a list.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun fz-must-match (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;optional</span> prompt)
+  (setq prompt (or prompt <span style="color:#e6db74">&#34;:&#34;</span>))
+  (helm-comp-read prompt <span style="color:#a6e22e">list</span> :must-match <span style="color:#66d9ef">t</span>))
+
+<span style="color:#75715e">;; This is very useful</span>
+(defun fz-default-return-query (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;optional</span> prompt)
+  (setq prompt (or prompt <span style="color:#e6db74">&#34;:&#34;</span>))
+  (helm-comp-read prompt <span style="color:#a6e22e">list</span> :must-match <span style="color:#e6db74">&#39;confirm</span>))
+
+<span style="color:#75715e">;; But I don&#39;t like confirm things</span>
+(defun fz-default-return-query (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;optional</span> prompt)
+  (setq prompt (or prompt <span style="color:#e6db74">&#34;:&#34;</span>))
+  (helm-comp-read prompt <span style="color:#a6e22e">list</span> :must-match <span style="color:#e6db74">&#39;nil</span>))</code></pre></div>
+<h3 id="getting-the-list-of-options-in-another-window">Getting the list of options in another window</h3>
+
+<p><code>tv</code> takes a string and opens a window with it.</p>
+
+<p>The key point here is <code>(helm-marked-candidates-strings :all-sources t)</code>.</p>
+
+<p>Make your own <code>tv</code> function.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun helm-copy-to-tv ()
+  <span style="color:#e6db74">&#34;Copy selection or marked candidates to </span><span style="color:#e6db74">`helm-current-buffer&#39;</span><span style="color:#e6db74">.
+</span><span style="color:#e6db74">Note that the real values of candidates are copied and not the
+</span><span style="color:#e6db74">display values.&#34;</span>
+  (interactive)
+
+  (helm-mark-all <span style="color:#66d9ef">t</span>)
+  (tv (helm-marked-candidates-strings :all-sources <span style="color:#66d9ef">t</span>) :b-nowait <span style="color:#66d9ef">t</span> :b-quiet <span style="color:#66d9ef">t</span>)
+  )
+
+(<span style="color:#a6e22e">define-key</span> helm-map (kbd <span style="color:#e6db74">&#34;C-c o&#34;</span>)      <span style="color:#e6db74">&#39;helm-copy-to-tv</span>)</code></pre></div>
+<h3 id="copy-the-currently-selected-item">Copy the currently selected item</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defmacro helm-marked-candidates-strings (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#e6db74">&#34;&#34;</span>
+  <span style="color:#f92672">`</span>(my/join (helm-marked-candidates <span style="color:#f92672">,@</span>body) <span style="color:#e6db74">&#34;\n&#34;</span>))
+
+(defun helm-copy-selection-to-clipboard ()
+  <span style="color:#e6db74">&#34;Copy selection or marked candidates to </span><span style="color:#e6db74">`helm-current-buffer&#39;</span><span style="color:#e6db74">.
+</span><span style="color:#e6db74">Note that the real values of candidates are copied and not the
+</span><span style="color:#e6db74">display values.&#34;</span>
+  (interactive)
+
+  (my/copy (helm-marked-candidates-strings)))
+
+(<span style="color:#a6e22e">define-key</span> helm-map (kbd <span style="color:#e6db74">&#34;M-c&#34;</span>) <span style="color:#a6e22e">#&#39;</span>helm-copy-selection-to-clipboard)</code></pre></div>
+<h2 id="ivy"><code>ivy</code></h2>
+
+<h3 id="copy-the-currently-selected-item-1">Copy the currently selected item</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun ivy-copy-selection ()
+  <span style="color:#e6db74">&#34;Copy the selected candidate as a string.&#34;</span>
+  (interactive)
+  (if (ivy--prompt-selected-p)
+      (ivy-immediate-done)
+    (setq ivy-current-prefix-arg current-prefix-arg)
+    (cond ((or (<span style="color:#a6e22e">&gt;</span> ivy--length <span style="color:#ae81ff">0</span>)
+               <span style="color:#75715e">;; the action from `ivy-dispatching-done&#39; may not need a</span>
+               <span style="color:#75715e">;; candidate at all</span>
+               (<span style="color:#a6e22e">eq</span> this-command <span style="color:#e6db74">&#39;ivy-dispatching-done</span>))
+           (my/copy (ivy-current-string) <span style="color:#66d9ef">t</span>)
+           )
+          ((<span style="color:#a6e22e">memq</span> (ivy-state-collection ivy-last)
+                 <span style="color:#f92672">&#39;</span>(read-file-name-internal <span style="color:#a6e22e">internal-complete-buffer</span>))
+           (if (or (not (<span style="color:#a6e22e">eq</span> confirm-nonexistent-file-or-buffer <span style="color:#66d9ef">t</span>))
+                   (<span style="color:#a6e22e">equal</span> <span style="color:#e6db74">&#34; (confirm)&#34;</span> ivy--prompt-extra))
+               (ivy--done (ivy-current-string))
+             (setq ivy--prompt-extra <span style="color:#e6db74">&#34; (confirm)&#34;</span>)
+             (my/copy (ivy--done (ivy-current-string)) <span style="color:#66d9ef">t</span>)
+             (ivy--exhibit)))
+          ((<span style="color:#a6e22e">memq</span> (ivy-state-require-match ivy-last)
+                 <span style="color:#f92672">&#39;</span>(<span style="color:#66d9ef">nil</span> confirm confirm-after-completion))
+           (ivy--done (ivy-current-string)))
+          (<span style="color:#66d9ef">t</span>
+           (setq ivy--prompt-extra <span style="color:#e6db74">&#34; (match required)&#34;</span>)
+           (my/copy (ivy-current-string) <span style="color:#66d9ef">t</span>)
+           (ivy--exhibit)))))</code></pre></div>
+<h3 id="getting-the-list-of-options-in-another-window-1">Getting the list of options in another window</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun ivy-tv-filtered-candidates ()
+  (interactive)
+  (tvd (list2str (ivy-filtered-candidates))))</code></pre></div>
+<h3 id="set-key-bindings-for-above">Set key bindings for above</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(use-package ivy
+       :defer <span style="color:#ae81ff">0.1</span>
+       :diminish
+       :bind ((<span style="color:#e6db74">&#34;M-D&#34;</span> <span style="color:#f92672">.</span> send-m-del)
+              (<span style="color:#e6db74">&#34;M-c&#34;</span> <span style="color:#f92672">.</span> ivy-copy-selection)
+              (<span style="color:#e6db74">&#34;C-c o&#34;</span> <span style="color:#f92672">.</span> ivy-tv-filtered-candidates)
+              )
+       :custom
+       (ivy-count-format <span style="color:#e6db74">&#34;(%d/%d) &#34;</span>)
+       (ivy-display-style <span style="color:#e6db74">&#39;fancy</span>)
+       (ivy-use-virtual-buffers <span style="color:#66d9ef">t</span>)
+       :config (ivy-mode))</code></pre></div>
+<h2 id="completing-read"><code>completing-read</code></h2>
+
+<p><code>helm</code> and <code>ivy</code> use <code>completing-read</code> under the hood.</p>
+
+<h3 id="basic-example">Basic example</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">completing-read</span> <span style="color:#e6db74">&#34;test: &#34;</span> <span style="color:#f92672">&#39;</span>(a b c d) <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>)
+(<span style="color:#a6e22e">completing-read</span> <span style="color:#e6db74">&#34;test: &#34;</span> <span style="color:#f92672">&#39;</span>(a b c d) <span style="color:#66d9ef">nil</span> <span style="color:#e6db74">&#39;confirm</span>)</code></pre></div>
+<h3 id="useful-functions">Useful functions</h3>
+
+<p>These are different ways to select from a list.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun fz-must-match (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;optional</span> prompt)
+  (setq prompt (or prompt <span style="color:#e6db74">&#34;:&#34;</span>))
+  (<span style="color:#a6e22e">completing-read</span> prompt <span style="color:#a6e22e">list</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>))
+
+<span style="color:#75715e">;; This is very useful</span>
+(defun fz-default-return-query (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;optional</span> prompt)
+  (setq prompt (or prompt <span style="color:#e6db74">&#34;:&#34;</span>))
+  (<span style="color:#a6e22e">completing-read</span> prompt <span style="color:#a6e22e">list</span> <span style="color:#66d9ef">nil</span> <span style="color:#e6db74">&#39;confirm</span>))</code></pre></div>
+<h3 id="prompt-using-your-favorite-completion-framework">Prompt using your favorite completion framework</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#a6e22e">insert</span> (<span style="color:#a6e22e">completing-read</span> <span style="color:#e6db74">&#34;Prompt: &#34;</span> *my-list*))</code></pre></div>
+<h4 id="helper-functions">Helper functions</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun insert-with-completion (strings)
+  <span style="color:#e6db74">&#34;Insert a string from STRINGS into the current buffer.
+</span><span style="color:#e6db74">Prompt for string to insert with completing-read.&#34;</span>
+  (<span style="color:#a6e22e">insert</span> (<span style="color:#a6e22e">completing-read</span> <span style="color:#e6db74">&#34;Insert: &#34;</span> strings <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>)))
+
+(defun read-lines (path)
+  <span style="color:#e6db74">&#34;Return list of lines in file at PATH.&#34;</span>
+  (with-temp-buffer
+    (<span style="color:#a6e22e">insert-file-contents</span> path)
+    (split-string (<span style="color:#a6e22e">buffer-string</span>) <span style="color:#e6db74">&#34;\n&#34;</span> <span style="color:#66d9ef">t</span>)))</code></pre></div>
+<h4 id="example">Example</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun insert-from-my-list ()
+  <span style="color:#e6db74">&#34;Insert a line into the current buffer, with completion.&#34;</span>
+  (interactive)
+  (insert-with-completion (read-lines <span style="color:#e6db74">&#34;~/path/to/my-list.txt&#34;</span>)))</code></pre></div>
+<ul>
+<li><p>Cache it</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defvar *my-list* <span style="color:#66d9ef">nil</span>)
+
+(defun refresh-my-list ()
+  <span style="color:#e6db74">&#34;Reread list of things.&#34;</span>
+  (interactive)
+  (setq *my-list* (read-lines <span style="color:#e6db74">&#34;~/path/to/my-list.txt&#34;</span>)))
+
+(defun insert-from-my-list-cached ()
+  <span style="color:#e6db74">&#34;Insert a line into the current buffer, with completion.&#34;</span>
+  (interactive)
+  (unless *my-list* (refresh-my-list))
+  (insert-with-completion *my-list*))</code></pre></div></li>
+</ul>
+
+<h2 id="icomplete"><span class="org-todo todo TODO">TODO</span> icomplete</h2>
+
+<h2 id="misc"><span class="org-todo todo TODO">TODO</span> misc</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(defun fz (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;optional</span> input b_full-frame prompt must-match)
+  (if (<span style="color:#a6e22e">stringp</span> <span style="color:#a6e22e">list</span>)
+      (setq <span style="color:#a6e22e">list</span> (string2list <span style="color:#a6e22e">list</span>)))
+  (setq prompt (or prompt <span style="color:#e6db74">&#34;:&#34;</span>))
+
+  (cl-fz <span style="color:#a6e22e">list</span> :initial-input input :full-frame b_full-frame :prompt prompt :must-match must-match))
+
+<span style="color:#75715e">;; This is very useful</span>
+(cl-defun cl-fz (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;key</span> prompt <span style="color:#66d9ef">&amp;key</span> full-frame <span style="color:#66d9ef">&amp;key</span> initial-input <span style="color:#66d9ef">&amp;key</span> must-match)
+  (setq prompt (or prompt <span style="color:#e6db74">&#34;:&#34;</span>))
+  (let ((helm-full-frame full-frame))
+    (helm-comp-read prompt <span style="color:#a6e22e">list</span> :must-match must-match :initial-input initial-input)))
+(defalias <span style="color:#e6db74">&#39;fz-new</span> <span style="color:#e6db74">&#39;cl-fz</span>)
+
+(cl-defun fz-default-return-query (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;key</span> prompt <span style="color:#66d9ef">&amp;key</span> full-frame <span style="color:#66d9ef">&amp;key</span> initial-input)
+  (fz-new <span style="color:#a6e22e">list</span> :prompt prompt :full-frame full-frame :initial-input initial-input))
+
+(defun fz-default-return-query (<span style="color:#a6e22e">list</span> <span style="color:#66d9ef">&amp;optional</span> prompt full-frame)
+  (setq prompt (or prompt <span style="color:#e6db74">&#34;:&#34;</span>))
+  (let ((helm-full-frame full-frame))
+    (helm-comp-read prompt <span style="color:#a6e22e">list</span> :must-match <span style="color:#66d9ef">nil</span>)))</code></pre></div>
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "@disqus_NmomXxAGEX" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

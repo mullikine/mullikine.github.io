@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>PClean: A probabilistic scripting DSL // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.9200f15e5b522081b40b32c05f72d83bb782a224350597f86f00e6730c54d6ca.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PClean: A probabilistic scripting DSL"/>
+<meta name="twitter:description" content="Links  MIT Probabilistic Computing Project Introduction | Gen GitHub - probcomp/Gen: A general-purpose probabilistic programming system with programmable inference  Other talks by MIT Probabilistic Computing Project: Videos, Talks, and Podcasts - MIT Probabilistic Computing Project
+Tools Gen  a package for the Julia programming language. consists of multiple modeling languages that are implemented as DSLs in Julia and a Julia library for inference programming.  PClean  A probabilistic scripting DSL in the Gen package."/>
+
+    <meta property="og:title" content="PClean: A probabilistic scripting DSL" />
+<meta property="og:description" content="Links  MIT Probabilistic Computing Project Introduction | Gen GitHub - probcomp/Gen: A general-purpose probabilistic programming system with programmable inference  Other talks by MIT Probabilistic Computing Project: Videos, Talks, and Podcasts - MIT Probabilistic Computing Project
+Tools Gen  a package for the Julia programming language. consists of multiple modeling languages that are implemented as DSLs in Julia and a Julia library for inference programming.  PClean  A probabilistic scripting DSL in the Gen package." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/pclean-gen-gpl/" />
+<meta property="article:published_time" content="2019-09-30T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-09-30T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="John Doe" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">information theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">PClean: A probabilistic scripting DSL</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Sep 30, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          9 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a><a class="tag" href="http://mullikine.github.io/tags/nlp/">NLP</a><a class="tag" href="http://mullikine.github.io/tags/strangeloop/">strangeloop</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      
+
+<h2 id="links">Links</h2>
+
+<ul>
+<li><a href="http://probcomp.csail.mit.edu/">MIT Probabilistic Computing Project</a></li>
+<li><a href="https://probcomp.github.io/Gen/">Introduction | Gen</a></li>
+<li><a href="https://github.com/probcomp/Gen">GitHub - probcomp/Gen: A general-purpose probabilistic programming system with programmable inference</a></li>
+</ul>
+
+<h3 id="other-talks-by-mit-probabilistic-computing-project">Other talks by MIT Probabilistic Computing Project:</h3>
+
+<p><a href="http://probcomp.csail.mit.edu/videos-talks-podcasts/">Videos, Talks, and Podcasts - MIT Probabilistic Computing Project</a></p>
+
+<h2 id="tools">Tools</h2>
+
+<h3 id="gen">Gen</h3>
+
+<ul>
+<li>a package for the Julia programming language.</li>
+<li>consists of multiple modeling languages
+that are implemented as DSLs in Julia and a
+Julia library for inference programming.</li>
+</ul>
+
+<h3 id="pclean">PClean</h3>
+
+<ul>
+<li>A probabilistic scripting DSL in the Gen package.</li>
+</ul>
+
+<h2 id="probabilistic-scripts-for-automating-common-sense-tasks">Probabilistic scripts for automating common-sense tasks</h2>
+
+<p><a href="https://www.youtube.com/watch?v=MiiWzJE0fEA">&ldquo;Probabilistic scripts for automating common-sense tasks&rdquo; by Alexander Lew - YouTube</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">readsubs <span style="color:#e6db74">&#34;https://www.youtube.com/watch?v=MiiWzJE0fEA&#34;</span></code></pre></div>
+<h3 id="bayes-theorem">Bayes&rsquo; Theorem</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">         P(B|A).P(A)
+P(A|B) = -----------
+            P(B)</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>POS</th>
+<th>name</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>P(∙)</td>
+<td>Domain knowledge</td>
+</tr>
+
+<tr>
+<td>A</td>
+<td>Unknown variables (unknowns)</td>
+</tr>
+
+<tr>
+<td>B</td>
+<td>Observed values (knowns)</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="programmable-inference">Programmable inference</h3>
+
+<p>Combines sequential Monte Carlo and expectation-maximization.</p>
+
+<h3 id="the-basic-point-of-this-talk">The basic point of this talk</h3>
+
+<p>If you have some code that&rsquo;s imperative and
+relies on a bunch of heuristics, it&rsquo;s often
+because you&rsquo;re trying to do something common
+sense that the computer doesn&rsquo;t have the
+declarative knowledge in order to solve.</p>
+
+<p>That&rsquo;s what&rsquo;s gets you into a mess.</p>
+
+<p>If you can frame your task as reasoning about
+unknown variables in the context of domain
+knowledge and observed variables then you can
+think about actually replacing this with a
+much more natural sort of scripting approach
+where you just tell it what you assume to be
+true and your normal computer would say what
+am I supposed to do with that.</p>
+
+<h4 id="in-practice">In practice</h4>
+
+<p>We replaced that with a computer that has read
+a probability theory textbook (by which I mean
+we have replaced it with a robot that whose
+internals are to compile into one of these
+powerful general-purpose probabilistic
+programming languages), get some meta data out
+and then run an inference program.</p>
+
+<ul>
+<li><p>The idea</p>
+
+<p>This should work whenever you can frame your
+problem as an inference task with domain
+knowledge unknown variables and observed
+values.</p></li>
+</ul>
+
+<h3 id="an-example-problem-cleaning-data">An example problem: Cleaning data</h3>
+
+<p>Fixing typos and guessing empty cells in tabular data.</p>
+
+<h4 id="need-a-code-is-confusing">Need a <span class="underline">declarative</span> solution. <span class="underline">Imperative</span> code is confusing</h4>
+
+<ul>
+<li><p>Why not just use an imperative programming style?</p>
+
+<ul>
+<li>The code will quickly become hard to understand as complexity increases.</li>
+
+<li><p>The code makes bad (though technically correct) guesses.</p></li>
+
+<li><p>Heuristic, imperative</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">for r in rows
+possible_cities = ismissing(r[:state]) ? all_cities : cities[r[:state]]
+r[:city] = nearest...
+if ismissing...
+for s in states
+if cities...</code></pre></div></li>
+
+<li><p>Probabilistic, declarative</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">1. More populated cities appear more often
+2. Rents of different listings in same city are likely similar
+3. city names may, rarely, contain a typo
+4. Even more rarely, city names may contain multiple typos</code></pre></div></li>
+</ul></li>
+
+<li><p>Should we use prolog?</p>
+
+<p>With Prolog and other logic programming languages (which can sort of
+solve constraints), you say what the constraints you want solved are and
+then it will find a logical solution.</p>
+
+<p>The problem with that is that we don&rsquo;t know what logical constraints for
+this problem are. If we tried to write a Prolog problem program it would
+probably just have the same heuristics but encoded declaratively instead
+of imperatively. We would say, &ldquo;the correct city is the city with the
+rent that is closest to all the other&hellip;&rdquo;</p>
+
+<p>No improvement over imperative.</p></li>
+
+<li><p>Should we use a Neural Network?</p>
+
+<p>They are declarative because you specify inputs and outputs and let it
+learn the mapping.</p>
+
+<p>Unfortunately, you need a lot of training data and you might not have
+examples of clean and dirty data tables.</p>
+
+<ul>
+<li><p>Machine Learning: The High Interest Credit Card of Technical Debt</p>
+
+<p><a href="https://ai.google/research/pubs/pub43146">ai.google/research/pubs/pub43146</a></p>
+
+<p>In this paper by Google, they admitted:</p>
+
+<ul>
+<li>When you use ML:
+
+<ul>
+<li>it gives you short-term gains.</li>
+<li>you get higher performance <em>but</em> as the needs of your product evolve it becomes a lot harder to maintain that neural net in there.</li>
+<li>when do you need to retrain?</li>
+<li>how do you keep track of which data set it was trained on?</li>
+<li>what have we added a column to our data table?
+Do we have to like completely throw away the
+neural net which was trained on only some
+columns?</li>
+</ul></li>
+</ul></li>
+
+<li><p>Conclusion: We should not use a NN either</p>
+
+<p>There&rsquo;s a lot of questions that it raises to
+use neural nets and also it really seems like
+we shouldn&rsquo;t need to this.</p>
+
+<p>It seems like a simple task, right?</p>
+
+<ul>
+<li>Do not use a NN because:
+
+<ul>
+<li>not enough data</li>
+<li>it creates technical debt over time</li>
+</ul></li>
+</ul></li>
+</ul></li>
+
+<li><p>Solution: a new probabilistic scripting language</p>
+
+<p>Probabilistic scripting is going to give us a
+declarative programming framework for applying
+probability theory to problems like data
+cleaning.</p>
+
+<ul>
+<li><p>Should be use natural language i.e. English?</p>
+
+<p>That&rsquo;s impractical.</p></li>
+
+<li><p>Language purpose / challenges</p>
+
+<ul>
+<li>must be able to encode domain knowledge in a script, flexibly</li>
+<li>must be able to encode observations in the script</li>
+
+<li><p>must be an efficient way to do data cleaning</p></li>
+
+<li><p>Encoding domain knowledge</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">P(typed city and rent | city and state)</code></pre></div>
+<p>The different kinds of knowledge can be
+thought of as helping to specify probability
+distributions that tell us what values (cities
+and states) are more or less likely, or given
+a city and state what type cities and rents
+are more or less likely, etc.</p>
+
+<ul>
+<li><p>More populated cities appear more often</p>
+
+<p>Therefore, randomly sample cities according to their populations.</p></li>
+
+<li><p>Rents of different listings in same city are likely similar</p>
+
+<p>Rents depend on city. Therefore, randomly generate rent based on city.</p></li>
+
+<li><p>City names may, rarely, contain a typo</p>
+
+<p>City names might contain typos. Therefore, randomly add typos to city name.</p></li>
+
+<li><p>Even more rarely, city names may contain multiple typos</p>
+
+<p>[Same as above]</p>
+
+<p>City names might contain typos. Therefore, randomly add typos to city name.</p></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="pclean--a-dsl-in-the-gen-package">PClean (A DSL in the Gen package)</h2>
+
+<p>A general-purpose tool in which users write
+scripts encoding domain knowledge P(∙), then
+feed in a messy dataset (A and B).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># Probabilistic script
+@pclean rent_row_generator begin
+    @column &#34;State&#34; state = choose_proportionally(states, state_pops)
+    @column &#34;City&#34; city = choose_proportionally(cities[state], city_pops[state])
+    @dirty &#34;City&#34; = add_typos(city)
+    @column &#34;Rent per bedroom&#34; = add_noise(mean_rents[state, city], 100)
+end
+
+# Cleaning
+
+clean(table, rent_row_generator)</code></pre></div>
+<h3 id="underscores">Underscores</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># Probabilistic script
+@pclean rent_row_generator begin
+    @column &#34;State&#34; state = choose_proportionally(states, _)
+    @column &#34;City&#34; city = choose_proportionally(cities[state], _[state])
+    @dirty &#34;City&#34; = add_typos(city)
+    @column &#34;Rent per bedroom&#34; = add_noise(_[state, city], _)
+end
+
+# Cleaning
+
+fit!(table, rent_row_generator)
+clean(table, rent_row_generator)</code></pre></div>
+<dl>
+<dt>Expectation-Maximization (EM) algorithm</dt>
+<dd>A way to find maximum-likelihood estimates for model parameters when your data is incomplete, has missing data points, or has unobserved (hidden) latent variables. It is an iterative way to approximate the maximum likelihood function.</dd>
+</dl>
+
+<p>We don&rsquo;t have datasets telling us the liklihood of different values of
+the columns.</p>
+
+<p>Therefore, we allow users to replace those parameters
+with underscores and then call the <span class="underline">fit</span>
+function to learn the parameters from the
+messy data table itself.</p>
+
+<p>In essence the fact
+that we have a big table of data can stand in
+for the computers lack of life experience.</p>
+
+<p>It
+can pick up all this knowledge by looking at
+patterns in the data that you give it.</p>
+
+<p>In particular, the way that this learning is
+actually going to work is it&rsquo;s going to:</p>
+
+<ul>
+<li>begin by choosing some initial values for all of those parameters just
+setting some initial values, and then</li>
+<li>(assuming that those initial values are true)
+it&rsquo;s going to clean the data set completely.</li>
+</ul>
+
+<p>then we&rsquo;re going to get a completely clean
+data set from which we can re estimate the
+parameters and do this in a loop and this is
+an algorithm called expectation maximization
+and it will eventually it should eventually
+converge to some values of these parameters
+also notice that these parameters these
+underscores are allowed to have square
+brackets after them indexing by some
+expression and without saying is that a
+different value of this parameter should be
+learned for every value of the index right</p>
+
+<p>so we&rsquo;re all out</p>
+
+<p>we&rsquo;re able to then communicate that the rent
+per bedroom doesn&rsquo;t have</p>
+
+<p>just one mean that noise is added to it has a
+different mean for each city and state</p>
+
+<p>now we&rsquo;re still -</p>
+
+<p>you are still saying here that we&rsquo;re giving it
+the list of cities that exist in the list in
+the list of states that exist and this might
+seem like a more reasonable assumption we
+often do know what the possible values for
+some column are</p>
+
+<p>but it&rsquo;s kind of annoying to compile</p>
+
+<p>and sometimes we don&rsquo;t know it</p>
+
+<p>so PClean is also going to let you replace
+that with an underscore and that means that it
+should learn which of the things in that
+column are actually valid values and which
+ones were just erroneous so for example if we
+have a big data set and only one row has the
+city Newport in it the system is going to
+compare the hypotheses that on the one hand
+it&rsquo;s possible that there is a city called
+Newport because we haven&rsquo;t told it what cities
+exist</p>
+
+<p>so it&rsquo;s possible that there is a city called
+Newport</p>
+
+<p>but if that were the case it would have such a
+small population that only one entry from this
+table came from it</p>
+
+<p>and so then it&rsquo;s comparing the probability
+that we got the one citizen of Newport versus
+the possibility that one of the millions of
+citizens from New York made a typo right</p>
+
+<p>and so it&rsquo;s going to correct it to New York on
+the other hand if we have several rows called
+Newport and the rents are very low now the
+calculus kind of changes because on the one
+hand it can consider the possibility that all
+of these people made this typo same typo and
+that they somehow all happen to be the ones
+who got the cheapest rents in New York or it
+can consider that there actually is a small
+city called Newport in New York that has cheap
+rents right</p>
+
+<p>and in this case it will prefer the second
+hypothesis and none of this came from us
+explicitly coding these heuristics in pea
+clean is based on probability theory which is
+the lingua franca of a lot of research in data
+s</p>
+
+<h3 id="pclean-with-gpt-2">PClean with GPT-2</h3>
+
+<p>One benefit we get for free from using
+probability theory is that we can benefit from
+some of the latest advances in AI to create
+more expressive models.</p>
+
+<p>On it&rsquo;s own, GPT-2&rsquo;s review will not be based on
+the sentiment and the product type.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># Prababilistic script
+@pclean review_row_generator begin
+  @column &#34;Positive?&#34; is_positive = flip_coin(_)
+  @column &#34;ProductType&#34; ptype = choose_proportionally(_, _)
+
+  # Somehow, we want to say:
+  @column &#34;Review&#34; = write_review(is_positive, ptype)
+end
+
+# Cleaning
+fit!(table, review_row_generator)
+clean(table, review_row_generator)</code></pre></div>
+<p>PClean can figure out that this was a
+positive review about a book or a negative
+review about a movie and we didn&rsquo;t have to do
+any additional training we didn&rsquo;t have to
+train a neural net with a bunch of labeled
+examples all of all we had to do was specify
+the task by writing up this prompt and and
+writing up this script</p>
+
+<p>When we say &lsquo;clean&rsquo; we mean probabilistic inference.</p>
+
+<h4 id="with-gpt-2">With GPT-2</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"># Probabilistic script
+@pclean review_row_generator begin
+  @column &#34;Positive?&#34; is_positive = flip_coin(_)
+  @column &#34;ProductType&#34; ptype = choose_proportionally(_, _)
+  prompt = if is_positive
+    &#34;I&#39;m giving this $(ptype) a very positive review, because it&#39;s fantastic.
+    A+, 5/5, amazing, best $(ptype) ever. Like, &#34;
+  else
+    &#34;I&#39;m giving this $(ptype) a very bad review, because it&#39;s awful.
+    F, 1/5, truly terrible, worst $(ptype) ever. Like, &#34;
+  end
+
+  # Somehow, we want to say:
+  @column &#34;Review&#34; = GPT2_elaborate(prompt)
+end
+
+# Cleaning
+fit!(table, review_row_generator)
+clean(table, review_row_generator)</code></pre></div>
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "@disqus_NmomXxAGEX" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

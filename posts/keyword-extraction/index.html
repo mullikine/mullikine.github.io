@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Keyword extraction to analyse articles // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.9200f15e5b522081b40b32c05f72d83bb782a224350597f86f00e6730c54d6ca.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Keyword extraction to analyse articles"/>
+<meta name="twitter:description" content="sparsity [#text mining] Huge matrices are created based on word frequencies with many cells having zero values. This problem is called sparsity and is minimized using various techniques. Articles keyword extraction: nltk, sklearn Automated Keyword Extraction from Articles using NLP
+kag datasets download benhamner/nips-papers textrank: numpy, spacy towardsdatascience.com/textrank-for-keyword-extraction-by-python-c0bae21bcec0
+ngram, modified skip-gram, spacy Keywords Extraction with Ngram and Modified Skip-gram based on spaCy
+TODO Turn the math4IQB lectures into keywords readsubs &#34;https://www."/>
+
+    <meta property="og:title" content="Keyword extraction to analyse articles" />
+<meta property="og:description" content="sparsity [#text mining] Huge matrices are created based on word frequencies with many cells having zero values. This problem is called sparsity and is minimized using various techniques. Articles keyword extraction: nltk, sklearn Automated Keyword Extraction from Articles using NLP
+kag datasets download benhamner/nips-papers textrank: numpy, spacy towardsdatascience.com/textrank-for-keyword-extraction-by-python-c0bae21bcec0
+ngram, modified skip-gram, spacy Keywords Extraction with Ngram and Modified Skip-gram based on spaCy
+TODO Turn the math4IQB lectures into keywords readsubs &#34;https://www." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/keyword-extraction/" />
+<meta property="article:published_time" content="2019-10-17T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-10-17T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="John Doe" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">information theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Keyword extraction to analyse articles</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 17, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          11 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a><a class="tag" href="http://mullikine.github.io/tags/python/">python</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">sparsity
+    [#text mining]
+
+    Huge matrices are created based on word
+    frequencies with many cells having zero
+    values.
+
+    This problem is called sparsity and is
+    minimized using various techniques.</code></pre></div>
+<h2 id="articles">Articles</h2>
+
+<h3 id="keyword-extraction-nltk-sklearn">keyword extraction: <code>nltk</code>, <code>sklearn</code></h3>
+
+<p><a href="https://medium.com/analytics-vidhya/automated-keyword-extraction-from-articles-using-nlp-bfd864f41b34">Automated Keyword Extraction from Articles using NLP</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">kag datasets download benhamner/nips-papers</code></pre></div>
+<h3 id="textrank-numpy-spacy"><code>textrank</code>: <code>numpy</code>, <code>spacy</code></h3>
+
+<p><a href="https://towardsdatascience.com/textrank-for-keyword-extraction-by-python-c0bae21bcec0">towardsdatascience.com/textrank-for-keyword-extraction-by-python-c0bae21bcec0</a></p>
+
+<h3 id="ngram-modified-skip-gram-spacy">ngram, modified skip-gram, spacy</h3>
+
+<p><a href="https://medium.com/reputation-com-datascience-blog/keywords-extraction-with-ngram-and-modified-skip-gram-based-on-spacy-14e5625fce23">Keywords Extraction with Ngram and Modified Skip-gram based on spaCy</a></p>
+
+<h2 id="turn-the-math4iqb-lectures-into-keywords"><span class="org-todo todo TODO">TODO</span> Turn the <code>math4IQB</code> lectures into keywords</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">readsubs <span style="color:#e6db74">&#34;https://www.youtube.com/watch?v=gfPUWwBkXZY&#34;</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">ANNs are mathematical machines the biology can
+only get us so far we really need math to
+extend what we get from the biology into a
+useful algorithm and the deeper the math that
+we use the better the network we actually will
+be working with so math and psychology
+
+actually there are two questions that we can&#39;t
+answer biologically what type of network we
+should use the network topology of real-world
+NNs is just far too complex and how do we
+estimate synaptic weights and these thresholds
+theta sub J
+
+we&#39;ll start with the first
+
+and we&#39;ll see that as we learn more the answer
+to these questions will change so we&#39;ll get
+something that works
+
+but then as we learn more as we refine more as
+we do deeper and deeper mathematics these
+answers that we&#39;re going to get in this
+lecture will be modified so first off
+
+we could say well let&#39;s suppose we looked at a
+minimum a clinic minimally connected Network a
+tree so for instance we could use a decision
+tree where logistic regression is used for
+each decision that is a NN and as a matter of
+fact it&#39;s something that&#39;s kind of fun to set
+up
+
+is instead of using information gained at each
+node use logistic regression at each node but
+
+what we&#39;ll find out in such a case is that
+such a ANN is actually a linear classifier and
+training would be via maximum entropy and we
+don&#39;t necessarily have any indication of
+maximum entropy training in our own brains so
+minimally connected may not be the best
+approach we don&#39;t escape linear what about
+maximally connected this actually has some
+utility so we&#39;re going to look at an ANN on a
+complete graph with a discrete firing function
+and
+
+in particular we&#39;ll look at what are called
+hopfield net works on will correspond to one
+and off will correspond to negative one not
+zero
+
+and so our firing function is actually going
+to from negative one to one at some threshold
+theta sub J and will be completely connected
+
+it&#39;s a complete graph
+
+and we&#39;re going to assume symmetric weights
+
+so W IJ is equal to W J I and the hopfield
+network fires randomly
+
+so we&#39;ll go through and randomly choose a
+neuron
+
+and we&#39;ll update it and then randomly choose
+another so on and so forth
+
+so we can look at this thing hopfield network
+in terms of matrices are our inputs
+
+there&#39;s one input for each neuron and is also
+the output from the neuron and the input to
+the other neurons and each X of J is either 1
+or negative 1 in the weight matrix
+
+is just all the synaptic weights the neurons
+are not connected to themselves
+
+and it&#39;s a symmetric matrix
+
+now we&#39;re going to use hebbian learning
+learning will correspond to modification of
+the synaptic weights and we&#39;ll do so using
+what&#39;s known as a heavy inerting rule we get
+this from the cognitive psychologist David hab
+who came up with a learning theory based on
+the idea that learning takes place by
+reinforcing connections among learned States
+so to learn a pattern
+
+so we want the network to be able to recall
+this pattern that we&#39;re going to give it
+
+then we&#39;re going to have each entering the
+pattern be either
+
+a plus 1 or a minus 1
+
+we&#39;re going to fix a learning rate
+
+and then we&#39;re going to update what we had
+previously for the synaptic weights using this
+very simple rule
+
+the new synaptic weights will be the old
+synaptic weights plus epsilon times P sub
+
+I times P sub J in matrix form
+
+we&#39;re actually looking at what we call an
+outer product a column times a row and this
+gives us our heavy and learning matrix except
+down the diagonal we have
+
+P 1 squared P 2
+
+squared so and so forth
+
+each one of these is a 1 however so that means
+that we can subtract the identity matrix and
+that will remove the diagonal so that our
+matrix form rule is the new matrix will be the
+old matrix plus epsilon times P dot P
+transpose minus the identity assimilation
+begins with an initial state after which we
+select a neuron at random and fire based on
+this firing rule notice here that I will not
+be equal to J so the neurons not connected to
+itself and we repeat until hopefully something
+useful happens we&#39;re going to look at this in
+terms of letters in some sense
+
+so we&#39;re going to have these rectangular grids
+and blue
+
+will correspond to a1 and white will
+correspond to a 0 but remember that our is 1
+why it is negative 1 or we can think of this
+blue is true and white is false and we&#39;re
+using negative 1 for false now we imagine
+complete connectivity with all these weights
+now I haven&#39;t shown all the edges here we just
+want to imagine that every single one of these
+rectangles is connected to every other
+rectangle
+
+and then we want to choose the neuron at
+random and calculate it to new state
+
+so here&#39;s the actual simulation of that we&#39;ll
+take our input pattern
+
+this is a T will learn that input and let&#39;s
+teach it another one so this is using the
+hebbian learning rule we&#39;re updating that
+matrix using this matrix learning rule to
+update that synaptic matrix so we&#39;ve learned T
+and a C and here we go with an I
+
+so we can learn that
+
+and so now we want to see if we can recall
+
+and so we put something in and notice that
+we&#39;re not going to put exactly in
+
+but we&#39;re going to say that sort of looks like
+an eye
+
+and so now we&#39;re going to fire ten neurons at
+a time
+
+and you&#39;ll notice that what happens let&#39;s go
+to a hundred at a time is as we randomly
+choose we get something that settles in to one
+of the letters that we&#39;ve learned
+
+so we learned the letter C as we randomly
+select and fire
+
+we call that asynchronous
+
+then we end up with this now the hopfield
+network has an energy and the energy is
+defined as you see here
+
+and there&#39;s a theorem that the energy
+decreases each time a neuron fires and let&#39;s
+actually prove that so if we take the new
+energy minus the old energy the is so after
+we&#39;ve randomly selected a neuron
+
+I then only the X sub
+
+i&#39;s
+
+can change because we selected an exabyte
+random and everything else stays the same so
+therefore
+
+in that double sum all we&#39;re left with is the
+X sub I term
+
+so we can see that in this double sum that the
+only thing left from the double sum will be
+the X sub I now notice that we have a negative
+here out in front that&#39;s going to be important
+now suppose that the new value of X sub I is
+greater than the value of x by well that will
+imply that the first term is positive it&#39;ll
+also imply that the sum of the weighted inputs
+was greater than the threshold which will
+imply that the second term was positive and so
+therefore e new - e old will be a negative
+times a positive times a positive and that
+implies that inu - the old is negative or that
+the energy decreased due to the firing from
+what it was previously the other case
+
+is that the new value of x sub I is less than
+the old value of X sub I in which case the
+first term is negative which implies the
+threshold was larger than the weighted sum and
+therefore the second term was negative and
+therefore we get the product of three
+negatives and once again the new energy is
+less than the old so in either case we get
+less energy or lower value of the energy
+
+so let&#39;s look at this in action so now when I
+learn things it&#39;s actually going to show us
+what the energy is
+
+so there&#39;s the energy for learning the letter
+T and now let&#39;s learn the letter C and notice
+when we hit the learn button that it&#39;s going
+to have an energy negative
+
+forty four ninety eight notice all these
+energies are negative and now we&#39;re going to
+look at the I will learn the I and once we&#39;ve
+learned the I then once again we get a
+negative energy so if we recognize or if we
+want to see if we can recognize
+
+so we think that looks like an
+
+I don&#39;t think well let&#39;s randomly choose
+neurons and notice what happens after ten is
+that the energy is going down from the initial
+input pattern in particular
+
+it&#39;s going to keep going down until it reaches
+a final value corresponding to something that
+we&#39;ve learned so
+
+this works no matter what pattern we put in
+
+we&#39;re going to start at a higher energy and as
+we asynchronously choose neurons at random and
+fire
+
+then it&#39;s going to settle in notice we also
+begin to see a problem here because we might
+have said that look like a C but in reality it
+thinks it&#39;s an i
+
+and then the problem is because we have an
+energy surface this is in in dimensions which
+can have spurious states it can also have
+rather broad valleys for some patterns but
+narrow valleys for other
+
+but we&#39;re going to focus on the spurious
+states concept we learn some kind of a pattern
+in this case the T
+
+and then we learn say SC
+
+and so we got another minimum
+
+and then we also learn I
+
+and we got another minimum
+
+but in the course of learning these letters we
+start introducing other minima local minima
+
+and these local minima are places where the
+network could settle into
+
+but they&#39;re not things that we actually wanted
+that we taught the network
+
+they&#39;re spurious
+
+they just popped up so
+
+can a hopfield network correctly predict the
+class of any trained pattern in other words
+can we get F of pattern equals class to some
+high degree of accuracy
+
+no
+
+we can&#39;t and the reason is that the more we
+train with these patterns the more the
+spurious states can overwhelm what we&#39;ve
+learned so that we eventually will have lacked
+the ability to correctly recall what the
+network was taught now let&#39;s look at an
+example of that some will teach it a new
+letter and will teach it the letter H
+
+and so I teach it
+
+the letter H using our hebbian learning rule
+to change the synaptic weight matrix using PP
+transpose minus I and
+
+now let&#39;s suppose we want to recognize
+something
+
+and so we do that that thinks that&#39;s an AI
+
+okay we&#39;ll give it that and now let&#39;s suppose
+that we say we want to learn something else
+
+I mean recognize something else
+
+what thinks that&#39;s an I
+
+so it&#39;s got a wide valley for the I
+
+so it really thinks kind of thinks
+everything&#39;s an AI and if you&#39;ll notice that&#39;s
+because we&#39;ve reinforced the upper and lower
+part of the eye with three different patterns
+now we enter this input pattern
+
+and it converges to something that we didn&#39;t
+teach it in fact it&#39;s pretty easy to recreate
+the spurious state we just make a C and
+anything that looks like a C with some extra
+stuff is going to converge the spurious state
+that&#39;s got the extra thing there
+
+and you can see that
+
+and we&#39;ll put some junk in here inside the C
+
+and if we run it and run it randomly selecting
+neurons ten at a time now hundred at a time
+
+and it converges down to a minimum energy
+
+but this is a local minimum this is a spurious
+State
+
+this is not something we actually taught the
+network
+
+so what is the best network
+
+well we have to turn to mathematics to get
+that answer</code></pre></div>
+<p>A neural network
+A decision tree where logistic regression is used for each decision.</p>
+
+<p>Instead of using information gain at each node, you use logistic regression.</p>
+
+<h3 id="logistic-regression">Logistic regression</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">vim +/<span style="color:#e6db74">&#34;logistic regression</span>$<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$NOTES<span style="color:#e6db74">/glossary.txt&#34;</span></code></pre></div>
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "@disqus_NmomXxAGEX" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
