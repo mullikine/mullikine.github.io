@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>generic paths for toolchains // Bodacious Blog</title>
+    <title>Generic paths for toolchains // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.59.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,19 +11,15 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="generic paths for toolchains"/>
+<meta name="twitter:title" content="Generic paths for toolchains"/>
 <meta name="twitter:description" content="I downloaded the latest version of the clang compiler today and I didn&rsquo;t know where to put it.
 I didn&rsquo;t want to set up paths for a single toolchain and have to do it again in the future.
-This was my hack.
-This did not work It appears that PATH variables do not recognise globs.
-1 2 3 4 5 6  export PATH=/usr/local/toolchains/*/bin:${PATH} export LIBRARY_PATH=/usr/local/toolchains/*/lib:${LIBRARY_PATH} export LD_LIBRARY_PATH=/usr/local/toolchains/*/lib:${LD_LIBRARY_PATH} export C_INCLUDE_PATH=/usr/local/toolchains/*/include:${C_INCLUDE_PATH} export CPLUS_INCLUDE_PATH=/usr/local/toolchains/*/include:${CPLUS_INCLUDE_PATH} export MANPATH=&#34;/usr/local/toolchains/*/share/man:$MANPATH&#34;   This works."/>
+This was my hack. It works. Use this 1 2 3 4 5 6 7 8  for d in /usr/local/toolchains/*; do export PATH=$d/bin:${PATH} export LIBRARY_PATH=$d/lib:${LIBRARY_PATH} export LD_LIBRARY_PATH=$d/lib:${LD_LIBRARY_PATH} export C_INCLUDE_PATH=$d/include:${C_INCLUDE_PATH} export CPLUS_INCLUDE_PATH=$d/include:${CPLUS_INCLUDE_PATH} export MANPATH=&#34;$d/share/man:$MANPATH&#34; done   I extracted clang&#43;llvm-9."/>
 
-    <meta property="og:title" content="generic paths for toolchains" />
+    <meta property="og:title" content="Generic paths for toolchains" />
 <meta property="og:description" content="I downloaded the latest version of the clang compiler today and I didn&rsquo;t know where to put it.
 I didn&rsquo;t want to set up paths for a single toolchain and have to do it again in the future.
-This was my hack.
-This did not work It appears that PATH variables do not recognise globs.
-1 2 3 4 5 6  export PATH=/usr/local/toolchains/*/bin:${PATH} export LIBRARY_PATH=/usr/local/toolchains/*/lib:${LIBRARY_PATH} export LD_LIBRARY_PATH=/usr/local/toolchains/*/lib:${LD_LIBRARY_PATH} export C_INCLUDE_PATH=/usr/local/toolchains/*/include:${C_INCLUDE_PATH} export CPLUS_INCLUDE_PATH=/usr/local/toolchains/*/include:${CPLUS_INCLUDE_PATH} export MANPATH=&#34;/usr/local/toolchains/*/share/man:$MANPATH&#34;   This works." />
+This was my hack. It works. Use this 1 2 3 4 5 6 7 8  for d in /usr/local/toolchains/*; do export PATH=$d/bin:${PATH} export LIBRARY_PATH=$d/lib:${LIBRARY_PATH} export LD_LIBRARY_PATH=$d/lib:${LD_LIBRARY_PATH} export C_INCLUDE_PATH=$d/include:${C_INCLUDE_PATH} export CPLUS_INCLUDE_PATH=$d/include:${CPLUS_INCLUDE_PATH} export MANPATH=&#34;$d/share/man:$MANPATH&#34; done   I extracted clang&#43;llvm-9." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/generic-path-for-blockchains/" />
 <meta property="article:published_time" content="2019-11-06T00:00:00+13:00" />
@@ -114,7 +110,7 @@ This did not work It appears that PATH variables do not recognise globs.
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">generic paths for toolchains</h1>
+      <h1 class ="post-title">Generic paths for toolchains</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -154,32 +150,7 @@ it.</p>
 
 <p>I didn&rsquo;t want to set up paths for a single toolchain and have to do it again in the future.</p>
 
-<p>This was my hack.</p>
-
-<h2 id="this-did-not-work">This did not work</h2>
-
-<p>It appears that <code>PATH</code> variables do not recognise globs.</p>
-
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">export PATH<span style="color:#f92672">=</span>/usr/local/toolchains/*/bin:<span style="color:#e6db74">${</span>PATH<span style="color:#e6db74">}</span>
-export LIBRARY_PATH<span style="color:#f92672">=</span>/usr/local/toolchains/*/lib:<span style="color:#e6db74">${</span>LIBRARY_PATH<span style="color:#e6db74">}</span>
-export LD_LIBRARY_PATH<span style="color:#f92672">=</span>/usr/local/toolchains/*/lib:<span style="color:#e6db74">${</span>LD_LIBRARY_PATH<span style="color:#e6db74">}</span>
-export C_INCLUDE_PATH<span style="color:#f92672">=</span>/usr/local/toolchains/*/include:<span style="color:#e6db74">${</span>C_INCLUDE_PATH<span style="color:#e6db74">}</span>
-export CPLUS_INCLUDE_PATH<span style="color:#f92672">=</span>/usr/local/toolchains/*/include:<span style="color:#e6db74">${</span>CPLUS_INCLUDE_PATH<span style="color:#e6db74">}</span>
-export MANPATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/usr/local/toolchains/*/share/man:</span>$MANPATH<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
-</div>
-</div>
-
-<h2 id="this-works-dot-use-this">This works. Use this</h2>
+<h2 id="this-was-my-hack-dot-it-works-dot-use-this">This was my hack. It works. Use this</h2>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -201,6 +172,57 @@ export MANPATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#
     export CPLUS_INCLUDE_PATH<span style="color:#f92672">=</span>$d/include:<span style="color:#e6db74">${</span>CPLUS_INCLUDE_PATH<span style="color:#e6db74">}</span>
     export MANPATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$d<span style="color:#e6db74">/share/man:</span>$MANPATH<span style="color:#e6db74">&#34;</span>
 <span style="color:#66d9ef">done</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>I extracted <code>clang+llvm-9.0.0-x86_64-linux-
+gnu-ubuntu-16.04.tar.xz</code> to a place in my home
+directory.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">tar -Jxf ../clang+llvm-9.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>I then symlinked it to my toolchains directory.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd /usr/local/toolchains
+ln -s <span style="color:#e6db74">&#34;</span>$DUMP$NOTES<span style="color:#e6db74">/ws/cpp-c++/clang/clang+llvm-9.0.0-x86_64-linux-gnu-ubuntu-16.04&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Anything I put inside here works.</p>
+
+<h2 id="this-was-my-failed-attempt">This was my failed attempt</h2>
+
+<p>It appears that <code>PATH</code> variables do not recognise globs.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">export PATH<span style="color:#f92672">=</span>/usr/local/toolchains/*/bin:<span style="color:#e6db74">${</span>PATH<span style="color:#e6db74">}</span>
+export LIBRARY_PATH<span style="color:#f92672">=</span>/usr/local/toolchains/*/lib:<span style="color:#e6db74">${</span>LIBRARY_PATH<span style="color:#e6db74">}</span>
+export LD_LIBRARY_PATH<span style="color:#f92672">=</span>/usr/local/toolchains/*/lib:<span style="color:#e6db74">${</span>LD_LIBRARY_PATH<span style="color:#e6db74">}</span>
+export C_INCLUDE_PATH<span style="color:#f92672">=</span>/usr/local/toolchains/*/include:<span style="color:#e6db74">${</span>C_INCLUDE_PATH<span style="color:#e6db74">}</span>
+export CPLUS_INCLUDE_PATH<span style="color:#f92672">=</span>/usr/local/toolchains/*/include:<span style="color:#e6db74">${</span>CPLUS_INCLUDE_PATH<span style="color:#e6db74">}</span>
+export MANPATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/usr/local/toolchains/*/share/man:</span>$MANPATH<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
 
