@@ -6,10 +6,23 @@
     <description>Recent content in bash on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Nov 2019 00:00:00 +1300</lastBuildDate>
+    <lastBuildDate>Wed, 06 Nov 2019 00:00:00 +1300</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/bash/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>generic paths for toolchains</title>
+      <link>https://mullikine.github.io/posts/generic-path-for-blockchains/</link>
+      <pubDate>Wed, 06 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/generic-path-for-blockchains/</guid>
+      <description>I downloaded the latest version of the clang compiler today and I didn&amp;rsquo;t know where to put it.
+I didn&amp;rsquo;t want to set up paths for a single toolchain and have to do it again in the future.
+This was my hack.
+This did not work It appears that PATH variables do not recognise globs.
+1 2 3 4 5 6  export PATH=/usr/local/toolchains/*/bin:${PATH} export LIBRARY_PATH=/usr/local/toolchains/*/lib:${LIBRARY_PATH} export LD_LIBRARY_PATH=/usr/local/toolchains/*/lib:${LD_LIBRARY_PATH} export C_INCLUDE_PATH=/usr/local/toolchains/*/include:${C_INCLUDE_PATH} export CPLUS_INCLUDE_PATH=/usr/local/toolchains/*/include:${CPLUS_INCLUDE_PATH} export MANPATH=&amp;#34;/usr/local/toolchains/*/share/man:$MANPATH&amp;#34;   This works.</description>
+    </item>
     
     <item>
       <title>Automating tcl/expect</title>
