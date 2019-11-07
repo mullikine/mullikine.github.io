@@ -13,11 +13,11 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Deconstructing the Cocomel search engine"/>
 <meta name="twitter:description" content="This is my attempt to understand Vaughan Kitchen&rsquo;s search engine.
- Source code https://github.com/vkitchen/cocomel    Headers    header     bst.h   dynamic_array.h   hash_table.h   str.h    bst.h    parent category parent name child category child name     Types bst{} Attributes key   Types bst{} Attributes left=   Types bst{} Attributes right=   Types bst{} Attributes store   Types bst{} Methods bst()   Types bst{} Methods insert()   Types bst{} Methods write()   Types bst{} Labels private:   Types bst{} Labels public:   Types bst{} definition    Includes str."/>
+ Source code https://github.com/vkitchen/cocomel  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  find -L -O3 $CWD \  -not -path &#39;*/build/*&#39; \  -and \  \( \  -name &#39;*.py&#39; \  -o -name &#39;*.php&#39; \  -o -name &#39;*.java&#39; \  -o -iname &#39;*.[CH]&#39; \  -o -name &#39;*."/>
 
     <meta property="og:title" content="Deconstructing the Cocomel search engine" />
 <meta property="og:description" content="This is my attempt to understand Vaughan Kitchen&rsquo;s search engine.
- Source code https://github.com/vkitchen/cocomel    Headers    header     bst.h   dynamic_array.h   hash_table.h   str.h    bst.h    parent category parent name child category child name     Types bst{} Attributes key   Types bst{} Attributes left=   Types bst{} Attributes right=   Types bst{} Attributes store   Types bst{} Methods bst()   Types bst{} Methods insert()   Types bst{} Methods write()   Types bst{} Labels private:   Types bst{} Labels public:   Types bst{} definition    Includes str." />
+ Source code https://github.com/vkitchen/cocomel  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  find -L -O3 $CWD \  -not -path &#39;*/build/*&#39; \  -and \  \( \  -name &#39;*.py&#39; \  -o -name &#39;*.php&#39; \  -o -name &#39;*.java&#39; \  -o -iname &#39;*.[CH]&#39; \  -o -name &#39;*." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/deconstructing-cocomel/" />
 <meta property="article:published_time" content="2019-11-06T00:00:00+13:00" />
@@ -148,6 +148,49 @@
 <dt>Source code</dt>
 <dd><a href="https://github.com/vkitchen/cocomel">https://github.com/vkitchen/cocomel</a></dd>
 </dl>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">find -L -O3 $CWD <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -not -path <span style="color:#e6db74">&#39;*/build/*&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -and <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    <span style="color:#ae81ff">\(</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -name <span style="color:#e6db74">&#39;*.py&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -o -name <span style="color:#e6db74">&#39;*.php&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -o -name <span style="color:#e6db74">&#39;*.java&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -o -iname <span style="color:#e6db74">&#39;*.[CH]&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -o -name <span style="color:#e6db74">&#39;*.cpp&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -o -name <span style="color:#e6db74">&#39;*.hpp&#39;</span>  <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -o -name <span style="color:#e6db74">&#39;*.cc&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -o -name <span style="color:#e6db74">&#39;*.hh&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -o -name <span style="color:#e6db74">&#39;*.hs&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    <span style="color:#ae81ff">\)</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    &gt; <span style="color:#e6db74">&#34;</span>$destdir<span style="color:#e6db74">/cscope.files&#34;</span>
+
+$HOME/scripts/ctags --fields<span style="color:#f92672">=</span>+latinK+i -R -L ./cscope.files
+$MYGIT/Guad/tags2uml/tags2uml --members<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> --methods<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> --infile tags | dot-png uml</code></pre></td></tr></table>
+</div>
+</div>
 
 <figure>
     <img src="https://mullikine.github.io/ox-hugo/cocomel-uml.png"/> 
