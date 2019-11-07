@@ -470,13 +470,21 @@ n5 [label=&#34;{posting|- counts\l- id\l- id_capacity\l- id_length\l- id_store\l
 </tbody>
 </table>
 
+<h2 id="optimisations">Optimisations</h2>
+
+<p>Instead of a RBT, use a BST for the hash table.</p>
+
+<p>RBT is slower because it&rsquo;s not ordered.</p>
+
+<p>BST and hash table needs balancing.</p>
+
+<p>Vaughan used gprof to profile the performance of the BST.</p>
+
+<p>When you rebalance the tree you shuffle pointers around.</p>
+
 <h2 id="headers">Headers</h2>
 
 <h3 id="bst-dot-h"><code>bst.h</code></h3>
-
-<p>RBT and hash table is slow because it&rsquo;s not ordered.</p>
-
-<p>Use binary search tree instead.</p>
 
 <table>
 <thead>
@@ -887,18 +895,6 @@ access the memory faster</p>
 <dt>continuing bit</dt>
 <dd>continuing bit</dd>
 </dl>
-
-<h3 id="order">order</h3>
-
-<p>RBT and hash table is slow because it&rsquo;s not ordered.</p>
-
-<p>Use binary search tree instead.</p>
-
-<p>BST and hash table needs balancing.</p>
-
-<p>Used gprof to profile the performance of the BST.</p>
-
-<p>When you rebalance the tree you shuffle pointers around.</p>
 
     </div>
     <div class="post-footer">
