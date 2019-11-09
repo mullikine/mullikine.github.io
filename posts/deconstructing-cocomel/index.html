@@ -122,7 +122,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          8 min read
+          10 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -464,7 +464,7 @@ $MYGIT/Guad/tags2uml/tags2uml --members<span style="color:#f92672">=</span><span
 this. Actually, it incorrectly bundled all the
 methods and attributes into the parent class.</p>
 
-<p>The <code>iterator</code> class is a public member of <code>class linked_array</code>. It is, however, only used by and closely coupled to =linked_array+.</p>
+<p>The <code>iterator</code> class is a public member of <code>class linked_array</code>. It is, however, only used by and closely coupled to <code>linked_array</code>.</p>
 
 <p>I graphed this manually.</p>
 
@@ -535,7 +535,7 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 <td>bst.h</td>
 <td></td>
 <td>provide binary search tree</td>
-<td>∞</td>
+<td><strong>∞</strong></td>
 <td>hash_table.h</td>
 <td>one per hash table</td>
 </tr>
@@ -544,16 +544,16 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 <td>dynamic_array.h</td>
 <td></td>
 <td>provide array</td>
-<td>256 items</td>
-<td></td>
-<td>docNos</td>
+<td><strong>∞</strong> <br/><br/> <em>256 items initially, but doubles when reaching capacity</em></td>
+<td>search_cli.cpp, posting.cpp, search.cpp, search_cgi.cpp, index.cpp</td>
+<td>When searching, <code>docNos</code> is created, which is an array of <code>int</code> pairs (<code>int</code>,=int=).</td>
 </tr>
 
 <tr>
 <td>hash_table.h</td>
 <td></td>
 <td>provide hash table</td>
-<td>1 &lt;&lt; 16 == 65536 = 0x10000</td>
+<td><strong>65536</strong> <br/><br/> <em>1 &lt;&lt; 16 == 65536 = 0x10000</em></td>
 <td></td>
 <td></td>
 </tr>
@@ -562,7 +562,7 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 <td>str.h</td>
 <td></td>
 <td>provide strings + str helper funcs</td>
-<td>∞</td>
+<td><strong>∞</strong></td>
 <td>search.cpp, index.cpp, bst.h, tokenizer.h</td>
 <td></td>
 </tr>
@@ -571,18 +571,18 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 <td>file.h</td>
 <td>file.cpp</td>
 <td>slurping files</td>
-<td>∞</td>
+<td><strong>∞</strong></td>
 <td>search_cli.cpp, search_cgi.cpp, index.cpp</td>
-<td></td>
+<td>When searching, once to load index. When indexing, once for each non gzipped file indexed.</td>
 </tr>
 
 <tr>
-<td>linked_array.h</td>
+<td><del>linked_array.h</del></td>
 <td></td>
-<td>provide linked_array and iterator</td>
+<td><del>provide linked_array and iterator</del></td>
 <td></td>
 <td></td>
-<td></td>
+<td><span class="underline"><strong><code>Never used</code></strong></span></td>
 </tr>
 
 <tr>
@@ -786,9 +786,18 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 </ul></li>
 </ul>
 
-<h3 id="linked-array-dot-h"><code>linked_array.h</code></h3>
+<h3 id="linked-array-dot-h--you-can-ignore-this"><code>linked_array.h</code> (You can ignore this)</h3>
+
+<p>It is never actually used.</p>
 
 <h4 id="linked-array-iterator-class"><code>linked_array::iterator</code> class</h4>
+
+<p><span class="underline"><strong>Overloaded dereference operator <code>*</code></strong></span></p>
+
+<p>The purpose of dereference operator is to
+dereference a pointer and returns the object
+reference. Hence it must return the reference.
+That is why it is <code>T&amp;</code>.</p>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -808,7 +817,82 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 
 <p>The <code>&amp;</code> means that the return type is a
 reference; you should read this as function
-operator <code>*</code> that returns a type of <code>X &amp;</code>.</p>
+operator <code>*</code> that returns a type of <code>T &amp;</code>.</p>
+
+<dl>
+<dt>As an aside</dt>
+<dd><p>The purpose of referring operator (<code>-&gt;</code>) is to
+return a pointer and hence <code>T*</code> is returned.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">    T<span style="color:#f92672">*</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">-&gt;</span> ()
+    {
+        <span style="color:#66d9ef">return</span> pData;
+    }
+    
+</code></pre></td></tr></table>
+</div>
+</div></dd>
+<dt>address operator</dt>
+<dd><p>The ampersand symbol &amp; is used in
+C++ as a reference declarator in addition to being the address operator.</p></dd>
+</dl>
+
+<table>
+<thead>
+<tr>
+<th>op</th>
+<th>name</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>(type)</code></td>
+<td>cast</td>
+<td>2nd highest precedence</td>
+</tr>
+
+<tr>
+<td><code>*</code></td>
+<td>dereference</td>
+<td>2nd highest precedence</td>
+</tr>
+
+<tr>
+<td><code>&amp;</code></td>
+<td>address</td>
+<td>2nd highest precedence</td>
+</tr>
+
+<tr>
+<td><code>-&gt;</code></td>
+<td>referring</td>
+<td>highest precedence</td>
+</tr>
+
+<tr>
+<td><code>[]</code></td>
+<td>subscript</td>
+<td>highest precedence</td>
+</tr>
+</tbody>
+</table>
+
+<p><span class="underline"><strong>Increment operator <code>++</code></strong></span></p>
+
+<p>When I saw this my first thought was
+concatenate. I&rsquo;ve been reading too much
+haskell.</p>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -838,7 +922,13 @@ operator <code>*</code> that returns a type of <code>X &amp;</code>.</p>
 </div>
 </div>
 
-<p>The</p>
+<p>This operator function simply returns the
+pointer to the iterator object being called,
+while incrementing it&rsquo;s internal value
+(<code>index</code>) which is also used by the
+dereference operator of <code>iterator</code> to specify
+which element of the array <code>store</code> (contained
+in <code>linked_array</code>) to return a reference to.</p>
 
 <h2 id="instances">Instances</h2>
 
@@ -866,6 +956,89 @@ dynamic_array<span style="color:#f92672">&lt;</span>std<span style="color:#f9267
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">dynamic_array<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>pair<span style="color:#f92672">&lt;</span>size_t, <span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;&gt;</span> <span style="color:#f92672">*</span>out <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> dynamic_array<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>pair<span style="color:#f92672">&lt;</span>size_t, <span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;&gt;</span>;
+</code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="search-cli-dot-cpp-1"><code>search_cli.cpp</code></h4>
+
+<p>Read in a query string from the user.</p>
+
+<p>Read in the index (<code>index.dat</code>) naïvely into a <code>char *</code>. Think of it as an array of bytes. You can then do <code>index[2 * sizeof(uint32_t)]</code> and that means the pointer of the 3rd <code>uint32_t</code>. Call the <code>char *</code> &ldquo;<code>index</code>&rdquo;.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Read in the index (=index.dat=)
+</span><span style="color:#75715e"></span>file_slurp(<span style="color:#e6db74">&#34;index.dat&#34;</span>, <span style="color:#f92672">&amp;</span>index);
+</code></pre></td></tr></table>
+</div>
+</div>
+
+<p><code>docNos</code> is an array of <code>int</code> pairs (<code>int</code>,=int=).</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// docNos
+</span><span style="color:#75715e"></span>dynamic_array<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>pair<span style="color:#f92672">&lt;</span>uint32_t, uint32_t<span style="color:#f92672">&gt;&gt;</span> <span style="color:#f92672">*</span>docNos <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> dynamic_array<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>pair<span style="color:#f92672">&lt;</span>uint32_t, uint32_t<span style="color:#f92672">&gt;&gt;</span>();
+</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Reinterpret the <code>char *</code> index as an array of <code>uint32</code>.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Reinterpret
+</span><span style="color:#75715e"></span>(uint32_t <span style="color:#f92672">*</span>)index
+</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>The number of pairs contained in <code>docNos</code> is
+determined by reading the second <code>uint32</code> from
+<code>index</code>.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// The number of pairs contained in =docNos=
+</span><span style="color:#75715e"></span>docNos<span style="color:#f92672">-&gt;</span>length <span style="color:#f92672">=</span> ((uint32_t <span style="color:#f92672">*</span>)index)[<span style="color:#ae81ff">1</span>];
+</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>This is because <code>index</code> is probably an array
+of arrays. The first <code>uint32</code> is probably the
+size of the parent array. I will find out later.</p>
+
+<p>Load the actual pairs of <code>uint32</code> from the
+index into <code>docNos</code>. Get the address of the
+3rd int of index. This is the pointer to the
+first pair of ints in the array.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Load the actual pairs of =uint32=
+</span><span style="color:#75715e"></span>docNos<span style="color:#f92672">-&gt;</span>store <span style="color:#f92672">=</span> (std<span style="color:#f92672">::</span>pair<span style="color:#f92672">&lt;</span>uint32_t, uint32_t<span style="color:#f92672">&gt;</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>index[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(uint32_t)];
 </code></pre></td></tr></table>
 </div>
 </div>
@@ -936,7 +1109,7 @@ dynamic_array<span style="color:#f92672">&lt;</span>std<span style="color:#f9267
 </div>
 </div>
 
-<p>The function fileno() examines the
+<p>The function <code>fileno()</code> examines the
 argument stream and returns its integer
 descriptor.</p>
 
