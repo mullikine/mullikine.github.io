@@ -142,7 +142,7 @@
     <div class="post-content">
       
 
-<p>This is my attempt to understand Vaughan Kitchen&rsquo;s search engine.</p>
+<p>This is my attempt to understand <a href="http://vaughan.kitchen/">Vaughan Kitchen&rsquo;s</a> search engine.</p>
 
 <dl>
 <dt>Source code</dt>
@@ -464,7 +464,7 @@ $MYGIT/Guad/tags2uml/tags2uml --members<span style="color:#f92672">=</span><span
 this. Actually, it incorrectly bundled all the
 methods and attributes into the parent class.</p>
 
-<p>The <code>iterator</code> class is a public member of <code>class linked_array</code>.</p>
+<p>The <code>iterator</code> class is a public member of <code>class linked_array</code>. It is, however, only used by and closely coupled to =linked_array+.</p>
 
 <p>I graphed this manually.</p>
 
@@ -571,8 +571,8 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 <td>file.h</td>
 <td>file.cpp</td>
 <td>slurping files</td>
-<td></td>
-<td></td>
+<td>∞</td>
+<td>search_cli.cpp, search_cgi.cpp, index.cpp</td>
 <td></td>
 </tr>
 
@@ -788,6 +788,8 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 
 <h3 id="linked-array-dot-h"><code>linked_array.h</code></h3>
 
+<h4 id="linked-array-iterator-class"><code>linked_array::iterator</code> class</h4>
+
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -806,7 +808,37 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 
 <p>The <code>&amp;</code> means that the return type is a
 reference; you should read this as function
-operator <code>=</code> that returns a type of <code>X &amp;</code>.</p>
+operator <code>*</code> that returns a type of <code>X &amp;</code>.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">iterator <span style="color:#f92672">&amp;</span><span style="color:#66d9ef">operator</span> <span style="color:#f92672">++</span>()
+{
+  index<span style="color:#f92672">++</span>;
+  <span style="color:#66d9ef">if</span> (index <span style="color:#f92672">==</span> current<span style="color:#f92672">-&gt;</span>chunk_length)
+    {
+      index <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+      current <span style="color:#f92672">=</span> current<span style="color:#f92672">-&gt;</span>next;
+    }
+  <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>The</p>
 
 <h2 id="instances">Instances</h2>
 
