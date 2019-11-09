@@ -326,12 +326,67 @@ value (i.e., when a low-probability event occurs), the event carries
 more &ldquo;information&rdquo; (&ldquo;surprisal&rdquo;) than when the source data produces
 a high-probability value.</dd>
 <dt><code>Information gain</code></dt>
-<dd>Information gain&hellip; <br />
-<a href="https://medium.com/@rishabhjain%5F22692/decision-trees-it-begins-here-93ff54ef134">https://medium.com/@rishabhjain%5F22692/decision-trees-it-begins-here-93ff54ef134</a></dd>
-</dl>
+<dd><p>The information gain is based on the decrease in entropy after a data-set is split on an attribute. Constructing a decision tree is all about finding
+attribute that returns the highest information gain (i.e., the most homogeneous branches).
+<a href="https://medium.com/@rishabhjain%5F22692/decision-trees-it-begins-here-93ff54ef134">https://medium.com/@rishabhjain%5F22692/decision-trees-it-begins-here-93ff54ef134</a></p>
 
-<p>Information Gain: The information gain is based on the decrease in entropy after a data-set is split on an attribute. Constructing a decision tree is all about finding
-attribute that returns the highest information gain (i.e., the most homogeneous branches).</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    information gain
+        [data mining]
+
+        The amount of information that&#39;s gained by
+        knowing the value of the attribute, which
+        is the entropy of the distribution before
+        the split minus the entropy of the
+        distribution after it.
+
+        The largest information gain is equivalent
+        to the smallest entropy.
+
+        vim +/&#34;mutual information&#34; &#34;$NOTES/ws/glossaries/information-theory.txt&#34;
+
+    information gain ratio
+        [#decision tree learning]
+
+        Ratio of information gain to the intrinsic
+        information.
+
+        It was proposed by Ross Quinlan, to reduce
+        a bias towards multi-valued attributes by
+        taking the number and size of branches
+        into account when choosing an attribute.
+    </code></pre></td></tr></table>
+</div>
+</div></dd>
+</dl>
 
 <h3 id="step-1">Step 1</h3>
 
