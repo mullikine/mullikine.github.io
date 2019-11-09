@@ -122,7 +122,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          10 min read
+          11 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -368,7 +368,7 @@ $MYGIT/Guad/tags2uml/tags2uml --members<span style="color:#f92672">=</span><span
   n1 [label=&#34;{bst|- key\l- left\l- right\l- store\l|+ insert()\l+ write()\l}&#34; style=filled fillcolor=&#34;#ffffff&#34; shape=&#34;record&#34;];
   n2 [label=&#34;{dynamic_array|+ capacity\l+ length\l+ store\l|+ append()\l+ back()\l}&#34; style=filled fillcolor=&#34;#ffffff&#34; shape=&#34;record&#34;];
   n3 [label=&#34;{hash_table|- capacity\l- lengths\l- store\l|+ find()\l- hash()\l+ insert()\l+ read()\l+ write()\l}&#34; style=filled fillcolor=&#34;#ffffff&#34; shape=&#34;record&#34;];
-  n4 [label=&#34;{linked_array|+ chunk_length\l- current\l- index\l+ last\l+ length\l+ next\l+ store\l|+ append()\l+ back()\l+ begin()\l+ end()\l+ iterator()\l}&#34; style=filled fillcolor=&#34;#ffffff&#34; shape=&#34;record&#34;];
+  n4 [label=&#34;{linked_array|+ chunk_length\l- current\l- index\l+ last\l+ length\l+ next\l+ store\l|+ append()\l+ back()\l+ begin()\l+ end()\l+ iterator()\l}&#34; style=filled color=&#34;#ff9999&#34; fontcolor=&#34;#999999&#34; fillcolor=&#34;#ffffff&#34; shape=&#34;record&#34;];
   n5 [label=&#34;{posting|- counts\l- id\l- id_capacity\l- id_length\l- id_store\l|  append()\l  decompress()\l  write()\l}&#34; style=filled fillcolor=&#34;#ffffff&#34; shape=&#34;record&#34;];
 <span style="color:#75715e">#+END_SRC</span></code></pre></td></tr></table>
 </div>
@@ -474,8 +474,8 @@ methods and attributes into the parent class.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">n1 [label=&#34;{linked_array|+ chunk_length\l+ last\l+ length\l+ next\l+ store\l|+ append()\l+ back()\l+ begin()\l+ end()\l+ iterator()\l}&#34; style=filled fillcolor=&#34;#ffffff&#34; shape=&#34;record&#34;];
-n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; style=filled fillcolor=&#34;#ffffff&#34; shape=&#34;record&#34;];</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">n1 [label=&#34;{linked_array|+ chunk_length\l+ last\l+ length\l+ next\l+ store\l|+ append()\l+ back()\l+ begin()\l+ end()\l+ iterator()\l}&#34; style=filled color=&#34;#ff9999&#34; fontcolor=&#34;#999999&#34; style=filled fillcolor=&#34;#ffffff&#34; shape=&#34;record&#34;];
+n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; style=filled color=&#34;#ff9999&#34; fontcolor=&#34;#999999&#34; style=filled fillcolor=&#34;#ffffff&#34; shape=&#34;record&#34;];</code></pre></td></tr></table>
 </div>
 </div>
 
@@ -543,17 +543,34 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 <td>provide array</td>
 <td><strong>∞</strong> <br/><br/> <em>256 items initially, but doubles when reaching capacity</em></td>
 <td>search_cli.cpp<br/> posting.cpp<br/> search.cpp<br/> search_cgi.cpp<br/> index.cpp</td>
-<td>Once when searching, <code>docNos</code> is created.</td>
+<td>Once when searching from <code>search_cli.cpp</code>, <code>docNos</code> is created. This comes from searching via <code>search.cpp</code>. <br/><br/> When a search is run via <code>search.cpp</code> a postings list is decompressed for each search term; that&rsquo;s one <code>dynamic_array</code> per word. These postings go into the <code>intersect_postings()</code> function and a single <code>dynamic_array</code> is returned. This is what is passed to <code>search_cli.cpp</code>.</td>
 </tr>
+</tbody>
+</table>
 
+<p>inverted index, or sometimes
+inverted file , has become the standard term
+in IR.[*]The basic idea of an inverted index
+is shown in Figure 1.3 . We keep a dictionary
+of terms (sometimes also referred to as a
+vocabulary or lexicon ; in this book, we use
+dictionary for the data structure and
+vocabulary for the set of terms). Then for
+each term, we have a list that records which
+documents the term occurs in.</p>
+
+<table>
+<thead>
 <tr>
-<td>hash_table.h</td>
-<td>provide hash table</td>
-<td><strong>65536</strong> <br/><br/> <em>1 &lt;&lt; 16 == 65536 = 0x10000</em></td>
-<td></td>
-<td></td>
+<th>hash_table.h</th>
+<th>provide hash table</th>
+<th><strong>65536</strong> <br/><br/> <em>1 &lt;&lt; 16 == 65536 = 0x10000</em></th>
+<th></th>
+<th></th>
 </tr>
+</thead>
 
+<tbody>
 <tr>
 <td>str.h</td>
 <td>provide strings + str helper funcs</td>
