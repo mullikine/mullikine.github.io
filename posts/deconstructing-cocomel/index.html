@@ -546,7 +546,7 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 <td>provide array</td>
 <td><strong>∞</strong> <br/><br/> <em>256 items initially, but doubles when reaching capacity</em></td>
 <td>search_cli.cpp, posting.cpp, search.cpp, search_cgi.cpp, index.cpp</td>
-<td>When searching, <code>docNos</code> is created, which is an array of <code>int</code> pairs (<code>int</code>, <code>int</code>).</td>
+<td>Once when searching, <code>docNos</code> is created.</td>
 </tr>
 
 <tr>
@@ -573,7 +573,7 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 <td>slurping files</td>
 <td><strong>∞</strong></td>
 <td>search_cli.cpp, search_cgi.cpp, index.cpp</td>
-<td>When searching, once to load index. When indexing, once for each non gzipped file indexed.</td>
+<td>When searching, once to load index. <br/><br/> When indexing, once for each non gzipped file indexed.</td>
 </tr>
 
 <tr>
@@ -613,15 +613,6 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 </tr>
 
 <tr>
-<td>str.h</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
 <td>tar.h</td>
 <td></td>
 <td></td>
@@ -650,7 +641,7 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 
 <tr>
 <td>vbyte.h</td>
-<td></td>
+<td>vbyte.cpp</td>
 <td></td>
 <td></td>
 <td></td>
@@ -683,17 +674,13 @@ n2 [label=&#34;{iterator|- current\l- index\l|+ !=()\l+ *() \l+ ++()\l}&#34; sty
 <td></td>
 <td></td>
 </tr>
-
-<tr>
-<td></td>
-<td>vbyte.cpp</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+
+<dl>
+<dt><code>docNos</code></dt>
+<dd>An array of <code>int</code> pairs (<code>int</code>, <code>int</code>). Created upon searching.</dd>
+</dl>
 
 <h2 id="optimisations">Optimisations</h2>
 
