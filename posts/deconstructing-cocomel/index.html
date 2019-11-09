@@ -922,13 +922,17 @@ haskell.</p>
 </div>
 </div>
 
-<p>This operator function simply returns the
-pointer to the iterator object being called,
-while incrementing it&rsquo;s internal value
-(<code>index</code>) which is also used by the
-dereference operator of <code>iterator</code> to specify
-which element of the array <code>store</code> (contained
-in <code>linked_array</code>) to return a reference to.</p>
+<p>When you call <code>iterator++</code> it returns a
+pointer to <code>iterator</code>, which on its own seems
+pointless, but it also increments the internal
+value <code>index</code> which keeps track of which item the
+iterator thinks is current.</p>
+
+<p>The internal value (<code>index</code>) is also used by
+the dereference operator of <code>iterator</code> to
+specify which element of the array <code>store</code>
+(contained in <code>linked_array</code>, the parent
+class) to return a reference to.</p>
 
 <h2 id="application-logic">Application logic</h2>
 
