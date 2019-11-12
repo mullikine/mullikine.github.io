@@ -6,10 +6,21 @@
     <description>Recent content in emacs on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Nov 2019 00:00:00 +1300</lastBuildDate>
+    <lastBuildDate>Tue, 12 Nov 2019 00:00:00 +1300</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Simulating mouse clicks in emacs</title>
+      <link>https://mullikine.github.io/posts/simulating-mouse-clicks-in-emacs/</link>
+      <pubDate>Tue, 12 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/simulating-mouse-clicks-in-emacs/</guid>
+      <description>Using tmux, emacs and vim, I create some bindings to allow you to send mouse clicks to the terminal programmatically.
+I had attempted to do this with emacs lisp but it was overly complicated and had I succeeded only emacs would be able to understand the mouse codes.
+Click at the cursor location Make the tmux bindings 1 2  bind -n C-M-x run -b &amp;#34;tm mousedown&amp;#34; bind -n C-M-z run -b &amp;#34;tm mouseup&amp;#34;   Make the tm script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51  mousedown|mouseup) { while [ $# -gt 0 ]; do opt=&amp;#34;$1&amp;#34;; case &amp;#34;$opt&amp;#34; in -t) { TMUX_PANE=&amp;#34;$2&amp;#34; shift shift } ;; *) break; esac; done [ -n &amp;#34;$1&amp;#34; ] &amp;amp;&amp;amp; x=&amp;#34;$1&amp;#34; &amp;amp;&amp;amp; shift [ -n &amp;#34;$1&amp;#34; ] &amp;amp;&amp;amp; y=&amp;#34;$1&amp;#34; &amp;amp;&amp;amp; shift : ${TMUX_PANE:=&amp;#34;$CALLER_PANE&amp;#34;} # tm cursor if test -z &amp;#34;$x&amp;#34;; then x=&amp;#34;$(tmux display -t &amp;#34;$TMUX_PANE&amp;#34; -p &amp;#34;#{cursor_x}&amp;#34;)&amp;#34; fi if test -z &amp;#34;$y&amp;#34;; then y=&amp;#34;$(tmux display -t &amp;#34;$TMUX_PANE&amp;#34; -p &amp;#34;#{cursor_y}&amp;#34;)&amp;#34; fi # ns &amp;#34;$f $TMUX_PANE $x $y&amp;#34; &amp;amp;&amp;gt;/dev/null if [ -n &amp;#34;$TMUX_PANE&amp;#34; ] &amp;amp;&amp;amp; [ -n &amp;#34;$x&amp;#34; ] &amp;amp;&amp;amp; [ -n &amp;#34;$y&amp;#34; ]; then case &amp;#34;$f&amp;#34; in mousedown) { tmux send-keys -t &amp;#34;$TMUX_PANE&amp;#34; -l &amp;#34;$(xterm-click -d $x $y)&amp;#34; } ;; mouseup) { tmux send-keys -t &amp;#34;$TMUX_PANE&amp;#34; -l &amp;#34;$(xterm-click -u $x $y)&amp;#34; } ;; click) { tmux send-keys -t &amp;#34;$TMUX_PANE&amp;#34; -l &amp;#34;$(xterm-click -d $x $y)&amp;#34; sleep 0.</description>
+    </item>
     
     <item>
       <title>Python library wordcloud</title>
