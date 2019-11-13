@@ -120,7 +120,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          7 min read
+          10 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -696,6 +696,223 @@ press it!</p>
 <h2 id="enable-256-colors">enable 256 colors</h2>
 
 <p><a href="https://github.com/dieggsy/eterm-256color">https://github.com/dieggsy/eterm-256color</a></p>
+
+<h2 id="enable-function-keys">enable function keys</h2>
+
+<h3 id="use-my-function-key-branch-of-eterm-256color">Use my function key branch of <code>eterm-256color</code></h3>
+
+<p>Neither the terminfo file <code>eterm-color.ti</code> nor
+<code>eterm-256color.ti</code> had definitions for the
+function keys.</p>
+
+<p><a href="https://github.com/mullikine/eterm-256color/tree/add-function-keys">https://github.com/mullikine/eterm-256color/tree/add-function-keys</a></p>
+
+<h3 id="add-the-following-loop-to-term-send-function-key">Add the following loop to <code>term-send-function-key</code></h3>
+
+<p>This creates <code>C-c &lt;f1&gt;</code> to <code>C-c &lt;f4&gt;</code> for
+sending those function keys through.</p>
+
+<p>You can extend this to include more keys if you wish.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; Send the function key to terminal</span>
+(dolist (spec term-function-key-alist)
+  (<span style="color:#a6e22e">define-key</span> map
+    (read-kbd-macro (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;C-c &lt;%s&gt;&#34;</span> (<span style="color:#a6e22e">car</span> spec))))
+    <span style="color:#e6db74">&#39;term-send-function-key</span>))</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="finish-writing-the-code-dot-just-use-the-following">Finish writing the code. Just use the following</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">87
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun term-send-function-key ()
+  (interactive)
+  (let* ((char last-input-event)
+         (output (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">assoc</span> (str char) term-function-key-alist))))
+    (term-send-raw-string output)))
+
+(defconst term-function-key-alist <span style="color:#f92672">`</span>((<span style="color:#e6db74">&#34;f1&#34;</span> <span style="color:#f92672">.</span> <span style="color:#f92672">,</span>(read-kbd-macro <span style="color:#e6db74">&#34;&lt;ESC&gt; OP&#34;</span>))
+                                    (<span style="color:#e6db74">&#34;80&#34;</span> <span style="color:#f92672">.</span> <span style="color:#f92672">,</span>(read-kbd-macro <span style="color:#e6db74">&#34;&lt;ESC&gt; OP&#34;</span>))
+                                    (<span style="color:#e6db74">&#34;f2&#34;</span> <span style="color:#f92672">.</span> <span style="color:#f92672">,</span>(read-kbd-macro <span style="color:#e6db74">&#34;&lt;ESC&gt; OQ&#34;</span>))
+                                    (<span style="color:#e6db74">&#34;81&#34;</span> <span style="color:#f92672">.</span> <span style="color:#f92672">,</span>(read-kbd-macro <span style="color:#e6db74">&#34;&lt;ESC&gt; OQ&#34;</span>))
+                                    (<span style="color:#e6db74">&#34;f3&#34;</span> <span style="color:#f92672">.</span> <span style="color:#f92672">,</span>(read-kbd-macro <span style="color:#e6db74">&#34;&lt;ESC&gt; OR&#34;</span>))
+                                    (<span style="color:#e6db74">&#34;82&#34;</span> <span style="color:#f92672">.</span> <span style="color:#f92672">,</span>(read-kbd-macro <span style="color:#e6db74">&#34;&lt;ESC&gt; OR&#34;</span>))
+                                    (<span style="color:#e6db74">&#34;f4&#34;</span> <span style="color:#f92672">.</span> <span style="color:#f92672">,</span>(read-kbd-macro <span style="color:#e6db74">&#34;&lt;ESC&gt; OS&#34;</span>))
+                                    (<span style="color:#e6db74">&#34;83&#34;</span> <span style="color:#f92672">.</span> <span style="color:#f92672">,</span>(read-kbd-macro <span style="color:#e6db74">&#34;&lt;ESC&gt; OS&#34;</span>))
+                                    <span style="color:#75715e">;;(&#34;f2&#34; . &#34;\eOQ&#34;)</span>
+                                    <span style="color:#75715e">;;(&#34;f3&#34; . &#34;\eOR&#34;)</span>
+                                    <span style="color:#75715e">;;(&#34;f4&#34; . &#34;\eOS&#34;)</span>
+                                    ))
+
+(defun my-term-set-raw-map ()
+  (interactive)
+  (let* ((map (<span style="color:#a6e22e">make-keymap</span>))
+         (esc-map (<span style="color:#a6e22e">make-keymap</span>))
+         (i <span style="color:#ae81ff">0</span>))
+
+    (<span style="color:#a6e22e">define-key</span> map (kbd <span style="color:#e6db74">&#34;C-c&#34;</span>) <span style="color:#a6e22e">#&#39;</span>my-term-c-c)
+    (<span style="color:#a6e22e">define-key</span> map (kbd <span style="color:#e6db74">&#34;C-c ESC&#34;</span>) <span style="color:#a6e22e">#&#39;</span>my-term-c-c-esc)
+
+    <span style="color:#75715e">;; Send the function key to terminal</span>
+    (dolist (spec term-function-key-alist)
+      (<span style="color:#a6e22e">define-key</span> map
+        (read-kbd-macro (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;C-c &lt;%s&gt;&#34;</span> (<span style="color:#a6e22e">car</span> spec))))
+        <span style="color:#e6db74">&#39;term-send-function-key</span>))
+
+    (while (<span style="color:#a6e22e">&lt;</span> i <span style="color:#ae81ff">128</span>)
+      <span style="color:#75715e">;; if not C-c</span>
+      (if (not (equalp i <span style="color:#ae81ff">3</span>))
+          (<span style="color:#a6e22e">define-key</span> map (<span style="color:#a6e22e">make-string</span> <span style="color:#ae81ff">1</span> i) <span style="color:#a6e22e">#&#39;</span>term-send-raw))
+
+      (<span style="color:#a6e22e">define-key</span> map (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;\C-c&#34;</span> (<span style="color:#a6e22e">make-string</span> <span style="color:#ae81ff">1</span> i)) <span style="color:#e6db74">&#39;term-send-raw</span>)
+      <span style="color:#75715e">;; Avoid O and [. They are used in escape sequences for various keys.</span>
+      (unless (or (<span style="color:#a6e22e">eq</span> i <span style="color:#e6db74">?O</span>) (<span style="color:#a6e22e">eq</span> i <span style="color:#ae81ff">91</span>))
+        (<span style="color:#a6e22e">define-key</span> esc-map (<span style="color:#a6e22e">make-string</span> <span style="color:#ae81ff">1</span> i) <span style="color:#e6db74">&#39;term-send-raw-meta</span>))
+      (setq i (<span style="color:#a6e22e">1+</span> i)))
+    (<span style="color:#a6e22e">define-key</span> map [remap <span style="color:#a6e22e">self-insert-command</span>] <span style="color:#e6db74">&#39;term-send-raw</span>)
+    (<span style="color:#a6e22e">define-key</span> map <span style="color:#e6db74">&#34;\e&#34;</span> esc-map)
+
+    <span style="color:#75715e">;; Added nearly all the &#39;gray keys&#39; -mm</span>
+
+    (if (featurep <span style="color:#e6db74">&#39;xemacs</span>)
+        (<span style="color:#a6e22e">define-key</span> map [button2] <span style="color:#e6db74">&#39;term-mouse-paste</span>)
+      (<span style="color:#a6e22e">define-key</span> map [mouse-2] <span style="color:#e6db74">&#39;term-mouse-paste</span>))
+    (<span style="color:#a6e22e">define-key</span> map (kbd <span style="color:#e6db74">&#34;C-p&#34;</span>) <span style="color:#e6db74">&#39;term-send-raw</span>)
+    (<span style="color:#a6e22e">define-key</span> map [up] <span style="color:#e6db74">&#39;term-send-up</span>)
+    (<span style="color:#a6e22e">define-key</span> map [down] <span style="color:#e6db74">&#39;term-send-down</span>)
+    (<span style="color:#a6e22e">define-key</span> map [right] <span style="color:#e6db74">&#39;term-send-right</span>)
+    (<span style="color:#a6e22e">define-key</span> map [left] <span style="color:#e6db74">&#39;term-send-left</span>)
+    (<span style="color:#a6e22e">define-key</span> map [C-up] <span style="color:#e6db74">&#39;term-send-ctrl-up</span>)
+    (<span style="color:#a6e22e">define-key</span> map [C-down] <span style="color:#e6db74">&#39;term-send-ctrl-down</span>)
+    (<span style="color:#a6e22e">define-key</span> map [C-right] <span style="color:#e6db74">&#39;term-send-ctrl-right</span>)
+    (<span style="color:#a6e22e">define-key</span> map [C-left] <span style="color:#e6db74">&#39;term-send-ctrl-left</span>)
+    (<span style="color:#a6e22e">define-key</span> map [<span style="color:#a6e22e">delete</span>] <span style="color:#e6db74">&#39;term-send-del</span>)
+    (<span style="color:#a6e22e">define-key</span> map [deletechar] <span style="color:#e6db74">&#39;term-send-del</span>)
+    (<span style="color:#a6e22e">define-key</span> map [backspace] <span style="color:#e6db74">&#39;term-send-backspace</span>)
+    (<span style="color:#a6e22e">define-key</span> map [home] <span style="color:#e6db74">&#39;term-send-home</span>)
+    (<span style="color:#a6e22e">define-key</span> map [end] <span style="color:#e6db74">&#39;term-send-end</span>)
+    (<span style="color:#a6e22e">define-key</span> map [<span style="color:#a6e22e">insert</span>] <span style="color:#e6db74">&#39;term-send-insert</span>)
+    (<span style="color:#a6e22e">define-key</span> map [S-prior] <span style="color:#e6db74">&#39;scroll-down</span>)
+    (<span style="color:#a6e22e">define-key</span> map [S-next] <span style="color:#e6db74">&#39;scroll-up</span>)
+    (<span style="color:#a6e22e">define-key</span> map [S-insert] <span style="color:#e6db74">&#39;term-paste</span>)
+    (<span style="color:#a6e22e">define-key</span> map [prior] <span style="color:#e6db74">&#39;term-send-prior</span>)
+    (<span style="color:#a6e22e">define-key</span> map [next] <span style="color:#e6db74">&#39;term-send-next</span>)
+    (<span style="color:#a6e22e">define-key</span> map [xterm-paste] <span style="color:#a6e22e">#&#39;</span>term--xterm-paste)
+    (<span style="color:#a6e22e">define-key</span> map (kbd <span style="color:#e6db74">&#34;C-d&#34;</span>) <span style="color:#e6db74">&#39;term-raw-or-kill</span>)
+    (setq term-raw-map map)
+    (setq term-raw-escape-map esc-map))
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;M-l&#34;</span>) <span style="color:#66d9ef">nil</span>)
+  <span style="color:#75715e">;; I want M-x to transmit through</span>
+  <span style="color:#75715e">;; (define-key term-raw-map (kbd &#34;M-x&#34;) nil)</span>
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c ESC&#34;</span>) <span style="color:#a6e22e">#&#39;</span>my-term-c-c-esc)
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c M-l&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-send-raw-meta)
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c M-:&#34;</span>) <span style="color:#a6e22e">#&#39;</span>pp-eval-expression)
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c M-x&#34;</span>) <span style="color:#a6e22e">#&#39;</span>helm-M-x)
+  <span style="color:#75715e">;; (define-key term-raw-map (kbd &#34;C-s&#34;) #&#39;term-line-mode)</span>
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c C-j&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-line-mode)
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c C-h&#34;</span>) <span style="color:#a6e22e">#&#39;</span>describe-mode)
+  (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-d&#34;</span>) <span style="color:#e6db74">&#39;term-raw-or-kill</span>))</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
