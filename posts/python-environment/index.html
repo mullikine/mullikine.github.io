@@ -14,12 +14,12 @@
 <meta name="twitter:title" content="Python environment"/>
 <meta name="twitter:description" content="https://pipxproject.github.io/pipx/comparisons/
 pyenv Makes it easy to install, manage, and switch between multiple Pythons.
-1 2 3 4 5 6 7 8 9  # install a bunch of pythons pyenv install 3.8.0 pyenv install 3.7.4 pyenv install 3.6.9 pyenv install 2.7.16 pyenv install pypy3.6-7.1.1 # set the default python pyenv global 3.8.0   pipx pipx replaces a subset of pip&rsquo;s functionality; it lets you install cli applications but NOT libraries that you import in your code."/>
+1 2 3 4 5 6 7 8 9  # install a bunch of pythons pyenv install 3.8.0 pyenv install 3.7.4 pyenv install 3.6.9 pyenv install 2.7.16 pyenv install pypy3.6-7.1.1 # set the default python pyenv global 3.8.0   using pyenv Check which version is set and which are available 1  pyenv versions   * system (set by /home/shane/."/>
 
     <meta property="og:title" content="Python environment" />
 <meta property="og:description" content="https://pipxproject.github.io/pipx/comparisons/
 pyenv Makes it easy to install, manage, and switch between multiple Pythons.
-1 2 3 4 5 6 7 8 9  # install a bunch of pythons pyenv install 3.8.0 pyenv install 3.7.4 pyenv install 3.6.9 pyenv install 2.7.16 pyenv install pypy3.6-7.1.1 # set the default python pyenv global 3.8.0   pipx pipx replaces a subset of pip&rsquo;s functionality; it lets you install cli applications but NOT libraries that you import in your code." />
+1 2 3 4 5 6 7 8 9  # install a bunch of pythons pyenv install 3.8.0 pyenv install 3.7.4 pyenv install 3.6.9 pyenv install 2.7.16 pyenv install pypy3.6-7.1.1 # set the default python pyenv global 3.8.0   using pyenv Check which version is set and which are available 1  pyenv versions   * system (set by /home/shane/." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/python-environment/" />
 <meta property="article:published_time" content="2019-11-15T00:00:00+13:00" />
@@ -173,6 +173,71 @@ pyenv install pypy3.6-7.1.1
 
 <span style="color:#75715e"># set the default python</span>
 pyenv global <span style="color:#ae81ff">3</span>.8.0</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="using-pyenv">using pyenv</h3>
+
+<h4 id="check-which-version-is-set-and-which-are-available">Check which version is set and which are available</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pyenv versions</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">* system <span style="color:#f92672">(</span>set by /home/shane/.pyenv/version<span style="color:#f92672">)</span>
+  <span style="color:#ae81ff">3</span>.8.0</code></pre></div>
+<h4 id="running-pylint-may-give-you-this">Running pylint may give you this</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">pylint
+pyenv: pylint: command not found
+
+The `pylint` command exists in these Python versions:
+  3.6.0</code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="you-can-then-set-the-python-version">You can then set the python version</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># This will set the Python version for that directory</span>
+pyenv local <span style="color:#ae81ff">3</span>.8.0
+
+<span style="color:#75715e"># If you want it for every folder for that user then use the pyenv shell variant</span>
+pyenv shell <span style="color:#ae81ff">3</span>.8.0</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="then-you-can-check-the-python-version">Then you can check the python version</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pyenv local
+pyenv shell</code></pre></td></tr></table>
 </div>
 </div>
 
