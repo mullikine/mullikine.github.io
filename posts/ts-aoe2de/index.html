@@ -128,7 +128,7 @@
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/cpp/">cpp</a><a class="tag" href="http://mullikine.github.io/tags/aoe/">aoe</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/cpp/">cpp</a><a class="tag" href="http://mullikine.github.io/tags/aoe/">aoe</a><a class="tag" href="http://mullikine.github.io/tags/games/">games</a></div></div>
     </header>
     
 
@@ -420,25 +420,25 @@ please report this error. Thanks.</code></pre></td></tr></table>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">bool</span> Scenario<span style="color:#f92672">::</span>_header<span style="color:#f92672">::</span>read(FILE <span style="color:#f92672">*</span>scx)
 {
-  <span style="color:#66d9ef">bool</span> ret <span style="color:#f92672">=</span> true;
-  printf_log(<span style="color:#e6db74">&#34;header:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-  fread(version, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">char</span>), <span style="color:#ae81ff">4</span>, scx);
-  version[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
-  printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">version: %s.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, version);
+      <span style="color:#66d9ef">bool</span> ret <span style="color:#f92672">=</span> true;
+      printf_log(<span style="color:#e6db74">&#34;header:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+      fread(version, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">char</span>), <span style="color:#ae81ff">4</span>, scx);
+      version[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
+      printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">version: %s.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, version);
 
-  fread(<span style="color:#f92672">&amp;</span>length, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
-  printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">length: %ld.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, length);
+      fread(<span style="color:#f92672">&amp;</span>length, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
+      printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">length: %ld.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, length);
 
-  fread(<span style="color:#f92672">&amp;</span>header_type, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx); <span style="color:#75715e">// version number I think
-</span><span style="color:#75715e"></span>  printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">header_type: %ld.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, header_type);
-  REPORTS(header_type <span style="color:#f92672">==</span> HT_SC <span style="color:#f92672">||</span> header_type <span style="color:#f92672">==</span> HT_AOE2SCENARIO, ret <span style="color:#f92672">=</span> false, <span style="color:#e6db74">&#34;Header type value invalid.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-  fread(<span style="color:#f92672">&amp;</span>timestamp, <span style="color:#66d9ef">sizeof</span>(timestamp), <span style="color:#ae81ff">1</span>, scx);
-  fread(<span style="color:#f92672">&amp;</span>instruct_len, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
-  printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">instruct_len: %ld.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, instruct_len);
-  SKIP(scx, instruct_len);             <span style="color:#75715e">//instructions
-</span><span style="color:#75715e"></span>  SKIP(scx, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>));	<span style="color:#75715e">//unknown
-</span><span style="color:#75715e"></span>  fread(<span style="color:#f92672">&amp;</span>n_players, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
-  <span style="color:#66d9ef">if</span> (header_type <span style="color:#f92672">==</span> HT_AOE2SCENARIO) {
+      fread(<span style="color:#f92672">&amp;</span>header_type, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx); <span style="color:#75715e">// version number I think
+</span><span style="color:#75715e"></span>      printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">header_type: %ld.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, header_type);
+      REPORTS(header_type <span style="color:#f92672">==</span> HT_SC <span style="color:#f92672">||</span> header_type <span style="color:#f92672">==</span> HT_AOE2SCENARIO, ret <span style="color:#f92672">=</span> false, <span style="color:#e6db74">&#34;Header type value invalid.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+      fread(<span style="color:#f92672">&amp;</span>timestamp, <span style="color:#66d9ef">sizeof</span>(timestamp), <span style="color:#ae81ff">1</span>, scx);
+      fread(<span style="color:#f92672">&amp;</span>instruct_len, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
+      printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">instruct_len: %ld.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, instruct_len);
+      SKIP(scx, instruct_len);             <span style="color:#75715e">//instructions
+</span><span style="color:#75715e"></span>      SKIP(scx, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>));	<span style="color:#75715e">//unknown
+</span><span style="color:#75715e"></span>      fread(<span style="color:#f92672">&amp;</span>n_players, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
+      <span style="color:#66d9ef">if</span> (header_type <span style="color:#f92672">==</span> HT_AOE2SCENARIO) {
   	  <span style="color:#75715e">// aoe2scenario format
 </span><span style="color:#75715e"></span>  	  SKIP(scx, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>));
   	  fread(<span style="color:#f92672">&amp;</span>uses_expansions, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
@@ -448,9 +448,9 @@ please report this error. Thanks.</code></pre></td></tr></table>
   	      fread(<span style="color:#f92672">&amp;</span>datasets[i], <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
   	      printf_log(<span style="color:#e6db74">&#34;dataset %d enabled</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, datasets[i]);
   	  }
-  }
+      }
 
-  <span style="color:#66d9ef">return</span> ret;
+      <span style="color:#66d9ef">return</span> ret;
 }
 </code></pre></td></tr></table>
 </div>
@@ -566,11 +566,11 @@ Selected 1, AOE 2.
 Game is Age of Empires II: HD Edition 4.3 (2F)
 Opening scenario &#34;Z:\DE version check.aoe2scenario&#34;
 header:
-  version: 1.36.
-  length: 0.
-  header_type: 5.
+      version: 1.36.
+      length: 0.
+      header_type: 5.
 Header type value invalid.
-  instruct_len: 1.
+      instruct_len: 1.
 Invalid scenario header in Z:\DE version check.aoe2scenario
 User message: Failed to open as The Conquerors scenario file.
 Try opening as a SWGB scx file instead
@@ -589,11 +589,11 @@ Selected 1, AOE 2.
 Game is Age of Empires II: HD Edition 4.3 (2F)
 Opening scenario &#34;Z:\DE version check.aoe2scenario&#34;
 header:
-  version: 1.36.
-  length: 0.
-  header_type: 5.
+      version: 1.36.
+      length: 0.
+      header_type: 5.
 Header type value invalid.
-  instruct_len: 1.
+      instruct_len: 1.
 Invalid scenario header in Z:\DE version check.aoe2scenario
 User message: Failed to open as The Conquerors scenario file.
 Try opening as a SWGB scx file instead
@@ -637,14 +637,14 @@ allies 0 0 0</code></pre></td></tr></table>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">  version: 1.36.
-  length: 0.
-  header_type: 5.
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">      version: 1.36.
+      length: 0.
+      header_type: 5.
 Header type value 2118293808l invalid.</code></pre></td></tr></table>
 </div>
 </div>
 
-<p>I overlooked =length:</p>
+<p>I overlooked <code>length</code>.</p>
 
 <p>0= in the log.</p>
 
@@ -696,27 +696,27 @@ the format.</p>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">bool</span> Scenario<span style="color:#f92672">::</span>_header<span style="color:#f92672">::</span>read(FILE <span style="color:#f92672">*</span>scx)
 {
-  <span style="color:#66d9ef">bool</span> ret <span style="color:#f92672">=</span> true;
-  printf_log(<span style="color:#e6db74">&#34;header:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-  fread(version, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">char</span>), <span style="color:#ae81ff">4</span>, scx);
-  version[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
-  printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">version: %s.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, version);
+      <span style="color:#66d9ef">bool</span> ret <span style="color:#f92672">=</span> true;
+      printf_log(<span style="color:#e6db74">&#34;header:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+      fread(version, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">char</span>), <span style="color:#ae81ff">4</span>, scx);
+      version[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
+      printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">version: %s.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, version);
 
-  fread(<span style="color:#f92672">&amp;</span>length, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
-  printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">length: %ld.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, length);
+      fread(<span style="color:#f92672">&amp;</span>length, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
+      printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">length: %ld.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, length);
 
         <span style="color:#75715e">//if (! (length == 0 &amp;&amp; strcmp(version, &#34;1.36&#34;) == 0)) {
 </span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (length <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
-          fread(<span style="color:#f92672">&amp;</span>header_type, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx); <span style="color:#75715e">// version number I think
-</span><span style="color:#75715e"></span>          printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">header_type: %ld.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, header_type);
-          REPORTS(header_type <span style="color:#f92672">==</span> HT_SC <span style="color:#f92672">||</span> header_type <span style="color:#f92672">==</span> HT_AOE2SCENARIO, ret <span style="color:#f92672">=</span> false, <span style="color:#e6db74">&#34;Header type value %ul invalid.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, header_type);
-          fread(<span style="color:#f92672">&amp;</span>timestamp, <span style="color:#66d9ef">sizeof</span>(timestamp), <span style="color:#ae81ff">1</span>, scx);
-          fread(<span style="color:#f92672">&amp;</span>instruct_len, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
-          printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">instruct_len: %ld.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, instruct_len);
-          SKIP(scx, instruct_len);             <span style="color:#75715e">//instructions
-</span><span style="color:#75715e"></span>          SKIP(scx, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>));	<span style="color:#75715e">//unknown
-</span><span style="color:#75715e"></span>          fread(<span style="color:#f92672">&amp;</span>n_players, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
-          <span style="color:#66d9ef">if</span> (header_type <span style="color:#f92672">==</span> HT_AOE2SCENARIO) {
+              fread(<span style="color:#f92672">&amp;</span>header_type, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx); <span style="color:#75715e">// version number I think
+</span><span style="color:#75715e"></span>              printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">header_type: %ld.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, header_type);
+              REPORTS(header_type <span style="color:#f92672">==</span> HT_SC <span style="color:#f92672">||</span> header_type <span style="color:#f92672">==</span> HT_AOE2SCENARIO, ret <span style="color:#f92672">=</span> false, <span style="color:#e6db74">&#34;Header type value %ul invalid.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, header_type);
+              fread(<span style="color:#f92672">&amp;</span>timestamp, <span style="color:#66d9ef">sizeof</span>(timestamp), <span style="color:#ae81ff">1</span>, scx);
+              fread(<span style="color:#f92672">&amp;</span>instruct_len, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
+              printf_log(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">instruct_len: %ld.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, instruct_len);
+              SKIP(scx, instruct_len);             <span style="color:#75715e">//instructions
+</span><span style="color:#75715e"></span>              SKIP(scx, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>));	<span style="color:#75715e">//unknown
+</span><span style="color:#75715e"></span>              fread(<span style="color:#f92672">&amp;</span>n_players, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
+              <span style="color:#66d9ef">if</span> (header_type <span style="color:#f92672">==</span> HT_AOE2SCENARIO) {
           	  <span style="color:#75715e">// aoe2scenario format
 </span><span style="color:#75715e"></span>          	  SKIP(scx, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>));
           	  fread(<span style="color:#f92672">&amp;</span>uses_expansions, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
@@ -726,10 +726,10 @@ the format.</p>
           	      fread(<span style="color:#f92672">&amp;</span>datasets[i], <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">long</span>), <span style="color:#ae81ff">1</span>, scx);
           	      printf_log(<span style="color:#e6db74">&#34;dataset %d enabled</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, datasets[i]);
           	  }
-          }
+              }
         }
 
-  <span style="color:#66d9ef">return</span> ret;
+      <span style="color:#66d9ef">return</span> ret;
 }
 </code></pre></td></tr></table>
 </div>
@@ -769,14 +769,16 @@ please report this error. Thanks.</code></pre></td></tr></table>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">/* Inflate and Read Compressed Data */</span>
 <span style="color:#66d9ef">if</span> (header.header_type <span style="color:#f92672">==</span> HT_AOE2SCENARIO) {
-  	<span style="color:#75715e">// length no longer indicates header length (or likely never truly did)
-</span><span style="color:#75715e"></span>  	c_len <span style="color:#f92672">=</span> fsize(path) <span style="color:#f92672">-</span> ((<span style="color:#ae81ff">8</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> header.n_datasets) <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> header.instruct_len);
+    <span style="color:#75715e">// length no longer indicates header length (or likely never truly did)
+</span><span style="color:#75715e"></span>    c_len <span style="color:#f92672">=</span> fsize(path) <span style="color:#f92672">-</span> ((<span style="color:#ae81ff">8</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> header.n_datasets) <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> header.instruct_len);
 } <span style="color:#66d9ef">else</span> {
-  	c_len <span style="color:#f92672">=</span> fsize(path) <span style="color:#f92672">-</span> (header.length <span style="color:#f92672">+</span> <span style="color:#ae81ff">8</span>);	<span style="color:#75715e">//subtract header length
+    c_len <span style="color:#f92672">=</span> fsize(path) <span style="color:#f92672">-</span> (header.length <span style="color:#f92672">+</span> <span style="color:#ae81ff">8</span>);	<span style="color:#75715e">//subtract header length
 </span><span style="color:#75715e"></span>}
 </code></pre></td></tr></table>
 </div>
 </div>
+
+<p>Well, <code>header_type</code> wasn&rsquo;t loaded because there was no header, so we shouldn&rsquo;t be checking that value anyway.</p>
 
 <p>I need a hex editor to find these magic numbers.</p>
 
