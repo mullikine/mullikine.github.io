@@ -147,7 +147,7 @@
     <div class="post-content">
       
 
-<h3 id="recap-cidr-and-subnet-examples">Recap: CIDR and Subnet Examples</h3>
+<h2 id="recap-cidr-and-subnet-examples">Recap: CIDR and Subnet Examples</h2>
 
 <table>
 <thead>
@@ -272,7 +272,35 @@
 </tbody>
 </table>
 
-<h3 id="create-the-nmap-s-script">Create the <code>nmap-s</code> script</h3>
+<h3 id="cases">cases</h3>
+
+<p>255.255.255.240</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">nmap-s list_ip_range_for_subnet <span style="color:#ae81ff">192</span>.168.1.0/28 | wc -l
+echo <span style="color:#66d9ef">$((</span><span style="color:#ae81ff">255</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">240</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#66d9ef">))</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">16
+16</code></pre></div>
+<h4 id="table">Table</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">nmap -p <span style="color:#ae81ff">22</span> <span style="color:#ae81ff">192</span>.168.1.0/30</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Starting Nmap <span style="color:#ae81ff">7</span>.01 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at <span style="color:#ae81ff">2019</span>-11-20 <span style="color:#ae81ff">23</span>:35 NZDT
+Nmap scan report <span style="color:#66d9ef">for</span> NF18ACV.Home <span style="color:#f92672">(</span><span style="color:#ae81ff">192</span>.168.1.1<span style="color:#f92672">)</span>
+Host is up <span style="color:#f92672">(</span><span style="color:#ae81ff">0</span>.050s latency<span style="color:#f92672">)</span>.
+PORT   STATE SERVICE
+<span style="color:#ae81ff">22</span>/tcp open  ssh
+
+Nmap scan report <span style="color:#66d9ef">for</span> BRW0022587C9959 <span style="color:#f92672">(</span><span style="color:#ae81ff">192</span>.168.1.3<span style="color:#f92672">)</span>
+Host is up <span style="color:#f92672">(</span><span style="color:#ae81ff">0</span>.081s latency<span style="color:#f92672">)</span>.
+PORT   STATE  SERVICE
+<span style="color:#ae81ff">22</span>/tcp closed ssh
+
+Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">4</span> IP addresses <span style="color:#f92672">(</span><span style="color:#ae81ff">2</span> hosts up<span style="color:#f92672">)</span> scanned in <span style="color:#ae81ff">1</span>.36 seconds</code></pre></div>
+<h4 id="create-the-nmap-s-script">Create the <code>nmap-s</code> script</h4>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -406,35 +434,7 @@ nmap-s list_ip_range_for_subnet <span style="color:#ae81ff">192</span>.168.1.0/2
  64
 128</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">nmap-s list_ip_range_for_subnet <span style="color:#ae81ff">192</span>.168.1.0/32</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">192.168.1.0</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">nmap-s list_ip_range_for_subnet <span style="color:#ae81ff">192</span>.168.1.0/31</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">192.168.1.0
 192.168.1.1</code></pre></div>
-<h2 id="cases">cases</h2>
-
-<p>255.255.255.240</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">nmap-s list_ip_range_for_subnet <span style="color:#ae81ff">192</span>.168.1.0/28 | wc -l
-echo <span style="color:#66d9ef">$((</span><span style="color:#ae81ff">255</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">240</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#66d9ef">))</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">16
-16</code></pre></div>
-<h3 id="table">Table</h3>
-
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">nmap -p <span style="color:#ae81ff">22</span> <span style="color:#ae81ff">192</span>.168.1.0/30</code></pre></td></tr></table>
-</div>
-</div>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Starting Nmap <span style="color:#ae81ff">7</span>.01 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at <span style="color:#ae81ff">2019</span>-11-20 <span style="color:#ae81ff">23</span>:35 NZDT
-Nmap scan report <span style="color:#66d9ef">for</span> NF18ACV.Home <span style="color:#f92672">(</span><span style="color:#ae81ff">192</span>.168.1.1<span style="color:#f92672">)</span>
-Host is up <span style="color:#f92672">(</span><span style="color:#ae81ff">0</span>.050s latency<span style="color:#f92672">)</span>.
-PORT   STATE SERVICE
-<span style="color:#ae81ff">22</span>/tcp open  ssh
-
-Nmap scan report <span style="color:#66d9ef">for</span> BRW0022587C9959 <span style="color:#f92672">(</span><span style="color:#ae81ff">192</span>.168.1.3<span style="color:#f92672">)</span>
-Host is up <span style="color:#f92672">(</span><span style="color:#ae81ff">0</span>.081s latency<span style="color:#f92672">)</span>.
-PORT   STATE  SERVICE
-<span style="color:#ae81ff">22</span>/tcp closed ssh
-
-Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">4</span> IP addresses <span style="color:#f92672">(</span><span style="color:#ae81ff">2</span> hosts up<span style="color:#f92672">)</span> scanned in <span style="color:#ae81ff">1</span>.36 seconds</code></pre></div>
-<h3 id="symlink-the-nmap-s-script-so-we-have-an-independent-command">Symlink the nmap-s script so we have an independent command</h3>
+<h2 id="symlink-the-nmap-s-script-so-we-have-an-independent-command">Symlink the nmap-s script so we have an independent command</h2>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -445,7 +445,7 @@ Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">4</spa
 </div>
 </div>
 
-<h3 id="demonstration">Demonstration</h3>
+<h2 id="demonstration">Demonstration</h2>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
