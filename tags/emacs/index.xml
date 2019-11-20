@@ -6,19 +6,10 @@
     <description>Recent content in emacs on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 20 Nov 2019 00:00:00 +1300</lastBuildDate>
+    <lastBuildDate>Thu, 14 Nov 2019 00:00:00 +1300</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Generate emacs functions from CLI commands</title>
-      <link>https://mullikine.github.io/posts/generate-emacs-functions-from-cli-commands/</link>
-      <pubDate>Wed, 20 Nov 2019 00:00:00 +1300</pubDate>
-      
-      <guid>https://mullikine.github.io/posts/generate-emacs-functions-from-cli-commands/</guid>
-      <description>Prerequisite reading Didactic emacs-lisp macro example (ie. a tutorial) // Bodacious Blog  Define the commands 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30  (defmacro defshellfilter (&amp;amp;rest body) &amp;#34;Define a new string filter function based on a shell command&amp;#34; (let* (;; (s (str2sym (concat &amp;#34;sh/&amp;#34; (sym2str (first body))))) (base (slugify (list2string body) t)) (sm (str2sym (concat &amp;#34;sh/m/&amp;#34; base))) (sf (str2sym (concat &amp;#34;sh/&amp;#34; base))) (sfptw (str2sym (concat &amp;#34;sh/ptw/&amp;#34; base)))) `(progn (defmacro ,sm (&amp;amp;rest body) `(bp ,@&amp;#39;,body ,@body)) (defun ,sf (&amp;amp;rest body) (eval `(bp ,@&amp;#39;,body ,@body))) ;; This last one is the thing the function returns.</description>
-    </item>
     
     <item>
       <title>Coding faster with Deep TabNine</title>
