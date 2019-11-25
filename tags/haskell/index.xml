@@ -12,16 +12,6 @@
     
     
     <item>
-      <title>Haskell notes 25.10.19</title>
-      <link>https://mullikine.github.io/posts/haskell-notes-25.11.19/</link>
-      <pubDate>Mon, 25 Nov 2019 00:00:00 +1300</pubDate>
-      
-      <guid>https://mullikine.github.io/posts/haskell-notes-25.11.19/</guid>
-      <description>record syntax http://learnyouahaskell.com/making-our-own-types-and-typeclasses
-Before 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28  data Person = Person String String Int Float String String deriving (Show) -- Create an instance let guy = Person &amp;#34;Buddy&amp;#34; &amp;#34;Finklestein&amp;#34; 43 184.2 &amp;#34;526-2928&amp;#34; &amp;#34;Chocolate&amp;#34; -- Create getters firstName :: Person -&amp;gt; String firstName (Person firstname _ _ _ _ _) = firstname lastName :: Person -&amp;gt; String lastName (Person _ lastname _ _ _ _) = lastname age :: Person -&amp;gt; Int age (Person _ _ age _ _ _) = age height :: Person -&amp;gt; Float height (Person _ _ _ height _ _) = height phoneNumber :: Person -&amp;gt; String phoneNumber (Person _ _ _ _ number _) = number flavor :: Person -&amp;gt; String flavor (Person _ _ _ _ _ flavor) = flavor -- Query the data structure firstName guy height guy flavor guy   Chocolate After 1 2 3 4 5 6 7 8 9 10 11  data Person = Person { firstName :: String , lastName :: String , age :: Int , height :: Float , phoneNumber :: String , flavor :: String } deriving (Show) let guy = Person &amp;#34;Buddy&amp;#34; &amp;#34;Finklestein&amp;#34; 43 184.</description>
-    </item>
-    
-    <item>
       <title>Notes on JSON Parser From Scratch in Haskell</title>
       <link>https://mullikine.github.io/posts/json-parser-haskell/</link>
       <pubDate>Mon, 25 Nov 2019 00:00:00 +1300</pubDate>
@@ -69,6 +59,16 @@ Tooling is a huge deficiency with haskell, not just for emacs.
       
       <guid>https://mullikine.github.io/posts/monad-transformers-step-by-step/</guid>
       <description>Demonstrate monad transformers Build an interpreter for the little language below. type Name = String -- variable names data Exp = Lit Integer -- expressions | Var Name | Plus Exp Exp | Abs Name Exp | App Exp Exp deriving (Show) data Value = IntVal Integer -- values | FunVal Env Name Exp deriving (Show) type Env = Map.Map Name Value -- mapping from names to values Add the header module Transformers where import Control.</description>
+    </item>
+    
+    <item>
+      <title>Haskell notes 25.10.19</title>
+      <link>https://mullikine.github.io/posts/haskell-notes-25.11.19/</link>
+      <pubDate>Fri, 25 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/haskell-notes-25.11.19/</guid>
+      <description>record syntax http://learnyouahaskell.com/making-our-own-types-and-typeclasses
+Before 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28  data Person = Person String String Int Float String String deriving (Show) -- Create an instance let guy = Person &amp;#34;Buddy&amp;#34; &amp;#34;Finklestein&amp;#34; 43 184.2 &amp;#34;526-2928&amp;#34; &amp;#34;Chocolate&amp;#34; -- Create getters firstName :: Person -&amp;gt; String firstName (Person firstname _ _ _ _ _) = firstname lastName :: Person -&amp;gt; String lastName (Person _ lastname _ _ _ _) = lastname age :: Person -&amp;gt; Int age (Person _ _ age _ _ _) = age height :: Person -&amp;gt; Float height (Person _ _ _ height _ _) = height phoneNumber :: Person -&amp;gt; String phoneNumber (Person _ _ _ _ number _) = number flavor :: Person -&amp;gt; String flavor (Person _ _ _ _ _ flavor) = flavor -- Query the data structure firstName guy height guy flavor guy   Chocolate After 1 2 3 4 5 6 7 8 9 10 11  data Person = Person { firstName :: String , lastName :: String , age :: Int , height :: Float , phoneNumber :: String , flavor :: String } deriving (Show) let guy = Person &amp;#34;Buddy&amp;#34; &amp;#34;Finklestein&amp;#34; 43 184.</description>
     </item>
     
     <item>
