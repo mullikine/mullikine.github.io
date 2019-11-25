@@ -128,7 +128,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          6 min read
+          9 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -271,7 +271,8 @@ in the REPL and the REPL will print it back.</p>
   That means you have to do something and in this case that something is the 4 letters &ldquo;show&rdquo;.</dd>
 </dl>
 
-<p>We also implement <code>Eq</code> so that we can compare the values of this JSON stuff.</p>
+<p>We also implement <code>Eq</code> so that we can compare
+the values of this JSON stuff.</p>
 
 <h2 id="define-the-parser">Define the parser</h2>
 
@@ -441,6 +442,17 @@ structure.</p>
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">    <span style="color:#66d9ef">:</span>t <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> undefined
+    </code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    \_ -&gt; undefined :: p -&gt; a
     </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -643,6 +655,184 @@ structure.</p>
    |
 40 | charP x = MkParser _a
    |                    ^^</code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="example-3">Example 3</h4>
+
+<p>Because Example 2 suggests the hole is a
+function which takes a string and returns a
+maybe, we substitute the hole for a lambda
+that takes input and returns a hole.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">charP</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Char</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Parser</span> <span style="color:#66d9ef">Char</span>
+<span style="color:#a6e22e">charP</span> x <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkParser</span> <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>input <span style="color:#f92672">-&gt;</span> _a</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Main.hs:40:32-33: error:
+    • Found hole: _a :: Maybe (String, Char)
+      Or perhaps ‘_a’ is mis-spelled, or not in scope
+    • In the expression: _a
+      In the second argument of ‘($)’, namely ‘\ input -&gt; _a’
+      In the expression: MkParser $ \ input -&gt; _a
+    • Relevant bindings include
+        input :: String (bound at Main.hs:40:23)
+        x :: Char (bound at Main.hs:40:7)
+        charP :: Char -&gt; Parser Char (bound at Main.hs:40:1)
+      Valid substitutions include
+        Nothing :: forall a. Maybe a
+          (imported from ‘Prelude’ at Main.hs:1:8-11
+           (and originally defined in ‘GHC.Base’))
+        undefined :: forall (a :: TYPE r).
+                     GHC.Stack.Types.HasCallStack =&gt;
+                     a
+          (imported from ‘Prelude’ at Main.hs:1:8-11
+           (and originally defined in ‘GHC.Err’))
+   |
+40 | charP x = MkParser $ \input -&gt; _a
+   |                                ^^</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Now we expect hole to be <code>Maybe (String, Char)</code>.</p>
+
+<p>The relevant bindings include</p>
+
+<ul>
+<li><code>input</code>,</li>
+<li><code>x</code> and</li>
+<li><code>charP</code> (the function itself)
+  in case we want to do it recursively.</li>
+</ul>
+
+<h3 id="now-we-need-to-pattern-match-input-and-extract-one-character-from-that">Now we need to pattern match <code>input</code> and extract one character from that</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">charP</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Char</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Parser</span> <span style="color:#66d9ef">Char</span>
+<span style="color:#a6e22e">charP</span> x <span style="color:#f92672">=</span> <span style="color:#66d9ef">Parser</span> <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>input <span style="color:#f92672">-&gt;</span>
+          <span style="color:#66d9ef">case</span> input <span style="color:#66d9ef">of</span>
+            y<span style="color:#66d9ef">:</span>ys <span style="color:#f92672">-&gt;</span> _a
+            <span style="color:#66d9ef">[]</span>   <span style="color:#f92672">-&gt;</span> _b</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Main.hs:40:11-16: error:
+    • Data constructor not in scope:
+        Parser :: ([a0] -&gt; p0) -&gt; Parser Char
+    • Perhaps you meant ‘MkParser’ (line 31)
+   |
+40 | charP x = Parser $ \input -&gt;
+   |           ^^^^^^
+Main.hs:42:21-22: error:
+    • Found hole: _a :: p0
+      Where: ‘p0’ is an ambiguous type variable
+      Or perhaps ‘_a’ is mis-spelled, or not in scope
+    • In the expression: _a
+      In a case alternative: y : ys -&gt; _a
+      In the expression:
+        case input of
+          y : ys -&gt; _a
+          [] -&gt; _b
+    • Relevant bindings include
+        ys :: [a0] (bound at Main.hs:42:15)
+        y :: a0 (bound at Main.hs:42:13)
+        input :: [a0] (bound at Main.hs:40:21)
+        x :: Char (bound at Main.hs:40:7)
+        charP :: Char -&gt; Parser Char (bound at Main.hs:40:1)
+      Valid substitutions include
+        JsonNull :: JsonValue (defined at Main.hs:8:18)
+        JsonBool :: Bool -&gt; JsonValue (defined at Main.hs:9:4)
+        JsonNumber :: Integer -&gt; JsonValue (defined at Main.hs:10:4)
+        JsonString :: String -&gt; JsonValue (defined at Main.hs:11:4)
+        JsonArray :: [JsonValue] -&gt; JsonValue (defined at Main.hs:12:4)
+        JsonObject :: [(String, JsonValue)] -&gt; JsonValue
+          (defined at Main.hs:18:4)
+        (Some substitutions suppressed; use -fmax-valid-substitutions=N or
+-fno-max-valid-substitutions)
+   |
+42 |             y:ys -&gt; _a
+   |                     ^^</code></pre></td></tr></table>
 </div>
 </div>
 
