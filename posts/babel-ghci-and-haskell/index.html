@@ -130,7 +130,7 @@ Create the ghcih script 1 2 3 4 5 6  #!/bin/bash export TTY ( hs &#34;$(basename
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          5 min read
+          9 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -558,6 +558,306 @@ The rest should be compiled as a haskell module and loaded.</p>
                           (cdr (assq :f params))))
               (cache (let ((c (cdr (assq :cache params))))
 </code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="highlighting-for-ghci-commands">Highlighting for <code>ghci</code> commands</h2>
+
+<p>I changed this line to add ghci commands.</p>
+
+<p>It&rsquo;s the <code>:[a-z]</code> at the start.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-es" data-lang="es"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-es" data-lang="es">(<span style="color:#e6db74">&#34;^</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">(?::[a-z]+</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">|#</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">(?:[^</span><span style="color:#ae81ff">\\\n</span><span style="color:#e6db74">]</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">|</span><span style="color:#ae81ff">\\\\\\</span><span style="color:#e6db74">(?:.</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">|</span><span style="color:#ae81ff">\n\\</span><span style="color:#e6db74">|</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">)</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">)*</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">(?:</span><span style="color:#ae81ff">\n\\</span><span style="color:#e6db74">|</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">)</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">)&#34;</span> <span style="color:#ae81ff">0</span> <span style="color:#960050;background-color:#1e0010">&#39;</span>font<span style="color:#f92672">-</span>lock<span style="color:#f92672">-</span>preprocessor<span style="color:#f92672">-</span>face t)</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; Run this after redefining</span>
+<span style="color:#75715e">;; (haskell-font-lock-defaults-create)</span>
+(defun haskell-font-lock-keywords ()
+  <span style="color:#75715e">;; this has to be a function because it depends on global value of</span>
+  <span style="color:#75715e">;; `haskell-font-lock-symbols&#39;</span>
+  <span style="color:#e6db74">&#34;Generate font lock eywords.&#34;</span>
+  (let* (<span style="color:#75715e">;; Bird-style literate scripts start a line of code with</span>
+         <span style="color:#75715e">;; &#34;^&gt;&#34;, otherwise a line of code starts with &#34;^&#34;.</span>
+         (line-prefix <span style="color:#e6db74">&#34;^\\(?:&gt; ?\\)?&#34;</span>)
+
+         (varid <span style="color:#e6db74">&#34;[[:lower:]_][[:alnum:]&#39;_]*&#34;</span>)
+         <span style="color:#75715e">;; We allow &#39; preceding conids because of DataKinds/PolyKinds</span>
+         (conid <span style="color:#e6db74">&#34;&#39;?[[:upper:]][[:alnum:]&#39;_]*&#34;</span>)
+         (sym <span style="color:#e6db74">&#34;\\s.+&#34;</span>)
+
+         <span style="color:#75715e">;; Top-level declarations</span>
+         (topdecl-var
+          (<span style="color:#a6e22e">concat</span> line-prefix <span style="color:#e6db74">&#34;\\(&#34;</span> varid <span style="color:#e6db74">&#34;\\(?:\\s-*,\\s-*&#34;</span> varid <span style="color:#e6db74">&#34;\\)*&#34;</span> <span style="color:#e6db74">&#34;\\)&#34;</span>
+                  <span style="color:#75715e">;; optionally allow for a single newline after identifier</span>
+                  <span style="color:#e6db74">&#34;\\(\\s-+\\|\\s-*[\n]\\s-+\\)&#34;</span>
+                  <span style="color:#75715e">;; A toplevel declaration can be followed by a definition</span>
+                  <span style="color:#75715e">;; (=), a type (::) or (∷), a guard, or a pattern which can</span>
+                  <span style="color:#75715e">;; either be a variable, a constructor, a parenthesized</span>
+                  <span style="color:#75715e">;; thingy, or an integer or a string.</span>
+                  <span style="color:#e6db74">&#34;\\(&#34;</span> varid <span style="color:#e6db74">&#34;\\|&#34;</span> conid <span style="color:#e6db74">&#34;\\|::\\|∷\\|=\\||\\|\\s(\\|[0-9\&#34;&#39;]\\)&#34;</span>))
+         (topdecl-var2
+          (<span style="color:#a6e22e">concat</span> line-prefix <span style="color:#e6db74">&#34;\\(&#34;</span> varid <span style="color:#e6db74">&#34;\\|&#34;</span> conid <span style="color:#e6db74">&#34;\\)\\s-*`\\(&#34;</span> varid <span style="color:#e6db74">&#34;\\)`&#34;</span>))
+         (topdecl-bangpat
+          (<span style="color:#a6e22e">concat</span> line-prefix <span style="color:#e6db74">&#34;\\(&#34;</span> varid <span style="color:#e6db74">&#34;\\)\\s-*!&#34;</span>))
+         (topdecl-sym
+          (<span style="color:#a6e22e">concat</span> line-prefix <span style="color:#e6db74">&#34;\\(&#34;</span> varid <span style="color:#e6db74">&#34;\\|&#34;</span> conid <span style="color:#e6db74">&#34;\\)\\s-*\\(&#34;</span> sym <span style="color:#e6db74">&#34;\\)&#34;</span>))
+         (topdecl-sym2 (<span style="color:#a6e22e">concat</span> line-prefix <span style="color:#e6db74">&#34;(\\(&#34;</span> sym <span style="color:#e6db74">&#34;\\))&#34;</span>))
+
+         keywords)
+
+    (setq keywords
+          <span style="color:#f92672">`</span>(<span style="color:#75715e">;; NOTICE the ordering below is significant</span>
+            <span style="color:#75715e">;;\\(?:ghci&gt; \\)?</span>
+            (<span style="color:#e6db74">&#34;^\\(?:[ \t]*\\(?:ghci&gt; :[a-z]+\\|ghci&gt; \\|:[a-z]+\\)\\|#\\(?:[^\\\n]\\|\\\\\\(?:.\\|\n\\|\\&#39;\\)\\)*\\(?:\n\\|\\&#39;\\)\\)&#34;</span> <span style="color:#ae81ff">0</span> <span style="color:#e6db74">&#39;font-lock-preprocessor-face</span> <span style="color:#66d9ef">t</span>)
+
+            <span style="color:#f92672">,@</span>(haskell-font-lock-symbols-keywords)
+
+            <span style="color:#75715e">;; Special case for `as&#39;, `hiding&#39;, `safe&#39; and `qualified&#39;, which are</span>
+            <span style="color:#75715e">;; keywords in import statements but are not otherwise reserved.</span>
+            (<span style="color:#e6db74">&#34;\\&lt;import[ \t]+\\(?:\\(safe\\&gt;\\)[ \t]*\\)?\\(?:\\(qualified\\&gt;\\)[ \t]*\\)?\\(?:\&#34;[^\&#34;]*\&#34;[\t ]*\\)?[^ \t\n()]+[ \t]*\\(?:\\(\\&lt;as\\&gt;\\)[ \t]*[^ \t\n()]+[ \t]*\\)?\\(\\&lt;hiding\\&gt;\\)?&#34;</span>
+             (<span style="color:#ae81ff">1</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax)
+             (<span style="color:#ae81ff">2</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax)
+             (<span style="color:#ae81ff">3</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax)
+             (<span style="color:#ae81ff">4</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax))
+
+            <span style="color:#75715e">;; Special case for `foreign import&#39;</span>
+            <span style="color:#75715e">;; keywords in foreign import statements but are not otherwise reserved.</span>
+            (<span style="color:#e6db74">&#34;\\&lt;\\(foreign\\)[ \t]+\\(import\\)[ \t]+\\(?:\\(ccall\\|stdcall\\|cplusplus\\|jvm\\|dotnet\\)[ \t]+\\)?\\(?:\\(safe\\|unsafe\\|interruptible\\)[ \t]+\\)?&#34;</span>
+             (<span style="color:#ae81ff">1</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax)
+             (<span style="color:#ae81ff">2</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax)
+             (<span style="color:#ae81ff">3</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax)
+             (<span style="color:#ae81ff">4</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax))
+
+            <span style="color:#75715e">;; Special case for `foreign export&#39;</span>
+            <span style="color:#75715e">;; keywords in foreign export statements but are not otherwise reserved.</span>
+            (<span style="color:#e6db74">&#34;\\&lt;\\(foreign\\)[ \t]+\\(export\\)[ \t]+\\(?:\\(ccall\\|stdcall\\|cplusplus\\|jvm\\|dotnet\\)[ \t]+\\)?&#34;</span>
+             (<span style="color:#ae81ff">1</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax)
+             (<span style="color:#ae81ff">2</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax)
+             (<span style="color:#ae81ff">3</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax))
+
+            <span style="color:#75715e">;; Special case for `type family&#39; and `data family&#39;.</span>
+            <span style="color:#75715e">;; `family&#39; is only reserved in these contexts.</span>
+            (<span style="color:#e6db74">&#34;\\&lt;\\(type\\|data\\)[ \t]+\\(family\\&gt;\\)&#34;</span>
+             (<span style="color:#ae81ff">1</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax)
+             (<span style="color:#ae81ff">2</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax))
+
+            <span style="color:#75715e">;; Special case for `type role&#39;</span>
+            <span style="color:#75715e">;; `role&#39; is only reserved in this context.</span>
+            (<span style="color:#e6db74">&#34;\\&lt;\\(type\\)[ \t]+\\(role\\&gt;\\)&#34;</span>
+             (<span style="color:#ae81ff">1</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax)
+             (<span style="color:#ae81ff">2</span> <span style="color:#e6db74">&#39;haskell-keyword-face</span> <span style="color:#66d9ef">nil</span> lax))
+
+            <span style="color:#75715e">;; Toplevel Declarations.</span>
+            <span style="color:#75715e">;; Place them *before* generic id-and-op highlighting.</span>
+            (<span style="color:#f92672">,</span>topdecl-var  (<span style="color:#ae81ff">1</span> (unless (<span style="color:#a6e22e">member</span> (match-string <span style="color:#ae81ff">1</span>) haskell-font-lock-keywords)
+                                <span style="color:#e6db74">&#39;haskell-definition-face</span>)))
+            (<span style="color:#f92672">,</span>topdecl-var2 (<span style="color:#ae81ff">2</span> (unless (<span style="color:#a6e22e">member</span> (match-string <span style="color:#ae81ff">2</span>) haskell-font-lock-keywords)
+                                <span style="color:#e6db74">&#39;haskell-definition-face</span>)))
+            (<span style="color:#f92672">,</span>topdecl-bangpat  (<span style="color:#ae81ff">1</span> (unless (<span style="color:#a6e22e">member</span> (match-string <span style="color:#ae81ff">1</span>) haskell-font-lock-keywords)
+                                    <span style="color:#e6db74">&#39;haskell-definition-face</span>)))
+            (<span style="color:#f92672">,</span>topdecl-sym  (<span style="color:#ae81ff">2</span> (unless (<span style="color:#a6e22e">member</span> (match-string <span style="color:#ae81ff">2</span>) <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">&#34;\\&#34;</span> <span style="color:#e6db74">&#34;=&#34;</span> <span style="color:#e6db74">&#34;-&gt;&#34;</span> <span style="color:#e6db74">&#34;→&#34;</span> <span style="color:#e6db74">&#34;&lt;-&#34;</span> <span style="color:#e6db74">&#34;←&#34;</span> <span style="color:#e6db74">&#34;::&#34;</span> <span style="color:#e6db74">&#34;∷&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span> <span style="color:#e6db74">&#34;;&#34;</span> <span style="color:#e6db74">&#34;`&#34;</span>))
+                                <span style="color:#e6db74">&#39;haskell-definition-face</span>)))
+            (<span style="color:#f92672">,</span>topdecl-sym2 (<span style="color:#ae81ff">1</span> (unless (<span style="color:#a6e22e">member</span> (match-string <span style="color:#ae81ff">1</span>) <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">&#34;\\&#34;</span> <span style="color:#e6db74">&#34;=&#34;</span> <span style="color:#e6db74">&#34;-&gt;&#34;</span> <span style="color:#e6db74">&#34;→&#34;</span> <span style="color:#e6db74">&#34;&lt;-&#34;</span> <span style="color:#e6db74">&#34;←&#34;</span> <span style="color:#e6db74">&#34;::&#34;</span> <span style="color:#e6db74">&#34;∷&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span> <span style="color:#e6db74">&#34;;&#34;</span> <span style="color:#e6db74">&#34;`&#34;</span>))
+                                <span style="color:#e6db74">&#39;haskell-definition-face</span>)))
+
+            <span style="color:#75715e">;; These four are debatable...</span>
+            (<span style="color:#e6db74">&#34;(\\(,*\\|-&gt;\\))&#34;</span> <span style="color:#ae81ff">0</span> <span style="color:#e6db74">&#39;haskell-constructor-face</span>)
+            (<span style="color:#e6db74">&#34;\\[\\]&#34;</span> <span style="color:#ae81ff">0</span> <span style="color:#e6db74">&#39;haskell-constructor-face</span>)
+
+            (<span style="color:#e6db74">&#34;`&#34;</span>
+             (<span style="color:#ae81ff">0</span> (if (or (<span style="color:#a6e22e">elt</span> (syntax-ppss) <span style="color:#ae81ff">3</span>) (<span style="color:#a6e22e">elt</span> (syntax-ppss) <span style="color:#ae81ff">4</span>))
+                    (<span style="color:#a6e22e">parse-partial-sexp</span> (<span style="color:#a6e22e">point</span>) (<span style="color:#a6e22e">point-max</span>) <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">nil</span> (syntax-ppss)
+                                        <span style="color:#e6db74">&#39;syntax-table</span>)
+                  (when (save-excursion
+                          (<span style="color:#a6e22e">goto-char</span> (<span style="color:#a6e22e">match-beginning</span> <span style="color:#ae81ff">0</span>))
+                          (haskell-lexeme-looking-at-backtick))
+                    (<span style="color:#a6e22e">goto-char</span> (<span style="color:#a6e22e">match-end</span> <span style="color:#ae81ff">0</span>))
+                    (unless (<span style="color:#a6e22e">text-property-not-all</span> (<span style="color:#a6e22e">match-beginning</span> <span style="color:#ae81ff">1</span>) (<span style="color:#a6e22e">match-end</span> <span style="color:#ae81ff">1</span>) <span style="color:#e6db74">&#39;face</span> <span style="color:#66d9ef">nil</span>)
+                      (<span style="color:#a6e22e">put-text-property</span> (<span style="color:#a6e22e">match-beginning</span> <span style="color:#ae81ff">1</span>) (<span style="color:#a6e22e">match-end</span> <span style="color:#ae81ff">1</span>) <span style="color:#e6db74">&#39;face</span> <span style="color:#e6db74">&#39;haskell-operator-face</span>))
+                    (unless (<span style="color:#a6e22e">text-property-not-all</span> (<span style="color:#a6e22e">match-beginning</span> <span style="color:#ae81ff">2</span>) (<span style="color:#a6e22e">match-end</span> <span style="color:#ae81ff">2</span>) <span style="color:#e6db74">&#39;face</span> <span style="color:#66d9ef">nil</span>)
+                      (<span style="color:#a6e22e">put-text-property</span> (<span style="color:#a6e22e">match-beginning</span> <span style="color:#ae81ff">2</span>) (<span style="color:#a6e22e">match-end</span> <span style="color:#ae81ff">2</span>) <span style="color:#e6db74">&#39;face</span> <span style="color:#e6db74">&#39;haskell-operator-face</span>))
+                    (unless (<span style="color:#a6e22e">text-property-not-all</span> (<span style="color:#a6e22e">match-beginning</span> <span style="color:#ae81ff">4</span>) (<span style="color:#a6e22e">match-end</span> <span style="color:#ae81ff">4</span>) <span style="color:#e6db74">&#39;face</span> <span style="color:#66d9ef">nil</span>)
+                      (<span style="color:#a6e22e">put-text-property</span> (<span style="color:#a6e22e">match-beginning</span> <span style="color:#ae81ff">4</span>) (<span style="color:#a6e22e">match-end</span> <span style="color:#ae81ff">4</span>) <span style="color:#e6db74">&#39;face</span> <span style="color:#e6db74">&#39;haskell-operator-face</span>))
+                    (<span style="color:#a6e22e">add-text-properties</span>
+                     (<span style="color:#a6e22e">match-beginning</span> <span style="color:#ae81ff">0</span>) (<span style="color:#a6e22e">match-end</span> <span style="color:#ae81ff">0</span>)
+                     <span style="color:#f92672">&#39;</span>(font-lock-fontified <span style="color:#66d9ef">t</span> fontified <span style="color:#66d9ef">t</span> font-lock-multiline <span style="color:#66d9ef">t</span>))))))
+
+            (<span style="color:#f92672">,</span>haskell-lexeme-idsym-first-char
+             (<span style="color:#ae81ff">0</span> (if (or (<span style="color:#a6e22e">elt</span> (syntax-ppss) <span style="color:#ae81ff">3</span>) (<span style="color:#a6e22e">elt</span> (syntax-ppss) <span style="color:#ae81ff">4</span>))
+                    (<span style="color:#a6e22e">parse-partial-sexp</span> (<span style="color:#a6e22e">point</span>) (<span style="color:#a6e22e">point-max</span>) <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">nil</span> (syntax-ppss)
+                                        <span style="color:#e6db74">&#39;syntax-table</span>)
+                  (when (save-excursion
+                          (<span style="color:#a6e22e">goto-char</span> (<span style="color:#a6e22e">match-beginning</span> <span style="color:#ae81ff">0</span>))
+                          (haskell-lexeme-looking-at-qidsym))
+                    (<span style="color:#a6e22e">goto-char</span> (<span style="color:#a6e22e">match-end</span> <span style="color:#ae81ff">0</span>))
+                    <span style="color:#75715e">;; note that we have to put face ourselves here because font-lock</span>
+                    <span style="color:#75715e">;; will use match data from the original matcher</span>
+                    (haskell-font-lock--put-face-on-type-or-constructor)))))))
+    keywords))
+
+<span style="color:#75715e">;; Update the faces</span>
+(haskell-font-lock-defaults-create)</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="also-let-the-preprocessor-face">Also let the preprocessor face</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; ghci commands, c++ #include, etc.</span>
+(set-face-background <span style="color:#e6db74">&#39;font-lock-preprocessor-face</span> <span style="color:#e6db74">&#34;#550055&#34;</span>)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Plus you can make constructors look nice.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(set-face-background <span style="color:#e6db74">&#39;haskell-constructor-face</span> <span style="color:#e6db74">&#34;#222222&#34;</span>)</code></pre></td></tr></table>
 </div>
 </div>
 
