@@ -128,7 +128,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -380,6 +380,46 @@ infinite list.</p>
 </div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#e6db74">&#34; is a sentence&#34;</span>
 [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>]</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">let</span> stock <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">994.4</span>,<span style="color:#ae81ff">2008</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">1</span>),(<span style="color:#ae81ff">995.2</span>,<span style="color:#ae81ff">2008</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">2</span>),(<span style="color:#ae81ff">999.2</span>,<span style="color:#ae81ff">2008</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">3</span>),(<span style="color:#ae81ff">1001.4</span>,<span style="color:#ae81ff">2008</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>),(<span style="color:#ae81ff">998.3</span>,<span style="color:#ae81ff">2008</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">5</span>)]
+<span style="color:#a6e22e">head</span> (dropWhile (<span style="color:#a6e22e">\</span>(val,y,m,d) <span style="color:#f92672">-&gt;</span> val <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1000</span>) stock)</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">(<span style="color:#ae81ff">1001.4</span>,<span style="color:#ae81ff">2008</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">4</span>)</code></pre></div>
+<h2 id="span-and-break"><code>span</code> and <code>break</code></h2>
+
+<dl>
+<dt>span</dt>
+<dd>span is kind of like takeWhile, only it returns a pair of lists.
+  The first list contains everything the resulting list from takeWhile would
+  contain if it were called with the same predicate and the same list.
+  The second list contains the part of the list that would have been dropped.</dd>
+<dt>break</dt>
+<dd>Whereas span spans the list while the predicate is true,
+  break breaks it when the predicate is first true.
+  Doing break p is the equivalent of doing span (not . p).</dd>
+</dl>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">let</span> (fw, rest) <span style="color:#f92672">=</span> span (<span style="color:#f92672">/=</span><span style="color:#e6db74">&#39; &#39;</span>) <span style="color:#e6db74">&#34;This is a sentence&#34;</span> <span style="color:#66d9ef">in</span> <span style="color:#e6db74">&#34;First word:&#34;</span> <span style="color:#f92672">++</span> fw <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34;, the rest:&#34;</span> <span style="color:#f92672">++</span> rest
+<span style="color:#a6e22e">break</span> (<span style="color:#f92672">==</span><span style="color:#ae81ff">4</span>) [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>]
+<span style="color:#a6e22e">span</span> (<span style="color:#f92672">/=</span><span style="color:#ae81ff">4</span>) [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>]</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#e6db74">&#34;First word:This, the rest: is a sentence&#34;</span>
+([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>],[<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>])
+([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>],[<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>])</code></pre></div>
     </div>
     <div class="post-footer">
       
