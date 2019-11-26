@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Notes on JSON Parser From Scratch in Haskell"/>
-<meta name="twitter:description" content="Original video JSON Parser From Scratch in Haskell  Concepts taught    Concept     hole   newtype   Traversable   Functor   Applicative   Alternative   Record syntax    Testing the code 1  cd &#34;$MYGIT/tsoding/haskell-json&#34;; runghc Main.hs   [INFO] JSON: { &#34;hello&#34;: [false, true, null, 42, &#34;foo\n\u1234\&#34;&#34;, [1, 2, 3, 4]], &#34;world&#34;: null } [INFO] Parsed as: JsonObject [(&#34;hello&#34;,JsonArray [JsonBool False,JsonBool True,JsonNull,JsonNumber 42,JsonString &#34;foo\n\4660\&#34;&#34;,JsonArray [JsonNumber 1,JsonNumber 2,JsonNumber 3,JsonNumber 4]]),(&#34;world&#34;,JsonNull)] [INFO] Remaining input (codes): [10] [SUCCESS] Parser produced expected result."/>
+<meta name="twitter:description" content="Original video JSON Parser From Scratch in Haskell  Concepts taught    Concept     hole   newtype   Traversable   Functor   Applicative   Alternative   Record syntax    Glossary 1 2 3 4  type vs data The &#39;data&#39; keyword allows you to introduce a new algebraic data type, while &#39;type&#39; just makes a type synonym."/>
 
     <meta property="og:title" content="Notes on JSON Parser From Scratch in Haskell" />
-<meta property="og:description" content="Original video JSON Parser From Scratch in Haskell  Concepts taught    Concept     hole   newtype   Traversable   Functor   Applicative   Alternative   Record syntax    Testing the code 1  cd &#34;$MYGIT/tsoding/haskell-json&#34;; runghc Main.hs   [INFO] JSON: { &#34;hello&#34;: [false, true, null, 42, &#34;foo\n\u1234\&#34;&#34;, [1, 2, 3, 4]], &#34;world&#34;: null } [INFO] Parsed as: JsonObject [(&#34;hello&#34;,JsonArray [JsonBool False,JsonBool True,JsonNull,JsonNumber 42,JsonString &#34;foo\n\4660\&#34;&#34;,JsonArray [JsonNumber 1,JsonNumber 2,JsonNumber 3,JsonNumber 4]]),(&#34;world&#34;,JsonNull)] [INFO] Remaining input (codes): [10] [SUCCESS] Parser produced expected result." />
+<meta property="og:description" content="Original video JSON Parser From Scratch in Haskell  Concepts taught    Concept     hole   newtype   Traversable   Functor   Applicative   Alternative   Record syntax    Glossary 1 2 3 4  type vs data The &#39;data&#39; keyword allows you to introduce a new algebraic data type, while &#39;type&#39; just makes a type synonym." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/json-parser-haskell/" />
 <meta property="article:published_time" content="2019-11-25T00:00:00+13:00" />
@@ -192,6 +192,23 @@
 </tr>
 </tbody>
 </table>
+
+<h2 id="glossary">Glossary</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">type vs data
+    The &#39;data&#39; keyword allows you to
+    introduce a new algebraic data type, while
+    &#39;type&#39; just makes a type synonym.</code></pre></td></tr></table>
+</div>
+</div>
 
 <h2 id="testing-the-code">Testing the code</h2>
 
@@ -439,11 +456,12 @@ single type.</p>
 <p>We use a record <code>{}</code> for this particular
 situation.</p>
 
-<p>A record in haskell is like a datastructure struct in C.</p>
+<p>A record in haskell is like a datastructure
+struct in C.</p>
 
 <p>This record contains only one field and the
 type of that field is this function: <code>String
- -&gt; Maybe (String, a)</code>.</p>
+-&gt; Maybe (String, a)</code>.</p>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -457,6 +475,38 @@ type of that field is this function: <code>String
   }</code></pre></td></tr></table>
 </div>
 </div>
+
+<p>Record syntax was used because it
+automatically creates value constructors.</p>
+
+<dl>
+<dt>Thoughts</dt>
+<dd>I could&rsquo;ve used <code>data</code> but I think that using
+<code>newtype</code> comes with privilages from knowing
+that there is only one value constructor and
+one field.</dd>
+</dl>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Parser</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkParser</span>
+  { runParser <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, a)
+  }</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="type-vs-data-vs-newtype">type vs data vs newtype</h2>
+
+<p><code>newtype</code> is like <code>data</code> in that they both
+create algebraic data types, where <code>type</code> only
+creates a type synonym.</p>
+
+<p><code>newtype</code> is like <code>type</code> in that you may only have one value constructor.</p>
 
 <h3 id="why-did-i-decide-to-call-the-field-of-a-structure-record-runparser">Why did I decide to call the field of a structure/record &lsquo;<code>runParser</code>&rsquo;?</h3>
 
