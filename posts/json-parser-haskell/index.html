@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Notes on JSON Parser From Scratch in Haskell"/>
-<meta name="twitter:description" content="Original video JSON Parser From Scratch in Haskell  Concepts taught    Concept     hole   newtype   Traversable   Functor   Applicative   Alternative   Record syntax    Glossary 1 2 3 4  type vs data The &#39;data&#39; keyword allows you to introduce a new algebraic data type, while &#39;type&#39; just makes a type synonym."/>
+<meta name="twitter:description" content="Original video JSON Parser From Scratch in Haskell  Concepts taught    Concept     hole   newtype   Traversable   Functor   Applicative   Alternative   Record syntax    Glossary 1 2 3 4 5 6 7 8 9 10 11  type vs data vs newtype The &#39;data&#39; keyword allows you to introduce a new algebraic data type, while &#39;type&#39; just makes a type synonym."/>
 
     <meta property="og:title" content="Notes on JSON Parser From Scratch in Haskell" />
-<meta property="og:description" content="Original video JSON Parser From Scratch in Haskell  Concepts taught    Concept     hole   newtype   Traversable   Functor   Applicative   Alternative   Record syntax    Glossary 1 2 3 4  type vs data The &#39;data&#39; keyword allows you to introduce a new algebraic data type, while &#39;type&#39; just makes a type synonym." />
+<meta property="og:description" content="Original video JSON Parser From Scratch in Haskell  Concepts taught    Concept     hole   newtype   Traversable   Functor   Applicative   Alternative   Record syntax    Glossary 1 2 3 4 5 6 7 8 9 10 11  type vs data vs newtype The &#39;data&#39; keyword allows you to introduce a new algebraic data type, while &#39;type&#39; just makes a type synonym." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/json-parser-haskell/" />
 <meta property="article:published_time" content="2019-11-25T00:00:00+13:00" />
@@ -197,16 +197,30 @@
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">type vs data
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">type vs data vs newtype
     The &#39;data&#39; keyword allows you to
     introduce a new algebraic data type, while
-    &#39;type&#39; just makes a type synonym.</code></pre></td></tr></table>
+    &#39;type&#39; just makes a type synonym.
+
+    =newtype= is like =data= in that they both
+    create algebraic data types, where =type=
+    only creates a type synonym.
+
+    =newtype= is like =type= in that you may
+    only have one value constructor.</code></pre></td></tr></table>
 </div>
 </div>
 
@@ -506,7 +520,8 @@ one field.</dd>
 create algebraic data types, where <code>type</code> only
 creates a type synonym.</p>
 
-<p><code>newtype</code> is like <code>type</code> in that you may only have one value constructor.</p>
+<p><code>newtype</code> is like <code>type</code> in that you may only
+have one value constructor.</p>
 
 <h3 id="why-did-i-decide-to-call-the-field-of-a-structure-record-runparser">Why did I decide to call the field of a structure/record &lsquo;<code>runParser</code>&rsquo;?</h3>
 
