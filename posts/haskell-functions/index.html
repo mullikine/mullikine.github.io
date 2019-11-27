@@ -136,7 +136,7 @@ It then inserts that list in between all those lists and then flattens the resul
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          9 min read
+          12 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -1060,6 +1060,211 @@ and five print &ldquo;FizzBuzz&rdquo;.</p>
 <span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Foldable</span> <span style="color:#66d9ef">[]</span> <span style="color:#75715e">-- Defined in ‘Data.Foldable’</span>
 <span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Traversable</span> <span style="color:#66d9ef">[]</span> <span style="color:#75715e">-- Defined in ‘Data.Traversable’</span>
 [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>]</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ahoogle --info Ord</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">class Eq a <span style="color:#f92672">=</span>&gt; Ord a
+base Prelude
+The Ord class is used <span style="color:#66d9ef">for</span> totally ordered datatypes.
+
+Instances of Ord can be derived <span style="color:#66d9ef">for</span> any user-defined datatype
+whose constituent types are in Ord. The declared order of the
+constructors in the data declaration determines the ordering in
+derived Ord instances. The Ordering datatype allows a
+single comparison to determine the precise ordering of two objects.
+
+The Haskell Report defines no laws <span style="color:#66d9ef">for</span> Ord. However,
+&lt;<span style="color:#f92672">=</span> is customarily expected to implement a non-strict partial
+order and have the following properties:
+
+
+Transitivity <span style="color:#66d9ef">if</span> x &lt;<span style="color:#f92672">=</span> y <span style="color:#f92672">&amp;&amp;</span> y &lt;<span style="color:#f92672">=</span>
+z <span style="color:#f92672">=</span> True, <span style="color:#66d9ef">then</span> x &lt;<span style="color:#f92672">=</span> z <span style="color:#f92672">=</span> True
+Reflexivity x &lt;<span style="color:#f92672">=</span> x <span style="color:#f92672">=</span> True
+Antisymmetry <span style="color:#66d9ef">if</span> x &lt;<span style="color:#f92672">=</span> y <span style="color:#f92672">&amp;&amp;</span> y &lt;<span style="color:#f92672">=</span>
+x <span style="color:#f92672">=</span> True, <span style="color:#66d9ef">then</span> x <span style="color:#f92672">==</span> y <span style="color:#f92672">=</span> True
+
+
+Note that the following operator interactions are expected to hold:
+
+
+x &gt;<span style="color:#f92672">=</span> y <span style="color:#f92672">=</span> y &lt;<span style="color:#f92672">=</span> x
+x &lt; y <span style="color:#f92672">=</span> x &lt;<span style="color:#f92672">=</span> y <span style="color:#f92672">&amp;&amp;</span> x /<span style="color:#f92672">=</span> y
+x &gt; y <span style="color:#f92672">=</span> y &lt; x
+x &lt; y <span style="color:#f92672">=</span> compare x y <span style="color:#f92672">==</span> LT
+x &gt; y <span style="color:#f92672">=</span> compare x y <span style="color:#f92672">==</span> GT
+x <span style="color:#f92672">==</span> y <span style="color:#f92672">=</span> compare x y <span style="color:#f92672">==</span> EQ
+min x y <span style="color:#f92672">==</span> <span style="color:#66d9ef">if</span> x &lt;<span style="color:#f92672">=</span> y <span style="color:#66d9ef">then</span> x <span style="color:#66d9ef">else</span> y <span style="color:#f92672">=</span> True
+max x y <span style="color:#f92672">==</span> <span style="color:#66d9ef">if</span> x &gt;<span style="color:#f92672">=</span> y <span style="color:#66d9ef">then</span> x <span style="color:#66d9ef">else</span> y <span style="color:#f92672">=</span> True
+
+
+Minimal complete definition: either compare or &lt;<span style="color:#f92672">=</span>.
+Using compare can be more efficient <span style="color:#66d9ef">for</span> complex types.</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Property name</th>
+<th>formalized</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Transitivity</td>
+<td>if x &lt;= y &amp;&amp; y &lt;= z = True, then x &lt;= z = True</td>
+</tr>
+
+<tr>
+<td>Reflexivity</td>
+<td>x &lt;= x = True</td>
+</tr>
+
+<tr>
+<td>Antisymmetry</td>
+<td>if x &lt;= y &amp;&amp; y &lt;= x = True, then x == y = True</td>
+</tr>
+</tbody>
+</table>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">transitivity
+    A relation between three elements such
+    that if it holds between the first and
+    second and it also holds between the
+    second and third it must necessarily hold
+    between the first and third.
+
+reflexivity
+    A relation such that it holds between an
+    element and itself.</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="foldl-and-foldr"><code>foldl</code> and <code>foldr</code></h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">sum&#39;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Num</span> a <span style="color:#f92672">=&gt;</span> [a] <span style="color:#f92672">-&gt;</span> a
+<span style="color:#a6e22e">sum&#39;</span> xs <span style="color:#f92672">=</span> foldl (<span style="color:#a6e22e">\</span>acc x <span style="color:#f92672">-&gt;</span> acc <span style="color:#f92672">+</span> x) <span style="color:#ae81ff">0</span> xs
+
+<span style="color:#75715e">-- or</span>
+<span style="color:#a6e22e">sum&#39;&#39;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Num</span> a <span style="color:#f92672">=&gt;</span> [a] <span style="color:#f92672">-&gt;</span> a
+<span style="color:#a6e22e">sum&#39;&#39;</span> <span style="color:#f92672">=</span> foldl (<span style="color:#f92672">+</span>) <span style="color:#ae81ff">0</span>
+
+<span style="color:#66d9ef">:</span>t sum
+<span style="color:#a6e22e">sum&#39;</span> [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>]
+
+<span style="color:#a6e22e">sum&#39;&#39;</span> [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>]</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">sum</span> <span style="color:#f92672">::</span> (<span style="color:#66d9ef">Foldable</span> t, <span style="color:#66d9ef">Num</span> a) <span style="color:#f92672">=&gt;</span> t a <span style="color:#f92672">-&gt;</span> a
+<span style="color:#ae81ff">11</span>
+<span style="color:#ae81ff">11</span></code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">-- defining map with foldr</span>
+<span style="color:#a6e22e">map&#39;</span> <span style="color:#f92672">::</span> (a <span style="color:#f92672">-&gt;</span> b) <span style="color:#f92672">-&gt;</span> [a] <span style="color:#f92672">-&gt;</span> [b]
+<span style="color:#a6e22e">map&#39;</span> f xs <span style="color:#f92672">=</span> foldr (<span style="color:#a6e22e">\</span>x acc <span style="color:#f92672">-&gt;</span> f x <span style="color:#66d9ef">:</span> acc) <span style="color:#66d9ef">[]</span> xs
+
+<span style="color:#75715e">-- or with foldl</span>
+<span style="color:#a6e22e">map&#39;&#39;</span> <span style="color:#f92672">::</span> (a <span style="color:#f92672">-&gt;</span> b) <span style="color:#f92672">-&gt;</span> [a] <span style="color:#f92672">-&gt;</span> [b]
+<span style="color:#a6e22e">map&#39;&#39;</span> f xs <span style="color:#f92672">=</span> foldl (<span style="color:#a6e22e">\</span>acc x <span style="color:#f92672">-&gt;</span> acc <span style="color:#f92672">++</span> [f x]) <span style="color:#66d9ef">[]</span> xs
+
+<span style="color:#66d9ef">:</span>t map&#39;
+
+<span style="color:#a6e22e">map&#39;</span> (flip subtract <span style="color:#ae81ff">20</span>) [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>]
+<span style="color:#a6e22e">map&#39;&#39;</span> (flip subtract <span style="color:#ae81ff">20</span>) [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>]</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">map&#39;</span> <span style="color:#f92672">::</span> (a <span style="color:#f92672">-&gt;</span> b) <span style="color:#f92672">-&gt;</span> [a] <span style="color:#f92672">-&gt;</span> [b]
+[<span style="color:#ae81ff">19</span>,<span style="color:#ae81ff">18</span>,<span style="color:#ae81ff">17</span>,<span style="color:#ae81ff">16</span>]
+[<span style="color:#ae81ff">19</span>,<span style="color:#ae81ff">18</span>,<span style="color:#ae81ff">17</span>,<span style="color:#ae81ff">16</span>]</code></pre></div>
+<h3 id="scan"><code>scan</code></h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">Prelude</span><span style="color:#f92672">.</span>scanl (<span style="color:#f92672">+</span>) <span style="color:#ae81ff">0</span> [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>] <span style="color:#75715e">-- [0,3,8,10,11]</span>
+<span style="color:#66d9ef">Prelude</span><span style="color:#f92672">.</span>scanr (<span style="color:#f92672">+</span>) <span style="color:#ae81ff">0</span> [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>] <span style="color:#75715e">-- [11,10,8,3,0]</span>
+<span style="color:#66d9ef">Prelude</span><span style="color:#f92672">.</span>scanl1 (<span style="color:#a6e22e">\</span>acc x <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">if</span> x <span style="color:#f92672">&gt;</span> acc <span style="color:#66d9ef">then</span> x <span style="color:#66d9ef">else</span> acc) [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>]
+<span style="color:#66d9ef">Prelude</span><span style="color:#f92672">.</span>scanl (flip (<span style="color:#66d9ef">:</span>)) <span style="color:#66d9ef">[]</span> [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>]</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">11</span>]
+[<span style="color:#ae81ff">11</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>]
+[<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">9</span>]
+[<span style="color:#66d9ef">[]</span>,[<span style="color:#ae81ff">3</span>],[<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>],[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>]]</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ahoogle --info scanl</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">scanl :: <span style="color:#f92672">(</span>b -&gt; a -&gt; b<span style="color:#f92672">)</span> -&gt; b -&gt; <span style="color:#f92672">[</span>a<span style="color:#f92672">]</span> -&gt; <span style="color:#f92672">[</span>b<span style="color:#f92672">]</span>
+base Prelude
+scanl is similar to foldl, but returns a list of
+successive reduced values from the left:
+
+
+scanl f z <span style="color:#f92672">[</span>x1, x2, ...<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> <span style="color:#f92672">[</span>z, z <span style="color:#e6db74">`</span>f<span style="color:#e6db74">`</span> x1, <span style="color:#f92672">(</span>z <span style="color:#e6db74">`</span>f<span style="color:#e6db74">`</span> x1<span style="color:#f92672">)</span> <span style="color:#e6db74">`</span>f<span style="color:#e6db74">`</span> x2, ...<span style="color:#f92672">]</span>
+
+
+Note that
+
+
+last <span style="color:#f92672">(</span>scanl f z xs<span style="color:#f92672">)</span> <span style="color:#f92672">==</span> foldl f z xs.</code></pre></div>
     </div>
     <div class="post-footer">
       
