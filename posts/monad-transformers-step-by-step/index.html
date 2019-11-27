@@ -14,14 +14,14 @@
 <meta name="twitter:title" content="Syntax transformers step by step"/>
 <meta name="twitter:description" content="Original PDF https://page.mi.fu-berlin.de/scravy/realworldhaskell/materialien/monad-transformers-step-by-step.pdf  This document is a little outdated.
 For example, Control.Monad.Error has been replaced with Control.Monad.Except.
- Text version $DUMP$NOTES/ws/haskell/reading/monad-transformers-step-by-step.txt  Abstract Create custom monads simply by composing the necessary monad transformers.
+ Text version $DUMP$NOTES/ws/haskell/reading/monad-transformers-step-by-step.txt Local PDF $DUMP$NOTES/ws/haskell/reading/monad-transformers-step-by-step.pdf  Abstract Create custom monads simply by composing the necessary monad transformers.
 For example, if you need a monad with state and error handling, just take the StateT and ErrorT monad transformers and combine them.
 Aim Start with a simple function and extending it step by step with various monadic operations in order to extend its functionality."/>
 
     <meta property="og:title" content="Syntax transformers step by step" />
 <meta property="og:description" content="Original PDF https://page.mi.fu-berlin.de/scravy/realworldhaskell/materialien/monad-transformers-step-by-step.pdf  This document is a little outdated.
 For example, Control.Monad.Error has been replaced with Control.Monad.Except.
- Text version $DUMP$NOTES/ws/haskell/reading/monad-transformers-step-by-step.txt  Abstract Create custom monads simply by composing the necessary monad transformers.
+ Text version $DUMP$NOTES/ws/haskell/reading/monad-transformers-step-by-step.txt Local PDF $DUMP$NOTES/ws/haskell/reading/monad-transformers-step-by-step.pdf  Abstract Create custom monads simply by composing the necessary monad transformers.
 For example, if you need a monad with state and error handling, just take the StateT and ErrorT monad transformers and combine them.
 Aim Start with a simple function and extending it step by step with various monadic operations in order to extend its functionality." />
 <meta property="og:type" content="article" />
@@ -168,6 +168,8 @@ Aim Start with a simple function and extending it step by step with various mona
 <dl>
 <dt>Text version</dt>
 <dd>$DUMP$NOTES/ws/haskell/reading/monad-transformers-step-by-step.txt</dd>
+<dt>Local PDF</dt>
+<dd>$DUMP$NOTES/ws/haskell/reading/monad-transformers-step-by-step.pdf</dd>
 </dl>
 
 <h2 id="abstract">Abstract</h2>
@@ -294,6 +296,28 @@ in order to extend its functionality.</p>
                              val2 <span style="color:#f92672">=</span> eval0 env e2
                              <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">case</span> val1 <span style="color:#66d9ef">of</span>
                                  <span style="color:#66d9ef">FunVal</span> env&#39; n body <span style="color:#f92672">-&gt;</span> eval0 (<span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>insert n val2 env&#39;) body</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">:</span>l <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>monad<span style="color:#f92672">-</span>transformers<span style="color:#f92672">-</span>step<span style="color:#f92672">-</span>header<span style="color:#f92672">.</span>hs
+<span style="color:#66d9ef">:</span>t <span style="color:#66d9ef">Lit</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#f92672">&lt;</span>interactive<span style="color:#f92672">&gt;:</span><span style="color:#ae81ff">1</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Data</span> constructor not <span style="color:#66d9ef">in</span> scope<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Lit</span></code></pre></div>
+<h3 id="solving-the-above-error">Solving the above error</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">egr data constructor not in scope</code></pre></td></tr></table>
 </div>
 </div>
 
