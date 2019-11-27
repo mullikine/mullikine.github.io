@@ -128,7 +128,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          9 min read
+          12 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -949,6 +949,281 @@ Main.hs:42:21-22: error:
 </div>
 </div>
 
+<h2 id="using-runparser">Using <code>runParser</code></h2>
+
+<p>If you give to <code>runParser</code> <code>jsonValue</code> (which
+is a parser) it should give you a function
+from <code>String</code> to <code>Maybe (String, JsonValue)</code>.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">JsonValue</span>
+  <span style="color:#f92672">=</span> <span style="color:#66d9ef">JsonNull</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonBool</span> <span style="color:#66d9ef">Bool</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonNumber</span> <span style="color:#66d9ef">Integer</span> <span style="color:#75715e">-- NOTE: no support for floats</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonString</span> <span style="color:#66d9ef">String</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonArray</span> [<span style="color:#66d9ef">JsonValue</span>]
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonObject</span> [(<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">JsonValue</span>)]
+  <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>, <span style="color:#66d9ef">Eq</span>)
+
+<span style="color:#66d9ef">newtype</span> <span style="color:#66d9ef">Parser</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkParser</span>
+  { runParser <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, a)
+  }
+
+<span style="color:#a6e22e">jsonValue</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Parser</span> <span style="color:#66d9ef">JsonValue</span>
+<span style="color:#a6e22e">jsonValue</span> <span style="color:#f92672">=</span> undefined
+
+<span style="color:#66d9ef">:</span>t runParser
+<span style="color:#75715e">-- runParser :: Parser a -&gt; String -&gt; Maybe (String, a)</span>
+
+<span style="color:#66d9ef">:</span>t runParser jsonValue
+<span style="color:#75715e">-- runParser jsonValue :: String -&gt; Maybe (String, JsonValue)</span>
+
+<span style="color:#66d9ef">:</span>t runParser jsonValue <span style="color:#e6db74">&#34;hello&#34;</span>
+<span style="color:#75715e">-- runParser jsonValue &#34;hello&#34; :: Maybe (String, JsonValue)</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">JsonValue</span>
+  <span style="color:#f92672">=</span> <span style="color:#66d9ef">JsonNull</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonBool</span> <span style="color:#66d9ef">Bool</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonNumber</span> <span style="color:#66d9ef">Integer</span> <span style="color:#75715e">-- NOTE: no support for floats</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonString</span> <span style="color:#66d9ef">String</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonArray</span> [<span style="color:#66d9ef">JsonValue</span>]
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonObject</span> [(<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">JsonValue</span>)]
+  <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>, <span style="color:#66d9ef">Eq</span>)
+
+<span style="color:#66d9ef">newtype</span> <span style="color:#66d9ef">Parser</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkParser</span>
+  { runParser <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, a)
+  }
+
+<span style="color:#a6e22e">jsonValue</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Parser</span> <span style="color:#66d9ef">JsonValue</span>
+<span style="color:#a6e22e">jsonValue</span> <span style="color:#f92672">=</span> undefined
+
+<span style="color:#66d9ef">:</span>t runParser
+<span style="color:#75715e">-- runParser :: Parser a -&gt; String -&gt; Maybe (String, a)</span>
+
+<span style="color:#66d9ef">:</span>t runParser jsonValue
+<span style="color:#75715e">-- runParser jsonValue :: String -&gt; Maybe (String, JsonValue)</span>
+
+<span style="color:#66d9ef">:</span>t runParser jsonValue <span style="color:#e6db74">&#34;hello&#34;</span>
+<span style="color:#75715e">-- runParser jsonValue &#34;hello&#34; :: Maybe (String, JsonValue)</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">JsonValue</span>
+  <span style="color:#f92672">=</span> <span style="color:#66d9ef">JsonNull</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonBool</span> <span style="color:#66d9ef">Bool</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonNumber</span> <span style="color:#66d9ef">Integer</span> <span style="color:#75715e">-- NOTE: no support for floats</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonString</span> <span style="color:#66d9ef">String</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonArray</span> [<span style="color:#66d9ef">JsonValue</span>]
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonObject</span> [(<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">JsonValue</span>)]
+  <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>, <span style="color:#66d9ef">Eq</span>)
+
+<span style="color:#66d9ef">newtype</span> <span style="color:#66d9ef">Parser</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkParser</span>
+  { runParser <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, a)
+  }
+
+<span style="color:#a6e22e">jsonValue</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Parser</span> <span style="color:#66d9ef">JsonValue</span>
+<span style="color:#a6e22e">jsonValue</span> <span style="color:#f92672">=</span> undefined
+
+<span style="color:#66d9ef">:</span>t runParser
+<span style="color:#75715e">-- runParser :: Parser a -&gt; String -&gt; Maybe (String, a)</span>
+
+<span style="color:#66d9ef">:</span>t runParser jsonValue
+<span style="color:#75715e">-- runParser jsonValue :: String -&gt; Maybe (String, JsonValue)</span>
+
+<span style="color:#66d9ef">:</span>t runParser jsonValue <span style="color:#e6db74">&#34;hello&#34;</span>
+<span style="color:#75715e">-- runParser jsonValue &#34;hello&#34; :: Maybe (String, JsonValue)</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">JsonValue</span>
+  <span style="color:#f92672">=</span> <span style="color:#66d9ef">JsonNull</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonBool</span> <span style="color:#66d9ef">Bool</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonNumber</span> <span style="color:#66d9ef">Integer</span> <span style="color:#75715e">-- NOTE: no support for floats</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonString</span> <span style="color:#66d9ef">String</span>
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonArray</span> [<span style="color:#66d9ef">JsonValue</span>]
+  <span style="color:#f92672">|</span> <span style="color:#66d9ef">JsonObject</span> [(<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">JsonValue</span>)]
+  <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>, <span style="color:#66d9ef">Eq</span>)
+
+<span style="color:#66d9ef">newtype</span> <span style="color:#66d9ef">Parser</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkParser</span>
+  { runParser <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, a)
+  }
+
+<span style="color:#a6e22e">jsonValue</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Parser</span> <span style="color:#66d9ef">JsonValue</span>
+<span style="color:#a6e22e">jsonValue</span> <span style="color:#f92672">=</span> undefined
+
+<span style="color:#66d9ef">:</span>t runParser
+<span style="color:#75715e">-- runParser :: Parser a -&gt; String -&gt; Maybe (String, a)</span>
+
+<span style="color:#66d9ef">:</span>t runParser jsonValue
+<span style="color:#75715e">-- runParser jsonValue :: String -&gt; Maybe (String, JsonValue)</span>
+
+<span style="color:#66d9ef">:</span>t runParser jsonValue <span style="color:#e6db74">&#34;hello&#34;</span>
+<span style="color:#75715e">-- runParser jsonValue &#34;hello&#34; :: Maybe (String, JsonValue)</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">runParser</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Parser</span> a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, a)
+<span style="color:#a6e22e">runParser</span> jsonValue <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">JsonValue</span>)
+<span style="color:#a6e22e">runParser</span> jsonValue <span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">JsonValue</span>)</code></pre></div>
+<p>Everything that from the first ghci command onwards should go into the ghci file.
+The rest should be compiled as a haskell module and loaded.</p>
+
+<h2 id="demonstrating-the-charp-parser">Demonstrating the <code>charP</code> parser</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">newtype</span> <span style="color:#66d9ef">Parser</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkParser</span>
+  { runParser <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, a)
+  }
+
+<span style="color:#a6e22e">charP</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Char</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Parser</span> <span style="color:#66d9ef">Char</span>
+<span style="color:#a6e22e">charP</span> x <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkParser</span> f
+  <span style="color:#66d9ef">where</span>
+    f (y<span style="color:#66d9ef">:</span>ys)
+      <span style="color:#f92672">|</span> y <span style="color:#f92672">==</span> x <span style="color:#f92672">=</span> <span style="color:#66d9ef">Just</span> (ys, x)
+      <span style="color:#f92672">|</span> otherwise <span style="color:#f92672">=</span> <span style="color:#66d9ef">Nothing</span>
+    f <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Nothing</span>
+
+<span style="color:#66d9ef">:</span>t runParser (charP <span style="color:#e6db74">&#39;n&#39;</span>)
+<span style="color:#66d9ef">:</span>t runParser (charP <span style="color:#e6db74">&#39;n&#39;</span>) <span style="color:#e6db74">&#34;hello&#34;</span>
+<span style="color:#a6e22e">runParser</span> (charP <span style="color:#e6db74">&#39;n&#39;</span>) <span style="color:#e6db74">&#34;hello&#34;</span>
+<span style="color:#a6e22e">runParser</span> (charP <span style="color:#e6db74">&#39;n&#39;</span>) <span style="color:#e6db74">&#34;nellie&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">runParser</span> (charP <span style="color:#e6db74">&#39;n&#39;</span>) <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">Char</span>)
+<span style="color:#a6e22e">runParser</span> (charP <span style="color:#e6db74">&#39;n&#39;</span>) <span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">Char</span>)
+<span style="color:#66d9ef">Nothing</span>
+<span style="color:#66d9ef">Just</span> (<span style="color:#e6db74">&#34;ellie&#34;</span>,<span style="color:#e6db74">&#39;n&#39;</span>)</code></pre></div>
     </div>
     <div class="post-footer">
       
