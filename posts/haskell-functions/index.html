@@ -132,7 +132,7 @@ intersperse Takes an element and a list and then puts that element in between ea
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          12 min read
+          13 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -1167,6 +1167,70 @@ reflexivity
 
 <h3 id="foldl-and-foldr"><code>foldl</code> and <code>foldr</code></h3>
 
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">fold
+reduce
+    A family of higher order functions that
+    process a data structure in some order and
+    build a return value.
+
+    This is as opposed to the family of unfold
+    functions which take a starting value and
+    apply it to a function to generate a data
+    structure.</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ahoogle --info foldl</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">foldl :: Foldable t <span style="color:#f92672">=</span>&gt; <span style="color:#f92672">(</span>b -&gt; a -&gt; b<span style="color:#f92672">)</span> -&gt; b -&gt; t a -&gt; b
+base Prelude
+Left-associative fold of a structure.
+
+In the <span style="color:#66d9ef">case</span> of lists, foldl, when applied to a binary operator,
+a starting value <span style="color:#f92672">(</span>typically the left-identity of the operator<span style="color:#f92672">)</span>, and a
+list, reduces the list using the binary operator, from left to right:
+
+
+foldl f z <span style="color:#f92672">[</span>x1, x2, ..., xn<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> <span style="color:#f92672">(</span>...<span style="color:#f92672">((</span>z <span style="color:#e6db74">`</span>f<span style="color:#e6db74">`</span> x1<span style="color:#f92672">)</span> <span style="color:#e6db74">`</span>f<span style="color:#e6db74">`</span> x2<span style="color:#f92672">)</span> <span style="color:#e6db74">`</span>f<span style="color:#e6db74">`</span>...<span style="color:#f92672">)</span> <span style="color:#e6db74">`</span>f<span style="color:#e6db74">`</span> xn
+
+
+Note that to produce the outermost application of the operator the
+entire input list must be traversed. This means that foldl<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">will diverge if given an infinite list.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Also note that if you want an efficient left-fold, you probably want
+</span><span style="color:#e6db74">to use foldl&#39;</span> instead of foldl. The reason <span style="color:#66d9ef">for</span> this is
+that latter does not force the <span style="color:#e6db74">&#34;inner&#34;</span> results <span style="color:#f92672">(</span>e.g. z f
+x1 in the above example<span style="color:#f92672">)</span> before applying them to the operator
+<span style="color:#f92672">(</span>e.g. to <span style="color:#f92672">(</span>f x2<span style="color:#f92672">))</span>. This results in a thunk chain
+O<span style="color:#f92672">(</span>n<span style="color:#f92672">)</span> elements long, which <span style="color:#66d9ef">then</span> must be evaluated from the
+outside-in.
+
+For a general Foldable structure this should be semantically
+identical to,
+
+
+foldl f z <span style="color:#f92672">=</span> foldl f z . toList</code></pre></div>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
