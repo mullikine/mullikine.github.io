@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Research: Accessing Repository Hosting Services // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.065328ba02777ced5860a9c4cff59983d2ee1dca6a6b6eddea7aa8e3f4c858c7.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Research: Accessing Repository Hosting Services"/>
+<meta name="twitter:description" content="Questions/Answers  Is Google Code [Search] still accessible through an API? No, The API is gone.  Look into software for accessing APIs GitHub API apt apt search github Results
+libghc-github-dev/xenial 0.13.2-4build1 amd64 Haskell Github API libghc-github-doc/xenial,xenial 0.13.2-4build1 all Haskell Github API; documentation libghc-github-prof/xenial 0.13.2-4build1 amd64 Haskell Github API; profiling libraries  Common Lisp Github API
+cl-github-v3/xenial,xenial 20130312-1 all Common Lisp interface to the github V3 API  pip pip search github Results"/>
+
+    <meta property="og:title" content="Research: Accessing Repository Hosting Services" />
+<meta property="og:description" content="Questions/Answers  Is Google Code [Search] still accessible through an API? No, The API is gone.  Look into software for accessing APIs GitHub API apt apt search github Results
+libghc-github-dev/xenial 0.13.2-4build1 amd64 Haskell Github API libghc-github-doc/xenial,xenial 0.13.2-4build1 all Haskell Github API; documentation libghc-github-prof/xenial 0.13.2-4build1 amd64 Haskell Github API; profiling libraries  Common Lisp Github API
+cl-github-v3/xenial,xenial 20130312-1 all Common Lisp interface to the github V3 API  pip pip search github Results" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/accessing-repository-hosting-services/" />
+<meta property="article:published_time" content="2018-03-23T00:00:00+13:00" />
+<meta property="article:modified_time" content="2018-03-23T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="John Doe" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a></div>
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Research: Accessing Repository Hosting Services</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Mar 23, 2018
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          7 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/uni/">uni</a><a class="tag" href="http://mullikine.github.io/tags/ir/">IR</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      
+
+<h2 id="questions-answers">Questions/Answers</h2>
+
+<ol>
+<li>Is Google Code [Search] still accessible through an API? <a href="https://www.programmableweb.com/news/13-google-apis-are-no-more/2011/10/19">No, The API is gone.</a></li>
+</ol>
+
+<h2 id="look-into-software-for-accessing-apis">Look into software for accessing APIs</h2>
+
+<h3 id="github-api">GitHub API</h3>
+
+<h4 id="apt">apt</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apt search github</code></pre></div>
+<p>Results</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">libghc-github-dev/xenial 0.13.2-4build1 amd64
+  Haskell Github API
+
+libghc-github-doc/xenial,xenial 0.13.2-4build1 all
+  Haskell Github API; documentation
+
+libghc-github-prof/xenial 0.13.2-4build1 amd64
+  Haskell Github API; profiling libraries</code></pre></div>
+<ul>
+<li><p>Common Lisp Github API</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">cl-github-v3/xenial,xenial 20130312-1 all
+  Common Lisp interface to the github V3 API</code></pre></div></li>
+</ul>
+
+<h4 id="pip">pip</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pip search github</code></pre></div>
+<p>Results</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Github-API-3-Wrapper-for-Python (0.0.1)                  - Github API 3 Wrapper for Python
+sqre-github3.py (1.0.0a4)                                - Python wrapper for the GitHub API(http://developer.github.com/v3)
+github3.py (1.0.1)                                       - Python wrapper for the GitHub API(http://developer.github.com/v3)
+sqre-codekit-github3.py (1.0.0a4)                        - Python wrapper for the GitHub API(http://developer.github.com/v3)
+githon (0.7.0)                                           - A simple Data Scraping library for GitHub REST API v3
+githubcap (0.0.0)                                        - Tool and library for interacting with GitHub API v3
+gitpanion (1.0.0.2)                                      - A module to make using the github v3 REST api in python 3 easy.
+githubpy (1.1.0)                                         - Github v3 API Python SDK
+PyGithub-requests (1.26.0)                               - Use the full Github API v3
+pygithub-redux (1.33.0)                                  - Use the full Github API v3
+PyGithub (1.38)                                          - Use the full Github API v3
+pygithub3 (0.5.1)                                        - Python wrapper for the github v3 api
+pygithub33 (0.6.2)                                       - Python wrapper for the github v3 api
+helga-github-meta (1.1.0)                                - Provide information for github related metadata</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>package</th>
+<th>relevance</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>helga-github-meta</td>
+<td>High</td>
+</tr>
+
+<tr>
+<td>githon</td>
+<td>High</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="gitlab-api">GitLab API</h3>
+
+<h4 id="apt-1">apt</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apt search gitlab</code></pre></div>
+<p>Results</p>
+
+<ul>
+<li><p>Python Gitlab</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">python-gitlab/xenial,xenial 7.5.0-1 all
+  Python wrapper for the GitLab API (Python 2)
+
+python3-gitlab/xenial,xenial 7.5.0-1 all
+  Python wrapper for the GitLab API (Python 3)</code></pre></div></li>
+</ul>
+
+<h4 id="pip-1">pip</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">pip search gitlab</code></pre></div>
+<p>Results</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">git-gitlab (0.6.0)                              - Git extension commandline for GitLab API v3</code></pre></div>
+<h3 id="sourcegraph-api">SourceGraph API</h3>
+
+<p>github</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">googler -w github.com -- <span style="color:#e6db74">&#34;sourcegraph api&#34;</span></code></pre></div>
+<p>Results</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">https://github.com/sourcegraph/go-sourcegraph</code></pre></div>
+<h2 id="overview-of-apis-for-respository-hosting-services-and-code-search-servers"><span class="org-todo todo TODO">TODO</span> overview of APIs for respository hosting services and code search servers</h2>
+
+<h3 id="repository-hosting-services">Repository Hosting Services</h3>
+
+<p><a id="table--TBL-point-of-difference"></a>
+| Service     | status                                          | point of difference                               | Domain                        | API Documentation                                                                                  | Version | MetaData | wiki                                                   |
+|&mdash;&mdash;&mdash;&mdash;-|&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-|&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;|&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-|&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-|&mdash;&mdash;&mdash;|&mdash;&mdash;&mdash;-|&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;|
+| GitHub      | <sup class="footnote-ref" id="fnref:fn-1"><a href="#fn:fn-1">1</a></sup> &gt; 24,377,273 users, &gt; $2 billion        | Largest, Best metadata?                           |                               | <a href="https://developer.github.com/v3/">V3 Doc</a>                                                         | v3      |          | <a href="https://en.wikipedia.org/wiki/GitHub">https://en.wikipedia.org/wiki/GitHub</a>                 |
+| GitLab      | Used by &gt; 100,000 organizations                 | Continuous Integration is free                    |                               | <a href="https://docs.gitlab.com/ee/api/README.html">Readme</a>                                               | v4      |          | <a href="https://en.wikipedia.org/wiki/GitLab">https://en.wikipedia.org/wiki/GitLab</a>                 |
+| BitBucket   | Online                                          | mostly used for code and code review              |                               | <a href="https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories">V2 Repositories</a> | 2.0     |          | <a href="https://en.wikipedia.org/wiki/Bitbucket">https://en.wikipedia.org/wiki/Bitbucket</a>              |
+| Merobase    | Online                                          | <sup class="footnote-ref" id="fnref:fn-2"><a href="#fn:fn-2">2</a></sup> interface-driven searches                 |                               |                                                                                                    |         |          | <a href="https://en.wikipedia.org/wiki/Merobase">https://en.wikipedia.org/wiki/Merobase</a>               |
+| Krugle      | active                                          | locate open source code, and quickly share it     | Apache, JavaDocs, SourceForge |                                                                                                    |         |          | <a href="https://en.wikipedia.org/wiki/Krugle">https://en.wikipedia.org/wiki/Krugle</a>                 |
+| Open Hub    | $565 million                                    | licenses (including license conflict information) |                               | <a href="https://github.com/blackducksoftware/ohloh%5Fapi">README</a>                                         |         |          | <a href="https://en.wikipedia.org/wiki/Open%5FHub">https://en.wikipedia.org/wiki/Open%5FHub</a>             |
+| Google Code | archived (still accessible but not through api) | regex <sup class="footnote-ref" id="fnref:fn-3"><a href="#fn:fn-3">3</a></sup>                                     |                               | <a href="https://code.google.com/archive/">Notice</a>                                                         |         |          | <a href="https://en.wikipedia.org/wiki/Google%5FCode%5FSearch">https://en.wikipedia.org/wiki/Google%5FCode%5FSearch</a> |</p>
+
+<h3 id="code-search-servers">Code Search Servers</h3>
+
+<p><a id="table--TBL-code-search-servers"></a>
+| Service     | Portal                                    | Local | Global | Cost                                             | status | point of difference                                     | API Documentation                                                                                                | Editor Plugin                                                                                                                                   | Version | MetaData | wiki |
+|&mdash;&mdash;&mdash;&mdash;-|&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-|&mdash;&mdash;-|&mdash;&mdash;&ndash;|&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;|&mdash;&mdash;&ndash;|&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;|&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;|&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-|&mdash;&mdash;&mdash;|&mdash;&mdash;&mdash;-|&mdash;&mdash;|
+| SearchCode  |                                           | ✓     | ✓      | free                                             |        | open source; create your own server;                    |                                                                                                                  |                                                                                                                                                 |         |          |      |
+| SourceGraph |                                           | ✓     | ✓      | <a href="https://about.sourcegraph.com/pricing">pricing</a> | Online | find, review, understand, and debug code. regex <sup class="footnote-ref" id="fnref:fn-4"><a href="#fn:fn-4">4</a></sup> | <a href="https://about.sourcegraph.com/docs/server/api/">Server API</a>, <a href="https://sourcegraph.com/api/console">Console API</a> |                                                                                                                                                 |         |          |      |
+| OpenGrok    |                                           | ✓     | ✓      |                                                  | Online | open source; create your own server;                    |                                                                                                                  |                                                                                                                                                 |         |          |      |
+| Codelf      | <a href="https://unbug.github.io/codelf/">codelf</a> |       | ✓      |                                                  | Online | find snippets easily                                    |                                                                                                                  | <a href="https://github.com/unbug/codelf#codelf-for-vs-code">VS Code</a>, Atom, <a href="https://github.com/unbug/codelf#codelf-for-sublime-text">sublime</a>, Chrome |         |          |      |</p>
+
+<h2 id="feature-summary-and-comparison">Feature summary and comparison</h2>
+
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>OpenGrok</th>
+<th>GitHub/GitHub Enterprise</th>
+<th>SourceGraph</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Multi-repository full-text search</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>At any revision</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>Indexing delay</td>
+<td>Hours</td>
+<td>Varies, not instant</td>
+<td>No index needed</td>
+</tr>
+
+<tr>
+<td>Search commit diffs</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>Search commit messages</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>Query latency</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>Include/exclude paths and globs</td>
+<td>1</td>
+<td>0 Limited</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>Regular expressions</td>
+<td>0 (wildcards only)</td>
+<td>0</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>Saved searches</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>Doc/type hover tooltips</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>Code review integration</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>Editor integration</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>Web app</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>Integrated blame</td>
+<td>1</td>
+<td>0 Multiple clicks away</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>Nice URLs</td>
+<td>1</td>
+<td>1</td>
+<td>1 (+ selection range &amp; symbols)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="sourcegraph-api-research">SourceGraph API research</h2>
+
+<h3 id="do-these-features-only-work-for-a-personal-sourcegraph-server">Do these features only work for a personal SourceGraph server?</h3>
+
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Paid</th>
+<th>url</th>
+<th>How</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Code Intelligence <sup class="footnote-ref" id="fnref:fn-5"><a href="#fn:fn-5">5</a></sup></td>
+<td>✓</td>
+<td><a href="https://about.sourcegraph.com/docs/code-intelligence/">https://about.sourcegraph.com/docs/code-intelligence/</a></td>
+<td>Provided by language servers that run securely in your self-hosted SourceGraph instance</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="bitbucket-api-research">Bitbucket API research</h2>
+
+<p>Endpoints</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>doc</th>
+<th>use case</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>all public repositories</td>
+<td>?</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>Howto
+<a href="https://confluence.atlassian.com/bitbucket/use-the-bitbucket-cloud-rest-apis-222724129.html">REST APIs - Atlassian Documentation</a></p>
+
+<p>Standard HTTP behavior</p>
+
+<table>
+<thead>
+<tr>
+<th>Call</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>GET</td>
+<td>Retrieves information.</td>
+</tr>
+
+<tr>
+<td>PUT</td>
+<td>Updates existing information.</td>
+</tr>
+
+<tr>
+<td>POST</td>
+<td>Creates new information.</td>
+</tr>
+
+<tr>
+<td>DELETE</td>
+<td>Removes existing information.</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="gitlab-api-research">GitLab API research</h2>
+
+<h3 id="protocol">Protocol</h3>
+
+<table>
+<thead>
+<tr>
+<th>protocol</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>HTTP. Moving to GraphQL.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="project-specific-repository-search--where-to-find-all-public-api">Project-specific repository search (where to find all-public api?)</h3>
+
+<table>
+<thead>
+<tr>
+<th>doc url</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><a href="https://docs.gitlab.com/ee/api/repositories.html">https://docs.gitlab.com/ee/api/repositories.html</a></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="gitlab-automation">GitLab Automation</h3>
+
+<table>
+<thead>
+<tr>
+<th>doc url</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><a href="https://docs.gitlab.com/ee/api/README.html">https://docs.gitlab.com/ee/api/README.html</a></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="code-search-queries">Code search queries</h3>
+
+<table>
+<thead>
+<tr>
+<th>doc url</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><a href="https://docs.gitlab.com/ee/api/search.html">https://docs.gitlab.com/ee/api/search.html</a></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example-commands">Example commands</h3>
+
+<table>
+<thead>
+<tr>
+<th>Information Need</th>
+<th>Command</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>merge requests</td>
+<td>rhs gitlab get <a href="https://gitlab.example.com/api/v4/search?scope=merge%5Frequests&amp;search=file">https://gitlab.example.com/api/v4/search?scope=merge%5Frequests&amp;search=file</a></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="github-api-research">GitHub API research</h2>
+
+<h3 id="legacy-search">Legacy Search</h3>
+
+<p><a href="https://developer.github.com/v3/search/legacy/">https://developer.github.com/v3/search/legacy/</a></p>
+
+<p>This is a listing of the Legacy Search API features from API v2 that have been ported to API v3. There should be no changes, other than the new URL and JSON output format.</p>
+
+<h3 id="current-api">Current API</h3>
+
+<p><a href="https://developer.github.com/v3/">GitHub REST API v3.</a></p>
+
+<h3 id="protocol-1">Protocol</h3>
+
+<table>
+<thead>
+<tr>
+<th>protocol</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>HTTP. Moving to GraphQL.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example-commands-1">Example commands</h3>
+
+<table>
+<thead>
+<tr>
+<th>Information Need</th>
+<th>documentation</th>
+<th>use case</th>
+<th>command</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>code</td>
+<td><a href="https://developer.github.com/v3/search/">https://developer.github.com/v3/search/</a></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Highlighting</td>
+<td></td>
+<td>This provides a dump of every public repository, in the order that they were created.</td>
+<td><a href="https://api.github.com/search/repositories?q=tetris+language:assembly&amp;sort=stars&amp;order=desc">https://api.github.com/search/repositories?q=tetris+language:assembly&amp;sort=stars&amp;order=desc</a></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="metadata">Metadata</h3>
+
+<p>You can find:</p>
+
+<ol>
+<li>repositories</li>
+<li>commits</li>
+<li>code</li>
+<li>files (in repository)</li>
+<li>issues</li>
+<li>users</li>
+<li>topics</li>
+<li>labels</li>
+<li>Text match metadata</li>
+</ol>
+
+<h4 id="find-how-to-get-more-metadata"><span class="org-todo todo TODO">TODO</span> Find how to get more metadata</h4>
+
+<ul>
+<li>number of repositories?</li>
+</ul>
+
+<h3 id="ranking">Ranking</h3>
+
+<p>Sort by best match, as indicated by the score field for each item returned.</p>
+
+<p>Score is a computed value representing the relevance of an item relative to the other items in the result set.</p>
+
+<p>Multiple factors are combined to boost the most relevant item to the top of the result list.</p>
+
+<h3 id="highlighting-repository-search-results">Highlighting repository search results</h3>
+
+<p>You can highlight matching search terms when displaying search results.</p>
+
+<p>The API offers additional metadata to support this use case.</p>
+
+<p>To get this metadata in your search results, specify the text-match media type in your Accept header.</p>
+
+<p>Example</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -H <span style="color:#e6db74">&#39;Accept: application/vnd.github.v3.text-match+json&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  <span style="color:#e6db74">&#39;https://api.github.com/search/repositories?q=tetris+language:assembly&amp;sort=stars&amp;order=desc&#39;</span></code></pre></div>
+<h3 id="use-cases">Use cases</h3>
+
+<h4 id="suppose-you-want-to-find-commits-related-to-css-in-the-octocat-spoon-knife-repository-dot-your-query-would-look-something-like-this">Suppose you want to find commits related to CSS in the octocat/Spoon-Knife repository. Your query would look something like this:</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">https://api.github.com/search/repositories?q=tetris+language:assembly&amp;sort=stars&amp;order=desc</code></pre></div>
+<h3 id="all-endpoints">All endpoints</h3>
+
+<p><a href="https://developer.github.com/v3/apps/available-endpoints/">https://developer.github.com/v3/apps/available-endpoints/</a></p>
+
+<dl>
+<dt><a href="https://developer.github.com/v3/orgs/#list-all-organizations">list-all-organizations</a></dt>
+<dd>Lists all organizations, in the order that they were created on GitHub.</dd>
+</dl>
+
+<h3 id="general-api">general api</h3>
+
+<p>If you are using an alternative client (wrapper), note that you are required to send a valid User Agent header in
+your request.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>examples</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="https://gist.github.com/caspyin/2288960">https://gist.github.com/caspyin/2288960</a>
+<a href="https://developer.github.com/v3/guides/getting-started/">https://developer.github.com/v3/guides/getting-started/</a></p>
+
+<h2 id="look-into-software-for-generating-asts-from-source-code">Look into software for generating ASTs from source code</h2>
+
+<h3 id="python">python</h3>
+
+<p>Generate Python files AST</p>
+
+<h4 id="pip-search-results">pip search results</h4>
+
+<p><a href="https://www.srl.inf.ethz.ch/py150.php">Software Reliability Lab | ETH | Py150</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">bigcode-astgen</code></pre></div>
+<h4 id="links">Links</h4>
+
+<p><a href="http://pyparsing.wikispaces.com/home">pyparsing is an alternative approach to creating and executing simple grammars, vs. the traditional lex/yacc approach, or the use of regular expressions</a></p>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="5-entertaining-things-you-can-find-with-the-github-search-api">5 entertaining things you can find with the GitHub Search API</h3>
+
+<p><a href="https://gist.github.com/jasonrudolph/6065289">https://gist.github.com/jasonrudolph/6065289</a></p>
+
+<ol>
+<li><a href="https://gist.githubusercontent.com/jasonrudolph/6065289/raw/e666e9f42a2b53178c85742f87b192b167ba3620/00-about-search-api-examples.md">00-about-search-api-examples.md    # 5 entertaining things you can find with the GitHub Search API</a></li>
+<li><a href="https://gist.githubusercontent.com/jasonrudolph/6065289/raw/e666e9f42a2b53178c85742f87b192b167ba3620/01-trending-repos.md">01-trending-repos.md   ### Find the hottest repositories created in the last week</a></li>
+<li><a href="https://gist.githubusercontent.com/jasonrudolph/6065289/raw/e666e9f42a2b53178c85742f87b192b167ba3620/03-issue-trends.md">03-issue-trends.md     ### How many issues do Ruby developers create each day?</a></li>
+<li><a href="https://gist.githubusercontent.com/jasonrudolph/6065289/raw/e666e9f42a2b53178c85742f87b192b167ba3620/05-resig.md">05-resig.md    ### What does John Resig work on other than JavaScript?</a></li>
+<li><a href="https://gist.githubusercontent.com/jasonrudolph/6065289/raw/e666e9f42a2b53178c85742f87b192b167ba3620/06-trolls.md">06-trolls.md   ### Find the most commented issues in the past month</a></li>
+</ol>
+
+<h2 id="searches">Searches</h2>
+
+<ul>
+<li><a href="https://github.com/search?q=gitlab+api&amp;ref=opensearch">Find gitlab api projects on github</a></li>
+<li><a href="https://github.com/search?q=github+api&amp;ref=opensearch">Find github api projects on github</a></li>
+<li><a href="https://github.com/search?q=bitbucket+api&amp;ref=opensearch">Find bitbucket api projects on github</a></li>
+</ul>
+
+<h2 id="look-into-open-source-search-engines"><span class="org-todo todo TODO">TODO</span> Look into open source search engines</h2>
+
+<table>
+<thead>
+<tr>
+<th>Project</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ElasticSearch</td>
+</tr>
+
+<tr>
+<td>CodeSearch</td>
+</tr>
+
+<tr>
+<td>SphinxSearch</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="scripts">Scripts</h2>
+
+<p><a href="~/scripts/rhs">rhs &ndash; repository hosting services script</a></p>
+
+<h2 id="references">References</h2>
+
+<p><a href="https://en.wikipedia.org/wiki/Comparison%5Fof%5Fsource%5Fcode%5Fhosting%5Ffacilities#Features">https://en.wikipedia.org/wiki/Comparison%5Fof%5Fsource%5Fcode%5Fhosting%5Ffacilities#Features</a></p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:fn-1">26 million people and 1.5 million organizations created 67 million repositories on GitHub in 2017.
+ <a class="footnote-return" href="#fnref:fn-1"><sup>[return]</sup></a></li>
+<li id="fn:fn-2">interface-driven searches – that is, searches based on the abstract interface that a component offers rather than on the text in its source code.
+ <a class="footnote-return" href="#fnref:fn-2"><sup>[return]</sup></a></li>
+<li id="fn:fn-3">regular expressions in queries, which at the time was not offered by any other search engine for code. grep, but over the world&rsquo;s public code.
+ <a class="footnote-return" href="#fnref:fn-3"><sup>[return]</sup></a></li>
+<li id="fn:fn-4">regular expressions and exact queries to perform full-text searches.
+ <a class="footnote-return" href="#fnref:fn-4"><sup>[return]</sup></a></li>
+<li id="fn:fn-5">+ Hover tooltips with documentation and type signatures, + Go to definition, + Find references <a href="https://about.sourcegraph.com/docs/server/api/">https://about.sourcegraph.com/docs/server/api/</a>
+ <a class="footnote-return" href="#fnref:fn-5"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
