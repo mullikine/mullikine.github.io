@@ -400,12 +400,12 @@ infinite list.</p>
 <h3 id="span-and-break"><code>span</code> and <code>break</code></h3>
 
 <dl>
-<dt>span</dt>
+<dt><code>span</code></dt>
 <dd>Like <code>takeWhile</code>, only it returns a pair of lists.
   The first list contains everything the resulting list from <code>takeWhile</code> would
   contain if it were called with the same predicate and the same list.
   The second list contains the part of the list that would have been dropped.</dd>
-<dt>break</dt>
+<dt><code>break</code></dt>
 <dd>Whereas <code>span</code> spans the list while the predicate is true,
   <code>break</code> breaks it when the predicate is first true.
   Doing <code>break p</code> is the equivalent of doing <code>span (not . p)</code>.</dd>
@@ -593,6 +593,52 @@ in the list.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">True</span>
 <span style="color:#66d9ef">False</span>
 <span style="color:#66d9ef">False</span></code></pre></div>
+<h3 id="isprefixof-issuffixof"><code>isPrefixOf</code> + <code>isSuffixOf</code></h3>
+
+<p>Search for a sublist at the beginning and at
+the end of a list, respectively.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">:</span>m <span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">List</span>
+<span style="color:#e6db74">&#34;hey&#34;</span> `isPrefixOf` <span style="color:#e6db74">&#34;hey there!&#34;</span>
+<span style="color:#e6db74">&#34;hey&#34;</span> `isPrefixOf` <span style="color:#e6db74">&#34;oh hey there!&#34;</span>
+<span style="color:#e6db74">&#34;there!&#34;</span> `isSuffixOf` <span style="color:#e6db74">&#34;oh hey there!&#34;</span>
+<span style="color:#e6db74">&#34;there!&#34;</span> `isSuffixOf` <span style="color:#e6db74">&#34;oh hey there&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">True</span>
+<span style="color:#66d9ef">False</span>
+<span style="color:#66d9ef">True</span>
+<span style="color:#66d9ef">False</span></code></pre></div>
+<h3 id="elem-notelem-partition"><code>elem</code>, <code>notElem</code> + <code>partition</code></h3>
+
+<dl>
+<dt><code>elem</code></dt>
+<dd>Check if an element is or isn&rsquo;t inside a list.</dd>
+</dl>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">:</span>m <span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">List</span>
+<span style="color:#a6e22e">partition</span> (`elem` [<span style="color:#e6db74">&#39;A&#39;</span><span style="color:#f92672">..</span><span style="color:#e6db74">&#39;Z&#39;</span>]) <span style="color:#e6db74">&#34;BOBsidneyMORGANeddy&#34;</span>
+<span style="color:#a6e22e">partition</span> (<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">3</span>) [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">7</span>]</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">(<span style="color:#e6db74">&#34;BOBMORGAN&#34;</span>,<span style="color:#e6db74">&#34;sidneyeddy&#34;</span>)
+([<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>],[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">3</span>])</code></pre></div>
     </div>
     <div class="post-footer">
       
