@@ -21,6 +21,17 @@
     </item>
     
     <item>
+      <title>AI-assisted coding tools for emacs</title>
+      <link>https://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</link>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</guid>
+      <description>language-detection Emacs Lisp library that automatically detects the programming language in a buffer or string. Implemented as a random forest classifier, trained in scikit-learn and deployed to Emacs Lisp.
+https://github.com/andreasjansson/language-detection.el
+Example of usage 1 2 3 4 5 6 7 8 9  (defun new-buffer-from-selection-detect-language () &amp;#34;Creates a new buffer from the selection and tries to set the mode&amp;#34; (interactive) (if (selected-p) (let* ((b (new-buffer-from-string (selection)))) (with-current-buffer b (switch-to-buffer b) (guess-major-mode))))) (defalias &amp;#39;detect-language-set-mode &amp;#39;guess-major-mode)   1 2  ;; This works great (my/truly-selective-binding &amp;#34;Y&amp;#34; #&amp;#39;new-buffer-from-selection-detect-language)   expanded the macro</description>
+    </item>
+    
+    <item>
       <title>ClassyPrelude – Alternative prelude for Haskell</title>
       <link>https://mullikine.github.io/posts/haskell-classy-prelude/</link>
       <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
@@ -74,46 +85,6 @@ intersperse Takes an element and a list and then puts that element in between ea
     </item>
     
     <item>
-      <title>Misc LYAH notes</title>
-      <link>https://mullikine.github.io/posts/haskell-lyah/</link>
-      <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
-      
-      <guid>https://mullikine.github.io/posts/haskell-lyah/</guid>
-      <description>Related articles Haskell functions // Bodacious Blog  emacs Run haskell programs: babel + runhaskell 1 2 3 4 5 6 7 8 9  #+BEGIN_SRC haskell-n :sph nvc -pak rh :async :results none  main = do putStrLn &amp;#34;What is your name?&amp;#34; name &amp;lt;- getLine putStrLn $ name ++ &amp;#34;! This is a very nice name.&amp;#34; putStrLn &amp;#34;Where do you live?&amp;#34; city &amp;lt;- getLine putStrLn $ &amp;#34;Hey, I Love &amp;#34; ++ city ++ &amp;#34;!</description>
-    </item>
-    
-    <item>
-      <title>Relude – Alternative prelude for Haskell</title>
-      <link>https://mullikine.github.io/posts/haskell-relude/</link>
-      <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
-      
-      <guid>https://mullikine.github.io/posts/haskell-relude/</guid>
-      <description>Sources https://hackage.haskell.org/package/relude  Difference from Prelude Main differences from Prelude can be grouped into the following categories:
- Changed behavior of common functions  head, tail, last, init work with NonEmpty a instead of [a]. lines, unlines, words, unwords work with Text instead of String. show is polymorphic over return type. Functions sum and product are strict now, which makes them more efficient. You can&amp;rsquo;t call elem and notElem functions over Set and HashSet.</description>
-    </item>
-    
-    <item>
-      <title>Searching hacker news</title>
-      <link>https://mullikine.github.io/posts/searching-hacker-news/</link>
-      <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
-      
-      <guid>https://mullikine.github.io/posts/searching-hacker-news/</guid>
-      <description>I create a script which can be used to search hacker news (or other sites) conveniently with title and contents queries.
-1 2 3 4 5 6 7  eww &amp;#34;http://news.ycombinator.com&amp;#34; # How to search hacker news egr emacs site:news.ycombinator.com intitle:&amp;#34;email client&amp;#34; # terms -- title terms hn emacs -- email   Create the script hn 1 2 3 4 5 6  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null SITE=news.</description>
-    </item>
-    
-    <item>
-      <title>AI-assisted coding tools for emacs</title>
-      <link>https://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</link>
-      <pubDate>Tue, 26 Nov 2019 00:00:00 +1300</pubDate>
-      
-      <guid>https://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</guid>
-      <description>language-detection Emacs Lisp library that automatically detects the programming language in a buffer or string. Implemented as a random forest classifier, trained in scikit-learn and deployed to Emacs Lisp.
-https://github.com/andreasjansson/language-detection.el
-Example of usage 1 2 3 4 5 6 7 8 9  (defun new-buffer-from-selection-detect-language () &amp;#34;Creates a new buffer from the selection and tries to set the mode&amp;#34; (interactive) (if (selected-p) (let* ((b (new-buffer-from-string (selection)))) (with-current-buffer b (switch-to-buffer b) (guess-major-mode))))) (defalias &amp;#39;detect-language-set-mode &amp;#39;guess-major-mode)   1 2  ;; This works great (my/truly-selective-binding &amp;#34;Y&amp;#34; #&amp;#39;new-buffer-from-selection-detect-language)   expanded the macro</description>
-    </item>
-    
-    <item>
       <title>GHCi and Haskell code intermixed in babel</title>
       <link>https://mullikine.github.io/posts/babel-ghci-and-haskell/</link>
       <pubDate>Tue, 26 Nov 2019 00:00:00 +1300</pubDate>
@@ -121,6 +92,16 @@ Example of usage 1 2 3 4 5 6 7 8 9  (defun new-buffer-from-selection-detect-lang
       <guid>https://mullikine.github.io/posts/babel-ghci-and-haskell/</guid>
       <description>Demonstration Running ghcih inside neovim inside emacs 
 Create the ghcih script 1 2 3 4 5 6  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null xs ghci -H &amp;#34;$@&amp;#34;   Create the ghci case in xs When -H is provided, it will split the input code by assuming that the initial part is a haskell module and anything from the first ghci : command and onwards is ghci code.</description>
+    </item>
+    
+    <item>
+      <title>Relude – Alternative prelude for Haskell</title>
+      <link>https://mullikine.github.io/posts/haskell-relude/</link>
+      <pubDate>Tue, 26 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/haskell-relude/</guid>
+      <description>Sources https://hackage.haskell.org/package/relude  Difference from Prelude Main differences from Prelude can be grouped into the following categories:
+ Changed behavior of common functions  head, tail, last, init work with NonEmpty a instead of [a]. lines, unlines, words, unwords work with Text instead of String. show is polymorphic over return type. Functions sum and product are strict now, which makes them more efficient. You can&amp;rsquo;t call elem and notElem functions over Set and HashSet.</description>
     </item>
     
     <item>
@@ -981,6 +962,16 @@ Issues covered in the book in the realm of coherence structures:
     </item>
     
     <item>
+      <title>Searching hacker news</title>
+      <link>https://mullikine.github.io/posts/searching-hacker-news/</link>
+      <pubDate>Thu, 10 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/searching-hacker-news/</guid>
+      <description>I create a script which can be used to search hacker news (or other sites) conveniently with title and contents queries.
+1 2 3 4 5 6 7  eww &amp;#34;http://news.ycombinator.com&amp;#34; # How to search hacker news egr emacs site:news.ycombinator.com intitle:&amp;#34;email client&amp;#34; # terms -- title terms hn emacs -- email   Create the script hn 1 2 3 4 5 6  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null SITE=news.</description>
+    </item>
+    
+    <item>
       <title>(WIP) Extending WordNut for generating blog titles</title>
       <link>https://mullikine.github.io/posts/extending-wordnut-for-generating-blog-titles/</link>
       <pubDate>Mon, 07 Oct 2019 00:00:00 +1300</pubDate>
@@ -1471,6 +1462,15 @@ An example of define-syntax-parser: Generating C with racket // Bodacious Blog</
       <guid>https://mullikine.github.io/posts/use-ssh-key-to-encrypt-messages/</guid>
       <description>Create self-decrypting encrypted files using your ssh public key. The self decrypting file will only decrypt if you have the private key. Only works on small files like short messages.
 The script makemsg 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74  #!</description>
+    </item>
+    
+    <item>
+      <title>Misc LYAH notes</title>
+      <link>https://mullikine.github.io/posts/haskell-lyah/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/haskell-lyah/</guid>
+      <description>Related articles Haskell functions // Bodacious Blog  emacs Run haskell programs: babel + runhaskell 1 2 3 4 5 6 7 8 9  #+BEGIN_SRC haskell-n :sph nvc -pak rh :async :results none  main = do putStrLn &amp;#34;What is your name?&amp;#34; name &amp;lt;- getLine putStrLn $ name ++ &amp;#34;! This is a very nice name.&amp;#34; putStrLn &amp;#34;Where do you live?&amp;#34; city &amp;lt;- getLine putStrLn $ &amp;#34;Hey, I Love &amp;#34; ++ city ++ &amp;#34;!</description>
     </item>
     
   </channel>

@@ -12,6 +12,17 @@
     
     
     <item>
+      <title>AI-assisted coding tools for emacs</title>
+      <link>https://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</link>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</guid>
+      <description>language-detection Emacs Lisp library that automatically detects the programming language in a buffer or string. Implemented as a random forest classifier, trained in scikit-learn and deployed to Emacs Lisp.
+https://github.com/andreasjansson/language-detection.el
+Example of usage 1 2 3 4 5 6 7 8 9  (defun new-buffer-from-selection-detect-language () &amp;#34;Creates a new buffer from the selection and tries to set the mode&amp;#34; (interactive) (if (selected-p) (let* ((b (new-buffer-from-string (selection)))) (with-current-buffer b (switch-to-buffer b) (guess-major-mode))))) (defalias &amp;#39;detect-language-set-mode &amp;#39;guess-major-mode)   1 2  ;; This works great (my/truly-selective-binding &amp;#34;Y&amp;#34; #&amp;#39;new-buffer-from-selection-detect-language)   expanded the macro</description>
+    </item>
+    
+    <item>
       <title>Future of emacs</title>
       <link>https://mullikine.github.io/posts/future-of-emacs/</link>
       <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
@@ -20,27 +31,6 @@
       <description>This doesn&amp;rsquo;t actually represent my own view on the future of emacs.
 I do agree about the current extension language being a major shortcoming and I see emacs lisp as not being a declarative programming language as being the main existential threat.
  References Emacs: The Editor for the Next Forty Years - Perry E. Metzger - EmacsConf 2019  Shortcomings of emacs  Extension language still mediocre. Implementation language is terrible.</description>
-    </item>
-    
-    <item>
-      <title>Searching hacker news</title>
-      <link>https://mullikine.github.io/posts/searching-hacker-news/</link>
-      <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
-      
-      <guid>https://mullikine.github.io/posts/searching-hacker-news/</guid>
-      <description>I create a script which can be used to search hacker news (or other sites) conveniently with title and contents queries.
-1 2 3 4 5 6 7  eww &amp;#34;http://news.ycombinator.com&amp;#34; # How to search hacker news egr emacs site:news.ycombinator.com intitle:&amp;#34;email client&amp;#34; # terms -- title terms hn emacs -- email   Create the script hn 1 2 3 4 5 6  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null SITE=news.</description>
-    </item>
-    
-    <item>
-      <title>AI-assisted coding tools for emacs</title>
-      <link>https://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</link>
-      <pubDate>Tue, 26 Nov 2019 00:00:00 +1300</pubDate>
-      
-      <guid>https://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</guid>
-      <description>language-detection Emacs Lisp library that automatically detects the programming language in a buffer or string. Implemented as a random forest classifier, trained in scikit-learn and deployed to Emacs Lisp.
-https://github.com/andreasjansson/language-detection.el
-Example of usage 1 2 3 4 5 6 7 8 9  (defun new-buffer-from-selection-detect-language () &amp;#34;Creates a new buffer from the selection and tries to set the mode&amp;#34; (interactive) (if (selected-p) (let* ((b (new-buffer-from-string (selection)))) (with-current-buffer b (switch-to-buffer b) (guess-major-mode))))) (defalias &amp;#39;detect-language-set-mode &amp;#39;guess-major-mode)   1 2  ;; This works great (my/truly-selective-binding &amp;#34;Y&amp;#34; #&amp;#39;new-buffer-from-selection-detect-language)   expanded the macro</description>
     </item>
     
     <item>
@@ -291,6 +281,16 @@ Objective Specify an :interpreter and/or :filter command to override the execute
       <guid>https://mullikine.github.io/posts/blogs-and-vlogs/</guid>
       <description>These are some of my favourite learning resources.
    source type url Topics     Math4IQB vlog https://www.youtube.com/user/Math4IQB/videos Information Theory   Gwern Bransen blog https://www.gwern.net/GPT-2 Haskell, NLP, R   Fabian Dablander blog https://fabiandablander.com Math, statistics, latex   John D. Cook blog https://www.johndcook.com/blog/ Math, statistics   Sacha Chua blog https://sachachua.com/blog/0000/00/05/ New emacs packages   Cameron Kerr blog http://humbledown.org https://distracted-it.blogspot.com Telecommunications    Misc articles Math &amp;amp; Statistics johndcook.</description>
+    </item>
+    
+    <item>
+      <title>Searching hacker news</title>
+      <link>https://mullikine.github.io/posts/searching-hacker-news/</link>
+      <pubDate>Thu, 10 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/searching-hacker-news/</guid>
+      <description>I create a script which can be used to search hacker news (or other sites) conveniently with title and contents queries.
+1 2 3 4 5 6 7  eww &amp;#34;http://news.ycombinator.com&amp;#34; # How to search hacker news egr emacs site:news.ycombinator.com intitle:&amp;#34;email client&amp;#34; # terms -- title terms hn emacs -- email   Create the script hn 1 2 3 4 5 6  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null SITE=news.</description>
     </item>
     
     <item>
