@@ -6,10 +6,23 @@
     <description>Recent content in parsers on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 Nov 2019 00:00:00 +1300</lastBuildDate>
+    <lastBuildDate>Wed, 27 Nov 2019 00:00:00 +1300</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/parsers/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Syntax transformers step by step</title>
+      <link>https://mullikine.github.io/posts/monad-transformers-step-by-step/</link>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/monad-transformers-step-by-step/</guid>
+      <description>Original PDF https://page.mi.fu-berlin.de/scravy/realworldhaskell/materialien/monad-transformers-step-by-step.pdf  This document is a little outdated.
+For example, Control.Monad.Error has been replaced with Control.Monad.Except.
+ Text version $DUMP$NOTES/ws/haskell/reading/monad-transformers-step-by-step.txt  Abstract Create custom monads simply by composing the necessary monad transformers.
+For example, if you need a monad with state and error handling, just take the StateT and ErrorT monad transformers and combine them.
+Aim Start with a simple function and extending it step by step with various monadic operations in order to extend its functionality.</description>
+    </item>
     
     <item>
       <title>Rosie Pattern Matching Language (RPL)</title>
@@ -20,15 +33,6 @@
       <description>1 2 3 4 5 6 7 8 9  Rosie Pattern Matching Language RPL A language for writing PEG grammars, which are by definition both greedy and possessive. Parsing Expression Grammars PEG PEG languages are greedy and possessive.   extract ip addresses This file defines the ip address.
 https://gitlab.com/rosie-pattern-language/rosie/blob/master/rpl/net.rpl
 1  dmesg | rosie grep -o subs net.ipv4   7.35.177.61 7.35.177.61 extract email addresses RPL is greedy, possessive and its grammar libraries are usually designed to exhaust all possible (as opposed to commonly expected) matches, according to some spec.</description>
-    </item>
-    
-    <item>
-      <title>(WIP) Syntax transformers step by step</title>
-      <link>https://mullikine.github.io/posts/monad-transformers-step-by-step/</link>
-      <pubDate>Fri, 25 Oct 2019 00:00:00 +1300</pubDate>
-      
-      <guid>https://mullikine.github.io/posts/monad-transformers-step-by-step/</guid>
-      <description>Demonstrate monad transformers Build an interpreter for the little language below. type Name = String -- variable names data Exp = Lit Integer -- expressions | Var Name | Plus Exp Exp | Abs Name Exp | App Exp Exp deriving (Show) data Value = IntVal Integer -- values | FunVal Env Name Exp deriving (Show) type Env = Map.Map Name Value -- mapping from names to values Add the header module Transformers where import Control.</description>
     </item>
     
     <item>
