@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Haskell syntax // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.065328ba02777ced5860a9c4cff59983d2ee1dca6a6b6eddea7aa8e3f4c858c7.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Haskell syntax"/>
+<meta name="twitter:description" content="let expression 1  (let x = 2 in x*2)   4 import ... hiding 1  ewwlinks &#43;/&#34;Haskell Language Hiding Imports&#34; &#34;https://riptutorial.com/haskell/example/18580/hiding-imports&#34;   1  egr haskell import hiding   Prelude often defines functions whose names are used elsewhere. Not hiding such imports (or using qualified imports where clashes occur) will cause compilation errors.
+Data.Stream defines functions named map, head and tail which normally clashes with those defined in Prelude."/>
+
+    <meta property="og:title" content="Haskell syntax" />
+<meta property="og:description" content="let expression 1  (let x = 2 in x*2)   4 import ... hiding 1  ewwlinks &#43;/&#34;Haskell Language Hiding Imports&#34; &#34;https://riptutorial.com/haskell/example/18580/hiding-imports&#34;   1  egr haskell import hiding   Prelude often defines functions whose names are used elsewhere. Not hiding such imports (or using qualified imports where clashes occur) will cause compilation errors.
+Data.Stream defines functions named map, head and tail which normally clashes with those defined in Prelude." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/haskell-syntax/" />
+<meta property="article:published_time" content="2019-11-27T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-11-27T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="John Doe" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a></div>
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Haskell syntax</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Nov 27, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          6 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a><a class="tag" href="http://mullikine.github.io/tags/lyah/">lyah</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      
+
+<h2 id="expression"><span class="underline">let</span> expression</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">(<span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">in</span> x<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">4</span></code></pre></div>
+<h2 id="import-dot-dot-dot-hiding"><code>import ... hiding</code></h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ewwlinks +/<span style="color:#e6db74">&#34;Haskell Language Hiding Imports&#34;</span> <span style="color:#e6db74">&#34;https://riptutorial.com/haskell/example/18580/hiding-imports&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">egr haskell import hiding</code></pre></td></tr></table>
+</div>
+</div>
+
+<p><span class="underline">Prelude</span> often defines functions whose names are used elsewhere. Not hiding such
+imports (or using qualified imports where clashes occur) will cause compilation
+errors.</p>
+
+<p><code>Data.Stream</code> defines functions named <code>map</code>, <code>head</code> and <code>tail</code> which normally clashes with
+those defined in <span class="underline">Prelude</span>. We can hide those imports from <span class="underline">Prelude</span> using hiding:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.Stream <span style="color:#75715e">-- everything from Data.Stream</span>
+<span style="color:#66d9ef">import</span> Prelude <span style="color:#66d9ef">hiding</span> (<span style="color:#a6e22e">map</span>, <span style="color:#a6e22e">head</span>, <span style="color:#a6e22e">tail</span>, <span style="color:#a6e22e">scan</span>, <span style="color:#a6e22e">foldl</span>, <span style="color:#a6e22e">foldr</span>, <span style="color:#a6e22e">filter</span>, <span style="color:#a6e22e">dropWhile</span>, <span style="color:#a6e22e">take</span>) <span style="color:#75715e">-- etc</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>In reality, it would require too much code to hide <span class="underline">Prelude</span> clashes like this, so you
+would in fact use a qualified import of <code>Data.Stream</code> instead.</p>
+
+<h2 id="record-syntax">record syntax</h2>
+
+<p><a href="http://learnyouahaskell.com/making-our-own-types-and-typeclasses">http://learnyouahaskell.com/making-our-own-types-and-typeclasses</a></p>
+
+<h3 id="before">Before</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Person</span> <span style="color:#66d9ef">String</span> <span style="color:#66d9ef">String</span> <span style="color:#66d9ef">Int</span> <span style="color:#66d9ef">Float</span> <span style="color:#66d9ef">String</span> <span style="color:#66d9ef">String</span> <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>)
+
+<span style="color:#75715e">-- Create an instances</span>
+<span style="color:#66d9ef">let</span> guy <span style="color:#f92672">=</span> <span style="color:#66d9ef">Person</span> <span style="color:#e6db74">&#34;Buddy&#34;</span> <span style="color:#e6db74">&#34;Finklestein&#34;</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">184.2</span> <span style="color:#e6db74">&#34;526-2928&#34;</span> <span style="color:#e6db74">&#34;Chocolate&#34;</span>
+
+<span style="color:#75715e">-- Create getters</span>
+<span style="color:#a6e22e">firstName</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">firstName</span> (<span style="color:#66d9ef">Person</span> firstname <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> firstname
+
+<span style="color:#a6e22e">lastName</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">lastName</span> (<span style="color:#66d9ef">Person</span> <span style="color:#66d9ef">_</span> lastname <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> lastname
+
+<span style="color:#a6e22e">age</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">age</span> (<span style="color:#66d9ef">Person</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> age <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> age
+
+<span style="color:#a6e22e">height</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Float</span>
+<span style="color:#a6e22e">height</span> (<span style="color:#66d9ef">Person</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> height <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> height
+
+<span style="color:#a6e22e">phoneNumber</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">phoneNumber</span> (<span style="color:#66d9ef">Person</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> number <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> number
+
+<span style="color:#a6e22e">flavor</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">flavor</span> (<span style="color:#66d9ef">Person</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> flavor) <span style="color:#f92672">=</span> flavor
+
+<span style="color:#75715e">-- Query the data structure</span>
+<span style="color:#a6e22e">firstName</span> guy
+<span style="color:#a6e22e">height</span> guy
+<span style="color:#a6e22e">flavor</span> guy</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">Chocolate</span></code></pre></div>
+<h3 id="after">After</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Person</span> { firstName <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>
+                     , lastName <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>
+                     , age <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
+                     , height <span style="color:#f92672">::</span> <span style="color:#66d9ef">Float</span>
+                     , phoneNumber <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>
+                     , flavor <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>
+                     } <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>)
+
+<span style="color:#66d9ef">:</span>t <span style="color:#66d9ef">Person</span>
+
+<span style="color:#66d9ef">let</span> guy <span style="color:#f92672">=</span> <span style="color:#66d9ef">Person</span> <span style="color:#e6db74">&#34;Buddy&#34;</span> <span style="color:#e6db74">&#34;Finklestein&#34;</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">184.2</span> <span style="color:#e6db74">&#34;526-2928&#34;</span> <span style="color:#e6db74">&#34;Chocolate&#34;</span>
+
+<span style="color:#66d9ef">:</span>t guy
+
+<span style="color:#a6e22e">flavor</span> guy</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">Person</span>
+  <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Float</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Person</span>
+<span style="color:#a6e22e">guy</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span>
+<span style="color:#e6db74">&#34;Chocolate&#34;</span></code></pre></div>
+<h3 id="before-1">Before</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkPerson</span> <span style="color:#66d9ef">String</span> <span style="color:#66d9ef">String</span> <span style="color:#66d9ef">Int</span> <span style="color:#66d9ef">Float</span> <span style="color:#66d9ef">String</span> <span style="color:#66d9ef">String</span> <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>)
+
+<span style="color:#75715e">-- Create an instance</span>
+<span style="color:#a6e22e">guy</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkPerson</span> <span style="color:#e6db74">&#34;Buddy&#34;</span> <span style="color:#e6db74">&#34;Finklestein&#34;</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">184.2</span> <span style="color:#e6db74">&#34;526-2928&#34;</span> <span style="color:#e6db74">&#34;Chocolate&#34;</span>
+
+<span style="color:#75715e">-- Create getters</span>
+<span style="color:#a6e22e">firstName</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">firstName</span> (<span style="color:#66d9ef">MkPerson</span> firstname <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> firstname
+
+<span style="color:#a6e22e">lastName</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">lastName</span> (<span style="color:#66d9ef">MkPerson</span> <span style="color:#66d9ef">_</span> lastname <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> lastname
+
+<span style="color:#a6e22e">age</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">age</span> (<span style="color:#66d9ef">MkPerson</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> age <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> age
+
+<span style="color:#a6e22e">height</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Float</span>
+<span style="color:#a6e22e">height</span> (<span style="color:#66d9ef">MkPerson</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> height <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> height
+
+<span style="color:#a6e22e">phoneNumber</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">phoneNumber</span> (<span style="color:#66d9ef">MkPerson</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> number <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> number
+
+<span style="color:#a6e22e">flavor</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">flavor</span> (<span style="color:#66d9ef">MkPerson</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> flavor) <span style="color:#f92672">=</span> flavor
+
+<span style="color:#75715e">-- -- Query the data structure</span>
+<span style="color:#75715e">-- firstName guy</span>
+<span style="color:#75715e">-- height guy</span>
+<span style="color:#75715e">-- flavor guy</span>
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> putStrLn <span style="color:#e6db74">&#34;hello world&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="after-1">After</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkPerson</span> { firstName <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>
+                     , lastName    <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>
+                     , age         <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
+                     , height      <span style="color:#f92672">::</span> <span style="color:#66d9ef">Float</span>
+                     , phoneNumber <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>
+                     , flavor      <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>
+                     } <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>)
+
+<span style="color:#75715e">-- Create an instance</span>
+<span style="color:#a6e22e">guy</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkPerson</span> <span style="color:#e6db74">&#34;Buddy&#34;</span> <span style="color:#e6db74">&#34;Finklestein&#34;</span> <span style="color:#ae81ff">43</span> <span style="color:#ae81ff">184.2</span> <span style="color:#e6db74">&#34;526-2928&#34;</span> <span style="color:#e6db74">&#34;Chocolate&#34;</span>
+
+<span style="color:#75715e">-- -- Create getters</span>
+<span style="color:#75715e">-- firstName :: Person -&gt; String</span>
+<span style="color:#75715e">-- firstName (MkPerson firstname _ _ _ _ _) = firstname</span>
+
+<span style="color:#75715e">-- lastName :: Person -&gt; String</span>
+<span style="color:#75715e">-- lastName (MkPerson _ lastname _ _ _ _) = lastname</span>
+
+<span style="color:#75715e">-- age :: Person -&gt; Int</span>
+<span style="color:#75715e">-- age (MkPerson _ _ age _ _ _) = age</span>
+
+<span style="color:#75715e">-- height :: Person -&gt; Float</span>
+<span style="color:#75715e">-- height (MkPerson _ _ _ height _ _) = height</span>
+
+<span style="color:#75715e">-- phoneNumber :: Person -&gt; String</span>
+<span style="color:#75715e">-- phoneNumber (MkPerson _ _ _ _ number _) = number</span>
+
+<span style="color:#75715e">-- flavor :: Person -&gt; String</span>
+<span style="color:#75715e">-- flavor (MkPerson _ _ _ _ _ flavor) = flavor</span>
+
+<span style="color:#75715e">-- -- Query the data structure</span>
+<span style="color:#75715e">-- firstName guy</span>
+<span style="color:#75715e">-- height guy</span>
+<span style="color:#75715e">-- flavor guy</span>
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> putStrLn <span style="color:#e6db74">&#34;hello world&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="newtype-vs-data">newtype vs data</h2>
+
+<p><code>newtype</code> works just like <code>data</code> except there can be only 1 field.
+Therefore, Parser has a field that returns a parsing function.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">newtype</span> <span style="color:#66d9ef">Parser</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkParser</span>
+  { runParser <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, a)
+  }</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="texas-range">texas range</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">[<span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">..</span><span style="color:#e6db74">&#39;z&#39;</span>]</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#e6db74">&#34;abcdefghijklmnopqrstuvwxyz&#34;</span></code></pre></div>
+<h2 id="2-value-constructors-noting-and-just">2 value constructors, <code>noting</code> and <code>just</code></h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Maybe</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">Nothing</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Just</span> a</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>The <code>a</code> here is the type parameter.</p>
+
+<h2 id="using-value-constructors">Using value constructors</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Shape</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Circle</span> <span style="color:#66d9ef">Float</span> <span style="color:#66d9ef">Float</span> <span style="color:#66d9ef">Float</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Rectangle</span> <span style="color:#66d9ef">Float</span> <span style="color:#66d9ef">Float</span> <span style="color:#66d9ef">Float</span> <span style="color:#66d9ef">Float</span> <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>)
+
+<span style="color:#66d9ef">:</span>t <span style="color:#66d9ef">Circle</span>
+<span style="color:#a6e22e">map</span> (<span style="color:#66d9ef">Circle</span> <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">20</span>) [<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">6</span>]</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">Circle</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Float</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Float</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Float</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Shape</span>
+[<span style="color:#66d9ef">Circle</span> <span style="color:#ae81ff">10.0</span> <span style="color:#ae81ff">20.0</span> <span style="color:#ae81ff">4.0</span>,<span style="color:#66d9ef">Circle</span> <span style="color:#ae81ff">10.0</span> <span style="color:#ae81ff">20.0</span> <span style="color:#ae81ff">5.0</span>,<span style="color:#66d9ef">Circle</span> <span style="color:#ae81ff">10.0</span> <span style="color:#ae81ff">20.0</span> <span style="color:#ae81ff">6.0</span>,<span style="color:#66d9ef">Circle</span> <span style="color:#ae81ff">10.0</span> <span style="color:#ae81ff">20.0</span> <span style="color:#ae81ff">6.0</span>]</code></pre></div>
+<h2 id="getter">getter</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkPerson</span> <span style="color:#66d9ef">String</span> <span style="color:#66d9ef">String</span> <span style="color:#66d9ef">Int</span> <span style="color:#66d9ef">Float</span> <span style="color:#66d9ef">String</span> <span style="color:#66d9ef">String</span> <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>)
+<span style="color:#a6e22e">firstName</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">firstName</span> (<span style="color:#66d9ef">MkPerson</span> firstname <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> firstname
+
+<span style="color:#66d9ef">:</span>t firstName</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">firstName</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span></code></pre></div>
+<h2 id="patterns">Patterns</h2>
+
+<p>Top-level patterns may also have a boolean
+guard, as in this definition of a function
+that forms an abstract version of a number&rsquo;s
+sign:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">sign</span> x <span style="color:#f92672">|</span>  x <span style="color:#f92672">&gt;</span>  <span style="color:#ae81ff">0</span>        <span style="color:#f92672">=</span>   <span style="color:#ae81ff">1</span>
+       <span style="color:#f92672">|</span>  x <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>        <span style="color:#f92672">=</span>   <span style="color:#ae81ff">0</span>
+       <span style="color:#f92672">|</span>  x <span style="color:#f92672">&lt;</span>  <span style="color:#ae81ff">0</span>        <span style="color:#f92672">=</span>  <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">charP</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Char</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Parser</span> <span style="color:#66d9ef">Char</span>
+<span style="color:#a6e22e">charP</span> x <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkParser</span> <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>input <span style="color:#f92672">-&gt;</span>
+          <span style="color:#66d9ef">case</span> input <span style="color:#66d9ef">of</span>
+            y<span style="color:#66d9ef">:</span>ys <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">|</span> y <span style="color:#f92672">==</span> x <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> (ys, x)
+            <span style="color:#66d9ef">[]</span>   <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Nothing</span> <span style="color:#75715e">-- also covers the case when y!=x</span>
+            <span style="color:#66d9ef">_</span>    <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Nothing</span> <span style="color:#75715e">-- this covers everything else</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">v +/<span style="color:#e6db74">&#34;| y == x&#34;</span> <span style="color:#e6db74">&#34;</span>$MYGIT<span style="color:#e6db74">/mullikine/haskell-json-parser/Main.hs&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="data-same-name-for-type-and-constructor">data same name for type and constructor</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ewwlinks +/<span style="color:#e6db74">&#34;data Person = Person&#34;</span> <span style="color:#e6db74">&#34;http://learnyouahaskell.com/making-our-own-types-and-typeclasses&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Weirdly, using the same name for both the data
+type and the constructor seems to be normal practice.</p>
+
+<p>I have enabled emacs to distinguish between
+them using syntax highlighting.</p>
+
+<h2 id="do-notation-order">do notation order</h2>
+
+<p>The order of statements is also not the
+criterion for the evaluation order. Also here
+only the data dependencies count. See for
+instance</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">do</span> x <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">Just</span> (<span style="color:#ae81ff">3</span><span style="color:#f92672">+</span><span style="color:#ae81ff">5</span>)
+   y <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">Just</span> (<span style="color:#ae81ff">5</span><span style="color:#f92672">*</span><span style="color:#ae81ff">7</span>)
+   return (x<span style="color:#f92672">-</span>y)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>where 3+5 and 5*7 can be evaluated in any
+order, also in parallel. Or consider</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">do</span> x <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">Just</span> (<span style="color:#ae81ff">3</span><span style="color:#f92672">+</span><span style="color:#ae81ff">5</span>)
+   y <span style="color:#f92672">&lt;-</span> <span style="color:#66d9ef">Nothing</span>
+   return (x<span style="color:#f92672">-</span>y)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>where 3+5 is probably not evaluated at all,
+because its result is not necessary to find
+out that the entire do describes a Nothing.</p>
+
+<h2 id="newtype">newtype</h2>
+
+<p>The syntax and usage of newtypes is virtually
+identical to that of data declarations - in
+fact, you can replace the <code>newtype</code> keyword with
+data and it&rsquo;ll still compile, indeed there&rsquo;s
+even a good chance your program will still
+work.</p>
+
+<p>The converse is not true, however - data can
+only be replaced with <code>newtype</code> if the type has
+exactly one constructor with exactly one field
+inside it.</p>
+
+<p>The restriction to one constructor with one
+field means that the new type and the type of
+the field are in direct correspondence:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">State</span> <span style="color:#f92672">::</span> (s <span style="color:#f92672">-&gt;</span> (s, a)) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">State</span> s a
+<span style="color:#a6e22e">runState</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">State</span> s a <span style="color:#f92672">-&gt;</span> (s <span style="color:#f92672">-&gt;</span> (s, a))</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>or in mathematical terms they are
+<strong>isomorphic</strong>.</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

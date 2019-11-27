@@ -12,22 +12,17 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Haskell functions"/>
-<meta name="twitter:description" content="modules http://learnyouahaskell.com/modules
+<meta name="twitter:description" content="name a lambda expression (if you wanted to for some reason) 1  addOne = \x -&gt; x &#43; 1   LYAH modules http://learnyouahaskell.com/modules
 intersperse Takes an element and a list and then puts that element in between each pair of elements in the list.
-1 2 3  :m Data.List intersperse &#39;.&#39; &#34;MONKEY&#34; intersperse 0 [1,2,3,4,5,6]   &#34;M.O.N.K.E.Y&#34; [1,0,2,0,3,0,4,0,5,0,6] intercalate Takes a list of lists and a list.
-It then inserts that list in between all those lists and then flattens the result.
-1 2  :m Data.List intercalate &#34; &#34; [&#34;hey&#34;,&#34;there&#34;,&#34;guys&#34;]   &#34;hey there guys&#34; transpose 1 2  :m Data."/>
+1 2 3  :m Data.List intersperse &#39;.&#39; &#34;MONKEY&#34; intersperse 0 [1,2,3,4,5,6]   &#34;M.O.N.K.E.Y&#34; [1,0,2,0,3,0,4,0,5,0,6] intercalate Takes a list of lists and a list."/>
 
     <meta property="og:title" content="Haskell functions" />
-<meta property="og:description" content="modules http://learnyouahaskell.com/modules
+<meta property="og:description" content="name a lambda expression (if you wanted to for some reason) 1  addOne = \x -&gt; x &#43; 1   LYAH modules http://learnyouahaskell.com/modules
 intersperse Takes an element and a list and then puts that element in between each pair of elements in the list.
-1 2 3  :m Data.List intersperse &#39;.&#39; &#34;MONKEY&#34; intersperse 0 [1,2,3,4,5,6]   &#34;M.O.N.K.E.Y&#34; [1,0,2,0,3,0,4,0,5,0,6] intercalate Takes a list of lists and a list.
-It then inserts that list in between all those lists and then flattens the result.
-1 2  :m Data.List intercalate &#34; &#34; [&#34;hey&#34;,&#34;there&#34;,&#34;guys&#34;]   &#34;hey there guys&#34; transpose 1 2  :m Data." />
+1 2 3  :m Data.List intersperse &#39;.&#39; &#34;MONKEY&#34; intersperse 0 [1,2,3,4,5,6]   &#34;M.O.N.K.E.Y&#34; [1,0,2,0,3,0,4,0,5,0,6] intercalate Takes a list of lists and a list." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/haskell-functions/" />
-<meta property="article:published_time" content="2018-05-19T00:00:00+12:00" />
-<meta property="article:modified_time" content="2018-05-19T00:00:00+12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:site_name" content="Bodacious Blog" />
 
 
   </head>
@@ -129,7 +124,7 @@ It then inserts that list in between all those lists and then flattens the resul
   <title>calendar</title>
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
 </svg>
-          May 19, 2018
+          Jan 1, 0001
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
@@ -142,7 +137,7 @@ It then inserts that list in between all those lists and then flattens the resul
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a><a class="tag" href="http://mullikine.github.io/tags/lyah/">lyah</a></div></div>
     </header>
     
 
@@ -156,7 +151,18 @@ It then inserts that list in between all those lists and then flattens the resul
     <div class="post-content">
       
 
-<h2 id="modules"><code>modules</code></h2>
+<h3 id="name-a-lambda-expression--if-you-wanted-to-for-some-reason">name a lambda expression (if you wanted to for some reason)</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">addOne</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="lyah-modules">LYAH <code>modules</code></h2>
 
 <p><a href="http://learnyouahaskell.com/modules">http://learnyouahaskell.com/modules</a></p>
 
@@ -421,13 +427,13 @@ elements while the predicate is true.</p>
 <dl>
 <dt><code>span</code></dt>
 <dd>Like <code>takeWhile</code>, only it returns a pair of lists.
-The first list contains everything the resulting list from <code>takeWhile</code> would
-contain if it were called with the same predicate and the same list.
-The second list contains the part of the list that would have been dropped.</dd>
+  The first list contains everything the resulting list from <code>takeWhile</code> would
+  contain if it were called with the same predicate and the same list.
+  The second list contains the part of the list that would have been dropped.</dd>
 <dt><code>break</code></dt>
 <dd>Whereas <code>span</code> spans the list while the predicate is true,
-<code>break</code> breaks it when the predicate is first true.
-Doing <code>break p</code> is the equivalent of doing <code>span (not . p)</code>.</dd>
+  <code>break</code> breaks it when the predicate is first true.
+  Doing <code>break p</code> is the equivalent of doing <code>span (not . p)</code>.</dd>
 </dl>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -683,9 +689,9 @@ the end of a list, respectively.</p>
 <dd>Check if an element is not inside a list.</dd>
 <dt><code>partition</code></dt>
 <dd>Takes a list and a predicate and returns a pair of lists. <br />
-The first list in the result contains all
-the elements that satisfy the predicate, the
-second contains all the ones that don&rsquo;t.</dd>
+  The first list in the result contains all
+  the elements that satisfy the predicate, the
+  second contains all the ones that don&rsquo;t.</dd>
 </dl>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -889,7 +895,7 @@ form of a list.</p>
 
 <h3 id="zip-and-zipwith"><code>zip</code> and <code>zipWith</code></h3>
 
-<h4 id="implementation">implementation</h4>
+<h4 id="implementation">Implementation</h4>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -992,7 +998,7 @@ and five print &ldquo;FizzBuzz&rdquo;.</p>
 
 <h3 id="filter-and-quicksort"><code>filter</code> and <code>quicksort</code></h3>
 
-<h4 id="implementation-1">implementation</h4>
+<h4 id="implementation-1">Implementation</h4>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>lyah on Bodacious Blog</title>
+    <link>https://mullikine.github.io/tags/lyah/</link>
+    <description>Recent content in lyah on Bodacious Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 27 Nov 2019 00:00:00 +1300</lastBuildDate>
+    
+	<atom:link href="https://mullikine.github.io/tags/lyah/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Haskell ADTs</title>
+      <link>https://mullikine.github.io/posts/haskell-adt/</link>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/haskell-adt/</guid>
+      <description> ADT of ADT 1 2 3 4 5 6 7 8 9 10 11 12 13 14  data Point = Point Float Float deriving (Show) data Shape = Circle Point Float | Rectangle Point Point deriving (Show) surface :: Shape -&amp;gt; Float surface (Circle _ r) = pi * r ^ 2 surface (Rectangle (Point x1 y1) (Point x2 y2)) = (abs $ x2 - x1) * (abs $ y2 - y1) :info Point :info Circle :t Point :t Circle surface $ Circle (Point 10 20) 10 surface $ Rectangle (Point 0 0) (Point 100 100)   </description>
+    </item>
+    
+    <item>
+      <title>Haskell syntax</title>
+      <link>https://mullikine.github.io/posts/haskell-syntax/</link>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/haskell-syntax/</guid>
+      <description>let expression 1  (let x = 2 in x*2)   4 import ... hiding 1  ewwlinks +/&amp;#34;Haskell Language Hiding Imports&amp;#34; &amp;#34;https://riptutorial.com/haskell/example/18580/hiding-imports&amp;#34;   1  egr haskell import hiding   Prelude often defines functions whose names are used elsewhere. Not hiding such imports (or using qualified imports where clashes occur) will cause compilation errors.
+Data.Stream defines functions named map, head and tail which normally clashes with those defined in Prelude.</description>
+    </item>
+    
+    <item>
+      <title>Haskell typeclasses</title>
+      <link>https://mullikine.github.io/posts/haskelll-typeclasses/</link>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/haskelll-typeclasses/</guid>
+      <description>Functor 1  ghciol &amp;#39;:info Functor&amp;#39;   class Functor (f :: * -&amp;gt; *) where fmap :: (a -&amp;gt; b) -&amp;gt; f a -&amp;gt; f b (&amp;lt;$) :: a -&amp;gt; f b -&amp;gt; f a {-# MINIMAL fmap #-} -- Defined in ‘GHC.Base’ instance Functor (Either a) -- Defined in ‘Data.Either’ instance Functor [] -- Defined in ‘GHC.Base’ instance Functor Maybe -- Defined in ‘GHC.Base’ instance Functor IO -- Defined in ‘GHC.</description>
+    </item>
+    
+    <item>
+      <title>Misc LYAH notes</title>
+      <link>https://mullikine.github.io/posts/haskell-lyah/</link>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/haskell-lyah/</guid>
+      <description> list where 1 2 3  [ x | x &amp;lt;- [50..100], x `mod` 7 == 3] [x*2 | x &amp;lt;- [1..10]] [x*2 | x &amp;lt;- [1..10], x*2 &amp;gt;= 12]   [2,4,6,8,10,12,14,16,18,20] [12,14,16,18,20] take cycle 1  take 12 (cycle &amp;#34;LOL &amp;#34;)   &amp;#34;LOL LOL LOL &amp;#34; texas range 1  [&amp;#39;a&amp;#39;..&amp;#39;z&amp;#39;]   &amp;#34;abcdefghijklmnopqrstuvwxyz&amp;#34; Type of Nothing 1  :t Nothing   Nothing :: Maybe a 1  :t Nothing   Nothing :: Maybe a</description>
+    </item>
+    
+    <item>
+      <title>Haskell development 20.10.19</title>
+      <link>https://mullikine.github.io/posts/haskell-development/</link>
+      <pubDate>Sun, 20 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/haskell-development/</guid>
+      <description>Original file $NOTES/ws/playgrounds/haskell/remember.org  This works now 1 2  echo :t 5 | ghciol ghciol :t 4   5 :: Num p =&amp;gt; p 4 :: Num p =&amp;gt; p ghci 1 2 3 4 5 6  Just &amp;#34;Haha&amp;#34; Just 84 :t Just &amp;#34;Haha&amp;#34; :t Just 84 :t Nothing Just 10 :: Maybe Double   Why is it that if something is a monad, you can use do notation with it?</description>
+    </item>
+    
+    <item>
+      <title>Haskell functions</title>
+      <link>https://mullikine.github.io/posts/haskell-functions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/haskell-functions/</guid>
+      <description>name a lambda expression (if you wanted to for some reason) 1  addOne = \x -&amp;gt; x + 1   LYAH modules http://learnyouahaskell.com/modules
+intersperse Takes an element and a list and then puts that element in between each pair of elements in the list.
+1 2 3  :m Data.List intersperse &amp;#39;.&amp;#39; &amp;#34;MONKEY&amp;#34; intersperse 0 [1,2,3,4,5,6]   &amp;#34;M.O.N.K.E.Y&amp;#34; [1,0,2,0,3,0,4,0,5,0,6] intercalate Takes a list of lists and a list.</description>
+    </item>
+    
+  </channel>
+</rss>
