@@ -12,33 +12,24 @@
     
     
     <item>
-      <title>Copy text from screen with Tesseract</title>
-      <link>https://mullikine.github.io/posts/copy-text-from-screen-with-tesseract/</link>
-      <pubDate>Thu, 28 Nov 2019 00:00:00 +1300</pubDate>
-      
-      <guid>https://mullikine.github.io/posts/copy-text-from-screen-with-tesseract/</guid>
-      <description>Add binding to xmonad 1  , ((modm .|. mod1Mask, xK_w ), spawn &amp;#34;win capture-text screen &amp;amp;&amp;#34;)   Add case to win script  Upscale the image by 300% to make the OCR more reliable.  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41  capture-text) { opt=&amp;#34;$1&amp;#34; shift dir=$DUMP$HOME/notes2018/ws/screenshots cd &amp;#34;$dir&amp;#34; tf_image=&amp;#34;$(ux tf $(date-ts)_screen png &amp;#34;$dir&amp;#34; || echo /dev/null)&amp;#34; scaled_image=&amp;#34;$(ux tf screen_scaled png || echo /dev/null)&amp;#34; case &amp;#34;$opt&amp;#34; in screen) { import &amp;#34;$tf_image&amp;#34; } ;; root) { import -window root &amp;#34;$tf_image&amp;#34; } ;; esac if !</description>
-    </item>
-    
-    <item>
-      <title>Interactive documentation lookup for haskell type-declarative search</title>
-      <link>https://mullikine.github.io/posts/doc-lookup-for-haskell-type-declarative-search/</link>
-      <pubDate>Thu, 28 Nov 2019 00:00:00 +1300</pubDate>
-      
-      <guid>https://mullikine.github.io/posts/doc-lookup-for-haskell-type-declarative-search/</guid>
-      <description>I make a tool for real-time fuzzy documentation lookup for haskell type-declarative search.
-Demonstration 
-Create the script hs-type-declarative-search This uses stack.
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65  #!</description>
-    </item>
-    
-    <item>
       <title>Monad transformers</title>
       <link>https://mullikine.github.io/posts/monad-transformers/</link>
       <pubDate>Thu, 28 Nov 2019 00:00:00 +1300</pubDate>
       
       <guid>https://mullikine.github.io/posts/monad-transformers/</guid>
       <description>Original resource https://wiki.haskell.org/Meta-tutorial  grok haskell monad transformers  Original article http://blog.sigfpe.com/2006/05/grok-haskell-monad-transformers.html  State monad 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38  import Control.Monad.Identity import Control.Monad.State test1 = do a &amp;lt;- get modify (+1) b &amp;lt;- get return (a,b) test2 = do a &amp;lt;- get modify (++&amp;#34;1&amp;#34;) b &amp;lt;- get return (a,b) go1 = evalState test1 0 go2 = evalState test2 &amp;#34;0&amp;#34; :t go1 go1 :t go2 go2 &amp;#34;**************&amp;#34; :t get :i get &amp;#34;**************&amp;#34; :t modify :i modify &amp;#34;**************&amp;#34; :t evalState :i evalState   go1 :: (Integer, Integer) (0,1) go2 :: ([Char], [Char]) (&amp;#34;0&amp;#34;,&amp;#34;01&amp;#34;) &amp;#34;**************&amp;#34; get :: MonadState s m =&amp;gt; m s class Monad m =&amp;gt; MonadState s (m :: * -&amp;gt; *) | m -&amp;gt; s where get :: m s .</description>
+    </item>
+    
+    <item>
+      <title>Real-time interactive documentation lookup for haskell type-declarative search</title>
+      <link>https://mullikine.github.io/posts/doc-lookup-for-haskell-type-declarative-search/</link>
+      <pubDate>Thu, 28 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/doc-lookup-for-haskell-type-declarative-search/</guid>
+      <description>I make a tool for real-time fuzzy documentation lookup for haskell type- declarative search.
+Demonstration; the final result 
+Create the script hs-type-declarative-search This uses stack.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65  #!</description>
     </item>
     
     <item>
@@ -1522,6 +1513,15 @@ Meatworks in Balclutha. Detecting Ribs Tried CNN Labelled the data but it wasn&a
 Visualise radiation from their radiation room Chris Mein Maps scattered around Dunedin.
 In property services.
 First Get data into GIS format.</description>
+    </item>
+    
+    <item>
+      <title>Copy text from screen with Tesseract</title>
+      <link>https://mullikine.github.io/posts/copy-text-from-screen-with-tesseract/</link>
+      <pubDate>Tue, 01 May 2018 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/copy-text-from-screen-with-tesseract/</guid>
+      <description>Add binding to xmonad 1  , ((modm .|. mod1Mask, xK_w ), spawn &amp;#34;win capture-text screen &amp;amp;&amp;#34;)   Add case to win script  Upscale the image by 300% to make the OCR more reliable.  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41  capture-text) { opt=&amp;#34;$1&amp;#34; shift dir=$DUMP$HOME/notes2018/ws/screenshots cd &amp;#34;$dir&amp;#34; tf_image=&amp;#34;$(ux tf $(date-ts)_screen png &amp;#34;$dir&amp;#34; || echo /dev/null)&amp;#34; scaled_image=&amp;#34;$(ux tf screen_scaled png || echo /dev/null)&amp;#34; case &amp;#34;$opt&amp;#34; in screen) { import &amp;#34;$tf_image&amp;#34; } ;; root) { import -window root &amp;#34;$tf_image&amp;#34; } ;; esac if !</description>
     </item>
     
     <item>
