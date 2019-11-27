@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>Generating combinations with common lisp // Bodacious Blog</title>
+    <title>Generating combinations with bash and common lisp // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.59.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,10 +11,10 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Generating combinations with common lisp"/>
+<meta name="twitter:title" content="Generating combinations with bash and common lisp"/>
 <meta name="twitter:description" content="Build the script combinations.cl 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195  #!"/>
 
-    <meta property="og:title" content="Generating combinations with common lisp" />
+    <meta property="og:title" content="Generating combinations with bash and common lisp" />
 <meta property="og:description" content="Build the script combinations.cl 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195  #!" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/combinations-in-common-lisp/" />
@@ -114,7 +114,7 @@
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Generating combinations with common lisp</h1>
+      <h1 class ="post-title">Generating combinations with bash and common lisp</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -128,13 +128,13 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          5 min read
+          7 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/lisp/">lisp</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/lisp/">lisp</a><a class="tag" href="http://mullikine.github.io/tags/bash/">bash</a></div></div>
     </header>
     
 
@@ -547,6 +547,55 @@
 </div>
 </div>
 
+<h2 id="create-the-script-comb">Create the script <code>comb</code></h2>
+
+<p>Use <code>zsh</code> so we can create temporary files with <code>=()</code>.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/zsh
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#75715e"># See</span>
+<span style="color:#75715e"># $HOME/scripts/cbn</span>
+
+<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#e6db74">&#34;&lt;==&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ps -o comm<span style="color:#f92672">=</span> $PPID<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">0</span>&lt;/dev/null <span style="color:#f92672">)</span> &amp;&gt;/dev/null
+
+<span style="color:#75715e"># I want to pass on all arguments (which might be fds) as file paths</span>
+<span style="color:#75715e"># Perfect!</span>
+
+args<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>
+<span style="color:#66d9ef">for</span> var in <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">do</span>
+    echo -n <span style="color:#e6db74">&#34; =(cat \&#34;</span>$var<span style="color:#e6db74">\&#34; | q -l | s chomp)&#34;</span>
+<span style="color:#66d9ef">done</span>
+<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+eval <span style="color:#e6db74">&#34;combinations.cl</span>$args<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
 <h2 id="example-of-usage">Example of usage</h2>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -558,6 +607,148 @@
 </div>
 </div>
 
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">comb &lt;<span style="color:#f92672">(</span>echo echo<span style="color:#f92672">)</span> &lt;<span style="color:#f92672">(</span>echo <span style="color:#e6db74">&#34;Mr Neo\nMorpheus&#34;</span><span style="color:#f92672">)</span> &lt;<span style="color:#f92672">(</span>echo <span style="color:#e6db74">&#34;,\n,\n,\n.&#34;</span><span style="color:#f92672">)</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;Mr Neo&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo <span style="color:#e6db74">&#34;Mr Neo&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo <span style="color:#e6db74">&#34;Mr Neo&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo <span style="color:#e6db74">&#34;Mr Neo&#34;</span> .
+echo Morpheus <span style="color:#e6db74">&#34;,&#34;</span>
+echo Morpheus <span style="color:#e6db74">&#34;,&#34;</span>
+echo Morpheus <span style="color:#e6db74">&#34;,&#34;</span>
+echo Morpheus .</code></pre></div>
+<h2 id="create-the-com-cbn-script">Create the <code>com</code> / <code>cbn</code> script</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/zsh
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#e6db74">&#34;&lt;==&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ps -o comm<span style="color:#f92672">=</span> $PPID<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">0</span>&lt;/dev/null <span style="color:#f92672">)</span> &amp;&gt;/dev/null
+
+<span style="color:#75715e"># I want to pass on all arguments (which might be fds) as file paths</span>
+<span style="color:#75715e"># Perfect!</span>
+
+args<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>
+<span style="color:#66d9ef">for</span> var in <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">do</span>
+    echo -n <span style="color:#e6db74">&#34; =(printf -- &#34;</span>%s<span style="color:#e6db74">&#34; \&#34;</span>$var<span style="color:#e6db74">\&#34; | q -l | s chomp)&#34;</span>
+<span style="color:#66d9ef">done</span>
+<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+eval <span style="color:#e6db74">&#34;combinations.cl</span>$args<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">com echo hi <span style="color:#e6db74">&#34;Mr Neo\nMorpheus&#34;</span> <span style="color:#e6db74">&#34;,\n,\n,\n.&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">echo hi <span style="color:#e6db74">&#34;Mr Neo&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo hi <span style="color:#e6db74">&#34;Mr Neo&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo hi <span style="color:#e6db74">&#34;Mr Neo&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo hi <span style="color:#e6db74">&#34;Mr Neo&#34;</span> .
+echo hi Morpheus <span style="color:#e6db74">&#34;,&#34;</span>
+echo hi Morpheus <span style="color:#e6db74">&#34;,&#34;</span>
+echo hi Morpheus <span style="color:#e6db74">&#34;,&#34;</span>
+echo hi Morpheus .</code></pre></div>
+<h2 id="create-the-co-script">Create the <code>co</code> script</h2>
+
+<p>Combines the abilities of <code>com</code> and <code>comb</code></p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/zsh
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#e6db74">&#34;&lt;==&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ps -o comm<span style="color:#f92672">=</span> $PPID<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">0</span>&lt;/dev/null <span style="color:#f92672">)</span> &amp;&gt;/dev/null
+
+args<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>
+<span style="color:#66d9ef">for</span> var in <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">if</span> test -f <span style="color:#e6db74">&#34;</span>$var<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">then</span>
+        echo -n <span style="color:#e6db74">&#34; =(cat \&#34;</span>$var<span style="color:#e6db74">\&#34; | q -l | s chomp)&#34;</span>
+    <span style="color:#66d9ef">else</span>
+        echo -n <span style="color:#e6db74">&#34; =(printf -- &#34;</span>%s<span style="color:#e6db74">&#34; \&#34;</span>$var<span style="color:#e6db74">\&#34; | q -l | s chomp)&#34;</span>
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">done</span>
+<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+eval <span style="color:#e6db74">&#34;combinations.cl</span>$args<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">co echo line: /etc/lsb-release <span style="color:#e6db74">&#34;,\n,\n,\n.&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">echo line: <span style="color:#e6db74">&#34;DISTRIB_ID=Ubuntu&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo line: <span style="color:#e6db74">&#34;DISTRIB_ID=Ubuntu&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo line: <span style="color:#e6db74">&#34;DISTRIB_ID=Ubuntu&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo line: <span style="color:#e6db74">&#34;DISTRIB_ID=Ubuntu&#34;</span> .
+echo line: <span style="color:#e6db74">&#34;DISTRIB_RELEASE=16.04&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo line: <span style="color:#e6db74">&#34;DISTRIB_RELEASE=16.04&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo line: <span style="color:#e6db74">&#34;DISTRIB_RELEASE=16.04&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo line: <span style="color:#e6db74">&#34;DISTRIB_RELEASE=16.04&#34;</span> .
+echo line: <span style="color:#e6db74">&#34;DISTRIB_CODENAME=xenial&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo line: <span style="color:#e6db74">&#34;DISTRIB_CODENAME=xenial&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo line: <span style="color:#e6db74">&#34;DISTRIB_CODENAME=xenial&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo line: <span style="color:#e6db74">&#34;DISTRIB_CODENAME=xenial&#34;</span> .
+echo line: <span style="color:#e6db74">&#34;DISTRIB_DESCRIPTION=\&#34;Ubuntu 16.04.4 LTS\&#34;&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo line: <span style="color:#e6db74">&#34;DISTRIB_DESCRIPTION=\&#34;Ubuntu 16.04.4 LTS\&#34;&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo line: <span style="color:#e6db74">&#34;DISTRIB_DESCRIPTION=\&#34;Ubuntu 16.04.4 LTS\&#34;&#34;</span> <span style="color:#e6db74">&#34;,&#34;</span>
+echo line: <span style="color:#e6db74">&#34;DISTRIB_DESCRIPTION=\&#34;Ubuntu 16.04.4 LTS\&#34;&#34;</span> .</code></pre></div>
 <h3 id="misc-notes">misc notes</h3>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
