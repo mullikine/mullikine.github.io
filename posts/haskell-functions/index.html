@@ -136,7 +136,7 @@ It then inserts that list in between all those lists and then flattens the resul
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          7 min read
+          9 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -421,13 +421,13 @@ elements while the predicate is true.</p>
 <dl>
 <dt><code>span</code></dt>
 <dd>Like <code>takeWhile</code>, only it returns a pair of lists.
-  The first list contains everything the resulting list from <code>takeWhile</code> would
-  contain if it were called with the same predicate and the same list.
-  The second list contains the part of the list that would have been dropped.</dd>
+The first list contains everything the resulting list from <code>takeWhile</code> would
+contain if it were called with the same predicate and the same list.
+The second list contains the part of the list that would have been dropped.</dd>
 <dt><code>break</code></dt>
 <dd>Whereas <code>span</code> spans the list while the predicate is true,
-  <code>break</code> breaks it when the predicate is first true.
-  Doing <code>break p</code> is the equivalent of doing <code>span (not . p)</code>.</dd>
+<code>break</code> breaks it when the predicate is first true.
+Doing <code>break p</code> is the equivalent of doing <code>span (not . p)</code>.</dd>
 </dl>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -683,9 +683,9 @@ the end of a list, respectively.</p>
 <dd>Check if an element is not inside a list.</dd>
 <dt><code>partition</code></dt>
 <dd>Takes a list and a predicate and returns a pair of lists. <br />
-  The first list in the result contains all
-  the elements that satisfy the predicate, the
-  second contains all the ones that don&rsquo;t.</dd>
+The first list in the result contains all
+the elements that satisfy the predicate, the
+second contains all the ones that don&rsquo;t.</dd>
 </dl>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -883,6 +883,183 @@ form of a list.</p>
 </div>
 </div>
 
+<h2 id="higher-order-functions">Higher-order functions</h2>
+
+<p><a href="http://learnyouahaskell.com/higher-order-functions">http://learnyouahaskell.com/higher-order-functions</a></p>
+
+<h3 id="zip-and-zipwith"><code>zip</code> and <code>zipWith</code></h3>
+
+<h4 id="implementation">implementation</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">-- Takes a function and 2 lists. Returns a list.</span>
+<span style="color:#a6e22e">zipWith&#39;</span> <span style="color:#f92672">::</span> (a <span style="color:#f92672">-&gt;</span> b <span style="color:#f92672">-&gt;</span> c) <span style="color:#f92672">-&gt;</span> [a] <span style="color:#f92672">-&gt;</span> [b] <span style="color:#f92672">-&gt;</span> [c]
+<span style="color:#75715e">-- If either of the two lists are empty, it returns the empty list.</span>
+<span style="color:#a6e22e">zipWith&#39;</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">[]</span> <span style="color:#66d9ef">_</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">[]</span>
+<span style="color:#a6e22e">zipWith&#39;</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">[]</span>
+<span style="color:#75715e">-- Apply the function taking both heads as input.</span>
+<span style="color:#75715e">-- Concatenate the result with zipWith applied to the tails.</span>
+<span style="color:#a6e22e">zipWith&#39;</span> f (x<span style="color:#66d9ef">:</span>xs) (y<span style="color:#66d9ef">:</span>ys) <span style="color:#f92672">=</span> f x y <span style="color:#66d9ef">:</span> zipWith&#39; f xs ys
+
+<span style="color:#66d9ef">:</span>t zipWith&#39;
+
+<span style="color:#a6e22e">zipWith&#39;</span> (<span style="color:#f92672">+</span>) [<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>] [<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>]</code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="usage">Usage</h4>
+
+<p>Write a program that prints the numbers from 1
+to 100.</p>
+
+<p>But for multiples of three print &ldquo;Fizz&rdquo;
+instead of the number and for the multiples of
+five print &ldquo;Buzz&rdquo;.</p>
+
+<p>For numbers which are multiples of both three
+and five print &ldquo;FizzBuzz&rdquo;.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.List
+
+<span style="color:#a6e22e">threes</span> <span style="color:#f92672">=</span> cycle [<span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;fizz&#34;</span>]
+<span style="color:#a6e22e">fives</span> <span style="color:#f92672">=</span> cycle [<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>]
+<span style="color:#a6e22e">numbersString</span> <span style="color:#f92672">=</span> map show [<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span>]
+<span style="color:#a6e22e">fizzbuzz</span> <span style="color:#f92672">=</span> zipWith (<span style="color:#a6e22e">\</span>a b <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">if</span> b <span style="color:#f92672">/=</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">then</span> b <span style="color:#66d9ef">else</span> a) numbersString <span style="color:#f92672">$</span> zipWith (<span style="color:#f92672">++</span>) threes fives
+
+<span style="color:#a6e22e">fizzbuzzTo100</span> <span style="color:#f92672">=</span> take <span style="color:#ae81ff">100</span> fizzbuzz
+
+<span style="color:#75715e">-- oneliner. provides infinite FizzBuzz. FizzBuzz technically only goes up to 100.</span>
+<span style="color:#a6e22e">oneLine</span> <span style="color:#f92672">=</span> zipWith (<span style="color:#a6e22e">\</span>a b <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">if</span> b <span style="color:#f92672">/=</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">then</span> b <span style="color:#66d9ef">else</span> a) (map show [<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span>]) <span style="color:#f92672">$</span> zipWith (<span style="color:#f92672">++</span>) (cycle [<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>]) (cycle [<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>])
+
+<span style="color:#66d9ef">:</span>t oneLine
+<span style="color:#a6e22e">take</span> <span style="color:#ae81ff">20</span> oneLine
+
+<span style="color:#a6e22e">fizzbuzzTo100</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">oneLine</span> <span style="color:#f92672">::</span> [[<span style="color:#66d9ef">Char</span>]]
+[<span style="color:#e6db74">&#34;1&#34;</span>,<span style="color:#e6db74">&#34;2&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;4&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;7&#34;</span>,<span style="color:#e6db74">&#34;8&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;11&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;13&#34;</span>,<span style="color:#e6db74">&#34;14&#34;</span>,<span style="color:#e6db74">&#34;fizzbuzz&#34;</span>,<span style="color:#e6db74">&#34;16&#34;</span>,<span style="color:#e6db74">&#34;17&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;19&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>]
+[<span style="color:#e6db74">&#34;1&#34;</span>,<span style="color:#e6db74">&#34;2&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;4&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;7&#34;</span>,<span style="color:#e6db74">&#34;8&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;11&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;13&#34;</span>,<span style="color:#e6db74">&#34;14&#34;</span>,<span style="color:#e6db74">&#34;fizzbuzz&#34;</span>,<span style="color:#e6db74">&#34;16&#34;</span>,<span style="color:#e6db74">&#34;17&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;19&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;22&#34;</span>,<span style="color:#e6db74">&#34;23&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;26&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;28&#34;</span>,<span style="color:#e6db74">&#34;29&#34;</span>,<span style="color:#e6db74">&#34;fizzbuzz&#34;</span>,<span style="color:#e6db74">&#34;31&#34;</span>,<span style="color:#e6db74">&#34;32&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;34&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;37&#34;</span>,<span style="color:#e6db74">&#34;38&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;41&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;43&#34;</span>,<span style="color:#e6db74">&#34;44&#34;</span>,<span style="color:#e6db74">&#34;fizzbuzz&#34;</span>,<span style="color:#e6db74">&#34;46&#34;</span>,<span style="color:#e6db74">&#34;47&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;49&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;52&#34;</span>,<span style="color:#e6db74">&#34;53&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;56&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;58&#34;</span>,<span style="color:#e6db74">&#34;59&#34;</span>,<span style="color:#e6db74">&#34;fizzbuzz&#34;</span>,<span style="color:#e6db74">&#34;61&#34;</span>,<span style="color:#e6db74">&#34;62&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;64&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;67&#34;</span>,<span style="color:#e6db74">&#34;68&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;71&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;73&#34;</span>,<span style="color:#e6db74">&#34;74&#34;</span>,<span style="color:#e6db74">&#34;fizzbuzz&#34;</span>,<span style="color:#e6db74">&#34;76&#34;</span>,<span style="color:#e6db74">&#34;77&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;79&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;82&#34;</span>,<span style="color:#e6db74">&#34;83&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;86&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;88&#34;</span>,<span style="color:#e6db74">&#34;89&#34;</span>,<span style="color:#e6db74">&#34;fizzbuzz&#34;</span>,<span style="color:#e6db74">&#34;91&#34;</span>,<span style="color:#e6db74">&#34;92&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;94&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;97&#34;</span>,<span style="color:#e6db74">&#34;98&#34;</span>,<span style="color:#e6db74">&#34;fizz&#34;</span>,<span style="color:#e6db74">&#34;buzz&#34;</span>]</code></pre></div>
+<h3 id="zip3-and-zipwith3"><code>zip3</code> and <code>zipWith3</code></h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">:</span>m <span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">List</span>
+<span style="color:#a6e22e">zipWith3</span> (<span style="color:#a6e22e">\</span>x y z <span style="color:#f92672">-&gt;</span> x <span style="color:#f92672">+</span> y <span style="color:#f92672">+</span> z) [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>] [<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>] [<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>]</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">[<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">8</span>]</code></pre></div>
+<h3 id="zip4-and-zipwith4"><code>zip4</code> and <code>zipWith4</code></h3>
+
+<h3 id="filter-and-quicksort"><code>filter</code> and <code>quicksort</code></h3>
+
+<h4 id="implementation-1">implementation</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">filter&#39;</span> <span style="color:#f92672">::</span> (a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span>) <span style="color:#f92672">-&gt;</span> [a] <span style="color:#f92672">-&gt;</span> [a]
+<span style="color:#a6e22e">filter&#39;</span> <span style="color:#66d9ef">_</span> <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">[]</span>
+<span style="color:#a6e22e">filter&#39;</span> p (x<span style="color:#66d9ef">:</span>xs)
+    <span style="color:#f92672">|</span> p x <span style="color:#f92672">=</span> x <span style="color:#66d9ef">:</span> filter&#39; p xs
+    <span style="color:#f92672">|</span> otherwise <span style="color:#f92672">=</span> filter&#39; p xs
+
+<span style="color:#a6e22e">quicksort&#39;</span> <span style="color:#f92672">::</span> (<span style="color:#66d9ef">Ord</span> a) <span style="color:#f92672">=&gt;</span> [a] <span style="color:#f92672">-&gt;</span> [a]
+<span style="color:#a6e22e">quicksort&#39;</span> <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">[]</span>
+<span style="color:#a6e22e">quicksort&#39;</span> (x<span style="color:#66d9ef">:</span>xs) <span style="color:#f92672">=</span>
+    <span style="color:#66d9ef">let</span> smallerSorted <span style="color:#f92672">=</span> quicksort&#39; (filter (<span style="color:#f92672">&lt;=</span>x) xs)
+        biggerSorted <span style="color:#f92672">=</span> quicksort&#39; (filter (<span style="color:#f92672">&gt;</span>x) xs)
+    <span style="color:#66d9ef">in</span>  smallerSorted <span style="color:#f92672">++</span> [x] <span style="color:#f92672">++</span> biggerSorted
+
+<span style="color:#66d9ef">:</span>t filter&#39;
+<span style="color:#a6e22e">filter&#39;</span> (<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">3</span>) [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>]
+<span style="color:#a6e22e">filter&#39;</span> (<span style="color:#f92672">==</span><span style="color:#ae81ff">3</span>) [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>]
+<span style="color:#a6e22e">filter&#39;</span> even [<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span><span style="color:#ae81ff">10</span>]
+
+<span style="color:#66d9ef">:</span>t quicksort&#39;
+<span style="color:#66d9ef">:</span>info <span style="color:#66d9ef">[]</span>
+<span style="color:#a6e22e">quicksort&#39;</span> [<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>]</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">filter&#39;</span> <span style="color:#f92672">::</span> (a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span>) <span style="color:#f92672">-&gt;</span> [a] <span style="color:#f92672">-&gt;</span> [a]
+[<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">4</span>]
+[<span style="color:#ae81ff">3</span>]
+[<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">10</span>]
+<span style="color:#a6e22e">quicksort&#39;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Ord</span> a <span style="color:#f92672">=&gt;</span> [a] <span style="color:#f92672">-&gt;</span> [a]
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">[]</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">[]</span> <span style="color:#f92672">|</span> a <span style="color:#66d9ef">:</span> [a] 	<span style="color:#75715e">-- Defined in ‘GHC.Types’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Applicative</span> <span style="color:#66d9ef">[]</span> <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Eq</span> a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Eq</span> [a] <span style="color:#75715e">-- Defined in ‘GHC.Classes’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Functor</span> <span style="color:#66d9ef">[]</span> <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Monad</span> <span style="color:#66d9ef">[]</span> <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Monoid</span> [a] <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Ord</span> a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Ord</span> [a] <span style="color:#75715e">-- Defined in ‘GHC.Classes’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Semigroup</span> [a] <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Show</span> a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Show</span> [a] <span style="color:#75715e">-- Defined in ‘GHC.Show’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Read</span> a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Read</span> [a] <span style="color:#75715e">-- Defined in ‘GHC.Read’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Foldable</span> <span style="color:#66d9ef">[]</span> <span style="color:#75715e">-- Defined in ‘Data.Foldable’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Traversable</span> <span style="color:#66d9ef">[]</span> <span style="color:#75715e">-- Defined in ‘Data.Traversable’</span>
+[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>]</code></pre></div>
     </div>
     <div class="post-footer">
       
