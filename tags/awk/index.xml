@@ -6,10 +6,19 @@
     <description>Recent content in awk on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 28 Oct 2019 00:00:00 +1300</lastBuildDate>
+    <lastBuildDate>Thu, 28 Nov 2019 00:00:00 +1300</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/awk/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>A makeshift template processor in bash</title>
+      <link>https://mullikine.github.io/posts/makeshift-template-processor/</link>
+      <pubDate>Thu, 28 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/makeshift-template-processor/</guid>
+      <description>1  echo -n &amp;#34;Hi &amp;lt;name&amp;gt;. How are you?&amp;#34; | tl -name Shane   Build the replace-substring script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35  #!/bin/bash export TTY # * This is great for templates # cat $HOME/scripts/replace-substring | replace-substring -m &amp;#34;o&amp;#34; -r &amp;#34;$(echo &amp;#34;hi\nyo&amp;#34;)&amp;#34; pat= replacement= IGNORECASE=0 while [ $# -gt 0 ]; do opt=&amp;#34;$1&amp;#34;; case &amp;#34;$opt&amp;#34; in -m) { pat=&amp;#34;$2&amp;#34; pat=&amp;#34;$(p &amp;#34;$pat&amp;#34; | esc &amp;#39;\&amp;#39;)&amp;#34; shift shift } ;; -r) { replacement=&amp;#34;$2&amp;#34; shift shift } ;; -i) { IGNORECASE=1 shift } ;; *) break; esac; done awk -v IGNORECASE=$IGNORECASE -v pat=&amp;#34;$pat&amp;#34; -v r=&amp;#34;$replacement&amp;#34; &amp;#39;{gsub(pat,r)}1&amp;#39;   Build the tl script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34  #!</description>
+    </item>
     
     <item>
       <title>Filtering text streams</title>
