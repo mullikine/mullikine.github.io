@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Haskell Type Classes // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.065328ba02777ced5860a9c4cff59983d2ee1dca6a6b6eddea7aa8e3f4c858c7.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Haskell Type Classes"/>
+<meta name="twitter:description" content="An overview of the Haskell Type Classes    Type Typeclasses     Bool Eq, Ord, Show, Read, Enum, Bounded   Char Eq, Ord, Show, Read, Enum, Bounded   Int Eq, Ord, Show, Read, Enum, Bounded, Num, Real, Integral   Integer Eq, Ord, Show, Read, Enum, Num, Real, Integral   Float Eq, Ord, Show, Read, Enum, Num, Real, Fractional, RealFrac, Floating, RealFloat   Double Eq, Ord, Show, Read, Enum, Num, Real, Fractional, RealFrac, Floating, RealFloat   Word Eq, Ord, Show, Read, Enum, Bounded, Num, Real, Integral   Ordering Eq, Ord, Show, Read, Enum, Bounded, Semigroup, Monoid   () Eq, Ord, Show, Read, Enum, Bounded, Semigroup, Monoid   Maybe a Eq, Ord, Show, Read, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable   [a] Eq, Ord, Show, Read, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable   (a,b) Eq, Ord, Show, Read, Bounded, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable   a-&gt;b Semigroup, Monoid, Functor, Applicative, Monad   IO Semigroup, Monoid, Functor, Applicative, Monad   IOError Eq, Show    1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20  ahoogle --info &#34;Eq&#34; ahoogle --info &#34;Ord&#34; ahoogle --info &#34;Show&#34; ahoogle --info &#34;Read&#34; ahoogle --info &#34;Enum&#34; ahoogle --info &#34;Bounded&#34; ahoogle --info &#34;Num&#34; ahoogle --info &#34;Real&#34; ahoogle --info &#34;Integral&#34; ahoogle --info &#34;Fractional&#34; ahoogle --info &#34;RealFrac&#34; ahoogle --info &#34;Floating&#34; ahoogle --info &#34;RealFloat&#34; ahoogle --info &#34;Semigroup&#34; ahoogle --info &#34;Monoid&#34; ahoogle --info &#34;Functor&#34; ahoogle --info &#34;Applicative&#34; ahoogle --info &#34;Monad&#34; ahoogle --info &#34;Foldable&#34; ahoogle --info &#34;Traversable&#34;   &#43;	/tmp/babel-HJEMN6/generic-KiCOW9	1	ahoogle --info Eq using alternative /home/shane/."/>
+
+    <meta property="og:title" content="Haskell Type Classes" />
+<meta property="og:description" content="An overview of the Haskell Type Classes    Type Typeclasses     Bool Eq, Ord, Show, Read, Enum, Bounded   Char Eq, Ord, Show, Read, Enum, Bounded   Int Eq, Ord, Show, Read, Enum, Bounded, Num, Real, Integral   Integer Eq, Ord, Show, Read, Enum, Num, Real, Integral   Float Eq, Ord, Show, Read, Enum, Num, Real, Fractional, RealFrac, Floating, RealFloat   Double Eq, Ord, Show, Read, Enum, Num, Real, Fractional, RealFrac, Floating, RealFloat   Word Eq, Ord, Show, Read, Enum, Bounded, Num, Real, Integral   Ordering Eq, Ord, Show, Read, Enum, Bounded, Semigroup, Monoid   () Eq, Ord, Show, Read, Enum, Bounded, Semigroup, Monoid   Maybe a Eq, Ord, Show, Read, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable   [a] Eq, Ord, Show, Read, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable   (a,b) Eq, Ord, Show, Read, Bounded, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable   a-&gt;b Semigroup, Monoid, Functor, Applicative, Monad   IO Semigroup, Monoid, Functor, Applicative, Monad   IOError Eq, Show    1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20  ahoogle --info &#34;Eq&#34; ahoogle --info &#34;Ord&#34; ahoogle --info &#34;Show&#34; ahoogle --info &#34;Read&#34; ahoogle --info &#34;Enum&#34; ahoogle --info &#34;Bounded&#34; ahoogle --info &#34;Num&#34; ahoogle --info &#34;Real&#34; ahoogle --info &#34;Integral&#34; ahoogle --info &#34;Fractional&#34; ahoogle --info &#34;RealFrac&#34; ahoogle --info &#34;Floating&#34; ahoogle --info &#34;RealFloat&#34; ahoogle --info &#34;Semigroup&#34; ahoogle --info &#34;Monoid&#34; ahoogle --info &#34;Functor&#34; ahoogle --info &#34;Applicative&#34; ahoogle --info &#34;Monad&#34; ahoogle --info &#34;Foldable&#34; ahoogle --info &#34;Traversable&#34;   &#43;	/tmp/babel-HJEMN6/generic-KiCOW9	1	ahoogle --info Eq using alternative /home/shane/." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/haskell-typeclasses/" />
+<meta property="article:published_time" content="2019-11-29T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-11-29T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="John Doe" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a></div>
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Haskell Type Classes</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Nov 29, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          16 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      
+
+<h2 id="an-overview-of-the-haskell-type-classes">An overview of the Haskell Type Classes</h2>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Typeclasses</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Bool</td>
+<td>Eq, Ord, Show, Read, Enum, Bounded</td>
+</tr>
+
+<tr>
+<td>Char</td>
+<td>Eq, Ord, Show, Read, Enum, Bounded</td>
+</tr>
+
+<tr>
+<td>Int</td>
+<td>Eq, Ord, Show, Read, Enum, Bounded, Num, Real, Integral</td>
+</tr>
+
+<tr>
+<td>Integer</td>
+<td>Eq, Ord, Show, Read, Enum, Num, Real, Integral</td>
+</tr>
+
+<tr>
+<td>Float</td>
+<td>Eq, Ord, Show, Read, Enum, Num, Real, Fractional, RealFrac, Floating, RealFloat</td>
+</tr>
+
+<tr>
+<td>Double</td>
+<td>Eq, Ord, Show, Read, Enum, Num, Real, Fractional, RealFrac, Floating, RealFloat</td>
+</tr>
+
+<tr>
+<td>Word</td>
+<td>Eq, Ord, Show, Read, Enum, Bounded, Num, Real, Integral</td>
+</tr>
+
+<tr>
+<td>Ordering</td>
+<td>Eq, Ord, Show, Read, Enum, Bounded, Semigroup, Monoid</td>
+</tr>
+
+<tr>
+<td>()</td>
+<td>Eq, Ord, Show, Read, Enum, Bounded, Semigroup, Monoid</td>
+</tr>
+
+<tr>
+<td>Maybe a</td>
+<td>Eq, Ord, Show, Read, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable</td>
+</tr>
+
+<tr>
+<td>[a]</td>
+<td>Eq, Ord, Show, Read, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable</td>
+</tr>
+
+<tr>
+<td>(a,b)</td>
+<td>Eq, Ord, Show, Read, Bounded, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable</td>
+</tr>
+
+<tr>
+<td>a-&gt;b</td>
+<td>Semigroup, Monoid, Functor, Applicative, Monad</td>
+</tr>
+
+<tr>
+<td>IO</td>
+<td>Semigroup, Monoid, Functor, Applicative, Monad</td>
+</tr>
+
+<tr>
+<td>IOError</td>
+<td>Eq, Show</td>
+</tr>
+</tbody>
+</table>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ahoogle --info <span style="color:#e6db74">&#34;Eq&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Ord&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Show&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Read&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Enum&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Bounded&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Num&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Real&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Integral&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Fractional&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;RealFrac&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Floating&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;RealFloat&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Semigroup&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Monoid&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Functor&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Applicative&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Monad&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Foldable&#34;</span>
+ahoogle --info <span style="color:#e6db74">&#34;Traversable&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">+	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">1</span>	 ahoogle --info Eq
+using alternative /home/shane/.local/bin/hoogle
+EQ :: Ordering
+base Prelude
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">2</span>	 ahoogle --info Ord
+using alternative /home/shane/.local/bin/hoogle
+class Eq a <span style="color:#f92672">=</span>&gt; Ord a
+base Prelude
+The Ord class is used <span style="color:#66d9ef">for</span> totally ordered datatypes.
+
+Instances of Ord can be derived <span style="color:#66d9ef">for</span> any user-defined datatype
+whose constituent types are in Ord. The declared order of the
+constructors in the data declaration determines the ordering in
+derived Ord instances. The Ordering datatype allows a
+single comparison to determine the precise ordering of two objects.
+
+The Haskell Report defines no laws <span style="color:#66d9ef">for</span> Ord. However,
+&lt;<span style="color:#f92672">=</span> is customarily expected to implement a non-strict partial
+order and have the following properties:
+
+
+Transitivity <span style="color:#66d9ef">if</span> x &lt;<span style="color:#f92672">=</span> y <span style="color:#f92672">&amp;&amp;</span> y &lt;<span style="color:#f92672">=</span>
+z <span style="color:#f92672">=</span> True, <span style="color:#66d9ef">then</span> x &lt;<span style="color:#f92672">=</span> z <span style="color:#f92672">=</span> True
+Reflexivity x &lt;<span style="color:#f92672">=</span> x <span style="color:#f92672">=</span> True
+Antisymmetry <span style="color:#66d9ef">if</span> x &lt;<span style="color:#f92672">=</span> y <span style="color:#f92672">&amp;&amp;</span> y &lt;<span style="color:#f92672">=</span>
+x <span style="color:#f92672">=</span> True, <span style="color:#66d9ef">then</span> x <span style="color:#f92672">==</span> y <span style="color:#f92672">=</span> True
+
+
+Note that the following operator interactions are expected to hold:
+
+
+x &gt;<span style="color:#f92672">=</span> y <span style="color:#f92672">=</span> y &lt;<span style="color:#f92672">=</span> x
+x &lt; y <span style="color:#f92672">=</span> x &lt;<span style="color:#f92672">=</span> y <span style="color:#f92672">&amp;&amp;</span> x /<span style="color:#f92672">=</span> y
+x &gt; y <span style="color:#f92672">=</span> y &lt; x
+x &lt; y <span style="color:#f92672">=</span> compare x y <span style="color:#f92672">==</span> LT
+x &gt; y <span style="color:#f92672">=</span> compare x y <span style="color:#f92672">==</span> GT
+x <span style="color:#f92672">==</span> y <span style="color:#f92672">=</span> compare x y <span style="color:#f92672">==</span> EQ
+min x y <span style="color:#f92672">==</span> <span style="color:#66d9ef">if</span> x &lt;<span style="color:#f92672">=</span> y <span style="color:#66d9ef">then</span> x <span style="color:#66d9ef">else</span> y <span style="color:#f92672">=</span> True
+max x y <span style="color:#f92672">==</span> <span style="color:#66d9ef">if</span> x &gt;<span style="color:#f92672">=</span> y <span style="color:#66d9ef">then</span> x <span style="color:#66d9ef">else</span> y <span style="color:#f92672">=</span> True
+
+
+Minimal complete definition: either compare or &lt;<span style="color:#f92672">=</span>.
+Using compare can be more efficient <span style="color:#66d9ef">for</span> complex types.
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">3</span>	 ahoogle --info Show
+using alternative /home/shane/.local/bin/hoogle
+class Show a
+base Prelude
+Conversion of values to readable Strings.
+
+Derived instances of Show have the following properties, which
+are compatible with derived instances of Read:
+
+
+The result of show is a syntactically correct Haskell
+expression containing only constants, given the fixity declarations in
+force at the point where the type is declared. It contains only the
+constructor names defined in the data type, parentheses, and spaces.
+When labelled constructor fields are used, braces, commas, field
+names, and equal signs are also used.
+If the constructor is defined to be an infix operator, <span style="color:#66d9ef">then</span>
+showsPrec will produce infix applications of the
+constructor.
+the representation will be enclosed in parentheses <span style="color:#66d9ef">if</span> the
+precedence of the top-level constructor in x is less than
+d <span style="color:#f92672">(</span>associativity is ignored<span style="color:#f92672">)</span>. Thus, <span style="color:#66d9ef">if</span> d is
+<span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span> the result is never surrounded in parentheses; <span style="color:#66d9ef">if</span>
+d is <span style="color:#ae81ff">11</span> it is always surrounded in parentheses,
+unless it is an atomic expression.
+If the constructor is defined using record syntax, <span style="color:#66d9ef">then</span>
+show will produce the record-syntax form, with the fields given
+in the same order as the original declaration.
+
+
+For example, given the declarations
+
+
+infixr <span style="color:#ae81ff">5</span> :^:
+data Tree a <span style="color:#f92672">=</span>  Leaf a  |  Tree a :^: Tree a
+
+
+the derived instance of Show is equivalent to
+
+
+instance <span style="color:#f92672">(</span>Show a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>&gt; Show <span style="color:#f92672">(</span>Tree a<span style="color:#f92672">)</span> where
+
+showsPrec d <span style="color:#f92672">(</span>Leaf m<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> showParen <span style="color:#f92672">(</span>d &gt; app_prec<span style="color:#f92672">)</span> $
+showString <span style="color:#e6db74">&#34;Leaf &#34;</span> . showsPrec <span style="color:#f92672">(</span>app_prec+1<span style="color:#f92672">)</span> m
+where app_prec <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+
+showsPrec d <span style="color:#f92672">(</span>u :^: v<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> showParen <span style="color:#f92672">(</span>d &gt; up_prec<span style="color:#f92672">)</span> $
+showsPrec <span style="color:#f92672">(</span>up_prec+1<span style="color:#f92672">)</span> u .
+showString <span style="color:#e6db74">&#34; :^: &#34;</span>      .
+showsPrec <span style="color:#f92672">(</span>up_prec+1<span style="color:#f92672">)</span> v
+where up_prec <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+
+
+Note that right-associativity of :^: is ignored. For example,
+
+
+show <span style="color:#f92672">(</span>Leaf <span style="color:#ae81ff">1</span> :^: Leaf <span style="color:#ae81ff">2</span> :^: Leaf <span style="color:#ae81ff">3</span><span style="color:#f92672">)</span> produces the
+string <span style="color:#e6db74">&#34;Leaf 1 :^: (Leaf 2 :^: Leaf 3)&#34;</span>.
+
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">4</span>	 ahoogle --info Read
+using alternative /home/shane/.local/bin/hoogle
+class Read a
+base Prelude
+Parsing of Strings, producing values.
+
+Derived instances of Read make the following assumptions, which
+derived instances of Show obey:
+
+
+If the constructor is defined to be an infix operator, <span style="color:#66d9ef">then</span> the
+derived Read instance will parse only infix applications of the
+constructor <span style="color:#f92672">(</span>not the prefix form<span style="color:#f92672">)</span>.
+Associativity is not used to reduce the occurrence of parentheses,
+although precedence may be.
+If the constructor is defined using record syntax, the derived
+Read will parse only the record-syntax form, and furthermore,
+the fields must be given in the same order as the original
+declaration.
+The derived Read instance allows arbitrary Haskell
+whitespace between tokens of the input string. Extra parentheses are
+also allowed.
+
+
+For example, given the declarations
+
+
+infixr <span style="color:#ae81ff">5</span> :^:
+data Tree a <span style="color:#f92672">=</span>  Leaf a  |  Tree a :^: Tree a
+
+
+the derived instance of Read in Haskell <span style="color:#ae81ff">2010</span> is equivalent to
+
+
+instance <span style="color:#f92672">(</span>Read a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>&gt; Read <span style="color:#f92672">(</span>Tree a<span style="color:#f92672">)</span> where
+
+readsPrec d r <span style="color:#f92672">=</span>  readParen <span style="color:#f92672">(</span>d &gt; app_prec<span style="color:#f92672">)</span>
+<span style="color:#f92672">(</span><span style="color:#ae81ff">\r</span> -&gt; <span style="color:#f92672">[(</span>Leaf m,t<span style="color:#f92672">)</span> |
+<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Leaf&#34;</span>,s<span style="color:#f92672">)</span> &lt;- lex r,
+<span style="color:#f92672">(</span>m,t<span style="color:#f92672">)</span> &lt;- readsPrec <span style="color:#f92672">(</span>app_prec+1<span style="color:#f92672">)</span> s<span style="color:#f92672">])</span> r
+
+++ readParen <span style="color:#f92672">(</span>d &gt; up_prec<span style="color:#f92672">)</span>
+<span style="color:#f92672">(</span><span style="color:#ae81ff">\r</span> -&gt; <span style="color:#f92672">[(</span>u:^:v,w<span style="color:#f92672">)</span> |
+<span style="color:#f92672">(</span>u,s<span style="color:#f92672">)</span> &lt;- readsPrec <span style="color:#f92672">(</span>up_prec+1<span style="color:#f92672">)</span> r,
+<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;:^:&#34;</span>,t<span style="color:#f92672">)</span> &lt;- lex s,
+<span style="color:#f92672">(</span>v,w<span style="color:#f92672">)</span> &lt;- readsPrec <span style="color:#f92672">(</span>up_prec+1<span style="color:#f92672">)</span> t<span style="color:#f92672">])</span> r
+
+where app_prec <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+up_prec <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+
+
+Note that right-associativity of :^: is unused.
+
+The derived instance in GHC is equivalent to
+
+
+instance <span style="color:#f92672">(</span>Read a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>&gt; Read <span style="color:#f92672">(</span>Tree a<span style="color:#f92672">)</span> where
+
+readPrec <span style="color:#f92672">=</span> parens $ <span style="color:#f92672">(</span>prec app_prec $ <span style="color:#66d9ef">do</span>
+Ident <span style="color:#e6db74">&#34;Leaf&#34;</span> &lt;- lexP
+m &lt;- step readPrec
+<span style="color:#66d9ef">return</span> <span style="color:#f92672">(</span>Leaf m<span style="color:#f92672">))</span>
+
++++ <span style="color:#f92672">(</span>prec up_prec $ <span style="color:#66d9ef">do</span>
+u &lt;- step readPrec
+Symbol <span style="color:#e6db74">&#34;:^:&#34;</span> &lt;- lexP
+v &lt;- step readPrec
+<span style="color:#66d9ef">return</span> <span style="color:#f92672">(</span>u :^: v<span style="color:#f92672">))</span>
+
+where app_prec <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+up_prec <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+
+readListPrec <span style="color:#f92672">=</span> readListPrecDefault
+
+
+Why <span style="color:#66d9ef">do</span> both readsPrec and readPrec exist, and why does
+GHC opt to implement readPrec in derived Read instances
+instead of readsPrec? The reason is that readsPrec is
+based on the ReadS type, and although ReadS is mentioned
+in the Haskell <span style="color:#ae81ff">2010</span> Report, it is not a very efficient parser data
+structure.
+
+readPrec, on the other hand, is based on a much more efficient
+ReadPrec datatype <span style="color:#f92672">(</span>a.k.a <span style="color:#e6db74">&#34;new-style parsers&#34;</span><span style="color:#f92672">)</span>, but its
+definition relies on the use of the RankNTypes language
+extension. Therefore, readPrec <span style="color:#f92672">(</span>and its cousin,
+readListPrec<span style="color:#f92672">)</span> are marked as GHC-only. Nevertheless, it is
+recommended to use readPrec instead of readsPrec
+whenever possible <span style="color:#66d9ef">for</span> the efficiency improvements it brings.
+
+As mentioned above, derived Read instances in GHC will
+implement readPrec instead of readsPrec. The default
+implementations of readsPrec <span style="color:#f92672">(</span>and its cousin, readList<span style="color:#f92672">)</span>
+will simply use readPrec under the hood. If you are writing a
+Read instance by hand, it is recommended to write it like so:
+
+
+instance Read T where
+readPrec     <span style="color:#f92672">=</span> ...
+readListPrec <span style="color:#f92672">=</span> readListPrecDefault
+
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">5</span>	 ahoogle --info Enum
+using alternative /home/shane/.local/bin/hoogle
+class Enum a
+base Prelude
+Class Enum defines operations on sequentially ordered types.
+
+The enumFrom... methods are used in Haskell<span style="color:#e6db74">&#39;s translation of
+</span><span style="color:#e6db74">arithmetic sequences.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Instances of Enum may be derived for any enumeration type
+</span><span style="color:#e6db74">(types whose constructors have no fields). The nullary constructors
+</span><span style="color:#e6db74">are assumed to be numbered left-to-right by fromEnum from
+</span><span style="color:#e6db74">0 through n-1. See Chapter 10 of the Haskell
+</span><span style="color:#e6db74">Report for more details.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">For any type that is an instance of class Bounded as well as
+</span><span style="color:#e6db74">Enum, the following should hold:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">The calls succ maxBound and pred
+</span><span style="color:#e6db74">minBound should result in a runtime error.
+</span><span style="color:#e6db74">fromEnum and toEnum should give a runtime error if
+</span><span style="color:#e6db74">the result value is not representable in the result type. For example,
+</span><span style="color:#e6db74">toEnum 7 :: Bool is an error.
+</span><span style="color:#e6db74">enumFrom and enumFromThen should be defined with an
+</span><span style="color:#e6db74">implicit bound, thus:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">enumFrom     x   = enumFromTo     x maxBound
+</span><span style="color:#e6db74">enumFromThen x y = enumFromThenTo x y bound
+</span><span style="color:#e6db74">where
+</span><span style="color:#e6db74">bound | fromEnum y &gt;= fromEnum x = maxBound
+</span><span style="color:#e6db74">| otherwise                = minBound
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">+	/tmp/babel-HJEMN6/generic-KiCOW9	6	 ahoogle --info Bounded
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class Bounded a
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">The Bounded class is used to name the upper and lower limits of
+</span><span style="color:#e6db74">a type. Ord is not a superclass of Bounded since types
+</span><span style="color:#e6db74">that are not totally ordered may also have upper and lower bounds.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">The Bounded class may be derived for any enumeration type;
+</span><span style="color:#e6db74">minBound is the first constructor listed in the data
+</span><span style="color:#e6db74">declaration and maxBound is the last. Bounded may also
+</span><span style="color:#e6db74">be derived for single-constructor datatypes whose constituent types
+</span><span style="color:#e6db74">are in Bounded.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">+	/tmp/babel-HJEMN6/generic-KiCOW9	7	 ahoogle --info Num
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class Num a
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">Basic numeric class.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">The Haskell Report defines no laws for Num. However, &#39;</span><span style="color:#f92672">(</span>+<span style="color:#f92672">)</span><span style="color:#e6db74">&#39; and
+</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">(</span>*<span style="color:#f92672">)</span><span style="color:#e6db74">&#39; are customarily expected to define a ring and have the following
+</span><span style="color:#e6db74">properties:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Associativity of (+) (x + y) + z = x +
+</span><span style="color:#e6db74">(y + z)
+</span><span style="color:#e6db74">Commutativity of (+) x + y = y +
+</span><span style="color:#e6db74">x
+</span><span style="color:#e6db74">fromInteger 0 is the additive identity
+</span><span style="color:#e6db74">x + fromInteger 0 = x
+</span><span style="color:#e6db74">negate gives the additive inverse x +
+</span><span style="color:#e6db74">negate x = fromInteger 0
+</span><span style="color:#e6db74">Associativity of (*) (x * y) * z = x *
+</span><span style="color:#e6db74">(y * z)
+</span><span style="color:#e6db74">fromInteger 1 is the multiplicative
+</span><span style="color:#e6db74">identity x * fromInteger 1 = x and
+</span><span style="color:#e6db74">fromInteger 1 * x = x
+</span><span style="color:#e6db74">Distributivity of (*) with respect to (+) a * (b
+</span><span style="color:#e6db74">+ c) = (a * b) + (a * c) and (b + c) * a =
+</span><span style="color:#e6db74">(b * a) + (c * a)
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Note that it isn&#39;</span>t customarily expected that a type instance of
+both Num and Ord implement an ordered ring. Indeed, in
+base only Integer and Rational <span style="color:#66d9ef">do</span>.
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">8</span>	 ahoogle --info Real
+using alternative /home/shane/.local/bin/hoogle
+class <span style="color:#f92672">(</span>Num a, Ord a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>&gt; Real a
+base Prelude
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">9</span>	 ahoogle --info Integral
+using alternative /home/shane/.local/bin/hoogle
+class <span style="color:#f92672">(</span>Real a, Enum a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>&gt; Integral a
+base Prelude
+Integral numbers, supporting integer division.
+
+The Haskell Report defines no laws <span style="color:#66d9ef">for</span> Integral. However,
+Integral instances are customarily expected to define a
+Euclidean domain and have the following properties <span style="color:#66d9ef">for</span> the <span style="color:#e6db74">&#39;div&#39;</span>/<span style="color:#e6db74">&#39;mod&#39;</span>
+and <span style="color:#e6db74">&#39;quot&#39;</span>/<span style="color:#e6db74">&#39;rem&#39;</span> pairs, given suitable Euclidean functions f
+and g:
+
+
+x <span style="color:#f92672">=</span> y * quot x y + rem x y with rem x y
+<span style="color:#f92672">=</span> fromInteger <span style="color:#ae81ff">0</span> or g <span style="color:#f92672">(</span>rem x y<span style="color:#f92672">)</span> &lt; g
+y
+x <span style="color:#f92672">=</span> y * div x y + mod x y with mod x y
+<span style="color:#f92672">=</span> fromInteger <span style="color:#ae81ff">0</span> or f <span style="color:#f92672">(</span>mod x y<span style="color:#f92672">)</span> &lt; f
+y
+
+
+An example of a suitable Euclidean <span style="color:#66d9ef">function</span>, <span style="color:#66d9ef">for</span> Integer<span style="color:#e6db74">&#39;s
+</span><span style="color:#e6db74">instance, is abs.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">+	/tmp/babel-HJEMN6/generic-KiCOW9	10	 ahoogle --info Fractional
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class (Num a) =&gt; Fractional a
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">Fractional numbers, supporting real division.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">The Haskell Report defines no laws for Fractional. However,
+</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">(</span>+<span style="color:#f92672">)</span><span style="color:#e6db74">&#39; and &#39;</span><span style="color:#f92672">(</span>*<span style="color:#f92672">)</span><span style="color:#e6db74">&#39; are customarily expected to define a division ring and
+</span><span style="color:#e6db74">have the following properties:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">recip gives the multiplicative inverse x
+</span><span style="color:#e6db74">* recip x = recip x * x = fromInteger 1
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Note that it isn&#39;</span>t customarily expected that a type instance of
+Fractional implement a field. However, all instances in
+base <span style="color:#66d9ef">do</span>.
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">11</span>	 ahoogle --info RealFrac
+using alternative /home/shane/.local/bin/hoogle
+class <span style="color:#f92672">(</span>Real a, Fractional a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>&gt; RealFrac a
+base Prelude
+Extracting components of fractions.
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">12</span>	 ahoogle --info Floating
+using alternative /home/shane/.local/bin/hoogle
+class <span style="color:#f92672">(</span>Fractional a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>&gt; Floating a
+base Prelude
+Trigonometric and hyperbolic functions and related functions.
+
+The Haskell Report defines no laws <span style="color:#66d9ef">for</span> Floating. However,
+<span style="color:#e6db74">&#39;(+)&#39;</span>, <span style="color:#e6db74">&#39;(*)&#39;</span> and exp are customarily expected to define an
+exponential field and have the following properties:
+
+
+exp <span style="color:#f92672">(</span>a + b<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> @exp a * exp b
+exp <span style="color:#f92672">(</span>fromInteger <span style="color:#ae81ff">0</span><span style="color:#f92672">)</span> <span style="color:#f92672">=</span> fromInteger <span style="color:#ae81ff">1</span>
+
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">13</span>	 ahoogle --info RealFloat
+using alternative /home/shane/.local/bin/hoogle
+class <span style="color:#f92672">(</span>RealFrac a, Floating a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>&gt; RealFloat a
+base Prelude
+Efficient, machine-independent access to the components of a
+floating-point number.
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">14</span>	 ahoogle --info Semigroup
+using alternative /home/shane/.local/bin/hoogle
+class Semigroup a
+base Prelude
+The class of semigroups <span style="color:#f92672">(</span>types with an associative binary operation<span style="color:#f92672">)</span>.
+
+Instances should satisfy the associativity law:
+
+
+x &lt;&gt; <span style="color:#f92672">(</span>y &lt;&gt; z<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>x &lt;&gt;
+y<span style="color:#f92672">)</span> &lt;&gt; z
+
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">15</span>	 ahoogle --info Monoid
+using alternative /home/shane/.local/bin/hoogle
+class Semigroup a <span style="color:#f92672">=</span>&gt; Monoid a
+base Prelude
+The class of monoids <span style="color:#f92672">(</span>types with an associative binary operation that
+has an identity<span style="color:#f92672">)</span>. Instances should satisfy the following laws:
+
+
+x &lt;&gt; mempty <span style="color:#f92672">=</span> x
+mempty &lt;&gt; x <span style="color:#f92672">=</span> x
+x &lt;&gt; <span style="color:#f92672">(</span>y &lt;&gt; z<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>x &lt;&gt;
+y<span style="color:#f92672">)</span> &lt;&gt; z <span style="color:#f92672">(</span>Semigroup law<span style="color:#f92672">)</span>
+mconcat <span style="color:#f92672">=</span> foldr <span style="color:#e6db74">&#39;(&lt;&gt;)&#39;</span>
+mempty
+
+
+The method names refer to the monoid of lists under concatenation, but
+there are many other instances.
+
+Some types can be viewed as a monoid in more than one way, e.g. both
+addition and multiplication on numbers. In such cases we often define
+newtypes and make those instances of Monoid, e.g.
+Sum and Product.
+
+NOTE: Semigroup is a superclass of Monoid since
+base-4.11.0.0.
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">16</span>	 ahoogle --info Functor
+using alternative /home/shane/.local/bin/hoogle
+class Functor f
+base Prelude
+The Functor class is used <span style="color:#66d9ef">for</span> types that can be mapped over.
+Instances of Functor should satisfy the following laws:
+
+
+fmap id  <span style="color:#f92672">==</span>  id
+fmap <span style="color:#f92672">(</span>f . g<span style="color:#f92672">)</span>  <span style="color:#f92672">==</span>  fmap f . fmap g
+
+
+The instances of Functor <span style="color:#66d9ef">for</span> lists, Maybe and IO
+satisfy these laws.
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">17</span>	 ahoogle --info Applicative
+using alternative /home/shane/.local/bin/hoogle
+class Functor f <span style="color:#f92672">=</span>&gt; Applicative f
+base Prelude
+A functor with application, providing operations to
+
+
+embed pure expressions <span style="color:#f92672">(</span>pure<span style="color:#f92672">)</span>, and
+sequence computations and combine their results <span style="color:#f92672">(</span>&lt;*&gt;
+and liftA2<span style="color:#f92672">)</span>.
+
+
+A minimal complete definition must include implementations of
+pure and of either &lt;*&gt; or liftA2. If it
+defines both, <span style="color:#66d9ef">then</span> they must behave the same as their default
+definitions:
+
+
+<span style="color:#f92672">(</span>&lt;*&gt;<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> liftA2 id
+
+
+
+liftA2 f x y <span style="color:#f92672">=</span> f &lt;$&gt; x &lt;*&gt; y
+
+
+Further, any definition must satisfy the following:
+
+
+identity pure id &lt;*&gt;
+v <span style="color:#f92672">=</span> v
+composition pure <span style="color:#f92672">(</span>.<span style="color:#f92672">)</span> &lt;*&gt; u
+&lt;*&gt; v &lt;*&gt; w <span style="color:#f92672">=</span> u &lt;*&gt; <span style="color:#f92672">(</span>v
+&lt;*&gt; w<span style="color:#f92672">)</span>
+homomorphism pure f &lt;*&gt;
+pure x <span style="color:#f92672">=</span> pure <span style="color:#f92672">(</span>f x<span style="color:#f92672">)</span>
+interchange u &lt;*&gt; pure y <span style="color:#f92672">=</span>
+pure <span style="color:#f92672">(</span>$ y<span style="color:#f92672">)</span> &lt;*&gt; u
+
+
+The other methods have the following default definitions, which may be
+overridden with equivalent specialized implementations:
+
+
+u *&gt; v <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>id &lt;$ u<span style="color:#f92672">)</span>
+&lt;*&gt; v
+u &lt;* v <span style="color:#f92672">=</span> liftA2 const u v
+
+
+As a consequence of these laws, the Functor instance <span style="color:#66d9ef">for</span>
+f will satisfy
+
+
+fmap f x <span style="color:#f92672">=</span> pure f &lt;*&gt; x
+
+
+It may be useful to note that supposing
+
+
+forall x y. p <span style="color:#f92672">(</span>q x y<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> f x . g y
+
+
+it follows from the above that
+
+
+liftA2 p <span style="color:#f92672">(</span>liftA2 q u v<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> liftA2 f u . liftA2 g v
+
+
+If f is also a Monad, it should satisfy
+
+
+pure <span style="color:#f92672">=</span> <span style="color:#66d9ef">return</span>
+<span style="color:#f92672">(</span>&lt;*&gt;<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> ap
+<span style="color:#f92672">(</span>*&gt;<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>&gt;&gt;<span style="color:#f92672">)</span>
+
+
+<span style="color:#f92672">(</span>which implies that pure and &lt;*&gt; satisfy the
+applicative functor laws<span style="color:#f92672">)</span>.
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">18</span>	 ahoogle --info Monad
+using alternative /home/shane/.local/bin/hoogle
+class Applicative m <span style="color:#f92672">=</span>&gt; Monad m
+base Prelude
+The Monad class defines the basic operations over a
+monad, a concept from a branch of mathematics known as
+category theory. From the perspective of a Haskell programmer,
+however, it is best to think of a monad as an abstract datatype
+of actions. Haskell<span style="color:#960050;background-color:#1e0010">&#39;</span>s <span style="color:#66d9ef">do</span> expressions provide a convenient
+syntax <span style="color:#66d9ef">for</span> writing monadic expressions.
+
+Instances of Monad should satisfy the following laws:
+
+
+<span style="color:#66d9ef">return</span> a &gt;&gt;<span style="color:#f92672">=</span> k <span style="color:#f92672">=</span> k a
+m &gt;&gt;<span style="color:#f92672">=</span> <span style="color:#66d9ef">return</span> <span style="color:#f92672">=</span> m
+m &gt;&gt;<span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">\x</span> -&gt; k x &gt;&gt;<span style="color:#f92672">=</span> h<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>m
+&gt;&gt;<span style="color:#f92672">=</span> k<span style="color:#f92672">)</span> &gt;&gt;<span style="color:#f92672">=</span> h
+
+
+Furthermore, the Monad and Applicative operations should
+relate as follows:
+
+
+pure <span style="color:#f92672">=</span> <span style="color:#66d9ef">return</span>
+<span style="color:#f92672">(</span>&lt;*&gt;<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> ap
+
+
+The above laws imply:
+
+
+fmap f xs <span style="color:#f92672">=</span> xs &gt;&gt;<span style="color:#f92672">=</span> <span style="color:#66d9ef">return</span> .
+f
+<span style="color:#f92672">(</span>&gt;&gt;<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>*&gt;<span style="color:#f92672">)</span>
+
+
+and that pure and <span style="color:#f92672">(</span>&lt;*&gt;<span style="color:#f92672">)</span> satisfy the applicative
+functor laws.
+
+The instances of Monad <span style="color:#66d9ef">for</span> lists, Maybe and IO
+defined in the Prelude satisfy these laws.
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">19</span>	 ahoogle --info Foldable
+using alternative /home/shane/.local/bin/hoogle
+class Foldable t
+base Prelude
+Data structures that can be folded.
+
+For example, given a data type
+
+
+data Tree a <span style="color:#f92672">=</span> Empty | Leaf a | Node <span style="color:#f92672">(</span>Tree a<span style="color:#f92672">)</span> a <span style="color:#f92672">(</span>Tree a<span style="color:#f92672">)</span>
+
+
+a suitable instance would be
+
+
+instance Foldable Tree where
+foldMap f Empty <span style="color:#f92672">=</span> mempty
+foldMap f <span style="color:#f92672">(</span>Leaf x<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> f x
+foldMap f <span style="color:#f92672">(</span>Node l k r<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> foldMap f l <span style="color:#e6db74">`</span>mappend<span style="color:#e6db74">`</span> f k <span style="color:#e6db74">`</span>mappend<span style="color:#e6db74">`</span> foldMap f r
+
+
+This is suitable even <span style="color:#66d9ef">for</span> abstract types, as the monoid is assumed to
+satisfy the monoid laws. Alternatively, one could define
+foldr:
+
+
+instance Foldable Tree where
+foldr f z Empty <span style="color:#f92672">=</span> z
+foldr f z <span style="color:#f92672">(</span>Leaf x<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> f x z
+foldr f z <span style="color:#f92672">(</span>Node l k r<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> foldr f <span style="color:#f92672">(</span>f k <span style="color:#f92672">(</span>foldr f z r<span style="color:#f92672">))</span> l
+
+
+Foldable instances are expected to satisfy the following
+laws:
+
+
+foldr f z t <span style="color:#f92672">=</span> appEndo <span style="color:#f92672">(</span>foldMap <span style="color:#f92672">(</span>Endo . f<span style="color:#f92672">)</span> t <span style="color:#f92672">)</span> z
+
+
+
+foldl f z t <span style="color:#f92672">=</span> appEndo <span style="color:#f92672">(</span>getDual <span style="color:#f92672">(</span>foldMap <span style="color:#f92672">(</span>Dual . Endo . flip f<span style="color:#f92672">)</span> t<span style="color:#f92672">))</span> z
+
+
+
+fold <span style="color:#f92672">=</span> foldMap id
+
+
+
+length <span style="color:#f92672">=</span> getSum . foldMap <span style="color:#f92672">(</span>Sum . const  <span style="color:#ae81ff">1</span><span style="color:#f92672">)</span>
+
+
+sum, product, maximum, and minimum
+should all be essentially equivalent to foldMap forms, such
+as
+
+
+sum <span style="color:#f92672">=</span> getSum . foldMap Sum
+
+
+but may be less defined.
+
+If the type is also a Functor instance, it should satisfy
+
+
+foldMap f <span style="color:#f92672">=</span> fold . fmap f
+
+
+which implies that
+
+
+foldMap f . fmap g <span style="color:#f92672">=</span> foldMap <span style="color:#f92672">(</span>f . g<span style="color:#f92672">)</span>
+
+
++	/tmp/babel-HJEMN6/generic-KiCOW9	<span style="color:#ae81ff">20</span>	 ahoogle --info Traversable
+using alternative /home/shane/.local/bin/hoogle
+class <span style="color:#f92672">(</span>Functor t, Foldable t<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>&gt; Traversable t
+base Prelude
+Functors representing data structures that can be traversed from left
+to right.
+
+A definition of traverse must satisfy the following laws:
+
+
+naturality t . traverse f <span style="color:#f92672">=</span>
+traverse <span style="color:#f92672">(</span>t . f<span style="color:#f92672">)</span> <span style="color:#66d9ef">for</span> every applicative transformation
+t
+identity traverse Identity <span style="color:#f92672">=</span>
+Identity
+composition traverse <span style="color:#f92672">(</span>Compose .
+fmap g . f<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> Compose . fmap <span style="color:#f92672">(</span>traverse g<span style="color:#f92672">)</span> .
+traverse f
+
+
+A definition of sequenceA must satisfy the following laws:
+
+
+naturality t . sequenceA <span style="color:#f92672">=</span>
+sequenceA . fmap t <span style="color:#66d9ef">for</span> every applicative
+transformation t
+identity sequenceA . fmap Identity
+<span style="color:#f92672">=</span> Identity
+composition sequenceA . fmap
+Compose <span style="color:#f92672">=</span> Compose . fmap sequenceA .
+sequenceA
+
+
+where an applicative transformation is a <span style="color:#66d9ef">function</span>
+
+
+t :: <span style="color:#f92672">(</span>Applicative f, Applicative g<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>&gt; f a -&gt; g a
+
+
+preserving the Applicative operations, i.e.
+
+
+t <span style="color:#f92672">(</span>pure x<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> pure x
+t <span style="color:#f92672">(</span>x &lt;*&gt; y<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> t x &lt;*&gt; t
+y
+
+
+and the identity functor Identity and composition of functors
+Compose are defined as
+
+
+newtype Identity a <span style="color:#f92672">=</span> Identity a
+
+instance Functor Identity where
+fmap f <span style="color:#f92672">(</span>Identity x<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> Identity <span style="color:#f92672">(</span>f x<span style="color:#f92672">)</span>
+
+instance Applicative Identity where
+pure x <span style="color:#f92672">=</span> Identity x
+Identity f &lt;*&gt; Identity x <span style="color:#f92672">=</span> Identity <span style="color:#f92672">(</span>f x<span style="color:#f92672">)</span>
+
+newtype Compose f g a <span style="color:#f92672">=</span> Compose <span style="color:#f92672">(</span>f <span style="color:#f92672">(</span>g a<span style="color:#f92672">))</span>
+
+instance <span style="color:#f92672">(</span>Functor f, Functor g<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>&gt; Functor <span style="color:#f92672">(</span>Compose f g<span style="color:#f92672">)</span> where
+fmap f <span style="color:#f92672">(</span>Compose x<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> Compose <span style="color:#f92672">(</span>fmap <span style="color:#f92672">(</span>fmap f<span style="color:#f92672">)</span> x<span style="color:#f92672">)</span>
+
+instance <span style="color:#f92672">(</span>Applicative f, Applicative g<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>&gt; Applicative <span style="color:#f92672">(</span>Compose f g<span style="color:#f92672">)</span> where
+pure x <span style="color:#f92672">=</span> Compose <span style="color:#f92672">(</span>pure <span style="color:#f92672">(</span>pure x<span style="color:#f92672">))</span>
+Compose f &lt;*&gt; Compose x <span style="color:#f92672">=</span> Compose <span style="color:#f92672">((</span>&lt;*&gt;<span style="color:#f92672">)</span> &lt;$&gt; f &lt;*&gt; x<span style="color:#f92672">)</span>
+
+
+<span style="color:#f92672">(</span>The naturality law is implied by parametricity.<span style="color:#f92672">)</span>
+
+Instances are similar to Functor, e.g. given a data type
+
+
+data Tree a <span style="color:#f92672">=</span> Empty | Leaf a | Node <span style="color:#f92672">(</span>Tree a<span style="color:#f92672">)</span> a <span style="color:#f92672">(</span>Tree a<span style="color:#f92672">)</span>
+
+
+a suitable instance would be
+
+
+instance Traversable Tree where
+traverse f Empty <span style="color:#f92672">=</span> pure Empty
+traverse f <span style="color:#f92672">(</span>Leaf x<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> Leaf &lt;$&gt; f x
+traverse f <span style="color:#f92672">(</span>Node l k r<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> Node &lt;$&gt; traverse f l &lt;*&gt; f k &lt;*&gt; traverse f r
+
+
+This is suitable even <span style="color:#66d9ef">for</span> abstract types, as the laws <span style="color:#66d9ef">for</span>
+&lt;*&gt; imply a form of associativity.
+
+The superclass instances should satisfy the following:
+
+
+In the Functor instance, fmap should be equivalent
+to traversal with the identity applicative functor
+<span style="color:#f92672">(</span>fmapDefault<span style="color:#f92672">)</span>.
+In the Foldable instance, foldMap should be
+equivalent to traversal with a constant applicative functor
+<span style="color:#f92672">(</span>foldMapDefault<span style="color:#f92672">)</span>.</code></pre></div>
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
