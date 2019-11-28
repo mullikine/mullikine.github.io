@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>Haskell Type Classes // Bodacious Blog</title>
+    <title>introhaskell // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.59.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,11 +11,11 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Haskell Type Classes"/>
-<meta name="twitter:description" content="An overview of the Haskell Type Classes    Type Typeclasses     Bool Eq, Ord, Show, Read, Enum, Bounded   Char Eq, Ord, Show, Read, Enum, Bounded   Int Eq, Ord, Show, Read, Enum, Bounded, Num, Real, Integral   Integer Eq, Ord, Show, Read, Enum, Num, Real, Integral   Float Eq, Ord, Show, Read, Enum, Num, Real, Fractional, RealFrac, Floating, RealFloat   Double Eq, Ord, Show, Read, Enum, Num, Real, Fractional, RealFrac, Floating, RealFloat   Word Eq, Ord, Show, Read, Enum, Bounded, Num, Real, Integral   Ordering Eq, Ord, Show, Read, Enum, Bounded, Semigroup, Monoid   () Eq, Ord, Show, Read, Enum, Bounded, Semigroup, Monoid   Maybe a Eq, Ord, Show, Read, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable   [a] Eq, Ord, Show, Read, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable   (a,b) Eq, Ord, Show, Read, Bounded, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable   a-&gt;b Semigroup, Monoid, Functor, Applicative, Monad   IO Semigroup, Monoid, Functor, Applicative, Monad   IOError Eq, Show    1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20  ahoogle --info &#34;Eq&#34; ahoogle --info &#34;Ord&#34; ahoogle --info &#34;Show&#34; ahoogle --info &#34;Read&#34; ahoogle --info &#34;Enum&#34; ahoogle --info &#34;Bounded&#34; ahoogle --info &#34;Num&#34; ahoogle --info &#34;Real&#34; ahoogle --info &#34;Integral&#34; ahoogle --info &#34;Fractional&#34; ahoogle --info &#34;RealFrac&#34; ahoogle --info &#34;Floating&#34; ahoogle --info &#34;RealFloat&#34; ahoogle --info &#34;Semigroup&#34; ahoogle --info &#34;Monoid&#34; ahoogle --info &#34;Functor&#34; ahoogle --info &#34;Applicative&#34; ahoogle --info &#34;Monad&#34; ahoogle --info &#34;Foldable&#34; ahoogle --info &#34;Traversable&#34;   &#43;	/tmp/babel-HJEMN6/generic-KiCOW9	1	ahoogle --info Eq using alternative /home/shane/."/>
+<meta name="twitter:title" content="introhaskell"/>
+<meta name="twitter:description" content="Original article introhaskell  Glossary 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  type variable Example: Given the type: a -&gt; a -&gt; a &#39;a&#39; is a type variable. ewwlinks &#43;/&#34;Type Variables&#34; &#34;https://cs.lmu.edu/~ray/notes/introhaskell/&#34; We know [Char] and [Float] are two different types. So how do we speak about, or write functions that work on, lists of ANY type? Or tuples of any size, or any component type?"/>
 
-    <meta property="og:title" content="Haskell Type Classes" />
-<meta property="og:description" content="An overview of the Haskell Type Classes    Type Typeclasses     Bool Eq, Ord, Show, Read, Enum, Bounded   Char Eq, Ord, Show, Read, Enum, Bounded   Int Eq, Ord, Show, Read, Enum, Bounded, Num, Real, Integral   Integer Eq, Ord, Show, Read, Enum, Num, Real, Integral   Float Eq, Ord, Show, Read, Enum, Num, Real, Fractional, RealFrac, Floating, RealFloat   Double Eq, Ord, Show, Read, Enum, Num, Real, Fractional, RealFrac, Floating, RealFloat   Word Eq, Ord, Show, Read, Enum, Bounded, Num, Real, Integral   Ordering Eq, Ord, Show, Read, Enum, Bounded, Semigroup, Monoid   () Eq, Ord, Show, Read, Enum, Bounded, Semigroup, Monoid   Maybe a Eq, Ord, Show, Read, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable   [a] Eq, Ord, Show, Read, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable   (a,b) Eq, Ord, Show, Read, Bounded, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable   a-&gt;b Semigroup, Monoid, Functor, Applicative, Monad   IO Semigroup, Monoid, Functor, Applicative, Monad   IOError Eq, Show    1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20  ahoogle --info &#34;Eq&#34; ahoogle --info &#34;Ord&#34; ahoogle --info &#34;Show&#34; ahoogle --info &#34;Read&#34; ahoogle --info &#34;Enum&#34; ahoogle --info &#34;Bounded&#34; ahoogle --info &#34;Num&#34; ahoogle --info &#34;Real&#34; ahoogle --info &#34;Integral&#34; ahoogle --info &#34;Fractional&#34; ahoogle --info &#34;RealFrac&#34; ahoogle --info &#34;Floating&#34; ahoogle --info &#34;RealFloat&#34; ahoogle --info &#34;Semigroup&#34; ahoogle --info &#34;Monoid&#34; ahoogle --info &#34;Functor&#34; ahoogle --info &#34;Applicative&#34; ahoogle --info &#34;Monad&#34; ahoogle --info &#34;Foldable&#34; ahoogle --info &#34;Traversable&#34;   &#43;	/tmp/babel-HJEMN6/generic-KiCOW9	1	ahoogle --info Eq using alternative /home/shane/." />
+    <meta property="og:title" content="introhaskell" />
+<meta property="og:description" content="Original article introhaskell  Glossary 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  type variable Example: Given the type: a -&gt; a -&gt; a &#39;a&#39; is a type variable. ewwlinks &#43;/&#34;Type Variables&#34; &#34;https://cs.lmu.edu/~ray/notes/introhaskell/&#34; We know [Char] and [Float] are two different types. So how do we speak about, or write functions that work on, lists of ANY type? Or tuples of any size, or any component type?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/haskell-typeclasses/" />
 <meta property="article:published_time" content="2019-11-29T00:00:00+13:00" />
@@ -114,7 +114,7 @@
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Haskell Type Classes</h1>
+      <h1 class ="post-title">introhaskell</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -128,7 +128,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          16 min read
+          18 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -148,6 +148,166 @@
     <div class="post-content">
       
 
+<dl>
+<dt>Original article</dt>
+<dd><a href="https://cs.lmu.edu/~ray/notes/introhaskell/">introhaskell</a></dd>
+</dl>
+
+<h2 id="glossary">Glossary</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">type variable
+    Example:
+        Given the type:
+            a -&gt; a -&gt; a
+        &#39;a&#39; is a type variable.
+
+    ewwlinks +/&#34;Type Variables&#34; &#34;https://cs.lmu.edu/~ray/notes/introhaskell/&#34;
+
+    We know [Char] and [Float] are two
+    different types. So how do we speak about,
+    or write functions that work on, lists of
+    ANY type? Or tuples of any size, or any
+    component type?
+
+    Answer: type variables.
+
+    Type variables come in lowercase.</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="unit-type">Unit type</h2>
+
+<dl>
+<dt>ML descendants</dt>
+<dd>OCaml , Standard ML, and F#</dd>
+</dl>
+
+<table>
+<thead>
+<tr>
+<th>lang</th>
+<th>d</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Haskell and Rust</td>
+<td>the unit type is called () and its only value is also (), reflecting the 0-tuple interpretation.</td>
+</tr>
+
+<tr>
+<td>ML descendants</td>
+<td>the type is called unit but the value is written as ().</td>
+</tr>
+
+<tr>
+<td>Scala</td>
+<td>the unit type is called Unit and its only value is written as ().</td>
+</tr>
+
+<tr>
+<td>Common Lisp</td>
+<td>the type named NULL is a unit type which has one value, namely the symbol NIL. This should not be confused with the NIL type, which is the bottom type.</td>
+</tr>
+
+<tr>
+<td>Python</td>
+<td>there is a type called NoneType which allows the single value of None.</td>
+</tr>
+
+<tr>
+<td>Swift</td>
+<td>the unit type is called Void or () and its only value is also (), reflecting the 0-tuple interpretation.</td>
+</tr>
+
+<tr>
+<td>Go</td>
+<td>the unit type is written struct{} and its value is struct{}{}.</td>
+</tr>
+
+<tr>
+<td>PHP</td>
+<td>the unit type is called null, which only value is NULL itself.</td>
+</tr>
+
+<tr>
+<td>JavaScript</td>
+<td>both null and undefined are built-in unit types.</td>
+</tr>
+
+<tr>
+<td>Kotlin</td>
+<td>Unit is a singleton with only one value: the Unit object.</td>
+</tr>
+
+<tr>
+<td>Ruby</td>
+<td>nil is the only instance of the NilClass class.</td>
+</tr>
+
+<tr>
+<td>C++</td>
+<td>the std::monostate unit type was added in C++17.</td>
+</tr>
+</tbody>
+</table>
+
+<p><a href="https://stackoverflow.com/questions/16892570/what-is-in-haskell-exactly">https://stackoverflow.com/questions/16892570/what-is-in-haskell-exactly</a></p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">-- data () = ()</span>
+<span style="color:#66d9ef">:</span>t ()</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">() <span style="color:#f92672">::</span> ()</code></pre></div>
+<h2 id="type-variables">Type variables</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">:</span>t <span style="color:#a6e22e">\</span>(x, y) <span style="color:#f92672">-&gt;</span> y
+<span style="color:#66d9ef">:</span>t <span style="color:#a6e22e">\</span>(x, y) <span style="color:#f92672">-&gt;</span> head y
+<span style="color:#66d9ef">:</span>t <span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>y <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>z <span style="color:#f92672">-&gt;</span> (x, y)
+<span style="color:#66d9ef">:</span>t <span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>y <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>z <span style="color:#f92672">-&gt;</span> (x, <span style="color:#a6e22e">\</span>w <span style="color:#f92672">-&gt;</span> not y)</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">\</span>(x, y) <span style="color:#f92672">-&gt;</span> y <span style="color:#f92672">::</span> (a, b) <span style="color:#f92672">-&gt;</span> b
+<span style="color:#a6e22e">\</span>(x, y) <span style="color:#f92672">-&gt;</span> head y <span style="color:#f92672">::</span> (a1, [a2]) <span style="color:#f92672">-&gt;</span> a2
+<span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>y <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>z <span style="color:#f92672">-&gt;</span> (x, y) <span style="color:#f92672">::</span> a <span style="color:#f92672">-&gt;</span> b <span style="color:#f92672">-&gt;</span> p <span style="color:#f92672">-&gt;</span> (a, b)
+<span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>y <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>z <span style="color:#f92672">-&gt;</span> (x, <span style="color:#a6e22e">\</span>w <span style="color:#f92672">-&gt;</span> not y)
+  <span style="color:#f92672">::</span> a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span> <span style="color:#f92672">-&gt;</span> p1 <span style="color:#f92672">-&gt;</span> (a, p2 <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span>)</code></pre></div>
 <h2 id="an-overview-of-the-haskell-type-classes">An overview of the Haskell Type Classes</h2>
 
 <table>
