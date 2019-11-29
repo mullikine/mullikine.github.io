@@ -128,7 +128,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          12 min read
+          13 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -1224,6 +1224,73 @@ The rest should be compiled as a haskell module and loaded.</p>
 <span style="color:#a6e22e">runParser</span> (charP <span style="color:#e6db74">&#39;n&#39;</span>) <span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Maybe</span> (<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">Char</span>)
 <span style="color:#66d9ef">Nothing</span>
 <span style="color:#66d9ef">Just</span> (<span style="color:#e6db74">&#34;ellie&#34;</span>,<span style="color:#e6db74">&#39;n&#39;</span>)</code></pre></div>
+<h2 id="a-where-expression-can-be-used-in-place-of-a-lambda">A <code>where</code> expression can be used in place of a lambda</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">charP</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Char</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Parser</span> <span style="color:#66d9ef">Char</span>
+<span style="color:#a6e22e">charP</span> x <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkParser</span> <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>input <span style="color:#f92672">-&gt;</span>
+          <span style="color:#66d9ef">case</span> input <span style="color:#66d9ef">of</span>
+            y<span style="color:#66d9ef">:</span>ys
+              <span style="color:#f92672">|</span> y <span style="color:#f92672">==</span> x <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> (ys, x)
+            <span style="color:#66d9ef">_</span>    <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Nothing</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>This is one way to simplify the code.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">charP</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Char</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Parser</span> <span style="color:#66d9ef">Char</span>
+<span style="color:#a6e22e">charP</span> x <span style="color:#f92672">=</span> <span style="color:#66d9ef">Parser</span> f
+  <span style="color:#66d9ef">where</span>
+    f input <span style="color:#f92672">=</span>
+    <span style="color:#66d9ef">case</span> input <span style="color:#66d9ef">of</span>
+    y<span style="color:#66d9ef">:</span>ys
+      <span style="color:#f92672">|</span> y <span style="color:#f92672">==</span> x <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Just</span> (ys, x)
+    <span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Nothing</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">charP</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Char</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Parser</span> <span style="color:#66d9ef">Char</span>
+<span style="color:#a6e22e">charP</span> x <span style="color:#f92672">=</span> <span style="color:#66d9ef">MkParser</span> f
+  <span style="color:#66d9ef">where</span>
+    f (y<span style="color:#66d9ef">:</span>ys)
+      <span style="color:#f92672">|</span> y <span style="color:#f92672">==</span> x <span style="color:#f92672">=</span> <span style="color:#66d9ef">Just</span> (ys, x)
+      <span style="color:#f92672">|</span> otherwise <span style="color:#f92672">=</span> <span style="color:#66d9ef">Nothing</span>
+    f <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Nothing</span></code></pre></td></tr></table>
+</div>
+</div>
+
     </div>
     <div class="post-footer">
       
