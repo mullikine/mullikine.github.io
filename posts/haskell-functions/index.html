@@ -428,13 +428,13 @@ elements while the predicate is true.</p>
 <dl>
 <dt><code>span</code></dt>
 <dd>Like <code>takeWhile</code>, only it returns a pair of lists.
-The first list contains everything the resulting list from <code>takeWhile</code> would
-contain if it were called with the same predicate and the same list.
-The second list contains the part of the list that would have been dropped.</dd>
+  The first list contains everything the resulting list from <code>takeWhile</code> would
+  contain if it were called with the same predicate and the same list.
+  The second list contains the part of the list that would have been dropped.</dd>
 <dt><code>break</code></dt>
 <dd>Whereas <code>span</code> spans the list while the predicate is true,
-<code>break</code> breaks it when the predicate is first true.
-Doing <code>break p</code> is the equivalent of doing <code>span (not . p)</code>.</dd>
+  <code>break</code> breaks it when the predicate is first true.
+  Doing <code>break p</code> is the equivalent of doing <code>span (not . p)</code>.</dd>
 </dl>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -690,9 +690,9 @@ the end of a list, respectively.</p>
 <dd>Check if an element is not inside a list.</dd>
 <dt><code>partition</code></dt>
 <dd>Takes a list and a predicate and returns a pair of lists. <br />
-The first list in the result contains all
-the elements that satisfy the predicate, the
-second contains all the ones that don&rsquo;t.</dd>
+  The first list in the result contains all
+  the elements that satisfy the predicate, the
+  second contains all the ones that don&rsquo;t.</dd>
 </dl>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -1336,6 +1336,49 @@ Note that
 
 
 last <span style="color:#f92672">(</span>scanl f z xs<span style="color:#f92672">)</span> <span style="color:#f92672">==</span> foldl f z xs.</code></pre></div>
+<h3 id="use-use-prelude-dot-map-to-take-a-function-which-takes-a-char-and-returns-char-and-make-it-into-a-function-which-takes-string-and-returns-string">Use use <code>Prelude.map</code> to take a function which takes a <code>Char</code> and returns <code>Char</code> and make it into a function which takes <code>String</code> and returns <code>String</code></h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">type</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">=</span> [<span style="color:#66d9ef">Char</span>]</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="lifting-functions">lifting functions</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">:</span>t <span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Char</span><span style="color:#f92672">.</span>toUpper</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Char</span><span style="color:#f92672">.</span>toUpper <span style="color:#f92672">::</span> <span style="color:#66d9ef">Char</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Char</span></code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">hsImportToPackage</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">hsImportToPackage</span> modulename <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    (<span style="color:#66d9ef">_</span>, <span style="color:#66d9ef">Just</span> hout, <span style="color:#66d9ef">_</span>, <span style="color:#66d9ef">_</span>) <span style="color:#f92672">&lt;-</span> createProcess (proc <span style="color:#e6db74">&#34;hs-import-to-package&#34;</span> [modulename]){ std_out <span style="color:#f92672">=</span> <span style="color:#66d9ef">CreatePipe</span> }
+    <span style="color:#75715e">{- fmap (Prelude.map Data.Char.toUpper) $ hGetContents hout -}</span>
+    <span style="color:#75715e">{- fmap (Data.Text.strip) $ hGetContents hout -}</span>
+    <span style="color:#75715e">-- My first Lift. I can now lift.</span>
+    fmap (<span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">String</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Utils</span><span style="color:#f92672">.</span>rstrip) <span style="color:#f92672">$</span> hGetContents hout</code></pre></td></tr></table>
+</div>
+</div>
+
     </div>
     <div class="post-footer">
       
