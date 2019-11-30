@@ -6,10 +6,20 @@
     <description>Recent content on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 30 Nov 2019 00:00:00 +1300</lastBuildDate>
+    <lastBuildDate>Sun, 01 Dec 2019 00:00:00 +1300</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Finding similar haskell functions from emacs and downloading their packages: Hoogle, intero, fzf</title>
+      <link>https://mullikine.github.io/posts/hoogle-fuzzy-type-search-from-intero-emacs/</link>
+      <pubDate>Sun, 01 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/hoogle-fuzzy-type-search-from-intero-emacs/</guid>
+      <description>Demonstration 
+Make these functions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36  (defun my-intero-get-type () (interactive) (my-enable-intero) (let ((out (sh-notty &amp;#34;sed -z -e \&amp;#34;s/\\n/ /g\&amp;#34; -e \&amp;#34;s/ \\+/ /g\&amp;#34;&amp;#34; (sed &amp;#34;s/^[^:]\\+ :: //&amp;#34; (intero-get-type-at (beginning-of-thing &amp;#39;sexp) (end-of-thing &amp;#39;sexp)))))) (if (called-interactively-p &amp;#39;any) (my/copy out) out))) (defun hs-download-packages-with-function-type (type) (interactive (list (my-intero-get-type))) ;; (term-nsfa &amp;#34;hsqf pg&amp;#34;) ;; (e/sph-zsh &amp;#34;t new \&amp;#34;rtcmd hs-type-declarative-search-fzf String\&amp;#34;&amp;#34;) (sph (concat &amp;#34;t new &amp;#34; (q &amp;#34;hs-download-packages-with-function-type &amp;#34; (q type))))) (defun hs-tds-fzf (type) (interactive (list (my-intero-get-type))) ;; (term-nsfa &amp;#34;hsqf pg&amp;#34;) ;; (e/sph-zsh &amp;#34;t new \&amp;#34;rtcmd hs-type-declarative-search-fzf String\&amp;#34;&amp;#34;) (sph (concat &amp;#34;t new &amp;#34; (q &amp;#34;rtcmd hs-type-declarative-search-fzf &amp;#34; (q type))))) (defun my/type-search-thing-at-point (&amp;amp;optional immediate winfunc) &amp;#34;Show doc for thing under pointl.</description>
+    </item>
     
     <item>
       <title>Exploring Hoogle</title>
