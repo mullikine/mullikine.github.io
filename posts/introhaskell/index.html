@@ -451,10 +451,42 @@ Read</code></pre></td></tr></table>
 <ul>
 <li><p>Functions and IO objects can NOT be tested for equality, nor can they
 be compared, printed, or read. (Function equality is undecidable in
-general, did you know?)</p></li>
+general, did you know?)</p>
+
+<table>
+<thead>
+<tr>
+<th>a-&gt;b</th>
+<th>Semigroup, Monoid, Functor, Applicative, Monad</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>IO</td>
+<td>Semigroup, Monoid, Functor, Applicative, Monad</td>
+</tr>
+</tbody>
+</table></li>
 
 <li><p>IOErrors can be tested for equality and printed, but not compared or
-read.</p></li>
+read.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>IOError</td>
+<td>Eq, Show</td>
+</tr>
+</tbody>
+</table></li>
 
 <li><p>Bools, Chars, and Ints are bounded (have a minimum value and maxium
 value), but Integers, Floats, and Doubles, do not.</p></li>
