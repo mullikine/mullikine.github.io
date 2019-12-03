@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>babel on Bodacious Blog</title>
-    <link>http://mullikine.github.io/tags/babel/</link>
+    <link>https://mullikine.github.io/tags/babel/</link>
     <description>Recent content in babel on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 26 Nov 2019 00:00:00 +1300</lastBuildDate>
     
-	<atom:link href="http://mullikine.github.io/tags/babel/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://mullikine.github.io/tags/babel/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>GHCi and Haskell code intermixed in babel</title>
-      <link>http://mullikine.github.io/posts/babel-ghci-and-haskell/</link>
+      <link>https://mullikine.github.io/posts/babel-ghci-and-haskell/</link>
       <pubDate>Tue, 26 Nov 2019 00:00:00 +1300</pubDate>
       
-      <guid>http://mullikine.github.io/posts/babel-ghci-and-haskell/</guid>
+      <guid>https://mullikine.github.io/posts/babel-ghci-and-haskell/</guid>
       <description>Demonstration Running ghcih inside neovim inside emacs 
 Create the ghcih script 1 2 3 4 5 6  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null xs ghci -H &amp;#34;$@&amp;#34;   Create the ghci case in xs When -H is provided, it will split the input code by assuming that the initial part is a haskell module and anything from the first ghci : command and onwards is ghci code.</description>
     </item>
     
     <item>
       <title>Extending Babel</title>
-      <link>http://mullikine.github.io/posts/extending-babel/</link>
+      <link>https://mullikine.github.io/posts/extending-babel/</link>
       <pubDate>Thu, 24 Oct 2019 00:00:00 +1300</pubDate>
       
-      <guid>http://mullikine.github.io/posts/extending-babel/</guid>
+      <guid>https://mullikine.github.io/posts/extending-babel/</guid>
       <description>previous article Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog  Automate the process of changing the babel block wrapper (defun org-babel-raise () &amp;#34;Move the interior of a babel to the outside: remove the babel block chrome and keep only the source code.&amp;#34; (interactive) (evil-with-single-undo ;; put a line after the block (call-interactively &amp;#39;org-mark-element) (ekm &amp;#34;C-x C-x&amp;#34;) (insert &amp;#34;\n&amp;#34;) (ekm &amp;#34;&amp;lt;up&amp;gt;&amp;#34;) (ekm &amp;#34;C-x C-x&amp;#34;) (ekm &amp;#34;C-c &amp;#39;&amp;#34;) (ekm &amp;#34;C-x h&amp;#34;) (ekm &amp;#34;C-x h&amp;#34;) (ekm &amp;#34;M-w&amp;#34;) (ekm &amp;#34;C-c &amp;#39;&amp;#34;) (call-interactively &amp;#39;org-babel-mark-block) (ekm &amp;#34;&amp;lt;up&amp;gt;&amp;#34;) (ekm &amp;#34;C-x C-x&amp;#34;) (ekm &amp;#34;&amp;lt;down&amp;gt;&amp;#34;) (ekm &amp;#34;C-y&amp;#34;) (ekm &amp;#34;C-x C-x&amp;#34;))) (defun org-babel-change-block-type () (interactive) (if (org-in-src-block-p) (progn (call-interactively &amp;#39;org-babel-raise) (call-interactively &amp;#39;hydra-org-template/body)) (self-insert-command 1))) (define-key org-mode-map (kbd &amp;#34;&amp;gt;&amp;#34;) &amp;#39;org-babel-change-block-type) I have accidentally made this into the wrong type of babel (i.</description>
     </item>
     
