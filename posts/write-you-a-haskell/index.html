@@ -185,6 +185,101 @@ language; complete with:</p>
 <li>several optimization passes.</li>
 </ul>
 
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>Source</strong></td>
+<td>The frontend textual source language.</td>
+</tr>
+
+<tr>
+<td><strong>Parsing</strong></td>
+<td>Source is parsed into an abstract syntax tree.</td>
+</tr>
+
+<tr>
+<td><strong>Desugar</strong></td>
+<td>Redundant structure from the frontend language is removed and canonicalized.</td>
+</tr>
+
+<tr>
+<td><strong>Type Checking</strong></td>
+<td>The program is type-checked and/or type-inferred yielding an explicitly typed form.</td>
+</tr>
+
+<tr>
+<td><strong>Transformation</strong></td>
+<td>The core language is transformed to prepare for compilation.</td>
+</tr>
+
+<tr>
+<td><strong>Compilation</strong></td>
+<td>The core language is lowered into a form to be compiled or interpreted.</td>
+</tr>
+
+<tr>
+<td><strong>(Code Generation)</strong></td>
+<td>Platform specific code is generated, linked into a binary.</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="ll-vs-lr">LL vs LR</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">LR(0) &amp; SLR(1)
+    [parsing techniques]
+
+    - bottom-up
+
+    They are optimal parsing techniques and a
+    bit harder compared to LL(1) parsing table
+    but on the other hand the advantage is
+    that these are more powerful; they can
+    detect syntactic errors more easily and
+    earlier.
+
+    Demonstration:
+        readsubs &#34;https://www.youtube.com/watch?v=caGd_-TvPLc&#34;
+
+        How to compute the automaton which is
+        required to compute the table which
+        further is helpful for checking
+        whether a string can be accepted by
+        the parser or not.</code></pre></td></tr></table>
+</div>
+</div>
+
 <h2 id="glossary">Glossary</h2>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
