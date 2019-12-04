@@ -21,6 +21,17 @@
     </item>
     
     <item>
+      <title>Make interactive functions with history</title>
+      <link>https://mullikine.github.io/posts/emacs-make-interactive-function-with-history-from-shell-script/</link>
+      <pubDate>Wed, 04 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-make-interactive-function-with-history-from-shell-script/</guid>
+      <description>Make a macro for creating interactive functions from shell commands Interactively read a string which is the parameter.
+Use the macro as a snippet.
+1 2 3 4 5 6 7 8 9 10  (defmacro defshellinteractive (&amp;amp;rest body) (let ((sf (str2sym (concat &amp;#34;sh/t/&amp;#34; (slugify (list2string body) t)))) (sfhist (str2sym (concat &amp;#34;sh/t/&amp;#34; (slugify (list2string body) t) &amp;#34;-history&amp;#34;))) (cmd (mapconcat &amp;#39;str body &amp;#34; &amp;#34;))) `(defun ,sf (args) (interactive (list (read-string &amp;#34;args:&amp;#34; &amp;#34;&amp;#34; &amp;#39;,sfhist))) ;; (eval `(term-nsfa (concat ,,cmd &amp;#34; &amp;#34; ,args))) (eval `(sph (concat ,,cmd &amp;#34; &amp;#34; ,args)))))) (defshellinteractive gist-search)   Demonstration</description>
+    </item>
+    
+    <item>
       <title>Named Entity Recognition</title>
       <link>https://mullikine.github.io/posts/named-entity-recognition/</link>
       <pubDate>Wed, 04 Dec 2019 00:00:00 +1300</pubDate>
