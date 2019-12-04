@@ -13,15 +13,16 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Write You A Haskell"/>
 <meta name="twitter:description" content="This is just a casual writeup of WYAH as I read through it.
-Prereading Glossary monad transformer You have an innermost monad (usually Identity or IO but you can use any monad). You then wrap monad transformers around this monad to make bigger, better monads. https://page.mi.fu-berlin.de/scravy/realworldhaskell/materialien/monad-transformers-step-by-step.pdf It is possible to create custom monads simply by composing the necessary monad transformers. For example, if you need a monad with state and error handling, just take the StateT and ErrorT monad transformers and combine them."/>
+ Original article http://dev.stephendiehl.com/fun/ http://dev.stephendiehl.com/fun/002%5Fparsers.html Code https://github.com/sdiehl/write-you-a-haskell  We will build a small functional language called Fun which is a partial Haskell 2010 toy language; complete with:
+ a parser type inference datatypes pattern matching desugaring typeclasses higher-kinded types monadic IO arbitrary-rank polymorphism records Core language STG intermediate language lazy evaluation interpreter native code generator a runtime, and several optimization passes."/>
 
     <meta property="og:title" content="Write You A Haskell" />
 <meta property="og:description" content="This is just a casual writeup of WYAH as I read through it.
-Prereading Glossary monad transformer You have an innermost monad (usually Identity or IO but you can use any monad). You then wrap monad transformers around this monad to make bigger, better monads. https://page.mi.fu-berlin.de/scravy/realworldhaskell/materialien/monad-transformers-step-by-step.pdf It is possible to create custom monads simply by composing the necessary monad transformers. For example, if you need a monad with state and error handling, just take the StateT and ErrorT monad transformers and combine them." />
+ Original article http://dev.stephendiehl.com/fun/ http://dev.stephendiehl.com/fun/002%5Fparsers.html Code https://github.com/sdiehl/write-you-a-haskell  We will build a small functional language called Fun which is a partial Haskell 2010 toy language; complete with:
+ a parser type inference datatypes pattern matching desugaring typeclasses higher-kinded types monadic IO arbitrary-rank polymorphism records Core language STG intermediate language lazy evaluation interpreter native code generator a runtime, and several optimization passes." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/write-you-a-haskell/" />
-<meta property="article:published_time" content="2019-10-25T00:00:00+13:00" />
-<meta property="article:modified_time" content="2019-10-25T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:site_name" content="Bodacious Blog" />
 
 
   </head>
@@ -123,14 +124,14 @@ Prereading Glossary monad transformer You have an innermost monad (usually Ident
   <title>calendar</title>
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
 </svg>
-          Oct 25, 2019
+          Jan 1, 0001
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -152,10 +153,153 @@ Prereading Glossary monad transformer You have an innermost monad (usually Ident
 
 <p>This is just a casual writeup of <code>WYAH</code> as I read through it.</p>
 
-<h2 id="prereading">Prereading</h2>
+<dl>
+<dt>Original article</dt>
+<dd><a href="http://dev.stephendiehl.com/fun/">http://dev.stephendiehl.com/fun/</a> <br />
+<a href="http://dev.stephendiehl.com/fun/002%5Fparsers.html">http://dev.stephendiehl.com/fun/002%5Fparsers.html</a></dd>
+<dt>Code</dt>
+<dd><a href="https://github.com/sdiehl/write-you-a-haskell">https://github.com/sdiehl/write-you-a-haskell</a></dd>
+</dl>
 
-<h3 id="glossary">Glossary</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">monad transformer
+<p>We will build a small functional language
+called Fun which is a partial Haskell 2010 toy
+language; complete with:</p>
+
+<ul>
+<li>a parser</li>
+<li>type inference</li>
+<li>datatypes</li>
+<li>pattern matching</li>
+<li>desugaring</li>
+<li>typeclasses</li>
+<li>higher-kinded types</li>
+<li>monadic IO</li>
+<li>arbitrary-rank polymorphism</li>
+<li>records</li>
+<li>Core language</li>
+<li>STG intermediate language</li>
+<li>lazy evaluation</li>
+<li>interpreter</li>
+<li>native code generator</li>
+<li>a runtime, and</li>
+<li>several optimization passes.</li>
+</ul>
+
+<h2 id="glossary">Glossary</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">82
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">parser
+    Takes the output list of tokens from the
+    lexer and attempts to combine them,
+    forming an Abstract Syntax Tree.
+
+    Structurally a parser is a function which
+    takes an input stream of characters and
+    yields a parse tree by applying the parser
+    logic over sections of the character
+    stream (called lexemes) to build up a
+    composite data structure for the AST.
+
+    Ways to create parsers:
+    -   Parser Generator
+    -   Parser Combinators
+    -   parser interpreters (eval func)
+    -   by hand (more control)
+
+    4 algorithms
+    -   LL parsing.
+        (Context-free, top-down parsing.)
+    -   LR parsing.
+        (Context-free, bottom-up parsing.)
+    -   PEG + Packrat parsing.
+    -   Earley Parsing.
+
+monad transformer
     You have an innermost monad (usually
     Identity or IO but you can use any monad).
 
@@ -210,12 +354,15 @@ Prereading Glossary monad transformer You have an innermost monad (usually Ident
     But using monad transformers is a
     challenge for many, even if they are
     already writing useful, effectful,
-    production Haskell.</code></pre></div>
-<h3 id="familiarise-myself-with-this">Familiarise myself with this</h3>
+    production Haskell.</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="familiarise-myself-with-this">Familiarise myself with this</h2>
 
 <p><a href="http://dev.stephendiehl.com/hask/">http://dev.stephendiehl.com/hask/</a></p>
 
-<h4 id="libraries">Libraries</h4>
+<h3 id="libraries">Libraries</h3>
 
 <table>
 <thead>
@@ -368,15 +515,34 @@ Prereading Glossary monad transformer You have an innermost monad (usually Ident
 </tbody>
 </table>
 
-<ul>
-<li><p>package: <code>containers</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">egr containers haskell example</code></pre></div>
+<h4 id="package-containers">package: <code>containers</code></h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">egr containers haskell example</code></pre></td></tr></table>
+</div>
+</div>
+
 <p><a href="https://haskell-containers.readthedocs.io/en/latest/map.html#short-example">https://haskell-containers.readthedocs.io/en/latest/map.html#short-example</a></p>
 
 <ul>
 <li><p>Glossary</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">finite map
-dictionary</code></pre></div></li>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    finite map
+    dictionary
+    </code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>&ldquo;strict&rdquo; interface for data structures in containers</p>
 
@@ -384,8 +550,20 @@ dictionary</code></pre></div></li>
 <a href="http://hackage.haskell.org/package/containers-0.6.2.1/docs/Data-Map-Strict.html">http://hackage.haskell.org/package/containers-0.6.2.1/docs/Data-Map-Strict.html</a></p></li>
 
 <li><p>What&rsquo;s the difference?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.Map <span style="color:#66d9ef">as</span> Map
-<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.Map.Strict <span style="color:#66d9ef">as</span> Map</code></pre></div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">    <span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.Map <span style="color:#66d9ef">as</span> Map
+    <span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.Map.Strict <span style="color:#66d9ef">as</span> Map
+    </code></pre></td></tr></table>
+</div>
+</div>
+
 <p>Finite Maps (strict interface)</p>
 
 <p><a href="http://hackage.haskell.org/package/containers-0.6.2.1/docs/Data-Map-Strict.html">http://hackage.haskell.org/package/containers-0.6.2.1/docs/Data-Map-Strict.html</a></p>
@@ -395,19 +573,68 @@ dictionary</code></pre></div></li>
 <p><a href="https://haskell-containers.readthedocs.io/en/latest/map.html#short-example">https://haskell-containers.readthedocs.io/en/latest/map.html#short-example</a></p></li>
 
 <li><p>Why did this fail?</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">let</span> m1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>fromList [(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#ae81ff">2</span>)]
-<span style="color:#66d9ef">let</span> m2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>delete <span style="color:#e6db74">&#34;a&#34;</span> m1
-<span style="color:#a6e22e">print</span> m1
-<span style="color:#a6e22e">print</span> m2</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#f92672">&lt;</span>interactive<span style="color:#f92672">&gt;:</span><span style="color:#ae81ff">5</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">7</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Variable</span> not <span style="color:#66d9ef">in</span> scope<span style="color:#66d9ef">:</span> m2 <span style="color:#f92672">::</span> ()</code></pre></div></li>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">    <span style="color:#66d9ef">let</span> m1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>fromList [(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#ae81ff">2</span>)]
+    <span style="color:#66d9ef">let</span> m2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>delete <span style="color:#e6db74">&#34;a&#34;</span> m1
+    print m1
+    print m2
+    </code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">    <span style="color:#f92672">&lt;</span>interactive<span style="color:#f92672">&gt;:</span><span style="color:#ae81ff">5</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">7</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Variable</span> not <span style="color:#66d9ef">in</span> scope<span style="color:#66d9ef">:</span> m2 <span style="color:#f92672">::</span> ()
+    </code></pre></td></tr></table>
+</div>
+</div></li>
 
 <li><p>Try again</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.Map.Strict <span style="color:#66d9ef">as</span> Map
 
-<span style="color:#a6e22e">m1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>fromList [(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#ae81ff">2</span>)]
-<span style="color:#a6e22e">m2</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>delete <span style="color:#e6db74">&#34;a&#34;</span> m1
-<span style="color:#a6e22e">print</span> m1
-<span style="color:#a6e22e">print</span> m2</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">fromList</span> [(<span style="color:#e6db74">&#34;b&#34;</span>,<span style="color:#ae81ff">2</span>)]</code></pre></div></li>
-</ul></li>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">    <span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.Map.Strict <span style="color:#66d9ef">as</span> Map
+
+    m1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>fromList [(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#ae81ff">2</span>)]
+    m2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>delete <span style="color:#e6db74">&#34;a&#34;</span> m1
+    print m1
+    print m2
+    </code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">    fromList [(<span style="color:#e6db74">&#34;b&#34;</span>,<span style="color:#ae81ff">2</span>)]
+    </code></pre></td></tr></table>
+</div>
+</div></li>
 </ul>
 
     </div>
