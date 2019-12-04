@@ -17,7 +17,7 @@
       <pubDate>Wed, 04 Dec 2019 00:00:00 +1300</pubDate>
       
       <guid>https://mullikine.github.io/posts/named-entity-recognition/</guid>
-      <description>Original article Named Entity Recognition with NLTK and SpaCy - Towards Data Science Related articles Part of Speech Labels // Bodacious Blog  Missing libraries 1 2 3 4 5  Resource averaged_perceptron_tagger not found. Please use the NLTK Downloader to obtain the resource: &amp;gt;&amp;gt;&amp;gt; import nltk &amp;gt;&amp;gt;&amp;gt; nltk.download(&amp;#39;averaged_perceptron_tagger&amp;#39;)   1 2 3  import nltk nltk.download(&amp;#39;averaged_perceptron_tagger&amp;#39;) # and then type &amp;#39;d&amp;#39; for download and install &amp;#39;punkt&amp;#39;   I had to do it again for this 1 2  import nltk nltk.</description>
+      <description>Original article Named Entity Recognition with NLTK and SpaCy - Towards Data Science Code https://github.com/susanli2016/NLP-with-Python/blob/master/NER%5FNLTK%5FSpacy.ipynb My fork https://github.com/mullikine/NLP-with-Python/blob/master/NER%5FNLTK%5FSpacy.py Related articles Part of Speech Labels // Bodacious Blog  1  sp $MYGIT/susanli2016/NLP-with-Python/NER_NLTK_Spacy.py   Missing libraries 1 2 3 4 5  Resource averaged_perceptron_tagger not found. Please use the NLTK Downloader to obtain the resource: &amp;gt;&amp;gt;&amp;gt; import nltk &amp;gt;&amp;gt;&amp;gt; nltk.download(&amp;#39;averaged_perceptron_tagger&amp;#39;)   1 2 3  import nltk nltk.</description>
     </item>
     
     <item>
@@ -26,7 +26,16 @@
       <pubDate>Wed, 04 Dec 2019 00:00:00 +1300</pubDate>
       
       <guid>https://mullikine.github.io/posts/part-of-speech-labels/</guid>
-      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  conjunction CONJ CNJ A part of speech that connects words, phrases, or clauses that are called the conjuncts of the conjunctions. Coordinating conjunction CC A conjunction placed between words, phrases, clauses, or sentences of equal rank, e.g. and, but, or. Predeterminer PDT A word or phrase that occurs before a determiner, typically quantifying the noun phrase, for example both or a lot of.</description>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25  conjunction CONJ CNJ A part of speech that connects words, phrases, or clauses that are called the conjuncts of the conjunctions. subordinating conjunction Preposition IN A conjunction that introduces a subordinating clause, e.g. although, because. Coordinating conjunction CC A conjunction placed between words, phrases, clauses, or sentences of equal rank, e.</description>
+    </item>
+    
+    <item>
+      <title>Searching for gists</title>
+      <link>https://mullikine.github.io/posts/searching-for-gists/</link>
+      <pubDate>Wed, 04 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/searching-for-gists/</guid>
+      <description>Create a gist-search script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null is_tty() { # If stout is a tty [[ -t 1 ]] } gr gist &amp;#34;$@&amp;#34; | grep //gist.github.com/ | urldecode | scrape &amp;#34;.*gist.github.com/[^?/]+&amp;#34; | sort | uniq | scrape &amp;#34;[^/]+$&amp;#34; | { if is_tty; then fzf | xa gist-list else cat fi }   Demonstration</description>
     </item>
     
     <item>
