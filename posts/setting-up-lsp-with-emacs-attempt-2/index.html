@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Setting up LSP with emacs (Go, Python, Rust, C&#43;&#43;, Haskell)"/>
-<meta name="twitter:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/  State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience     Go ✓ ✓ Amazing   Python ✓ ✓ Amazing   Rust ✗ ✓ Good   C&#43;&#43; ✓ ✓ clang Great   Haskell ✓ ✓ intero Good    Python The python editing experience in emacs is second to none."/>
+<meta name="twitter:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java  1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website   State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience DAP Working     Go ✓ ✓ Amazing    Python ✓ ✓ Amazing    Java ✓ ✓ Amazing ✓   Rust ✗ ✓ Good    C&#43;&#43; ✓ ✓ clang Great    Haskell ✓ ✓ intero Good     Python The python editing experience in emacs is second to none."/>
 
     <meta property="og:title" content="Setting up LSP with emacs (Go, Python, Rust, C&#43;&#43;, Haskell)" />
-<meta property="og:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/  State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience     Go ✓ ✓ Amazing   Python ✓ ✓ Amazing   Rust ✗ ✓ Good   C&#43;&#43; ✓ ✓ clang Great   Haskell ✓ ✓ intero Good    Python The python editing experience in emacs is second to none." />
+<meta property="og:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java  1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website   State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience DAP Working     Go ✓ ✓ Amazing    Python ✓ ✓ Amazing    Java ✓ ✓ Amazing ✓   Rust ✗ ✓ Good    C&#43;&#43; ✓ ✓ clang Great    Haskell ✓ ✓ intero Good     Python The python editing experience in emacs is second to none." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/setting-up-lsp-with-emacs-attempt-2/" />
 <meta property="article:published_time" content="2019-12-05T00:00:00+13:00" />
@@ -150,8 +150,26 @@
 
 <dl>
 <dt>Guides used</dt>
-<dd><a href="https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/">https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/</a></dd>
+<dd><a href="https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/">https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/</a> <br />
+  <a href="https://github.com/emacs-lsp/lsp-java">https://github.com/emacs-lsp/lsp-java</a></dd>
 </dl>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Debug Adaptor Protocol
+DAP
+    The LSP of debugging.
+
+    https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website</code></pre></td></tr></table>
+</div>
+</div>
 
 <hr />
 
@@ -164,6 +182,7 @@
 <th>LSP Working</th>
 <th>Fallback working</th>
 <th>Current user experience</th>
+<th>DAP Working</th>
 </tr>
 </thead>
 
@@ -173,6 +192,7 @@
 <td>✓</td>
 <td>✓</td>
 <td>Amazing</td>
+<td></td>
 </tr>
 
 <tr>
@@ -180,6 +200,15 @@
 <td>✓</td>
 <td>✓</td>
 <td>Amazing</td>
+<td></td>
+</tr>
+
+<tr>
+<td>Java</td>
+<td>✓</td>
+<td>✓</td>
+<td>Amazing</td>
+<td>✓</td>
 </tr>
 
 <tr>
@@ -187,6 +216,7 @@
 <td>✗</td>
 <td>✓</td>
 <td>Good</td>
+<td></td>
 </tr>
 
 <tr>
@@ -194,6 +224,7 @@
 <td>✓</td>
 <td>✓ clang</td>
 <td>Great</td>
+<td></td>
 </tr>
 
 <tr>
@@ -201,6 +232,7 @@
 <td>✓</td>
 <td>✓ intero</td>
 <td>Good</td>
+<td></td>
 </tr>
 </tbody>
 </table>
