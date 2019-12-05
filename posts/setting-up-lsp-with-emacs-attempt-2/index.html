@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Setting up LSP with emacs (Go, Java, Python, Rust, C&#43;&#43;, Haskell)"/>
-<meta name="twitter:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java  1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website   State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience DAP Working     Go ✓ ✓ Amazing    Python ✓ ✓ Amazing    Java ✓ ✓ eclim Amazing ✓   Rust ✗ ✓ Good    C&#43;&#43; ✓ ✓ clang Great    Haskell ✓ ✓ intero Good     Python The python editing experience in emacs is second to none."/>
+<meta name="twitter:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java  1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website   State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience DAP Working Complaints Custom LSP improvements     Go ✓ ✓ Amazing  Go toolchain changes too quickly    Python ✓ ✓ Amazing      Java ✓ ✓ eclim Good ✓ A little slow."/>
 
     <meta property="og:title" content="Setting up LSP with emacs (Go, Java, Python, Rust, C&#43;&#43;, Haskell)" />
-<meta property="og:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java  1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website   State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience DAP Working     Go ✓ ✓ Amazing    Python ✓ ✓ Amazing    Java ✓ ✓ eclim Amazing ✓   Rust ✗ ✓ Good    C&#43;&#43; ✓ ✓ clang Great    Haskell ✓ ✓ intero Good     Python The python editing experience in emacs is second to none." />
+<meta property="og:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java  1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website   State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience DAP Working Complaints Custom LSP improvements     Go ✓ ✓ Amazing  Go toolchain changes too quickly    Python ✓ ✓ Amazing      Java ✓ ✓ eclim Good ✓ A little slow." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/setting-up-lsp-with-emacs-attempt-2/" />
 <meta property="article:published_time" content="2019-12-05T00:00:00+13:00" />
@@ -134,7 +134,7 @@
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/lsp/">LSP</a><a class="tag" href="http://mullikine.github.io/tags/cpp/">cpp</a><a class="tag" href="http://mullikine.github.io/tags/rust/">rust</a><a class="tag" href="http://mullikine.github.io/tags/python/">python</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/lsp/">LSP</a><a class="tag" href="http://mullikine.github.io/tags/cpp/">cpp</a><a class="tag" href="http://mullikine.github.io/tags/rust/">Rust</a><a class="tag" href="http://mullikine.github.io/tags/python/">python</a></div></div>
     </header>
     
 
@@ -183,6 +183,8 @@ DAP
 <th>Fallback working</th>
 <th>Current user experience</th>
 <th>DAP Working</th>
+<th>Complaints</th>
+<th>Custom LSP improvements</th>
 </tr>
 </thead>
 
@@ -193,6 +195,8 @@ DAP
 <td>✓</td>
 <td>Amazing</td>
 <td></td>
+<td>Go toolchain changes too quickly</td>
+<td></td>
 </tr>
 
 <tr>
@@ -201,14 +205,18 @@ DAP
 <td>✓</td>
 <td>Amazing</td>
 <td></td>
+<td></td>
+<td></td>
 </tr>
 
 <tr>
 <td>Java</td>
 <td>✓</td>
 <td>✓ eclim</td>
-<td>Amazing</td>
+<td>Good</td>
 <td>✓</td>
+<td>A little slow. Documentation doesn&rsquo;t fit</td>
+<td>Intercept documentation</td>
 </tr>
 
 <tr>
@@ -216,6 +224,8 @@ DAP
 <td>✗</td>
 <td>✓</td>
 <td>Good</td>
+<td></td>
+<td></td>
 <td></td>
 </tr>
 
@@ -225,6 +235,8 @@ DAP
 <td>✓ clang</td>
 <td>Great</td>
 <td></td>
+<td></td>
+<td></td>
 </tr>
 
 <tr>
@@ -232,6 +244,8 @@ DAP
 <td>✓</td>
 <td>✓ intero</td>
 <td>Good</td>
+<td></td>
+<td></td>
 <td></td>
 </tr>
 </tbody>
@@ -246,6 +260,10 @@ DAP
 <h3 id="go">Go</h3>
 
 <p><a href="https://asciinema.org/a/LE7erREtVHLMaI0cCKNOj1h5c" target="_blank"><img src="https://asciinema.org/a/LE7erREtVHLMaI0cCKNOj1h5c.svg" /></a></p>
+
+<h3 id="java">Java</h3>
+
+<p><a href="https://asciinema.org/a/i89DxN0P786IvjFpWwLXjodpz" target="_blank"><img src="https://asciinema.org/a/i89DxN0P786IvjFpWwLXjodpz.svg" /></a></p>
 
 <h3 id="c">C++</h3>
 
