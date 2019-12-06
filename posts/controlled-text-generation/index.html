@@ -383,9 +383,9 @@ importance sampling
 politics could loosely work like this:</p>
 
 <ul>
-<li>(Step 1) generate a sentence x from <code>p(x)</code></li>
-<li>(Step 2) give it to =p(a|x) =to see if it’s about politics</li>
-<li>(Step 3) if it’s not, go to (1).</li>
+<li><span class="underline"><strong>Step 1:</strong></span> generate a sentence x from <code>p(x)</code></li>
+<li><span class="underline"><strong>Step 2:</strong></span> give it to =p(a|x) =to see if it’s about politics</li>
+<li><span class="underline"><strong>Step 3:</strong></span> if it’s not, go to (1).</li>
 </ul>
 
 <p>Unfortunately, it may take exponentially long
@@ -411,12 +411,12 @@ Networks (PPGN) model.</p>
 simple steps to generate a sample:</p>
 
 <ul>
-<li><strong>Step 1</strong>: Given a partially generated sentence,
+<li><span class="underline"><strong>Step 1:</strong></span> Given a partially generated sentence,
 compute <code>log(p(x))</code> and <code>log(p(a|x))</code> and the gradients of each with respect to the hidden representation of the underlying language model.
 These quantities are both available using an efficient forward and backward pass of both models.</li>
-<li><strong>Step 2</strong>: Use the gradients to move the hidden representation of the language model a small step in the
+<li><span class="underline"><strong>Step 2:</strong></span> Use the gradients to move the hidden representation of the language model a small step in the
 direction of increasing <code>log(p(a|x))</code> and increasing <code>log(p(x))</code>.</li>
-<li><strong>Step 3</strong>: Sample the next word.</li>
+<li><span class="underline"><strong>Step 3:</strong></span> Sample the next word.</li>
 </ul>
 
 <p>Intuitively, as a PPLM generates text one
