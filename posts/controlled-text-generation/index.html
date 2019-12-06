@@ -153,9 +153,9 @@ This controlled LG method consists of plugging in simple bag-of-words or one-lay
 <dl>
 <dt>Original article</dt>
 <dd><a href="https://eng.uber.com/pplm/">https://eng.uber.com/pplm/</a> <br />
-  <a href="https://github.com/uber-research/PPLM">https://github.com/uber-research/PPLM</a> <br />
-  <a href="https://github.com/huggingface/transformers/blob/master/examples/pplm/README.md">https://github.com/huggingface/transformers/blob/master/examples/pplm/README.md</a> <br />
-  <a href="https://transformer.huggingface.co/model/pplm"> Uber AI Plug and Play Language Model</a></dd>
+<a href="https://github.com/uber-research/PPLM">https://github.com/uber-research/PPLM</a> <br />
+<a href="https://github.com/huggingface/transformers/blob/master/examples/pplm/README.md">https://github.com/huggingface/transformers/blob/master/examples/pplm/README.md</a> <br />
+<a href="https://transformer.huggingface.co/model/pplm"> Uber AI Plug and Play Language Model</a></dd>
 </dl>
 
 <h2 id="controlling-text-generation-with-plug-and-play-language-model--pplm">Controlling Text Generation with Plug and Play Language Model (PPLM)</h2>
@@ -191,10 +191,10 @@ including:</p>
 
 <ul>
 <li>starting with a pre-trained LM and fine-tuning it to always produce
-  positive sentences,</li>
+positive sentences,</li>
 <li>training a large conditional model from scratch, or</li>
 <li>turning a given sentence into a more positive one by substituting new
-  text in for key n-grams.</li>
+text in for key n-grams.</li>
 </ul>
 
 <h3 id="proposal-pplm">Proposal; PPLM</h3>
@@ -411,12 +411,12 @@ Networks (PPGN) model.</p>
 simple steps to generate a sample:</p>
 
 <ul>
-<li>(Step 1) Given a partially generated sentence,
-  compute <code>log(p(x))</code> and <code>log(p(a|x))</code> and the gradients of each with respect to the hidden representation of the underlying language model.
-  These quantities are both available using an efficient forward and backward pass of both models.</li>
-<li>(Step 2) Use the gradients to move the hidden representation of the language model a small step in the
-  direction of increasing <code>log(p(a|x))</code> and increasing <code>log(p(x))</code>.</li>
-<li>(Step 3) Sample the next word.</li>
+<li><strong>Step 1</strong>: Given a partially generated sentence,
+compute <code>log(p(x))</code> and <code>log(p(a|x))</code> and the gradients of each with respect to the hidden representation of the underlying language model.
+These quantities are both available using an efficient forward and backward pass of both models.</li>
+<li><strong>Step 2</strong>: Use the gradients to move the hidden representation of the language model a small step in the
+direction of increasing <code>log(p(a|x))</code> and increasing <code>log(p(x))</code>.</li>
+<li><strong>Step 3</strong>: Sample the next word.</li>
 </ul>
 
 <p>Intuitively, as a PPLM generates text one
@@ -426,6 +426,30 @@ will be more likely to possess the desired
 attribute—high <code>log(p(a|x))</code> — while still
 retaining fluency under the original LM—high
 <code>log(p(x))</code>.</p>
+
+<h2 id="code">Code</h2>
+
+<h3 id="generate-text-pplm"><code>generate_text_pplm</code></h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd <span style="color:#e6db74">&#34;</span>$MYGIT<span style="color:#e6db74">/uber-research/PPLM&#34;</span> ; $HOME/scripts/ead generate_text_pplm</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="perturb"><code>perturb</code></h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd <span style="color:#e6db74">&#34;</span>$MYGIT<span style="color:#e6db74">/uber-research/PPLM&#34;</span> ; $HOME/scripts/ead perturb</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
