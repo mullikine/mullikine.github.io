@@ -13,11 +13,11 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Exploring Hoogle"/>
 <meta name="twitter:description" content="Prereading Real-time interactive documentation lookup for haskell type-declarative search // Bodacious Blog GHCi and Haskell code intermixed in babel // Bodacious Blog  Finding package from the module name / an import statement Demonstration 
-I created these two functions 1 2 3 4 5 6 7 8 9  hsImportToPackage :: String -&gt; IO String hsImportToPackage modulename = do (_, Just hout, _, _) &lt;- createProcess (proc &#34;hs-import-to-package&#34; [modulename]){ std_out = CreatePipe } hGetContents hout printIOString :: IO String -&gt; IO () printIOString a = do str &lt;- a putStrLn str   I also made these scripts to search and scrape hackage hs-import-to-package"/>
+I created these two functions 1 2 3 4 5 6 7 8 9  hsImportToPackage :: String -&gt; IO String hsImportToPackage modulename = do (_, Just hout, _, _) &lt;- createProcess (proc &#34;hs-import-to-package&#34; [modulename]){ std_out = CreatePipe } hGetContents hout printIOString :: IO String -&gt; IO () printIOString a = do str &lt;- a putStrLn str   1  ghciol &#34;:i fmap&#34;   class Functor (f :: * -&gt; *) where fmap :: (a -&gt; b) -&gt; f a -&gt; f b ."/>
 
     <meta property="og:title" content="Exploring Hoogle" />
 <meta property="og:description" content="Prereading Real-time interactive documentation lookup for haskell type-declarative search // Bodacious Blog GHCi and Haskell code intermixed in babel // Bodacious Blog  Finding package from the module name / an import statement Demonstration 
-I created these two functions 1 2 3 4 5 6 7 8 9  hsImportToPackage :: String -&gt; IO String hsImportToPackage modulename = do (_, Just hout, _, _) &lt;- createProcess (proc &#34;hs-import-to-package&#34; [modulename]){ std_out = CreatePipe } hGetContents hout printIOString :: IO String -&gt; IO () printIOString a = do str &lt;- a putStrLn str   I also made these scripts to search and scrape hackage hs-import-to-package" />
+I created these two functions 1 2 3 4 5 6 7 8 9  hsImportToPackage :: String -&gt; IO String hsImportToPackage modulename = do (_, Just hout, _, _) &lt;- createProcess (proc &#34;hs-import-to-package&#34; [modulename]){ std_out = CreatePipe } hGetContents hout printIOString :: IO String -&gt; IO () printIOString a = do str &lt;- a putStrLn str   1  ghciol &#34;:i fmap&#34;   class Functor (f :: * -&gt; *) where fmap :: (a -&gt; b) -&gt; f a -&gt; f b ." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/exploring-hoogle/" />
 <meta property="article:published_time" content="2019-11-30T00:00:00+13:00" />
@@ -108,8 +108,9 @@ I created these two functions 1 2 3 4 5 6 7 8 9  hsImportToPackage :: String -&g
 <a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
 <a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
 <a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
-<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a></div>
-<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a></div>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a></div>
 </div>
 <div>
     </header>
@@ -131,13 +132,13 @@ I created these two functions 1 2 3 4 5 6 7 8 9  hsImportToPackage :: String -&g
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          3 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a><a class="tag" href="http://mullikine.github.io/tags/tooling/">tooling</a></div></div>
     </header>
     
 
@@ -190,6 +191,64 @@ I created these two functions 1 2 3 4 5 6 7 8 9  hsImportToPackage :: String -&g
 </div>
 </div>
 
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ghciol <span style="color:#e6db74">&#34;:i fmap&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">class Functor <span style="color:#f92672">(</span>f :: * -&gt; *<span style="color:#f92672">)</span> where
+  fmap :: <span style="color:#f92672">(</span>a -&gt; b<span style="color:#f92672">)</span> -&gt; f a -&gt; f b
+  ...
+  	-- Defined in ‘GHC.Base’</code></pre></div>
+<h4 id="i-lifted-this-pure-string-function-into-the-io-context">I lifted this pure string function into the IO context</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span>           System.IO
+<span style="color:#66d9ef">import</span>           System.Process
+<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.String.Utils (<span style="color:#a6e22e">rstrip</span>)
+
+<span style="color:#a6e22e">hsImportToPackage</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">hsImportToPackage</span> modulename <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    (<span style="color:#66d9ef">_</span>, <span style="color:#66d9ef">Just</span> hout, <span style="color:#66d9ef">_</span>, <span style="color:#66d9ef">_</span>) <span style="color:#f92672">&lt;-</span> createProcess (proc <span style="color:#e6db74">&#34;hs-import-to-package&#34;</span> [modulename]){ std_out <span style="color:#f92672">=</span> <span style="color:#66d9ef">CreatePipe</span> }
+    <span style="color:#75715e">-- I can lift.</span>
+    fmap (<span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">String</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Utils</span><span style="color:#f92672">.</span>rstrip) <span style="color:#f92672">$</span> hGetContents hout
+
+<span style="color:#a6e22e">printIOString</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">printIOString</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    str <span style="color:#f92672">&lt;-</span> a
+    putStrLn str
+
+<span style="color:#66d9ef">:</span>t printIOString
+
+<span style="color:#a6e22e">printIOString</span> <span style="color:#f92672">$</span> hsImportToPackage <span style="color:#e6db74">&#34;Text.Email.Validate&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#f92672">***</span> <span style="color:#66d9ef">Exception:</span> hs<span style="color:#f92672">-</span><span style="color:#66d9ef">import</span><span style="color:#960050;background-color:#1e0010">-</span>to<span style="color:#f92672">-</span>package<span style="color:#66d9ef">:</span> createProcess<span style="color:#66d9ef">:</span> runInteractiveProcess<span style="color:#66d9ef">:</span> exec<span style="color:#66d9ef">:</span> does not exist (<span style="color:#66d9ef">No</span> such file or directory)
+<span style="color:#a6e22e">printIOString</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> ()</code></pre></div>
 <h3 id="i-also-made-these-scripts-to-search-and-scrape-hackage">I also made these scripts to search and scrape hackage</h3>
 
 <p><span class="underline"><strong>hs-import-to-package</strong></span></p>

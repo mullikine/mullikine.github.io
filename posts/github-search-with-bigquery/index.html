@@ -114,8 +114,9 @@ This is cheaper than searching all files.
 <a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
 <a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
 <a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
-<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a></div>
-<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a></div>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a></div>
 </div>
 <div>
     </header>
@@ -143,7 +144,7 @@ This is cheaper than searching all files.
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/ir/">IR</a><a class="tag" href="http://mullikine.github.io/tags/github/">github</a><a class="tag" href="http://mullikine.github.io/tags/sql/">sql</a><a class="tag" href="http://mullikine.github.io/tags/gcp/">GCP</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/ir/">ir</a><a class="tag" href="http://mullikine.github.io/tags/github/">github</a><a class="tag" href="http://mullikine.github.io/tags/sql/">sql</a><a class="tag" href="http://mullikine.github.io/tags/gcp/">GCP</a><a class="tag" href="http://mullikine.github.io/tags/tooling/">tooling</a></div></div>
     </header>
     
 
@@ -635,7 +636,7 @@ This is cheaper than searching all files.
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">lit <span style="color:#e6db74">&#34;* query&#34;</span>
-lit <span style="color:#e6db74">&#34;#+BEGIN_SRC sql&#34;</span>
+lit <span style="color:#e6db74">&#34;#+BEGIN_SRC sql&#34;</span> -n
 lit <span style="color:#e6db74">&#34;</span>$sql<span style="color:#e6db74">&#34;</span> | indent <span style="color:#ae81ff">2</span>
 lit <span style="color:#e6db74">&#34;#+END_SRC&#34;</span>
 lit
@@ -671,7 +672,7 @@ lit <span style="color:#e6db74">&#34;</span>$sql<span style="color:#e6db74">&#34
         <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$fpath<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
             lit <span style="color:#e6db74">&#34;+ local :: [[</span>$fpath<span style="color:#e6db74">][</span>$fpath<span style="color:#e6db74">]]&#34;</span>
         <span style="color:#66d9ef">fi</span>
-        lit <span style="color:#e6db74">&#34;#+BEGIN_SRC text&#34;</span>
+        lit <span style="color:#e6db74">&#34;#+BEGIN_SRC text&#34;</span> -n
         lit <span style="color:#e6db74">&#34;</span>$snips<span style="color:#e6db74">&#34;</span> | format_snippet
         lit <span style="color:#e6db74">&#34;#+END_SRC&#34;</span>
         lit

@@ -164,7 +164,7 @@ Make these functions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
       
       <guid>https://mullikine.github.io/posts/exploring-hoogle/</guid>
       <description>Prereading Real-time interactive documentation lookup for haskell type-declarative search // Bodacious Blog GHCi and Haskell code intermixed in babel // Bodacious Blog  Finding package from the module name / an import statement Demonstration 
-I created these two functions 1 2 3 4 5 6 7 8 9  hsImportToPackage :: String -&amp;gt; IO String hsImportToPackage modulename = do (_, Just hout, _, _) &amp;lt;- createProcess (proc &amp;#34;hs-import-to-package&amp;#34; [modulename]){ std_out = CreatePipe } hGetContents hout printIOString :: IO String -&amp;gt; IO () printIOString a = do str &amp;lt;- a putStrLn str   I also made these scripts to search and scrape hackage hs-import-to-package</description>
+I created these two functions 1 2 3 4 5 6 7 8 9  hsImportToPackage :: String -&amp;gt; IO String hsImportToPackage modulename = do (_, Just hout, _, _) &amp;lt;- createProcess (proc &amp;#34;hs-import-to-package&amp;#34; [modulename]){ std_out = CreatePipe } hGetContents hout printIOString :: IO String -&amp;gt; IO () printIOString a = do str &amp;lt;- a putStrLn str   1  ghciol &amp;#34;:i fmap&amp;#34;   class Functor (f :: * -&amp;gt; *) where fmap :: (a -&amp;gt; b) -&amp;gt; f a -&amp;gt; f b .</description>
     </item>
     
     <item>
@@ -679,7 +679,7 @@ functions  mod orig destructive to original variable     f/m mod orig macro dedu
       <guid>https://mullikine.github.io/posts/emacs-deep-tab-nine/</guid>
       <description>Deep TabNine can supplement your autocompletion needs by providing you with example code.
  plugin https://github.com/TommyX12/company-tabnine/  Objective Have two bindings; one for regular company complete and one for tabnine.
-   kb f     M-` company-complete   M-Tab company-tabnine    (require &amp;#39;company-tabnine) ;; TODO Fix ;; While browsing the completions list, if I press &amp;lt;space&amp;gt; then company aborts. ;; vim +/&amp;#34;;; Trigger completion immediately.</description>
+   kb f     M-` company-complete   M-Tab company-tabnine    1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25  (require &amp;#39;company-tabnine) ;; TODO Fix ;; While browsing the completions list, if I press &amp;lt;space&amp;gt; then company aborts.</description>
     </item>
     
     <item>
@@ -783,7 +783,7 @@ https://mullikine.github.io/posts/macro-tutorial/
 It appears that pip libraries keep going out of order.
 Therefore, I switched to scraping with emacs.
 I have developed a faith in the eww browser due to its reliability.
-Create the elisp function which uses xurls to scrape URLs from text (defun google-scrape-after-loaded () ;; (new-buffer-from-string (sh/ptw/uniqnosort (sh/ptw/xurls (format &amp;#34;%S&amp;#34; (buffer-string)))) &amp;#34;*google-results*&amp;#34;) (let ((results (sh/ptw/uniqnosort (sh/ptw/xurls (format &amp;#34;%S&amp;#34; (buffer-string)))))) (write-string-to-file results &amp;#34;/tmp/eww-scrape-output.</description>
+Create the elisp function which uses xurls to scrape URLs from text 1 2 3 4 5  (defun google-scrape-after-loaded () ;; (new-buffer-from-string (sh/ptw/uniqnosort (sh/ptw/xurls (format &amp;#34;%S&amp;#34; (buffer-string)))) &amp;#34;*google-results*&amp;#34;) (let ((results (sh/ptw/uniqnosort (sh/ptw/xurls (format &amp;#34;%S&amp;#34; (buffer-string)))))) (write-string-to-file results &amp;#34;/tmp/eww-scrape-output.</description>
     </item>
     
     <item>
@@ -802,7 +802,7 @@ Create the elisp function which uses xurls to scrape URLs from text (defun googl
       
       <guid>https://mullikine.github.io/posts/kaggle-r-ess/</guid>
       <description>Build the script kag This is used for
- Downloading datasets to an organised directory structure Viewing CSV results in visidata by default Keeping track of history Caching results  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null is_tty() { # If stout is a tty [[ -t 1 ]] } slug=&amp;#34;$(echo &amp;#34;$3&amp;#34; | slugify)&amp;#34; dsname=&amp;#34;$(echo &amp;#34;$3&amp;#34; | sed &amp;#39;s=.*/==&amp;#39;)&amp;#34; if test &amp;#34;$1$2&amp;#34; = &amp;#34;datasets download&amp;#34;; then cd $DUMP$NOTES/ws/kaggle/datasets if test -d &amp;#34;$slug&amp;#34;; then zcd &amp;#34;$slug&amp;#34; exit 0 fi mkdir -p &amp;#34;$slug&amp;#34; cd &amp;#34;$slug&amp;#34; kaggle &amp;#34;$@&amp;#34; unzip &amp;#34;$dsname&amp;#34;.</description>
+ Downloading datasets to an organised directory structure Viewing CSV results in visidata by default Keeping track of history Caching results  1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null is_tty() { # If stout is a tty [[ -t 1 ]] } slug=&amp;#34;$(echo &amp;#34;$3&amp;#34; | slugify)&amp;#34; dsname=&amp;#34;$(echo &amp;#34;$3&amp;#34; | sed &amp;#39;s=.</description>
     </item>
     
     <item>
@@ -860,7 +860,7 @@ org-google.el source 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
       <pubDate>Thu, 24 Oct 2019 00:00:00 +1300</pubDate>
       
       <guid>https://mullikine.github.io/posts/extending-babel/</guid>
-      <description>previous article Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog  Automate the process of changing the babel block wrapper (defun org-babel-raise () &amp;#34;Move the interior of a babel to the outside: remove the babel block chrome and keep only the source code.&amp;#34; (interactive) (evil-with-single-undo ;; put a line after the block (call-interactively &amp;#39;org-mark-element) (ekm &amp;#34;C-x C-x&amp;#34;) (insert &amp;#34;\n&amp;#34;) (ekm &amp;#34;&amp;lt;up&amp;gt;&amp;#34;) (ekm &amp;#34;C-x C-x&amp;#34;) (ekm &amp;#34;C-c &amp;#39;&amp;#34;) (ekm &amp;#34;C-x h&amp;#34;) (ekm &amp;#34;C-x h&amp;#34;) (ekm &amp;#34;M-w&amp;#34;) (ekm &amp;#34;C-c &amp;#39;&amp;#34;) (call-interactively &amp;#39;org-babel-mark-block) (ekm &amp;#34;&amp;lt;up&amp;gt;&amp;#34;) (ekm &amp;#34;C-x C-x&amp;#34;) (ekm &amp;#34;&amp;lt;down&amp;gt;&amp;#34;) (ekm &amp;#34;C-y&amp;#34;) (ekm &amp;#34;C-x C-x&amp;#34;))) (defun org-babel-change-block-type () (interactive) (if (org-in-src-block-p) (progn (call-interactively &amp;#39;org-babel-raise) (call-interactively &amp;#39;hydra-org-template/body)) (self-insert-command 1))) (define-key org-mode-map (kbd &amp;#34;&amp;gt;&amp;#34;) &amp;#39;org-babel-change-block-type) I have accidentally made this into the wrong type of babel (i.</description>
+      <description>previous article Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog  Automate the process of changing the babel block wrapper 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32  (defun org-babel-raise () &amp;#34;Move the interior of a babel to the outside: remove the babel block chrome and keep only the source code.</description>
     </item>
     
     <item>
@@ -1286,9 +1286,8 @@ TODO Review these jenkins plugins  plugin list  folders OWASP markup formatter b
 Using git worktree with magit to browse different versions of a repository https://magit.vc/manual/magit/Worktree.html
 http://webcache.googleusercontent.com/search?q=cache:https://medium.com/@gaurav5430/git-using-git-worktree-to-run-2-versions-of-the-code-at-the-same-time-1b4586315a6c
 Basic git worktree bindings This is because git manages the set of worktrees.
-Magit makes use of this % g (magit-worktree-status)j magit-list-worktreesfind-function magit-list-worktrees  Example
-cd &amp;#34;$MYGIT/kisaragi-hiu/awk-ward.el&amp;#34;; git worktree list --porcelain This is where the info is stored:
-cd &amp;#34;$MYGIT/kisaragi-hiu/awk-ward.el&amp;#34;; ls -ld .git/worktrees/010/  Questions about the workings of magit&amp;rsquo;s worktree support  Does the worktree get added to the parent repo if I add it?</description>
+Magit makes use of this 1  % g (magit-worktree-status)   1  j magit-list-worktrees   1  find-function magit-list-worktrees    Example
+1 2  cd &amp;#34;$MYGIT/kisaragi-hiu/awk-ward.el&amp;#34;; git worktree list --porcelain    This is where the info is stored:</description>
     </item>
     
     <item>

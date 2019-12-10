@@ -110,8 +110,9 @@ This is not an accurate science. Sometimes the cache is needed and sometimes it 
 <a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
 <a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
 <a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
-<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a></div>
-<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a></div>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a></div>
 </div>
 <div>
     </header>
@@ -139,7 +140,7 @@ This is not an accurate science. Sometimes the cache is needed and sometimes it 
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/tooling/">tooling</a></div></div>
     </header>
     
 
@@ -174,11 +175,42 @@ a more informed decision.</p>
 cache.</p>
 
 <p>We need to add the user agent with -A.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
 </span><span style="color:#75715e"></span>
-/usr/bin/curl -A <span style="color:#e6db74">&#34;Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></div>
+/usr/bin/curl -A <span style="color:#e6db74">&#34;Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
 <h3 id="write-the-test-functions-in-emacs-lisp">Write the test functions in emacs-lisp</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; See this article for ~sh-notty~</span>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; See this article for ~sh-notty~</span>
 <span style="color:#75715e">;; https://mullikine.github.io/posts/macro-tutorial/</span>
 
 (defmacro sh-notty-true (cmd <span style="color:#66d9ef">&amp;rest</span> sh-notty-args)
@@ -192,15 +224,48 @@ cache.</p>
 
 (defun url-cache-is-404 (url)
   <span style="color:#e6db74">&#34;URL cache is 404&#34;</span>
-  (url-is-404 (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:&#34;</span> url)))</code></pre></div>
+  (url-is-404 (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:&#34;</span> url)))</code></pre></td></tr></table>
+</div>
+</div>
+
 <h3 id="try-them-out">Try them out</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(url-is-404 <span style="color:#e6db74">&#34;https://medium.com/riselab/functional-rl-with-keras-and-tensorflow-eager-7973f81d6345&#34;</span>)
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(url-is-404 <span style="color:#e6db74">&#34;https://medium.com/riselab/functional-rl-with-keras-and-tensorflow-eager-7973f81d6345&#34;</span>)
 (url-cache-is-404 <span style="color:#e6db74">&#34;https://medium.com/riselab/functional-rl-with-keras-and-tensorflow-eager-7973f81d6345&#34;</span>)
 (url-is-404 <span style="color:#e6db74">&#34;https://www.cryptocompare.com/coins/nas/overview&#34;</span>)
 (url-is-404 <span style="color:#e6db74">&#34;https://news.ycombinator.com/&#34;</span>)
-(url-cache-is-404 <span style="color:#e6db74">&#34;https://news.ycombinator.com/&#34;</span>)</code></pre></div>
+(url-cache-is-404 <span style="color:#e6db74">&#34;https://news.ycombinator.com/&#34;</span>)</code></pre></td></tr></table>
+</div>
+</div>
+
 <h3 id="add-some-advice-to-the-eww-command-which-expands-urls-just-before-they-are-loaded">Add some advice to the eww command which expands URLs just before they are loaded</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This makes it so for certain urls, the google cache is loaded instead</span>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; This makes it so for certain urls, the google cache is loaded instead</span>
 (defun eww--dwim-expand-url-around-advice (proc <span style="color:#66d9ef">&amp;rest</span> args)
   (let* ((url (<span style="color:#a6e22e">car</span> args))
          (cached_url (replace-regexp-in-string <span style="color:#e6db74">&#34;^&#34;</span> <span style="color:#e6db74">&#34;http://webcache.googleusercontent.com/search?q=cache:&#34;</span> url)))
@@ -211,7 +276,10 @@ cache.</p>
         (setq url cached_url))
     (let ((res (<span style="color:#a6e22e">apply</span> proc (<span style="color:#a6e22e">list</span> url))))
       res)))
-(advice-add <span style="color:#e6db74">&#39;eww--dwim-expand-url</span> :around <span style="color:#a6e22e">#&#39;</span>eww--dwim-expand-url-around-advice)</code></pre></div>
+(advice-add <span style="color:#e6db74">&#39;eww--dwim-expand-url</span> :around <span style="color:#a6e22e">#&#39;</span>eww--dwim-expand-url-around-advice)</code></pre></td></tr></table>
+</div>
+</div>
+
     </div>
     <div class="post-footer">
       

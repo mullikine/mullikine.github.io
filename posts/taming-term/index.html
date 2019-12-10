@@ -106,8 +106,9 @@
 <a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
 <a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
 <a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
-<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a></div>
-<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a></div>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a></div>
 </div>
 <div>
     </header>
@@ -135,7 +136,7 @@
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/elisp/">elisp</a><a class="tag" href="http://mullikine.github.io/tags/terminals/">terminals</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/elisp/">elisp</a><a class="tag" href="http://mullikine.github.io/tags/terminals/">terminals</a><a class="tag" href="http://mullikine.github.io/tags/tooling/">tooling</a></div></div>
     </header>
     
 
@@ -152,8 +153,8 @@
 <dl>
 <dt>libertyprime to #emacs</dt>
 <dd>i found myself recording an asciinema recording of me making an asciinema
-recording of me playing tetris inside of tmux inside of neovim inside of emacs
-inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about</dd>
+   recording of me playing tetris inside of tmux inside of neovim inside of emacs
+   inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about</dd>
 </dl>
 
 <h2 id="first-attempt">First attempt</h2>
@@ -644,7 +645,7 @@ press it!</p>
   <span style="color:#75715e">;; loses one arg when called with -c, and newer shells (bash,  ksh) don&#39;t.</span>
   <span style="color:#75715e">;; Thus we add an extra dummy argument &#34;..&#34;, and then remove it.</span>
   (let ((process-environment
-       (<span style="color:#a6e22e">nconc</span>
+   (<span style="color:#a6e22e">nconc</span>
   	(<span style="color:#a6e22e">list</span>
   	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;TERM=%s&#34;</span> term-term-name)
   	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;TERMINFO=%s&#34;</span> data-directory)
@@ -655,13 +656,13 @@ press it!</p>
   	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;LINES=%d&#34;</span> term-height)
   	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;COLUMNS=%d&#34;</span> term-width))
   	process-environment))
-      (process-connection-type <span style="color:#66d9ef">t</span>)
-      <span style="color:#75715e">;; We should suppress conversion of end-of-line format.</span>
-      (inhibit-eol-conversion <span style="color:#66d9ef">t</span>)
-      <span style="color:#75715e">;; The process&#39;s output contains not just chars but also binary</span>
-      <span style="color:#75715e">;; escape codes, so we need to see the raw output.  We will have to</span>
-      <span style="color:#75715e">;; do the decoding by hand on the parts that are made of chars.</span>
-      (coding-system-for-read <span style="color:#e6db74">&#39;binary</span>))
+  (process-connection-type <span style="color:#66d9ef">t</span>)
+  <span style="color:#75715e">;; We should suppress conversion of end-of-line format.</span>
+  (inhibit-eol-conversion <span style="color:#66d9ef">t</span>)
+  <span style="color:#75715e">;; The process&#39;s output contains not just chars but also binary</span>
+  <span style="color:#75715e">;; escape codes, so we need to see the raw output.  We will have to</span>
+  <span style="color:#75715e">;; do the decoding by hand on the parts that are made of chars.</span>
+  (coding-system-for-read <span style="color:#e6db74">&#39;binary</span>))
     (when (term--bash-needs-EMACSp)
       (push (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;EMACS=%s (term:%s)&#34;</span> emacs-version term-protocol-version)
             process-environment))
