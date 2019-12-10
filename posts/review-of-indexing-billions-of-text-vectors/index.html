@@ -136,7 +136,7 @@ A query in this context can either be a user- generated one, (i.e. the piece of 
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a><a class="tag" href="http://mullikine.github.io/tags/ir/">IR</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a><a class="tag" href="http://mullikine.github.io/tags/ir/">ir</a></div></div>
     </header>
     
 
@@ -214,6 +214,43 @@ similar.</p>
 <p>A simple and common way of doing this is to
 sum (or average) the vectors for all the words
 in the text together.</p>
+
+<h3 id="vector-based-similarity">Vector-based similarity</h3>
+
+<p>Map 2 both snippets into a vector space and
+compute the distance between the vectors.</p>
+
+<p>A common choice is to use the angular
+distance.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">angular distance
+angular separation
+apparent distance
+apparent separation
+    [...between two point objects as viewed
+    from a location different from either of
+    these objects]
+
+    The angle of length between the two
+    directions originating from the observer
+    and pointing toward these two objects.</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
