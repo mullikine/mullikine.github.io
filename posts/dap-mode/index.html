@@ -13,11 +13,11 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="DAP mode for emacs"/>
 <meta name="twitter:description" content="Related reading Setting up LSP with emacs (Go, Java, Python, Rust, C&#43;&#43;, Haskell) // Bodacious Blog https://microsoft.github.io/debug-adapter-protocol/  DAP mode is like LSP for debugging.
-bindings 1 2  (define-key my-mode-map (kbd &#34;M-m a b&#34;) #&#39;dap-hydra/body) (define-key my-mode-map (kbd &#34;M-m a a&#34;) #&#39;dap-ui-breakpoints)   State of languages with DAP in my own environment    Language DAP Working LSP Working Fallback working Current user experience     Java ✓ ✓ ✓ eclim Good    Java"/>
+bindings 1 2 3  (define-key my-mode-map (kbd &#34;M-m a b&#34;) #&#39;dap-hydra/body) (define-key my-mode-map (kbd &#34;M-m a a&#34;) #&#39;dap-ui-breakpoints) (define-key prog-mode-map (kbd &#34;M-\&#34;&#34;) &#39;handle-debug)   State of languages with DAP in my own environment    Language DAP Working LSP Working Fallback working Current user experience     Java ✓ ✓ ✓ eclim Good    Java Here is an example of me creating a breakpoint with a condition and running the debugger."/>
 
     <meta property="og:title" content="DAP mode for emacs" />
 <meta property="og:description" content="Related reading Setting up LSP with emacs (Go, Java, Python, Rust, C&#43;&#43;, Haskell) // Bodacious Blog https://microsoft.github.io/debug-adapter-protocol/  DAP mode is like LSP for debugging.
-bindings 1 2  (define-key my-mode-map (kbd &#34;M-m a b&#34;) #&#39;dap-hydra/body) (define-key my-mode-map (kbd &#34;M-m a a&#34;) #&#39;dap-ui-breakpoints)   State of languages with DAP in my own environment    Language DAP Working LSP Working Fallback working Current user experience     Java ✓ ✓ ✓ eclim Good    Java" />
+bindings 1 2 3  (define-key my-mode-map (kbd &#34;M-m a b&#34;) #&#39;dap-hydra/body) (define-key my-mode-map (kbd &#34;M-m a a&#34;) #&#39;dap-ui-breakpoints) (define-key prog-mode-map (kbd &#34;M-\&#34;&#34;) &#39;handle-debug)   State of languages with DAP in my own environment    Language DAP Working LSP Working Fallback working Current user experience     Java ✓ ✓ ✓ eclim Good    Java Here is an example of me creating a breakpoint with a condition and running the debugger." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/dap-mode/" />
 <meta property="article:published_time" content="2019-12-10T00:00:00+13:00" />
@@ -165,10 +165,12 @@ bindings 1 2  (define-key my-mode-map (kbd &#34;M-m a b&#34;) #&#39;dap-hydra/bo
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a6e22e">define-key</span> my-mode-map (kbd <span style="color:#e6db74">&#34;M-m a b&#34;</span>) <span style="color:#a6e22e">#&#39;</span>dap-hydra/body)
-(<span style="color:#a6e22e">define-key</span> my-mode-map (kbd <span style="color:#e6db74">&#34;M-m a a&#34;</span>) <span style="color:#a6e22e">#&#39;</span>dap-ui-breakpoints)</code></pre></td></tr></table>
+(<span style="color:#a6e22e">define-key</span> my-mode-map (kbd <span style="color:#e6db74">&#34;M-m a a&#34;</span>) <span style="color:#a6e22e">#&#39;</span>dap-ui-breakpoints)
+(<span style="color:#a6e22e">define-key</span> prog-mode-map (kbd <span style="color:#e6db74">&#34;M-\&#34;&#34;</span>) <span style="color:#e6db74">&#39;handle-debug</span>)</code></pre></td></tr></table>
 </div>
 </div>
 
@@ -197,6 +199,9 @@ bindings 1 2  (define-key my-mode-map (kbd &#34;M-m a b&#34;) #&#39;dap-hydra/bo
 </table>
 
 <h3 id="java">Java</h3>
+
+<p>Here is an example of me creating a breakpoint
+with a condition and running the debugger.</p>
 
 <p><a href="https://asciinema.org/a/9n08KTmkhigIkbjmXf6jtdri1" target="_blank"><img src="https://asciinema.org/a/9n08KTmkhigIkbjmXf6jtdri1.svg" /></a></p>
 
