@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>Shortcomings of classical search engines // Bodacious Blog</title>
+    <title>Keyboard macros in GNU Ranger // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.59.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,17 +11,17 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Shortcomings of classical search engines"/>
-<meta name="twitter:description" content="https://arxiv.org/pdf/1710.05649.pdf
-Glossary 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  relevance feedback Feature of some IR systems. Take the results that are initially returned from a given query, to gather user feedback, and to use information about whether or not those results are relevant to perform a new query. Three types of feedback: - explicit feedback, - implicit feedback, and - blind feedback."/>
+<meta name="twitter:title" content="Keyboard macros in GNU Ranger"/>
+<meta name="twitter:description" content="Ranger does not have a build-in keyboard macro mechanism, but you can use tmux for this.
+Create the tm-send-slow command 1 2 3 4 5 6 7 8  #!/bin/bash export TTY string=&#34;$1&#34; grep -o . &lt;&lt;&lt; &#34;$string&#34; | while IFS=$&#39;\n&#39; read -r char; do tmux send -l &#34;$char&#34; done   Create the mapping 1  map F. shell -f tm-send-slow FFf   Demonstration"/>
 
-    <meta property="og:title" content="Shortcomings of classical search engines" />
-<meta property="og:description" content="https://arxiv.org/pdf/1710.05649.pdf
-Glossary 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  relevance feedback Feature of some IR systems. Take the results that are initially returned from a given query, to gather user feedback, and to use information about whether or not those results are relevant to perform a new query. Three types of feedback: - explicit feedback, - implicit feedback, and - blind feedback." />
+    <meta property="og:title" content="Keyboard macros in GNU Ranger" />
+<meta property="og:description" content="Ranger does not have a build-in keyboard macro mechanism, but you can use tmux for this.
+Create the tm-send-slow command 1 2 3 4 5 6 7 8  #!/bin/bash export TTY string=&#34;$1&#34; grep -o . &lt;&lt;&lt; &#34;$string&#34; | while IFS=$&#39;\n&#39; read -r char; do tmux send -l &#34;$char&#34; done   Create the mapping 1  map F. shell -f tm-send-slow FFf   Demonstration" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/shortcomings-of-search-engines/" />
-<meta property="article:published_time" content="2019-11-22T00:00:00+13:00" />
-<meta property="article:modified_time" content="2019-11-22T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:url" content="https://mullikine.github.io/posts/macros-in-gnu-ranger/" />
+<meta property="article:published_time" content="2019-12-12T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-12-12T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
 
 
   </head>
@@ -120,14 +120,14 @@ Glossary 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  relevance feedback Fea
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Shortcomings of classical search engines</h1>
+      <h1 class ="post-title">Keyboard macros in GNU Ranger</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
   <title>calendar</title>
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
 </svg>
-          Nov 22, 2019
+          Dec 12, 2019
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
@@ -140,7 +140,7 @@ Glossary 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  relevance feedback Fea
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/ir/">IR</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/bash/">bash</a><a class="tag" href="http://mullikine.github.io/tags/tmux/">tmux</a><a class="tag" href="http://mullikine.github.io/tags/ranger/">ranger</a></div></div>
     </header>
     
 
@@ -154,99 +154,47 @@ Glossary 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  relevance feedback Fea
     <div class="post-content">
       
 
-<p><a href="https://arxiv.org/pdf/1710.05649.pdf">https://arxiv.org/pdf/1710.05649.pdf</a></p>
+<p>Ranger does not have a build-in keyboard macro mechanism, but you can use tmux for this.</p>
 
-<h2 id="glossary">Glossary</h2>
-
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">relevance feedback
-    Feature of some IR systems.
-
-    Take the results that are initially
-    returned from a given query, to gather
-    user feedback, and to use information
-    about whether or not those results are
-    relevant to perform a new query.
-
-    Three types of feedback:
-    - explicit feedback,
-    - implicit feedback, and
-    - blind feedback.
-
-contextual search
-    A form of optimizing web-based search
-    results based on context provided by the
-    user and the computer being used to enter
-    the query.</code></pre></td></tr></table>
-</div>
-</div>
-
-<dl>
-<dt>original articles</dt>
-<dd><a href="https://towardsdatascience.com/semantic-search-fuck-yeah-e371c0f639d">https://towardsdatascience.com/semantic-search-fuck-yeah-e371c0f639d</a>
-  <a href="https://www.questia.com/library/4592903/a-symbolic-and-connectionist-approach-to-legal-information">https://www.questia.com/library/4592903/a-symbolic-and-connectionist-approach-to-legal-information</a></dd>
-</dl>
-
-<p>Traditional systems are extremely brittle,
-failing to retrieve relevant documents unless
-the user&rsquo;s exact search string is found.</p>
-
-<ul>
-<li>Traditional relevance feedback doesn&rsquo;t learn from experience with users.</li>
-</ul>
-
-<h2 id="case-study-lucene">Case study: lucene</h2>
-
-<h3 id="token-matching">Token matching</h3>
+<h2 id="create-the-tm-send-slow-command">Create the <code>tm-send-slow</code> command</h2>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ewwlinks +/<span style="color:#e6db74">&#34;Token matching&#34;</span> <span style="color:#e6db74">&#34;https://towardsdatascience.com/semantic-search-fuck-yeah-e371c0f639d&#34;</span></code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+string<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+
+grep -o . <span style="color:#f92672">&lt;&lt;&lt;</span> <span style="color:#e6db74">&#34;</span>$string<span style="color:#e6db74">&#34;</span> | <span style="color:#66d9ef">while</span> IFS<span style="color:#f92672">=</span><span style="color:#e6db74">$&#39;\n&#39;</span> read -r char; <span style="color:#66d9ef">do</span>
+    tmux send -l <span style="color:#e6db74">&#34;</span>$char<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">done</span></code></pre></td></tr></table>
 </div>
 </div>
 
-<h3 id="contextualisation">Contextualisation</h3>
+<h2 id="create-the-mapping">Create the mapping</h2>
 
-<p>Why thy hell I see books on NLP(Neuro-
-linguistic programming) when I search NLP?!
-Contextual search can solve this — If the
-search engine knows that I buy books on CS, it
-would have shown me books on NLP instead.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-conf" data-lang="conf"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-conf" data-lang="conf">map F. shell -f tm-send-slow FFf</code></pre></td></tr></table>
+</div>
+</div>
 
-<h3 id="query-misunderstanding">Query misunderstanding</h3>
+<h2 id="demonstration">Demonstration</h2>
 
-<dl>
-<dt>query</dt>
-<dd><code>a’s influence on x</code>
-  Rather than finding Bernhard’s influence
-  on academic, the first paper is about
-  Herbart’s influence on Bernhard.</dd>
-</dl>
+<p><a href="https://asciinema.org/a/fkTAFIiesWFMfz3JcQQALRPqB" target="_blank"><img src="https://asciinema.org/a/fkTAFIiesWFMfz3JcQQALRPqB.svg" /></a></p>
 
     </div>
     <div class="post-footer">
