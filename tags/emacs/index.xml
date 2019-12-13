@@ -6,10 +6,19 @@
     <description>Recent content in emacs on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 Dec 2019 00:00:00 +1300</lastBuildDate>
+    <lastBuildDate>Fri, 13 Dec 2019 00:00:00 +1300</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Using comint for persistent history of shell commands</title>
+      <link>https://mullikine.github.io/posts/using-comint-for-persistent-history-of-shell-commands/</link>
+      <pubDate>Fri, 13 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/using-comint-for-persistent-history-of-shell-commands/</guid>
+      <description>Relevent article https://emacs.stackexchange.com/questions/9925/persistent-shell-command-history  Write the elisp 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38  (defun comint-quick (cmd) (interactive) (let* ((slug (slugify cmd)) (buf (make-comint slug (nsfa cmd)))) (with-current-buffer buf (switch-to-buffer buf) (turn-on-comint-history (concat &amp;#34;/home/shane/notes/programs/comint/history/&amp;#34; slug))))) (require &amp;#39;exec-path-from-shell) ;; comint persistent history ;; https://emacs.</description>
+    </item>
     
     <item>
       <title>Browsing sqlite3 databases with edbi for emacs</title>
