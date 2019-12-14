@@ -6,10 +6,19 @@
     <description>Recent content in tooling on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 Dec 2019 00:00:00 +1300</lastBuildDate>
+    <lastBuildDate>Sun, 15 Dec 2019 00:00:00 +1300</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/tooling/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>explainshell in zsh</title>
+      <link>https://mullikine.github.io/posts/explainshell/</link>
+      <pubDate>Sun, 15 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/explainshell/</guid>
+      <description>Create the script 1 2 3 4 5 6 7 8 9 10 11 12 13  #!/bin/bash export TTY IFS= read -rd &amp;#39;&amp;#39; input &amp;lt; &amp;lt;(cat /dev/stdin) query=&amp;#34;$(p &amp;#34;$input&amp;#34; | urlencode)&amp;#34; url=&amp;#34;https://explainshell.com/explain?cmd=$query&amp;#34; # echo &amp;#34;$url&amp;#34; exec &amp;lt;&amp;amp;1 eww &amp;#34;$url&amp;#34;   Create the function 1 2 3 4 5 6 7 8 9  function zshexplainshell { tf_zle=&amp;#34;$(mktemp ${TMPDIR}/tf_zleXXXXXX || echo /dev/null)&amp;#34; print -R - &amp;#34;$PREBUFFER$BUFFER&amp;#34; &amp;gt; $tf_zle exec &amp;lt;&amp;amp;1 print -R - &amp;#34;$PREBUFFER$BUFFER&amp;#34; | explainshell print -Rz - &amp;#34;$(&amp;lt;$tf_zle)&amp;#34; zle send-break	# Force reload from the buffer stack }   Create the binding 1 2 3 4  # M-E autoload -z zshexplainshell zle -N zshexplainshell bindkey &amp;#34;\eE&amp;#34; zshexplainshell   Demonstration 1  x -sh &amp;#34;zcd .</description>
+    </item>
     
     <item>
       <title>Browsing sqlite3 databases with edbi for emacs</title>
