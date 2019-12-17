@@ -264,6 +264,8 @@ $0
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defvar mc-minor-mode-map (<span style="color:#a6e22e">make-sparse-keymap</span>)
@@ -284,7 +286,9 @@ $0
 <span style="color:#75715e">;; This is definitely a bad solution</span>
 (<span style="color:#a6e22e">define-key</span> mc-minor-mode-map (kbd <span style="color:#e6db74">&#34;&lt;up&gt;&#34;</span>) (lm (tsk <span style="color:#e6db74">&#34;C-p&#34;</span>)))
 (<span style="color:#a6e22e">define-key</span> mc-minor-mode-map (kbd <span style="color:#e6db74">&#34;&lt;down&gt;&#34;</span>) (lm (tsk <span style="color:#e6db74">&#34;C-n&#34;</span>)))
-(<span style="color:#a6e22e">define-key</span> mc-minor-mode-map (kbd <span style="color:#e6db74">&#34;&lt;right&gt;&#34;</span>) (lm (tsk <span style="color:#e6db74">&#34;M-3&#34;</span>)))
+<span style="color:#75715e">;; (define-key mc-minor-mode-map (kbd &#34;&lt;right&gt;&#34;) (lm (tsk &#34;M-3&#34;)))</span>
+(<span style="color:#a6e22e">define-key</span> mc-minor-mode-map (kbd <span style="color:#e6db74">&#34;&lt;left&gt;&#34;</span>) (lm (tsk <span style="color:#e6db74">&#34;PgUp&#34;</span>)))
+(<span style="color:#a6e22e">define-key</span> mc-minor-mode-map (kbd <span style="color:#e6db74">&#34;&lt;right&gt;&#34;</span>) (lm (tsk <span style="color:#e6db74">&#34;PgDn&#34;</span>)))
 
 (provide <span style="color:#e6db74">&#39;mc-minor-mode</span>)</code></pre></td></tr></table>
 </div>
