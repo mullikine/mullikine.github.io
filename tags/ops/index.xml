@@ -17,9 +17,7 @@
       <pubDate>Tue, 17 Dec 2019 00:00:00 +1300</pubDate>
       
       <guid>https://mullikine.github.io/posts/minor-mode-wrappers-for-shell-commands/</guid>
-      <description>This will create a minor mode which rebinds up, down and right to useful midnight commander bindings Basically, I am creating a program-agnostic method of rebinding keys.
-I can create minor modes to control arbitrary shell commands, as I might do with apps made for emacs.
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21  (defvar mc-minor-mode-map (make-sparse-keymap) &amp;#34;Keymap for `mc-minor-mode&amp;#39;.</description>
+      <description>Create a snippet for creating buffer-local minor modes 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26  # -*- mode: snippet -*- # name: minor mode for overriding keybindings # group: # key: mm # -- (defvar ${1:my}-minor-mode-map (make-sparse-keymap) &amp;#34;Keymap for \`$1-minor-mode&amp;#39;.&amp;#34;) ;; (makunbound &amp;#39;$1-minor-mode) (defvar-local $1-minor-mode nil) (define-minor-mode $1-minor-mode &amp;#34;A minor mode so that my key settings override annoying major modes.</description>
     </item>
     
     <item>
