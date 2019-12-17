@@ -17,7 +17,10 @@
       <pubDate>Tue, 17 Dec 2019 00:00:00 +1300</pubDate>
       
       <guid>https://mullikine.github.io/posts/minor-mode-wrappers-for-shell-commands/</guid>
-      <description>Create a snippet for creating buffer-local minor modes 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26  # -*- mode: snippet -*- # name: minor mode for overriding keybindings # group: # key: mm # -- (defvar ${1:my}-minor-mode-map (make-sparse-keymap) &amp;#34;Keymap for \`$1-minor-mode&amp;#39;.&amp;#34;) ;; (makunbound &amp;#39;$1-minor-mode) (defvar-local $1-minor-mode nil) (define-minor-mode $1-minor-mode &amp;#34;A minor mode so that my key settings override annoying major modes.</description>
+      <description>Summary Basically, I am creating a program-agnostic method of rebinding keys.
+Given an arbitrary shell command, such as mc (midnight commander), I can create my own keybindings and macros for this program as if I was customising an emacs mode.
+It&amp;rsquo;s all part of trying to control everything from emacs.
+More specifically, this article is about creating buffer-local minor modes which are enabled only for specific commands started through term-mode.</description>
     </item>
     
     <item>
