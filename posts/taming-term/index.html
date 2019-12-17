@@ -156,8 +156,8 @@
 <dl>
 <dt>libertyprime to #emacs</dt>
 <dd>i found myself recording an asciinema recording of me making an asciinema
-   recording of me playing tetris inside of tmux inside of neovim inside of emacs
-   inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about</dd>
+recording of me playing tetris inside of tmux inside of neovim inside of emacs
+inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about</dd>
 </dl>
 
 <h2 id="first-attempt">First attempt</h2>
@@ -539,6 +539,8 @@ press it!</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(setq explicit-shell-file-name <span style="color:#e6db74">&#34;/bin/bash&#34;</span>)
@@ -633,6 +635,8 @@ press it!</p>
 
 <span style="color:#75715e">;; We don&#39;t want to move the terminal around as we are trying to use it</span>
 (defun my-term-set-scroll-margin ()
+  (<span style="color:#a6e22e">make-local-variable</span> <span style="color:#e6db74">&#39;hscroll-margin</span>)
+  (setq hscroll-margin <span style="color:#ae81ff">0</span>)
   (<span style="color:#a6e22e">make-local-variable</span> <span style="color:#e6db74">&#39;scroll-margin</span>)
   (setq scroll-margin <span style="color:#ae81ff">0</span>)
   (<span style="color:#a6e22e">make-local-variable</span> <span style="color:#e6db74">&#39;scroll-conservatively</span>)
@@ -648,34 +652,34 @@ press it!</p>
   <span style="color:#75715e">;; loses one arg when called with -c, and newer shells (bash,  ksh) don&#39;t.</span>
   <span style="color:#75715e">;; Thus we add an extra dummy argument &#34;..&#34;, and then remove it.</span>
   (let ((process-environment
-   (<span style="color:#a6e22e">nconc</span>
-  	(<span style="color:#a6e22e">list</span>
-  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;TERM=%s&#34;</span> term-term-name)
-  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;TERMINFO=%s&#34;</span> data-directory)
-  	 (<span style="color:#a6e22e">format</span> term-termcap-format <span style="color:#e6db74">&#34;TERMCAP=&#34;</span>
-  		 term-term-name term-height term-width)
+       (<span style="color:#a6e22e">nconc</span>
+        (<span style="color:#a6e22e">list</span>
+         (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;TERM=%s&#34;</span> term-term-name)
+         (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;TERMINFO=%s&#34;</span> data-directory)
+         (<span style="color:#a6e22e">format</span> term-termcap-format <span style="color:#e6db74">&#34;TERMCAP=&#34;</span>
+                 term-term-name term-height term-width)
 
-  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;INSIDE_EMACS=%s,term:%s&#34;</span> emacs-version term-protocol-version)
-  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;LINES=%d&#34;</span> term-height)
-  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;COLUMNS=%d&#34;</span> term-width))
-  	process-environment))
-  (process-connection-type <span style="color:#66d9ef">t</span>)
-  <span style="color:#75715e">;; We should suppress conversion of end-of-line format.</span>
-  (inhibit-eol-conversion <span style="color:#66d9ef">t</span>)
-  <span style="color:#75715e">;; The process&#39;s output contains not just chars but also binary</span>
-  <span style="color:#75715e">;; escape codes, so we need to see the raw output.  We will have to</span>
-  <span style="color:#75715e">;; do the decoding by hand on the parts that are made of chars.</span>
-  (coding-system-for-read <span style="color:#e6db74">&#39;binary</span>))
+         (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;INSIDE_EMACS=%s,term:%s&#34;</span> emacs-version term-protocol-version)
+         (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;LINES=%d&#34;</span> term-height)
+         (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;COLUMNS=%d&#34;</span> term-width))
+        process-environment))
+      (process-connection-type <span style="color:#66d9ef">t</span>)
+      <span style="color:#75715e">;; We should suppress conversion of end-of-line format.</span>
+      (inhibit-eol-conversion <span style="color:#66d9ef">t</span>)
+      <span style="color:#75715e">;; The process&#39;s output contains not just chars but also binary</span>
+      <span style="color:#75715e">;; escape codes, so we need to see the raw output.  We will have to</span>
+      <span style="color:#75715e">;; do the decoding by hand on the parts that are made of chars.</span>
+      (coding-system-for-read <span style="color:#e6db74">&#39;binary</span>))
     (when (term--bash-needs-EMACSp)
       (push (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;EMACS=%s (term:%s)&#34;</span> emacs-version term-protocol-version)
             process-environment))
     (<span style="color:#a6e22e">apply</span> <span style="color:#e6db74">&#39;start-process</span> name buffer
-  	 <span style="color:#e6db74">&#34;/bin/sh&#34;</span> <span style="color:#e6db74">&#34;-c&#34;</span>
-  	 (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;stty stop undef; stty start undef; stty -nl echo rows %d columns %d sane 2&gt;/dev/null;\
+         <span style="color:#e6db74">&#34;/bin/sh&#34;</span> <span style="color:#e6db74">&#34;-c&#34;</span>
+         (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;stty stop undef; stty start undef; stty -nl echo rows %d columns %d sane 2&gt;/dev/null;\
 </span><span style="color:#e6db74">if [ $1 = .. ]; then shift; fi; exec \&#34;$@\&#34;&#34;</span>
-  		 term-height term-width)
-  	 <span style="color:#e6db74">&#34;..&#34;</span>
-  	 command switches)))
+                 term-height term-width)
+         <span style="color:#e6db74">&#34;..&#34;</span>
+         command switches)))
 
 (provide <span style="color:#e6db74">&#39;my-term</span>)</code></pre></td></tr></table>
 </div>
