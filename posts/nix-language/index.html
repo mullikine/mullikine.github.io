@@ -241,6 +241,40 @@ Nix expression language
 <li>basic arithmetic operations: +, -, * and /</li>
 </ul>
 
+<h2 id="suprises">Suprises</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">nix-repl&gt; 6/3
+/home/shane/blog/posts/6/3</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>What happened?</p>
+
+<p>Recall that Nix is not a general purpose
+language, it&rsquo;s a domain-specific language for
+writing packages.</p>
+
+<p>Integer division isn&rsquo;t actually that useful
+when writing package expressions.</p>
+
+<p>Nix parsed <sup>6</sup>&frasl;<sub>3</sub> as a relative path to the
+current directory.</p>
+
+<p>To get Nix to perform division instead, leave
+a space after the /.</p>
+
+<p>Alternatively, you can use builtins.div.</p>
+
+<h2 id="demonstration">Demonstration</h2>
+
+<p><a href="https://asciinema.org/a/kBYAgw8XG8dfV1xFbVT1EZBTL" target="_blank"><img src="https://asciinema.org/a/kBYAgw8XG8dfV1xFbVT1EZBTL.svg" /></a></p>
+
     </div>
     <div class="post-footer">
       
