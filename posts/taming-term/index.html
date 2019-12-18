@@ -133,7 +133,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          10 min read
+          11 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -156,8 +156,8 @@
 <dl>
 <dt>libertyprime to #emacs</dt>
 <dd>i found myself recording an asciinema recording of me making an asciinema
-recording of me playing tetris inside of tmux inside of neovim inside of emacs
-inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about</dd>
+   recording of me playing tetris inside of tmux inside of neovim inside of emacs
+   inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about</dd>
 </dl>
 
 <h2 id="first-attempt">First attempt</h2>
@@ -358,6 +358,7 @@ globalised modes. That worked for me.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun disable-modes-for-term ()
@@ -365,7 +366,8 @@ globalised modes. That worked for me.</p>
   (progn
     (global-display-line-numbers-mode <span style="color:#ae81ff">-1</span>)
     (global-hide-mode-line-mode <span style="color:#ae81ff">1</span>)
-    (visual-line-mode <span style="color:#ae81ff">-1</span>))
+    (visual-line-mode <span style="color:#ae81ff">-1</span>)
+    (fringe-mode <span style="color:#ae81ff">-1</span>))
 
   (my-mode <span style="color:#ae81ff">-1</span>))
 
@@ -928,6 +930,139 @@ sending those function keys through.</p>
   (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c C-j&#34;</span>) <span style="color:#a6e22e">#&#39;</span>term-line-mode)
   (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-c C-h&#34;</span>) <span style="color:#a6e22e">#&#39;</span>describe-mode)
   (<span style="color:#a6e22e">define-key</span> term-raw-map (kbd <span style="color:#e6db74">&#34;C-d&#34;</span>) <span style="color:#e6db74">&#39;term-raw-or-kill</span>))</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="adding-a-sentinel-to-tell-me-when-the-process-closes">Adding a sentinel to tell me when the process closes</h2>
+
+<p>This means I can create shell scripts which start processes inside emacs and close the emacs frame when done.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; This remembers the last frame which was created</span>
+(defvar termframe <span style="color:#66d9ef">nil</span>)
+
+(defun set-termframe (frame)
+  (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;setting &#34;</span> (str frame)))
+  (with-current-buffer <span style="color:#e6db74">&#34;*scratch*&#34;</span>
+    (setq termframe frame))
+  )
+
+(add-hook <span style="color:#e6db74">&#39;after-make-frame-functions</span> <span style="color:#e6db74">&#39;set-termframe</span>)
+
+<span style="color:#75715e">;; This sets a buffer-local variable with the frame which started when this process started</span>
+(defun my/term (program <span style="color:#66d9ef">&amp;optional</span> closeframe)
+  (interactive)
+  (with-current-buffer (term program)
+    (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;term &#34;</span> (str termframe)))
+    (if closeframe
+        (defset-local termframe-local termframe))))
+
+<span style="color:#75715e">;; This sets the process sentinel to close the frame</span>
+(defun oleh-term-exec-hook ()
+  (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;oleh-term-exec-hook()&#34;</span>)
+  (let* ((buff (<span style="color:#a6e22e">current-buffer</span>))
+         (proc (<span style="color:#a6e22e">get-buffer-process</span> buff)))
+    (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;setting &#34;</span> (str buff) <span style="color:#e6db74">&#34; &#34;</span> (str proc)))
+    (<span style="color:#a6e22e">set-process-sentinel</span>
+     proc
+     <span style="color:#f92672">`</span>(lambda (process event)
+        (if (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34;\\(finished\\|exited\\)&#34;</span> event)
+            <span style="color:#75715e">;; (string= event &#34;finished\n&#34;)</span>
+            (progn
+              (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;finished&#34;</span>)
+              (if (variable-p <span style="color:#e6db74">&#39;termframe-local</span>)
+                  (<span style="color:#a6e22e">delete-frame</span> termframe-local <span style="color:#66d9ef">t</span>))
+              (with-current-buffer <span style="color:#f92672">,</span>buff (ignore-errors (kill-buffer-and-window)))))))
+
+    (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;setting &#34;</span> (str buff) <span style="color:#e6db74">&#34; &#34;</span> (str proc) <span style="color:#e6db74">&#34; &#34;</span> (str (<span style="color:#a6e22e">process-sentinel</span> (<span style="color:#a6e22e">get-buffer-process</span> (<span style="color:#a6e22e">current-buffer</span>))))))))
+
+(add-hook <span style="color:#e6db74">&#39;term-exec-hook</span> <span style="color:#e6db74">&#39;oleh-term-exec-hook</span>)</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="spacemacs-needed-me-to-remove-this-dot-it-ignored-the-sentinel-i-made-to-force-the-way-term-closes">Spacemacs needed me to remove this. It ignored the sentinel i made to force the way term-closes</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">vim +/<span style="color:#e6db74">&#34;;; Perhaps there is something in spacemacs force the ignore&#34;</span> <span style="color:#e6db74">&#34;</span>$EMACSD<span style="color:#e6db74">/config/my-term.el&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Found it!</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(add-hook <span style="color:#e6db74">&#39;term-mode-hook</span> <span style="color:#e6db74">&#39;ansi-term-handle-close</span>)</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">vim +/<span style="color:#e6db74">&#34;(add-hook &#39;term-mode-hook &#39;ansi-term-handle-close)&#34;</span> <span style="color:#e6db74">&#34;</span>$MYGIT<span style="color:#e6db74">/spacemacs/layers/+tools/shell/packages.el&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="solution">Solution</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(if (cl-search <span style="color:#e6db74">&#34;SPACEMACS&#34;</span> my-daemon-name)
+    (remove-hook <span style="color:#e6db74">&#39;term-mode-hook</span> <span style="color:#e6db74">&#39;ansi-term-handle-close</span>))</code></pre></td></tr></table>
 </div>
 </div>
 
