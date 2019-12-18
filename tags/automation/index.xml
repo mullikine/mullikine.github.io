@@ -6,10 +6,21 @@
     <description>Recent content in automation on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 Dec 2019 00:00:00 +1300</lastBuildDate>
+    <lastBuildDate>Wed, 18 Dec 2019 00:00:00 +1300</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/automation/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Dwarf Fortress macros with emacs and tmux</title>
+      <link>https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/</link>
+      <pubDate>Wed, 18 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/</guid>
+      <description>Related articles minor mode wrappers for shell commands // Bodacious Blog  Write the emacs lisp This macro creates minor modes from a list of shell command names.
+These shell commands may be arbitrary terminal programs.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34  (defmacro defcmdmode (cmd) (setq cmd (str cmd)) (let* ((cmdslug (slugify (str cmd))) (modestr (concat cmdslug &amp;#34;-term-mode&amp;#34;)) (modesym (str2sym modestr)) (mapsym (str2sym (concat modestr &amp;#34;-map&amp;#34;)))) `(progn (defvar ,mapsym (make-sparse-keymap) ,(concat &amp;#34;Keymap for `&amp;#34; modestr &amp;#34;&amp;#39;.</description>
+    </item>
     
     <item>
       <title>minor mode wrappers for shell commands</title>
