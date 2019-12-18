@@ -156,8 +156,8 @@
 <dl>
 <dt>libertyprime to #emacs</dt>
 <dd>i found myself recording an asciinema recording of me making an asciinema
-   recording of me playing tetris inside of tmux inside of neovim inside of emacs
-   inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about</dd>
+recording of me playing tetris inside of tmux inside of neovim inside of emacs
+inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about</dd>
 </dl>
 
 <h2 id="first-attempt">First attempt</h2>
@@ -978,6 +978,11 @@ sending those function keys through.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; This remembers the last frame which was created</span>
@@ -997,7 +1002,12 @@ sending those function keys through.</p>
   (with-current-buffer (term program)
     (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;term &#34;</span> (str termframe)))
     (if closeframe
-        (defset-local termframe-local termframe))))
+        <span style="color:#75715e">;; (defset-local termframe-local (with-current-buffer &#34;*scratch*&#34; termframe))</span>
+        (defset-local termframe-local termframe))
+    (if (<span style="color:#a6e22e">string-equal</span> program <span style="color:#e6db74">&#34;midnight-commander&#34;</span>)
+        (mc-minor-mode)))
+  <span style="color:#75715e">;; (add-hook &#39;after-make-frame-functions &#39;set-termframe)</span>
+  )
 
 <span style="color:#75715e">;; This sets the process sentinel to close the frame</span>
 (defun oleh-term-exec-hook ()

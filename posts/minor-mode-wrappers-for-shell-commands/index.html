@@ -12,13 +12,13 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="minor mode wrappers for shell commands"/>
-<meta name="twitter:description" content="Summary Basically, I am creating a program-agnostic method of rebinding keys.
+<meta name="twitter:description" content="Related article Taming term-mode // Bodacious Blog  Summary Basically, I am creating a program-agnostic method of rebinding keys.
 Given an arbitrary shell command, such as mc (midnight commander), I can create my own keybindings and macros for this program as if I was customising an emacs mode.
 It&rsquo;s all part of trying to control everything from emacs.
 More specifically, this article is about creating buffer-local minor modes which are enabled only for specific commands started through term-mode."/>
 
     <meta property="og:title" content="minor mode wrappers for shell commands" />
-<meta property="og:description" content="Summary Basically, I am creating a program-agnostic method of rebinding keys.
+<meta property="og:description" content="Related article Taming term-mode // Bodacious Blog  Summary Basically, I am creating a program-agnostic method of rebinding keys.
 Given an arbitrary shell command, such as mc (midnight commander), I can create my own keybindings and macros for this program as if I was customising an emacs mode.
 It&rsquo;s all part of trying to control everything from emacs.
 More specifically, this article is about creating buffer-local minor modes which are enabled only for specific commands started through term-mode." />
@@ -139,7 +139,7 @@ More specifically, this article is about creating buffer-local minor modes which
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -158,6 +158,11 @@ More specifically, this article is about creating buffer-local minor modes which
 
     <div class="post-content">
       
+
+<dl>
+<dt>Related article</dt>
+<dd><a href="https://mullikine.github.io/posts/taming-term/">Taming term-mode // Bodacious Blog</a></dd>
+</dl>
 
 <h2 id="summary">Summary</h2>
 
@@ -345,6 +350,74 @@ sp -e <span style="color:#e6db74">&#34;(term-nsfa </span><span style="color:#66d
 <h2 id="demonstration">Demonstration</h2>
 
 <p><a href="https://asciinema.org/a/Y6M8VMbN3TBOGRuT29m34uH4h" target="_blank"><img src="https://asciinema.org/a/Y6M8VMbN3TBOGRuT29m34uH4h.svg" /></a></p>
+
+<h2 id="enhancements">Enhancements</h2>
+
+<p>When improving term mode (see <code>taming-term</code>),
+I put the logic for starting minor modes into
+the <code>(my/term)</code> wrapper function along with
+the option to close the emacs frame upon the
+process ending.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#75715e"># sp -e &#34;(term-nsfa $(aqf &#34;midnight-commander&#34;))(mc-minor-mode)&#34;</span>
+
+<span style="color:#75715e"># sp -she midnight-commander -a &#34;(mc-minor-mode)&#34;</span>
+
+<span style="color:#75715e"># Is set the modes here now</span>
+<span style="color:#75715e"># vim +/&#34;(if (string-equal program \&#34;midnight-commander\&#34;)&#34; &#34;$EMACSD/config/my-term.el&#34;</span>
+
+sp -she midnight-commander</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>It looks like this now. See <code>taming-term</code> for details.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun my/term (program <span style="color:#66d9ef">&amp;optional</span> closeframe)
+  (interactive)
+  (with-current-buffer (term program)
+    (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;term &#34;</span> (str termframe)))
+    (if closeframe
+        <span style="color:#75715e">;; (defset-local termframe-local (with-current-buffer &#34;*scratch*&#34; termframe))</span>
+        (defset-local termframe-local termframe))
+    (if (<span style="color:#a6e22e">string-equal</span> program <span style="color:#e6db74">&#34;midnight-commander&#34;</span>)
+        (mc-minor-mode)))
+  <span style="color:#75715e">;; (add-hook &#39;after-make-frame-functions &#39;set-termframe)</span>
+  )</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
