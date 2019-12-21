@@ -137,7 +137,7 @@ For example, it will allow to you specify that all help buffers split to the rig
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -162,11 +162,53 @@ For example, it will allow to you specify that all help buffers split to the rig
 <p>Unfortunately, it doesn&rsquo;t provide an option to split sensibly, allowing you only to specify exactly how you want windows to be displayed.</p>
 
 <p>For example, it will allow to you specify that all help buffers split to the right with the following rule.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(<span style="color:#e6db74">&#34;*Help*&#34;</span> :other <span style="color:#66d9ef">t</span> :select <span style="color:#66d9ef">nil</span> :same <span style="color:#66d9ef">nil</span> :align <span style="color:#e6db74">&#39;right</span> :size <span style="color:#ae81ff">0.5</span>)</code></pre></div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#e6db74">&#34;*Help*&#34;</span> :other <span style="color:#66d9ef">t</span> :select <span style="color:#66d9ef">nil</span> :same <span style="color:#66d9ef">nil</span> :align <span style="color:#e6db74">&#39;right</span> :size <span style="color:#ae81ff">0.5</span>)</code></pre></td></tr></table>
+</div>
+</div>
+
 <p>We will make a function to determine which type of split to use based on the available screen real estate.</p>
 
 <h2 id="this-is-the-function">This is the function</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#75715e">;; This function is derived from split-window-sensibly</span>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; This function is derived from split-window-sensibly</span>
 (defun my-shackle-sensible-alignment (<span style="color:#66d9ef">&amp;optional</span> window)
   (interactive)
   (let ((window (or window (<span style="color:#a6e22e">selected-window</span>))))
@@ -193,16 +235,248 @@ For example, it will allow to you specify that all help buffers split to the rig
          (not (<span style="color:#a6e22e">window-minibuffer-p</span> window))
          (let ((split-height-threshold <span style="color:#ae81ff">0</span>))
            (when (window-splittable-p window)
-             <span style="color:#e6db74">&#39;below</span>))))))</code></pre></div>
+             <span style="color:#e6db74">&#39;below</span>))))))</code></pre></td></tr></table>
+</div>
+</div>
+
 <h2 id="example">Example</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs">(setq shackle-rules
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(setq shackle-rules
       <span style="color:#f92672">&#39;</span>((compilation-mode :select <span style="color:#66d9ef">nil</span>)
         (<span style="color:#e6db74">&#34;*undo-tree*&#34;</span> :size <span style="color:#ae81ff">0.25</span> :align my-shackle-sensible-alignment)
         (<span style="color:#e6db74">&#34;*Google Translate*&#34;</span> :size <span style="color:#ae81ff">0.25</span> :align my-shackle-sensible-alignment :select <span style="color:#66d9ef">t</span>)
-        (<span style="color:#e6db74">&#34;*Help*&#34;</span> :other <span style="color:#66d9ef">t</span> :select <span style="color:#66d9ef">nil</span> :same <span style="color:#66d9ef">nil</span> :align my-shackle-sensible-alignment :size <span style="color:#ae81ff">0.5</span>)))</code></pre></div>
+        (<span style="color:#e6db74">&#34;*Help*&#34;</span> :other <span style="color:#66d9ef">t</span> :select <span style="color:#66d9ef">nil</span> :same <span style="color:#66d9ef">nil</span> :align my-shackle-sensible-alignment :size <span style="color:#ae81ff">0.5</span>)))</code></pre></td></tr></table>
+</div>
+</div>
+
 <h2 id="demonstration">Demonstration</h2>
 
 <p><a href="https://asciinema.org/a/WBfAXNfgSZpjD2GVJiAcEYAlK" target="_blank"><img src="https://asciinema.org/a/WBfAXNfgSZpjD2GVJiAcEYAlK.svg" /></a></p>
+
+<h2 id="babel">Babel</h2>
+
+<h3 id="extend-babel">Extend babel</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">diff --git a/config/my-babel.el b/config/my-babel.el
+index 2441148..c241882 100644
+<span style="color:#f92672">--- a/config/my-babel.el
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+++ b/config/my-babel.el
+</span><span style="color:#a6e22e"></span><span style="color:#75715e">@@ -43,6 +43,7 @@
+</span><span style="color:#75715e"></span>                     (cdr (assoc :in params))))
+         (interpreter (or (cdr (assoc :interpreter params))
+                          (cdr (assoc :i params))
+<span style="color:#a6e22e">+                         (cdr (assoc :sps params))
+</span><span style="color:#a6e22e"></span>                          (cdr (assoc :sph params))
+                          (cdr (assoc :spv params))
+                          (cdr (assoc :comint params))
+<span style="color:#75715e">@@ -92,11 +93,11 @@
+</span><span style="color:#75715e"></span>           (setq cmd (concat cmd &#34;; pak&#34;)))
+       (cond ((assoc :comint params) (comint-quick cmd))
+             ((assoc :nw params) (nw cmd))
+<span style="color:#a6e22e">+            ((assoc :sps params) (sps cmd))
+</span><span style="color:#a6e22e"></span>             ((assoc :sph params) (sph cmd))
+             ((assoc :spv params) (spv cmd))
+<span style="color:#f92672">-            ((assoc :spv params) (nw cmd))
+</span><span style="color:#f92672"></span>             ((assoc :esph params) (sph-term cmd))
+<span style="color:#f92672">-            ((assoc :esph params) (spv-term cmd))
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+            ((assoc :espv params) (spv-term cmd))
+</span><span style="color:#a6e22e"></span>             ((assoc :enw params) (nw-term cmd))
+             (t (shell-command-to-string cmd))))))
+
+<span style="color:#75715e">@@ -129,6 +130,7 @@ block.&#34;
+</span><span style="color:#75715e"></span>       (let* ((params (nth 2 info))
+              (interpreter (or (cdr (assq :interpreter params))
+                               (cdr (assq :i params))
+<span style="color:#a6e22e">+                              (cdr (assq :sps params))
+</span><span style="color:#a6e22e"></span>                               (cdr (assq :sph params))
+                               (cdr (assq :spv params))
+                               (cdr (assq :comint params))
+</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="extend-org-template-gen">Extend <code>org-template-gen</code></h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">diff --git a/org-template-gen b/org-template-gen
+index 3cbcd1c..69b8877 100755
+<span style="color:#f92672">--- a/org-template-gen
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+++ b/org-template-gen
+</span><span style="color:#a6e22e"></span><span style="color:#75715e">@@ -29,7 +29,7 @@ fi
+</span><span style="color:#75715e"></span> # ns &#34;$lang&#34;
+
+ case &#34;$lang&#34; in
+<span style="color:#f92672">-    spv|sph|nw|esph|espv) {
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+    sps|spv|sph|nw|esph|espv) {
+</span><span style="color:#a6e22e"></span>         # echo &#34;#+BEGIN_SRC sh -n :interpreter \&#34;$lang bash\&#34; :async :results none&#34;
+         echo &#34;#+BEGIN_SRC sh -n :$lang bash :async :results none&#34;
+         cat &#34;$input_fp&#34; | sed &#39;s/^\(\s*\)#+/,\1#+/&#39; | indent 2 | awk 1
+</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="make-the-tm-resize-script">Make the <code>tm-resize</code> script</h3>
+
+<p>This is needed because the <code>resize</code> script
+that comes with the <code>xterm</code> package hangs when
+a <code>tty</code> is not available.</p>
+
+<p>Using <code>tmux</code> to query the terminal size
+bypasses this restriction.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+COLUMNS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux display-message -p <span style="color:#e6db74">&#39;#{pane_width}&#39;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+LINES<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux display-message -p <span style="color:#e6db74">&#39;#{pane_height}&#39;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+echo <span style="color:#e6db74">&#34;COLUMNS=</span>$COLUMNS<span style="color:#e6db74">;&#34;</span>
+echo <span style="color:#e6db74">&#34;LINES=</span>$LINES<span style="color:#e6db74">;&#34;</span>
+echo <span style="color:#e6db74">&#34;export COLUMNS LINES;&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="use-tm-resize-in-test-should-hsplit-to-prevent-hanging">Use <code>tm-resize</code> in <code>test-should-hsplit</code> to prevent hanging</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">diff --git a/test-should-hsplit b/test-should-hsplit
+index 8e97575..c205f8b 100755
+<span style="color:#f92672">--- a/test-should-hsplit
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+++ b/test-should-hsplit
+</span><span style="color:#a6e22e"></span><span style="color:#75715e">@@ -1,15 +1,23 @@
+</span><span style="color:#75715e"></span> #!/bin/bash
+ export TTY
+
+<span style="color:#a6e22e">+exec 0&lt;/dev/null
+</span><span style="color:#a6e22e">+
+</span><span style="color:#a6e22e"></span> is_tty() {
+     # If stout is a tty
+     [[ -t 1 ]]
+ }
+
+ if is_tty &amp;&amp; ( test -z &#34;$COLUMNS&#34; || test -z &#34;$LINES&#34; ); then
+<span style="color:#f92672">-    eval `resize`
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+    # eval `resize`
+</span><span style="color:#a6e22e">+    eval `tm-resize`
+</span><span style="color:#a6e22e"></span> fi
+
+<span style="color:#a6e22e">+# Using tm-resize fixes the hang with babel
+</span><span style="color:#a6e22e">+# #+BEGIN_SRC sh -n :sps bash :async :results none
+</span><span style="color:#a6e22e">+#   emacshelp &#34;(elisp) Major Modes&#34;
+</span><span style="color:#a6e22e">+# #+END_SRC
+</span><span style="color:#a6e22e">+
+</span><span style="color:#a6e22e"></span> # echo &#34;tpy2.7 \&#34;$COLUMNS / $LINES &lt; 2.5\&#34;&#34; &gt; /tmp/splity.txt
+
+ tpy2.7 &#34;$COLUMNS / $LINES &lt; 2.5&#34;
+\ No newline at end of file
+</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
