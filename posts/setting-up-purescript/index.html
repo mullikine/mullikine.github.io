@@ -299,6 +299,13 @@ npm install purs-loader --save-dev</code></pre></td></tr></table>
 
 <p><a href="https://github.com/purescript/purescript/tree/master/psc-ide">https://github.com/purescript/purescript/tree/master/psc-ide</a></p>
 
+<p>This isn&rsquo;t what I think it is.</p>
+
+<h3 id="set-up-psc-ide-emacs">Set up <code>psc-ide-emacs</code></h3>
+
+<p><a href="https://github.com/purescript-emacs/psc-ide-emacs">https://github.com/purescript-emacs/psc-ide-emacs</a>
+$MYGIT/purescript-emacs/psc-ide-emacs</p>
+
 <h3 id="set-up-lsp">Set up <code>LSP</code></h3>
 
 <p>This is a WIP as I haven&rsquo;t found a premade LSP mode for emacs yet.</p>
@@ -310,6 +317,63 @@ npm install purs-loader --save-dev</code></pre></td></tr></table>
 <h4 id="mode">Mode</h4>
 
 <p>I will have to create my own mode.</p>
+
+<h2 id="further-setup">Further setup</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo npm install -g psc-package</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="trying-it-out">Trying it out</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd <span style="color:#e6db74">&#34;</span>$MYGIT<span style="color:#e6db74">/bjornkihlberg/PureScript-Tutorials/ex00 - hello world&#34;</span>; psc-package install</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Why was this necessary?</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cd <span style="color:#e6db74">&#34;</span>$MYGIT<span style="color:#e6db74">/bjornkihlberg/PureScript-Tutorials/ex00 - hello world&#34;</span>; mkdir output</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="get-psc-ide-mode-working"><span class="org-todo todo TODO">TODO</span> Get <code>psc-ide-mode</code> working</h2>
+
+<p>Make it so this automatically creates the <code>output</code> directory.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">v +/<span style="color:#e6db74">&#34;\&#34;--output-directory\&#34; ,psc-ide-output-directory&#34;</span> <span style="color:#e6db74">&#34;</span>$EMACSD<span style="color:#e6db74">/packages26/psc-ide-20191217.1144/psc-ide.el&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>I could create a wrapper around this.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(psc-ide-executable-path)</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
