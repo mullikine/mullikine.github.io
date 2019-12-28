@@ -20,9 +20,8 @@
       <description>This is what I want to be able to do:
 1 2 3 4  (defun add-3-things (a b c) (+ a b c)) (mapcar (add-3-things 5 10) &amp;#39;(1 2 3 4))   The reason why it&amp;rsquo;s not possible is because of variadic functions.
 https://paqmind.com/en/blog/currying-in-lisp
-But surely it&amp;rsquo;s possible to hack what I want with a macro.
-It would be good enough for my purposes.
-After all the threading macro exists.</description>
+In other words, the following wouldn&amp;rsquo;t work because variadic functions clash with currying.
+1 2 3 4 5 6 7 8 9 10  (defun add-at-least-one-thing (a &amp;amp;rest args) (eval `(+ a ,@args))) (add-at-least-one-thing 1 2 3) ;; 6 ;; This doesn&amp;#39;t make sense (mapcar (add-at-least-one-thing 5 10) &amp;#39;(1 2 3 4)) ;; Debugger entered--Lisp error: (invalid-function 15) ;; 15(1)   But surely it&amp;rsquo;s possible to hack what I want with a macro.</description>
     </item>
     
     <item>
