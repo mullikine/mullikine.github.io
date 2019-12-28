@@ -137,7 +137,7 @@ But that is not the most awesome part." />
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          3 min read
+          5 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -174,7 +174,7 @@ expect, allowing the user to make some final
 adjustments to the data before continuing the
 pipeline.</p>
 
-<h2 id="the-final-command-and-an-explanation">The final command and an explanation</h2>
+<h3 id="the-final-command-and-an-explanation">The final command and an explanation</h3>
 
 <p>This commands pipes the html through expect,
 which spawns emacs and runs a few automated
@@ -228,11 +228,11 @@ interactive TUI possible and very easy to use.</p>
 </div>
 </div>
 
-<h2 id="demonstration">Demonstration</h2>
+<h3 id="demonstration">Demonstration</h3>
 
 <p><a href="https://asciinema.org/a/MyNZErbHV5E9pfi0VRMzGO0TC" target="_blank"><img src="https://asciinema.org/a/MyNZErbHV5E9pfi0VRMzGO0TC.svg" /></a></p>
 
-<h2 id="the-generated-expect-script">The generated expect script</h2>
+<h3 id="the-generated-expect-script">The generated expect script</h3>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -334,6 +334,326 @@ send <span style="color:#f92672">--</span> <span style="color:#960050;background
 interact
 expect eof
 close</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="how-it-works-script-snippets">How it works - script snippets</h2>
+
+<p>I&rsquo;m just going to copy out some of the
+important parts of the following scripts.</p>
+
+<p>Explaining it all will take too long.</p>
+
+<h3 id="eipe2"><code>eipe2</code></h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#e6db74">&#34;&lt;==&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ps -o comm<span style="color:#f92672">=</span> $PPID<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">0</span>&lt;/dev/null <span style="color:#f92672">)</span> &amp;&gt;/dev/null
+
+orspe <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> +ooq <span style="color:#e6db74">&#34;(buffer-string)&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="sp"><code>sp</code></h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">+ooq<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e"># This assumes stdin and a buffer which is killed</span>
+    <span style="color:#75715e"># I need a way to write on frame kill, rather than buffer kill</span>
+
+    ON_DELFRAME_EVAL_TO_STDOUT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+    tf_buffer_path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>odn ux tf path <span style="color:#f92672">||</span> echo /dev/null<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    elisp<span style="color:#f92672">+=</span><span style="color:#e6db74">&#34;(on-kill-write-and-close-frame </span><span style="color:#66d9ef">$(</span>aqf <span style="color:#e6db74">&#34;</span>$tf_buffer_path<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$ON_DELFRAME_EVAL_TO_STDOUT<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">)&#34;</span>
+    shift
+    shift
+<span style="color:#f92672">}</span>
+;;</code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="my-frame-dot-el"><code>my-frame.el</code></h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun on-frame-quit-write (path outvalue)
+  (let* ((framename (<span style="color:#a6e22e">frame-parameter</span> termframe <span style="color:#e6db74">&#39;name</span>))
+         <span style="color:#75715e">;; (fun (str2sym (concat (slugify path) &#34;-frame-quit-write-fun&#34;)))</span>
+         (fun (str2sym (<span style="color:#a6e22e">concat</span> (slugify framename) <span style="color:#e6db74">&#34;-frame-quit-write-fun&#34;</span>))))
+    (<span style="color:#a6e22e">eval</span> <span style="color:#f92672">`</span>(progn (defun <span style="color:#f92672">,</span>fun (frame)
+                    (interactive)
+                    (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;%s&#34;</span> (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;Running: &#34;</span> (sym2str <span style="color:#e6db74">&#39;,fun</span>)))
+                    (write-string-to-file (str (eval-string <span style="color:#f92672">,</span>outvalue)) <span style="color:#f92672">,</span>path)
+                    (remove-hook <span style="color:#e6db74">&#39;delete-frame-hook</span> <span style="color:#e6db74">&#39;,fun</span>)
+                    (<span style="color:#a6e22e">fmakunbound</span> <span style="color:#e6db74">&#39;,fun</span>))
+                  (add-hook <span style="color:#e6db74">&#39;delete-frame-hook</span> <span style="color:#e6db74">&#39;,fun</span>)))))
+
+(defun on-kill-write-and-close-frame (path <span style="color:#66d9ef">&amp;optional</span> outvalue)
+  (write-to-file-on-buffer-exit path outvalue)
+  (close-frame-on-buffer-exit))
+
+(defun write-termfile ()
+  <span style="color:#75715e">;; (interactive)</span>
+
+  (let ((outvalue (if (and (variable-p <span style="color:#e6db74">&#39;outvalue-local</span>)
+                           outvalue-local)
+                      (str (eval-string outvalue-local))
+                    (<span style="color:#a6e22e">buffer-string</span>))))
+    (if (and (variable-p <span style="color:#e6db74">&#39;termfile-local</span>)
+             termfile-local)
+        (write-string-to-file outvalue termfile-local))))
+
+(defun write-to-file-on-buffer-exit (path <span style="color:#66d9ef">&amp;optional</span> outvalue)
+  (interactive)
+  (defset-local termfile-local path)
+  (defset-local outvalue-local outvalue)
+
+  (add-hook <span style="color:#e6db74">&#39;kill-buffer-hook</span> <span style="color:#e6db74">&#39;write-termfile</span>))</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="x"><code>x</code></h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">if</span> test -n <span style="color:#e6db74">&#34;</span>$tfstdin<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> test -n <span style="color:#e6db74">&#34;</span>$INIT_SPAWN<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">then</span>
+    <span style="color:#75715e"># INIT_SPAWN=&#34;$(nsfa -E &#34;cat $tfstdin | $INIT_SPAWN&#34;)&#34;</span>
+    INIT_SPAWN<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cat </span>$tfstdin<span style="color:#e6db74"> | </span>$INIT_SPAWN<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> is_stdout_pipe; <span style="color:#66d9ef">then</span>
+    tfstdout<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>odn tf txt<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#75715e"># INIT_SPAWN=&#34;$(nsfa -E &#34;cat $tfstdin | $INIT_SPAWN&#34;)&#34;</span>
+    INIT_SPAWN<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$INIT_SPAWN<span style="color:#e6db74"> &gt; </span>$tfstdout<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+INIT_SPAWN<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>nsfa -E <span style="color:#e6db74">&#34;</span>$INIT_SPAWN<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+<span style="color:#75715e"># script_append &#34;spawn \&#34;\$SHELL\&#34;&#34;</span>
+<span style="color:#75715e"># This is required if I want to spawn this way:</span>
+<span style="color:#75715e"># x -cd &#34;$(pwd)&#34; -sh &#34;racket -iI racket&#34; -e &#34;&gt;&#34; -i</span>
+script_append <span style="color:#e6db74">&#34;spawn </span><span style="color:#66d9ef">$(</span>aqf <span style="color:#e6db74">&#34;</span>$INIT_SPAWN<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+<span style="color:#75715e"># script_append &#34;expect -exact \&#34;\r\&#34;&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="generated-expect-code">Generated expect code</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tcl" data-lang="tcl"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tcl" data-lang="tcl"><span style="color:#66d9ef">unset</span> <span style="color:#f92672">::</span>env<span style="color:#66d9ef">(</span>TTY<span style="color:#66d9ef">)</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>TTY must be unset so the spawned scripts can
+determine the TTY from the <code>/dev/tty</code> command.</p>
+
+<h4 id="nsfa"><code>nsfa</code></h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#75715e">## Example</span>
+<span style="color:#75715e">## -------</span>
+<span style="color:#75715e">## 726edcf master 20:34 shane/notes2018 δ » new-script-from-args echo hi</span>
+<span style="color:#75715e">## /tmp/file_new_script_8W7iI5_rand-11510_pid-21032.sh</span>
+<span style="color:#75715e">## 726edcf master 20:34 shane/notes2018 δ » /tmp/file_new_script_8W7iI5_rand-11510_pid-21032.sh</span>
+<span style="color:#75715e">## hi</span>
+
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">[</span> $# -gt <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">do</span> opt<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$opt<span style="color:#e6db74">&#34;</span> in
+    -E<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        DO_EXEC<span style="color:#f92672">=</span>y
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    *<span style="color:#f92672">)</span> break;
+<span style="color:#66d9ef">esac</span>; <span style="color:#66d9ef">done</span>
+
+<span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$DO_EXEC<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+    CMD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">else</span>
+    CMD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+tf_new_script<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ux tf new_script sh <span style="color:#f92672">||</span> echo /dev/null<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#75715e"># trap &#34;rm \&#34;$tf_new_script\&#34; 2&gt;/dev/null&#34; 0</span>
+
+IFS<span style="color:#f92672">=</span> read -r -d <span style="color:#e6db74">&#39;&#39;</span> scriptcode <span style="color:#e6db74">&lt;&lt;&#39;HEREDOC&#39;
+</span><span style="color:#e6db74">#!/bin/bash
+</span><span style="color:#e6db74">: ${TTY:=&#34;$(tm-tty)&#34;}
+</span><span style="color:#e6db74">export TTY
+</span><span style="color:#e6db74">stty stop undef 2&gt;/dev/null; stty start undef 2&gt;/dev/null;
+</span><span style="color:#e6db74">HEREDOC</span>
+printf -- <span style="color:#e6db74">&#34;%s\n&#34;</span> <span style="color:#e6db74">&#34;</span>$scriptcode<span style="color:#e6db74">&#34;</span> &gt;&gt; <span style="color:#e6db74">&#34;</span>$tf_new_script<span style="color:#e6db74">&#34;</span>
+export PATH<span style="color:#f92672">=</span>$HOME/scripts:$PATH
+
+printf -- <span style="color:#e6db74">&#34;%s\n&#34;</span> <span style="color:#e6db74">&#34;</span>$CMD<span style="color:#e6db74">&#34;</span> &gt;&gt; <span style="color:#e6db74">&#34;</span>$tf_new_script<span style="color:#e6db74">&#34;</span>
+chmod a+x <span style="color:#e6db74">&#34;</span>$tf_new_script<span style="color:#e6db74">&#34;</span>
+echo -n <span style="color:#e6db74">&#34;</span>$tf_new_script<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>This part is where the magic happens.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">: <span style="color:#e6db74">${</span>TTY:=<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tm-tty<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">}</span>
+export TTY</code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="tm-tty"><code>tm-tty</code></h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+test -n <span style="color:#e6db74">&#34;</span>$TTY<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#e6db74">&#34;</span>$TTY<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">||</span> tty <span style="color:#ae81ff">2</span>&gt;/dev/null <span style="color:#f92672">||</span> <span style="color:#f92672">{</span>
+    TTY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux display-message -p <span style="color:#e6db74">&#39;#{pane_tty}&#39;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    echo <span style="color:#e6db74">&#34;</span>$TTY<span style="color:#e6db74">&#34;</span>
+<span style="color:#f92672">}</span></code></pre></td></tr></table>
 </div>
 </div>
 
