@@ -17,11 +17,9 @@
       <pubDate>Sun, 29 Dec 2019 00:00:00 +1300</pubDate>
       
       <guid>https://mullikine.github.io/posts/semi-automated-stream-editing-piping-through-expect-and-emacs/</guid>
-      <description>Here, emacs may be used as a stream editor with the eipe2 command.
-It&amp;rsquo;s modelled after vipe.
-The final command and an explanation This commands pipes the html through expect, which spawns emacs and runs a few automated key presses to prepare the user for editing.
-Command is then given to the user to do some editing.
-When the buffer is killed, the emacs frame is also killed and the contents of the killed buffer is piped into vim.</description>
+      <description>Here, the eipe2 script wraps around emacsclient to enable you intercept the traffic of a bash pipeline and edit it mid-command. It&amp;rsquo;s modelled after vipe.
+But that is only half the trick. I then do the same for tcl/expect. On its own expect can&amp;rsquo;t edit the stream, but by placing an eipe2 within the expect script, I can complete the pipeline, automating emacs with expect.
+But that is not the most awesome part.</description>
     </item>
     
     <item>
