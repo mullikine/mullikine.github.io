@@ -261,7 +261,11 @@ Meta-predicates
 
 <h2 id="examples">Examples</h2>
 
-<h3 id="taken-from-https-dtai-dot-cs-dot-kuleuven-dot-be-problog">Taken from <a href="https://dtai.cs.kuleuven.be/problog/">https://dtai.cs.kuleuven.be/problog/</a></h3>
+<h3 id="problog-combined-with-spacy"><code>Problog</code> combined with <code>spaCy</code></h3>
+
+<p><a href="https://github.com/mmxgn/sprl-spacy">https://github.com/mmxgn/sprl-spacy</a></p>
+
+<h3 id="examples-taken-from-https-dtai-dot-cs-dot-kuleuven-dot-be-problog">Examples taken from <a href="https://dtai.cs.kuleuven.be/problog/">https://dtai.cs.kuleuven.be/problog/</a></h3>
 
 <dl>
 <dt>Source code</dt>
@@ -304,9 +308,89 @@ lp5([1, 2],[1, 2]):	0.16
 lp5([1, 2],[1, 7]):	0.24
 lp5([1, 2],[6, 2]):	0.24
 lp5([1, 2],[6, 7]):	0.36</code></pre></div>
-<h3 id="problog-combined-with-spacy"><code>Problog</code> combined with <code>spaCy</code></h3>
+<h3 id="binary-choices-tossing-coins">Binary choices &ndash; tossing coins</h3>
 
-<p><a href="https://github.com/mmxgn/sprl-spacy">https://github.com/mmxgn/sprl-spacy</a></p>
+<p>One coin.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog">0.5::heads.</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>Two coins.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog">0.5::heads1.
+0.5::heads2.</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="nonbinary-choices-rolling-dice">Nonbinary choices &ndash; rolling dice</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog">1/6::die(D, 1); 1/6::die(D, 2); 1/6::die(D, 3);
+1/6::die(D, 4); 1/6::die(D, 5); 1/6::die(D, 6).</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="probabilities-in-the-head-of-clauses">probabilities in the head of clauses</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog">% If burglary is true, alarm will be true as well with 90% probability.
+0.1::burglary.          % fact
+0.9::alarm :- burglary. % clause</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="using-only-probabilistic-facts">Using only probabilistic facts</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog">0.1::burglary.
+0.9::alarm_on_burglary.
+alarm :- burglary, alarm_on_burglary.</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="annotated-disjunctions-can-also-be-used-as-head-of-a-clause-dot">annotated disjunctions can also be used as head of a clause.</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog">0.5::weather(0,sun); 0.5::weather(0,rain).
+0.8::weather(T,sun); 0.2::weather(T,rain) :- T &gt; 0, T1 is T - 1, weather(T1, sun).
+0.4::weather(T,sun); 0.6::weather(T,rain) :- T &gt; 0, T1 is T - 1, weather(T1, rain).</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
