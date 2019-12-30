@@ -137,7 +137,7 @@ Demonstration Here, I use the asciinema mode for browsing and opening asciinema 
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -323,6 +323,67 @@ clicked.</p>
 asciinema play <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
+
+<h2 id="create-the-script-asciinema-list-videos">Create the script <code>asciinema-list-videos</code></h2>
+
+<p>This lists the videos and opens emacs with an
+org-mode document containing the links.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+is_tty<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e"># If stout is a tty</span>
+    <span style="color:#f92672">[[</span> -t <span style="color:#ae81ff">1</span> <span style="color:#f92672">]]</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e"># ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null</span>
+
+ci curl <span style="color:#e6db74">&#34;https://asciinema.org/~mullikine&#34;</span> |
+    grep -P <span style="color:#e6db74">&#39;^&lt;a href=&#34;/a/&#39;</span> |
+    sed <span style="color:#e6db74">&#34;s/^&lt;a href=\&#34;\\([^\&#34;]\\+\\)\&#34;&gt;\\(.*\\)&lt;\\/a&gt;/\\[\\[https:\\/\\/asciinema.org\\1\\]\\[\\2\\]\\]/&#34;</span> |
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> is_tty; <span style="color:#66d9ef">then</span>
+            og -ic org-mode
+        <span style="color:#66d9ef">else</span>
+            cat
+        <span style="color:#66d9ef">fi</span>
+    <span style="color:#f92672">}</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>I made this interesting sed command using my
+real-time feedback repl.</p>
+
+<h3 id="creating-a-complicated-sed-command-with-rtcmd">Creating a complicated sed command with <code>rtcmd</code></h3>
+
+<p>This almost deserves it&rsquo;s own blog post.</p>
+
+<p><a title="asciinema recording" href="https://asciinema.org/a/iVOdwwq5TWhQOIfKrMr3Cs3gY" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/iVOdwwq5TWhQOIfKrMr3Cs3gY.svg" /></a></p>
 
     </div>
     <div class="post-footer">
