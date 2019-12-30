@@ -547,6 +547,18 @@ Create the script hs-type-declarative-search This uses stack.
     </item>
     
     <item>
+      <title>Refactoring tools for emacs</title>
+      <link>https://mullikine.github.io/posts/refactoring-tools-emacs/</link>
+      <pubDate>Thu, 28 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/refactoring-tools-emacs/</guid>
+      <description>Attrap: Emacs mode to fix the flycheck error at point https://github.com/jyp/attrap
+1 2 3  (use-package attrap :ensure t :bind ((&amp;#34;C-x /&amp;#34; . attrap-attrap))) ;; use any binding of your choice   A bit too early for use I tried on a missing a main function type definition.
+It did not have the necessary fixers.
+1  progn: No fixers for flycheck-checker haskell-stack-ghc</description>
+    </item>
+    
+    <item>
       <title>AI-assisted coding tools for emacs</title>
       <link>https://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</link>
       <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
@@ -1529,7 +1541,7 @@ Parse wordnut output to scrape synonyms from the buffer Given 2 words, create a 
       <guid>https://mullikine.github.io/posts/dwarf-fortress/</guid>
       <description>Helpful links    name url     walkthrough https://df-walkthrough.readthedocs.io/en/latest/   legend http://dwarffortresswiki.org/index.php/DF2014:Map%5Flegend    Navigating left hand should sit on keys 1 to 4. right hand should sit on keys 6 to 9.
 pinkies navigate bottom left to top right. middle fingers navigate top left to bottom right
-I wanted to look for some symbols 1  unicode arrow | sed -e &amp;#39;/^[a-zA-Z]/d&amp;#39; -e &amp;#39;/^$/d&amp;#39; | tr &amp;#39;\n&amp;#39; &amp;#39; &amp;#39; | wrap 90 | sed &amp;#39;1,2d&amp;#39; | sed &amp;#39;8q&amp;#39;   1 2 3 4 5 6 7 8  ↻ ⇄ ⇅ ⇆ ⇇ ⇈ ⇉ ⇊ ⇍ ⇎ ⇏ ⇐ ⇑ ⇒ ⇓ ⇔ ⇕ ⇖ ⇗ ⇘ ⇙ ⇚ ⇛ ⇜ ⇝ ⇞ ⇟ ⇠ ⇡ ⇢ ⇣ ⇤ ⇥ ⇦ ⇧ ⇨ ⇩ ⇪ ⇫ ⇬ ⇭ ⇮ ⇯ ⇰ ⇱ ⇲ ⇳ ⇴ ⇵ ⇶ ⇷ ⇸ ⇹ ⇺ ⇻ ⇼ ⇽ ⇾ ⇿ ⌁ ⌃ ⌄ ⌤ ⍇ ⍈ ⍐ ⍗ ⍼ ⎋ ➔ ➘ ➙ ➚ ➛ ➜ ➝ ➞ ➟ ➠ ➡ ➢ ➣ ➤ ➥ ➦ ➧ ➨ ➩ ➪ ➫ ➬ ➭ ➮ ➯ ➱ ➲ ➳ ➴ ➵ ➶ ➷ ➸ ➹ ➺ ➻ ➼ ➽ ➾ ⟰ ⟱ ⟲ ⟳ ⟴ ⟵ ⟶ ⟷ ⟸ ⟹ ⟺ ⟻ ⟼ ⟽ ⟾ ⟿ ⤀ ⤁ ⤂ ⤃ ⤄ ⤅ ⤆ ⤇ ⤈ ⤉ ⤊ ⤋ ⤌ ⤍ ⤎ ⤏ ⤐ ⤑ ⤒ ⤓ ⤔ ⤕ ⤖ ⤗ ⤘ ⤙ ⤚ ⤛ ⤜ ⤝ ⤞ ⤟ ⤠ ⤡ ⤢ ⤣ ⤤ ⤥ ⤦ ⤧ ⤨ ⤩ ⤪ ⤭ ⤮ ⤯ ⤰ ⤱ ⤲ ⤳ ⤴ ⤵ ⤶ ⤷ ⤸ ⤹ ⤺ ⤻ ⤼ ⤽ ⤾ ⤿ ⥀ ⥁ ⥂ ⥃ ⥄ ⥅ ⥆ ⥇ ⥈ ⥉ ⥰ ⥱ ⥲ ⥳ ⥴ ⥵ ⥶ ⥷ ⥸ ⥹ ⥺ ⥻ ⦨ ⦩ ⦪ ⦫ ⦬ ⦭ ⦮ ⦯ ⦳ ⦴ ⦽ ⧪ ⧬ ⧭ ⨗ ⬀ ⬁ ⬂ ⬃ ⬄ ⬅ ⬆ ⬇ ⬈ ⬉ ⬊ ⬋ ⬌ ⬍ ⬎ ⬏ ⬐ ⬑ ⬰ ⬱ ⬲ ⬳ ⬴ ⬵ ⬶ ⬷ ⬸ ⬹ ⬺ ⬻ ⬼ ⬽ ⬾ ⬿ ⭀ ⭁ ⭂ ⭃ ⭄ ⭅ ⭆ ⭇ ⭈ ⭉ ⭊ ⭋ ⭌ ⭍ ⭎ ⭏ ⭚ ⭛ ⭜ ⭝ ⭞ ⭟ ⭠ ⭡ ⭢ ⭣ ⭤ ⭥ ⭦ ⭧ ⭨ ⭩ ⭪ ⭫ ⭬ ⭭ ⭮ ⭯ ⭰ ⭱ ⭲ ⭳ ⭶ ⭷ ⭸ ⭹ ⭺ ⭻ ⭼ ⭽ ⮀ ⮁ ⮂ ⮃ ⮄ ⮅ ⮆ ⮇ ⮈ ⮉ ⮊ ⮋ ⮌ ⮍ ⮎ ⮏ ⮔ ⮕ ⮘ ⮙ ⮚ ⮛ ⮜ ⮝ ⮞ ⮟ ⮠ ⮡ ⮢ ⮣ ⮤ ⮥ ⮦ ⮧ ⮨ ⮩ ⮪ ⮫ ⮬ ⮭ ⮮ ⮯ ⮰ ⮱ ⮲ ⮳ ⮴ ⮵ ⮶ ⮷ ⮸ ⮹ ⯬      finger hand motion dimension     ring left ↓ ↕   ring right ↑ ↕   index left ← ↔   index right → ↔   middle left ↘ ⤡   middle right ↖ ⤡   pinkie left ↙ ⤢   pinkie right ↗ ⤢    I must say, these feel very unintuitive; perhaps as vim did when I first learned those.</description>
+I wanted to look for some symbols 1  unicode arrow | sed -e &amp;#39;/^[a-zA-Z]/d&amp;#39; -e &amp;#39;/^$/d&amp;#39; | tr &amp;#39;\n&amp;#39; &amp;#39; &amp;#39; | wrap 90 | sed &amp;#39;1,2d&amp;#39; | sed &amp;#39;8q&amp;#39;   1 2 3 4 5 6 7 8  ↻ ⇄ ⇅ ⇆ ⇇ ⇈ ⇉ ⇊ ⇍ ⇎ ⇏ ⇐ ⇑ ⇒ ⇓ ⇔ ⇕ ⇖ ⇗ ⇘ ⇙ ⇚ ⇛ ⇜ ⇝ ⇞ ⇟ ⇠ ⇡ ⇢ ⇣ ⇤ ⇥ ⇦ ⇧ ⇨ ⇩ ⇪ ⇫ ⇬ ⇭ ⇮ ⇯ ⇰ ⇱ ⇲ ⇳ ⇴ ⇵ ⇶ ⇷ ⇸ ⇹ ⇺ ⇻ ⇼ ⇽ ⇾ ⇿ ⌁ ⌃ ⌄ ⌤ ⍇ ⍈ ⍐ ⍗ ⍼ ⎋ ➔ ➘ ➙ ➚ ➛ ➜ ➝ ➞ ➟ ➠ ➡ ➢ ➣ ➤ ➥ ➦ ➧ ➨ ➩ ➪ ➫ ➬ ➭ ➮ ➯ ➱ ➲ ➳ ➴ ➵ ➶ ➷ ➸ ➹ ➺ ➻ ➼ ➽ ➾ ⟰ ⟱ ⟲ ⟳ ⟴ ⟵ ⟶ ⟷ ⟸ ⟹ ⟺ ⟻ ⟼ ⟽ ⟾ ⟿ ⤀ ⤁ ⤂ ⤃ ⤄ ⤅ ⤆ ⤇ ⤈ ⤉ ⤊ ⤋ ⤌ ⤍ ⤎ ⤏ ⤐ ⤑ ⤒ ⤓ ⤔ ⤕ ⤖ ⤗ ⤘ ⤙ ⤚ ⤛ ⤜ ⤝ ⤞ ⤟ ⤠ ⤡ ⤢ ⤣ ⤤ ⤥ ⤦ ⤧ ⤨ ⤩ ⤪ ⤭ ⤮ ⤯ ⤰ ⤱ ⤲ ⤳ ⤴ ⤵ ⤶ ⤷ ⤸ ⤹ ⤺ ⤻ ⤼ ⤽ ⤾ ⤿ ⥀ ⥁ ⥂ ⥃ ⥄ ⥅ ⥆ ⥇ ⥈ ⥉ ⥰ ⥱ ⥲ ⥳ ⥴ ⥵ ⥶ ⥷ ⥸ ⥹ ⥺ ⥻ ⦨ ⦩ ⦪ ⦫ ⦬ ⦭ ⦮ ⦯ ⦳ ⦴ ⦽ ⧪ ⧬ ⧭ ⨗ ⬀ ⬁ ⬂ ⬃ ⬄ ⬅ ⬆ ⬇ ⬈ ⬉ ⬊ ⬋ ⬌ ⬍ ⬎ ⬏ ⬐ ⬑ ⬰ ⬱ ⬲ ⬳ ⬴ ⬵ ⬶ ⬷ ⬸ ⬹ ⬺ ⬻ ⬼ ⬽ ⬾ ⬿ ⭀ ⭁ ⭂ ⭃ ⭄ ⭅ ⭆ ⭇ ⭈ ⭉ ⭊ ⭋ ⭌ ⭍ ⭎ ⭏ ⭚ ⭛ ⭜ ⭝ ⭞ ⭟ ⭠ ⭡ ⭢ ⭣ ⭤ ⭥ ⭦ ⭧ ⭨ ⭩ ⭪ ⭫ ⭬ ⭭ ⭮ ⭯ ⭰ ⭱ ⭲ ⭳ ⭶ ⭷ ⭸ ⭹ ⭺ ⭻ ⭼ ⭽ ⮀ ⮁ ⮂ ⮃ ⮄ ⮅ ⮆ ⮇ ⮈ ⮉ ⮊ ⮋ ⮌ ⮍ ⮎ ⮏ ⮔ ⮕ ⮘ ⮙ ⮚ ⮛ ⮜ ⮝ ⮞ ⮟ ⮠ ⮡ ⮢ ⮣ ⮤ ⮥ ⮦ ⮧ ⮨ ⮩ ⮪ ⮫ ⮬ ⮭ ⮮ ⮯ ⮰ ⮱ ⮲ ⮳ ⮴ ⮵ ⮶ ⮷ ⮸ ⮹ ⯬      key finger hand motion dimension     2 ring left ↓ ↕   8 ring right ↑ ↕   4 index left ← ↔   7 index right → ↔   3 middle left ↘ ⤡   8 middle right ↖ ⤡   1 pinkie left ↙ ⤢   9 pinkie right ↗ ⤢    I must say, these feel very unintuitive; perhaps as vim did when I first learned those.</description>
     </item>
     
     <item>
@@ -1716,7 +1728,7 @@ Therefore we create a new face and give it a similar look but different colour t
       <pubDate>Sun, 22 Sep 2019 00:00:00 +1200</pubDate>
       
       <guid>https://mullikine.github.io/posts/hhgttg/</guid>
-      <description>Setup cd git clone &amp;#34;https://gitlab.com/DavidGriffith/frotz&amp;#34; git clone &amp;#34;https://github.com/historicalsource/hitchhikersguide&amp;#34; apt install libao-dev apt install libsndfile-dev apt install libsamplerate-dev apt install libmodplug-dev Play ~/frotz/frotz ~/hitchhikersguide/COMPILED/s4.z3 Recording of hhgttg running</description>
+      <description>Setup 1 2 3 4 5 6 7  cd git clone &amp;#34;https://gitlab.com/DavidGriffith/frotz&amp;#34; git clone &amp;#34;https://github.com/historicalsource/hitchhikersguide&amp;#34; apt install libao-dev apt install libsndfile-dev apt install libsamplerate-dev apt install libmodplug-dev   Play 1  ~/frotz/frotz ~/hitchhikersguide/COMPILED/s4.z3   Recording of hhgttg running</description>
     </item>
     
     <item>
