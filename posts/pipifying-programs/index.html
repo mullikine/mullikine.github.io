@@ -14,12 +14,12 @@
 <meta name="twitter:title" content="Pipifying interactive programs"/>
 <meta name="twitter:description" content="It&rsquo;s useful to be able to treat applications in the terminal as being pipable (accepting stdin and returning stdout). An example of a useful utility which takes stdin, returns stdout while providing interactivity via a user interface is the vipe command.
 vipe enables you edit data with your editor as it moves through a bash pipe. But how does it work?
-How vipe and vim provide interactive editing between pipes By design vipe delegates editing to vim."/>
+How vipe and vim work By design vipe delegates editing to vim."/>
 
     <meta property="og:title" content="Pipifying interactive programs" />
 <meta property="og:description" content="It&rsquo;s useful to be able to treat applications in the terminal as being pipable (accepting stdin and returning stdout). An example of a useful utility which takes stdin, returns stdout while providing interactivity via a user interface is the vipe command.
 vipe enables you edit data with your editor as it moves through a bash pipe. But how does it work?
-How vipe and vim provide interactive editing between pipes By design vipe delegates editing to vim." />
+How vipe and vim work By design vipe delegates editing to vim." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/pipifying-programs/" />
 <meta property="article:published_time" content="2019-12-30T00:00:00+13:00" />
@@ -167,7 +167,7 @@ user interface is the <code>vipe</code> command.</p>
 <p><code>vipe</code> enables you edit data with your editor
 as it moves through a bash pipe. But how does it work?</p>
 
-<h2 id="how-vipe-and-vim-provide-interactive-editing-between-pipes">How <code>vipe</code> and <code>vim</code> provide interactive editing between pipes</h2>
+<h2 id="how-vipe-and-vim-work">How <code>vipe</code> and <code>vim</code> work</h2>
 
 <p>By design <code>vipe</code> delegates editing to vim.
 This is because <code>vim</code> is designed to accept
@@ -179,7 +179,7 @@ that it has the ability to accept <code>stdin</code> and
 then display a user interface for editing.
 This is unusual because there is only one input
 file descriptor (<code>0</code>) and among programs it is
-usually used for one purpose only: either piping into the
+usually used only for one purpose: either piping into the
 program or reading the user&rsquo;s keyboard input from the tty.</p>
 
 <p>For example,</p>
@@ -194,7 +194,8 @@ program or reading the user&rsquo;s keyboard input from the tty.</p>
 </div>
 
 <p>However, <code>vim -</code> is not designed to pipe back
-out of itself; you can&rsquo;t do <code>echo hi | vim - &gt; file.txt</code>&rdquo;.</p>
+out of itself. The output is always used to be
+the <code>tty</code>.</p>
 
 <p><code>vipe</code> completes the pipability of <code>vim</code> by
 allowing you to pipe back out of it. It does

@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Setting up LSP with emacs (Go, Java, Python, Rust, C&#43;&#43;, Haskell)"/>
-<meta name="twitter:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java  1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website   State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience REPL / Playground DAP (debug) Working Static analysis Complaints Custom LSP improvements     Go ✓ ✓ Amazing ✓  ✓ Go toolchain changes too quickly    Python ✓ ✓ Amazing ✓ ✓ ✓     Java ✓ ✓ eclim Good ✓ (default) ✓ ✓ A little slow."/>
+<meta name="twitter:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java  1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website   State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience TabNine enabled REPL / Playground DAP (debug) Working Static analysis Complaints Custom LSP improvements     Go ✓ ✓ Amazing ✓ ✓  ✓ Go toolchain changes too quickly    Python ✓ ✓ Amazing ✓ ✓ ✓ ✓     Java ✓ ✓ eclim Good ✓ ✓ (default) ✓ ✓ A little slow."/>
 
     <meta property="og:title" content="Setting up LSP with emacs (Go, Java, Python, Rust, C&#43;&#43;, Haskell)" />
-<meta property="og:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java  1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website   State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience REPL / Playground DAP (debug) Working Static analysis Complaints Custom LSP improvements     Go ✓ ✓ Amazing ✓  ✓ Go toolchain changes too quickly    Python ✓ ✓ Amazing ✓ ✓ ✓     Java ✓ ✓ eclim Good ✓ (default) ✓ ✓ A little slow." />
+<meta property="og:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java  1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website   State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience TabNine enabled REPL / Playground DAP (debug) Working Static analysis Complaints Custom LSP improvements     Go ✓ ✓ Amazing ✓ ✓  ✓ Go toolchain changes too quickly    Python ✓ ✓ Amazing ✓ ✓ ✓ ✓     Java ✓ ✓ eclim Good ✓ ✓ (default) ✓ ✓ A little slow." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/setting-up-lsp-with-emacs-attempt-2/" />
 <meta property="article:published_time" content="2019-12-05T00:00:00+13:00" />
@@ -139,7 +139,7 @@
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/lsp/">lsp</a><a class="tag" href="http://mullikine.github.io/tags/cpp/">cpp</a><a class="tag" href="http://mullikine.github.io/tags/rust/">Rust</a><a class="tag" href="http://mullikine.github.io/tags/python/">python</a><a class="tag" href="http://mullikine.github.io/tags/tooling/">tooling</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/lsp/">lsp</a><a class="tag" href="http://mullikine.github.io/tags/cpp/">cpp</a><a class="tag" href="http://mullikine.github.io/tags/rust/">rust</a><a class="tag" href="http://mullikine.github.io/tags/python/">python</a><a class="tag" href="http://mullikine.github.io/tags/tooling/">tooling</a></div></div>
     </header>
     
 
@@ -187,6 +187,7 @@ DAP
 <th>LSP Working</th>
 <th>Fallback working</th>
 <th>Current user experience</th>
+<th>TabNine enabled</th>
 <th>REPL / Playground</th>
 <th>DAP (debug) Working</th>
 <th>Static analysis</th>
@@ -202,6 +203,7 @@ DAP
 <td>✓</td>
 <td>Amazing</td>
 <td>✓</td>
+<td>✓</td>
 <td></td>
 <td>✓</td>
 <td>Go toolchain changes too quickly</td>
@@ -216,6 +218,7 @@ DAP
 <td>✓</td>
 <td>✓</td>
 <td>✓</td>
+<td>✓</td>
 <td></td>
 <td></td>
 </tr>
@@ -225,6 +228,7 @@ DAP
 <td>✓</td>
 <td>✓ eclim</td>
 <td>Good</td>
+<td>✓</td>
 <td>✓ (default)</td>
 <td>✓</td>
 <td>✓</td>
@@ -238,6 +242,7 @@ DAP
 <td>✓</td>
 <td>Good</td>
 <td>✓</td>
+<td>✓</td>
 <td></td>
 <td>✓</td>
 <td></td>
@@ -249,6 +254,7 @@ DAP
 <td>✓</td>
 <td>✓ clang</td>
 <td>Great</td>
+<td>✓</td>
 <td>✓</td>
 <td></td>
 <td>✓</td>
@@ -262,6 +268,7 @@ DAP
 <td>✓ intero</td>
 <td>Good</td>
 <td>✓</td>
+<td>✓</td>
 <td></td>
 <td>✓</td>
 <td></td>
@@ -271,8 +278,9 @@ DAP
 <tr>
 <td>PureScript</td>
 <td></td>
-<td>✓ spago</td>
+<td>✓ psc-ide (spago?)</td>
 <td>Good</td>
+<td></td>
 <td>✓</td>
 <td></td>
 <td></td>
@@ -286,6 +294,7 @@ DAP
 <td></td>
 <td>Amazing</td>
 <td>✓</td>
+<td>✓</td>
 <td></td>
 <td></td>
 <td></td>
@@ -297,6 +306,7 @@ DAP
 <td>✓</td>
 <td></td>
 <td>Amazing</td>
+<td>✓</td>
 <td>✓</td>
 <td></td>
 <td></td>
@@ -310,6 +320,7 @@ DAP
 <td></td>
 <td>Good</td>
 <td>✓</td>
+<td>✓</td>
 <td></td>
 <td>✓</td>
 <td></td>
@@ -321,6 +332,7 @@ DAP
 <td>✓</td>
 <td></td>
 <td>Good</td>
+<td></td>
 <td>✓</td>
 <td></td>
 <td>✓</td>
@@ -790,6 +802,11 @@ variables</code> somewhere, this could be confusing.</p>
         :implementations <span style="color:#f92672">&#39;</span>(lsp-ui-peek-find-implementation))</code></pre></td></tr></table>
 </div>
 </div>
+
+<h2 id="common-lisp">Common lisp</h2>
+
+<p>LSP is insufficient to support SLIME-like
+levels of interaction.</p>
 
     </div>
     <div class="post-footer">
