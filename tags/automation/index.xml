@@ -17,9 +17,9 @@
       <pubDate>Mon, 30 Dec 2019 00:00:00 +1300</pubDate>
       
       <guid>https://mullikine.github.io/posts/an-emacs-mode-for-asciinema-playback/</guid>
-      <description>Demonstration Here, I use the asciinema mode for browsing and opening asciinema recordings from my blog.
-
-Creating the asciinema-eww-mode minor mode 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29  (defun asciinema-eww-next-cast (&amp;amp;optional re) (interactive) (if (not re) (setq re &amp;#34; +[0-9][0-9]:[0-9][0-9][^0-9]&amp;#34;)) (backward-to-indentation 0) (if (string-match-p re (current-line-string)) (search-forward-regexp re)) (ignore-errors (search-forward-regexp re)) (backward-to-indentation 0)) (defun asciinema-eww-prev-cast (&amp;amp;optional re) (interactive) (if (not re) (setq re &amp;#34; +[0-9][0-9]:[0-9][0-9][^0-9]&amp;#34;)) (backward-to-indentation 0) (ignore-errors (search-backward-regexp re)) (backward-to-indentation 0)) (define-key asciinema-eww-mode-map (kbd &amp;#34;M-n&amp;#34;) #&amp;#39;asciinema-eww-next-cast) (define-key asciinema-eww-mode-map (kbd &amp;#34;M-p&amp;#34;) #&amp;#39;asciinema-eww-prev-cast) (cl-loop for eww in &amp;#39;(hn asciinema) do (eval `(defewwmode ,eww))) (defun get-eww-mode-string-from-url (url) (cond ((string-match-p &amp;#34;^https?</description>
+      <description>Related articles Hacker News mode and minor modes for websites // Bodacious Blog  This blog is about creating a minor mode for browsing asciinema.org and extending eww-mode to handle the video links.
+I use tmux from =emacs to spawn a new window that starts the playback when a link is clicked.
+Demonstration Here, I use the asciinema mode for browsing and opening asciinema recordings from my blog.</description>
     </item>
     
     <item>
