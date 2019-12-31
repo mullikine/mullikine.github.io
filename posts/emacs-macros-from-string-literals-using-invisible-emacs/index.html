@@ -135,7 +135,7 @@ I don&rsquo;t know if it&rsquo;s possible to do this in emacs lisp." />
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -317,6 +317,53 @@ requires a <code>tty</code>.</p>
 all been done through <code>term-mode</code> in which case
 it could all be done in emacs-lisp. Hmmmm! A
 project for another day.</p>
+
+<p>What is the use-case you may ask? You can&rsquo;t
+<code>(insert &quot;some text&quot;)</code> inside of <code>term</code>. You
+must use a keyboard macro.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun irssi-search-channels (pattern)
+  (interactive (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">read-string</span> <span style="color:#e6db74">&#34;pattern:&#34;</span>)))
+  (<span style="color:#a6e22e">execute-kbd-macro</span>
+   (kbd <span style="color:#e6db74">&#34;M-7&#34;</span>))
+  (<span style="color:#a6e22e">execute-kbd-macro</span>
+   (kbd <span style="color:#e6db74">&#34;C-a C-k&#34;</span>))
+  (<span style="color:#a6e22e">execute-kbd-macro</span>
+   (kbd
+    (make-kbd-from-string (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;/msg alis LIST * -topic &#34;</span> pattern))))
+  (<span style="color:#a6e22e">execute-kbd-macro</span>
+   (kbd <span style="color:#e6db74">&#34;C-m&#34;</span>))
+  (<span style="color:#a6e22e">execute-kbd-macro</span>
+   (kbd
+    (make-kbd-from-string <span style="color:#e6db74">&#34;/query alis&#34;</span>)))
+  (<span style="color:#a6e22e">execute-kbd-macro</span>
+   (kbd <span style="color:#e6db74">&#34;C-m&#34;</span>)))
+
+(<span style="color:#a6e22e">define-key</span> irssi-term-mode-map (kbd <span style="color:#e6db74">&#34;M-/&#34;</span>) <span style="color:#a6e22e">#&#39;</span>irssi-search-channels)</code></pre></td></tr></table>
+</div>
+</div>
 
 <h2 id="demonstration">Demonstration</h2>
 
