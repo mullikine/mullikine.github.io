@@ -14,12 +14,12 @@
 <meta name="twitter:title" content="Rosie Pattern Matching Language (RPL)"/>
 <meta name="twitter:description" content="1 2 3 4 5 6 7 8 9  Rosie Pattern Matching Language RPL A language for writing PEG grammars, which are by definition both greedy and possessive. Parsing Expression Grammars PEG PEG languages are greedy and possessive.   extract ip addresses This file defines the ip address.
 https://gitlab.com/rosie-pattern-language/rosie/blob/master/rpl/net.rpl
-1  dmesg | rosie grep -o subs net.ipv4   7.35.177.61 7.35.177.61 extract email addresses RPL is greedy, possessive and its grammar libraries are usually designed to exhaust all possible (as opposed to commonly expected) matches, according to some spec."/>
+1  dmesg | rosie grep -o subs net.ipv4   7.35.177.61 7.35.177.61 Trying out rosie patterns extract email addresses RPL is greedy, possessive and its grammar libraries are usually designed to exhaust all possible (as opposed to commonly expected) matches, according to some spec."/>
 
     <meta property="og:title" content="Rosie Pattern Matching Language (RPL)" />
 <meta property="og:description" content="1 2 3 4 5 6 7 8 9  Rosie Pattern Matching Language RPL A language for writing PEG grammars, which are by definition both greedy and possessive. Parsing Expression Grammars PEG PEG languages are greedy and possessive.   extract ip addresses This file defines the ip address.
 https://gitlab.com/rosie-pattern-language/rosie/blob/master/rpl/net.rpl
-1  dmesg | rosie grep -o subs net.ipv4   7.35.177.61 7.35.177.61 extract email addresses RPL is greedy, possessive and its grammar libraries are usually designed to exhaust all possible (as opposed to commonly expected) matches, according to some spec." />
+1  dmesg | rosie grep -o subs net.ipv4   7.35.177.61 7.35.177.61 Trying out rosie patterns extract email addresses RPL is greedy, possessive and its grammar libraries are usually designed to exhaust all possible (as opposed to commonly expected) matches, according to some spec." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/rosie-pattern-matching-language/" />
 <meta property="article:published_time" content="2019-11-19T00:00:00+13:00" />
@@ -137,7 +137,7 @@ https://gitlab.com/rosie-pattern-language/rosie/blob/master/rpl/net.rpl
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -198,6 +198,8 @@ PEG
 </div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#ae81ff">7</span>.35.177.61
 <span style="color:#ae81ff">7</span>.35.177.61</code></pre></div>
+<h2 id="trying-out-rosie-patterns">Trying out <code>rosie</code> patterns</h2>
+
 <h2 id="extract-email-addresses">extract email addresses</h2>
 
 <p>RPL is greedy, possessive and its grammar
@@ -354,6 +356,231 @@ In BNF, the symbol for alternatives is a vertical line |.</dd>
 </figure>
 
 
+<h2 id="syntax">syntax</h2>
+
+<h3 id="backreferences">backreferences</h3>
+
+<p><a href="https://gitlab.com/rosie-pattern-language/rosie/blob/master/extra/examples/backref.rpl">https://gitlab.com/rosie-pattern-language/rosie/blob/master/extra/examples/backref.rpl</a></p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rpl" data-lang="rpl"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rpl" data-lang="rpl">-- Backreferences are new in Rosie v1.2.  They are similar to named
+-- backreferences in regular expressions.  In RPL, a backreference is created
+-- using the `backref` macro.  The macro takes one argument, which is a pattern.
+--
+-- The pattern `backref:foo` succeeds when (1) the pattern `foo` has already
+-- matched some input (zero or more characters), and (2) the same sequence of
+-- characters appears in the input when `backref:foo` appears in the pattern.
+
+word = [:^space:]+
+sameword = word backref:word</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="greedy-and-find">greedy and <code>find</code></h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">v +/<span style="color:#e6db74">&#34;&lt;a name=\&#34;find_patterns\&#34;&gt;&lt;/a&gt;&#34;</span> <span style="color:#e6db74">&#34;</span>$MYGIT<span style="color:#e6db74">/rosie-pattern-language/rosie/doc/i-know-regex.md&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>In RPL patterns, repetitions like `*` are
+greedy and will eat up as much input as
+possible.</p>
+
+<p>The RPL pattern `.*ear` will never match
+anything, because the `.*` will consume all
+the input, leaving nothing to match &ldquo;ear&rdquo;.</p>
+
+<p>You have to tell Rosie when to <span class="underline">stop</span>
+consuming input. (This is one reason that RPL
+grammars are efficient.)</p>
+
+<p>To write an RPL pattern that consumes
+characters until the string &ldquo;ear&rdquo; is found,
+and then match &ldquo;ear&rdquo;, you could write:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rpl" data-lang="rpl"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rpl" data-lang="rpl">{ !&#34;ear&#34; . }* &#34;ear&#34;</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>The part of the pattern inside the braces
+reads as &ldquo;while not looking at <span class="underline">ear</span>, match
+any character&rdquo;. The star `*` says to repeat
+this zero or more times.</p>
+
+<p>Because this is a frequent idiom, Rosie
+provides a macro called `find` that searches
+for a pattern, and then consumes it. For
+example, let&rsquo;s look for words that end in
+&ldquo;ear&rdquo; in the dictionary present on most Unix
+systems:</p>
+
+<p><a title="asciinema recording" href="https://asciinema.org/a/UsFrZMyUMuBeke1SeGZ0U3smi" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/UsFrZMyUMuBeke1SeGZ0U3smi.svg" /></a></p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rosie match -o line <span style="color:#e6db74">&#39;{ {!&#34;ear&#34; .}* &#34;ear&#34; $}&#39;</span> /usr/share/dict/words | head -5</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">abear
+afear
+anear
+appear
+arear</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rosie match -o line <span style="color:#e6db74">&#39;{ find:&#34;ear&#34; $}&#39;</span> /usr/share/dict/words | head -5</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">abear
+afear
+anear
+appear
+arear</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-snippet" data-lang="snippet"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-snippet" data-lang="snippet"># -*- mode: snippet -*-
+# name: find pattern
+# group: macro
+# key: find
+# --
+-- consumes characters until the string &#34;ear&#34; is found, and then match &#34;ear&#34;
+{ !&#34;ear&#34; . }* &#34;ear&#34;
+&#39;{ find:&#34;ear&#34; $}&#39;</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">regex quantifiers
+    *  = greedy
+    *? = lazy
+    +  = possessive
+        ++, ?+, {n,m}+</code></pre></td></tr></table>
+</div>
+</div>
+
+<p><a id="code-snippet--greedy-ear-words"></a>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rosie match -o line <span style="color:#e6db74">&#39;{ .? &#34;ear&#34; $}&#39;</span> /usr/share/dict/words</code></pre></td></tr></table>
+</div>
+</div></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Lear
+bear
+dear
+fear
+gear
+hear
+near
+pear
+rear
+sear
+tear
+wear
+year</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rosie match -o line <span style="color:#e6db74">&#39;{ . &#34;ear&#34;? $}&#39;</span> /usr/share/dict/words | head -n <span style="color:#ae81ff">20</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+K
+L
+Lear
+M
+N
+O
+P
+Q
+R
+S</code></pre></div>
     </div>
     <div class="post-footer">
       
