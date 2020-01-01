@@ -205,6 +205,37 @@ PEG
 </div>
 </div>
 
+<h2 id="examples">Examples</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rosie match <span style="color:#e6db74">&#39;&#34;nameserver&#34; (net.ip)+&#39;</span> /etc/resolv.conf | strip-ansi</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nameserver <span style="color:#ae81ff">127</span>.0.0.1</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rosie match -o json <span style="color:#e6db74">&#39;&#34;nameserver&#34; (net.ip)+&#39;</span> /etc/resolv.conf</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;type&#34;</span>:<span style="color:#e6db74">&#34;*&#34;</span>,<span style="color:#e6db74">&#34;s&#34;</span>:1,<span style="color:#e6db74">&#34;subs&#34;</span>:<span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;type&#34;</span>:<span style="color:#e6db74">&#34;ip&#34;</span>,<span style="color:#e6db74">&#34;s&#34;</span>:12,<span style="color:#e6db74">&#34;subs&#34;</span>:<span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;type&#34;</span>:<span style="color:#e6db74">&#34;ipv4&#34;</span>,<span style="color:#e6db74">&#34;s&#34;</span>:12,<span style="color:#e6db74">&#34;e&#34;</span>:21,<span style="color:#e6db74">&#34;data&#34;</span>:<span style="color:#e6db74">&#34;127.0.0.1&#34;</span><span style="color:#f92672">}]</span>,<span style="color:#e6db74">&#34;e&#34;</span>:21,<span style="color:#e6db74">&#34;data&#34;</span>:<span style="color:#e6db74">&#34;127.0.0.1&#34;</span><span style="color:#f92672">}]</span>,<span style="color:#e6db74">&#34;e&#34;</span>:21,<span style="color:#e6db74">&#34;data&#34;</span>:<span style="color:#e6db74">&#34;nameserver 127.0.0.1&#34;</span><span style="color:#f92672">}</span></code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rosie match -o subs <span style="color:#e6db74">&#39;&#34;nameserver&#34; (net.ip)+&#39;</span> /etc/resolv.conf</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ae81ff">127</span>.0.0.1</code></pre></div>
+<h2 id="chrestomathy">chrestomathy</h2>
+
 <p>The pattern <code>(a / b) c</code> is read as &ldquo;a or b,
 followed by c&rdquo; and is processed this way:</p>
 
