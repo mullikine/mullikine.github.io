@@ -139,7 +139,7 @@
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/lsp/">lsp</a><a class="tag" href="http://mullikine.github.io/tags/cpp/">cpp</a><a class="tag" href="http://mullikine.github.io/tags/rust/">Rust</a><a class="tag" href="http://mullikine.github.io/tags/python/">python</a><a class="tag" href="http://mullikine.github.io/tags/tooling/">tooling</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/lsp/">lsp</a><a class="tag" href="http://mullikine.github.io/tags/cpp/">cpp</a><a class="tag" href="http://mullikine.github.io/tags/rust/">rust</a><a class="tag" href="http://mullikine.github.io/tags/python/">python</a><a class="tag" href="http://mullikine.github.io/tags/tooling/">tooling</a></div></div>
     </header>
     
 
@@ -156,7 +156,7 @@
 <dl>
 <dt>Guides used</dt>
 <dd><a href="https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/">https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/</a> <br />
-<a href="https://github.com/emacs-lsp/lsp-java">https://github.com/emacs-lsp/lsp-java</a></dd>
+  <a href="https://github.com/emacs-lsp/lsp-java">https://github.com/emacs-lsp/lsp-java</a></dd>
 </dl>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -264,7 +264,7 @@ DAP
 
 <tr>
 <td>Haskell</td>
-<td></td>
+<td>✓</td>
 <td>✓ intero</td>
 <td>Good</td>
 <td>✓</td>
@@ -390,69 +390,20 @@ ui doc.</p>
 
 <h3 id="haskell">Haskell</h3>
 
-<p>I have not gotten this working yet because
-<code>haskell-ide-engine</code> isn&rsquo;t compiling.</p>
-
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd <span style="color:#e6db74">&#34;</span>$MYGIT<span style="color:#e6db74">/haskell/haskell-ide-engine&#34;</span>; ./install.hs build-all</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd <span style="color:#e6db74">&#34;</span>$MYGIT<span style="color:#e6db74">/haskell/haskell-ide-engine&#34;</span>; shx stack ./install.hs hie-8.6.4</code></pre></td></tr></table>
 </div>
 </div>
 
-<p>The install failed.</p>
+<p>Installation complete! LSP for emacs requires
+<code>HIE</code> to be installed. The results are quite
+nice.</p>
 
-<p><code>cabal-helper</code> was one of the programs which
-failed to install.</p>
-
-<p><span class="underline"><strong>Current error</strong></span></p>
-
-<p>This happens when I try to start <code>lsp-haskell</code> within emacs.</p>
-
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">95c0096 master ~ origin/HEAD origin/master 21:11 nikita-volkov/neat-interpolation δ » cd &#34;$MYGIT/nikita-volkov/neat-interpolation&#34;; hie-wrapper --lsp -d -l /tmp/hie.log
-hie-wrapper: Could not find $libexecdir/cabal-helper-wrapper
-
-If you are a cabal-helper developer you can set the environment variable
-`cabal_helper_libexecdir&#39; to override $libexecdir[1]. The following will
-work in the cabal-helper source tree:
-
-    $ export cabal_helper_libexecdir=$PWD/dist/build/cabal-helper-wrapper
-
-[1]: /home/shane/var/smulliga/source/git/haskell/haskell-ide-engine/.stack-work/install/x86_64-linux/nightly-2018-05-30/8.4.2/libexec/x86_64-linux-ghc-8.4.2/cabal-helper-0.9.0.0
-/home/shane/var/smulliga/source/git/haskell/haskell-ide-engine/.stack-work/install/x86_64-linux/nightly-2018-05-30/8.4.2/libexec/x86_64-linux-ghc-8.4.2/cabal-helper-0.9.0.0/cabal-helper-wrapper
-junk/build/cabal-helper-wrapper/cabal-helper-wrapper
-/home/shane/var/smulliga/source/git/haskell/haskell-ide-engine/.stack-work/install/x86_64-linux/nightly-2018-05-30/8.4.2/bin/cabal-helper-wrapper
-
-If you don&#39;t know what I&#39;m talking about something went wrong with your
-installation. Please report this problem here:
-
-    https://github.com/DanielG/cabal-helper/issues</code></pre></td></tr></table>
-</div>
-</div>
+<p><a title="asciinema recording" href="https://asciinema.org/a/StPWXED28BqyYZo2f5plXEmQr" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/StPWXED28BqyYZo2f5plXEmQr.svg" /></a></p>
 
 <h3 id="javascript">JavaScript</h3>
 
@@ -491,10 +442,10 @@ folder.</p>
 <dl>
 <dt><code>compile_commands.json</code></dt>
 <dd><p>Clangd tries to locate the
-“compile_commands.json” file in the root of
-the project, so it’s useful to make a symlink in the
-project root and to where it’s located in
-a build folder.</p>
+    “compile_commands.json” file in the root of
+    the project, so it’s useful to make a symlink in the
+    project root and to where it’s located in
+    a build folder.</p>
 
 <p>Most build tools can output
 “compile_commands.json”.</p>
