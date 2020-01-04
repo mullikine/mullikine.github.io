@@ -22,6 +22,16 @@
     </item>
     
     <item>
+      <title>Review of &#39;Beautiful Racket: Make a language in one hour: stacker&#39;</title>
+      <link>https://mullikine.github.io/posts/review-of-beautiful-racket-make-a-language-in-one-hour-stacker/</link>
+      <pubDate>Sat, 04 Jan 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/review-of-beautiful-racket-make-a-language-in-one-hour-stacker/</guid>
+      <description>Original article Beautiful Racket: Make a language in one hour: stacker  Files  $MYGIT/mbutterick/beautiful-racket/beautiful-racket-demo/stacker-demo/info.rkt $MYGIT/mbutterick/beautiful-racket/beautiful-racket-demo/stacker-demo/stacker-test.rkt $MYGIT/mbutterick/beautiful-racket/beautiful-racket-demo/stacker-demo/stacker.rkt $MYGIT/mbutterick/beautiful-racket/beautiful-racket-demo/stacker-demo/test-sources.rkt  This is about making a linewise reverse polish calculator By convention, the top of our stack will correspond to the left side of a Racket list.
+   enter a line push to list apply operation, compact list      (list)    4 (list 4)    8 (list 8 4)    + (list + 8 4) (list 12)   3 (list 3 12)    * (list * 3 12) (list 36)    Final results 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35  #lang br/quicklang (define (read-syntax path port) (define src-lines (port-&amp;gt;lines port)) (define src-datums (format-datums &amp;#39;(handle ~a) src-lines)) (define module-datum `(module stacker-mod stacker-demo/stacker ,@src-datums)) (datum-&amp;gt;syntax #f module-datlum)) (provide read-syntax) (define-macro (stacker-module-begin HANDLE-EXPR .</description>
+    </item>
+    
+    <item>
       <title>C&#43;&#43; template metaprogramming with Racket</title>
       <link>https://mullikine.github.io/posts/cpp-template-metaprogramming-with-racket/</link>
       <pubDate>Fri, 01 Nov 2019 00:00:00 +1300</pubDate>
