@@ -135,7 +135,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -266,6 +266,471 @@ available.</p>
 <h2 id="pretty-references">Pretty references</h2>
 
 <p><a title="asciinema recording" href="https://asciinema.org/a/291795" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/291795.svg" /></a></p>
+
+<h2 id="list-capabilities">List capabilities</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(xc (sh-notty <span style="color:#e6db74">&#34;jq .&#34;</span> (json-encode (lsp--server-capabilities))))</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;definitionProvider&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;documentSymbolProvider&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;textDocumentSync&#34;</span>: {
+    <span style="color:#f92672">&#34;willSave&#34;</span>: <span style="color:#66d9ef">null</span>,
+    <span style="color:#f92672">&#34;openClose&#34;</span>: <span style="color:#66d9ef">true</span>,
+    <span style="color:#f92672">&#34;willSaveWaitUntil&#34;</span>: <span style="color:#66d9ef">null</span>,
+    <span style="color:#f92672">&#34;change&#34;</span>: <span style="color:#ae81ff">2</span>
+  },
+  <span style="color:#f92672">&#34;referencesProvider&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;hoverProvider&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;documentHighlightProvider&#34;</span>: <span style="color:#66d9ef">true</span>
+}</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="comparing-with-python-server-capabilities-below">Comparing with python server capabilities below</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;renameProvider&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;executeCommandProvider&#34;</span>: {
+    <span style="color:#f92672">&#34;commands&#34;</span>: []
+  },
+  <span style="color:#f92672">&#34;hoverProvider&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;signatureHelpProvider&#34;</span>: {
+    <span style="color:#f92672">&#34;triggerCharacters&#34;</span>: [
+      <span style="color:#e6db74">&#34;(&#34;</span>,
+      <span style="color:#e6db74">&#34;,&#34;</span>,
+      <span style="color:#e6db74">&#34;=&#34;</span>
+    ]
+  },
+  <span style="color:#f92672">&#34;completionProvider&#34;</span>: {
+    <span style="color:#f92672">&#34;resolveProvider&#34;</span>: <span style="color:#66d9ef">null</span>,
+    <span style="color:#f92672">&#34;triggerCharacters&#34;</span>: [
+      <span style="color:#e6db74">&#34;.&#34;</span>
+    ]
+  },
+  <span style="color:#f92672">&#34;documentSymbolProvider&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;experimental&#34;</span>: {},
+  <span style="color:#f92672">&#34;definitionProvider&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;codeActionProvider&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;documentFormattingProvider&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;referencesProvider&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;textDocumentSync&#34;</span>: <span style="color:#ae81ff">2</span>,
+  <span style="color:#f92672">&#34;codeLensProvider&#34;</span>: {
+    <span style="color:#f92672">&#34;resolveProvider&#34;</span>: <span style="color:#66d9ef">null</span>
+  },
+  <span style="color:#f92672">&#34;documentRangeFormattingProvider&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;documentHighlightProvider&#34;</span>: <span style="color:#66d9ef">true</span>
+}</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="racket-client-capabilities">Racket client capabilities</h2>
+
+<p>The client could support more capabilities if they were available.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(xc (sh-notty <span style="color:#e6db74">&#34;jq .&#34;</span> (json-encode (lsp--client-capabilities))))</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">128
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">129
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">130
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">131
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">132
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">133
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">134
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">141
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">142
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">143
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">144
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">145
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">146
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">149
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">150
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">151
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">152
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">153
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">154
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">155
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">156
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">157
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">158
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">159
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">160
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">161
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">162
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">163
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">164
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;workspace&#34;</span>: {
+    <span style="color:#f92672">&#34;workspaceEdit&#34;</span>: {
+      <span style="color:#f92672">&#34;documentChanges&#34;</span>: <span style="color:#66d9ef">true</span>,
+      <span style="color:#f92672">&#34;resourceOperations&#34;</span>: [
+        <span style="color:#e6db74">&#34;create&#34;</span>,
+        <span style="color:#e6db74">&#34;rename&#34;</span>,
+        <span style="color:#e6db74">&#34;delete&#34;</span>
+      ]
+    },
+    <span style="color:#f92672">&#34;applyEdit&#34;</span>: <span style="color:#66d9ef">true</span>,
+    <span style="color:#f92672">&#34;symbol&#34;</span>: {
+      <span style="color:#f92672">&#34;symbolKind&#34;</span>: {
+        <span style="color:#f92672">&#34;valueSet&#34;</span>: [
+          <span style="color:#ae81ff">1</span>,
+          <span style="color:#ae81ff">2</span>,
+          <span style="color:#ae81ff">3</span>,
+          <span style="color:#ae81ff">4</span>,
+          <span style="color:#ae81ff">5</span>,
+          <span style="color:#ae81ff">6</span>,
+          <span style="color:#ae81ff">7</span>,
+          <span style="color:#ae81ff">8</span>,
+          <span style="color:#ae81ff">9</span>,
+          <span style="color:#ae81ff">10</span>,
+          <span style="color:#ae81ff">11</span>,
+          <span style="color:#ae81ff">12</span>,
+          <span style="color:#ae81ff">13</span>,
+          <span style="color:#ae81ff">14</span>,
+          <span style="color:#ae81ff">15</span>,
+          <span style="color:#ae81ff">16</span>,
+          <span style="color:#ae81ff">17</span>,
+          <span style="color:#ae81ff">18</span>,
+          <span style="color:#ae81ff">19</span>,
+          <span style="color:#ae81ff">20</span>,
+          <span style="color:#ae81ff">21</span>,
+          <span style="color:#ae81ff">22</span>,
+          <span style="color:#ae81ff">23</span>,
+          <span style="color:#ae81ff">24</span>,
+          <span style="color:#ae81ff">25</span>,
+          <span style="color:#ae81ff">26</span>
+        ]
+      }
+    },
+    <span style="color:#f92672">&#34;executeCommand&#34;</span>: {
+      <span style="color:#f92672">&#34;dynamicRegistration&#34;</span>: <span style="color:#66d9ef">false</span>
+    },
+    <span style="color:#f92672">&#34;didChangeWatchedFiles&#34;</span>: {
+      <span style="color:#f92672">&#34;dynamicRegistration&#34;</span>: <span style="color:#66d9ef">true</span>
+    },
+    <span style="color:#f92672">&#34;workspaceFolders&#34;</span>: <span style="color:#66d9ef">true</span>,
+    <span style="color:#f92672">&#34;configuration&#34;</span>: <span style="color:#66d9ef">true</span>
+  },
+  <span style="color:#f92672">&#34;textDocument&#34;</span>: {
+    <span style="color:#f92672">&#34;declaration&#34;</span>: {
+      <span style="color:#f92672">&#34;linkSupport&#34;</span>: <span style="color:#66d9ef">true</span>
+    },
+    <span style="color:#f92672">&#34;definition&#34;</span>: {
+      <span style="color:#f92672">&#34;linkSupport&#34;</span>: <span style="color:#66d9ef">true</span>
+    },
+    <span style="color:#f92672">&#34;implementation&#34;</span>: {
+      <span style="color:#f92672">&#34;linkSupport&#34;</span>: <span style="color:#66d9ef">true</span>
+    },
+    <span style="color:#f92672">&#34;typeDefinition&#34;</span>: {
+      <span style="color:#f92672">&#34;linkSupport&#34;</span>: <span style="color:#66d9ef">true</span>
+    },
+    <span style="color:#f92672">&#34;synchronization&#34;</span>: {
+      <span style="color:#f92672">&#34;willSave&#34;</span>: <span style="color:#66d9ef">true</span>,
+      <span style="color:#f92672">&#34;didSave&#34;</span>: <span style="color:#66d9ef">true</span>,
+      <span style="color:#f92672">&#34;willSaveWaitUntil&#34;</span>: <span style="color:#66d9ef">true</span>
+    },
+    <span style="color:#f92672">&#34;documentSymbol&#34;</span>: {
+      <span style="color:#f92672">&#34;symbolKind&#34;</span>: {
+        <span style="color:#f92672">&#34;valueSet&#34;</span>: [
+          <span style="color:#ae81ff">1</span>,
+          <span style="color:#ae81ff">2</span>,
+          <span style="color:#ae81ff">3</span>,
+          <span style="color:#ae81ff">4</span>,
+          <span style="color:#ae81ff">5</span>,
+          <span style="color:#ae81ff">6</span>,
+          <span style="color:#ae81ff">7</span>,
+          <span style="color:#ae81ff">8</span>,
+          <span style="color:#ae81ff">9</span>,
+          <span style="color:#ae81ff">10</span>,
+          <span style="color:#ae81ff">11</span>,
+          <span style="color:#ae81ff">12</span>,
+          <span style="color:#ae81ff">13</span>,
+          <span style="color:#ae81ff">14</span>,
+          <span style="color:#ae81ff">15</span>,
+          <span style="color:#ae81ff">16</span>,
+          <span style="color:#ae81ff">17</span>,
+          <span style="color:#ae81ff">18</span>,
+          <span style="color:#ae81ff">19</span>,
+          <span style="color:#ae81ff">20</span>,
+          <span style="color:#ae81ff">21</span>,
+          <span style="color:#ae81ff">22</span>,
+          <span style="color:#ae81ff">23</span>,
+          <span style="color:#ae81ff">24</span>,
+          <span style="color:#ae81ff">25</span>,
+          <span style="color:#ae81ff">26</span>
+        ]
+      },
+      <span style="color:#f92672">&#34;hierarchicalDocumentSymbolSupport&#34;</span>: <span style="color:#66d9ef">true</span>
+    },
+    <span style="color:#f92672">&#34;formatting&#34;</span>: {
+      <span style="color:#f92672">&#34;dynamicRegistration&#34;</span>: <span style="color:#66d9ef">true</span>
+    },
+    <span style="color:#f92672">&#34;rangeFormatting&#34;</span>: {
+      <span style="color:#f92672">&#34;dynamicRegistration&#34;</span>: <span style="color:#66d9ef">true</span>
+    },
+    <span style="color:#f92672">&#34;rename&#34;</span>: {
+      <span style="color:#f92672">&#34;dynamicRegistration&#34;</span>: <span style="color:#66d9ef">true</span>
+    },
+    <span style="color:#f92672">&#34;semanticHighlightingCapabilities&#34;</span>: {
+      <span style="color:#f92672">&#34;semanticHighlighting&#34;</span>: <span style="color:#66d9ef">null</span>
+    },
+    <span style="color:#f92672">&#34;codeAction&#34;</span>: {
+      <span style="color:#f92672">&#34;dynamicRegistration&#34;</span>: <span style="color:#66d9ef">true</span>,
+      <span style="color:#f92672">&#34;codeActionLiteralSupport&#34;</span>: {
+        <span style="color:#f92672">&#34;codeActionKind&#34;</span>: {
+          <span style="color:#f92672">&#34;valueSet&#34;</span>: [
+            <span style="color:#e6db74">&#34;&#34;</span>,
+            <span style="color:#e6db74">&#34;quickfix&#34;</span>,
+            <span style="color:#e6db74">&#34;refactor&#34;</span>,
+            <span style="color:#e6db74">&#34;refactor.extract&#34;</span>,
+            <span style="color:#e6db74">&#34;refactor.inline&#34;</span>,
+            <span style="color:#e6db74">&#34;refactor.rewrite&#34;</span>,
+            <span style="color:#e6db74">&#34;source&#34;</span>,
+            <span style="color:#e6db74">&#34;source.organizeImports&#34;</span>
+          ]
+        }
+      }
+    },
+    <span style="color:#f92672">&#34;completion&#34;</span>: {
+      <span style="color:#f92672">&#34;completionItem&#34;</span>: {
+        <span style="color:#f92672">&#34;snippetSupport&#34;</span>: <span style="color:#66d9ef">true</span>,
+        <span style="color:#f92672">&#34;documentationFormat&#34;</span>: [
+          <span style="color:#e6db74">&#34;markdown&#34;</span>
+        ]
+      },
+      <span style="color:#f92672">&#34;contextSupport&#34;</span>: <span style="color:#66d9ef">true</span>
+    },
+    <span style="color:#f92672">&#34;signatureHelp&#34;</span>: {
+      <span style="color:#f92672">&#34;signatureInformation&#34;</span>: {
+        <span style="color:#f92672">&#34;parameterInformation&#34;</span>: {
+          <span style="color:#f92672">&#34;labelOffsetSupport&#34;</span>: <span style="color:#66d9ef">true</span>
+        }
+      }
+    },
+    <span style="color:#f92672">&#34;documentLink&#34;</span>: {
+      <span style="color:#f92672">&#34;dynamicRegistration&#34;</span>: <span style="color:#66d9ef">true</span>
+    },
+    <span style="color:#f92672">&#34;hover&#34;</span>: {
+      <span style="color:#f92672">&#34;contentFormat&#34;</span>: [
+        <span style="color:#e6db74">&#34;markdown&#34;</span>,
+        <span style="color:#e6db74">&#34;plaintext&#34;</span>
+      ]
+    },
+    <span style="color:#f92672">&#34;foldingRange&#34;</span>: {
+      <span style="color:#f92672">&#34;dynamicRegistration&#34;</span>: <span style="color:#66d9ef">true</span>,
+      <span style="color:#f92672">&#34;rangeLimit&#34;</span>: <span style="color:#66d9ef">null</span>,
+      <span style="color:#f92672">&#34;lineFoldingOnly&#34;</span>: <span style="color:#66d9ef">false</span>
+    }
+  }
+}</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
