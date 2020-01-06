@@ -135,7 +135,7 @@ Obtain a local copy of the CodeQL queries Using my xsh script, which is like bas
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          5 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -158,7 +158,7 @@ Obtain a local copy of the CodeQL queries Using my xsh script, which is like bas
 <dl>
 <dt>Reference material</dt>
 <dd><a href="https://help.semmle.com/codeql/codeql-cli/procedures/get-started.html">Getting started with the CodeQL CLI - CodeQL</a> <br />
-<a href="https://help.semmle.com/codeql/codeql-cli/reference/qlpack-overview.html">QL packs - CodeQL</a></dd>
+  <a href="https://help.semmle.com/codeql/codeql-cli/reference/qlpack-overview.html">QL packs - CodeQL</a></dd>
 <dt>Related articles</dt>
 <dd><a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters: TLDR // Bodacious Blog</a></dd>
 </dl>
@@ -245,6 +245,161 @@ ext qll      = sp &#34;$@&#34;
 ext dbscheme      = sp &#34;$@&#34;</code></pre></td></tr></table>
 </div>
 </div>
+
+<h2 id="usage">Usage</h2>
+
+<dl>
+<dt>See</dt>
+<dd><a href="https://github.com/github/codeql-go/blob/master/README.md">https://github.com/github/codeql-go/blob/master/README.md</a></dd>
+</dl>
+
+<p>To analyze a Go codebase, either use the
+CodeQL command-line interface to create a
+database yourself, or download a pre-built
+database from LGTM.com.</p>
+
+<p>You can then run any of the queries contained
+in this repository either on the command line
+or using the VS Code extension.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">codeql --help</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Usage: codeql &lt;command&gt; &lt;argument&gt;...
+Create and query CodeQL databases, or work with the QL language.
+
+GitHub makes this program freely available <span style="color:#66d9ef">for</span> the analysis of open-source
+software and certain other uses, but it is not itself free software. Type
+codeql --license to see the license terms.
+
+      --license              Show the license terms <span style="color:#66d9ef">for</span> the CodeQL toolchain.
+Common options:
+  -h, --help                 Show this help text.
+  -v, --verbose              Incrementally increase the number of progress
+                               messages printed.
+  -q, --quiet                Incrementally decrease the number of progress
+                               messages printed.
+Some advanced options have been hidden; try --help -v <span style="color:#66d9ef">for</span> a fuller view.
+Commands:
+  query     Compile and execute QL code.
+  bqrs      Get information from .bqrs files.
+  database  Create, analyze and process CodeQL databases.
+  dataset   <span style="color:#f92672">[</span>Plumbing<span style="color:#f92672">]</span> Work with raw QL datasets.
+  resolve   <span style="color:#f92672">[</span>Deep plumbing<span style="color:#f92672">]</span> Helper commands to resolve disk locations etc.
+  execute   <span style="color:#f92672">[</span>Deep plumbing<span style="color:#f92672">]</span> Low-level commands that need special JVM options.
+  version   Show the version of the CodeQL toolchain.</code></pre></div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">codeql database create --help</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Usage: codeql database create <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> &lt;database&gt;
+Create a CodeQL database <span style="color:#66d9ef">for</span> a source tree that can be analyzed using one of
+the CodeQL products.
+
+      &lt;database&gt;             <span style="color:#f92672">[</span>Mandatory<span style="color:#f92672">]</span> Path to the CodeQL database to create.
+                               This directory will be created, and must not
+                               already exist <span style="color:#f92672">(</span>but its parent must<span style="color:#f92672">)</span>.
+  -l, --language<span style="color:#f92672">=</span>&lt;lang&gt;      <span style="color:#f92672">[</span>Mandatory<span style="color:#f92672">]</span> The language that the new database
+                               will be used to analyze.
+                             There is no fixed set of supported languages; this
+                               depends on which pluggable extractors have been
+                               installed in the search path.
+  -s, --source-root<span style="color:#f92672">=</span>&lt;dir&gt;    <span style="color:#f92672">[</span>Default: .<span style="color:#f92672">]</span> The root source code directory. In
+                               many cases, this will be the checkout root.
+                               Files within it are considered to be the primary
+                               source files <span style="color:#66d9ef">for</span> this database. In some output
+                               formats, files will be referred to by their
+                               relative path from this directory.
+  -j, --threads<span style="color:#f92672">=</span>&lt;num&gt;        Use this many threads <span style="color:#66d9ef">for</span> the import operation,
+                               and pass it as a hint to any invoked build
+                               commands. Pass <span style="color:#ae81ff">0</span> to use the number of cores.
+  -c, --command<span style="color:#f92672">=</span>&lt;command&gt;    For compiled languages, build commands that will
+                               cause the compiler to be invoked on the source
+                               code to analyze. These commands will be executed
+                               under an instrumentation environment that allows
+                               analysis of generated code and <span style="color:#f92672">(</span>in some cases<span style="color:#f92672">)</span>
+                               standard libraries.
+                             If no build command is specified, the command
+                               attempts to figure out automatically how to
+                               build the source tree, based on heuristics from
+                               the selected language pack. If the project has
+                               an lgtm.yml file that defines custom build
+                               commands, they will be used.
+      --search-path<span style="color:#f92672">=</span>&lt;dir&gt;<span style="color:#f92672">[</span>:&lt;dir&gt;...<span style="color:#f92672">]</span>
+                             A list of directories under which extractor packs
+                               may be found. The entire directory trees rooted
+                               at given directories will be searched <span style="color:#66d9ef">for</span>
+                               extractors.
+                             If the path contains multiple directory trees,
+                               their order defines precedence between them: <span style="color:#66d9ef">if</span>
+                               the target language is matched in more than one
+                               of the directory trees, the one given first wins.
+                             The default value is a list containing the parent
+                               directory of the unpacked CodeQL toolchain,
+                               followed by the unpacked toolchain itself. <span style="color:#f92672">(</span>If
+                               this default does not work, it is strongly
+                               recommended to set up --search-path in a
+                               per-user configuration file<span style="color:#f92672">)</span>.
+Low-level dataset cleanup options:
+      --max-disk-cache<span style="color:#f92672">=</span>&lt;MB&gt;  Set the maximum amount of space the disk cache <span style="color:#66d9ef">for</span>
+                               intermediate query results can use.
+                             If this size is not configured explicitly, the
+                               evaluator will try to use a <span style="color:#e6db74">&#34;reasonable&#34;</span> amount
+                               of cache space, based on the size of the dataset
+                               and the complexity of the queries. Explicitly
+                               setting a higher limit than this default usage
+                               will enable additional caching which can speed
+                               up later queries.
+  -m, --mode<span style="color:#f92672">=</span>&lt;mode&gt;          Select how aggressively to trim the cache. Choices
+                               include:
+                             brutal: Remove the entire cache, trimming down to
+                               the state of a freshly extracted dataset
+                             normal <span style="color:#f92672">(</span>default<span style="color:#f92672">)</span>: Trim everything except
+                               explicitly <span style="color:#e6db74">&#34;cached&#34;</span> predicates.
+                             light: Simply make sure the defined size limits
+                               <span style="color:#66d9ef">for</span> the disk cache are observed, deleting as
+                               many intermediates as necessary.
+      --cleanup-upgrade-backups
+                             Delete any backup directories resulting from
+                               database upgrades.
+      --<span style="color:#f92672">[</span>no-<span style="color:#f92672">]</span>finalize-dataset
+                             Finalize this dataset, making further attempts to
+                               import data into it fail. Passing this option
+                               allows some additional on-disk state to be
+                               deleted, but at the cost of sacrificing the
+                               ability to extend the dataset later.
+Common options:
+  -h, --help                 Show this help text.
+  -v, --verbose              Incrementally increase the number of progress
+                               messages printed.
+  -q, --quiet                Incrementally decrease the number of progress
+                               messages printed.
+Some advanced options have been hidden; try --help -v <span style="color:#66d9ef">for</span> a fuller view.</code></pre></div>
+<h2 id="database-creation-command">Database creation command</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">codeql database create $HOME/programs/codeql-home/databases -l go -s $MYGIT/github/codeql-go/</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="demonstration">Demonstration</h3>
+
+<p>Database creation completed successfully.</p>
+
+<p><a title="asciinema recording" href="https://asciinema.org/a/aic65kSbjkiA28eWNQSLPT8n7" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/aic65kSbjkiA28eWNQSLPT8n7.svg" /></a></p>
 
     </div>
     <div class="post-footer">
