@@ -135,13 +135,13 @@ Obtain a local copy of the CodeQL queries Using my xsh script, which is like bas
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          5 min read
+          8 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/ci/">ci</a><a class="tag" href="http://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/polyglot/">polyglot</a><a class="tag" href="http://mullikine.github.io/tags/qa/">qa</a><a class="tag" href="http://mullikine.github.io/tags/testing/">testing</a><a class="tag" href="http://mullikine.github.io/tags/refactoring/">refactoring</a><a class="tag" href="http://mullikine.github.io/tags/linting/">linting</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/ci/">CI</a><a class="tag" href="http://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/polyglot/">polyglot</a><a class="tag" href="http://mullikine.github.io/tags/qa/">qa</a><a class="tag" href="http://mullikine.github.io/tags/testing/">testing</a><a class="tag" href="http://mullikine.github.io/tags/refactoring/">refactoring</a><a class="tag" href="http://mullikine.github.io/tags/linting/">linting</a></div></div>
     </header>
     
 
@@ -400,6 +400,158 @@ Some advanced options have been hidden; try --help -v <span style="color:#66d9ef
 <p>Database creation completed successfully.</p>
 
 <p><a title="asciinema recording" href="https://asciinema.org/a/aic65kSbjkiA28eWNQSLPT8n7" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/aic65kSbjkiA28eWNQSLPT8n7.svg" /></a></p>
+
+<h2 id="querying-the-database">Querying the database</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">codeql query run --help</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Usage: codeql query run <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> &lt;file.ql&gt;
+Run a single query.
+
+This command runs single query against a CodeQL database or raw QL dataset.
+
+By default the result of the query will be displayed on the terminal in a
+human-friendly rendering. If you want to <span style="color:#66d9ef">do</span> further processing of the results,
+we strongly recommend using the --output option to write the results to a file
+in an intermediate binary format, which can <span style="color:#66d9ef">then</span> be unpacked into various more
+machine-friendly representations by the codeql bqrs subcommands.
+
+To run multiple queries in parallel, see codeql database run-queries.
+
+      &lt;file.ql&gt;              <span style="color:#f92672">[</span>Mandatory<span style="color:#f92672">]</span> QL source of the query to execute.
+  -o, --output<span style="color:#f92672">=</span>&lt;file.bqrs&gt;   A file where to output from the query will be
+                               written in BQRS format.
+Options to <span style="color:#66d9ef">select</span> what to query: <span style="color:#f92672">[</span>Exactly one of these must appear<span style="color:#f92672">]</span>:
+  -d, --database<span style="color:#f92672">=</span>&lt;database&gt;  Path to a CodeQL database to query.
+Options to control the query evaluator:
+      --max-disk-cache<span style="color:#f92672">=</span>&lt;MB&gt;  Set the maximum amount of space the disk cache <span style="color:#66d9ef">for</span>
+                               intermediate query results can use.
+                             If this size is not configured explicitly, the
+                               evaluator will try to use a <span style="color:#e6db74">&#34;reasonable&#34;</span> amount
+                               of cache space, based on the size of the dataset
+                               and the complexity of the queries. Explicitly
+                               setting a higher limit than this default usage
+                               will enable additional caching which can speed
+                               up later queries.
+  -j, --threads<span style="color:#f92672">=</span>&lt;num&gt;        Use this many threads to evaluate queries.
+Options to control RAM usage:
+  -M, --ram<span style="color:#f92672">=</span>&lt;MB&gt;             Set total amount of RAM the query evaluator should
+                               be allowed to use.
+Options to control QL compilation:
+      --warnings<span style="color:#f92672">=</span>&lt;mode&gt;      How to handle warnings from the QL compiler. One
+                               of:
+                             hide: Suppress warnings.
+                             show <span style="color:#f92672">(</span>default<span style="color:#f92672">)</span>: Print warnings but <span style="color:#66d9ef">continue</span> with
+                               compilation.
+                             error: Treat warnings as errors.
+      --<span style="color:#f92672">[</span>no-<span style="color:#f92672">]</span>local-checking  Only perform initial checks on the part of the QL
+                               source that is used.
+      --no-metadata-verification
+                             Don<span style="color:#e6db74">&#39;t check embedded query metadata in QLDoc
+</span><span style="color:#e6db74">                               comments for validity.
+</span><span style="color:#e6db74">Options to set up compilation environment:
+</span><span style="color:#e6db74">      --search-path=&lt;dir&gt;[:&lt;dir&gt;...]
+</span><span style="color:#e6db74">                             A list of directories under which QL packs may be
+</span><span style="color:#e6db74">                               found. The entire directory trees rooted at
+</span><span style="color:#e6db74">                               given directories will be searched for QL packs.
+</span><span style="color:#e6db74">                             If the path contains multiple directory trees,
+</span><span style="color:#e6db74">                               their order defines precedence between them: if
+</span><span style="color:#e6db74">                               a pack name that must be resolved is matched in
+</span><span style="color:#e6db74">                               more than one of the directory trees, the one
+</span><span style="color:#e6db74">                               given first wins.
+</span><span style="color:#e6db74">                             Pointing this at a checkout of the open-source
+</span><span style="color:#e6db74">                               CodeQL repository ought to work when querying
+</span><span style="color:#e6db74">                               one of the languages that live there.
+</span><span style="color:#e6db74">                             The default value is a list containing the parent
+</span><span style="color:#e6db74">                               directory of the unpacked CodeQL toolchain,
+</span><span style="color:#e6db74">                               followed by the unpacked toolchain itself. (If
+</span><span style="color:#e6db74">                               this default does not work, it is strongly
+</span><span style="color:#e6db74">                               recommended to set up --search-path in a
+</span><span style="color:#e6db74">                               per-user configuration file).
+</span><span style="color:#e6db74">      --additional-packs=&lt;dir&gt;[:&lt;dir&gt;...]
+</span><span style="color:#e6db74">                             If this list of directories is given, they will be
+</span><span style="color:#e6db74">                               searched for packs before the ones in
+</span><span style="color:#e6db74">                               --search-path. The order between these doesn&#39;</span>t
+                               matter; it is an error <span style="color:#66d9ef">if</span> a pack name is found
+                               in two different places through this list.
+                             This is useful <span style="color:#66d9ef">if</span> you<span style="color:#960050;background-color:#1e0010">&#39;</span>re temporarily developing a
+                               new version of a pack that also appears in the
+                               default path. On the other hand it is not
+                               recommended to override this option in a config
+                               file; some internal actions will add this option
+                               on the fly, overriding any configured value.
+Common options:
+  -h, --help                 Show this help text.
+  -v, --verbose              Incrementally increase the number of progress
+                               messages printed.
+  -q, --quiet                Incrementally decrease the number of progress
+                               messages printed.
+Some advanced options have been hidden; try --help -v <span style="color:#66d9ef">for</span> a fuller view.</code></pre></div>
+<h3 id="demonstration-1">Demonstration</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">codeql query run -d $HOME/programs/codeql-home/databases $MYGIT/github/codeql-go/ql/src/definitions.ql
+pak</code></pre></td></tr></table>
+</div>
+</div>
+
+<p><code>$MYGIT/github/codeql-go/ql/src/definitions.ql</code></p>
+
+<p><a href="https://github.com/github/codeql-go/blob/master/ql/src/definitions.ql">https://github.com/github/codeql-go/blob/master/ql/src/definitions.ql</a></p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ql-mode-base" data-lang="ql-mode-base"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ql-mode-base" data-lang="ql-mode-base">/**
+ * @name Jump-to-definition links
+ * @description Generates use-definition pairs that provide the data
+ *              for jump-to-definition in the code viewer.
+ * @kind definitions
+ * @id go/jump-to-definition
+ */
+
+import go
+
+from Ident def, Ident use, Entity e
+where
+  use.uses(e) and
+  def.declares(e)
+select use, def, &#34;V&#34;</code></pre></td></tr></table>
+</div>
+</div>
+
+<p><a title="asciinema recording" href="https://asciinema.org/a/9gcB4pVOhMjq3UyXm2ybvojFT" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/9gcB4pVOhMjq3UyXm2ybvojFT.svg" /></a></p>
+
+<h2 id="honest-opinion-codelingo-query-language-beats-this">Honest opinion: CodeLingo Query Language beats this</h2>
+
+<p>I&rsquo;ll give it more time, though.</p>
 
     </div>
     <div class="post-footer">
