@@ -137,7 +137,7 @@ In the specific area of HIL Testing I have 2 years of solid experience from work
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          11 min read
+          12 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -826,8 +826,138 @@ current state.</p>
 
 <h3 id="simulation-based-testing">Simulation based testing</h3>
 
-<p>I have done some automation around Gazebo.
-I set up Gazebo for use in the HIL rigs at Crown.</p>
+<p>I have done some automation around Gazebo.</p>
+
+<p>I helped in setting up Gazebo for use in the
+HIL rigs at Crown.</p>
+
+<p>I automated all of the Xterms and logging from
+Gazebo. One problem I solved was with the
+Xterms actually.</p>
+
+<p>Debugging Dual-Mode simulations with Gazebo
+remotely on HIL rigs was very impractical. The
+job ran autonomously but couldn&rsquo;t be
+interacted with.</p>
+
+<p>I started by making it work on my own machine
+with all Xterms defering to run tmux instead.
+I did a similar thing at <code>CodeLingo</code>.</p>
+
+<p>This replaces the <code>mate-terminal</code> program.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">0</span>&lt;/dev/null <span style="color:#f92672">)</span> &amp;&gt;/dev/null
+
+pane_id<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>TMUX<span style="color:#f92672">=</span> tmux neww -n platform -P bash<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+export DISABLE_COLORIZE<span style="color:#f92672">=</span>y
+
+<span style="color:#75715e"># Do not kill here unless I plan on restarting it</span>
+docker kill <span style="color:#66d9ef">$(</span>docker ps -q<span style="color:#66d9ef">)</span>
+docker run -d -p <span style="color:#ae81ff">9411</span>:9411 openzipkin/zipkin
+
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">[</span> $# -gt <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">do</span> opt<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$opt<span style="color:#e6db74">&#34;</span> in
+    --tab<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        shift
+
+        name<span style="color:#f92672">=</span>
+        command<span style="color:#f92672">=</span>zsh
+        <span style="color:#66d9ef">while</span> <span style="color:#f92672">[</span> $# -gt <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">do</span> opt<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$opt<span style="color:#e6db74">&#34;</span> in
+            -t<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+                shift
+                shift
+            <span style="color:#f92672">}</span>
+            ;;
+
+            -e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                command<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+                shift
+                shift
+            <span style="color:#f92672">}</span>
+            ;;
+
+            *<span style="color:#f92672">)</span> break;
+        <span style="color:#66d9ef">esac</span>; <span style="color:#66d9ef">done</span>
+
+        <span style="color:#75715e"># Must use tm splits (beacuse it traps INT)</span>
+
+        new_pane_id<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>TMUX<span style="color:#f92672">=</span> tmux splitw -F <span style="color:#e6db74">&#34;#{pane_id}&#34;</span> -P -t <span style="color:#e6db74">&#34;</span>$pane_id<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;trap &#39;&#39; INT; stty stop undef; stty start undef; export DISABLE_COLORIZE=</span>$DISABLE_COLORIZE<span style="color:#e6db74">; pl </span><span style="color:#66d9ef">$(</span>aqf <span style="color:#e6db74">&#34;</span>$command<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74"> | udl; </span>$command<span style="color:#e6db74">; pak q&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        TMUX<span style="color:#f92672">=</span> tmux <span style="color:#66d9ef">select</span>-layout -t <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>pane_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> tiled
+
+        echo <span style="color:#e6db74">&#34;</span>$new_pane_id<span style="color:#e6db74">&#34;</span> | ds -s -q <span style="color:#e6db74">&#34;matepane</span>$name<span style="color:#e6db74">&#34;</span>
+
+        echo <span style="color:#e6db74">&#34;</span>$name<span style="color:#e6db74">:</span>$new_pane_id<span style="color:#e6db74">&#34;</span>
+    <span style="color:#f92672">}</span>
+    ;;
+
+    *<span style="color:#f92672">)</span> break;
+<span style="color:#66d9ef">esac</span>; <span style="color:#66d9ef">done</span>
+
+TMUX<span style="color:#f92672">=</span> tmux kill-pane -t <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>pane_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e"># The original pane</span>
+TMUX<span style="color:#f92672">=</span> tmux <span style="color:#66d9ef">select</span>-layout -t <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>pane_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> tiled</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
