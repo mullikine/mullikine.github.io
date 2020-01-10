@@ -12,16 +12,12 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hydra - CI for NixOS"/>
-<meta name="twitter:description" content="Original article https://nixos.org/hydra/manual/  Hydra is a tool for continuous integration testing and software release that uses a purely functional language to describe build jobs and their dependencies.
-Continuous integration is a simple technique to improve the quality of the software development process.
-An automated system continuously or periodically checks out the source code of a project, builds it, runs tests, and produces reports for the developers.
-Thus, various errors that might accidentally be committed into the code base are automatically caught."/>
+<meta name="twitter:description" content="Original article https://nixos.org/hydra/manual/  1 2 3 4 5 6  Portability testing Software may need to be built and tested on many different platforms. It is infeasible for each developer to do this before every commit.   Hydra is a tool for continuous integration testing and software release that uses a purely functional language to describe build jobs and their dependencies.
+Continuous integration is a simple technique to improve the quality of the software development process."/>
 
     <meta property="og:title" content="Hydra - CI for NixOS" />
-<meta property="og:description" content="Original article https://nixos.org/hydra/manual/  Hydra is a tool for continuous integration testing and software release that uses a purely functional language to describe build jobs and their dependencies.
-Continuous integration is a simple technique to improve the quality of the software development process.
-An automated system continuously or periodically checks out the source code of a project, builds it, runs tests, and produces reports for the developers.
-Thus, various errors that might accidentally be committed into the code base are automatically caught." />
+<meta property="og:description" content="Original article https://nixos.org/hydra/manual/  1 2 3 4 5 6  Portability testing Software may need to be built and tested on many different platforms. It is infeasible for each developer to do this before every commit.   Hydra is a tool for continuous integration testing and software release that uses a purely functional language to describe build jobs and their dependencies.
+Continuous integration is a simple technique to improve the quality of the software development process." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/nix-hydra-ci/" />
 <meta property="article:published_time" content="2020-01-09T00:00:00+13:00" />
@@ -162,6 +158,25 @@ Thus, various errors that might accidentally be committed into the code base are
 <dd><a href="https://nixos.org/hydra/manual/">https://nixos.org/hydra/manual/</a></dd>
 </dl>
 
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Portability testing
+    Software may need to be built and tested
+    on many different platforms.
+
+    It is infeasible for each developer to do
+    this before every commit.</code></pre></td></tr></table>
+</div>
+</div>
+
 <p>Hydra is a tool for continuous integration
 testing and software release that uses a
 purely functional language to describe build
@@ -184,50 +199,40 @@ automatically caught.</p>
 than what developers could feasibly do
 manually:</p>
 
-<dl>
-<dt>Portability testing</dt>
-<dd>The software may need to be built and tested on many different
-  platforms. It is infeasible for each developer to do this before every commit.</dd>
-</dl>
-
-<p>Likewise, many projects have very large test sets (e.g., regression tests in a
-      compiler, or stress tests in a DBMS) that can take hours or days to run to
-      completion.</p>
-
-<p>Many kinds of static and dynamic analyses can be performed as part of the tests,
-      such as code coverage runs and static analyses.</p>
-
-<p>It may also be necessary to build many different variants of the software. For
-      instance, it may be necessary to verify that the component builds with various
-      versions of a compiler.</p>
-
-<p>Developers typically use incremental building to test their changes (since a full
-      build may take too long), but this is unreliable with many build management tools
-      (such as Make), i.e., the result of the incremental build might differ from a full
-      build.</p>
-
-<p>It ensures that the software can be built from the sources under revision control.
-      Users of version management systems such as CVS and Subversion often forget to
-      place source files under revision control.</p>
-
-<p>The machines on which the continuous integration system runs ideally provides a
-      clean, well-defined build environment. If this environment is administered through
-      proper SCM techniques, then builds produced by the system can be reproduced. In
-      contrast, developer work environments are typically not under any kind of SCM
-      control.</p>
-
-<p>In large projects, developers often work on a particular component of the project,
-      and do not build and test the composition of those components (again since this is
-      likely to take too long). To prevent the phenomenon of ``big bang integration&rdquo;,
-      where components are only tested together near the end of the development process,
-      it is important to test components together as soon as possible (hence continuous
-      integration).</p>
-
-<p>It allows software to be released by automatically creating packages that users can
-      download and install. To do this manually represents an often prohibitive amount of
-      work, as one may want to produce releases for many different platforms: e.g.,
-      installers for Windows and Mac OS X, RPM or Debian packages for certain Linux
-      distributions, and so on.</p>
+<ul>
+<li>Portability testing</li>
+<li>Likewise, many projects have very large test sets (e.g., regression tests in a
+compiler, or stress tests in a DBMS) that can take hours or days to run to
+completion.</li>
+<li>Many kinds of static and dynamic analyses can be performed as part of the tests,
+such as code coverage runs and static analyses.</li>
+<li>It may also be necessary to build many different variants of the software. For
+instance, it may be necessary to verify that the component builds with various
+versions of a compiler.</li>
+<li>Developers typically use incremental building to test their changes (since a full
+build may take too long), but this is unreliable with many build management tools
+(such as Make), i.e., the result of the incremental build might differ from a full
+build.</li>
+<li>It ensures that the software can be built from the sources under revision control.
+Users of version management systems such as CVS and Subversion often forget to
+place source files under revision control.</li>
+<li>The machines on which the continuous integration system runs ideally provides a
+clean, well-defined build environment. If this environment is administered through
+proper SCM techniques, then builds produced by the system can be reproduced. In
+contrast, developer work environments are typically not under any kind of SCM
+control.</li>
+<li>In large projects, developers often work on a particular component of the project,
+and do not build and test the composition of those components (again since this is
+likely to take too long). To prevent the phenomenon of ``big bang integration&rdquo;,
+where components are only tested together near the end of the development process,
+it is important to test components together as soon as possible (hence continuous
+integration).</li>
+<li>It allows software to be released by automatically creating packages that users can
+download and install. To do this manually represents an often prohibitive amount of
+work, as one may want to produce releases for many different platforms: e.g.,
+installers for Windows and Mac OS X, RPM or Debian packages for certain Linux
+distributions, and so on.</li>
+</ul>
 
     </div>
     <div class="post-footer">
