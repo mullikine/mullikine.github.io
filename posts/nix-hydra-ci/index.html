@@ -15,13 +15,13 @@
 <meta name="twitter:description" content="Original article https://nixos.org/hydra/manual/  An automated system continuously or periodically checks out the source code of a project, builds it, runs tests, and produces reports for the developers.
 Thus, various errors that might accidentally be committed into the code base are automatically caught.
 Such a system allows more in-depth testing than what developers could feasibly do manually:
-Hydra enables  Portability testing Lengthy and numerous tests Tests may include many types of analysis Build many variants Deterministic incremental building It ensures that the software can be built from the sources under revision control."/>
+Hydra enables  Portability testing Lengthy and numerous tests Tests may include many types of analysis Build many variants Deterministic incremental building Assurance for building from VCS The machines on which the continuous integration system runs ideally provides a clean, well-defined build environment."/>
 
     <meta property="og:title" content="Hydra - CI and release management for NixOS" />
 <meta property="og:description" content="Original article https://nixos.org/hydra/manual/  An automated system continuously or periodically checks out the source code of a project, builds it, runs tests, and produces reports for the developers.
 Thus, various errors that might accidentally be committed into the code base are automatically caught.
 Such a system allows more in-depth testing than what developers could feasibly do manually:
-Hydra enables  Portability testing Lengthy and numerous tests Tests may include many types of analysis Build many variants Deterministic incremental building It ensures that the software can be built from the sources under revision control." />
+Hydra enables  Portability testing Lengthy and numerous tests Tests may include many types of analysis Build many variants Deterministic incremental building Assurance for building from VCS The machines on which the continuous integration system runs ideally provides a clean, well-defined build environment." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/nix-hydra-ci/" />
 <meta property="article:published_time" content="2020-01-09T00:00:00+13:00" />
@@ -140,7 +140,7 @@ Hydra enables  Portability testing Lengthy and numerous tests Tests may include 
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          3 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -186,9 +186,7 @@ manually:</p>
 <li>Tests may include many types of analysis</li>
 <li>Build many variants</li>
 <li>Deterministic incremental building</li>
-<li>It ensures that the software can be built from the sources under revision control.
-Users of version management systems such as CVS and Subversion often forget to
-place source files under revision control.</li>
+<li>Assurance for building from VCS</li>
 <li>The machines on which the continuous integration system runs ideally provides a
 clean, well-defined build environment. If this environment is administered through
 proper SCM techniques, then builds produced by the system can be reproduced. In
@@ -237,6 +235,15 @@ take too long), but this is unreliable with
 many build management tools (such as Make),
 i.e., the result of the incremental build
 might differ from a full build.</p>
+
+<h3 id="assurance-for-building-from-vcs">Assurance for building from VCS</h3>
+
+<p>It ensures that the software can be built from
+the sources under revision control.</p>
+
+<p>Users of version management systems such as
+CVS and Subversion often forget to place
+source files under revision control.</p>
 
 <h2 id="glossary">Glossary</h2>
 
