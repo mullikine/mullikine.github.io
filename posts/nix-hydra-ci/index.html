@@ -12,11 +12,11 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hydra - CI and release management for NixOS"/>
-<meta name="twitter:description" content="Original article https://nixos.org/hydra/manual/  1 2 3 4  big bang integration The phenomenon where components are only tested together near the end of the development process.   Continuous integration: An automated system Continuously or periodically:
+<meta name="twitter:description" content="Original article https://nixos.org/hydra/manual/  1 2 3 4  big bang integration The phenomenon where components are only tested together near the end of the development process.   Background Continuous Integration An automated system continuously or periodically:
  check out the source code of a project, build it, run tests, and produce reports for the developers.  CI Tools enable Lenthy tests Many projects have very large test sets (e."/>
 
     <meta property="og:title" content="Hydra - CI and release management for NixOS" />
-<meta property="og:description" content="Original article https://nixos.org/hydra/manual/  1 2 3 4  big bang integration The phenomenon where components are only tested together near the end of the development process.   Continuous integration: An automated system Continuously or periodically:
+<meta property="og:description" content="Original article https://nixos.org/hydra/manual/  1 2 3 4  big bang integration The phenomenon where components are only tested together near the end of the development process.   Background Continuous Integration An automated system continuously or periodically:
  check out the source code of a project, build it, run tests, and produce reports for the developers.  CI Tools enable Lenthy tests Many projects have very large test sets (e." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/nix-hydra-ci/" />
@@ -136,7 +136,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          3 min read
+          5 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -176,9 +176,12 @@
 </div>
 </div>
 
-<h2 id="continuous-integration-an-automated-system">Continuous integration: An automated system</h2>
+<h2 id="background">Background</h2>
 
-<p>Continuously or periodically:</p>
+<h3 id="continuous-integration">Continuous Integration</h3>
+
+<p>An automated system continuously or
+periodically:</p>
 
 <ul>
 <li>check out the source code of a project,</li>
@@ -187,22 +190,22 @@
 <li>produce reports for the developers.</li>
 </ul>
 
-<h2 id="ci-tools-enable">CI Tools enable</h2>
+<h3 id="ci-tools-enable">CI Tools enable</h3>
 
-<h3 id="lenthy-tests">Lenthy tests</h3>
+<h4 id="lenthy-tests">Lenthy tests</h4>
 
 <p>Many projects have very large test sets (e.g.,
 regression tests in a compiler, or stress
 tests in a DBMS) that can take hours or days
 to run to completion.</p>
 
-<h3 id="tests-may-include-many-types-of-analysis">Tests may include many types of analysis</h3>
+<h4 id="tests-may-include-many-types-of-analysis">Tests may include many types of analysis</h4>
 
 <p>Many kinds of static and dynamic analyses can
 be performed as part of the tests, such as
 code coverage runs and static analyses.</p>
 
-<h3 id="build-many-variants">Build many variants</h3>
+<h4 id="build-many-variants">Build many variants</h4>
 
 <p>It may also be necessary to build many
 different variants of the software.</p>
@@ -211,7 +214,7 @@ different variants of the software.</p>
 that the component builds with various
 versions of a compiler.</p>
 
-<h3 id="deterministic-incremental-building">Deterministic incremental building</h3>
+<h4 id="deterministic-incremental-building">Deterministic incremental building</h4>
 
 <p>Developers typically use incremental building
 to test their changes (since a full build may
@@ -220,7 +223,7 @@ many build management tools (such as Make),
 i.e., the result of the incremental build
 might differ from a full build.</p>
 
-<h3 id="assurance-for-building-from-vcs">Assurance for building from VCS</h3>
+<h4 id="assurance-for-building-from-vcs">Assurance for building from VCS</h4>
 
 <p>It ensures that the software can be built from
 the sources under revision control.</p>
@@ -229,7 +232,7 @@ the sources under revision control.</p>
 CVS and Subversion often forget to place
 source files under revision control.</p>
 
-<h3 id="clean-builds">Clean builds</h3>
+<h4 id="clean-builds">Clean builds</h4>
 
 <p>The machines on which the CI system runs
 ideally provides a clean, well-defined build
@@ -242,7 +245,7 @@ the system can be reproduced.</p>
 <p>In contrast, developer work environments are
 typically not under any kind of SCM control.</p>
 
-<h3 id="test-combinations-as-soon-as-possible">Test combinations as soon as possible</h3>
+<h4 id="test-combinations-as-soon-as-possible">Test combinations as soon as possible</h4>
 
 <p>In large projects, developers often work on a
 particular component of the project, and do
@@ -254,7 +257,7 @@ too long).</p>
 important to test components together as soon
 as possible (hence CI).</p>
 
-<h3 id="automatic-software-release">Automatic software release</h3>
+<h4 id="automatic-software-release">Automatic software release</h4>
 
 <p>It allows software to be released by
 automatically creating packages that users can
@@ -267,7 +270,94 @@ e.g., installers for Windows and Mac OS X, RPM
 or Debian packages for certain Linux
 distributions, and so on.</p>
 
-<h2 id="hydra-enables">Hydra enables</h2>
+<h2 id="limitations-of-traditional-ci-tools">Limitations of traditional CI tools</h2>
+
+<p>Examples of CI tools include:</p>
+
+<ul>
+<li>Jenkins,</li>
+<li>CruiseControl Tinderbox,</li>
+<li>Sisyphus,</li>
+<li>Anthill and</li>
+<li>BuildBot.</li>
+</ul>
+
+<p>These tools have the following limitations.:</p>
+
+<h3 id="they-do-not-manage-the-build-environment">They do not manage the build environment</h3>
+
+<p>The build environment consists of the
+dependencies necessary to perform a build
+action, e.g., compilers, libraries, etc.</p>
+
+<p>Setting up the environment is typically done
+manually, and without proper SCM control (so
+it may be hard to reproduce a build at a later
+time).</p>
+
+<p>Manual management of the environment scales
+poorly in the number of configurations that
+must be supported.</p>
+
+<p>For instance, suppose that we want to build a
+component that requires a certain compiler X.</p>
+
+<p>We then have to go to each machine and install
+X.</p>
+
+<p>If we later need a newer version of X, the
+process must be repeated all over again.</p>
+
+<p>An ever worse problem occurs if there are
+conflicting, mutually exclusive versions of
+the dependencies.</p>
+
+<p>Thus, simply installing the latest version is
+not an option.</p>
+
+<p>Of course, we can install these components in
+different directories and manually pass the
+appropriate paths to the build processes of
+the various components.</p>
+
+<p>But this is a rather tiresome and error-prone
+process.</p>
+
+<h3 id="they-do-not-easily-support-variability-in-software-systems">They do not easily support variability in software systems</h3>
+
+<p>A system may have a great deal of build-time
+variability: optional functionality, whether
+to build a debug or production version,
+different versions of dependencies, and so on.</p>
+
+<p>(For instance, the Linux kernel now has over
+2,600 build-time configuration switches.)</p>
+
+<p>It is therefore important that a CI tool can
+easily select and test different instances
+from the configuration space of the system to
+reveal problems, such as erroneous
+interactions between features.</p>
+
+<p>In a CI setting, it is also useful to test
+different combinations of versions of
+subsystems, e.g., the head revision of a
+component against stable releases of its
+dependencies, and vice versa, as this can
+reveal various integration problems.</p>
+
+<h2 id="hydra">Hydra</h2>
+
+<p>A CI tool that solves the above problems.</p>
+
+<p>It is built on the <code>Nix</code> <span class="underline"><strong>package manager</strong></span>.</p>
+
+<ul>
+<li>The build environment for projects is produced automatically and
+deterministically, and</li>
+<li>variability in components to be expressed naturally using functions;
+and as such is an ideal fit for a continuous build system.</li>
+</ul>
 
 <h2 id="glossary">Glossary</h2>
 
