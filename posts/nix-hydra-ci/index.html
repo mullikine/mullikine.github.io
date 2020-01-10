@@ -12,12 +12,12 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Hydra - CI and release management for NixOS"/>
-<meta name="twitter:description" content="Original article https://nixos.org/hydra/manual/  An automated system continuously or periodically  checks out the source code of a project, builds it, runs tests, and produces reports for the developers.  Therefore,  Various errors that might accidentally be committed into the code base are automatically caught.  Such a system allows more in-depth testing than what developers could feasibly do manually:
- Portability testing Lengthy and numerous tests Tests may include many types of analysis Build many variants Deterministic incremental building Assurance for building from VCS The machines on which the CI system runs ideally provides a clean, well-defined build environment."/>
+<meta name="twitter:description" content="Original article https://nixos.org/hydra/manual/  1 2 3 4  big bang integration The phenomenon where components are only tested together near the end of the development process.   Continuous integration: An automated system Continuously or periodically:
+ check out the source code of a project, build it, run tests, and produce reports for the developers.  CI Tools enable Lenthy tests Many projects have very large test sets (e."/>
 
     <meta property="og:title" content="Hydra - CI and release management for NixOS" />
-<meta property="og:description" content="Original article https://nixos.org/hydra/manual/  An automated system continuously or periodically  checks out the source code of a project, builds it, runs tests, and produces reports for the developers.  Therefore,  Various errors that might accidentally be committed into the code base are automatically caught.  Such a system allows more in-depth testing than what developers could feasibly do manually:
- Portability testing Lengthy and numerous tests Tests may include many types of analysis Build many variants Deterministic incremental building Assurance for building from VCS The machines on which the CI system runs ideally provides a clean, well-defined build environment." />
+<meta property="og:description" content="Original article https://nixos.org/hydra/manual/  1 2 3 4  big bang integration The phenomenon where components are only tested together near the end of the development process.   Continuous integration: An automated system Continuously or periodically:
+ check out the source code of a project, build it, run tests, and produce reports for the developers.  CI Tools enable Lenthy tests Many projects have very large test sets (e." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/nix-hydra-ci/" />
 <meta property="article:published_time" content="2020-01-09T00:00:00+13:00" />
@@ -136,7 +136,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          4 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -161,52 +161,30 @@
 <dd><a href="https://nixos.org/hydra/manual/">https://nixos.org/hydra/manual/</a></dd>
 </dl>
 
-<h2 id="an-automated-system">An automated system</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">big bang integration
+    The phenomenon where components are only
+    tested together near the end of the
+    development process.</code></pre></td></tr></table>
+</div>
+</div>
 
-<h3 id="continuously-or-periodically">continuously or periodically</h3>
+<h2 id="continuous-integration-an-automated-system">Continuous integration: An automated system</h2>
 
-<ul>
-<li>checks out the source code of a project,</li>
-<li>builds it,</li>
-<li>runs tests, and</li>
-<li>produces reports for the developers.</li>
-</ul>
-
-<h3 id="therefore">Therefore,</h3>
-
-<ul>
-<li>Various errors that might accidentally
-be committed into the code base are
-automatically caught.</li>
-</ul>
-
-<p>Such a system allows more in-depth testing
-than what developers could feasibly do
-manually:</p>
+<p>Continuously or periodically:</p>
 
 <ul>
-<li>Portability testing</li>
-<li>Lengthy and numerous tests</li>
-<li>Tests may include many types of analysis</li>
-<li>Build many variants</li>
-<li>Deterministic incremental building</li>
-<li>Assurance for building from VCS</li>
-<li>The machines on which the CI system runs ideally provides a
-clean, well-defined build environment. If this environment is administered through
-proper SCM techniques, then builds produced by the system can be reproduced. In
-contrast, developer work environments are typically not under any kind of SCM
-control.</li>
-<li>In large projects, developers often work on a particular component of the project,
-and do not build and test the composition of those components (again since this is
-likely to take too long). To prevent the phenomenon of ``big bang integration&rdquo;,
-where components are only tested together near the end of the development process,
-it is important to test components together as soon as possible (hence continuous
-integration).</li>
-<li>It allows software to be released by automatically creating packages that users can
-download and install. To do this manually represents an often prohibitive amount of
-work, as one may want to produce releases for many different platforms: e.g.,
-installers for Windows and Mac OS X, RPM or Debian packages for certain Linux
-distributions, and so on.</li>
+<li>check out the source code of a project,</li>
+<li>build it,</li>
+<li>run tests, and</li>
+<li>produce reports for the developers.</li>
 </ul>
 
 <h2 id="ci-tools-enable">CI Tools enable</h2>
@@ -250,6 +228,44 @@ the sources under revision control.</p>
 <p>Users of version management systems such as
 CVS and Subversion often forget to place
 source files under revision control.</p>
+
+<h3 id="clean-builds">Clean builds</h3>
+
+<p>The machines on which the CI system runs
+ideally provides a clean, well-defined build
+environment.</p>
+
+<p>If this environment is administered through
+proper SCM techniques, then builds produced by
+the system can be reproduced.</p>
+
+<p>In contrast, developer work environments are
+typically not under any kind of SCM control.</p>
+
+<h3 id="test-combinations-as-soon-as-possible">Test combinations as soon as possible</h3>
+
+<p>In large projects, developers often work on a
+particular component of the project, and do
+not build and test the composition of those
+components (again since this is likely to take
+too long).</p>
+
+<p>To prevent &ldquo;big bang integration&rdquo;, it is
+important to test components together as soon
+as possible (hence CI).</p>
+
+<h3 id="automatic-software-release">Automatic software release</h3>
+
+<p>It allows software to be released by
+automatically creating packages that users can
+download and install.</p>
+
+<p>To do this manually represents an often
+prohibitive amount of work, as one may want to
+produce releases for many different platforms:
+e.g., installers for Windows and Mac OS X, RPM
+or Debian packages for certain Linux
+distributions, and so on.</p>
 
 <h2 id="hydra-enables">Hydra enables</h2>
 
