@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Kalman Filter"/>
-<meta name="twitter:description" content=" Components of a Kalman Filter    \(A_t\) Matrix \((n × n)\) Describes how the state evolves from \(t - 1\) to \(t\) without controls or noise.     \(B_t\) Matrix \((n × l)\) Describes how the control \(u_t\) changes the state from \(t - 1\) to \(t\).    "/>
+<meta name="twitter:description" content="Components of a Kalman Filter    Term Rank Describes Description     \(A_t\) Matrix \((n × n)\) state change Describes how the state evolves from \(t - 1\) to \(t\) without controls or noise.   \(B_t\) Matrix \((n × l)\) control change Describes how the control \(u_t\) changes the state from \(t - 1\) to \(t\).   \(C_t\) Matrix \((k × n)\) maps state to observation Describes how to map the state \(x_t\), to an observation \(z_t\)."/>
 
     <meta property="og:title" content="Kalman Filter" />
-<meta property="og:description" content=" Components of a Kalman Filter    \(A_t\) Matrix \((n × n)\) Describes how the state evolves from \(t - 1\) to \(t\) without controls or noise.     \(B_t\) Matrix \((n × l)\) Describes how the control \(u_t\) changes the state from \(t - 1\) to \(t\).    " />
+<meta property="og:description" content="Components of a Kalman Filter    Term Rank Describes Description     \(A_t\) Matrix \((n × n)\) state change Describes how the state evolves from \(t - 1\) to \(t\) without controls or noise.   \(B_t\) Matrix \((n × l)\) control change Describes how the control \(u_t\) changes the state from \(t - 1\) to \(t\).   \(C_t\) Matrix \((k × n)\) maps state to observation Describes how to map the state \(x_t\), to an observation \(z_t\)." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/sp-kalman-filter/" />
 <meta property="article:published_time" content="2019-02-01T00:00:00+13:00" />
@@ -159,17 +159,33 @@
 <table>
 <thead>
 <tr>
-<th>\(A_t\)</th>
-<th>Matrix \((n × n)\)</th>
-<th>Describes how the state evolves from \(t - 1\) to \(t\) without controls or noise.</th>
+<th>Term</th>
+<th>Rank</th>
+<th>Describes</th>
+<th>Description</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
+<td>\(A_t\)</td>
+<td>Matrix \((n × n)\)</td>
+<td>state change</td>
+<td>Describes how the state evolves from \(t - 1\) to \(t\) without controls or noise.</td>
+</tr>
+
+<tr>
 <td>\(B_t\)</td>
 <td>Matrix \((n × l)\)</td>
+<td>control change</td>
 <td>Describes how the control \(u_t\) changes the state from \(t - 1\) to \(t\).</td>
+</tr>
+
+<tr>
+<td>\(C_t\)</td>
+<td>Matrix \((k × n)\)</td>
+<td>maps state to observation</td>
+<td>Describes how to map the state \(x_t\), to an observation \(z_t\).</td>
 </tr>
 </tbody>
 </table>
