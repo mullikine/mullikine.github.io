@@ -18,8 +18,8 @@
 <meta property="og:description" content="Components of a Kalman Filter    Term Rank Describes Description     \(A_t\) Matrix \((n × n)\) state change Describes how the state evolves from \(t - 1\) to \(t\) without controls or noise.   \(B_t\) Matrix \((n × l)\) control change Describes how the control \(u_t\) changes the state from \(t - 1\) to \(t\).   \(C_t\) Matrix \((k × n)\) maps state to observation Describes how to map the state \(x_t\), to an observation \(z_t\)." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/sp-kalman-filter/" />
-<meta property="article:published_time" content="2019-02-01T00:00:00+13:00" />
-<meta property="article:modified_time" content="2019-02-01T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="article:published_time" content="2019-01-20T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-01-20T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
 
 
   </head>
@@ -127,7 +127,7 @@
   <title>calendar</title>
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
 </svg>
-          Feb 1, 2019
+          Jan 20, 2019
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
@@ -190,6 +190,83 @@
 </tbody>
 </table>
 
+<h3 id="a-t">\(A_t\)</h3>
+
+<p>How does the state evolve if no command or control is executed.</p>
+
+<h3 id="b-t">\(B_t\)</h3>
+
+<table>
+<thead>
+<tr>
+<th>term</th>
+<th>purpose</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>n</td>
+<td>The dimensionality of the state</td>
+</tr>
+
+<tr>
+<td>l</td>
+<td>The dimensionality of the odometry</td>
+</tr>
+</tbody>
+</table>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">&#34;prior knowledge of state&#34; -&gt; &#34;P,x k-1|k-1&#34;
+&#34;P,x k-1|k-1&#34; -&gt; &#34;prediction step&#34;
+&#34;next timestep&#34; -&gt; &#34;P,x k-1|k-1&#34;
+&#34;P,x k|k&#34; -&gt; &#34;next timestep&#34;j
+&#34;P,x k|k&#34; -&gt; &#34;output estimate of state&#34;
+&#34;update step&#34; -&gt; &#34;P,x k|k&#34;
+measurements</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-graphviz-dot" data-lang="graphviz-dot">                                 +-----------------+
+                                 |  measurements   |
+                                 +-----------------+
+                                 +-----------------+
+                                 |   update step   |
+                                 +-----------------+
+                                   |
+                                   |
+                                   v
++--------------------------+     +-----------------+
+| output estimate of state | &lt;-- |     P,x k|k     |
++--------------------------+     +-----------------+
+                                   |
+                                   |
+                                   v
+                                 +-----------------+
+                                 |  next timestep  |
+                                 +-----------------+
+                                   |
+                                   |
+                                   v
++--------------------------+     +-----------------+
+| prior knowledge of state | --&gt; |   P,x k-1|k-1   |
++--------------------------+     +-----------------+
+                                   |
+                                   |
+                                   v
+                                 +-----------------+
+                                 | prediction step |
+                                 +-----------------+</code></pre></div>
     </div>
     <div class="post-footer">
       
