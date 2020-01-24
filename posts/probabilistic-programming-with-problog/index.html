@@ -331,6 +331,30 @@ Meta-predicates
 </div>
 </div>
 
+<h2 id="factoids">Factoids</h2>
+
+<h3 id="noisy-or-from-multiple-rules">noisy-or from multiple rules</h3>
+
+<p>If {multiple rules with the same head}, they will be combined as:</p>
+
+<ul>
+<li>a noisy-or, or</li>
+<li>a determistic or (if all heads are deterministic)</li>
+</ul>
+
+<h2 id="examples">Examples</h2>
+
+<h3 id="problog-combined-with-spacy"><code>Problog</code> combined with <code>spaCy</code></h3>
+
+<p><a href="https://github.com/mmxgn/sprl-spacy">https://github.com/mmxgn/sprl-spacy</a></p>
+
+<h3 id="examples-taken-from-https-dtai-dot-cs-dot-kuleuven-dot-be-problog">Examples taken from <a href="https://dtai.cs.kuleuven.be/problog/">https://dtai.cs.kuleuven.be/problog/</a></h3>
+
+<dl>
+<dt>Source code</dt>
+<dd><a href="https://github.com/mullikine/problog-examples/">https://github.com/mullikine/problog-examples/</a></dd>
+</dl>
+
 <h3 id="stochastic-memoisation">Stochastic Memoisation</h3>
 
 <p>We first define a predicate <code>p5</code> that for a
@@ -366,36 +390,19 @@ query(lp5([1,2],_)).
 query(lp5([1,1],_)).</code></pre></td></tr></table>
 </div>
 </div>
-
-<h2 id="factoids">Factoids</h2>
-
-<h3 id="noisy-or-from-multiple-rules">noisy-or from multiple rules</h3>
-
-<p>If {multiple rules with the same head}, they will be combined as:</p>
-
-<ul>
-<li>a noisy-or, or</li>
-<li>a determistic or (if all heads are deterministic)</li>
-</ul>
-
-<h2 id="examples">Examples</h2>
-
-<h3 id="problog-combined-with-spacy"><code>Problog</code> combined with <code>spaCy</code></h3>
-
-<p><a href="https://github.com/mmxgn/sprl-spacy">https://github.com/mmxgn/sprl-spacy</a></p>
-
-<h3 id="examples-taken-from-https-dtai-dot-cs-dot-kuleuven-dot-be-problog">Examples taken from <a href="https://dtai.cs.kuleuven.be/problog/">https://dtai.cs.kuleuven.be/problog/</a></h3>
-
-<dl>
-<dt>Source code</dt>
-<dd><a href="https://github.com/mullikine/problog-examples/">https://github.com/mullikine/problog-examples/</a></dd>
-</dl>
-
-<h4 id="stochastic-memoisation-1">Stochastic Memoisation</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog">lp5([1, 1],[1, 1]):	0.4
+lp5([1, 1],[1, 6]):	0
+lp5([1, 1],[6, 1]):	0
+lp5([1, 1],[6, 6]):	0.6
+lp5([1, 2],[1, 2]):	0.16
+lp5([1, 2],[1, 7]):	0.24
+lp5([1, 2],[6, 2]):	0.24
+lp5([1, 2],[6, 7]):	0.36</code></pre></div>
+<p>It&rsquo;s using the <code>unification operator</code> to set the 2nd value.</p>
 
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
@@ -405,28 +412,59 @@ query(lp5([1,1],_)).</code></pre></td></tr></table>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog">% https://dtai.cs.kuleuven.be/problog/tutorial/tutslides/03_stochmem.html
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">unification
+    [#prolog]
+    [operator]
 
-0.4::p5(N,N);0.6::p5(N,M) :- M is N+5.
-lp5([],[]).
-lp5([N|L],[M|K]) :-
-    p5(N,M),
-    lp5(L,K).
+    Essentially a combination of assignment
+    and equality.
 
-query(lp5([1,2],_)).
-query(lp5([1,1],_)).</code></pre></td></tr></table>
+    vimlinks +/&#34;?- 2 = 3.&#34; &#34;https://learnxinyminutes.com/docs/prolog/&#34;
+
+    If both sides are bound (ie, defined),
+    check equality.
+    2 = 3
+
+    IMPORTANT (the essence of unification):
+    If one side is free (ie, undefined),
+    assign to match the other side.
+    X = 3
+
+    If both sides are free, the assignment is
+    remembered. With some luck, one of the two
+    sides will eventually be bound, but this
+    isn&#39;t necessary.
+    X = Y are both free, so Prolog remembers
+    it. Therefore assigning X will also assign
+    Y. IS is another assigment operator in prolog.
+    X = Y, X = 2, Z is Y + 3.
+
+    See:
+        vim +/&#34;modus ponens&#34; &#34;$NOTES/ws/logic/glossary.txt&#34;</code></pre></td></tr></table>
 </div>
 </div>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-problog" data-lang="problog">lp5([1, 1],[1, 1]):	0.4
-lp5([1, 1],[1, 6]):	0
-lp5([1, 1],[6, 1]):	0
-lp5([1, 1],[6, 6]):	0.6
-lp5([1, 2],[1, 2]):	0.16
-lp5([1, 2],[1, 7]):	0.24
-lp5([1, 2],[6, 2]):	0.24
-lp5([1, 2],[6, 7]):	0.36</code></pre></div>
+
 <h3 id="binary-choices-tossing-coins">Binary choices &ndash; tossing coins</h3>
 
 <p>One coin.</p>
