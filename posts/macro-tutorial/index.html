@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Didactic emacs-lisp macro example (ie. a tutorial) // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.8995595292ef165f93d3c3e3a1025d4cb80fb465935a13ca894957299dddf2b0.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Didactic emacs-lisp macro example (ie. a tutorial)"/>
+<meta name="twitter:description" content="In this tutorial we build a function b which allows you to run shell code within elisp syntax (it looks like emacs lisp).
+This tutorial is useful for learning to write emacs-lisp macros but is also useful for understanding macros of any language.
+First some prerequisite functions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65  (defmacro shut-up-c (&amp;rest body) &#34;This works for c functions where shut-up does not."/>
+
+    <meta property="og:title" content="Didactic emacs-lisp macro example (ie. a tutorial)" />
+<meta property="og:description" content="In this tutorial we build a function b which allows you to run shell code within elisp syntax (it looks like emacs lisp).
+This tutorial is useful for learning to write emacs-lisp macros but is also useful for understanding macros of any language.
+First some prerequisite functions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65  (defmacro shut-up-c (&amp;rest body) &#34;This works for c functions where shut-up does not." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/macro-tutorial/" />
+<meta property="article:published_time" content="2019-09-18T00:00:00+12:00" />
+<meta property="article:modified_time" content="2019-09-18T00:00:00+12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release-management/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a></div>
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Didactic emacs-lisp macro example (ie. a tutorial)</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Sep 18, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          10 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/bash/">bash</a><a class="tag" href="http://mullikine.github.io/tags/macros/">macros</a><a class="tag" href="http://mullikine.github.io/tags/elisp/">elisp</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      
+
+<p>In this tutorial we build a function <code>b</code> which allows you to run shell code within elisp syntax (it looks like emacs lisp).</p>
+
+<p>This tutorial is useful for learning to write emacs-lisp macros but is also useful for understanding macros of any language.</p>
+
+<h2 id="first-some-prerequisite-functions">First some prerequisite functions</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">  (defmacro shut-up-c (<span style="color:#66d9ef">&amp;rest</span> body)
+    <span style="color:#e6db74">&#34;This works for c functions where shut-up does not.&#34;</span>
+    <span style="color:#f92672">`</span>(let* ((inhibit-message <span style="color:#66d9ef">t</span>))
+       <span style="color:#f92672">,@</span>body))
+
+  (defun get-dir ()
+    <span style="color:#e6db74">&#34;Gets the current working directory.
+</span><span style="color:#e6db74">  Takes into account the current file name.&#34;</span>
+    (shut-up-c
+     (let ((filedir (if <span style="color:#a6e22e">buffer-file-name</span>
+                        (<span style="color:#a6e22e">file-name-directory</span> <span style="color:#a6e22e">buffer-file-name</span>)
+                      (<span style="color:#a6e22e">file-name-directory</span> (my/pwd)))))
+       (if (s-blank? filedir)
+           (my/pwd)
+         filedir))))
+
+  (defun my/pwd ()
+    <span style="color:#e6db74">&#34;Gets the current working directory&#34;</span>
+    (interactive)
+    (<span style="color:#a6e22e">substring</span> (pwd) <span style="color:#ae81ff">10</span>))
+
+  (defun str (thing)
+    <span style="color:#e6db74">&#34;Converts object or string to an unformatted string.&#34;</span>
+    (setq thing (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%s&#34;</span> thing))
+    (<span style="color:#a6e22e">set-text-properties</span> <span style="color:#ae81ff">0</span> (<span style="color:#a6e22e">length</span> thing) <span style="color:#66d9ef">nil</span> thing)
+    thing)
+
+  (defun e/q (<span style="color:#a6e22e">string</span>)
+    <span style="color:#e6db74">&#34;Puts double quote around a string and escapes any interior backslashes or double quotes.&#34;</span>
+    (let ((print-escape-newlines <span style="color:#66d9ef">t</span>))
+      (<span style="color:#a6e22e">prin1-to-string</span> <span style="color:#a6e22e">string</span>)))
+
+  (defun shellquote (input)
+    <span style="color:#e6db74">&#34;If string contains spaces or backslashes, put quotes around it.&#34;</span>
+    (if (or (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34;\\\\&#34;</span> input)
+            (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34; &#34;</span> input)
+            (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34;\&#34;&#34;</span> input))
+        (e/q input)
+      input))
+
+  (defun sh-notty (<span style="color:#66d9ef">&amp;optional</span> cmd stdin dir)
+    <span style="color:#e6db74">&#34;Runs command in shell and return the result.
+</span><span style="color:#e6db74">This appears to strip ansi codes.&#34;</span>
+    (interactive)
+    (if (not cmd)
+        (setq cmd <span style="color:#e6db74">&#34;false&#34;</span>))
+
+    (if (not dir)
+        (setq dir (get-dir)))
+
+    (setq tf (make-temp-file <span style="color:#e6db74">&#34;elispbash&#34;</span>))
+
+    (setq final_cmd (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;( cd &#34;</span> (e/q dir) <span style="color:#e6db74">&#34;; &#34;</span> cmd <span style="color:#e6db74">&#34;) &gt; &#34;</span> tf))
+
+    (if (not stdin)
+        (progn
+          (shell-command final_cmd))
+      (with-temp-buffer
+        (<span style="color:#a6e22e">insert</span> stdin)
+        (shell-command-on-region (<span style="color:#a6e22e">point-min</span>) (<span style="color:#a6e22e">point-max</span>) final_cmd)))
+    (setq output (with-temp-buffer
+                   (<span style="color:#a6e22e">insert-file-contents</span> tf)
+                   (<span style="color:#a6e22e">buffer-string</span>)))
+
+    output)</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="we-will-explain-how-these-2-macros-work">We will explain how these 2 macros work</h2>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro quote-args (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#e6db74">&#34;Join all the arguments in a sexp into a single string.
+</span><span style="color:#e6db74">Be mindful of quoting arguments correctly.&#34;</span>
+  <span style="color:#f92672">`</span>(<span style="color:#a6e22e">mapconcat</span> (lambda (input) (shellquote (str input))) <span style="color:#e6db74">&#39;,body</span> <span style="color:#e6db74">&#34; &#34;</span>))
+
+(defmacro b (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#e6db74">&#34;Runs a shell command
+</span><span style="color:#e6db74">Write straight bash within elisp syntax (it looks like emacs-lisp)&#34;</span>
+  <span style="color:#f92672">`</span>(sh-notty (<span style="color:#a6e22e">concat</span> (quote-args <span style="color:#f92672">,@</span>body))))</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="some-macro-syntax-explanations">Some macro syntax explanations</h2>
+
+<p>This notation is called a quasiquote or &lsquo;backtick&rsquo; notation.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; quote-args</span>
+<span style="color:#75715e">;; `(...)  ;; backtick notation is not exclusive to macros. you can also use in functions</span>
+<span style="color:#75715e">;; &#39;(...)  ;; It does the same thing as single quote notation, and in its simplest form, is exactly the same.</span>
+<span style="color:#75715e">;; `(a ,b @c ,@d) ;; But you can also use , and @ or , and @ together</span>
+<span style="color:#75715e">;; , ;; while the backtick and single quote prevents the list elements from being evaluated, a single , comma before a symbol or expression allows it this one to be evaluated</span>
+<span style="color:#75715e">;; @ ;; the at symbol unpacks the list into individual symbols. therefore, you can take advantage of the backtick notation to pass a unpack the macro&#39;s parameters into the call to another macro or function</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="functions">Functions</h2>
+
+<p>Lets talk about functions so we can compare them with macros.</p>
+
+<h3 id="function-arguments">Function arguments</h3>
+
+<p>What is the behaviour of function arguments?</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; function arguments are evaluated before the function starts.</span>
+(defun f1 (<span style="color:#66d9ef">&amp;rest</span> body)
+  (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%s&#34;</span> body)))
+
+(f1 <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#75715e">;; (2 1 1 1)</span>
+
+(f1 (<span style="color:#a6e22e">+</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>) <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#75715e">;; (2 1 1 1)</span>
+
+<span style="color:#75715e">;; What the function sees is exactly the same because</span>
+<span style="color:#75715e">;; the arguments are evaluated before they are passed in.</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="macros">Macros</h2>
+
+<h3 id="macro-arguments">Macro arguments</h3>
+
+<p>Almost anything (so long that it is valid emacs lisp syntax) can legally go into the arguments
+of a macro because they&rsquo;re NOT evaluated before the macro starts.</p>
+
+<p>Lets name the macros <code>m1</code>, <code>m2</code>, <code>m3</code> etc. so we can talk about them easily.</p>
+
+<h4 id="m1-this-macro-returns-nil">m1 &ndash; This macro returns nil</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro m1 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#75715e">;; Nothing in here</span>
+  )
+
+(m1 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)
+<span style="color:#75715e">;; Calling this macro doesn&#39;t complain that echo is not</span>
+<span style="color:#75715e">;; a variable etc. A function would complain.</span></code></pre></td></tr></table>
+</div>
+</div>
+
+<p>nil</p>
+
+<h4 id="m2-returns-the-list-of-the-arguments-as-a-string">m2 &ndash; Returns the list of the arguments as a string</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro m2 (<span style="color:#66d9ef">&amp;rest</span> body)
+  (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%s&#34;</span> body)))
+
+(m2 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>&rdquo;(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)&rdquo;</p>
+
+<h4 id="m3-returns-5-dot-the-last-item-is-the-one-that-is-returned-dot">m3 &ndash;  Returns 5. The last item is the one that is returned.</h4>
+
+<p>So the objective of a macro is simply to manipulate the body variable how we like them before we get to the end of the macro and then return a valid value or list as the last expression in the macro</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro m3 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#ae81ff">5</span>)
+
+(m3 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>5</p>
+
+<h4 id="m4-this-gives-an-error-void-function-body">m4 &ndash; This gives an error: &ldquo;void function body&rdquo;</h4>
+
+<p>The error occurs because the last expression in the macro is <code>'(body)</code> and the last expression of a macro is always evaluated.</p>
+
+<p>Remember, the backtick does the same thing as the single quote, but has some additional, optional features.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro m4 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(body))
+
+(m4 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>That is what the debugger says when you try to run the above:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Debugger entered--Lisp error: (void-function body)
+  (body)
+  eval((body) nil)
+  ...</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>It&rsquo;s trying to run this:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a6e22e">eval</span>((body) <span style="color:#66d9ef">nil</span>))</code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="m5-this-gives-an-error-void-expression-echo-or-void-function-echo">m5 &ndash; This gives an error: &ldquo;void expression echo&rdquo; or &ldquo;void-function echo&rdquo;</h4>
+
+<p>The error occurs because the macro returns the list <code>(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></p>
+
+<p>When a macro is run, the last expression is
+evaluated by whatever called the macro.</p>
+
+<p>So the objective of most macros is to turn <code>body</code> (i.e the arguments) into
+something you want evaluated (i.e. rewrite the code).</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro m5 (<span style="color:#66d9ef">&amp;rest</span> body)
+  body)
+
+(m5 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>That&rsquo;s because it&rsquo;s trying to run this:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="m6-this-gives-an-error-void-function-body">m6 &ndash; This gives an error: &ldquo;void-function @body&rdquo;</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro m6 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(@body))
+
+(m6 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>That&rsquo;s because expanding the macro generates this:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(@body)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>And that will not evaluate. <code>@body</code> is not a function.</p>
+
+<h4 id="m7-this-gives-an-error-invalid-function--echo-hi-and-and-echo-n-hi-and-and-echo-n-hi">m7 &ndash; This gives an error: &ldquo;invalid-function (echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)&rdquo;</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro m7 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(<span style="color:#f92672">,</span>body))
+
+(m7 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>The macro returned <code>((echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi))</code>.</p>
+
+<p>The problem here is that we did not expand
+body with <code>@</code>. It&rsquo;s still contained as a list. Inside
+the backtick, body is just a symbol until we
+give it a comma. But then it becomes an
+entire list. We put that list into another
+list with the backtick. When the macro ends,
+it returns a list inside a list and tries to
+evaluate it.</p>
+
+<p>To expand <code>body</code> from inside the quasiquote <code>`</code> you use <code>,@</code>. See below.</p>
+
+<h4 id="m8-this-gives-an-error-void-function-echo">m8 &ndash; This gives an error: &ldquo;void-function echo&rdquo;</h4>
+
+<p>This is an improvement on <code>m7</code> as it expands <code>body</code> but we still see an error.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro m8 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(<span style="color:#f92672">,@</span>body))
+
+(m8 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>The macro returns this as the last expression: <code>(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></p>
+
+<p><code>echo</code> is not a function, however.</p>
+
+<h4 id="m9-this-is-the-same-as-m8-because-you-re-expanding-the-list-into-another-list-dot">m9 &ndash; This is the same as m8 because you&rsquo;re expanding the list into another list.</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro m9 (<span style="color:#66d9ef">&amp;rest</span> body)
+  body)</code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="m10-working-macro-but-not-finished-yet">m10 &ndash; Working macro but not finished yet</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro m10 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(quote <span style="color:#f92672">,</span>body))
+
+(m10 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</p>
+
+<p>When the macro finishes, it returns <code>(quote (echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi))</code>.</p>
+
+<p>When the macro ends, it evaluates the quoted list and we get <code>(echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></p>
+
+<h4 id="m11-this-is-the-same-as-m10">m11 &ndash; This is the same as m10</h4>
+
+<p><code>m10</code> can also be written like <code>m11</code>.</p>
+
+<p>You can quote <code>,body</code> like so <code>',body</code>.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro m11 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span><span style="color:#e6db74">&#39;,body</span>)</code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="m12-working-macro">m12 &ndash; working macro</h4>
+
+<p>We have a list of the arguments. Now reduce the list to a quoted string</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro m12 (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(<span style="color:#a6e22e">mapconcat</span> <span style="color:#e6db74">&#39;str</span> <span style="color:#e6db74">&#39;,body</span> <span style="color:#e6db74">&#34; &#34;</span>))
+
+(m12 echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>&ldquo;echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi&rdquo;</p>
+
+<h4 id="now-we-can-build-quote-args">Now we can build <code>quote-args</code></h4>
+
+<p><code>quote-args</code> just returns the string of the arguments, but ensures they are quoted nicely.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro quote-args (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(<span style="color:#a6e22e">mapconcat</span> (lambda (input) (shellquote (str input))) <span style="color:#e6db74">&#39;,body</span> <span style="color:#e6db74">&#34; &#34;</span>))
+
+(quote-args echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>&ldquo;echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi&rdquo;</p>
+
+<h4 id="now-we-can-explain-how-b-works">Now we can explain how <code>b</code> works</h4>
+
+<p>This just feeds the string to a function, which happens to be a call to the shell.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro b (<span style="color:#66d9ef">&amp;rest</span> body)
+  <span style="color:#f92672">`</span>(sh-notty (<span style="color:#a6e22e">concat</span> (quote-args <span style="color:#f92672">,@</span>body))))
+
+(b echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)</code></pre></td></tr></table>
+</div>
+</div>
+
+<p>&ldquo;hi
+hihi&rdquo;</p>
+
+<h2 id="in-summary">In summary</h2>
+
+<p>Macros are different from functions in that
+the arguments are not evaluated at all before
+the function is called: the arguments are
+passed in and it&rsquo;s then up to the code within
+the macro to do with the raw code what it likes.</p>
+
+<p>For example, it can alter the code passed in
+before evaluating it, alter the code passed in
+without evaluating it and return altered code
+or simply ignore what was passed in and return
+something else entirely. It can print out the
+code you passed in to it instead of running
+it, for example. That would be useful for
+logging.</p>
+
+<p>Arguments, therefore, are not like <code>pass-by-value</code>: Nor
+are they like <code>pass-by-reference</code>. They&rsquo;re
+more like <code>pass-by-raw-code</code>.</p>
+
+<h3 id="expand-the--b">Expand the <code>(b)</code></h3>
+
+<p>Usually a macro is just used to rewrite code
+before evaluation. For example, we can expand
+the call to macro <code>b</code> to see what it turns
+into.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">;; (macroexpand &#39;(b echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi))
+;; =
+;; (sh-notty (concat (quote-args echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)))</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="quote-args-is-also-a-macro-dot-expand-it"><code>quote-args</code> is also a macro. expand it</h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">;; (macroexpand &#39;(quote-args echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi))
+;; =
+;; (mapconcat (lambda (input) (shellquote (str input))) (quote (echo hi &amp;&amp; echo -n hi &amp;&amp; echo -n hi)))</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="lastly-a-macro-need-not-rewrite-code-for-it-to-be-useful">Lastly, a macro need not rewrite code for it to be useful</h2>
+
+<p>In this case, a symbol <code>helm-map</code> may be
+passed to the macro <code>show-map</code> and the name of
+the symbol is used instead of the symbol
+itself.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro show-map (m)
+  (let ((mstring (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;\\{&#34;</span> (<span style="color:#a6e22e">symbol-name</span> m) <span style="color:#e6db74">&#34;}&#34;</span>)))
+    (new-buffer-from-string (<span style="color:#a6e22e">substitute-command-keys</span> mstring))))</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(show-map helm-map)</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="annex">Annex</h2>
+
+<p>For some of the examples above, you will see a different error message depending on how you run the sexp.</p>
+
+<p>If you run them with <code>C-x C-e</code>, you would see the same errors that I did.</p>
+
+<p>However, executing with the <code>M-:</code> (<code>Eval:</code>) repl may give errors that look more like below:</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Symbol’s function definition is void: echo</code></pre></td></tr></table>
+</div>
+</div>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

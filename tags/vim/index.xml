@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vim on Bodacious Blog</title>
+    <link>https://mullikine.github.io/tags/vim/</link>
+    <description>Recent content in vim on Bodacious Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Dec 2019 00:00:00 +1300</lastBuildDate>
+    
+	<atom:link href="https://mullikine.github.io/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Generate yasnippet from vimsnippet</title>
+      <link>https://mullikine.github.io/posts/generate-yasnippets-from-vimshippets/</link>
+      <pubDate>Mon, 23 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/generate-yasnippets-from-vimshippets/</guid>
+      <description>write the script vimsnippet2yasnippet 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null while [ $# -gt 0 ]; do opt=&amp;#34;$1&amp;#34;; case &amp;#34;$opt&amp;#34; in &amp;#34;&amp;#34;) { shift; }; ;; -d) { dir=&amp;#34;$2&amp;#34; shift shift } ;; *) break; esac; done stdin_exists() { !</description>
+    </item>
+    
+    <item>
+      <title>Permalinks for substrings in various documents</title>
+      <link>https://mullikine.github.io/posts/getting-permalinks-for-substrings-in-man-pages-urls-and-other-files/</link>
+      <pubDate>Mon, 23 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/getting-permalinks-for-substrings-in-man-pages-urls-and-other-files/</guid>
+      <description>The idea is I select some text and press g y and emacs or vim will provide me with a command to go to that section of that file.
+example usage of results 1  emacshelp +/&amp;#34;Major modes specialize Emacs for editing or interacting with particular&amp;#34; &amp;#34;(elisp) Major Modes&amp;#34;   1  ewwlinks +/&amp;#34;\* When ~~ is pressed, the Expect interpreter runs interactively.\&amp;#34;&amp;#34; &amp;#34;https://wiki.tcl-lang.org/page/interact&amp;#34;   1  man +/&amp;#34;For example, here are some things Expect can do:&amp;#34; &amp;#34;expect(1)&amp;#34;   emacs functions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44  (defun get-path (&amp;amp;optional soft) (interactive) ;; (xc-m (s/rp (buffer-file-name))) (or (and (eq major-mode &amp;#39;Info-mode) (if soft (concat &amp;#34;(&amp;#34; (basename Info-current-file) &amp;#34;) &amp;#34; Info-current-node) (concat Info-current-file &amp;#34;.</description>
+    </item>
+    
+    <item>
+      <title>Languages supported by my development environment</title>
+      <link>https://mullikine.github.io/posts/emacs-languages-supported/</link>
+      <pubDate>Fri, 20 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-languages-supported/</guid>
+      <description>Related reading Setting up LSP with emacs (Go, Java, Python, Rust, C++, Haskell) // Bodacious Blog Build Systems support // Bodacious Blog  State of programming language support in my own environment If I havent filled in any blanks it&amp;rsquo;s because I haven&amp;rsquo;t investigated.
+This document is in the early stages and is a work in progress.
+I have not yet fully automated the generation of this document.</description>
+    </item>
+    
+    <item>
+      <title>Real-time interactive documentation lookup for haskell type-declarative search</title>
+      <link>https://mullikine.github.io/posts/doc-lookup-for-haskell-type-declarative-search/</link>
+      <pubDate>Thu, 28 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/doc-lookup-for-haskell-type-declarative-search/</guid>
+      <description>I make a tool for real-time fuzzy documentation lookup for haskell type- declarative search.
+Demonstration; the final result 
+Create the script hs-type-declarative-search This uses stack.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65  #!</description>
+    </item>
+    
+    <item>
+      <title>Using vim as a stream editor</title>
+      <link>https://mullikine.github.io/posts/vim-as-a-stream-editor/</link>
+      <pubDate>Wed, 20 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/vim-as-a-stream-editor/</guid>
+      <description>vim is considered to be more of a language than an editor.
+Why not use all those vim bindings as macros for a stream editor? Then you can play out the motions in your head, which is more natural than formulating an awk script.
+For example 1 2  ci -t 86400 elinks-dump &amp;#34;https://next-episode.net/supernatural&amp;#34; | edm -m &amp;#34;/Countdown:\&amp;lt;CR&amp;gt;jj\&amp;#34;ayyGdgg\&amp;#34;aP&amp;#34; | s efs   1 day 19 hours Demonstration</description>
+    </item>
+    
+    <item>
+      <title>Simulating mouse clicks in emacs</title>
+      <link>https://mullikine.github.io/posts/simulating-mouse-clicks-in-emacs/</link>
+      <pubDate>Tue, 12 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/simulating-mouse-clicks-in-emacs/</guid>
+      <description>Using tmux, emacs and vim, I create some bindings to allow you to send mouse clicks to the terminal programmatically.
+I had attempted to do this with emacs lisp but it was overly complicated and had I succeeded only emacs would be able to understand the mouse codes.
+Click at the cursor location Make the tmux bindings 1 2  bind -n C-M-x run -b &amp;#34;tm mousedown&amp;#34; bind -n C-M-z run -b &amp;#34;tm mouseup&amp;#34;   Make the tm script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51  mousedown|mouseup) { while [ $# -gt 0 ]; do opt=&amp;#34;$1&amp;#34;; case &amp;#34;$opt&amp;#34; in -t) { TMUX_PANE=&amp;#34;$2&amp;#34; shift shift } ;; *) break; esac; done [ -n &amp;#34;$1&amp;#34; ] &amp;amp;&amp;amp; x=&amp;#34;$1&amp;#34; &amp;amp;&amp;amp; shift [ -n &amp;#34;$1&amp;#34; ] &amp;amp;&amp;amp; y=&amp;#34;$1&amp;#34; &amp;amp;&amp;amp; shift : ${TMUX_PANE:=&amp;#34;$CALLER_PANE&amp;#34;} # tm cursor if test -z &amp;#34;$x&amp;#34;; then x=&amp;#34;$(tmux display -t &amp;#34;$TMUX_PANE&amp;#34; -p &amp;#34;#{cursor_x}&amp;#34;)&amp;#34; fi if test -z &amp;#34;$y&amp;#34;; then y=&amp;#34;$(tmux display -t &amp;#34;$TMUX_PANE&amp;#34; -p &amp;#34;#{cursor_y}&amp;#34;)&amp;#34; fi # ns &amp;#34;$f $TMUX_PANE $x $y&amp;#34; &amp;amp;&amp;gt;/dev/null if [ -n &amp;#34;$TMUX_PANE&amp;#34; ] &amp;amp;&amp;amp; [ -n &amp;#34;$x&amp;#34; ] &amp;amp;&amp;amp; [ -n &amp;#34;$y&amp;#34; ]; then case &amp;#34;$f&amp;#34; in mousedown) { tmux send-keys -t &amp;#34;$TMUX_PANE&amp;#34; -l &amp;#34;$(xterm-click -d $x $y)&amp;#34; } ;; mouseup) { tmux send-keys -t &amp;#34;$TMUX_PANE&amp;#34; -l &amp;#34;$(xterm-click -u $x $y)&amp;#34; } ;; click) { tmux send-keys -t &amp;#34;$TMUX_PANE&amp;#34; -l &amp;#34;$(xterm-click -d $x $y)&amp;#34; sleep 0.</description>
+    </item>
+    
+    <item>
+      <title>Meta &amp; Inception</title>
+      <link>https://mullikine.github.io/posts/meta-inception/</link>
+      <pubDate>Wed, 23 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/meta-inception/</guid>
+      <description>This is a blog article about writing a blog article about recording myself recording myself playing tetris inside emacs inside tmux inside neovim inside spacemacs, inside the 5 nested tmux sessions seen at the bottom of the screen.
+DONE tetris inside of emacs 1  etetris-vt100   DONE tetris inside of neovim terminal inside of tmux 1  nvt etetris-vt100   DONE tetris inside of neovim terminal inside of tmux inside of spacemacs 1  sp -sh nvt etetris-vt100   DONE asciinema recording of an asciinema recording of tetris inside of neovim terminal inside of tmux inside of spacemacs Meta inception</description>
+    </item>
+    
+    <item>
+      <title>Adding new digraphs to vim and evil</title>
+      <link>https://mullikine.github.io/posts/adding-new-digraphs-to-vim-and-evil/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/adding-new-digraphs-to-vim-and-evil/</guid>
+      <description>I run this command to search for symbols but it often does not have the symbol I require vimhelp digraph-table·	.M	0xb7	183	MIDDLE DOT ⇔	==	21D4	8660	LEFT RIGHT DOUBLE ARROW ∀	FA	2200	8704	FOR ALL ∂	dP	2202	8706	PARTIAL DIFFERENTIAL ∃	TE	2203	8707	THERE EXISTS ∅	/0	2205	8709	EMPTY SET ∆	DE	2206	8710	INCREMENT ∇	NB	2207	8711	NABLA ∈	(-	2208	8712	ELEMENT OF ∋	-)	220B	8715	CONTAINS AS MEMBER ∏	*P	220F	8719	N-ARY PRODUCT ` ∑	+Z	2211	8721	N-ARY SUMMATION ` ≤	=&amp;lt;	2264	8804	LESS-THAN OR EQUAL TO ≥	&amp;gt;=	2265	8805	GREATER-THAN OR EQUAL TO ≪	&amp;lt;*	226A	8810	MUCH LESS-THAN ≫	*&amp;gt;	226B	8811	MUCH GREATER-THAN I had to Google for these symbols as they were not in the list  List of symbols we wish to make into digraphs  ℕ - double-struck capital N ℤ - Zahlen - double-struck capital Z ℝ - double-struck capital R   Run the unicode program to find the decimal ID for each symbol we want unicode ℕ unicode ℤ unicode ℝ Add them to the vim digraph table Vim uses the decimal value of the symbol.</description>
+    </item>
+    
+  </channel>
+</rss>

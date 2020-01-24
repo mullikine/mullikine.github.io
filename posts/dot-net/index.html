@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Setting up .NET for XUnit // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.8995595292ef165f93d3c3e3a1025d4cb80fb465935a13ca894957299dddf2b0.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Setting up .NET for XUnit"/>
+<meta name="twitter:description" content="I recently have been applying for jobs and so I decided to set up a modern .NET environment on Ubuntu with emacs and look into a unit testing suite called XUnit.
+Setup Emacs omnisharp package installation 1  (package-install &#39;omnisharp)   c# configuration 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31  (progn ;; c sharp ;; (add-hook &#39;csharp-mode-hook &#39;omnisharp-mode) ;; (add-hook &#39;csharp-mode-hook #&#39;company-mode) ;; (add-hook &#39;csharp-mode-hook #&#39;flycheck-mode) (eval-after-load &#39;company &#39;(add-to-list &#39;company-backends &#39;company-omnisharp)) (defun my-csharp-mode-setup () (omnisharp-mode) (company-mode) (flycheck-mode) (setq indent-tabs-mode nil) (setq c-syntactic-indentation t) (c-set-style &#34;ellemtel&#34;) (setq c-basic-offset 4) (setq truncate-lines t) (setq tab-width 4) (setq evil-shift-width 4) ;csharp-mode README."/>
+
+    <meta property="og:title" content="Setting up .NET for XUnit" />
+<meta property="og:description" content="I recently have been applying for jobs and so I decided to set up a modern .NET environment on Ubuntu with emacs and look into a unit testing suite called XUnit.
+Setup Emacs omnisharp package installation 1  (package-install &#39;omnisharp)   c# configuration 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31  (progn ;; c sharp ;; (add-hook &#39;csharp-mode-hook &#39;omnisharp-mode) ;; (add-hook &#39;csharp-mode-hook #&#39;company-mode) ;; (add-hook &#39;csharp-mode-hook #&#39;flycheck-mode) (eval-after-load &#39;company &#39;(add-to-list &#39;company-backends &#39;company-omnisharp)) (defun my-csharp-mode-setup () (omnisharp-mode) (company-mode) (flycheck-mode) (setq indent-tabs-mode nil) (setq c-syntactic-indentation t) (c-set-style &#34;ellemtel&#34;) (setq c-basic-offset 4) (setq truncate-lines t) (setq tab-width 4) (setq evil-shift-width 4) ;csharp-mode README." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/dot-net/" />
+<meta property="article:published_time" content="2019-10-15T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-10-15T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release-management/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a></div>
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Setting up .NET for XUnit</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 15, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/dotnet/">dotnet</a><a class="tag" href="http://mullikine.github.io/tags/csharp/">csharp</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      
+
+<p>I recently have been applying for jobs and so
+I decided to set up a modern <code>.NET</code>
+environment on Ubuntu with emacs and look into
+a unit testing suite called <code>XUnit</code>.</p>
+
+<h2 id="setup">Setup</h2>
+
+<h3 id="emacs">Emacs</h3>
+
+<h4 id="omnisharp-package-installation"><code>omnisharp</code> package installation</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(package-install <span style="color:#e6db74">&#39;omnisharp</span>)</code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="c-configuration"><code>c#</code> configuration</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(progn
+  <span style="color:#75715e">;; c sharp</span>
+  <span style="color:#75715e">;; (add-hook &#39;csharp-mode-hook &#39;omnisharp-mode)</span>
+  <span style="color:#75715e">;; (add-hook &#39;csharp-mode-hook #&#39;company-mode)</span>
+  <span style="color:#75715e">;; (add-hook &#39;csharp-mode-hook #&#39;flycheck-mode)</span>
+
+  (eval-after-load
+      <span style="color:#e6db74">&#39;company</span>
+    <span style="color:#f92672">&#39;</span>(add-to-list <span style="color:#e6db74">&#39;company-backends</span> <span style="color:#e6db74">&#39;company-omnisharp</span>))
+
+  (defun my-csharp-mode-setup ()
+    (omnisharp-mode)
+    (company-mode)
+    (flycheck-mode)
+
+    (setq indent-tabs-mode <span style="color:#66d9ef">nil</span>)
+    (setq c-syntactic-indentation <span style="color:#66d9ef">t</span>)
+    (c-set-style <span style="color:#e6db74">&#34;ellemtel&#34;</span>)
+    (setq c-basic-offset <span style="color:#ae81ff">4</span>)
+    (setq truncate-lines <span style="color:#66d9ef">t</span>)
+    (setq tab-width <span style="color:#ae81ff">4</span>)
+    (setq evil-shift-width <span style="color:#ae81ff">4</span>)
+
+                                        <span style="color:#75715e">;csharp-mode README.md recommends this too</span>
+                                        <span style="color:#75715e">;(electric-pair-mode 1)       ;; Emacs 24</span>
+                                        <span style="color:#75715e">;(electric-pair-local-mode 1) ;; Emacs 25</span>
+
+    (local-set-key (kbd <span style="color:#e6db74">&#34;C-c r r&#34;</span>) <span style="color:#e6db74">&#39;omnisharp-run-code-action-refactoring</span>)
+    (local-set-key (kbd <span style="color:#e6db74">&#34;C-c C-c&#34;</span>) <span style="color:#e6db74">&#39;recompile</span>))
+
+  (add-hook <span style="color:#e6db74">&#39;csharp-mode-hook</span> <span style="color:#e6db74">&#39;my-csharp-mode-setup</span> <span style="color:#66d9ef">t</span>))</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="roslyn">Roslyn</h3>
+
+<h4 id="download-and-build-roslyn">Download and build <code>roslyn</code></h4>
+
+<p><a href="https://github.com/OmniSharp/omnisharp-roslyn">https://github.com/OmniSharp/omnisharp-roslyn</a></p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd <span style="color:#e6db74">&#34;</span>$MYGIT<span style="color:#e6db74">/OmniSharp/omnisharp-roslyn&#34;</span>; bash build.sh</code></pre></td></tr></table>
+</div>
+</div>
+
+<ul>
+<li><p>Results</p>
+
+<p>After successfully building, I can&rsquo;t run <code>omnisharp</code> because the <code>build.sh</code> script does not install.</p></li>
+</ul>
+
+<h4 id="download-and-install-a-prebuilt-binary">Download and install a prebuilt binary</h4>
+
+<p><a href="https://github.com/OmniSharp/omnisharp-roslyn/releases">https://github.com/OmniSharp/omnisharp-roslyn/releases</a>
+<a href="https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v1.34.5/omnisharp-linux-x64.tar.gz">https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v1.34.5/omnisharp-linux-x64.tar.gz</a></p>
+
+<p>This is enlightening on how to set up
+<code>omnisharp</code>. The build readme was vague, but
+seeing the deployed tarball gets you to the point.</p>
+
+<p><a title="asciinema recording" href="https://asciinema.org/a/qR7oVoK8COYDii6zojlIZhVCj" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/qR7oVoK8COYDii6zojlIZhVCj.svg" /></a></p>
+
+<ul>
+<li>Results</li>
+</ul>
+
+<h3 id="install-mono">Install <code>mono</code></h3>
+
+<p><a href="https://www.mono-project.com/">https://www.mono-project.com/</a></p>
+
+<p><a href="https://www.mono-project.com/download/stable/">https://www.mono-project.com/download/stable/</a></p>
+
+<h3 id="i-must-uninstall-chicken-scheme-to-install-mono"><span class="org-todo done DONE">DONE</span> I must uninstall chicken scheme to install mono</h3>
+
+<h4 id="i-uninstalled-it"><span class="org-todo done DONE">DONE</span> I uninstalled it</h4>
+
+<p>This was the only way.</p>
+
+<h4 id="instead-simply-rename-the-chicken-scheme-binary-dot"><span class="org-todo done DISCARD">DISCARD</span> Instead, simply rename the chicken scheme binary.</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo mv /usr/bin/csc /usr/bin/chicken-csc</code></pre></td></tr></table>
+</div>
+</div>
+
+<h3 id="install-server">Install server</h3>
+
+<p><code>M-x omnisharp-install-server</code></p>
+
+<h3 id="do-something-with-dot-net-in-emacs">Do something with <code>.NET</code> in emacs</h3>
+
+<h4 id="look-for-some-c-koans">Look for some <code>c#</code> koans</h4>
+
+<dl>
+<dt>directory</dt>
+<dd><code>$MYGIT/NotMyself/DotNetCoreKoans</code></dd>
+</dl>
+
+<p><a href="https://github.com/NotMyself/DotNetCoreKoans">https://github.com/NotMyself/DotNetCoreKoans</a></p>
+
+<p><a title="asciinema recording" href="https://asciinema.org/a/wswTBMflVZqO9dIV4LNYx9RFJ" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/wswTBMflVZqO9dIV4LNYx9RFJ.svg" /></a></p>
+
+<p>It appears I need to install <code>NuGet</code>.
+This must be a package manager for <code>csharp</code>.</p>
+
+<h3 id="set-up-nuget"><span class="org-todo todo TODO">TODO</span> Set up <code>NuGet</code></h3>
+
+<h3 id="set-up-csharp">Set up <code>csharp</code></h3>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">agi mono-csharp-shell
+agi mono-dbg</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="testing">Testing</h2>
+
+<h3 id="xunit">XUnit</h3>
+
+<p><a href="https://xunit.net/">https://xunit.net/</a></p>
+
+<h4 id="tutorial">Tutorial</h4>
+
+<p><a href="https://dzone.com/articles/xunit-and-exceptions-with-async-task">https://dzone.com/articles/xunit-and-exceptions-with-async-task</a>
+<a href="https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/">https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/</a></p>
+
+<h4 id="example-test-suite">Example test suite</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$MYGIT/OmniSharp/omnisharp-roslyn/tests/OmniSharp.Cake.Tests/CakeProjectSystemFacts.cs</code></pre></td></tr></table>
+</div>
+</div>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">class OmniSharp.Cake.Tests.CakeProjectSystemFacts / (ctor) CakeProjectSystemFacts(ITestOutputHelper output)
+class OmniSharp.Cake.Tests.CakeProjectSystemFacts / (method) AddFile(OmniSharpTestHost host, string filePath)
+class OmniSharp.Cake.Tests.CakeProjectSystemFacts / (method) AllProjectsShouldUseLatestLanguageVersion()
+class OmniSharp.Cake.Tests.CakeProjectSystemFacts / (method) DoesntParticipateInWorkspaceInfoResponseWhenDisable
+class OmniSharp.Cake.Tests.CakeProjectSystemFacts / (method) GetWorkspaceInfoAsync(OmniSharpTestHost host)
+class OmniSharp.Cake.Tests.CakeProjectSystemFacts / (method) RemoveFile(OmniSharpTestHost host, string filePath)
+class OmniSharp.Cake.Tests.CakeProjectSystemFacts / (method) ShouldAddAndRemoveProjects()
+class OmniSharp.Cake.Tests.CakeProjectSystemFacts / (method) ShouldGetProjects()</code></pre></td></tr></table>
+</div>
+</div>
+
+<h4 id="example-test">Example test</h4>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#a6e22e">[Fact]</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> Task ShouldAddAndRemoveProjects()
+{
+    <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> testProject = <span style="color:#66d9ef">await</span> TestAssets.Instance.GetTestProjectAsync(<span style="color:#e6db74">&#34;CakeProject&#34;</span>, shadowCopy : <span style="color:#66d9ef">false</span>))
+    <span style="color:#66d9ef">using</span> (<span style="color:#66d9ef">var</span> host = CreateOmniSharpHost(testProject.Directory))
+    {
+        <span style="color:#66d9ef">var</span> tempFile = Path.Combine(testProject.Directory, <span style="color:#e6db74">&#34;temp.cake&#34;</span>);
+
+        <span style="color:#66d9ef">var</span> workspaceInfo = <span style="color:#66d9ef">await</span> GetWorkspaceInfoAsync(host);
+        Assert.Equal(<span style="color:#ae81ff">3</span>, workspaceInfo.Projects.Count());
+
+        <span style="color:#66d9ef">await</span> AddFile(host, tempFile);
+        workspaceInfo = <span style="color:#66d9ef">await</span> GetWorkspaceInfoAsync(host);
+        Assert.Equal(<span style="color:#ae81ff">4</span>, workspaceInfo.Projects.Count());
+        Assert.Contains(<span style="color:#e6db74">&#34;temp.cake&#34;</span>, workspaceInfo.Projects.Select(p =&gt; Path.GetFileName(p.Path)));
+
+        <span style="color:#66d9ef">await</span> RemoveFile(host, tempFile);
+        workspaceInfo = <span style="color:#66d9ef">await</span> GetWorkspaceInfoAsync(host);
+        Assert.Equal(<span style="color:#ae81ff">3</span>, workspaceInfo.Projects.Count());
+        Assert.DoesNotContain(<span style="color:#e6db74">&#34;temp.cake&#34;</span>, workspaceInfo.Projects.Select(p =&gt; Path.GetFileName(p.Path)));
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div>
+
+<ul>
+<li><p>Questions</p>
+
+<ul>
+<li><p>What is a <code>Fact</code>?</p>
+
+<p>xUnit uses the [Fact] attribute to denote a
+parameterless unit test, which tests
+invariants in your code.</p></li>
+
+<li><p>What is a <code>Theory</code>?</p>
+
+<p>In contrast, the
+[Theory] attribute denotes a parameterised
+test that is true for a subset of data. That
+data can be supplied in a number of ways, but
+the most common is with an <code>[InlineData]</code>
+attribute.</p>
+
+<p><a href="https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/">https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/</a></p>
+
+<p>You use <code>Theory</code> to create parameterised tests with <code>[InlineData]</code>.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#a6e22e">        [Theory]</span>
+<span style="color:#a6e22e">        [InlineData(1, 2, 3)]</span>
+<span style="color:#a6e22e">        [InlineData(-4, -6, -10)]</span>
+<span style="color:#a6e22e">        [InlineData(-2, 2, 0)]</span>
+<span style="color:#a6e22e">        [InlineData(int.MinValue, -1, int.MaxValue)]</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> CanAddTheory(<span style="color:#66d9ef">int</span> value1, <span style="color:#66d9ef">int</span> value2, <span style="color:#66d9ef">int</span> expected)
+        {
+            <span style="color:#66d9ef">var</span> calculator = <span style="color:#66d9ef">new</span> Calculator();
+
+            <span style="color:#66d9ef">var</span> result = calculator.Add(value1, value2);
+
+            Assert.Equal(expected, result);
+        }
+        
+</code></pre></td></tr></table>
+</div>
+</div></li>
+
+<li><p>What is a <code>Task</code>?</p>
+
+<p>It&rsquo;s a thread defined in the standard libraries.</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp">        <span style="color:#66d9ef">using</span> System.Threading.Tasks;
+        
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul></li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>elisp on Bodacious Blog</title>
+    <link>https://mullikine.github.io/tags/elisp/</link>
+    <description>Recent content in elisp on Bodacious Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 31 Dec 2019 00:00:00 +1300</lastBuildDate>
+    
+	<atom:link href="https://mullikine.github.io/tags/elisp/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Efficiently getting emacs keyboard macros from string literals using expect/tmux</title>
+      <link>https://mullikine.github.io/posts/emacs-macros-from-string-literals-using-invisible-emacs/</link>
+      <pubDate>Tue, 31 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-macros-from-string-literals-using-invisible-emacs/</guid>
+      <description>{´◕ ◡ ◕｀} This requires both expect and tmux to be installed. They are only used in the background. You can use this function with GUI emacs fine. No other dependencies are required for this elisp function to work. The bash/tcl/expect script is embedded in elisp. Update The builtin edmacro-format-keys gives me the functionality I want without the rigmarole.  make-kbd-from-string is a function that takes a string literal and gives you a keyboard macro.</description>
+    </item>
+    
+    <item>
+      <title>Currying in emacs lisp</title>
+      <link>https://mullikine.github.io/posts/currying-in-emacs-lisp/</link>
+      <pubDate>Sat, 28 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/currying-in-emacs-lisp/</guid>
+      <description>This is what I want to be able to do:
+1 2 3 4  (defun add-3-things (a b c) (+ a b c)) (mapcar (add-3-things 5 10) &amp;#39;(1 2 3 4))   The reason why it&amp;rsquo;s not possible is because of variadic functions.
+https://paqmind.com/en/blog/currying-in-lisp
+In other words, the following wouldn&amp;rsquo;t work because variadic functions clash with currying.
+1 2 3 4 5 6 7 8 9 10 11 12  (defun add-at-least-one-thing (a &amp;amp;rest args) (eval `(+ a ,@args))) (add-at-least-one-thing 1 2 3) ;; 6 ;; This doesn&amp;#39;t make sense because since =add-at-least-one-thing= is ;; satisfied it returns 15 rather than a partially applied function and ;; 15 isn&amp;#39;t a function (mapcar (add-at-least-one-thing 5 10) &amp;#39;(1 2 3 4)) ;; Debugger entered--Lisp error: (invalid-function 15) ;; 15(1)   But surely it&amp;rsquo;s possible to hack what I want with a macro.</description>
+    </item>
+    
+    <item>
+      <title>Generate emacs functions from CLI commands</title>
+      <link>https://mullikine.github.io/posts/generate-emacs-functions-from-cli-commands/</link>
+      <pubDate>Wed, 20 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/generate-emacs-functions-from-cli-commands/</guid>
+      <description>Prerequisite reading Didactic emacs-lisp macro example (ie. a tutorial) // Bodacious Blog  Define the commands 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30  (defmacro defshellfilter (&amp;amp;rest body) &amp;#34;Define a new string filter function based on a shell command&amp;#34; (let* (;; (s (str2sym (concat &amp;#34;sh/&amp;#34; (sym2str (first body))))) (base (slugify (list2string body) t)) (sm (str2sym (concat &amp;#34;sh/m/&amp;#34; base))) (sf (str2sym (concat &amp;#34;sh/&amp;#34; base))) (sfptw (str2sym (concat &amp;#34;sh/ptw/&amp;#34; base)))) `(progn (defmacro ,sm (&amp;amp;rest body) `(bp ,@&amp;#39;,body ,@body)) (defun ,sf (&amp;amp;rest body) (eval `(bp ,@&amp;#39;,body ,@body))) ;; This last one is the thing the function returns.</description>
+    </item>
+    
+    <item>
+      <title>Lists in emacs lisp</title>
+      <link>https://mullikine.github.io/posts/lists-in-emacs-lisp/</link>
+      <pubDate>Thu, 31 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/lists-in-emacs-lisp/</guid>
+      <description>What is a list? A list in emacs is a list of cons cells. A cons cell has a car and a cdr. The car is a value. The cdr is a pointer.
+e.g. This allows you to set the nth item of a list 1  (setcar (nthcdr 2 list) &amp;#39;epsilon)   Useful pages https://www.emacswiki.org/emacs/ListModification#toc7
+functions  mod orig destructive to original variable     f/m mod orig macro dedup (slow) d     delete ✓   removes all matching elements from list   remove    same as &amp;lsquo;delete&amp;rsquo;   add-to-list ✓  ✓ push element to front   push ?</description>
+    </item>
+    
+    <item>
+      <title>elisp advice</title>
+      <link>https://mullikine.github.io/posts/emacs-lisp-advice/</link>
+      <pubDate>Wed, 30 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-lisp-advice/</guid>
+      <description>The only snippet you need # -*- mode: snippet -*- # name: around-advice # group: advice # key: ada # -- ;; nadvice - proc is the original function, passed in. do not modify (defun ${1:advised-function-name}-around-advice (proc &amp;amp;rest args) (message &amp;#34;$1 called with args %S&amp;#34; args) (let ((res (apply proc args))) (message &amp;#34;$1 returned %S&amp;#34; res) res)) (advice-add &amp;#39;$1 :around #&amp;#39;$1-around-advice) old advice This is the way it used to be done.</description>
+    </item>
+    
+    <item>
+      <title>Custom Org Links</title>
+      <link>https://mullikine.github.io/posts/custom-org-links/</link>
+      <pubDate>Thu, 24 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/custom-org-links/</guid>
+      <description>org links are useful for making your org-mode documents more terse.
+1 2 3 4  $EMACSD/config/org/org-google.el $EMACSD/config/org/org-man.el $EMACSD/config/org/org-rifle.el $EMACSD/config/org/org-youtube.el   org-google.el, for instance will allow you to write google searches into your org mode.
+org-google Example You can then type C-c C-o on the link to run the google search.
+1  [[google:emacs plugins]]   This is how it appears in org-mode.
+google:emacs plugins
+org-google.el source 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50  ;;; org-man.</description>
+    </item>
+    
+    <item>
+      <title>Music playlists in emacs lisp</title>
+      <link>https://mullikine.github.io/posts/music-playlists-in-emacs-lisp/</link>
+      <pubDate>Thu, 17 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/music-playlists-in-emacs-lisp/</guid>
+      <description>Build the emacs-script command emacs-script is a script to treat emacs lisp as a normal scripting language for the command line.
+It loads some basic functionality so we can use emacs lisp for scripting.
+Yes, it downloads from youtube and caches the videos.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83  #!</description>
+    </item>
+    
+    <item>
+      <title>Sensible Splits: Extending shackle.el</title>
+      <link>https://mullikine.github.io/posts/making-shackle-split-sensibly/</link>
+      <pubDate>Mon, 07 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/making-shackle-split-sensibly/</guid>
+      <description>shackle.el provides a single interface for managing the way windows are displayed in emacs. This means you don&amp;rsquo;t have to dig into plugin code to provide ad-hoc advice to specific functions.
+Unfortunately, it doesn&amp;rsquo;t provide an option to split sensibly, allowing you only to specify exactly how you want windows to be displayed.
+For example, it will allow to you specify that all help buffers split to the right with the following rule.</description>
+    </item>
+    
+    <item>
+      <title>Taming term-mode</title>
+      <link>https://mullikine.github.io/posts/taming-term/</link>
+      <pubDate>Mon, 07 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/taming-term/</guid>
+      <description>libertyprime to #emacs i found myself recording an asciinema recording of me making an asciinema recording of me playing tetris inside of tmux inside of neovim inside of emacs inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about  First attempt You can skip this and scroll down to the solution or read it to see some of the problems I was having with term.</description>
+    </item>
+    
+    <item>
+      <title>Conveniently learn emacs bindings</title>
+      <link>https://mullikine.github.io/posts/conveniently-learn-emacs-bindings/</link>
+      <pubDate>Thu, 03 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/conveniently-learn-emacs-bindings/</guid>
+      <description>Here&amp;rsquo;s the coolest thing I&amp;rsquo;ve made in the last few days.
+This will allow you to fuzzy find maps and pretty print them.
+ It&amp;rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in   Code (require &amp;#39;s) (defun my-new-buffer-frame (&amp;amp;optional contents bufname) &amp;#34;Create a new frame with a new empty buffer.</description>
+    </item>
+    
+    <item>
+      <title>Differentiate org-mode bold face</title>
+      <link>https://mullikine.github.io/posts/org-mode-bold/</link>
+      <pubDate>Sun, 22 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/org-mode-bold/</guid>
+      <description>The issue is that in a terminal, the generic bold face alone is not differentiable.
+org-mode uses the generic bold face for text within asterisks.
+Therefore we create a new face and give it a similar look but different colour to org-verbatim.
+(defface org-bold &amp;#39;((t :foreground &amp;#34;#d2268b&amp;#34; :background &amp;#34;#2e2e2e&amp;#34; :weight bold :underline t )) &amp;#34;Face for org-mode bold.&amp;#34; :group &amp;#39;org-faces ) (setq org-emphasis-alist &amp;#39;((&amp;#34;*&amp;#34; ;; (bold :foreground &amp;#34;Orange&amp;#34; ) org-bold) (&amp;#34;/&amp;#34; italic) (&amp;#34;_&amp;#34; underline) (&amp;#34;=&amp;#34; ;; (:background &amp;#34;maroon&amp;#34; :foreground &amp;#34;white&amp;#34;) org-verbatim verbatim) (&amp;#34;~&amp;#34; ;; (:background &amp;#34;deep sky blue&amp;#34; :foreground &amp;#34;MidnightBlue&amp;#34;) org-code verbatim) (&amp;#34;+&amp;#34; (:strike-through t)))) ;; Because spacemacs had different ideas about the verbatim background (set-face-background &amp;#39;org-bold &amp;#34;#2e2e2e&amp;#34;) (set-face-background &amp;#39;org-verbatim &amp;#34;#2e2e2e&amp;#34;)</description>
+    </item>
+    
+    <item>
+      <title>Convert hydra to regular bindings</title>
+      <link>https://mullikine.github.io/posts/convert-hydra-to-regular-bindings/</link>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/convert-hydra-to-regular-bindings/</guid>
+      <description>The problem: which-key doesn&amp;rsquo;t work with hydra I had made a bunch of hydras which I would simply use as basic menu systems
+This is a bit of an anti-pattern.
+Hydras should only be used for creating temporary modes.
+The solution: create a macro which converts the hydras into regular bindings Prerequisites 1 2 3 4 5 6 7  (defun sed (command stdin) &amp;#34;wrapper around sed&amp;#34; (interactive) (setq stdin (str stdin)) (setq command (concat &amp;#34;sed &amp;#39;&amp;#34; (str command) &amp;#34;&amp;#39;&amp;#34;)) (sh-notty command stdin) )   The aim Wrap a defhydra with the convert-hydra-to-sslk macro to turn it into regular keybindings.</description>
+    </item>
+    
+    <item>
+      <title>fzf vs helm, ivy and completing-read</title>
+      <link>https://mullikine.github.io/posts/helm-ivy-and-completing-read/</link>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/helm-ivy-and-completing-read/</guid>
+      <description>Helm, ivy and completing-read are 3 emacs-lisp alternatives to fzf.
+They are all a little different to hack on / configure though.
+helm Select from a list There are different ways to select from a list.
+1 2 3 4 5 6 7 8 9 10 11 12 13  (defun fz-must-match (list &amp;amp;optional prompt) (setq prompt (or prompt &amp;#34;:&amp;#34;)) (helm-comp-read prompt list :must-match t)) ;; This is very useful (defun fz-default-return-query (list &amp;amp;optional prompt) (setq prompt (or prompt &amp;#34;:&amp;#34;)) (helm-comp-read prompt list :must-match &amp;#39;confirm)) ;; But I don&amp;#39;t like confirm things (defun fz-default-return-query (list &amp;amp;optional prompt) (setq prompt (or prompt &amp;#34;:&amp;#34;)) (helm-comp-read prompt list :must-match &amp;#39;nil))   Getting the list of options in another window tv takes a string and opens a window with it.</description>
+    </item>
+    
+    <item>
+      <title>Interesting emacs packages (Sep 2019)</title>
+      <link>https://mullikine.github.io/posts/emacs-packages-21.09.19/</link>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-packages-21.09.19/</guid>
+      <description>Helpful.el GitHub - Wilfred/helpful: A better Emacs help buffer
+Helpful is a replacement for help buffers that provides much more contextual information
+Interesting features It can search all loaded elisp files for references to a symbol.
+(define-button-type &amp;#39;helpful-all-references-button &amp;#39;action #&amp;#39;helpful--all-references &amp;#39;symbol nil &amp;#39;callable-p nil &amp;#39;follow-link t &amp;#39;help-echo &amp;#34;Find all references to this symbol&amp;#34;)(defun helpful--all-references (button) &amp;#34;Find all the references to the symbol that this BUTTON represents.&amp;#34; (let ((sym (button-get button &amp;#39;symbol)) (callable-p (button-get button &amp;#39;callable-p))) (cond ((not callable-p) (elisp-refs-variable sym)) ((functionp sym) (elisp-refs-function sym)) ((macrop sym) (elisp-refs-macro sym))))) parsec.</description>
+    </item>
+    
+    <item>
+      <title>Best emacs tetris in emacs 26&#43;</title>
+      <link>https://mullikine.github.io/posts/emacs-tetris-nice/</link>
+      <pubDate>Fri, 20 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-tetris-nice/</guid>
+      <description>emacs 27 has an update to emacs&amp;rsquo; tetris mode which makes the glyphs display larger on higher DPI screens.
+This script will download that update from git.savannah.gnu.org and display tetris in a distraction free environment for the ultimate productivity.
+Symlinks If you symlink this script to etetris-vt100 and run that instead, you will get the animated and striking black and white terminal version.
+1  ln -s etetris etetris-vt100   If you symlink this script to etetris-xterm and run that instead, you will get the vivid color terminal version.</description>
+    </item>
+    
+    <item>
+      <title>Circumventing paywalls with eww browser</title>
+      <link>https://mullikine.github.io/posts/circumventing-paywalls-with-eww-browser/</link>
+      <pubDate>Thu, 19 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/circumventing-paywalls-with-eww-browser/</guid>
+      <description>Use Google cache Often Google cache has a full copy of an article.
+Check for the existence of the cache for a given URL as some URLs may not be cached.
+I had originally used curl for this.
+Circumventing paywalls with eww browser and curl // Bodacious Blog
+This is not an accurate science. Sometimes the cache is needed and sometimes it is not, but the more information we bring in (such as if the cache exists), the better, as this leads to a more informed decision.</description>
+    </item>
+    
+    <item>
+      <title>Ameliorating list-processes</title>
+      <link>https://mullikine.github.io/posts/ameliorating-list-processes/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/ameliorating-list-processes/</guid>
+      <description>What is list-processes? list-processes is an emacs-lisp function which displays daemons running as subprocesses under emacs.
+The trouble with list-processes  It doesn&amp;rsquo;t format the command string  Commands with multiline arguments are printed verbatim Arguments are not quoted   This means that commands may flow several lines (as many as it takes to print out the full command).
+Also, 90% of the time you can&amp;rsquo;t copy the command and paste in the terminal because individual parameters with spaces are split into separate arguments.</description>
+    </item>
+    
+    <item>
+      <title>Didactic emacs-lisp macro example (ie. a tutorial)</title>
+      <link>https://mullikine.github.io/posts/macro-tutorial/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/macro-tutorial/</guid>
+      <description>In this tutorial we build a function b which allows you to run shell code within elisp syntax (it looks like emacs lisp).
+This tutorial is useful for learning to write emacs-lisp macros but is also useful for understanding macros of any language.
+First some prerequisite functions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65  (defmacro shut-up-c (&amp;amp;rest body) &amp;#34;This works for c functions where shut-up does not.</description>
+    </item>
+    
+    <item>
+      <title>Getting arxiv in the terminal</title>
+      <link>https://mullikine.github.io/posts/getting-arxiv-in-the-terminal/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/getting-arxiv-in-the-terminal/</guid>
+      <description>It all starts with this emacs plugin 1  (require &amp;#39;biblio-arxiv)   We create a bash script We name it arxiv-summary.
+Cant name this &amp;lsquo;as&amp;rsquo; because it interferes with pip.
+Sometimes packages installed wtih pip need the assembler.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35  #!</description>
+    </item>
+    
+    <item>
+      <title>Uniqifying emacs apps</title>
+      <link>https://mullikine.github.io/posts/uniqifying-emacs-apps/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/uniqifying-emacs-apps/</guid>
+      <description>The problem Many useful emacs apps can only have one instance running at a time due to working with a fixed buffer name.
+ Examples of useful apps which you can only run one of  eww Perl-REPL dictionary-search calculator   The fix: rename the buffer to tack on a hash after it is created Create the advice function (defun unique-buffer-generic-after-advice (&amp;amp;rest args) &amp;#34;Give the buffer a unique name&amp;#34; (ignore-errors (let* ((hash (short-hash (str (time-to-seconds)))) (new-buffer-name (pcre-replace-string &amp;#34;(\\*?</description>
+    </item>
+    
+    <item>
+      <title>Making emacs-lisp wrappers for telco commands</title>
+      <link>https://mullikine.github.io/posts/emacs-telco-commands/</link>
+      <pubDate>Sat, 25 Aug 2018 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-telco-commands/</guid>
+      <description> Emacs scripts for bash-related tasks which could benefit from search and autocompletion 1 2 3 4 5 6 7 8 9  (require &amp;#39;my-utils) (require &amp;#39;my-nix) ;; lsof -i :55555 ;; (port2pid 55555) (defun port2process (port) (sh-notty (concat &amp;#34;lsof -i:&amp;#34; (str port)))) (defalias &amp;#39;portgrep &amp;#39;port2process) (defalias &amp;#39;port2pid &amp;#39;port2process)   (port2pid 55555)</description>
+    </item>
+    
+  </channel>
+</rss>

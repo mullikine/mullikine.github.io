@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>macros on Bodacious Blog</title>
+    <link>https://mullikine.github.io/tags/macros/</link>
+    <description>Recent content in macros on Bodacious Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 01 Nov 2019 00:00:00 +1300</lastBuildDate>
+    
+	<atom:link href="https://mullikine.github.io/tags/macros/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Macros in racket</title>
+      <link>https://mullikine.github.io/posts/racket-macros/</link>
+      <pubDate>Fri, 01 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/racket-macros/</guid>
+      <description>;; CSE 341 Autumn 2012 - Racket Macros
+Macros To oversimplify, a macro is just a rule for rewriting programs as a prepass to evaluation. So it’s very syntactic. The “level” at which macros are defined affects their usefulness. • “Sublexical” e.g.: Replace car with hd would turn cart into hdt. – No macro system does this; so macro-expander must know how to break programs into tokens. • “Pre-parsing” e.g.: Replace add(x,y) with x + y (where x and y stand for expressions) would turn add(x,y) * z into x + y * z.</description>
+    </item>
+    
+    <item>
+      <title>Convert hydra to regular bindings</title>
+      <link>https://mullikine.github.io/posts/convert-hydra-to-regular-bindings/</link>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/convert-hydra-to-regular-bindings/</guid>
+      <description>The problem: which-key doesn&amp;rsquo;t work with hydra I had made a bunch of hydras which I would simply use as basic menu systems
+This is a bit of an anti-pattern.
+Hydras should only be used for creating temporary modes.
+The solution: create a macro which converts the hydras into regular bindings Prerequisites 1 2 3 4 5 6 7  (defun sed (command stdin) &amp;#34;wrapper around sed&amp;#34; (interactive) (setq stdin (str stdin)) (setq command (concat &amp;#34;sed &amp;#39;&amp;#34; (str command) &amp;#34;&amp;#39;&amp;#34;)) (sh-notty command stdin) )   The aim Wrap a defhydra with the convert-hydra-to-sslk macro to turn it into regular keybindings.</description>
+    </item>
+    
+    <item>
+      <title>Didactic emacs-lisp macro example (ie. a tutorial)</title>
+      <link>https://mullikine.github.io/posts/macro-tutorial/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/macro-tutorial/</guid>
+      <description>In this tutorial we build a function b which allows you to run shell code within elisp syntax (it looks like emacs lisp).
+This tutorial is useful for learning to write emacs-lisp macros but is also useful for understanding macros of any language.
+First some prerequisite functions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65  (defmacro shut-up-c (&amp;amp;rest body) &amp;#34;This works for c functions where shut-up does not.</description>
+    </item>
+    
+  </channel>
+</rss>
