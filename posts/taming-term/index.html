@@ -147,7 +147,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          11 min read
+          12 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -1091,6 +1091,99 @@ sending those function keys through.</p>
 <td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(if (cl-search <span style="color:#e6db74">&#34;SPACEMACS&#34;</span> my-daemon-name)
     (remove-hook <span style="color:#e6db74">&#39;term-mode-hook</span> <span style="color:#e6db74">&#39;ansi-term-handle-close</span>))</code></pre></td></tr></table>
+</div>
+</div>
+
+<h2 id="preventing-window-margins-from-interfering-with-term">Preventing window margins from interfering with term</h2>
+
+<p>The problem makes term almost unusable.</p>
+
+<p>Therefore, fixing it is important.</p>
+
+<p>This appears to solve the problem</p>
+
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun term-move-columns (delta)
+  (setq term-current-column (<span style="color:#a6e22e">max</span> <span style="color:#ae81ff">0</span> (<span style="color:#a6e22e">+</span> (term-current-column) delta)))
+  (let ((point-at-eol (<span style="color:#a6e22e">line-end-position</span>)))
+    (<span style="color:#a6e22e">move-to-column</span> term-current-column <span style="color:#66d9ef">t</span>)
+    <span style="color:#75715e">;; If move-to-column extends the current line it will use the face</span>
+    <span style="color:#75715e">;; from the last character on the line, set the face for the chars</span>
+    <span style="color:#75715e">;; to default.</span>
+    (when (<span style="color:#a6e22e">&gt;</span> (<span style="color:#a6e22e">point</span>) point-at-eol)
+      (<span style="color:#a6e22e">put-text-property</span> point-at-eol (<span style="color:#a6e22e">point</span>) <span style="color:#e6db74">&#39;font-lock-face</span> <span style="color:#e6db74">&#39;default</span>)))
+
+  <span style="color:#75715e">;; This is almost a fix -- it might even be a fix</span>
+  (<span style="color:#a6e22e">set-window-margins</span> (<span style="color:#a6e22e">selected-window</span>) <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>)
+  (<span style="color:#a6e22e">set-window-hscroll</span> (<span style="color:#a6e22e">selected-window</span>) <span style="color:#ae81ff">0</span>)
+  (<span style="color:#a6e22e">set-window-vscroll</span> (<span style="color:#a6e22e">selected-window</span>) <span style="color:#ae81ff">0</span>)
+
+  <span style="color:#75715e">;; TODO Find a way to keep the column within</span>
+  <span style="color:#75715e">;; (window-body-width)</span>
+
+  <span style="color:#75715e">;; (window-total-width)</span>
+  <span style="color:#75715e">;; (frame-width)</span>
+
+  <span style="color:#75715e">;; (window-vscroll)</span>
+  <span style="color:#75715e">;; (window-hscroll)</span>
+  <span style="color:#75715e">;; (set-window-vscroll (selected-window) 0)</span>
+  <span style="color:#75715e">;; (set-window-hscroll (selected-window) 0)</span>
+  <span style="color:#75715e">;; (set-fringe-mode &#39;(0 . 0))</span>
+  <span style="color:#75715e">;; (window-margins) ;this must be changed to (nil) from (1)</span>
+  <span style="color:#75715e">;; Running git-gutter+-mode removed the margin/fringe/whatever it is</span>
+
+  <span style="color:#75715e">;; This corrects it:</span>
+  <span style="color:#75715e">;; But the terminal is still badly drawn</span>
+  <span style="color:#75715e">;; (set-window-margins (selected-window) 0 0)</span>
+  <span style="color:#75715e">;; (set-window-hscroll (selected-window) 0)</span>
+  <span style="color:#75715e">;; (set-window-vscroll (selected-window) 0)</span>
+
+  <span style="color:#75715e">;; Keep in mind that the columns may have not even</span>
+  <span style="color:#75715e">;; If I call this every time then the screen will get messed up</span>
+  <span style="color:#75715e">;; (call-interactively &#39;evil-scroll-left)</span>
+  )</code></pre></td></tr></table>
 </div>
 </div>
 
