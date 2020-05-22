@@ -1,0 +1,1142 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>CodeLingo vs Linters // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c93a97e54f16df99439e5c4acf79edb18fcb9e5384f1edc008a7a4639844b254.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CodeLingo vs Linters"/>
+<meta name="twitter:description" content="Making tenets with CLQL that do the job of existing linters I started learning Go and CodeLingo / CLQL at the same time, so while I have found it generally easy and straightforward to create these tenets, I feel like I could&rsquo;ve knocked them out even faster if I didn&rsquo;t need to look up answers to questions such as &lsquo;what is an interface in golang?&#39;, for example. The process has been intuitive; I think in part to having a good naming convention."/>
+
+    <meta property="og:title" content="CodeLingo vs Linters" />
+<meta property="og:description" content="Making tenets with CLQL that do the job of existing linters I started learning Go and CodeLingo / CLQL at the same time, so while I have found it generally easy and straightforward to create these tenets, I feel like I could&rsquo;ve knocked them out even faster if I didn&rsquo;t need to look up answers to questions such as &lsquo;what is an interface in golang?&#39;, for example. The process has been intuitive; I think in part to having a good naming convention." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/codelingo-vs-linters/main/" />
+<meta property="article:published_time" content="2018-10-05T00:00:00+13:00" />
+<meta property="article:modified_time" content="2018-10-05T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+
+
+
+<a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+
+
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a></div>
+</div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/rat/">Automating rat</a>
+<br />
+<a href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">Automating Dwarf Fortress</a>
+<br />
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">CodeLingo vs Linters</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 5, 2018
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          11 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/github/">github</a><a class="tag" href="http://mullikine.github.io/tags/dsls/">DSLs</a><a class="tag" href="http://mullikine.github.io/tags/parsers/">parsers</a><a class="tag" href="http://mullikine.github.io/tags/codelingo/">CodeLingo</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      <h2 id="making-tenets-with-clql-that-do-the-job-of-existing-linters">Making tenets with CLQL that do the job of existing linters</h2>
+<p>I started learning Go and CodeLingo / CLQL at the same time, so while I have found it generally easy and straightforward to create these tenets, I feel like I could&rsquo;ve knocked them out even faster if I didn&rsquo;t need to look up answers to questions such as &lsquo;<em>what is an interface in golang?</em>', for example. The process has been intuitive; I think in part to having a good naming convention. I&rsquo;ve had to learn what CodeLingo is, what a &lsquo;<strong>tenet</strong>&rsquo; and a &lsquo;<strong>flow</strong>&rsquo; is. Long story short, they are just as what they sound like they are.</p>
+<h3 id="defintions-taken-from-the-project-docs">Defintions taken from the project docs</h3>
+<dl>
+<dt>tenet</dt>
+<dd>A Tenet is an <em>encoded</em> project-specific <span class="underline">best practice</span> used to guide development.
+<p>(an <strong><em>encoded</em> <span class="underline">best practice</span></strong>)</p>
+</dd>
+<dt>flow</dt>
+<dd>A Flow is an <em>automated</em> development <span class="underline">workflow</span> that leverages Tenets to do some task, for example automating code reviews.
+<p>(an <strong><em>automated</em> <span class="underline">workflow</span></strong>)</p>
+</dd>
+</dl>
+<h3 id="the-general-process-of-writing-one-tenet">The general process of writing one tenet</h3>
+<p>The process of crafting CLQL is mainly subtractive, especially for simple tenets.
+What is simple to implement in CodeLingo may be difficult for 3rd party linters, however, as this write-up should demonstrate.
+Writing a tenet to describe an antipattern might be trivial in CLQL, but the corresponding linter may be <em><strong>orders</strong></em> of magnitude more complex.</p>
+<h4 id="writing-the-clql">Writing the CLQL</h4>
+<p>The <strong>first</strong> step is usually to generate a
+verbose CLQL query from the CodeLingo
+playground. To do this you select the part of
+the code you would like to match and then
+click the <span class="underline">generate</span><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> button.</p>
+<p>The <strong>next</strong> step is to refine that query into something that captures the logic of what you want a tenet to match.</p>
+<p>Typically, the generated query comprises the
+bulk of the code you end up with. You can
+therefore choose what to leave in, or add new
+logic, depending on the needs of the tenet.</p>
+<h4 id="writing-the-unit-test">Writing the unit test</h4>
+<p><span class="underline"><strong>Obtaining test code for the <code>example.go</code> file</strong></span></p>
+<p>I found <strong>&lsquo;Go by example&rsquo;</strong><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> a good place to both learn Go and to obtain test code for tenets.
+CodeLingo test code just looks like regular code, except it should contain the thing that the tenet is looking for, and that is usually an anti-pattern. Therefore, this is where you put deliberately bad code.</p>
+<p><span class="underline"><strong>Generating JSON for the &ldquo;Expected results&rdquo; file, <code>expected.json</code></strong></span></p>
+<p>After a review on the CLI, a JSON file is presented. You can just copy and paste this JSON code into a file called <code>expected.json</code>.</p>
+<h3 id="making-a-new-tenet-named-init">Making a new tenet named &lsquo;init&rsquo;</h3>
+<h4 id="i-started-by-visiting-the">I started by visiting the <span class="underline"><a href="https://www.codelingo.io/playground/?lang=go">CodeLingo Playground</a></span></h4>
+<p>A good way to start is by generating some CLQL for the thing you would like to match.</p>
+<p><span class="underline"><strong>Step 1: *Generate</strong> some CLQL*</span></p>
+<p>Write an init function into the <span class="underline">Source Code: Go</span> section.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">code</span> <span style="color:#75715e">// you also need to say it&#39;s part of a package
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+}</code></pre></td></tr></table>
+</div>
+</div>
+<p>Double tap on &lsquo;init&rsquo; to select it.</p>
+<p>Click on <span class="underline">Generate Query</span> and copy the resulting CLQL code.</p>
+<p>This is what the button looks like.
+<img src="https://mullikine.github.io/codelingo-vs-linters/generate.png" alt=""></p>
+<p>This is what the generated CLQL looks like.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">import codelingo/ast/go
+
+<span style="color:#66d9ef">go.file(depth = any)</span>:
+  <span style="color:#66d9ef">go.decls</span>:
+    @playground.highlight
+    <span style="color:#66d9ef">go.func_decl</span>:
+      <span style="color:#66d9ef">go.ident</span>:
+        child_count == <span style="color:#ae81ff">0</span>
+        name == <span style="color:#e6db74">&#34;init&#34;</span>
+        private == <span style="color:#e6db74">&#34;true&#34;</span>
+        public == <span style="color:#e6db74">&#34;false&#34;</span>
+      <span style="color:#66d9ef">go.func_type</span>:
+        <span style="color:#66d9ef">go.field_list</span>:
+          child_count == <span style="color:#ae81ff">0</span></code></pre></td></tr></table>
+</div>
+</div>
+<dl>
+<dt>total clicks</dt>
+<dd>The number of times needed to press <span class="underline">generate query</span></dd>
+</dl>
+<table>
+<thead>
+<tr>
+<th>total clicks</th>
+<th>purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>to generate a query that matches an init() function</td>
+</tr>
+</tbody>
+</table>
+<p><span class="underline"><strong>Step 2: *Refine</strong> the CLQL*</span></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">import codelingo/ast/go
+
+<span style="color:#66d9ef">go.file(depth = any)</span>:
+  <span style="color:#66d9ef">go.decls</span>:
+    <span style="color:#66d9ef">go.func_decl</span>:
+      @review comment
+      <span style="color:#66d9ef">go.ident</span>:
+        name == <span style="color:#e6db74">&#34;init&#34;</span>
+      <span style="color:#66d9ef">go.func_type</span>:
+        <span style="color:#66d9ef">go.field_list</span>:
+          child_count == <span style="color:#ae81ff">0</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><em><strong>Actions</strong></em></p>
+<ul>
+<li>Remove <code>@playground.highlight</code></li>
+<li>Add <code>@review comment</code></li>
+<li>Remove things that are not relevant to our query.
+<ul>
+<li>
+<p>The first <code>child_count</code> was taken out because we can see that a function definition (<code>go.func_decl</code>) with identifier name equal to &ldquo;init&rdquo; (<code>go.ident:</code> <code>name == &quot;init&quot;</code>) is enough to describe a function with name &ldquo;init&rdquo;.</p>
+</li>
+<li>
+<p>The second <code>child_count</code> was left in because we&rsquo;d like to match &ldquo;init&rdquo; functions that do not take any parameters.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">        child_count == <span style="color:#ae81ff">0</span>
+        </code></pre></td></tr></table>
+</div>
+</div>
+</li>
+<li>
+<p>The visibility assertions in this case are not neccessary. Usually we want the tenet to be able to generalise.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">        private == <span style="color:#e6db74">&#34;true&#34;</span>
+        public == <span style="color:#e6db74">&#34;false&#34;</span>
+        </code></pre></td></tr></table>
+</div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<p><em><strong>This is the diff of the refinement we made to the CLQL</strong></em></p>
+<div class="org-src-container">
+<pre>
+<span class="magit-diff-hunk-heading">@@ -2,13 +2,10 @@ import codelingo/ast/go
+</span><span class="magit-diff-context">
+ go.file(depth = any):
+   go.decls:
+</span><span class="magit-diff-removed">-    @playground.highlight
+</span><span class="magit-diff-context">     go.func_decl:
+</span><span class="magit-diff-added">+      @review comment
+</span><span class="magit-diff-context">       go.ident:
+</span><span class="magit-diff-removed">-        child_count == 0
+</span><span class="magit-diff-context">         name == "init"
+</span><span class="magit-diff-removed">-        private == "true"
+-        public == "false"
+</span><span class="magit-diff-context">       go.func_type:
+         go.field_list:
+           child_count == 0
+</span>
+</pre>
+</div>
+<h4 id="the-tenet">The tenet</h4>
+<p>After indenting with 6 spaces (3 indents), I copied the CLQL into the <code>query:</code> section of a new <code>codelingo.yaml</code> file.
+The <code>codelingo.yaml</code> file is the file you might simply call the &lsquo;<strong>tenet</strong>'.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">tenets</span>:
+  - <span style="color:#66d9ef">name</span>: init
+    <span style="color:#66d9ef">doc</span>: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">      Check that no inits functions are present in Go code.</span>
+    <span style="color:#66d9ef">flows</span>:
+      <span style="color:#66d9ef">codelingo/review</span>:
+        <span style="color:#66d9ef">comment</span>: Init functions cause an import to have a side effects, and side effects are hard to test, reduce readability and increase the complexity of code.
+    <span style="color:#66d9ef">query</span>: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">      import codelingo/ast/go</span>
+
+      <span style="color:#66d9ef">go.file(depth = any)</span>:
+        <span style="color:#66d9ef">go.decls</span>:
+          <span style="color:#66d9ef">go.func_decl</span>:
+            @review comment
+            <span style="color:#66d9ef">go.ident</span>:
+              name == <span style="color:#e6db74">&#34;init&#34;</span>
+            <span style="color:#66d9ef">go.func_type</span>:
+              <span style="color:#66d9ef">go.field_list</span>:
+                child_count == <span style="color:#ae81ff">0</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>There are 3 more files that typically go into making a full-featured tenet.</p>
+<p><span class="underline"><strong>What we&rsquo;ve done so far</strong></span></p>
+<table>
+<thead>
+<tr>
+<th>filename</th>
+<th>purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>codelingo.yaml</code></td>
+<td>The effectual bit. A <span class="underline">description</span> of what the tenet does <strong>+</strong> the <span class="underline">code</span> to make it happen.</td>
+</tr>
+</tbody>
+</table>
+<p><span class="underline"><strong>What&rsquo;s left to do</strong></span></p>
+<table>
+<thead>
+<tr>
+<th>filename</th>
+<th>purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>example.go</code></td>
+<td>Example of broken code, which is found by the tenet. this and <code>expected.json</code> comprise a unit test for the tenet.</td>
+</tr>
+<tr>
+<td><code>expected.json</code></td>
+<td>Expected output of the CodeLingo reviewer.</td>
+</tr>
+<tr>
+<td><code>README.md</code></td>
+<td>An explanation of what bundle this tenet belongs to.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="the-test-code-example-dot-go">The test code, <code>example.go</code></h4>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">code</span>
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myVar</span> = <span style="color:#ae81ff">0</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">S</span> <span style="color:#66d9ef">struct</span>{}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">s</span> <span style="color:#a6e22e">S</span>) <span style="color:#a6e22e">init</span>(<span style="color:#a6e22e">arg</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+        <span style="color:#a6e22e">yourVar</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">true</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">yourVar</span>
+}
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">theVar</span> = <span style="color:#66d9ef">true</span>
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">S</span> <span style="color:#66d9ef">struct</span>{}
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">constant</span> = <span style="color:#ae81ff">0</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">function</span>(<span style="color:#a6e22e">arg</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+        <span style="color:#a6e22e">yourVar</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">true</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">yourVar</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">init</span>() {
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">S</span> <span style="color:#66d9ef">struct</span>{}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">function</span>() {
+        <span style="color:#a6e22e">init</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">func</span>() {}
+        <span style="color:#a6e22e">init</span>()
+}
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">_</span> = <span style="color:#ae81ff">0</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="unconvert">unconvert</h3>
+<h4 id="visit-the-codelingo-playground">Visit the CodeLingo Playground</h4>
+<p><span class="underline"><strong>Generate some CLQL</strong></span></p>
+<p>Write the antipattern into the <span class="underline">Source Code: Go&quot;</span> section.</p>
+<p>We dont want to use the <code>float64()</code> type-conversion function on a variable we already know is a float.
+Honestly, this wasn&rsquo;t hard to write.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> <span style="color:#66d9ef">float64</span>
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%t\n&#34;</span>, !<span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">IsNaN</span>(float64(<span style="color:#a6e22e">f</span>)))
+}</code></pre></td></tr></table>
+</div>
+</div>
+<p>Click on <span class="underline">Generate Query</span> and copy the resulting CLQL code.</p>
+<p>This is what the generated CLQL looks like.</p>
+<h4 id="the-tenet">The tenet</h4>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">tenets</span>:
+  - <span style="color:#66d9ef">name</span>: unconvert
+    <span style="color:#66d9ef">doc</span>: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">      Identify unnecessary type conversions</span>
+    <span style="color:#66d9ef">flows</span>:
+      <span style="color:#66d9ef">codelingo/review</span>:
+        <span style="color:#66d9ef">comment</span>: Unnecessary type conversion {{typeName}}; i.e., expression {{typeName}}(x) where x already has type {{typeName}}.
+    <span style="color:#66d9ef">query</span>: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">      import codelingo/ast/go</span>
+      <span style="color:#66d9ef">go.file(depth = any)</span>:
+        <span style="color:#66d9ef">go.call_expr(depth = any)</span>:
+          <span style="color:#66d9ef">go.ident</span>:
+            name as typeName
+          <span style="color:#66d9ef">go.args</span>:
+            @review comment
+            <span style="color:#66d9ef">go.ident</span>:
+              type == typeName</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="the-test-code">The test code</h4>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;math&#34;</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f</span> <span style="color:#66d9ef">float64</span>
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f32</span> <span style="color:#66d9ef">float32</span>
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f64</span> <span style="color:#66d9ef">float64</span>
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%t\n&#34;</span>, !<span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">IsNaN</span>(float64(<span style="color:#a6e22e">f</span>)))
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%t\n&#34;</span>, !<span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">IsNaN</span>(float64(<span style="color:#a6e22e">f32</span>)))
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;%t\n&#34;</span>, !<span style="color:#a6e22e">math</span>.<span style="color:#a6e22e">IsNaN</span>(float64(<span style="color:#a6e22e">f64</span>)))
+}</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="tenet-vs-nofuncflags">tenet vs nofuncflags</h3>
+<h4 id="original-clql-query">Original CLQL query</h4>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">import codelingo/ast/go
+
+<span style="color:#66d9ef">go.file(depth = any)</span>:
+  <span style="color:#66d9ef">go.decls</span>:
+    <span style="color:#66d9ef">go.func_decl</span>:
+      <span style="color:#66d9ef">go.func_type</span>:
+        <span style="color:#66d9ef">go.field_list</span>:
+          @playground.highlight
+          <span style="color:#66d9ef">go.field</span>:
+            <span style="color:#66d9ef">go.names</span>:
+              <span style="color:#66d9ef">go.ident</span>:
+                child_count == <span style="color:#ae81ff">0</span>
+                name == <span style="color:#e6db74">&#34;aFlag&#34;</span>
+                private == <span style="color:#e6db74">&#34;true&#34;</span>
+                public == <span style="color:#e6db74">&#34;false&#34;</span>
+                type == <span style="color:#e6db74">&#34;bool&#34;</span>
+            <span style="color:#66d9ef">go.ident</span>:
+              child_count == <span style="color:#ae81ff">0</span>
+              name == <span style="color:#e6db74">&#34;bool&#34;</span>
+              private == <span style="color:#e6db74">&#34;true&#34;</span>
+              public == <span style="color:#e6db74">&#34;false&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="refined-clql-query">Refined CLQL query</h4>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">import codelingo/ast/go
+
+<span style="color:#66d9ef">go.func_decl(depth = any)</span>:
+  <span style="color:#66d9ef">go.func_type</span>:
+    <span style="color:#66d9ef">go.field_list</span>:
+      <span style="color:#66d9ef">go.field</span>:
+        <span style="color:#66d9ef">go.names</span>:
+          @review comment
+          <span style="color:#66d9ef">go.ident</span>:
+            type == <span style="color:#e6db74">&#34;bool&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="clql-query-written-by-blake">CLQL query written by Blake</h4>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">import codelingo/ast/go
+
+@review comment
+<span style="color:#66d9ef">go.func_decl(depth = any)</span>:
+  <span style="color:#66d9ef">go.func_type</span>:
+    <span style="color:#66d9ef">go.field_list</span>:
+      <span style="color:#66d9ef">go.field</span>:
+        <span style="color:#66d9ef">go.names</span>:
+          <span style="color:#66d9ef">go.ident</span>:
+            type == <span style="color:#e6db74">&#34;bool&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="difference-between-blake-s-query-and-my-own">Difference between Blake&rsquo;s query and my own</h4>
+<p>The only difference between our queries was the position of the <code>@review comment</code>.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">2a3
+&gt; @review comment
+8d8
+&lt;           @review comment
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>They are functionally equivalent, though.</p>
+<h2 id="results">Results</h2>
+<h3 id="size-comparison">Size comparison</h3>
+<p>Here I compare the amount of code written to make the tenets vs the linters I modelled them from.</p>
+<h4 id="parser">Parser</h4>
+<table>
+<thead>
+<tr>
+<th>Lines (CL)</th>
+<th>Lines (L)</th>
+<th>Words (CL)</th>
+<th>Words (L)</th>
+<th>Bytes (CL)</th>
+<th>Bytes (L)</th>
+<th>Byte % (CL/L)</th>
+<th>Tenet name (CL)</th>
+<th>linter name (L)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>18</td>
+<td>681</td>
+<td>49</td>
+<td>2084</td>
+<td>524</td>
+<td>15616</td>
+<td>3.36%</td>
+<td>unconvert</td>
+<td>unconvert</td>
+</tr>
+<tr>
+<td>19</td>
+<td>110</td>
+<td>64</td>
+<td>275</td>
+<td>580</td>
+<td>2198</td>
+<td>26.39%</td>
+<td>init</td>
+<td>gochecknoinits</td>
+</tr>
+<tr>
+<td>18</td>
+<td>136</td>
+<td>67</td>
+<td>353</td>
+<td>623</td>
+<td>2307</td>
+<td>27.00%</td>
+<td>bool-param</td>
+<td>nofuncflags</td>
+</tr>
+<tr>
+<td>18</td>
+<td>137</td>
+<td>63</td>
+<td>310</td>
+<td>512</td>
+<td>2168</td>
+<td>23.62%</td>
+<td>todo</td>
+<td>godox</td>
+</tr>
+<tr>
+<td>42</td>
+<td>753</td>
+<td>115</td>
+<td>2387</td>
+<td>1154</td>
+<td>20307</td>
+<td>5.68%</td>
+<td>tested</td>
+<td>blanket</td>
+</tr>
+</tbody>
+</table>
+<dl>
+<dt>CL</dt>
+<dd>CodeLingo</dd>
+<dt>L</dt>
+<dd>Linter</dd>
+</dl>
+<figure class="graph">
+    <img src="https://mullikine.github.io/codelingo-vs-linters/clvsl.png"/> 
+</figure>
+
+<h4 id="unit-tests">Unit tests</h4>
+<table>
+<thead>
+<tr>
+<th>Lines (CL)</th>
+<th>Lines (L)</th>
+<th>Words (CL)</th>
+<th>Words (L)</th>
+<th>Bytes (CL)</th>
+<th>Bytes (L)</th>
+<th>Byte % (CL/L)</th>
+<th>Tenet name (CL)</th>
+<th>linter name (L)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13</td>
+<td><span class="underline">N/A</span><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></td>
+<td>25</td>
+<td><span class="underline">N/A</span><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></td>
+<td>246</td>
+<td><span class="underline">N/A</span><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></td>
+<td><span class="underline">N/A</span><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></td>
+<td>unconvert</td>
+<td>unconvert</td>
+</tr>
+<tr>
+<td>32</td>
+<td>201</td>
+<td>64</td>
+<td>407</td>
+<td>333</td>
+<td>3167</td>
+<td>10.51%</td>
+<td>init</td>
+<td>gochecknoinits</td>
+</tr>
+<tr>
+<td>16</td>
+<td>24</td>
+<td>27</td>
+<td>36</td>
+<td>166</td>
+<td>261</td>
+<td>63.60%</td>
+<td>bool-param</td>
+<td>nofuncflags</td>
+</tr>
+<tr>
+<td>29</td>
+<td>130</td>
+<td>80</td>
+<td>407</td>
+<td>440</td>
+<td>3000</td>
+<td>14.67%</td>
+<td>todo</td>
+<td>godox</td>
+</tr>
+<tr>
+<td>14</td>
+<td>124</td>
+<td>25</td>
+<td>185</td>
+<td>156</td>
+<td>1229</td>
+<td>12.69%</td>
+<td>tested</td>
+<td>blanket</td>
+</tr>
+</tbody>
+</table>
+<dl>
+<dt>N/A</dt>
+<dd>The original linter did not contain unit tests.</dd>
+</dl>
+<h4 id="links-to-source-code">Links to source code</h4>
+<table>
+<thead>
+<tr>
+<th>tenet name</th>
+<th>linter name</th>
+<th>tenet code</th>
+<th>forge</th>
+<th>linter code</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>init</td>
+<td>gochecknoinits</td>
+<td><a href="https://github.com/codelingo/codelingo/blob/master/tenets/codelingo/go/init/codelingo.yaml">codelingo.yaml</a></td>
+<td>GitHub</td>
+<td><a href="https://github.com/leighmcculloch/gochecknoinits">leighmcculloch/gochecknoinits</a></td>
+<td>Check that no init functions are present in Go code.</td>
+</tr>
+<tr>
+<td>unconvert</td>
+<td>unconvert</td>
+<td><a href="https://github.com/codelingo/codelingo/blob/master/tenets/codelingo/go/unconvert/codelingo.yaml">codelingo.yaml</a></td>
+<td>GitHub</td>
+<td><a href="https://github.com/mdempsky/unconvert/">mdempsky/unconvert</a></td>
+<td>Remove unnecessary type conversions from Go source</td>
+</tr>
+<tr>
+<td>bool-param</td>
+<td>nofuncflags</td>
+<td><a href="https://github.com/mullikine/codelingo/blob/master/tenets/codelingo/go/bool-param/codelingo.yaml">codelingo.yaml</a></td>
+<td>GitHub</td>
+<td><a href="https://github.com/fsamin/nofuncflags">fsamin/nofuncflags</a></td>
+<td>because flag arguments are ugly</td>
+</tr>
+<tr>
+<td>todo</td>
+<td>godox</td>
+<td><a href="https://github.com/mullikine/codelingo/blob/master/tenets/codelingo/go/todo/codelingo.yaml">codelingo.yaml</a></td>
+<td>GitHub</td>
+<td><a href="https://github.com/766b/godox/">766b/godox</a></td>
+<td>extract speficic comments from Go code based on keywords</td>
+</tr>
+<tr>
+<td>tested<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></td>
+<td>blanket<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></td>
+<td><a href="https://github.com/codelingo/codelingo/blob/master/tenets/codelingo/go/tested/codelingo.yaml">codelingo.yaml</a></td>
+<td>GitLab</td>
+<td><a href="https://gitlab.com/verygoodsoftwarenotvirus/blanket">verygoodsoftwarenotvirus/blanket</a></td>
+<td>a coverage helper tool</td>
+</tr>
+</tbody>
+</table>
+<h3 id="the-work-it-took-to-write-these-tenets">The work it took to write these tenets</h3>
+<table>
+<thead>
+<tr>
+<th>tenet name</th>
+<th>time to write</th>
+<th>min clicks</th>
+<th>actual clicks<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></th>
+<th>reason for <strong>generate query</strong><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> click/s</th>
+<th>reason for time spent greater or less than 10 mins</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>init</td>
+<td>10 mins</td>
+<td>1</td>
+<td>1</td>
+<td>to find an initial fact for a top-level init function</td>
+<td></td>
+</tr>
+<tr>
+<td>unconvert</td>
+<td>20 mins</td>
+<td>1</td>
+<td>2</td>
+<td>to generalise unit test to any type conversion</td>
+<td>to create string variable to match function name with ident type</td>
+</tr>
+<tr>
+<td>bool-param<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup></td>
+<td>5 mins</td>
+<td>1</td>
+<td>1</td>
+<td>to generate initial query</td>
+<td>the generated query was ~= the finished tenet</td>
+</tr>
+<tr>
+<td>todo</td>
+<td>10 mins</td>
+<td>1</td>
+<td>1</td>
+<td>to find the CLQL fact for comment</td>
+<td></td>
+</tr>
+<tr>
+<td>tested<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></td>
+<td>20 mins</td>
+<td>1</td>
+<td>2</td>
+<td>to find the initial query for a filename with identifier</td>
+<td>learning to use CLQL functions</td>
+</tr>
+</tbody>
+</table>
+<dl>
+<dt>min clicks</dt>
+<dd>The number of times I needed to press <span class="underline">generate query</span><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> to discover the CLQL syntax I needed.</dd>
+<dt>actual clicks</dt>
+<dd>The approximate number of times I ended up to pressing <span class="underline">generate query</span>, for exploratory purposes.</dd>
+</dl>
+<h3 id="the-work-it-took-to-write-their-unit-tests">The work it took to write their unit tests</h3>
+<table>
+<thead>
+<tr>
+<th>tenet name</th>
+<th>time to write<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></th>
+<th><span class="underline">generate</span><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> clicks<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></th>
+<th>additional time</th>
+<th>reason for additional time</th>
+<th>test runs<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup></th>
+<th>reason for additional testing of unit tests</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>init</td>
+<td>10 mins</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>unconvert</td>
+<td>10 mins</td>
+<td>2</td>
+<td>10 mins</td>
+<td>to find example code for unit test</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>bool-param</td>
+<td>5 mins</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>todo</td>
+<td>10 mins</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>tested<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup></td>
+<td>20 mins</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td>4</td>
+<td>ensure multi-file unit tests are working as expected</td>
+</tr>
+</tbody>
+</table>
+<h3 id="a-nice-surprise">A nice surprise</h3>
+<ul>
+<li>
+<p>Blanket (the original linter) has a limitation. It can handle single-level selector expressions with great ease, but it doesn&rsquo;t <em><strong>recursively</strong></em> dive into those selectors for a number of reasons.</p>
+<p>The &lsquo;tested&rsquo; tenet, however, can find if said method was called with arbitrary nesting.</p>
+<p>It doesn&rsquo;t actually look at the function call to make sure it is the same object that is calling. It only checks that the method being called has the same name and that it is being called within a test function and file of appropriate name.</p>
+<p>So it doesn&rsquo;t have the same recursive limitation as blanket, but may give rise to false positives in some circumstances.</p>
+</li>
+</ul>
+<h3 id="caveats">Caveats</h3>
+<ul>
+<li>
+<p>The &lsquo;unconvert&rsquo; linter did not have any unit tests that I could use in the creation of the tenet.</p>
+<p>I ran the original linter on a repository to find an example of what to put into a unit test.</p>
+</li>
+</ul>
+<h3 id="conclusions">Conclusions</h3>
+<p>Even though the <code>bool-param</code> tenet was already made by Blake, it took no longer than 10 minutes for myself, a total newbie, to make.</p>
+<p>What&rsquo;s even more astonishing is our queries are functionally equivalent and that <em>CLQL</em> is clever enough to do what we both mean with regards to the position of the comment, even though we had specified the location of the <code>@review comment</code> in different places.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>This is what the button looks like. <img src="https://mullikine.github.io/codelingo-vs-linters/generate.png" alt=""> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p><a href="https://gobyexample.com/interfaces">Go by Example: Interfaces</a> <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>The original linter did not contain unit tests. <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>See caveats. <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p>These are approximations. <a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:6" role="doc-endnote">
+<p>This tenet was a double-up of an existing tenet <sup id="fnref:8"><a href="#fn:8" class="footnote-ref" role="doc-noteref">8</a></sup>. <a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:7" role="doc-endnote">
+<p>The number of times I had to <strong>test</strong> the tenet. <a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:8" role="doc-endnote">
+<p>This tenet was made, originally by Blake. <a href="https://github.com/codelingo/codelingo/blob/master/tenets/codelingo/go/bool-param/codelingo.yaml">codelingo/codelingo.yaml at master codelingo/codelingo GitHub</a>. <a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

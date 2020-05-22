@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>introhaskell // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c93a97e54f16df99439e5c4acf79edb18fcb9e5384f1edc008a7a4639844b254.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="introhaskell"/>
+<meta name="twitter:description" content="Original article introhaskell  Glossary 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  type variable Example: Given the type: a -&gt; a -&gt; a &#39;a&#39; is a type variable. ewwlinks &#43;/&#34;Type Variables&#34; &#34;https://cs.lmu.edu/~ray/notes/introhaskell/&#34; We know [Char] and [Float] are two different types. So how do we speak about, or write functions that work on, lists of ANY type? Or tuples of any size, or any component type?"/>
+
+    <meta property="og:title" content="introhaskell" />
+<meta property="og:description" content="Original article introhaskell  Glossary 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  type variable Example: Given the type: a -&gt; a -&gt; a &#39;a&#39; is a type variable. ewwlinks &#43;/&#34;Type Variables&#34; &#34;https://cs.lmu.edu/~ray/notes/introhaskell/&#34; We know [Char] and [Float] are two different types. So how do we speak about, or write functions that work on, lists of ANY type? Or tuples of any size, or any component type?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/introhaskell/" />
+<meta property="article:published_time" content="2019-11-29T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-11-29T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+
+
+
+<a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+
+
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a></div>
+</div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/rat/">Automating rat</a>
+<br />
+<a href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">Automating Dwarf Fortress</a>
+<br />
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">introhaskell</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Nov 29, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          9 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      <dl>
+<dt>Original article</dt>
+<dd><a href="https://cs.lmu.edu/~ray/notes/introhaskell/">introhaskell</a></dd>
+</dl>
+<h2 id="glossary">Glossary</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">type variable
+    Example:
+        Given the type:
+            a -&gt; a -&gt; a
+        &#39;a&#39; is a type variable.
+
+    ewwlinks +/&#34;Type Variables&#34; &#34;https://cs.lmu.edu/~ray/notes/introhaskell/&#34;
+
+    We know [Char] and [Float] are two
+    different types. So how do we speak about,
+    or write functions that work on, lists of
+    ANY type? Or tuples of any size, or any
+    component type?
+
+    Answer: type variables.
+
+    Type variables come in lowercase.</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="unit-type">Unit type</h2>
+<dl>
+<dt>ML descendants</dt>
+<dd>OCaml , Standard ML, and F#</dd>
+</dl>
+<table>
+<thead>
+<tr>
+<th>lang</th>
+<th>d</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Haskell and Rust</td>
+<td>the unit type is called () and its only value is also (), reflecting the 0-tuple interpretation.</td>
+</tr>
+<tr>
+<td>ML descendants</td>
+<td>the type is called unit but the value is written as ().</td>
+</tr>
+<tr>
+<td>Scala</td>
+<td>the unit type is called Unit and its only value is written as ().</td>
+</tr>
+<tr>
+<td>Common Lisp</td>
+<td>the type named NULL is a unit type which has one value, namely the symbol NIL. This should not be confused with the NIL type, which is the bottom type.</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>there is a type called NoneType which allows the single value of None.</td>
+</tr>
+<tr>
+<td>Swift</td>
+<td>the unit type is called Void or () and its only value is also (), reflecting the 0-tuple interpretation.</td>
+</tr>
+<tr>
+<td>Go</td>
+<td>the unit type is written struct{} and its value is struct{}{}.</td>
+</tr>
+<tr>
+<td>PHP</td>
+<td>the unit type is called null, which only value is NULL itself.</td>
+</tr>
+<tr>
+<td>JavaScript</td>
+<td>both null and undefined are built-in unit types.</td>
+</tr>
+<tr>
+<td>Kotlin</td>
+<td>Unit is a singleton with only one value: the Unit object.</td>
+</tr>
+<tr>
+<td>Ruby</td>
+<td>nil is the only instance of the NilClass class.</td>
+</tr>
+<tr>
+<td>C++</td>
+<td>the std::monostate unit type was added in C++17.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://stackoverflow.com/questions/16892570/what-is-in-haskell-exactly">https://stackoverflow.com/questions/16892570/what-is-in-haskell-exactly</a></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">-- data () = ()</span>
+<span style="color:#66d9ef">:</span>t ()</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">() <span style="color:#f92672">::</span> ()
+</code></pre></div><h2 id="type-variables">Type variables</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">:</span>t <span style="color:#a6e22e">\</span>(x, y) <span style="color:#f92672">-&gt;</span> y
+<span style="color:#66d9ef">:</span>t <span style="color:#a6e22e">\</span>(x, y) <span style="color:#f92672">-&gt;</span> head y
+<span style="color:#66d9ef">:</span>t <span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>y <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>z <span style="color:#f92672">-&gt;</span> (x, y)
+<span style="color:#66d9ef">:</span>t <span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>y <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>z <span style="color:#f92672">-&gt;</span> (x, <span style="color:#a6e22e">\</span>w <span style="color:#f92672">-&gt;</span> not y)</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">\</span>(x, y) <span style="color:#f92672">-&gt;</span> y <span style="color:#f92672">::</span> (a, b) <span style="color:#f92672">-&gt;</span> b
+<span style="color:#a6e22e">\</span>(x, y) <span style="color:#f92672">-&gt;</span> head y <span style="color:#f92672">::</span> (a1, [a2]) <span style="color:#f92672">-&gt;</span> a2
+<span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>y <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>z <span style="color:#f92672">-&gt;</span> (x, y) <span style="color:#f92672">::</span> a <span style="color:#f92672">-&gt;</span> b <span style="color:#f92672">-&gt;</span> p <span style="color:#f92672">-&gt;</span> (a, b)
+<span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>y <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">\</span>z <span style="color:#f92672">-&gt;</span> (x, <span style="color:#a6e22e">\</span>w <span style="color:#f92672">-&gt;</span> not y)
+  <span style="color:#f92672">::</span> a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span> <span style="color:#f92672">-&gt;</span> p1 <span style="color:#f92672">-&gt;</span> (a, p2 <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span>)
+</code></pre></div><h2 id="an-overview-of-the-haskell-type-classes">An overview of the Haskell Type Classes</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">Bounded
+Ord -&gt; Eq
+Real -&gt; Ord
+Integral -&gt; Real
+Integral -&gt; Enum
+RealFrac -&gt; Real
+RealFrac -&gt; Fractional
+RealFloat -&gt; RealFrac
+RealFloat -&gt; Floating
+Floating -&gt; Fractional
+Fractional -&gt; Num
+Show
+Foldable
+Traversable -&gt; Foldable
+Traversable -&gt; Functor
+Applicative -&gt; Functor
+Monad -&gt; Applicative
+Monoid -&gt; Semigroup
+Read</code></pre></td></tr></table>
+</div>
+</div>
+<figure>
+    <img src="https://mullikine.github.io/ox-hugo/file_tempfile_LNywHm_rand-23634_pid-23372.png"/> 
+</figure>
+
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Typeclasses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bool</td>
+<td>Eq, Ord, Show, Read, Enum, Bounded</td>
+</tr>
+<tr>
+<td>Char</td>
+<td>Eq, Ord, Show, Read, Enum, Bounded</td>
+</tr>
+<tr>
+<td>Int</td>
+<td>Eq, Ord, Show, Read, Enum, Bounded, Num, Real, Integral</td>
+</tr>
+<tr>
+<td>Integer</td>
+<td>Eq, Ord, Show, Read, Enum, Num, Real, Integral</td>
+</tr>
+<tr>
+<td>Float</td>
+<td>Eq, Ord, Show, Read, Enum, Num, Real, Fractional, RealFrac, Floating, RealFloat</td>
+</tr>
+<tr>
+<td>Double</td>
+<td>Eq, Ord, Show, Read, Enum, Num, Real, Fractional, RealFrac, Floating, RealFloat</td>
+</tr>
+<tr>
+<td>Word</td>
+<td>Eq, Ord, Show, Read, Enum, Bounded, Num, Real, Integral</td>
+</tr>
+<tr>
+<td>Ordering</td>
+<td>Eq, Ord, Show, Read, Enum, Bounded, Semigroup, Monoid</td>
+</tr>
+<tr>
+<td>()</td>
+<td>Eq, Ord, Show, Read, Enum, Bounded, Semigroup, Monoid</td>
+</tr>
+<tr>
+<td>Maybe a</td>
+<td>Eq, Ord, Show, Read, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable</td>
+</tr>
+<tr>
+<td>[a]</td>
+<td>Eq, Ord, Show, Read, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable</td>
+</tr>
+<tr>
+<td>(a,b)</td>
+<td>Eq, Ord, Show, Read, Bounded, Semigroup, Monoid, Functor, Applicative, Monad, Foldable, Traversable</td>
+</tr>
+<tr>
+<td>a-&gt;b</td>
+<td>Semigroup, Monoid, Functor, Applicative, Monad</td>
+</tr>
+<tr>
+<td>IO</td>
+<td>Semigroup, Monoid, Functor, Applicative, Monad</td>
+</tr>
+<tr>
+<td>IOError</td>
+<td>Eq, Show</td>
+</tr>
+</tbody>
+</table>
+<p>You can glean a lot of interesting information based on what typeclasses a type does not implement.</p>
+<ul>
+<li>
+<p>Functions and IO objects can NOT be tested for equality, nor can they
+be compared, printed, or read. (Function equality is undecidable in
+general, did you know?)</p>
+<table>
+<thead>
+<tr>
+<th>a-&gt;b</th>
+<th>Semigroup, Monoid, Functor, Applicative, Monad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IO</td>
+<td>Semigroup, Monoid, Functor, Applicative, Monad</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>IOErrors can be tested for equality and printed, but not compared or
+read.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IOError</td>
+<td>Eq, Show</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Bools, Chars, and Ints are bounded (have a minimum value and maxium
+value), but Integers, Floats, and Doubles, do not.</p>
+</li>
+<li>
+<p>It makes sense to fold and traverse lists and tuples, but not much
+else (though you can create new types and add them to typeclasses, as
+we’ll soon see.)</p>
+</li>
+</ul>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#66d9ef">for</span> l in <span style="color:#e6db74">&#34;Eq&#34;</span>           <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Ord&#34;</span>          <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Show&#34;</span>         <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Read&#34;</span>         <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Enum&#34;</span>         <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Bounded&#34;</span>      <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Num&#34;</span>          <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Real&#34;</span>         <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Integral&#34;</span>     <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Fractional&#34;</span>   <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;RealFrac&#34;</span>     <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Floating&#34;</span>     <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;RealFloat&#34;</span>    <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Semigroup&#34;</span>    <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Monoid&#34;</span>       <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Functor&#34;</span>      <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Applicative&#34;</span>  <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Monad&#34;</span>        <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Foldable&#34;</span>     <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>         <span style="color:#e6db74">&#34;Traversable&#34;</span>; <span style="color:#66d9ef">do</span>
+    <span style="color:#f92672">(</span> set -x; ahoogle --info <span style="color:#e6db74">&#34;</span>$l<span style="color:#e6db74">&#34;</span> | head -n 10; <span style="color:#f92672">)</span> 2&gt;&amp;<span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">done</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">+ ahoogle --info Eq
++ head -n <span style="color:#ae81ff">10</span>
+using alternative /home/shane/.local/bin/hoogle
+EQ :: Ordering
+base Prelude
+
++ ahoogle --info Ord
++ head -n <span style="color:#ae81ff">10</span>
+using alternative /home/shane/.local/bin/hoogle
+class Eq a <span style="color:#f92672">=</span>&gt; Ord a
+base Prelude
+The Ord class is used <span style="color:#66d9ef">for</span> totally ordered datatypes.
+
+Instances of Ord can be derived <span style="color:#66d9ef">for</span> any user-defined datatype
+whose constituent types are in Ord. The declared order of the
+constructors in the data declaration determines the ordering in
+derived Ord instances. The Ordering datatype allows a
+single comparison to determine the precise ordering of two objects.
+
++ ahoogle --info Show
++ head -n <span style="color:#ae81ff">10</span>
+using alternative /home/shane/.local/bin/hoogle
+class Show a
+base Prelude
+Conversion of values to readable Strings.
+
+Derived instances of Show have the following properties, which
+are compatible with derived instances of Read:
+
+
+The result of show is a syntactically correct Haskell
+expression containing only constants, given the fixity declarations in
++ ahoogle --info Read
++ head -n <span style="color:#ae81ff">10</span>
+using alternative /home/shane/.local/bin/hoogle
+class Read a
+base Prelude
+Parsing of Strings, producing values.
+
+Derived instances of Read make the following assumptions, which
+derived instances of Show obey:
+
+
+If the constructor is defined to be an infix operator, <span style="color:#66d9ef">then</span> the
+derived Read instance will parse only infix applications of the
++ ahoogle --info Enum
++ head -n <span style="color:#ae81ff">10</span>
+using alternative /home/shane/.local/bin/hoogle
+class Enum a
+base Prelude
+Class Enum defines operations on sequentially ordered types.
+
+The enumFrom... methods are used in Haskell<span style="color:#e6db74">&#39;s translation of
+</span><span style="color:#e6db74">arithmetic sequences.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Instances of Enum may be derived for any enumeration type
+</span><span style="color:#e6db74">(types whose constructors have no fields). The nullary constructors
+</span><span style="color:#e6db74">are assumed to be numbered left-to-right by fromEnum from
+</span><span style="color:#e6db74">+ ahoogle --info Bounded
+</span><span style="color:#e6db74">+ head -n 10
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class Bounded a
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">The Bounded class is used to name the upper and lower limits of
+</span><span style="color:#e6db74">a type. Ord is not a superclass of Bounded since types
+</span><span style="color:#e6db74">that are not totally ordered may also have upper and lower bounds.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">The Bounded class may be derived for any enumeration type;
+</span><span style="color:#e6db74">minBound is the first constructor listed in the data
+</span><span style="color:#e6db74">declaration and maxBound is the last. Bounded may also
+</span><span style="color:#e6db74">be derived for single-constructor datatypes whose constituent types
+</span><span style="color:#e6db74">+ ahoogle --info Num
+</span><span style="color:#e6db74">+ head -n 10
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class Num a
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">Basic numeric class.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">The Haskell Report defines no laws for Num. However, &#39;</span><span style="color:#f92672">(</span>+<span style="color:#f92672">)</span><span style="color:#e6db74">&#39; and
+</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">(</span>*<span style="color:#f92672">)</span><span style="color:#e6db74">&#39; are customarily expected to define a ring and have the following
+</span><span style="color:#e6db74">properties:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Associativity of (+) (x + y) + z = x +
+</span><span style="color:#e6db74">+ ahoogle --info Real
+</span><span style="color:#e6db74">+ head -n 10
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class (Num a, Ord a) =&gt; Real a
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">+ ahoogle --info Integral
+</span><span style="color:#e6db74">+ head -n 10
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class (Real a, Enum a) =&gt; Integral a
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">Integral numbers, supporting integer division.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">The Haskell Report defines no laws for Integral. However,
+</span><span style="color:#e6db74">Integral instances are customarily expected to define a
+</span><span style="color:#e6db74">Euclidean domain and have the following properties for the &#39;</span>div<span style="color:#e6db74">&#39;/&#39;</span>mod<span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">and &#39;</span>quot<span style="color:#e6db74">&#39;/&#39;</span>rem<span style="color:#e6db74">&#39; pairs, given suitable Euclidean functions f
+</span><span style="color:#e6db74">and g:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">+ ahoogle --info Fractional
+</span><span style="color:#e6db74">+ head -n 10
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class (Num a) =&gt; Fractional a
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">Fractional numbers, supporting real division.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">The Haskell Report defines no laws for Fractional. However,
+</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">(</span>+<span style="color:#f92672">)</span><span style="color:#e6db74">&#39; and &#39;</span><span style="color:#f92672">(</span>*<span style="color:#f92672">)</span><span style="color:#e6db74">&#39; are customarily expected to define a division ring and
+</span><span style="color:#e6db74">have the following properties:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">recip gives the multiplicative inverse x
+</span><span style="color:#e6db74">+ ahoogle --info RealFrac
+</span><span style="color:#e6db74">+ head -n 10
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class (Real a, Fractional a) =&gt; RealFrac a
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">Extracting components of fractions.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">+ ahoogle --info Floating
+</span><span style="color:#e6db74">+ head -n 10
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class (Fractional a) =&gt; Floating a
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">Trigonometric and hyperbolic functions and related functions.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">The Haskell Report defines no laws for Floating. However,
+</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">(</span>+<span style="color:#f92672">)</span><span style="color:#e6db74">&#39;, &#39;</span><span style="color:#f92672">(</span>*<span style="color:#f92672">)</span><span style="color:#e6db74">&#39; and exp are customarily expected to define an
+</span><span style="color:#e6db74">exponential field and have the following properties:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">exp (a + b) = @exp a * exp b
+</span><span style="color:#e6db74">+ ahoogle --info RealFloat
+</span><span style="color:#e6db74">+ head -n 10
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class (RealFrac a, Floating a) =&gt; RealFloat a
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">Efficient, machine-independent access to the components of a
+</span><span style="color:#e6db74">floating-point number.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">+ ahoogle --info Semigroup
+</span><span style="color:#e6db74">+ head -n 10
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class Semigroup a
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">The class of semigroups (types with an associative binary operation).
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Instances should satisfy the associativity law:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">x &lt;&gt; (y &lt;&gt; z) = (x &lt;&gt;
+</span><span style="color:#e6db74">y) &lt;&gt; z
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">+ ahoogle --info Monoid
+</span><span style="color:#e6db74">+ head -n 10
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class Semigroup a =&gt; Monoid a
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">The class of monoids (types with an associative binary operation that
+</span><span style="color:#e6db74">has an identity). Instances should satisfy the following laws:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">x &lt;&gt; mempty = x
+</span><span style="color:#e6db74">mempty &lt;&gt; x = x
+</span><span style="color:#e6db74">x &lt;&gt; (y &lt;&gt; z) = (x &lt;&gt;
+</span><span style="color:#e6db74">y) &lt;&gt; z (Semigroup law)
+</span><span style="color:#e6db74">+ ahoogle --info Functor
+</span><span style="color:#e6db74">+ head -n 10
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class Functor f
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">The Functor class is used for types that can be mapped over.
+</span><span style="color:#e6db74">Instances of Functor should satisfy the following laws:
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">fmap id  ==  id
+</span><span style="color:#e6db74">fmap (f . g)  ==  fmap f . fmap g
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">+ ahoogle --info Applicative
+</span><span style="color:#e6db74">+ head -n 10
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class Functor f =&gt; Applicative f
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">A functor with application, providing operations to
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">embed pure expressions (pure), and
+</span><span style="color:#e6db74">sequence computations and combine their results (&lt;*&gt;
+</span><span style="color:#e6db74">and liftA2).
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">+ ahoogle --info Monad
+</span><span style="color:#e6db74">+ head -n 10
+</span><span style="color:#e6db74">using alternative /home/shane/.local/bin/hoogle
+</span><span style="color:#e6db74">class Applicative m =&gt; Monad m
+</span><span style="color:#e6db74">base Prelude
+</span><span style="color:#e6db74">The Monad class defines the basic operations over a
+</span><span style="color:#e6db74">monad, a concept from a branch of mathematics known as
+</span><span style="color:#e6db74">category theory. From the perspective of a Haskell programmer,
+</span><span style="color:#e6db74">however, it is best to think of a monad as an abstract datatype
+</span><span style="color:#e6db74">of actions. Haskell&#39;</span>s <span style="color:#66d9ef">do</span> expressions provide a convenient
+syntax <span style="color:#66d9ef">for</span> writing monadic expressions.
+
+Instances of Monad should satisfy the following laws:
++ ahoogle --info Foldable
++ head -n <span style="color:#ae81ff">10</span>
+using alternative /home/shane/.local/bin/hoogle
+class Foldable t
+base Prelude
+Data structures that can be folded.
+
+For example, given a data type
+
+
+data Tree a <span style="color:#f92672">=</span> Empty | Leaf a | Node <span style="color:#f92672">(</span>Tree a<span style="color:#f92672">)</span> a <span style="color:#f92672">(</span>Tree a<span style="color:#f92672">)</span>
+
+
++ ahoogle --info Traversable
++ head -n <span style="color:#ae81ff">10</span>
+using alternative /home/shane/.local/bin/hoogle
+class <span style="color:#f92672">(</span>Functor t, Foldable t<span style="color:#f92672">)</span> <span style="color:#f92672">=</span>&gt; Traversable t
+base Prelude
+Functors representing data structures that can be traversed from left
+to right.
+
+A definition of traverse must satisfy the following laws:
+
+
+naturality t . traverse f <span style="color:#f92672">=</span>
+traverse <span style="color:#f92672">(</span>t . f<span style="color:#f92672">)</span> <span style="color:#66d9ef">for</span> every applicative transformation
+</code></pre></div>
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

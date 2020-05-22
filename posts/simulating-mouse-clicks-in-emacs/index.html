@@ -1,0 +1,1257 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Simulating mouse clicks in emacs // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c93a97e54f16df99439e5c4acf79edb18fcb9e5384f1edc008a7a4639844b254.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Simulating mouse clicks in emacs"/>
+<meta name="twitter:description" content="Using tmux, emacs and vim, I create some bindings to allow you to send mouse clicks to the terminal programmatically.
+I had attempted to do this with emacs lisp but it was overly complicated and had I succeeded only emacs would be able to understand the mouse codes.
+Click at the cursor location Make the tmux bindings 1 2  bind -n C-M-x run -b &#34;tm mousedown&#34; bind -n C-M-z run -b &#34;tm mouseup&#34;   Make the tm script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51  mousedown|mouseup) { while [ $# -gt 0 ]; do opt=&#34;$1&#34;; case &#34;$opt&#34; in -t) { TMUX_PANE=&#34;$2&#34; shift shift } ;; *) break; esac; done [ -n &#34;$1&#34; ] &amp;&amp; x=&#34;$1&#34; &amp;&amp; shift [ -n &#34;$1&#34; ] &amp;&amp; y=&#34;$1&#34; &amp;&amp; shift : ${TMUX_PANE:=&#34;$CALLER_PANE&#34;} # tm cursor if test -z &#34;$x&#34;; then x=&#34;$(tmux display -t &#34;$TMUX_PANE&#34; -p &#34;#{cursor_x}&#34;)&#34; fi if test -z &#34;$y&#34;; then y=&#34;$(tmux display -t &#34;$TMUX_PANE&#34; -p &#34;#{cursor_y}&#34;)&#34; fi # ns &#34;$f $TMUX_PANE $x $y&#34; &amp;&gt;/dev/null if [ -n &#34;$TMUX_PANE&#34; ] &amp;&amp; [ -n &#34;$x&#34; ] &amp;&amp; [ -n &#34;$y&#34; ]; then case &#34;$f&#34; in mousedown) { tmux send-keys -t &#34;$TMUX_PANE&#34; -l &#34;$(xterm-click -d $x $y)&#34; } ;; mouseup) { tmux send-keys -t &#34;$TMUX_PANE&#34; -l &#34;$(xterm-click -u $x $y)&#34; } ;; click) { tmux send-keys -t &#34;$TMUX_PANE&#34; -l &#34;$(xterm-click -d $x $y)&#34; sleep 0."/>
+
+    <meta property="og:title" content="Simulating mouse clicks in emacs" />
+<meta property="og:description" content="Using tmux, emacs and vim, I create some bindings to allow you to send mouse clicks to the terminal programmatically.
+I had attempted to do this with emacs lisp but it was overly complicated and had I succeeded only emacs would be able to understand the mouse codes.
+Click at the cursor location Make the tmux bindings 1 2  bind -n C-M-x run -b &#34;tm mousedown&#34; bind -n C-M-z run -b &#34;tm mouseup&#34;   Make the tm script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51  mousedown|mouseup) { while [ $# -gt 0 ]; do opt=&#34;$1&#34;; case &#34;$opt&#34; in -t) { TMUX_PANE=&#34;$2&#34; shift shift } ;; *) break; esac; done [ -n &#34;$1&#34; ] &amp;&amp; x=&#34;$1&#34; &amp;&amp; shift [ -n &#34;$1&#34; ] &amp;&amp; y=&#34;$1&#34; &amp;&amp; shift : ${TMUX_PANE:=&#34;$CALLER_PANE&#34;} # tm cursor if test -z &#34;$x&#34;; then x=&#34;$(tmux display -t &#34;$TMUX_PANE&#34; -p &#34;#{cursor_x}&#34;)&#34; fi if test -z &#34;$y&#34;; then y=&#34;$(tmux display -t &#34;$TMUX_PANE&#34; -p &#34;#{cursor_y}&#34;)&#34; fi # ns &#34;$f $TMUX_PANE $x $y&#34; &amp;&gt;/dev/null if [ -n &#34;$TMUX_PANE&#34; ] &amp;&amp; [ -n &#34;$x&#34; ] &amp;&amp; [ -n &#34;$y&#34; ]; then case &#34;$f&#34; in mousedown) { tmux send-keys -t &#34;$TMUX_PANE&#34; -l &#34;$(xterm-click -d $x $y)&#34; } ;; mouseup) { tmux send-keys -t &#34;$TMUX_PANE&#34; -l &#34;$(xterm-click -u $x $y)&#34; } ;; click) { tmux send-keys -t &#34;$TMUX_PANE&#34; -l &#34;$(xterm-click -d $x $y)&#34; sleep 0." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/simulating-mouse-clicks-in-emacs/" />
+<meta property="article:published_time" content="2019-11-12T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-11-12T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+
+
+
+<a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+
+
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a></div>
+</div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/rat/">Automating rat</a>
+<br />
+<a href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">Automating Dwarf Fortress</a>
+<br />
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Simulating mouse clicks in emacs</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Nov 12, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          10 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/tmux/">tmux</a><a class="tag" href="http://mullikine.github.io/tags/vim/">vim</a><a class="tag" href="http://mullikine.github.io/tags/tooling/">tooling</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      <p>Using tmux, emacs and vim, I create some
+bindings to allow you to send mouse clicks to
+the terminal programmatically.</p>
+<p>I had attempted to do this with emacs lisp but
+it was overly complicated and had I succeeded
+only emacs would be able to understand the
+mouse codes.</p>
+<h2 id="click-at-the-cursor-location">Click at the cursor location</h2>
+<h3 id="make-the-tmux-bindings">Make the tmux bindings</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">bind -n C-M-x run -b &#34;tm mousedown&#34;
+bind -n C-M-z run -b &#34;tm mouseup&#34;</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="make-the-tm-script">Make the <code>tm</code> script</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mousedown|mouseup<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">while</span> <span style="color:#f92672">[</span> $# -gt <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">do</span> opt<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$opt<span style="color:#e6db74">&#34;</span> in
+        -t<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            TMUX_PANE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+            shift
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        *<span style="color:#f92672">)</span> break;
+    <span style="color:#66d9ef">esac</span>; <span style="color:#66d9ef">done</span>
+
+    <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> shift
+    <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> shift
+
+    : <span style="color:#e6db74">${</span>TMUX_PANE:=<span style="color:#e6db74">&#34;</span>$CALLER_PANE<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">}</span>
+
+    <span style="color:#75715e"># tm cursor</span>
+    <span style="color:#66d9ef">if</span> test -z <span style="color:#e6db74">&#34;</span>$x<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">then</span>
+        x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux display -t <span style="color:#e6db74">&#34;</span>$TMUX_PANE<span style="color:#e6db74">&#34;</span> -p <span style="color:#e6db74">&#34;#{cursor_x}&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">if</span> test -z <span style="color:#e6db74">&#34;</span>$y<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">then</span>
+        y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux display -t <span style="color:#e6db74">&#34;</span>$TMUX_PANE<span style="color:#e6db74">&#34;</span> -p <span style="color:#e6db74">&#34;#{cursor_y}&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">fi</span>
+
+    <span style="color:#75715e"># ns &#34;$f $TMUX_PANE $x $y&#34; &amp;&gt;/dev/null</span>
+
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$TMUX_PANE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$x<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$y<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$f<span style="color:#e6db74">&#34;</span> in
+            mousedown<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                tmux send-keys -t <span style="color:#e6db74">&#34;</span>$TMUX_PANE<span style="color:#e6db74">&#34;</span> -l <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>xterm-click -d $x $y<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+            <span style="color:#f92672">}</span>
+            ;;
+
+            mouseup<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                tmux send-keys -t <span style="color:#e6db74">&#34;</span>$TMUX_PANE<span style="color:#e6db74">&#34;</span> -l <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>xterm-click -u $x $y<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+            <span style="color:#f92672">}</span>
+            ;;
+
+            click<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                tmux send-keys -t <span style="color:#e6db74">&#34;</span>$TMUX_PANE<span style="color:#e6db74">&#34;</span> -l <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>xterm-click -d $x $y<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+                sleep 0.2
+                tmux send-keys -t <span style="color:#e6db74">&#34;</span>$TMUX_PANE<span style="color:#e6db74">&#34;</span> -l <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>xterm-click -u $x $y<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+            <span style="color:#f92672">}</span>
+            ;;
+
+            *<span style="color:#f92672">)</span>
+        <span style="color:#66d9ef">esac</span>
+    <span style="color:#66d9ef">fi</span>
+    exit <span style="color:#ae81ff">0</span>
+<span style="color:#f92672">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="make-the-xterm-click-script">Make the <code>xterm-click</code> script</h3>
+<p>This generates the required ansi codes.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+UP<span style="color:#f92672">=</span>y
+DOWN<span style="color:#f92672">=</span>y
+EXTENDED_MODE<span style="color:#f92672">=</span>n
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">[</span> $# -gt <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">do</span> opt<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$opt<span style="color:#e6db74">&#34;</span> in
+    -u<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        DOWN<span style="color:#f92672">=</span>n
+        UP<span style="color:#f92672">=</span>y
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -d<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        DOWN<span style="color:#f92672">=</span>y
+        UP<span style="color:#f92672">=</span>n
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    -x<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        EXTENDED_MODE<span style="color:#f92672">=</span>y
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    *<span style="color:#f92672">)</span> break;
+<span style="color:#66d9ef">esac</span>; <span style="color:#66d9ef">done</span>
+
+x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>; : <span style="color:#e6db74">${</span>x:=<span style="color:#e6db74">&#34;1&#34;</span><span style="color:#e6db74">}</span>
+y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>; : <span style="color:#e6db74">${</span>y:=<span style="color:#e6db74">&#34;1&#34;</span><span style="color:#e6db74">}</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$3<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    TTY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$3<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+: <span style="color:#e6db74">${</span>TTY:=<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tty<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">}</span>
+
+
+<span style="color:#75715e"># Make it faster</span>
+chr <span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+      printf <span style="color:#e6db74">&#34;\\</span><span style="color:#66d9ef">$(</span>printf <span style="color:#e6db74">&#39;%03o&#39;</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e"># Not sure how this works. How does tmux do it?</span>
+
+<span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$EXTENDED_MODE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+    mousedown<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+    mouseup<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+
+    mousedown_code<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>echo -n -e <span style="color:#e6db74">&#34;\e[&lt;</span>$mousedown<span style="color:#e6db74">&#34;</span>; printf -- <span style="color:#e6db74">&#34;%s&#34;</span> <span style="color:#e6db74">&#34;;</span>$y<span style="color:#e6db74">;</span><span style="color:#e6db74">${</span>x<span style="color:#e6db74">}</span><span style="color:#e6db74">m&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    mouseup_code<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>echo -n -e <span style="color:#e6db74">&#34;\e[&lt;</span>$mouseup<span style="color:#e6db74">&#34;</span>; printf -- <span style="color:#e6db74">&#34;%s&#34;</span> <span style="color:#e6db74">&#34;;</span>$y<span style="color:#e6db74">;</span><span style="color:#e6db74">${</span>x<span style="color:#e6db74">}</span><span style="color:#e6db74">m&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+<span style="color:#66d9ef">else</span>
+    <span style="color:#75715e"># x=&#34;$(perl -e &#34;print chr(33 + $x)&#34;)&#34;</span>
+    <span style="color:#75715e"># y=&#34;$(perl -e &#34;print chr(33 + $y)&#34;)&#34;</span>
+    x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>chr <span style="color:#66d9ef">$((</span> <span style="color:#ae81ff">33</span> <span style="color:#f92672">+</span> $x <span style="color:#66d9ef">))</span> <span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>chr <span style="color:#66d9ef">$((</span> <span style="color:#ae81ff">33</span> <span style="color:#f92672">+</span> $y <span style="color:#66d9ef">))</span> <span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    mousedown<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>chr 32<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e"># &#39; &#39;</span>
+    mouseup<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>chr 35<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e"># &#39;#&#39;</span>
+
+    mousedown_code<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>echo -n -e <span style="color:#e6db74">&#34;\e[M</span>$mousedown<span style="color:#e6db74">&#34;</span>; printf -- <span style="color:#e6db74">&#34;%s&#34;</span> <span style="color:#e6db74">&#34;</span>$x$y<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    mouseup_code<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>echo -n -e <span style="color:#e6db74">&#34;\e[M</span>$mouseup<span style="color:#e6db74">&#34;</span>; printf -- <span style="color:#e6db74">&#34;%s&#34;</span> <span style="color:#e6db74">&#34;</span>$x$y<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+<span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$UP<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;n&#34;</span>; <span style="color:#66d9ef">then</span>
+    code<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$mousedown_code<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">elif</span> test <span style="color:#e6db74">&#34;</span>$DOWN<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;n&#34;</span>; <span style="color:#66d9ef">then</span>
+    code<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$mouseup_code<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">else</span>
+    code<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$mousedown_code$mouseup_code<span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+printf -- <span style="color:#e6db74">&#34;%s&#34;</span> <span style="color:#e6db74">&#34;</span>$code<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="demonstration">Demonstration</h3>
+<p><a title="asciinema recording" href="https://asciinema.org/a/YAFYwuOmRK9Dp9uSIxPEbiqtx" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/YAFYwuOmRK9Dp9uSIxPEbiqtx.svg" /></a></p>
+<h2 id="click-with-easymotion">Click with <code>easymotion</code></h2>
+<p>For the uninitiated, easymotion is a decision
+tree location selector for vim, similar to
+avy.</p>
+<p>We can use it to select the coordinates of the
+mouse click.</p>
+<p>The click sends a down followed by an up after
+0.2 seconds.</p>
+<h3 id="patch-easymotion-to-save-the-cursor-location">Patch <code>easymotion</code> to save the cursor location</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">diff --git a/autoload/EasyMotion.vim b/autoload/EasyMotion.vim
+index 7ccdcf8..799123a 100644
+<span style="color:#f92672">--- a/autoload/EasyMotion.vim
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+++ b/autoload/EasyMotion.vim
+</span><span style="color:#a6e22e"></span><span style="color:#75715e">@@ -1592,6 +1592,14 @@ function! s:EasyMotion(regexp, direction, visualmode, is_inclusive, ...) &#34; {{{
+</span><span style="color:#75715e"></span>             call EasyMotion#attach_active_autocmd() &#34;}}}
+         endif
+     endtry
+<span style="color:#a6e22e">+
+</span><span style="color:#a6e22e">+    &#34; coords will not exist if there is nothing in vim&#39;s buffer
+</span><span style="color:#a6e22e">+    if exists(&#34;coords&#34;)
+</span><span style="color:#a6e22e">+        call system(&#34;echo &#39;&#34;.coords[0].&#39; &#39;.coords[1].&#34;&#39; &gt; /tmp/em-click.txt&#34;)
+</span><span style="color:#a6e22e">+    else
+</span><span style="color:#a6e22e">+        call system(&#34;echo &gt; /tmp/em-click.txt&#34;)
+</span><span style="color:#a6e22e">+    endif
+</span><span style="color:#a6e22e">+    &#34; call Tv(coords[0].&#39; &#39;.coords[1])
+</span><span style="color:#a6e22e"></span> endfunction &#34; }}}
+ &#34;}}}
+ &#34; }}}
+</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="create-the-tm-script">Create the <code>tm</code> script</h3>
+<p><code>capture</code> is for capturing the visible contents of the terminal.</p>
+<p><code>cap</code> is an alias to <code>capture</code> with sensible defaults.</p>
+<p><code>em-click</code> makes use of <code>cap</code> to provide a
+buffer to <code>vim</code> and <code>easymotion</code> for selecting
+the place you want to click.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">128
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">129
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">130
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">131
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">132
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">133
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">134
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">141
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">142
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">143
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">144
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">145
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">146
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">149
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">150
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">151
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">152
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">153
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">154
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">155
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">156
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">157
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">158
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">159
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">160
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">161
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">162
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">163
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">164
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">165
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">166
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">167
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">168
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">169
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">170
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">171
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">172
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">173
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">174
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">175
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">176
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">177
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">178
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">179
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">180
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">181
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">182
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">183
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">184
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">185
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">186
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">187
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">188
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">189
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">190
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">191
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">192
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">193
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">194
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">195
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">196
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">197
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">198
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">199
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">200
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">201
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">202
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">203
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">204
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">205
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">206
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">207
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">208
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">209
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">210
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">211
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">212
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">213
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">214
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">215
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">216
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">217
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">218
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">219
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">220
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">221
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">222
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">223
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">224
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">225
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">226
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">227
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">228
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">229
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">230
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">231
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">232
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">233
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">234
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">235
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">236
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">237
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">238
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">239
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">240
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">241
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">242
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">243
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">244
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">245
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">246
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">247
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">248
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">249
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">250
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">251
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">252
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">253
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">254
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">255
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">256
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">257
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">258
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">259
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">260
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">261
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">262
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">263
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">264
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">265
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">266
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">267
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">268
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">269
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">270
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">271
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">272
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">273
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">274
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">275
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">276
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">277
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">278
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">279
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">280
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">281
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">282
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">283
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">284
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">285
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">286
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">287
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">288
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">289
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">290
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">291
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">292
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">293
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">294
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">295
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">296
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">297
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">298
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">299
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">300
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">301
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">302
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">303
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">304
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">305
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">306
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">307
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">308
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">309
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">310
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">311
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">312
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">313
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">314
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">315
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">316
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">317
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">318
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">319
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">320
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">321
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">322
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">323
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">324
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">325
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">326
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">327
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">328
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">329
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">330
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">331
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">332
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">333
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">334
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">335
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">336
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">337
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">338
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">339
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">340
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">341
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">342
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">343
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">344
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">345
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">346
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">347
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">348
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">349
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">350
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">351
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">352
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">353
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">354
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">355
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">356
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">357
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">358
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">359
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">360
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">capture<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    mkdir -p ~/programs/tmux/capture
+
+    x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux display -p <span style="color:#e6db74">&#34;#{cursor_x}&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux display -p <span style="color:#e6db74">&#34;#{cursor_y}&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+    ANSI<span style="color:#f92672">=</span>n
+    ANSI<span style="color:#f92672">=</span>y
+    DO_SEND_KEYS<span style="color:#f92672">=</span>n
+    SCROLLBACK<span style="color:#f92672">=</span>-32768
+    CAPTURE_OPTIONS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34; -J &#34;</span>
+    EDITOR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;v&#34;</span>
+    STDOUT<span style="color:#f92672">=</span> <span style="color:#75715e"># no editor. no value relies on is_tty</span>
+    NOABORT<span style="color:#f92672">=</span>n
+    <span style="color:#66d9ef">while</span> <span style="color:#f92672">[</span> $# -gt <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">do</span> <span style="color:#66d9ef">case</span> $1 in
+        -a|-ansi<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e"># printf -- &#34;%s\n&#34; &#34;ansi&#34;</span>
+
+            ANSI<span style="color:#f92672">=</span>y
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -c|-clean<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e"># printf -- &#34;%s\n&#34; &#34;clean&#34;</span>
+
+            ANSI<span style="color:#f92672">=</span>n
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -tty<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            STDOUT<span style="color:#f92672">=</span>n
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -|-stdout<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            STDOUT<span style="color:#f92672">=</span>y
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -f|-filter<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            ns disabled $1 because ambiguous
+
+            exit <span style="color:#ae81ff">0</span>
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -p<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            PREVIEW<span style="color:#f92672">=</span>y
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -noabort<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            NOABORT<span style="color:#f92672">=</span>y
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -t<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            CALLER_TARGET<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+            CALLER_PANE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+            shift
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -nosendkeys<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            DO_SEND_KEYS<span style="color:#f92672">=</span>n
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -sendkeys<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            DO_SEND_KEYS<span style="color:#f92672">=</span>y
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -s|-session<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e"># Take a capture of the entire session, not just the window</span>
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -ts|-top-session<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e"># Take a capture of the topmost session</span>
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        --pc|--preview-cmd<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            PREVIEW<span style="color:#f92672">=</span>y
+            PREVIEW_CMD<span style="color:#f92672">=</span>y
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -e|-emacs<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            EDITOR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;e c&#34;</span>
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -editor<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e"># EDITOR=&#34;$2 -e \&#34;(linum-mode -1)\&#34;&#34;</span>
+            EDITOR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+
+            shift
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -nv<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            EDITOR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;nv -c &#39;nmap q :q!&lt;CR&gt;&#39;&#34;</span>
+            <span style="color:#75715e"># EDITOR=&#34;nv&#34;</span>
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -v|-vim<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            EDITOR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;v&#34;</span>
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -session<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -wrap<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># The tmux wrapper session</span>
+            WRAP<span style="color:#f92672">=</span>y
+            SCROLLBACK<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -nohist|-nohistory<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            SCROLLBACK<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -history<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            SCROLLBACK<span style="color:#f92672">=</span>-32768
+
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        -b|-bottom<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># start emacs/vim at bottom of buffer</span>
+
+            <span style="color:#75715e"># bind M-f run -b &#39;tmux-capture.sh -f&#39; # filters</span>
+            shift
+        <span style="color:#f92672">}</span>
+        ;;
+
+        *<span style="color:#f92672">)</span> break;
+    <span style="color:#66d9ef">esac</span>; <span style="color:#66d9ef">done</span>
+
+    <span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$ANSI<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+        CAPTURE_OPTIONS<span style="color:#f92672">+=</span><span style="color:#e6db74">&#34; -e &#34;</span>
+        EDITOR<span style="color:#f92672">=</span>ansivim
+    <span style="color:#66d9ef">fi</span>
+
+    server<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tm-get-server<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    echo <span style="color:#e6db74">&#34;</span>$server<span style="color:#e6db74">&#34;</span> 1&gt;&amp;<span style="color:#ae81ff">2</span>
+    unset TMUX
+
+    <span style="color:#75715e"># Create temporary file</span>
+    tf_tmcapture<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ux tf tmcapture txt <span style="color:#f92672">||</span> echo /dev/null<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    bn<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$tf_tmcapture<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    np<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/programs/tmux/capture/</span>$bn<span style="color:#e6db74">&#34;</span>
+    mv <span style="color:#e6db74">&#34;</span>$tf_tmcapture<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$np<span style="color:#e6db74">&#34;</span>
+
+    echo <span style="color:#e6db74">&#34;</span>$WRAP<span style="color:#e6db74">&#34;</span> 1&gt;&amp;<span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$WRAP<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+        swidth<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux display -t <span style="color:#e6db74">&#34;</span>$CALLER_TARGET<span style="color:#e6db74">&#34;</span> -p <span style="color:#e6db74">&#34;#{session_width}&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        sheight<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux display -t <span style="color:#e6db74">&#34;</span>$CALLER_TARGET<span style="color:#e6db74">&#34;</span> -p <span style="color:#e6db74">&#34;#{session_height}&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        sheight<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$((</span> sheight <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">))</span><span style="color:#e6db74">&#34;</span>
+
+        <span style="color:#75715e"># Don&#39;t use tm attach, to make this faster.</span>
+        tmux -L $server new-session -d -x <span style="color:#e6db74">&#34;</span>$swidth<span style="color:#e6db74">&#34;</span> -y <span style="color:#e6db74">&#34;</span>$sheight<span style="color:#e6db74">&#34;</span> -A -s wrap <span style="color:#ae81ff">\;</span> respawnp -k -t <span style="color:#e6db74">&#34;wrap:1&#34;</span> <span style="color:#e6db74">&#34;TMUX= tmux -L </span>$server<span style="color:#e6db74"> attach -t \&#34;</span>$CALLER_TARGET<span style="color:#e6db74">\&#34;&#34;</span>
+
+        c<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+
+        grepstring<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$CALLER_TARGET<span style="color:#e6db74">&#34;</span>
+        <span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$grepstring<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;localhost&#34;</span>; <span style="color:#66d9ef">then</span>
+            grepstring<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>hostname | s cap<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        <span style="color:#66d9ef">fi</span>
+
+        <span style="color:#66d9ef">while</span> ! grep -q <span style="color:#e6db74">&#34;\[ </span>$grepstring<span style="color:#e6db74"> \]&#34;</span> <span style="color:#e6db74">&#34;</span>$np<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">do</span>
+            <span style="color:#f92672">((</span>++c<span style="color:#f92672">))</span>
+            <span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$NOABORT<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;n&#34;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$c<span style="color:#e6db74">&#34;</span> -eq <span style="color:#ae81ff">10</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+                notify-send <span style="color:#e6db74">&#34;Leaving capture \&#34;[ </span>$grepstring<span style="color:#e6db74"> ]\&#34; because it took too long.&#34;</span>
+                break
+            <span style="color:#66d9ef">fi</span>
+
+            tmux -L $server capture-pane -t <span style="color:#e6db74">&#34;wrap:1.0&#34;</span> <span style="color:#ae81ff">\;</span> save-buffer <span style="color:#e6db74">&#34;</span>$np<span style="color:#e6db74">&#34;</span>
+            <span style="color:#75715e"># exit 0</span>
+        <span style="color:#66d9ef">done</span>
+
+        tmux -L $server kill-pane -t <span style="color:#e6db74">&#34;wrap:1.0&#34;</span>
+    <span style="color:#66d9ef">else</span>
+        eval <span style="color:#e6db74">&#34;tmux -L </span>$server<span style="color:#e6db74"> capture-pane -t &#34;</span>$CALLER_PANE<span style="color:#e6db74">&#34; </span>$CAPTURE_OPTIONS<span style="color:#e6db74"> -S </span>$SCROLLBACK<span style="color:#e6db74">&#34;</span>
+
+        tmux -L $server save-buffer <span style="color:#e6db74">&#34;</span>$np<span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">fi</span>
+
+    cat <span style="color:#e6db74">&#34;</span>$np<span style="color:#e6db74">&#34;</span> | <span style="color:#f92672">{</span>
+        sed -e <span style="color:#e6db74">&#39;s/▄/ /g&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>            -e <span style="color:#e6db74">&#39;s/[┌┐┘└│├─┤┬┴┼]/ /g&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>            -e <span style="color:#e6db74">&#39;s/\s\+$//g&#39;</span> <span style="color:#e6db74">`</span> <span style="color:#75715e"># remove trailing whitespace `</span>
+
+        <span style="color:#75715e"># piping into cat here breaks it. It creates a race</span>
+        <span style="color:#75715e"># condition with the outer cat, or something. Do not do</span>
+        <span style="color:#75715e"># this.</span>
+        <span style="color:#75715e"># | cat</span>
+    <span style="color:#f92672">}</span> | sponge <span style="color:#e6db74">&#34;</span>$np<span style="color:#e6db74">&#34;</span>
+
+    <span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$STDOUT<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>; <span style="color:#66d9ef">then</span>
+        <span style="color:#66d9ef">if</span> is_tty; <span style="color:#66d9ef">then</span>
+            STDOUT<span style="color:#f92672">=</span>n
+        <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">fi</span>
+
+    <span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$STDOUT<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;y&#34;</span>; <span style="color:#66d9ef">then</span>
+        cat <span style="color:#e6db74">&#34;</span>$np<span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">else</span>
+        eval <span style="color:#e6db74">`</span>resize<span style="color:#e6db74">`</span> &amp;&gt;/dev/null
+        full_lines<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>wc -l <span style="color:#e6db74">&#34;</span>$np<span style="color:#e6db74">&#34;</span> | awk <span style="color:#e6db74">&#39;{print $1}&#39;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        final_x<span style="color:#f92672">=</span>$x
+        final_y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$((</span> y <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">))</span><span style="color:#e6db74">&#34;</span>
+        pane_id<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux -L $server neww -F <span style="color:#e6db74">&#34;#{pane_id}&#34;</span> -P -n capture <span style="color:#e6db74">&#34;stty stop undef; stty start undef; GOTO_COLUMN=</span>$final_x<span style="color:#e6db74"> GOTO_LINE=</span>$final_y<span style="color:#e6db74"> </span>$EDITOR<span style="color:#e6db74"> \&#34;</span>$np<span style="color:#e6db74">\&#34;&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+        <span style="color:#66d9ef">if</span> test $DO_SEND_KEYS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;f&#34;</span> <span style="color:#f92672">&amp;&amp;</span> test <span style="color:#e6db74">&#34;</span>$EDITOR<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;v&#34;</span>; <span style="color:#66d9ef">then</span>
+            tmux -L $server send-keys -t <span style="color:#e6db74">&#34;</span>$pane_id<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;C-k&#34;</span>
+        <span style="color:#66d9ef">else</span>
+            :
+        <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">fi</span>
+<span style="color:#f92672">}</span>
+
+cap<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    tm -te -d capture -clean -wrap -noabort -
+<span style="color:#f92672">}</span>
+;;
+
+em-click<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># easymotion click</span>
+    <span style="color:#75715e"># Requires this patch: $HOME/notes2018/ws/tm/patches/em-click.diff</span>
+
+    cap_file<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tm cap | tf txt; sleep 0.5<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -s <span style="color:#e6db74">&#34;</span>$cap_file<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        tm -te nw -n em-click <span style="color:#e6db74">&#34;v -c &#39;set foldcolumn=0 ls=0 | call EasyMotion#WB(0,2) | q!&#39; \&#34;</span>$cap_file<span style="color:#e6db74">\&#34;&#34;</span>
+
+        x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat /tmp/em-click.txt | cut -d <span style="color:#e6db74">&#39; &#39;</span> -f 1<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat /tmp/em-click.txt | cut -d <span style="color:#e6db74">&#39; &#39;</span> -f 2<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$x<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$y<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+            <span style="color:#75715e"># notify-send &#34;$loc&#34;</span>
+            x<span style="color:#f92672">=</span><span style="color:#66d9ef">$((</span>x <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span><span style="color:#66d9ef">))</span>
+            y<span style="color:#f92672">=</span><span style="color:#66d9ef">$((</span>y <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span><span style="color:#66d9ef">))</span>
+            <span style="color:#75715e"># cmd tm click-wrap $x $y | ns &amp;&gt;/dev/null</span>
+            tm click-wrap $x $y
+        <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">fi</span>
+
+    <span style="color:#75715e"># Need to obtain coordinates here. Thene run: &#34;tm click -t %570 0 0&#34;</span>
+    <span style="color:#75715e"># $HOME$VIMCONFIG/vim/pack/myplugins/start/vim-easymotion-new/autoload/vital/easymotion.vim</span>
+
+    exit <span style="color:#ae81ff">0</span>
+<span style="color:#f92672">}</span>
+;;
+
+click-wrap<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e"># start wrapper and then click on it</span>
+    swidth<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux display -t <span style="color:#e6db74">&#34;</span>$CALLER_TARGET<span style="color:#e6db74">&#34;</span> -p <span style="color:#e6db74">&#34;#{session_width}&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    sheight<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux display -t <span style="color:#e6db74">&#34;</span>$CALLER_TARGET<span style="color:#e6db74">&#34;</span> -p <span style="color:#e6db74">&#34;#{session_height}&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    sheight<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$((</span> sheight <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">))</span><span style="color:#e6db74">&#34;</span>
+
+    server<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tm-get-server<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+    <span style="color:#75715e"># Don&#39;t use tm attach, to make this faster.</span>
+    tmux new-session -d -x <span style="color:#e6db74">&#34;</span>$swidth<span style="color:#e6db74">&#34;</span> -y <span style="color:#e6db74">&#34;</span>$sheight<span style="color:#e6db74">&#34;</span> -A -s wrap <span style="color:#ae81ff">\;</span> respawnp -k -t <span style="color:#e6db74">&#34;wrap:1&#34;</span> <span style="color:#e6db74">&#34;TMUX= tmux -L </span>$server<span style="color:#e6db74"> attach -t \&#34;</span>$CALLER_TARGET<span style="color:#e6db74">\&#34;&#34;</span>
+
+    <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> shift
+    <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> shift
+
+    <span style="color:#75715e"># Wait for C-M-f to close</span>
+    <span style="color:#66d9ef">while</span> tmux has-session -t <span style="color:#e6db74">&#34;:em-click&#34;</span>; <span style="color:#66d9ef">do</span>
+        sleep 0.1
+    <span style="color:#66d9ef">done</span>
+
+    <span style="color:#75715e"># sleep 1</span>
+    tm click -t <span style="color:#e6db74">&#34;wrap:1&#34;</span> <span style="color:#e6db74">&#34;</span>$x<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$y<span style="color:#e6db74">&#34;</span>
+
+    <span style="color:#75715e"># sleep 0.2</span>
+
+    tmux kill-pane -t <span style="color:#e6db74">&#34;wrap:1.0&#34;</span>
+<span style="color:#f92672">}</span>
+;;
+
+click<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">while</span> <span style="color:#f92672">[</span> $# -gt <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">do</span> opt<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$opt<span style="color:#e6db74">&#34;</span> in
+         -t<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+             TMUX_PANE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+             shift
+             shift
+         <span style="color:#f92672">}</span>
+         ;;
+
+         *<span style="color:#f92672">)</span> break;
+     <span style="color:#66d9ef">esac</span>; <span style="color:#66d9ef">done</span>
+
+    <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> shift
+    <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">&amp;&amp;</span> shift
+
+    : <span style="color:#e6db74">${</span>TMUX_PANE:=<span style="color:#e6db74">&#34;</span>$CALLER_PANE<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">}</span>
+
+    <span style="color:#75715e"># tm cursor</span>
+    <span style="color:#66d9ef">if</span> test -z <span style="color:#e6db74">&#34;</span>$x<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">then</span>
+        x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux display -t <span style="color:#e6db74">&#34;</span>$TMUX_PANE<span style="color:#e6db74">&#34;</span> -p <span style="color:#e6db74">&#34;#{cursor_x}&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">fi</span>
+    <span style="color:#66d9ef">if</span> test -z <span style="color:#e6db74">&#34;</span>$y<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">then</span>
+        y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tmux display -t <span style="color:#e6db74">&#34;</span>$TMUX_PANE<span style="color:#e6db74">&#34;</span> -p <span style="color:#e6db74">&#34;#{cursor_y}&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">fi</span>
+
+    ns <span style="color:#e6db74">&#34;</span>$TMUX_PANE<span style="color:#e6db74"> </span>$x<span style="color:#e6db74"> </span>$y<span style="color:#e6db74">&#34;</span> &amp;&gt;/dev/null
+
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$TMUX_PANE<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$x<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$y<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+        <span style="color:#75715e"># TODO Fix this -- it&#39;s backwards.</span>
+        tmux send-keys -t <span style="color:#e6db74">&#34;</span>$TMUX_PANE<span style="color:#e6db74">&#34;</span> -l <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>xterm-click -d $y $x<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+        sleep 0.2
+        tmux send-keys -t <span style="color:#e6db74">&#34;</span>$TMUX_PANE<span style="color:#e6db74">&#34;</span> -l <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>xterm-click -u $y $x<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">fi</span>
+    exit <span style="color:#ae81ff">0</span>
+<span style="color:#f92672">}</span>
+;;</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="demonstration">Demonstration</h3>
+<p><a title="asciinema recording" href="https://asciinema.org/a/fmPE7QjVAzklwkQ01WTWht79z" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/fmPE7QjVAzklwkQ01WTWht79z.svg" /></a></p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

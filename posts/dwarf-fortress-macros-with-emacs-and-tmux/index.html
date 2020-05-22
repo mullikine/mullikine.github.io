@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>★ Complex Dwarf Fortress macros with tcl/expect, emacs and tmux ★ // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c93a97e54f16df99439e5c4acf79edb18fcb9e5384f1edc008a7a4639844b254.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="★ Complex Dwarf Fortress macros with tcl/expect, emacs and tmux ★"/>
+<meta name="twitter:description" content="Related articles minor mode wrappers for shell commands // Bodacious Blog  Here I make an emacs mode for Dwarf Fortress and create some keybindings in emacs which runs a generated tcl/expect script over Dwarf Fortress using tmux to attach itself to the tty inside term- mode.
+Write the emacs lisp This macro creates minor modes from a list of shell command names.
+These shell commands may be arbitrary terminal programs."/>
+
+    <meta property="og:title" content="★ Complex Dwarf Fortress macros with tcl/expect, emacs and tmux ★" />
+<meta property="og:description" content="Related articles minor mode wrappers for shell commands // Bodacious Blog  Here I make an emacs mode for Dwarf Fortress and create some keybindings in emacs which runs a generated tcl/expect script over Dwarf Fortress using tmux to attach itself to the tty inside term- mode.
+Write the emacs lisp This macro creates minor modes from a list of shell command names.
+These shell commands may be arbitrary terminal programs." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/" />
+<meta property="article:published_time" content="2019-12-18T00:00:00+13:00" />
+<meta property="article:modified_time" content="2019-12-18T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+
+
+
+<a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+
+
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/gpt-2/">GPT-2</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/bash/">bash</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag" href="https://mullikine.github.io/tags/github/">github</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsls/">DSLs</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/graphviz/">graphviz</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a></div>
+</div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/rat/">Automating rat</a>
+<br />
+<a href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">Automating Dwarf Fortress</a>
+<br />
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">★ Complex Dwarf Fortress macros with tcl/expect, emacs and tmux ★</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Dec 18, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/df/">DF</a><a class="tag" href="http://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/tmux/">tmux</a><a class="tag" href="http://mullikine.github.io/tags/automation/">automation</a><a class="tag" href="http://mullikine.github.io/tags/tooling/">tooling</a><a class="tag" href="http://mullikine.github.io/tags/games/">games</a><a class="tag" href="http://mullikine.github.io/tags/expect/">expect</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      <dl>
+<dt>Related articles</dt>
+<dd><a href="https://mullikine.github.io/posts/minor-mode-wrappers-for-shell-commands/">minor mode wrappers for shell commands // Bodacious Blog</a></dd>
+</dl>
+<p>Here I make an emacs mode for Dwarf Fortress
+and create some keybindings in emacs which
+runs a generated <code>tcl/expect</code> script over Dwarf Fortress using
+tmux to attach itself to the tty inside <code>term- mode</code>.</p>
+<h2 id="write-the-emacs-lisp">Write the emacs lisp</h2>
+<p>This macro creates minor modes from a list of shell command names.</p>
+<p>These shell commands may be arbitrary terminal programs.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defmacro defcmdmode (cmd)
+  (setq cmd (str cmd))
+  (let* ((cmdslug (slugify (str cmd)))
+         (modestr (<span style="color:#a6e22e">concat</span> cmdslug <span style="color:#e6db74">&#34;-term-mode&#34;</span>))
+         (modesym (str2sym modestr))
+         (mapsym (str2sym (<span style="color:#a6e22e">concat</span> modestr <span style="color:#e6db74">&#34;-map&#34;</span>))))
+    <span style="color:#f92672">`</span>(progn
+       (defvar <span style="color:#f92672">,</span>mapsym (<span style="color:#a6e22e">make-sparse-keymap</span>)
+         <span style="color:#f92672">,</span>(<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;Keymap for `&#34;</span> modestr <span style="color:#e6db74">&#34;&#39;.&#34;</span>))
+       (defvar-local <span style="color:#f92672">,</span>modesym <span style="color:#66d9ef">nil</span>)
+
+       (define-minor-mode <span style="color:#f92672">,</span>modesym
+         <span style="color:#f92672">,</span>(<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;A minor mode for the &#39;&#34;</span> cmd <span style="color:#e6db74">&#34;&#39; term command.&#34;</span>)
+         :global <span style="color:#66d9ef">nil</span>
+         :init-value <span style="color:#66d9ef">nil</span>
+         :lighter <span style="color:#f92672">,</span>(s-upcase cmdslug)
+         :keymap <span style="color:#f92672">,</span>mapsym)
+       (provide <span style="color:#e6db74">&#39;,modesym</span>))))
+
+(cl-loop for cmd in <span style="color:#f92672">&#39;</span>(mc df-bay12) do (<span style="color:#a6e22e">eval</span> <span style="color:#f92672">`</span>(defcmdmode <span style="color:#f92672">,</span>cmd)))
+
+(defalias <span style="color:#e6db74">&#39;midnight-commander-term-mode</span> <span style="color:#e6db74">&#39;mc-term-mode</span>)
+
+<span style="color:#75715e">;; We don&#39;t want a global mode</span>
+<span style="color:#75715e">;; (define-globalized-minor-mode global-mc-minor-mode mc-minor-mode mc-minor-mode)</span>
+
+<span style="color:#75715e">;; This is definitely a bad solution</span>
+(<span style="color:#a6e22e">define-key</span> mc-term-mode-map (kbd <span style="color:#e6db74">&#34;&lt;up&gt;&#34;</span>) (lm (tsk <span style="color:#e6db74">&#34;C-p&#34;</span>)))
+(<span style="color:#a6e22e">define-key</span> mc-term-mode-map (kbd <span style="color:#e6db74">&#34;&lt;down&gt;&#34;</span>) (lm (tsk <span style="color:#e6db74">&#34;C-n&#34;</span>)))
+<span style="color:#75715e">;; (define-key mc-term-mode-map (kbd &#34;&lt;right&gt;&#34;) (lm (tsk &#34;M-3&#34;)))</span>
+(<span style="color:#a6e22e">define-key</span> mc-term-mode-map (kbd <span style="color:#e6db74">&#34;&lt;left&gt;&#34;</span>) (lm (tsk <span style="color:#e6db74">&#34;PgUp&#34;</span>)))
+(<span style="color:#a6e22e">define-key</span> mc-term-mode-map (kbd <span style="color:#e6db74">&#34;&lt;right&gt;&#34;</span>) (lm (tsk <span style="color:#e6db74">&#34;PgDn&#34;</span>)))
+
+(<span style="color:#a6e22e">define-key</span> df-bay12-term-mode-map (kbd <span style="color:#e6db74">&#34;M-!&#34;</span>) (lm (tsk <span style="color:#e6db74">&#34;Bob&#34;</span>)))</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="i-extended-the-my-term-function-to-look-for-modes-for-the-program-that-is-run">I extended the <code>my/term</code> function to look for modes for the program that is run</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun my/term (program <span style="color:#66d9ef">&amp;optional</span> closeframe modename)
+  (interactive)
+  (with-current-buffer (term program)
+    (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;term &#34;</span> (str termframe)))
+    (if closeframe
+        <span style="color:#75715e">;; (defset-local termframe-local (with-current-buffer &#34;*scratch*&#34; termframe))</span>
+        (defset-local termframe-local termframe))
+    <span style="color:#75715e">;; (if (string-equal program &#34;midnight-commander&#34;)</span>
+    <span style="color:#75715e">;;     (mc-minor-mode))</span>
+    (let ((modefun (str2sym (<span style="color:#a6e22e">concat</span> (slugify (or modename program)) <span style="color:#e6db74">&#34;-term-mode&#34;</span>))))
+      (if (function-p modefun)
+          (<span style="color:#a6e22e">funcall</span> modefun)))
+  <span style="color:#75715e">;; (add-hook &#39;after-make-frame-functions &#39;set-termframe)</span>
+    ))</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="the-emacs-wrapper-script-e-was-extended-so-that-the-program-name-is-inferred">The emacs wrapper script <code>e</code> was extended so that the program name is inferred</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">-shE|-E<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    shift
+    script<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>nsfa -E <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> t<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    shift
+    <span style="color:#66d9ef">if</span> test -n <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">then</span>
+        modename<span style="color:#f92672">=</span><span style="color:#e6db74">&#34; \&#34;</span>$1<span style="color:#e6db74">\&#34;&#34;</span>
+    <span style="color:#66d9ef">fi</span>
+
+    bufname<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>printf -- <span style="color:#e6db74">&#34;%s&#34;</span> <span style="color:#e6db74">&#34;term </span>$script<span style="color:#e6db74">&#34;</span> | slugify<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+    elisp<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;(my/term \&#34;</span>$script<span style="color:#e6db74">\&#34; t </span>$modename<span style="color:#e6db74">)</span>$elisp<span style="color:#e6db74">&#34;</span>
+<span style="color:#f92672">}</span>
+;;</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="demonstration">Demonstration</h2>
+<p>Now I can create bindings such as the
+following which will bind <code>M-!</code> to a function
+which tells <code>tmux</code> to type &ldquo;Bob&rdquo; into the terminal.</p>
+<p>Now I can name my dwarves &ldquo;Bob&rdquo; with the click of a button!</p>
+<p>But I&rsquo;m going to create some <code>tcl/expect</code> scripts in the future.</p>
+<p>Dwarf Fortress will be truly automated!</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a6e22e">define-key</span> df-bay12-term-mode-map (kbd <span style="color:#e6db74">&#34;M-!&#34;</span>) (lm (tsk <span style="color:#e6db74">&#34;Bob&#34;</span>)))</code></pre></td></tr></table>
+</div>
+</div>
+<p><a title="asciinema recording" href="https://asciinema.org/a/TiZ22soL4XcBQmlu0xfTU6kUD" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/TiZ22soL4XcBQmlu0xfTU6kUD.svg" /></a></p>
+<h2 id="even-cooler-demonstration-generating-an-expect-script-bound-to-emacs-keys">Even cooler demonstration; Generating an expect script bound to emacs keys!</h2>
+<p>The generated expect script works on its own!</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># This generates the expect script</span>
+x -tmw -se <span style="color:#e6db74">&#34;222&#34;</span> -sl 0.2 -s <span style="color:#ae81ff">8</span> -c m -e <span style="color:#e6db74">&#34;to continue&#34;</span> -sl <span style="color:#ae81ff">1</span> -s <span style="color:#e6db74">&#34;\\&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a title="asciinema recording" href="https://asciinema.org/a/Tt9j7cZGcwv2aurWRwAfAepKd" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/Tt9j7cZGcwv2aurWRwAfAepKd.svg" /></a></p>
+<h3 id="emacs-df-mode-key-binding">Emacs DF mode key binding</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun df-create-world ()
+    (interactive)
+  (sh
+   (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;x -tma \&#34;&#34;</span> (tm-get-window) <span style="color:#e6db74">&#34;\&#34;&#34;</span>
+           <span style="color:#e6db74">&#34; -se 222&#34;</span>
+           <span style="color:#e6db74">&#34; -sl 0.2&#34;</span>
+           <span style="color:#e6db74">&#34; -s 8&#34;</span>
+           <span style="color:#e6db74">&#34; -c m&#34;</span>
+           <span style="color:#e6db74">&#34; -e \&#34;to continue\&#34;&#34;</span>
+           <span style="color:#e6db74">&#34; -sl 1&#34;</span>
+           <span style="color:#e6db74">&#34; -s \&#34;\\\\\&#34;&#34;</span>
+           <span style="color:#e6db74">&#34; -e \&#34;Enter title\&#34;&#34;</span>
+           <span style="color:#e6db74">&#34; -se t&#34;</span>
+           <span style="color:#e6db74">&#34; -s Shane&#34;</span>
+           <span style="color:#e6db74">&#34; -c m&#34;</span>)))
+
+(<span style="color:#a6e22e">define-key</span> df-bay12-term-mode-map (kbd <span style="color:#e6db74">&#34;M-$&#34;</span>) <span style="color:#a6e22e">#&#39;</span>df-create-world)</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="generated-output">Generated output</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tcl" data-lang="tcl"><span style="color:#75715e">#!/home/shane/scripts/tm-expect -f
+</span><span style="color:#75715e"></span>log_user <span style="color:#ae81ff">0</span>
+<span style="color:#75715e">#trap sigwinch and pass it to the child we spawned
+</span><span style="color:#75715e"></span>trap <span style="color:#66d9ef">{</span>
+    <span style="color:#66d9ef">set</span> rows <span style="color:#66d9ef">[</span>stty rows<span style="color:#66d9ef">]</span>
+    <span style="color:#66d9ef">set</span> cols <span style="color:#66d9ef">[</span>stty columns<span style="color:#66d9ef">]</span>
+    stty rows $rows columns $cols <span style="color:#f92672">&lt;</span> $spawn_out<span style="color:#66d9ef">(</span>slave<span style="color:#960050;background-color:#1e0010">,</span>name<span style="color:#66d9ef">)</span>
+<span style="color:#66d9ef">}</span> WINCH
+
+<span style="color:#66d9ef">proc</span> getctrl <span style="color:#66d9ef">{</span>char<span style="color:#66d9ef">}</span> <span style="color:#66d9ef">{</span>
+    <span style="color:#66d9ef">set</span> ctrl <span style="color:#66d9ef">[expr</span> <span style="color:#66d9ef">(</span><span style="color:#e6db74">&#34;$char&#34;</span> <span style="color:#f92672">&amp;</span> 01xF<span style="color:#66d9ef">)]</span>
+    <span style="color:#66d9ef">return</span> $ctrl
+<span style="color:#66d9ef">}</span>
+
+<span style="color:#66d9ef">set</span> force_conservative <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">if</span> <span style="color:#66d9ef">{</span>$force_conservative<span style="color:#66d9ef">}</span> <span style="color:#66d9ef">{</span>
+    <span style="color:#66d9ef">set</span> send_slow <span style="color:#66d9ef">{</span>1 .1<span style="color:#66d9ef">}</span>
+    <span style="color:#66d9ef">proc</span> send <span style="color:#66d9ef">{</span>ignore arg<span style="color:#66d9ef">}</span> <span style="color:#66d9ef">{</span>
+        sleep .1
+        exp_send <span style="color:#f92672">-</span>s <span style="color:#f92672">--</span> $arg
+    <span style="color:#66d9ef">}</span>
+<span style="color:#66d9ef">}</span>
+
+<span style="color:#75715e"># For send -h
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">set</span> send_human <span style="color:#66d9ef">{</span>.4 .4 .2 .5 <span style="color:#ae81ff">100</span><span style="color:#66d9ef">}</span>
+<span style="color:#66d9ef">set</span> <span style="color:#f92672">::</span>env<span style="color:#66d9ef">(</span>PATH<span style="color:#66d9ef">)</span> <span style="color:#e6db74">&#34;/home/shane/scripts:/home/shane/var/smulliga/source/git/google-cloud-sdk/google-cloud-sdk/bin:/home/shane/.cargo/bin:/usr/local/toolchains/clang+llvm-9.0.0-x86_64-linux-gnu-ubuntu-16.04/bin:/usr/local/toolchains/clang/bin:/usr/local/toolchains/boost/bin:/home/shane/.nix-profile/bin:/home/shane/.cask/bin:/home/shane/.opam/system/bin:/home/shane/notes2018/ws/codelingo/scripts:/home/shane/scripts:scripts:/home/shane/.pyenv/bin:/opt/apache-maven-3.5.3/bin:/home/shane/bin:/usr/local/racket/bin:/home/shane/local/emacs26/bin:/home/shane/local/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/home/shane/source/git/fzf/bin/fzf:/home/shane/go/bin:/home/shane/go1.6.2/bin:/downloads/node-v9.9.0-linux-x64/bin:/home/shane/node_modules/.bin/:/home/shane/.cabal/bin:/home/shane/.local/bin:/home/shane/.config/composer/vendor/bin:/usr/local/go/bin:/home/shane/dump/downloads/node-v9.9.0-linux-x64/bin:/home/shane/.config/composer/vendor/bin/home/shane/source/git/fzf/bin/fzf/home/shane/source/git/fzf/bin/fzf:/usr/bin&#34;</span>
+<span style="color:#66d9ef">set</span> timeout <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+match_max <span style="color:#ae81ff">100000</span>
+<span style="color:#66d9ef">set</span> SHELL <span style="color:#e6db74">&#34;tmux&#34;</span>
+<span style="color:#66d9ef">set</span> win <span style="color:#66d9ef">[</span>exec tm-new-hidden-link-window <span style="color:#e6db74">&#34;@1628&#34;</span><span style="color:#66d9ef">]</span>
+spawn <span style="color:#e6db74">&#34;$SHELL&#34;</span> <span style="color:#e6db74">&#34;attach&#34;</span> <span style="color:#e6db74">&#34;-t&#34;</span> <span style="color:#e6db74">&#34;$win&#34;</span>
+sleep <span style="color:#ae81ff">5</span>
+sleep <span style="color:#ae81ff">0.1</span>
+send <span style="color:#f92672">--</span> <span style="color:#e6db74">&#34;2&#34;</span>
+expect <span style="color:#e6db74">&#34;.&#34;</span>
+sleep <span style="color:#ae81ff">0.2</span>
+send <span style="color:#f92672">--</span> <span style="color:#e6db74">&#34;2&#34;</span>
+expect <span style="color:#e6db74">&#34;.&#34;</span>
+sleep <span style="color:#ae81ff">0.2</span>
+send <span style="color:#f92672">--</span> <span style="color:#e6db74">&#34;2&#34;</span>
+expect <span style="color:#e6db74">&#34;.&#34;</span>
+sleep <span style="color:#ae81ff">0.2</span>
+sleep <span style="color:#ae81ff">0.2</span>
+send <span style="color:#f92672">--</span> <span style="color:#e6db74">&#34;8&#34;</span>
+send <span style="color:#f92672">--</span> <span style="color:#960050;background-color:#1e0010">\</span><span style="color:#ae81ff">015</span>
+expect <span style="color:#f92672">-</span>exact <span style="color:#e6db74">&#34;to continue&#34;</span>
+sleep <span style="color:#ae81ff">1</span>
+send <span style="color:#f92672">--</span> <span style="color:#e6db74">&#34;\\&#34;</span>
+expect <span style="color:#f92672">-</span>exact <span style="color:#e6db74">&#34;Enter title&#34;</span>
+send <span style="color:#f92672">--</span> <span style="color:#e6db74">&#34;t&#34;</span>
+expect <span style="color:#e6db74">&#34;.&#34;</span>
+sleep <span style="color:#ae81ff">0.2</span>
+send <span style="color:#f92672">--</span> <span style="color:#e6db74">&#34;Shane&#34;</span>
+sleep <span style="color:#ae81ff">0.2</span>
+close</code></pre></td></tr></table>
+</div>
+</div>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
