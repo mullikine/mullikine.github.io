@@ -336,6 +336,13 @@ a set of text cases delimited by newlines.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
@@ -348,14 +355,21 @@ stdin_exists<span style="color:#f92672">()</span> <span style="color:#f92672">{<
 <span style="color:#f92672">}</span>
 
 <span style="color:#66d9ef">if</span> stdin_exists; <span style="color:#66d9ef">then</span>
-    cases<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>q -l | s join <span style="color:#e6db74">&#39; &#39;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    input<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    nlines<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$input<span style="color:#e6db74">&#34;</span> | awk <span style="color:#ae81ff">1</span> | wc -l<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+    <span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$nlines<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> 1; <span style="color:#66d9ef">then</span>
+        cases<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$input<span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">else</span>
+        cases<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$input<span style="color:#e6db74">&#34;</span> | q -l | s join <span style="color:#e6db74">&#39; &#39;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">fi</span>
 
     CMD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
     : <span style="color:#e6db74">${</span>CMD:=<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">}</span>
 
-    eval <span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.cargo/bin/grex </span>$CMD<span style="color:#e6db74"> </span>$cases<span style="color:#e6db74">&#34;</span>
+    eval <span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.cargo/bin/grex </span>$CMD<span style="color:#e6db74"> </span>$cases<span style="color:#e6db74">&#34;</span> | awk <span style="color:#ae81ff">1</span>
 <span style="color:#66d9ef">else</span>
-    $HOME/.cargo/bin/grex <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span>
+    $HOME/.cargo/bin/grex <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> | awk <span style="color:#ae81ff">1</span>
 <span style="color:#66d9ef">fi</span></code></pre></td></tr></table>
 </div>
 </div>
