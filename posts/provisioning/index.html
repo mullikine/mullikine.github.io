@@ -330,6 +330,11 @@ by Packer.</p>
 </li>
 </ul>
 <h3 id="windows-containers-on-amazon-ecs">Windows Containers on Amazon ECS</h3>
+<dl>
+<dt>Link</dt>
+<dd><a href="https://www.theregister.co.uk/2019/06/06/aws%5Fgoes%5Flive%5Fwith%5Fwindows%5Fcontainers/">AWS goes live with Windows containers&hellip; but contain yourselves: It&rsquo;s going to be niche  The Register</a></dd>
+</dl>
+<!--listend-->
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -409,16 +414,18 @@ your Windows containers.</p>
 <p>These AMIs include Docker 18.09 as well as the
 ECS Agent.</p>
 <h4 id="caveats">Caveats</h4>
-<p><span class="underline">**1.**</span></p>
-<p>In order to run a Windows container, you must
+<dl>
+<dt>1</dt>
+<dd>In order to run a Windows container, you must
 manage your own cluster of EC2 (Elastic
-Compute Cloud) instances.</p>
+Compute Cloud) instances.
 <p>No Windows version of AWS Fargate, a
 serverless container launch type.</p>
-<p><span class="underline">**2.**</span></p>
-<p>Most of the AWS task definitions by which you
+</dd>
+<dt>2</dt>
+<dd>Most of the AWS task definitions by which you
 can configure a container are not available
-for Windows containers.</p>
+for Windows containers.
 <p>If you want to use Amazon Identity and Access
 Management (IAM) roles for tasks, you must run
 some PowerShell code in the container and use
@@ -426,12 +433,13 @@ a credential proxy that must listen on port
 80, normally used for HTTP.</p>
 <p>If you want to publish port 80, you have to
 use a load balancer and port mapping.</p>
-<p><span class="underline">**3.**</span></p>
-<p>Windows Server Containers are large, typically
+</dd>
+<dt>3</dt>
+<dd>Windows Server Containers are large, typically
 starting at 9GB, so more storage is needed,
 though a reduced container size is available
-if you use Server 2019.</p>
-<p><a href="https://www.theregister.co.uk/2019/06/06/aws%5Fgoes%5Flive%5Fwith%5Fwindows%5Fcontainers/">https://www.theregister.co.uk/2019/06/06/aws%5Fgoes%5Flive%5Fwith%5Fwindows%5Fcontainers/</a></p>
+if you use Server 2019.</dd>
+</dl>
 <h3 id="set-up-a-windows-docker-machine--to-test-out-octopus">Set up a windows docker machine (to test out octopus)</h3>
 <h3 id="install-vmware">install vmware</h3>
 <h4 id="uninstall-vmware-player">Uninstall vmware player</h4>
