@@ -408,13 +408,22 @@ set -xv
 ssh-keygen -y -f <span style="color:#e6db74">&#34;</span>$fp<span style="color:#e6db74">&#34;</span> &gt; <span style="color:#e6db74">&#34;</span>$dn<span style="color:#e6db74">/</span>$fn<span style="color:#e6db74">.pub&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
-<h2 id="create-a-script-which-automtates-ssh-with-the-one-off-command"><span class="org-todo todo TODO">TODO</span> Create a script which automtates ssh with the one-off command</h2>
+<h2 id="create-a-script-which-automtates-ssh-with-the-one-off-command">Create a script which automtates ssh with the one-off command</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ansible amazonlinux_servers -b --become-user<span style="color:#f92672">=</span>root -m yum -a <span style="color:#e6db74">&#34;name=tmux state=present&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="figure-out-how-to-specify-ssh-host-instead-of-ansible-host-when-running-a-one-off-command">Figure out how to specify ssh host instead of ansible host when running a one-off command</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">egr ansible specify ssh host instead of ansible host</code></pre></td></tr></table>
 </div>
 </div>
 
