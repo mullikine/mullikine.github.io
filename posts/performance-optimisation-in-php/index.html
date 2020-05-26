@@ -12,14 +12,14 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Performance optimisation in PHP"/>
-<meta name="twitter:description" content="Original video https://www.linkedin.com/learning/php-performance-optimization/welcome  Xdebug Basics Stack traces  Reference https://xdebug.org/docs/stack%5Ftrace  The stack traces that Xdebug shows on error situations (if display_errors is set to On in php.ini) are quite conservative in the amount of information that they show.
+<meta name="twitter:description" content="Original video https://www.linkedin.com/learning/php-performance-optimization/welcome Related articles Ansible // Bodacious Blog  Xdebug Basics Stack traces  Reference https://xdebug.org/docs/stack%5Ftrace  The stack traces that Xdebug shows on error situations (if display_errors is set to On in php.ini) are quite conservative in the amount of information that they show.
 /etc/hhvm/php.ini
-1 2 3 4 5 6 7  ; php options ; hhvm specific hhvm.log.level = Warning hhvm.log.always_log_unhandled_exceptions = true hhvm.log.runtime_error_reporting_level = 8191 hhvm.mysql.typed_results = false   In many cases it is useful that variable information is displayed, and that is why Xdebug has the setting xdebug."/>
+1 2 3 4 5 6 7  ; php options ; hhvm specific hhvm.log.level = Warning hhvm.log.always_log_unhandled_exceptions = true hhvm.log.runtime_error_reporting_level = 8191 hhvm."/>
 
     <meta property="og:title" content="Performance optimisation in PHP" />
-<meta property="og:description" content="Original video https://www.linkedin.com/learning/php-performance-optimization/welcome  Xdebug Basics Stack traces  Reference https://xdebug.org/docs/stack%5Ftrace  The stack traces that Xdebug shows on error situations (if display_errors is set to On in php.ini) are quite conservative in the amount of information that they show.
+<meta property="og:description" content="Original video https://www.linkedin.com/learning/php-performance-optimization/welcome Related articles Ansible // Bodacious Blog  Xdebug Basics Stack traces  Reference https://xdebug.org/docs/stack%5Ftrace  The stack traces that Xdebug shows on error situations (if display_errors is set to On in php.ini) are quite conservative in the amount of information that they show.
 /etc/hhvm/php.ini
-1 2 3 4 5 6 7  ; php options ; hhvm specific hhvm.log.level = Warning hhvm.log.always_log_unhandled_exceptions = true hhvm.log.runtime_error_reporting_level = 8191 hhvm.mysql.typed_results = false   In many cases it is useful that variable information is displayed, and that is why Xdebug has the setting xdebug." />
+1 2 3 4 5 6 7  ; php options ; hhvm specific hhvm.log.level = Warning hhvm.log.always_log_unhandled_exceptions = true hhvm.log.runtime_error_reporting_level = 8191 hhvm." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/performance-optimisation-in-php/" />
 <meta property="article:published_time" content="2020-05-26T00:00:00+08:00" />
@@ -153,7 +153,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -174,6 +174,8 @@
       <dl>
 <dt>Original video</dt>
 <dd><a href="https://www.linkedin.com/learning/php-performance-optimization/welcome">https://www.linkedin.com/learning/php-performance-optimization/welcome</a></dd>
+<dt>Related articles</dt>
+<dd><a href="https://mullikine.github.io/posts/ansible/">Ansible // Bodacious Blog</a></dd>
 </dl>
 <h2 id="xdebug">Xdebug</h2>
 <h3 id="basics">Basics</h3>
@@ -306,47 +308,197 @@ Xdebug has the setting <code>xdebug.collect_params</code>.</p>
     version.</code></pre></td></tr></table>
 </div>
 </div>
-<h2 id="optimization-in-php">Optimization in PHP</h2>
-<h3 id="upgrade-php">Upgrade PHP</h3>
+<h2 id="upgrade-php-with-ansible">Upgrade PHP with Ansible</h2>
 <dl>
 <dt>Reference</dt>
 <dd><a href="https://dev.to/narongdejsrn/upgrading-php-to-7-3-with-ansible-4fp1">Upgrading PHP to 7.3 with Ansible - DEV</a></dd>
 </dl>
-<h3 id="save-upgrade-php">Save Upgrade PHP</h3>
-<h3 id="save-outsource-work">Save Outsource work</h3>
-<h3 id="queue-work-for-later">Queue work for later</h3>
-<h3 id="save-queue-work-for-later">Save Queue work for later</h3>
-<h3 id="promise-your-php">Promise your PHP</h3>
-<h3 id="save-promise-your-php">Save Promise your PHP</h3>
-<h3 id="macro-vs-dot-micro-optimization">Macro vs. Micro optimization</h3>
-<h3 id="save-macro-vs-dot-micro-optimization">Save Macro vs. Micro optimization</h3>
+<!--listend-->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ansible-playbook upgrade-php.yml</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="optimization-in-php">Optimization in PHP</h2>
+<dl>
+<dt>Reference</dt>
+<dd><a href="http://juliusbeckmann.de/blog/php-micro-vs-macro-optimization-or-get-the-low-hanging-fruit-first.html">PHP: Micro vs. Macro optimization, or &ldquo;Get the low hanging fruit first&rdquo; | Julius Beckmann</a></dd>
+</dl>
+<p>Low-hanging fruit should be the first thought
+when it comes to optimising.</p>
+<p>Some low-hanging fruit can be found by
+profiling your php application.</p>
+<ul>
+<li>IO load</li>
+<li>Avoid complex SQL querys.</li>
+<li>Cache / Memoisation.
+<ul>
+<li>Save to $_SESSION. Check changes with a simple crc32 hash.</li>
+<li>Memoise/cache functions.</li>
+<li>APC,</li>
+<li>XCache,</li>
+<li>Memcache,</li>
+<li>eAccelerator,</li>
+<li>tmpFS.</li>
+</ul>
+</li>
+</ul>
+<h3 id="micro-optimization">Micro-optimization</h3>
+<ul>
+<li>Examples:
+<ul>
+<li><code>++$i</code> is 10% faster than <code>$i++&quot;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="macro-optimization">Macro-optimization</h3>
+<ul>
+<li>Examples:</li>
+<li>Caching</li>
+<li>Memoisation</li>
+</ul>
 <h2 id="optimizate-your-database">Optimizate Your Database</h2>
-<h3 id="find-your-slow-and-common-sql">Find your slow and common SQL</h3>
-<h3 id="save-find-your-slow-and-common-sql">Save Find your slow and common SQL</h3>
 <h3 id="explain-sql">Explain SQL</h3>
-<h3 id="save-explain-sql">Save Explain SQL</h3>
+<p>The EXPLAIN keyword is used throughout various
+SQL databases and provides information about
+how your SQL database executes a query.</p>
+<p>In MySQL, EXPLAIN can be used in front of a
+query beginning with SELECT, INSERT, DELETE,
+REPLACE, and UPDATE.</p>
+<p>For a simple query, it would look like the
+following:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">EXPLAIN</span> <span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> foo <span style="color:#66d9ef">WHERE</span> foo.bar <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;infrastructure as a service&#39;</span> <span style="color:#66d9ef">OR</span> foo.bar <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;iaas&#39;</span>;</code></pre></td></tr></table>
+</div>
+</div>
+<p>Instead of the usual result output, MySQL
+would then show its statement execution plan
+by explaining which processes take place in
+which order when executing the statement.</p>
 <h3 id="indexing-sql">Indexing SQL</h3>
-<h3 id="save-indexing-sql">Save Indexing SQL</h3>
+<p>An index helps to speed up SELECT queries and
+WHERE clauses, but it slows down data input,
+with the UPDATE and the INSERT statements.</p>
+<p>Indexes can be created or dropped with no
+effect on the data.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> index_name <span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">table_name</span>;</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ewwlinks +/<span style="color:#e6db74">&#34;Single-Column Indexes&#34;</span> <span style="color:#e6db74">&#34;https://www.tutorialspoint.com/sql/sql-indexes.htm&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>A composite index is an index on two or more
+columns of a table. Its basic syntax is as
+follows.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">INDEX</span> index_name <span style="color:#66d9ef">on</span> <span style="color:#66d9ef">table_name</span> (column1, column2);</code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="caching-sql">Caching SQL</h3>
-<h3 id="save-caching-sql">Save Caching SQL</h3>
+<p>The MySQL query cache can provide a boost in
+performance for a high read environment and
+can be implemented without any additional
+application overhead.</p>
+<p>The following is an example using the
+profiling functionality to show the execution
+time and the individual complexity of a
+regular SQL statement and a subsequent cached
+query:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SET</span> <span style="color:#66d9ef">GLOBAL</span> query_cache_size<span style="color:#f92672">=</span><span style="color:#ae81ff">1024</span><span style="color:#f92672">*</span><span style="color:#ae81ff">1024</span><span style="color:#f92672">*</span><span style="color:#ae81ff">16</span>;
+<span style="color:#66d9ef">SET</span> <span style="color:#66d9ef">GLOBAL</span> query_cache_type<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+<span style="color:#66d9ef">SET</span> PROFILING<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;
+<span style="color:#66d9ef">SELECT</span> name <span style="color:#66d9ef">FROM</span> firms <span style="color:#66d9ef">WHERE</span> id<span style="color:#f92672">=</span><span style="color:#ae81ff">727</span>;
+<span style="color:#66d9ef">SELECT</span> name <span style="color:#66d9ef">FROM</span> firms <span style="color:#66d9ef">WHERE</span> id<span style="color:#f92672">=</span><span style="color:#ae81ff">727</span>;
+<span style="color:#66d9ef">SHOW</span> PROFILES;</code></pre></td></tr></table>
+</div>
+</div>
+<p>As you can see, the second query is 10 times
+faster. You can use the profiling
+functionality to provide a detailed analysis
+of individual steps:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SHOW</span> PROFILE <span style="color:#66d9ef">FOR</span> QUERY <span style="color:#ae81ff">1</span>;</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SHOW</span> PROFILE <span style="color:#66d9ef">FOR</span> QUERY <span style="color:#ae81ff">2</span>;</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mysql -u root</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="optimize-the-web">Optimize the Web</h2>
-<h3 id="build-your-html-smartly">Build your HTML smartly</h3>
-<h3 id="save-build-your-html-smartly">Save Build your HTML smartly</h3>
 <h3 id="http-caching">HTTP caching</h3>
-<h3 id="save-http-caching">Save HTTP caching</h3>
-<h3 id="http-compression">HTTP compression</h3>
-<h3 id="save-http-compression">Save HTTP compression</h3>
-<h3 id="http-2">HTTP/2</h3>
-<h3 id="save-http-2">Save HTTP/2</h3>
-<h3 id="minify-all-the-things">Minify all the things</h3>
-<h3 id="save-minify-all-the-things">Save Minify all the things</h3>
-<h3 id="cdn-all-the-things">CDN all the things</h3>
-<h3 id="save-cdn-all-the-things">Save CDN all the things</h3>
-<h2 id="hardware-up-and-out">Hardware Up and Out</h2>
-<h3 id="from-one-single-server-to-service-servers">From one single server to service servers</h3>
-<h3 id="save-from-one-single-server-to-service-servers">Save From one single server to service servers</h3>
-<h3 id="scaling-the-rest-of-the-way">Scaling the rest of the way</h3>
-<h3 id="save-scaling-the-rest-of-the-way">Save Scaling the rest of the way</h3>
+<ul>
+<li>HTTP cache headers
+<ul>
+<li>Cache-Control</li>
+</ul>
+</li>
+</ul>
+<p><code>Cache-Control</code> switches on caching in the browser.</p>
+<dl>
+<dt><code>Cache-Control:public</code></dt>
+<dd>Private resources are bypassed by intermediate proxies and can only be cached by the end-client.</dd>
+<dt><code>Cache-Control:public, max-age=31536000</code></dt>
+<dd>It&rsquo;s a composite value.</dd>
+</dl>
+<p>The <code>Expires</code> header is used to specify a specific point in time the resource is no longer valid.</p>
+<ul>
+<li><code>Cache-Control:public</code></li>
+<li><code>Expires: Mon, 25 Jun 2012 21:31:12 GMT</code></li>
+</ul>
+<h3 id="other-optimisations">Other optimisations:</h3>
+<ul>
+<li>HTTP compression</li>
+<li>HTTP/2</li>
+<li>Minify all the things</li>
+<li>CDN all the things</li>
+</ul>
 
     </div>
     <div class="post-footer">
