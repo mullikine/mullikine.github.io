@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="OS-agnostic program installation with Ansible"/>
-<meta name="twitter:description" content="Ansible setup https://github.com/ansible/ansible Original guide How to install apps remotely with Ansible - TechRepublic  Set up ssh Get the IP of the instance 1  aws ec2 describe-instances --output json | jq -r &#39;.Reservations[].Instances[].NetworkInterfaces[].Association.PublicIp&#39;   54.206.107.77 Set the Host options 1 2 3 4  Host littlefella Hostname 54.206.107.77 User ec2-user IdentityFile /home/shane/.ssh/ids/amazonlinuxuser   Set up passwordless SSH using ssh keys 1 2  pvt2pub ~/.ssh/ids/amazonlinuxuser ssh-copy-id -oBatchMode=no -i ~/."/>
+<meta name="twitter:description" content="Ansible setup https://github.com/ansible/ansible Original guide How to install apps remotely with Ansible - TechRepublic Related articles Ansible // Bodacious Blog   1 2 3 4  sudo apt update sudo apt install software-properties-common sudo apt-add-repository --yes --update ppa:ansible/ansible sudo apt install ansible   Set up ssh Get the IP of the instance 1 2  aws ec2 describe-instances --output json | jq -r &#39;.Reservations[].Instances[].NetworkInterfaces[].Association.PublicIp&#39;   54.206.107.77 Set the Host options 1 2 3 4  Host littlefella Hostname 54."/>
 
     <meta property="og:title" content="OS-agnostic program installation with Ansible" />
-<meta property="og:description" content="Ansible setup https://github.com/ansible/ansible Original guide How to install apps remotely with Ansible - TechRepublic  Set up ssh Get the IP of the instance 1  aws ec2 describe-instances --output json | jq -r &#39;.Reservations[].Instances[].NetworkInterfaces[].Association.PublicIp&#39;   54.206.107.77 Set the Host options 1 2 3 4  Host littlefella Hostname 54.206.107.77 User ec2-user IdentityFile /home/shane/.ssh/ids/amazonlinuxuser   Set up passwordless SSH using ssh keys 1 2  pvt2pub ~/.ssh/ids/amazonlinuxuser ssh-copy-id -oBatchMode=no -i ~/." />
+<meta property="og:description" content="Ansible setup https://github.com/ansible/ansible Original guide How to install apps remotely with Ansible - TechRepublic Related articles Ansible // Bodacious Blog   1 2 3 4  sudo apt update sudo apt install software-properties-common sudo apt-add-repository --yes --update ppa:ansible/ansible sudo apt install ansible   Set up ssh Get the IP of the instance 1 2  aws ec2 describe-instances --output json | jq -r &#39;.Reservations[].Instances[].NetworkInterfaces[].Association.PublicIp&#39;   54.206.107.77 Set the Host options 1 2 3 4  Host littlefella Hostname 54." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/os-agnostic-program-installation-with-ansible/" />
 <meta property="article:published_time" content="2020-05-25T00:00:00+08:00" />
@@ -172,15 +172,34 @@
 <dd><a href="https://github.com/ansible/ansible">https://github.com/ansible/ansible</a></dd>
 <dt>Original guide</dt>
 <dd><a href="https://www.techrepublic.com/article/how-to-install-apps-remotely-with-ansible/">How to install apps remotely with Ansible - TechRepublic</a></dd>
+<dt>Related articles</dt>
+<dd><a href="https://mullikine.github.io/posts/ansible/">Ansible // Bodacious Blog</a></dd>
 </dl>
+<!--listend-->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt update
+sudo apt install software-properties-common
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="set-up-ssh">Set up ssh</h2>
 <h3 id="get-the-ip-of-the-instance">Get the IP of the instance</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">aws ec2 describe-instances --output json | jq -r <span style="color:#e6db74">&#39;.Reservations[].Instances[].NetworkInterfaces[].Association.PublicIp&#39;</span></code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">aws ec2 describe-instances --output json |
+    jq -r <span style="color:#e6db74">&#39;.Reservations[].Instances[].NetworkInterfaces[].Association.PublicIp&#39;</span></code></pre></td></tr></table>
 </div>
 </div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">54.206.107.77
