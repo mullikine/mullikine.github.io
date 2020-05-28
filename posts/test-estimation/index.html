@@ -263,6 +263,69 @@ Cost
 </div>
 <h3 id="demonstration">Demonstration</h3>
 <p><a title="asciinema recording" href="https://asciinema.org/a/a2bfZqxTQfqmmuCeGIp8ieuHL" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/a2bfZqxTQfqmmuCeGIp8ieuHL.svg" /></a></p>
+<h2 id="final-awk-code">Final <code>awk</code> code</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk">BEGIN {
+    RS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;\\* *&#34;</span>
+    FS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;: *&#34;</span>
+    OFS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+    <span style="color:#a6e22e">cmd</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;str &#39;[:lower:]&#39; &#39;[:upper:]&#39;&#34;</span>
+}
+
+NR <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> {
+    <span style="color:#66d9ef">printf</span> <span style="color:#e6db74">&#34;%s&#34;</span>, <span style="color:#f92672">$</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">|</span><span style="color:#960050;background-color:#1e0010">&amp;</span> <span style="color:#a6e22e">cmd</span>;
+    <span style="color:#66d9ef">close</span>(<span style="color:#a6e22e">cmd</span>, <span style="color:#e6db74">&#34;to&#34;</span>);
+    <span style="color:#f92672">$</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
+    <span style="color:#a6e22e">cmd</span> <span style="color:#f92672">|</span><span style="color:#960050;background-color:#1e0010">&amp;</span> <span style="color:#66d9ef">getline</span> <span style="color:#f92672">$</span><span style="color:#ae81ff">2</span>;
+    <span style="color:#66d9ef">fflush</span>(<span style="color:#a6e22e">cmd</span>);
+    <span style="color:#66d9ef">close</span>(<span style="color:#a6e22e">cmd</span>);
+
+    <span style="color:#66d9ef">print</span> <span style="color:#f92672">$</span><span style="color:#ae81ff">1</span> <span style="color:#e6db74">&#34;\n&#34;</span> <span style="color:#f92672">$</span><span style="color:#ae81ff">2</span>;
+    <span style="color:#66d9ef">system</span>(<span style="color:#e6db74">&#34;&#34;</span>)
+}</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="this-is-how-to-apply-a-shell-script-filter-to-an-awk-variable">This is how to apply a shell script filter to an awk variable</h3>
+<p>Substitue <code>$2</code> for any variable.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk"><span style="color:#66d9ef">printf</span> <span style="color:#e6db74">&#34;%s&#34;</span>, <span style="color:#f92672">$</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">|</span><span style="color:#960050;background-color:#1e0010">&amp;</span> <span style="color:#a6e22e">cmd</span>;
+<span style="color:#66d9ef">close</span>(<span style="color:#a6e22e">cmd</span>, <span style="color:#e6db74">&#34;to&#34;</span>);
+<span style="color:#f92672">$</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
+<span style="color:#a6e22e">cmd</span> <span style="color:#f92672">|</span><span style="color:#960050;background-color:#1e0010">&amp;</span> <span style="color:#66d9ef">getline</span> <span style="color:#f92672">$</span><span style="color:#ae81ff">2</span>;
+<span style="color:#66d9ef">fflush</span>(<span style="color:#a6e22e">cmd</span>);
+<span style="color:#66d9ef">close</span>(<span style="color:#a6e22e">cmd</span>);</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
