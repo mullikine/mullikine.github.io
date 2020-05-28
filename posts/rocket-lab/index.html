@@ -12,14 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Rocket Lab"/>
-<meta name="twitter:description" content="Writing awk for Rocket Lab 
-Create a glossary for space flight $NOTES/ws/glossaries/space-flight.txt
-Create the definition-list-to-formatted-definitions.sh script to format definitions 1 2 3 4  #!/bin/bash export TTY awk -F &#34;\\n&#34; &#39;match($0, /[0-9.]&#43;\t(.*) \(([A-Z]&#43;)\)$/, a) {print a[1] &#34;\n&#34; a[2] &#34;\n&#34;}&#39;   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23  8	Commercial Crew, 2019-present 8."/>
+<meta name="twitter:description" content="Glossary 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108  Attitude Determination and Control Subsystem ADCS https://www."/>
 
     <meta property="og:title" content="Rocket Lab" />
-<meta property="og:description" content="Writing awk for Rocket Lab 
-Create a glossary for space flight $NOTES/ws/glossaries/space-flight.txt
-Create the definition-list-to-formatted-definitions.sh script to format definitions 1 2 3 4  #!/bin/bash export TTY awk -F &#34;\\n&#34; &#39;match($0, /[0-9.]&#43;\t(.*) \(([A-Z]&#43;)\)$/, a) {print a[1] &#34;\n&#34; a[2] &#34;\n&#34;}&#39;   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23  8	Commercial Crew, 2019-present 8." />
+<meta property="og:description" content="Glossary 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108  Attitude Determination and Control Subsystem ADCS https://www." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/rocket-lab/" />
 <meta property="article:published_time" content="2020-05-28T00:00:00+08:00" />
@@ -155,7 +151,7 @@ Create the definition-list-to-formatted-definitions.sh script to format definiti
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          8 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -173,11 +169,275 @@ Create the definition-list-to-formatted-definitions.sh script to format definiti
 
 
     <div class="post-content">
-      <h2 id="writing-awk-for-rocket-lab">Writing <code>awk</code> for Rocket Lab</h2>
+      <h2 id="glossary">Glossary</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Attitude Determination and Control Subsystem
+ADCS
+    https://www.aero.iitb.ac.in/satelliteWiki/index.php/Components_of_ADCS
+
+    Sensors and Estimators:
+        Sensors are instruments which measure
+        various quantities during the flight
+        of the satellite. These sensors are
+        like eyes and ears of the satellite.
+        In this section, we will only consider
+        sensors concerning attitude
+        determination and control.
+
+        As stated earlier, the purpose of ADCS
+        is to determine the orientation of
+        satellite with respect to some
+        reference frame. This requires
+        measurement of various vector
+        quantities in the body frame of the
+        satellite. This task is performed by
+        sensors. For example, sun-sensor
+        measures the unit vector in the
+        direction of sun from satellite. The
+        magnetometer measures local magnetic
+        field due to earth. The more detailed
+        information about different sensors
+        will be given in subsequent sections.
+
+        Although, we want to determine the
+        attitude, there is no direct sensor to
+        measure it. Thus we have to use
+        measurement from different sensors and
+        estimate attitude using them. There
+        are number of algorithms to achieve
+        this.
+
+    Actuators:
+        One of the goals of ADCS is to bring
+        the satellite in desired orientation
+        and maintain it. This requires some
+        component which will exert force or
+        torque on the satellite body. It is
+        called as actuation and is performed
+        by actuator. Magnetorquer, reaction
+        wheels are some of the actuators
+        commonly used in small satellites.
+        These will be discussed thoroughly in
+        subsequent sections.
+
+    Control Law:
+        Control law is a mathematical
+        framework which takes sensor inputs,
+        reference signal and decides required
+        actuation for controlling the plant
+        (which is the satellite in this case).
+        There are lots of control laws in
+        literature. In subsequent sections
+        some commonly used laws are described
+        (eg. PID). Propagator: The small
+        satellite faces very stringent power
+        and mass constraints. Thus, sensors
+        which consume lot of power for
+        operation can not be used
+        continuously. In such scenarios,
+        computational models are used to
+        simulate sensor measurement using
+        actual measurement as a initial
+        condition. These are called as
+        propagator models.
+
+    On Ground Simulations:
+        The control system comprising of above
+        parts is designed to achieve the
+        required control goal. Now, it is
+        essential to verify the performance of
+        this control system before launching
+        the satellite to ensure its success.
+        Thus ADCS has to undergo following
+        tests:
+
+    Software simulation
+        The designed control law is thoroughly
+        tested in softwares or programming
+        languages like Matlab/SImulink, Python
+        etc. The required environmental models
+        are generated in software as per need.
+        Some existing models can be used and
+        are mentioned later. This process is
+        iterative and occurs along with design
+        itself.
+
+    On-Board In Loop Simulation (OILS)
+        In this testing, control law is
+        implemented on actual microprocessor
+        unlike fully software testing.
+        Environmental models, sensor models
+        are still simulated in software. This
+        testing can be done with Simulink,
+        Labview etc.
+
+    Hardware In Loop Simulation (HILS)
+        In this testing, control law is coded
+        on microprocessor along with actual
+        sensor data. This means environment
+        experienced in space has to be
+        simulated physically, which will bring
+        actual sensor in the control loop
+        test.</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="positions">Positions</h2>
+<ul>
+<li>Contractor Program Security Officer (CPSO)</li>
+<li>Technical Buyer, Senior</li>
+<li>Avionics Manufacturing Technician</li>
+<li>Principal Additive Manufacturing Engineer</li>
+<li>General Applicants</li>
+<li>Propulsion Engineering Specialist (Space Engines)</li>
+<li>Senior Development Engineer</li>
+<li>Satellite ADCS Engineer</li>
+<li>General Applicants</li>
+<li>Flight Software Engineer</li>
+<li>Aircraft Technician</li>
+<li>Spacecraft Thermal Engineer</li>
+<li>IT Support Specialist</li>
+<li>Engineering Specialist</li>
+<li>Senior RF Systems Engineer</li>
+<li>Software Build Engineer</li>
+<li>Operations Software Engineer</li>
+<li>Manufacturing Engineer - Composites</li>
+<li>Quality Engineer - Propulsion</li>
+<li>Recovery Systems Simulation Engineer</li>
+<li>Precision Cleaner Technician</li>
+<li>Propulsion Test Complex Manager/Plant Manager</li>
+<li>Senior Satellite ADCS Engineer</li>
+<li>GNC Software Engineer - Spacecraft</li>
+<li>Embedded Software Team Lead</li>
+<li>Propulsion Testing Technician</li>
+<li>Senior Software Engineer: Operational Data</li>
+<li>Satellite ADCS Engineer</li>
+<li>CNC Programmer</li>
+<li>Manufacturing Engineer - Design</li>
+<li>Graduate Propulsion Testing Opportunity - 6 month contract</li>
+<li>Bookkeeper &amp; Office Manager</li>
+<li>Payload Integration Engineer</li>
+<li>Operations Software Team Lead</li>
+<li>GLS Spacecraft Systems Engineer</li>
+<li>Inventory &amp; Logistics Supervisor</li>
+</ul>
+<h2 id="writing-some-awk-for-a-rocket-lab-glossary">Writing some <code>awk</code> for a Rocket Lab glossary</h2>
 <p><a title="asciinema recording" href="https://asciinema.org/a/2rYkFDsfFdsn8p3Bx395wL5Qi" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/2rYkFDsfFdsn8p3Bx395wL5Qi.svg" /></a></p>
-<h3 id="create-a-glossary-for-space-flight">Create a glossary for space flight</h3>
-<p>$NOTES/ws/glossaries/space-flight.txt</p>
-<h3 id="create-the-definition-list-to-formatted-definitions-dot-sh-script-to-format-definitions">Create the <code>definition-list-to-formatted-definitions.sh</code> script to format definitions</h3>
+<ul>
+<li>Create a glossary for space flight (<code>$NOTES/ws/glossaries/space-flight.txt</code>)</li>
+<li>Create a glossary of Flight Controller jobs</li>
+</ul>
+<h2 id="create-an-awk-script-to-format-definitions-from-wikipedia">Create an <code>awk</code> script to format definitions from <code>wikipedia</code></h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -289,8 +549,138 @@ SDO
 Trajectory
 TRAJ
 
-</code></pre></div><h3 id="apply-the-awk-script-to-the-remaining-definitions">Apply the awk script to the remaining definitions</h3>
+</code></pre></div><h2 id="apply-the-awk-script-to-the-remaining-definitions">Apply the awk script to the remaining definitions</h2>
 <p><a title="asciinema recording" href="https://asciinema.org/a/PqRU5lZLa79IzGzo5WMKbOSHV" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/PqRU5lZLa79IzGzo5WMKbOSHV.svg" /></a></p>
+<h2 id="go-over-the-https-www-dot-rocketlabusa-dot-com-website">Go over the <code>https://www.rocketlabusa.com/</code> website</h2>
+<ul>
+<li>Vertically integrated</li>
+</ul>
+<h3 id="rocket-lab-purpose">Rocket Lab Purpose</h3>
+<p>We&rsquo;re in an exciting new era of small
+satellite technology - one that’s making life
+on Earth better.</p>
+<p>We all rely on satellites.</p>
+<p>They connect us, keep us safe, help us
+understand our planet and manage our impact on
+it, and enable us to innovate and explore.</p>
+<p>Space is the ultimate high ground.</p>
+<p>It provides us with a new perspective on the
+challenges facing our planet, and can be the
+key to helping us solve them.</p>
+<p>We’re enabling companies, students,
+scientists, researchers, governments and
+entrepreneurs alike to get their ideas to
+orbit, right now.</p>
+<p>A solar system of possibilities has opened up
+for people who thought space was out of reach,
+until now.</p>
+<p>The satellites we build and launch are keeping
+countries connected and borders protected,
+they&rsquo;re monitoring weather and managing waste,
+they&rsquo;re providing insights on climate change,
+and helping us manage resources for future
+generations.</p>
+<p>By unlocking the potential of space, we are
+making a tangible difference to life on Earth.</p>
+<p><a href="https://www.rocketlabusa.com/about-us/">https://www.rocketlabusa.com/about-us/</a></p>
+<h2 id="jd-software-build-engineer">JD - Software Build Engineer</h2>
+<h3 id="position-purpose">Position Purpose</h3>
+<p>Launching a rocket and operating satellites
+requires a symphony of multiple teams,
+multiple sites, and multiple complex systems
+working together towards mission success.</p>
+<p>Software drives every aspect of this, and
+Rocket Lab has a large number of complex
+software products.</p>
+<p>Working with Rocket Lab’s software team the
+Software Build Engineer will be responsible
+for the CI and deployment (automation of the
+building, testing, and distribution) of the
+avionics, ground systems and production
+software for Rocket Lab’s Launch Service.</p>
+<ul>
+<li>
+<p>Build Engineering:</p>
+<ul>
+<li>Collaborate with software development stakeholders including:
+<ul>
+<li>Software Engineering Team</li>
+<li>IT</li>
+<li>GNC Team</li>
+<li>Instrumentation and Control Engineering Team</li>
+<li>Avionics</li>
+<li>Range and Flight Safety Analysis</li>
+</ul>
+</li>
+<li>Ensure delivery of systems for Continuous Integration and Deployment</li>
+</ul>
+<p>to support software used for:</p>
+<ul>
+<li>Flight Vehicle</li>
+<li>Spacecraft</li>
+<li>Operations</li>
+<li>Production</li>
+<li>Rocket Lab Business Operations</li>
+</ul>
+<!--listend-->
+<ul>
+<li>Support development and deployment of infrastructure used for</li>
+</ul>
+<p>stack-test and launch operations.</p>
+</li>
+<li>
+<p>CI/CD:</p>
+<ul>
+<li>Design, document, implement and support build and deployment pipelines</li>
+<li>Research emerging DevOps tools, practices and workflows</li>
+<li>Champion best practices amongst software teams</li>
+<li>Attend planning and progress meetings</li>
+<li>Project-manage CI and deployment projects</li>
+<li>Be an approachable source of knowledge on build systems and supported applications</li>
+<li>Develop and demonstrate standards of excellence in build, deployment and configuration management systems</li>
+<li>Identify and automate processes and workflows for both software and other teams</li>
+<li>Coordinate with IT on server and infrastructure needs</li>
+<li>Support and maintain container orchestration systems (Kubernetes and Docker)</li>
+<li>Monitor internal communication systems and provide support</li>
+</ul>
+</li>
+<li>
+<p>Expectations:</p>
+<ul>
+<li>Complete tasks with a high level of aptitude and on own initiative</li>
+<li>Work efficiently to deliver tasks as directed by more senior staff</li>
+<li>Clearly understand requirements and design to meet those requirements</li>
+<li>Report on progress, risks, dependencies related to work assignments</li>
+<li>Create process for specific parts and tools</li>
+<li>Develop accuracy in estimating time to complete work assignments</li>
+<li>Develop accuracy in estimating costs to complete projects</li>
+<li>Domestic and international travel may be required</li>
+<li>Additional duties as reasonably required</li>
+<li>Ensure health and safety policies and standard operating procedures are followed</li>
+<li>Correct PPE is worn in designated areas</li>
+<li>Near misses and incidents are reported promptly</li>
+</ul>
+</li>
+<li>
+<p>Skillset:</p>
+<ul>
+<li>System administration with a minimum of 1 year experience in
+development and 1 year experience in *nix system administration.</li>
+<li>Git</li>
+<li>Experience with Redmine, Jira or other issue tracker</li>
+<li>Experience with Jenkins, Team City, GitLab CI, Travis CI, TFS CI or
+other build system.</li>
+<li>Scrum</li>
+<li>Docker or Kubernetes</li>
+<li>PRTG or other monitoring system.</li>
+<li>Windows Server system administration</li>
+<li>Domain Name Services</li>
+<li>Network security</li>
+<li>Project Management</li>
+<li>Chef, Puppet, Salt, Transform or other provisioning system</li>
+</ul>
+</li>
+</ul>
 
     </div>
     <div class="post-footer">
