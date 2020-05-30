@@ -28,8 +28,6 @@
   <body>
     <header class="app-header">
 
-
-         -->
 <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
       <h1>Bodacious Blog</h1>
       
@@ -156,7 +154,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -254,6 +252,8 @@
 | Customers know about it, but still dont use it. |
 +-------------------------------------------------+
 </code></pre></div><h2 id="iceberg-model">Iceberg model</h2>
+<p>When a product team doesn&rsquo;t meet a deadline,
+use the <span class="underline">iceberg model</span>.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -294,6 +294,50 @@
     that are not immediately obvious.</code></pre></td></tr></table>
 </div>
 </div>
+<h2 id="how-to-use-it">How to use it</h2>
+<ul>
+<li>Iceberg model consists of four levels:
+<ul>
+<li>Events</li>
+<li>Patterns</li>
+<li>Structures</li>
+<li>Mental models</li>
+</ul>
+</li>
+</ul>
+<!--listend-->
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">sequenceDiagram
+    participant Event
+    participant Pattern
+    participant Structures
+    participant &#34;Mental Model&#34;
+    note right of Event: The tendency at &lt;br/&gt;this level is to &lt;br/&gt;react to what has&lt;br/&gt; just happened.
+    note right of Pattern: You can stsart &lt;br/&gt;to notice tends &lt;br/&gt;that lead to events.
+    note right of Structures: The trends / &lt;br/&gt; patterns are given&lt;br/&gt; rise by the &lt;br/&gt;setup at this &lt;br/&gt;stage.
+    note right of &#34;Mental Model&#34;: The MMm holds &lt;br/&gt;the system together, &lt;br/&gt;it is the stage &lt;br/&gt;we need to &lt;br/&gt;leverage to &lt;br/&gt;transform a system.
+
+    note left of Event: Failed to &lt;br/&gt;meet deadline.
+    note left of Pattern: 3/5 past projects &lt;br/&gt; have overrun dates.
+    note left of Structures: Sandwich issues, &lt;br/&gt; poor scoping &lt;br/&gt;, context switching, &lt;br/&gt; lack of structure.
+    note left of &#34;Mental Model&#34;: Belief that this &lt;br/&gt; is the only way &lt;br/&gt; of working at &lt;br/&gt; company x.
+
+    Pattern-&gt;&gt;Event: Lead to
+    Structures-&gt;&gt;Pattern: Influence
+    &#34;Mental Model&#34;-&gt;&gt;Structures: Generate
+</code></pre></div><figure>
+    <img src="https://mullikine.github.io/ox-hugo/iceberg.png"/> 
+</figure>
+
+<ul>
+<li>Find how to create notes and things in mermaid.
+<ul>
+<li>Create <code>mgrep</code>. Make a shell pipeline with <code>gli</code> and <code>mpgrep</code>.</li>
+</ul>
+</li>
+<li>Create sequence diagram in mermaid.</li>
+<li>Decorate it using <code>roughViz</code>.</li>
+</ul>
+<p>$MYGIT/jwilber/roughViz</p>
 
     </div>
     <div class="post-footer">
