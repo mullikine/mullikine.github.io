@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="An exposition of racket languages"/>
-<meta name="twitter:description" content="Firstly, add to emacs a way of selecting the racket language  Languages to add:  racket rackjure sicp rash     1  (&#34;L&#34; (hot-expand &#34;&lt;s&#34; &#34;racket-sublang&#34;) &#34;racket&#34;)   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  (defun hot-expand (str &amp;optional mod header) &#34;Expand org template. STR is a structure template string recognised by org like &lt;s."/>
+<meta name="twitter:description" content="Firstly, add to emacs a way of selecting the racket language  Languages to add:  racket rackjure hackett sicp rash     1  (&#34;L&#34; (hot-expand &#34;&lt;s&#34; &#34;racket-sublang&#34;) &#34;racket&#34;)   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  (defun hot-expand (str &amp;optional mod header) &#34;Expand org template. STR is a structure template string recognised by org like &lt;s."/>
 
     <meta property="og:title" content="An exposition of racket languages" />
-<meta property="og:description" content="Firstly, add to emacs a way of selecting the racket language  Languages to add:  racket rackjure sicp rash     1  (&#34;L&#34; (hot-expand &#34;&lt;s&#34; &#34;racket-sublang&#34;) &#34;racket&#34;)   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  (defun hot-expand (str &amp;optional mod header) &#34;Expand org template. STR is a structure template string recognised by org like &lt;s." />
+<meta property="og:description" content="Firstly, add to emacs a way of selecting the racket language  Languages to add:  racket rackjure hackett sicp rash     1  (&#34;L&#34; (hot-expand &#34;&lt;s&#34; &#34;racket-sublang&#34;) &#34;racket&#34;)   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  (defun hot-expand (str &amp;optional mod header) &#34;Expand org template. STR is a structure template string recognised by org like &lt;s." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/an-exposition-of-racket-languages/" />
 <meta property="article:published_time" content="2020-05-30T00:00:00+08:00" />
@@ -175,6 +175,7 @@
 <ul>
 <li><code>racket</code></li>
 <li><code>rackjure</code></li>
+<li><code>hackett</code></li>
 <li><code>sicp</code></li>
 <li><code>rash</code></li>
 </ul>
@@ -209,6 +210,7 @@
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun hot-expand (str <span style="color:#66d9ef">&amp;optional</span> <span style="color:#a6e22e">mod</span> header)
@@ -225,6 +227,7 @@
 
     (cond ((<span style="color:#a6e22e">string-equal</span> <span style="color:#a6e22e">mod</span> <span style="color:#e6db74">&#34;racket-sublang&#34;</span>) (let ((sublang (fz <span style="color:#f92672">&#39;</span>(racket
                                                                     rackjure
+                                                                    hackett
                                                                     sicp
                                                                     rash))))
                                                  (<span style="color:#a6e22e">insert</span> (<span style="color:#a6e22e">eval</span> <span style="color:#f92672">`</span>(bp org-template-gen <span style="color:#f92672">,</span><span style="color:#a6e22e">mod</span> <span style="color:#f92672">,</span>sublang <span style="color:#f92672">,</span>text)))))
@@ -257,10 +260,17 @@ interpret racket sub-languages in emacs&rsquo;s
 <code>babel</code>.</p>
 <p><a title="asciinema recording" href="https://asciinema.org/a/WdzgZUswSV1QIVszpaJcTPd60" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/WdzgZUswSV1QIVszpaJcTPd60.svg" /></a></p>
 <ul>
-<li><a href="http://community.schemewiki.org/?SICP-Solutions">http://community.schemewiki.org/?SICP-Solutions</a></li>
-<li><a href="https://github.com/caisah/sicp-exercises-and-examples">https://github.com/caisah/sicp-exercises-and-examples</a></li>
+<li>
+<p><a href="http://community.schemewiki.org/?SICP-Solutions">http://community.schemewiki.org/?SICP-Solutions</a></p>
+</li>
+<li>
+<p><a href="https://github.com/caisah/sicp-exercises-and-examples">https://github.com/caisah/sicp-exercises-and-examples</a></p>
+</li>
+<li>
+<p>Structure and Interpretation of Computer Programs</p>
+</li>
 </ul>
-<!--listend-->
+<p>The <code>sicp</code> racket language is a <code>scheme</code>.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
