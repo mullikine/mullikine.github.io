@@ -18,8 +18,8 @@
 <meta property="og:description" content="Original article introhaskell  Glossary 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  type variable Example: Given the type: a -&gt; a -&gt; a &#39;a&#39; is a type variable. ewwlinks &#43;/&#34;Type Variables&#34; &#34;https://cs.lmu.edu/~ray/notes/introhaskell/&#34; We know [Char] and [Float] are two different types. So how do we speak about, or write functions that work on, lists of ANY type? Or tuples of any size, or any component type?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/introhaskell/" />
-<meta property="article:published_time" content="2019-11-29T00:00:00+13:00" />
-<meta property="article:modified_time" content="2019-11-29T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="article:published_time" content="2019-11-29T00:00:00+08:00" />
+<meta property="article:modified_time" content="2019-11-29T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
 
 
   </head>
@@ -152,13 +152,13 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          9 min read
+          10 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a><a class="tag" href="http://mullikine.github.io/tags/diagrams/">diagrams</a></div></div>
     </header>
     
 
@@ -359,6 +359,76 @@ Read</code></pre></td></tr></table>
     <img src="https://mullikine.github.io/ox-hugo/file_tempfile_LNywHm_rand-23634_pid-23372.png"/> 
 </figure>
 
+<p>If it&rsquo;s <code>Ord</code>, then it is also <code>Eq</code>.
+If it&rsquo;s <code>Real</code>, then it is <code>Ord</code>.
+If it is <code>Integral</code>, then it is <code>Real</code>.
+If it is <code>Traversable</code>, then it is <code>Foldable</code>.
+If it is <code>Monad</code>, then it is <code>Applicative</code>.
+If it is <code>Monoid</code>, then it is <code>Semigroup</code>.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">:</span>i <span style="color:#66d9ef">Semigroup</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">class</span> <span style="color:#66d9ef">Semigroup</span> a <span style="color:#66d9ef">where</span>
+  (<span style="color:#f92672">&lt;&gt;</span>) <span style="color:#f92672">::</span> a <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-&gt;</span> a
+  <span style="color:#66d9ef">GHC</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Base</span><span style="color:#f92672">.</span>sconcat <span style="color:#f92672">::</span> <span style="color:#66d9ef">GHC</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Base</span><span style="color:#f92672">.</span><span style="color:#66d9ef">NonEmpty</span> a <span style="color:#f92672">-&gt;</span> a
+  <span style="color:#66d9ef">GHC</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Base</span><span style="color:#f92672">.</span>stimes <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integral</span> b <span style="color:#f92672">=&gt;</span> b <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-&gt;</span> a
+  <span style="color:#75715e">{-# MINIMAL (&lt;&gt;) #-}</span>
+  	<span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Semigroup</span> (<span style="color:#66d9ef">Either</span> a b) <span style="color:#75715e">-- Defined in ‘Data.Either’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Semigroup</span> [a] <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Semigroup</span> <span style="color:#66d9ef">Ordering</span> <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Semigroup</span> a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Semigroup</span> (<span style="color:#66d9ef">Maybe</span> a)
+  <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Semigroup</span> a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Semigroup</span> (<span style="color:#66d9ef">IO</span> a) <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Semigroup</span> b <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Semigroup</span> (a <span style="color:#f92672">-&gt;</span> b) <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> (<span style="color:#66d9ef">Semigroup</span> a, <span style="color:#66d9ef">Semigroup</span> b, <span style="color:#66d9ef">Semigroup</span> c, <span style="color:#66d9ef">Semigroup</span> d,
+          <span style="color:#66d9ef">Semigroup</span> e) <span style="color:#f92672">=&gt;</span>
+         <span style="color:#66d9ef">Semigroup</span> (a, b, c, d, e)
+  <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> (<span style="color:#66d9ef">Semigroup</span> a, <span style="color:#66d9ef">Semigroup</span> b, <span style="color:#66d9ef">Semigroup</span> c, <span style="color:#66d9ef">Semigroup</span> d) <span style="color:#f92672">=&gt;</span>
+         <span style="color:#66d9ef">Semigroup</span> (a, b, c, d)
+  <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> (<span style="color:#66d9ef">Semigroup</span> a, <span style="color:#66d9ef">Semigroup</span> b, <span style="color:#66d9ef">Semigroup</span> c) <span style="color:#f92672">=&gt;</span>
+         <span style="color:#66d9ef">Semigroup</span> (a, b, c)
+  <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> (<span style="color:#66d9ef">Semigroup</span> a, <span style="color:#66d9ef">Semigroup</span> b) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">Semigroup</span> (a, b)
+  <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Semigroup</span> () <span style="color:#75715e">-- Defined in ‘GHC.Base’</span>
+</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">instance of a class
+    An instance of a class is an individual
+    object which belongs to that class.
+
+    In Haskell, the class system is (roughly
+    speaking) a way to group similar types.
+
+    (This is the reason we call them &#34;type
+    classes&#34;).
+
+    An instance of a class is an individual
+    type which belongs to that class.</code></pre></td></tr></table>
+</div>
+</div>
 <table>
 <thead>
 <tr>
@@ -478,6 +548,7 @@ else (though you can create new types and add them to typeclasses, as
 we’ll soon see.)</p>
 </li>
 </ul>
+<!--listend-->
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
