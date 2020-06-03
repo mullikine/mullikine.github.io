@@ -152,7 +152,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          18 min read
+          21 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -1404,7 +1404,7 @@ algorithm with respect to the input size.</dd>
 </tbody>
 </table>
 <dl>
-<dt>pivot</dt>
+<dt>Pivot</dt>
 <dd>After sorting, a pivot meets the following 3 conditions: <br />
 <ol>
 <li>Correct position in final, sorted array <br />
@@ -1468,7 +1468,261 @@ a <span style="color:#f92672">=</span> quickSort(a)
 </div>
 </div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">[<span style="color:#f92672">-</span><span style="color:#ae81ff">31</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">65</span>, <span style="color:#ae81ff">83</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">782</span>]
-</code></pre></div>
+</code></pre></div><h3 id="slow-quicksort-in-haskell">Slow quicksort in haskell</h3>
+<dl>
+<dt>Excerpt from</dt>
+<dd><a href="https://mmhaskell.com/blog/2019/5/13/quicksort-with-haskell">Quicksort with Haskell! - Monday Morning Haskell</a></dd>
+</dl>
+<p>Learn You a Haskell For Great Good presents a
+short take on the quicksort algorithm. It
+demonstrates the elegance with which we can
+express recursive solutions.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">quicksort1</span> <span style="color:#f92672">::</span> (<span style="color:#66d9ef">Ord</span> a) <span style="color:#f92672">=&gt;</span> [a] <span style="color:#f92672">-&gt;</span> [a]
+<span style="color:#a6e22e">quicksort1</span> <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">[]</span>
+<span style="color:#a6e22e">quicksort1</span> (x<span style="color:#66d9ef">:</span>xs) <span style="color:#f92672">=</span>
+  <span style="color:#66d9ef">let</span> smallerSorted <span style="color:#f92672">=</span> quicksort1 [a <span style="color:#f92672">|</span> a <span style="color:#f92672">&lt;-</span> xs, a <span style="color:#f92672">&lt;=</span> x]
+      biggerSorted <span style="color:#f92672">=</span> quicksort1 [a <span style="color:#f92672">|</span> a <span style="color:#f92672">&lt;-</span> xs, a <span style="color:#f92672">&gt;</span> x]
+  <span style="color:#66d9ef">in</span>  smallerSorted <span style="color:#f92672">++</span> [x] <span style="color:#f92672">++</span> biggerSorted</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">quicksort</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Ord</span> a <span style="color:#f92672">=&gt;</span> [a] <span style="color:#f92672">-&gt;</span> [a]
+<span style="color:#a6e22e">quicksort</span> <span style="color:#66d9ef">[]</span>     <span style="color:#f92672">=</span> <span style="color:#66d9ef">[]</span>
+<span style="color:#a6e22e">quicksort</span> (p<span style="color:#66d9ef">:</span>xs) <span style="color:#f92672">=</span> (quicksort lesser) <span style="color:#f92672">++</span> [p] <span style="color:#f92672">++</span> (quicksort greater)
+    <span style="color:#66d9ef">where</span>
+        lesser  <span style="color:#f92672">=</span> filter (<span style="color:#f92672">&lt;</span> p) xs
+        greater <span style="color:#f92672">=</span> filter (<span style="color:#f92672">&gt;=</span> p) xs</code></pre></td></tr></table>
+</div>
+</div>
+<p>This looks very nice!</p>
+<p>It captures the general idea of quicksort.</p>
+<p>We take the first element as our pivot.</p>
+<p>We divide the remaining list into the elements
+greater than the pivot and less than the
+pivot.</p>
+<p>Then we recursively sort each of these sub-
+lists, and combine them with the pivot in the
+middle.</p>
+<p>However, each new list we make takes extra
+memory.</p>
+<p>So we are copying part of the list at each
+recursive step.</p>
+<p>This means we will definitely use at least
+O(n) memory for this algorithm.</p>
+<p>We can also note the way this algorithm
+chooses its pivot.</p>
+<p>It always selects the first element.</p>
+<p>This is quite inefficient on certain inputs
+(sorted or reverse sorted arrays).</p>
+<p>To get our expected performance to a good
+point, we want to choose the pivot index at
+random.</p>
+<p>But then we would need an extra argument of
+type StdGen, so we&rsquo;ll ignore it for this
+article.</p>
+<p>It&rsquo;s possible of course, to do quicksort &ldquo;in
+place&rdquo;, without making any copies of any part
+of the array!</p>
+<p>But this requires mutable memory.</p>
+<p>To get an idea of what this algorithm looks
+like, we&rsquo;ll implement it in Java first.</p>
+<p>Mutable data is more natural in Java, so this
+code will be easier to follow.</p>
+<h3 id="leetcode-solutions">Leetcode solutions</h3>
+<h4 id="1"><code>1</code></h4>
+<ul>
+<li>Complexity
+<ul>
+<li>Space: <code>O(1)</code></li>
+<li>Time: <code>O(N^2)</code></li>
+</ul>
+</li>
+</ul>
+<!--listend-->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Dict, Tuple, Sequence, List
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">two_sum</span>(self, nums: List[int], target: int) <span style="color:#f92672">-&gt;</span> List[int]:
+        <span style="color:#66d9ef">for</span> i, n1 <span style="color:#f92672">in</span> enumerate(nums):
+            <span style="color:#66d9ef">for</span> j, n2 <span style="color:#f92672">in</span> enumerate(nums):
+                <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&gt;=</span> j: <span style="color:#66d9ef">continue</span>
+                <span style="color:#66d9ef">if</span> n1 <span style="color:#f92672">+</span> n2 <span style="color:#f92672">==</span> target:
+                    <span style="color:#66d9ef">return</span> [i, j]
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+    s <span style="color:#f92672">=</span> Solution()
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;{}&#34;</span><span style="color:#f92672">.</span>format(s<span style="color:#f92672">.</span>two_sum([<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">13</span>], <span style="color:#ae81ff">16</span>)))
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    main()</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>Improvements:
+<ul>
+<li>
+<p>Method 2: Sort and two pointers</p>
+<ul>
+<li>Space: <code>O(N)</code></li>
+<li>Time: <code>O(N log N)</code></li>
+</ul>
+</li>
+<li>
+<p>Method 3: Hash the difference</p>
+<ul>
+<li>key: num</li>
+<li>value: index of num</li>
+<li>Space: <code>O(N)</code></li>
+<li>Time: <code>O(N)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><span class="underline"><strong>Method 3</strong></span></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Dict, Tuple, Sequence, List
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">two_sum</span>(self, nums: List[int], target: int) <span style="color:#f92672">-&gt;</span> List[int]:
+        num_to_id <span style="color:#f92672">=</span> {}
+        <span style="color:#66d9ef">for</span> i, num <span style="color:#f92672">in</span> enumerate(nums):
+            <span style="color:#66d9ef">if</span> target <span style="color:#f92672">-</span> num <span style="color:#f92672">in</span> num_to_id:
+                <span style="color:#66d9ef">return</span> [i, num_to_id[target <span style="color:#f92672">-</span> num]]
+            <span style="color:#66d9ef">else</span>:
+                num_to_id[num] <span style="color:#f92672">=</span> i
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+    s <span style="color:#f92672">=</span> Solution()
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;{}&#34;</span><span style="color:#f92672">.</span>format(s<span style="color:#f92672">.</span>two_sum([<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">13</span>], <span style="color:#ae81ff">16</span>)))
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;__main__&#34;</span>:
+    main()</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="26"><code>26</code></h4>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> Dict, Tuple, Sequence, List
+
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">remove_duplicates</span>(self, nums: List[int]) <span style="color:#f92672">-&gt;</span> int:
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> nums:
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+
+        i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+        <span style="color:#66d9ef">while</span> i <span style="color:#f92672">&lt;</span> len(nums):
+            <span style="color:#66d9ef">if</span> nums[i] <span style="color:#f92672">==</span> nums[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]:
+                <span style="color:#66d9ef">del</span> nums[i]
+            <span style="color:#66d9ef">else</span>:
+                i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+
+        <span style="color:#66d9ef">return</span> i
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
+    s <span style="color:#f92672">=</span> Solution()
+    <span style="color:#66d9ef">print</span>(s<span style="color:#f92672">.</span>remove_duplicates([<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>]))
+    <span style="color:#66d9ef">print</span>(s<span style="color:#f92672">.</span>remove_duplicates([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]))
+
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    main()</code></pre></td></tr></table>
+</div>
+</div>
+
     </div>
     <div class="post-footer">
         <p>
