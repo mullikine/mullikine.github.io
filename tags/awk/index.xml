@@ -48,5 +48,18 @@ Build the replace-substring script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 
       <description>The script awk-apply-to-record awk awk-apply-to-record.awk 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32  { # print NR if (r == &amp;#34;&amp;#34; || NR == r) { if (NR == 1) { printf &amp;#34;%s&amp;#34;, $0 |&amp;amp; cmd; } else { if (irs == &amp;#34;y&amp;#34;) { printf &amp;#34;%s&amp;#34;, RS printf &amp;#34;%s&amp;#34;, $0 |&amp;amp; cmd; } else { printf &amp;#34;%s%s&amp;#34;, RS, $0 |&amp;amp; cmd; } } close(cmd, &amp;#34;to&amp;#34;); # This is needed because getline will not overwrite if nothing is read $0 = &amp;#34;&amp;#34;; cmd |&amp;amp; getline $0; fflush(cmd); close(cmd); } else { if (NR &amp;gt; 1) { print RS } } print; system(&amp;#34;&amp;#34;); }   awk-apply-to-record 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52  #!</description>
     </item>
     
+    <item>
+      <title>awk-ward mode for emacs</title>
+      <link>https://mullikine.github.io/posts/awk-ward/</link>
+      <pubDate>Sun, 06 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/awk-ward/</guid>
+      <description>https://gitlab.com/kisaragi-hiu/awk-ward.el
+This is a neat plugin that lets you edit awk scripts with real time feedback, displaying both the output and any errors.
+Update awk-ward to enable updates on any buffer modification The problem as it has been designed to updates only when you are typing text in to the program.
+Patch Use post-command-hook instead of post-self-insert-hook (07a56482) Commits Shane Mulligan / awk-ward.el GitLab
+Demonstration of awk-ward with the patch working</description>
+    </item>
+    
   </channel>
 </rss>
