@@ -2301,6 +2301,18 @@ Issues covered in the book in the realm of coherence structures:
     </item>
     
     <item>
+      <title>Haskell operators and operator-like syntax</title>
+      <link>https://mullikine.github.io/posts/haskell-operators/</link>
+      <pubDate>Fri, 11 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/haskell-operators/</guid>
+      <description>Haskell left arrow list comprehension I think &amp;lt;- is syntactic sugar in this situation, as opposed to an operator.
+c &amp;lt;- s is a generator expression.
+https://imada.sdu.dk/~rolf/Edu/DM22/F05/haskell-operatorer.pdf
+1 2 3  import Data.Char (toUpper) [toUpper c | c &amp;lt;- s]   print a list 1 2 3  print [1,2,3] -- This is equivalent to putStrLn $ show [1,2,3]   1 2 3 4 5 6 7 8  quicksort1 :: (Ord a) =&amp;gt; [a] -&amp;gt; [a] quicksort1 [] = [] quicksort1 (x:xs) = let smallerSorted = quicksort1 [a | a &amp;lt;- xs, a &amp;lt;= x] biggerSorted = quicksort1 [a | a &amp;lt;- xs, a &amp;gt; x] in smallerSorted ++ [x] ++ biggerSorted print quicksort1 [5,1,2,3]   </description>
+    </item>
+    
+    <item>
       <title>(WIP) Applying Multinomial Naive Bayes to NLP Problems: A Practical Explanation</title>
       <link>https://mullikine.github.io/posts/review-multinomial-naive-bayes-nlp/</link>
       <pubDate>Fri, 11 Oct 2019 00:00:00 +1300</pubDate>
