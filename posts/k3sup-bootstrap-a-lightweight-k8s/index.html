@@ -12,16 +12,14 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="k3sup, bootstrap a lightweight k8s"/>
-<meta name="twitter:description" content="Source material Rancher Docs: Quick-Start Guide GitHub - alexellis/k3sup: bootstrap Kubernetes with k3s over SSH &lt; 1 min  Set up k3s &ndash; lightweight kubernetes This is a dependency.
-1 2 3  curl -sfL https://get.k3s.io | sh - # Check for Ready node, takes maybe 30 seconds k3s kubectl get node   https://k3s.io/
-Then set up k3sup https://github.com/alexellis/k3sup
-1  cd &#34;$MYGIT/alexellis/k3sup&#34;; go get -u https://github.com/alexellis/k3sup   1  k3sup app install openfaas --helm3 --gateways=2   Create a k3s cluster with k3sup Set up ssh key for root user"/>
+<meta name="twitter:description" content="Source material Rancher Docs: Quick-Start Guide GitHub - alexellis/k3sup: bootstrap Kubernetes with k3s over SSH &lt; 1 min  k3s is great for CI Perhaps it will make its way into Gitlab CI. Surely, a k8s of some implementation will.
+Set up k3s &ndash; lightweight kubernetes This is a dependency.
+1 2 3  curl -sfL https://get.k3s.io | sh - # Check for Ready node, takes maybe 30 seconds k3s kubectl get node   https://k3s."/>
 
     <meta property="og:title" content="k3sup, bootstrap a lightweight k8s" />
-<meta property="og:description" content="Source material Rancher Docs: Quick-Start Guide GitHub - alexellis/k3sup: bootstrap Kubernetes with k3s over SSH &lt; 1 min  Set up k3s &ndash; lightweight kubernetes This is a dependency.
-1 2 3  curl -sfL https://get.k3s.io | sh - # Check for Ready node, takes maybe 30 seconds k3s kubectl get node   https://k3s.io/
-Then set up k3sup https://github.com/alexellis/k3sup
-1  cd &#34;$MYGIT/alexellis/k3sup&#34;; go get -u https://github.com/alexellis/k3sup   1  k3sup app install openfaas --helm3 --gateways=2   Create a k3s cluster with k3sup Set up ssh key for root user" />
+<meta property="og:description" content="Source material Rancher Docs: Quick-Start Guide GitHub - alexellis/k3sup: bootstrap Kubernetes with k3s over SSH &lt; 1 min  k3s is great for CI Perhaps it will make its way into Gitlab CI. Surely, a k8s of some implementation will.
+Set up k3s &ndash; lightweight kubernetes This is a dependency.
+1 2 3  curl -sfL https://get.k3s.io | sh - # Check for Ready node, takes maybe 30 seconds k3s kubectl get node   https://k3s." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/k3sup-bootstrap-a-lightweight-k8s/" />
 <meta property="article:published_time" content="2020-06-05T00:00:00+08:00" />
@@ -158,13 +156,13 @@ Then set up k3sup https://github.com/alexellis/k3sup
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/k8s/">k8s</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/k8s/">k8s</a><a class="tag" href="http://mullikine.github.io/tags/ci/">ci</a></div></div>
     </header>
     
 
@@ -181,6 +179,8 @@ Then set up k3sup https://github.com/alexellis/k3sup
 <dd><a href="https://rancher.com/docs/k3s/latest/en/quick-start/">Rancher Docs: Quick-Start Guide</a> <br />
 <a href="https://github.com/alexellis/k3sup">GitHub - alexellis/k3sup: bootstrap Kubernetes with k3s over SSH &lt; 1 min</a></dd>
 </dl>
+<h2 id="k3s-is-great-for-ci"><code>k3s</code> is great for <code>CI</code></h2>
+<p>Perhaps it will make its way into Gitlab CI. Surely, a <code>k8s</code> of some implementation will.</p>
 <h2 id="set-up-k3s-lightweight-kubernetes">Set up <code>k3s</code> &ndash; lightweight kubernetes</h2>
 <p>This is a dependency.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -380,7 +380,98 @@ or port?</code></pre></td></tr></table>
 </div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">open
 </code></pre></div><p><a title="asciinema recording" href="https://asciinema.org/a/ry8OeN9cTDYsWXj2AQGjLFbl7" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/ry8OeN9cTDYsWXj2AQGjLFbl7.svg" /></a></p>
+<h2 id="how-to-programmatically-stop-the-server">How to programmatically stop the server</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># This show that the server is running</span>
+ps -ef |grep k3s | grep server
 
+<span style="color:#75715e"># This gets help on the server initiation command</span>
+sudo k3s help server</code></pre></td></tr></table>
+</div>
+</div>
+<egr stop k3s server>
+<p>It&rsquo;s controlled by systemd</p>
+<h3 id="this-is-the-unintsall-script">This is the unintsall script</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh
+</span><span style="color:#75715e"></span>set -x
+systemctl stop k3s
+systemctl disable k3s
+systemctl daemon-reload
+rm -f /etc/systemd/system/k3s.service
+rm -f /usr/local/bin/k3s
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -L /usr/local/bin/kubectl <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    rm -f /usr/local/bin/kubectl
+<span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -L /usr/local/bin/crictl <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    rm -f /usr/local/bin/crictl
+<span style="color:#66d9ef">fi</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -e /sys/fs/cgroup/systemd/system.slice/k3s.service/cgroup.procs <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    kill -9 <span style="color:#e6db74">`</span>cat /sys/fs/cgroup/systemd/system.slice/k3s.service/cgroup.procs<span style="color:#e6db74">`</span>
+<span style="color:#66d9ef">fi</span>
+umount <span style="color:#e6db74">`</span>cat /proc/self/mounts | awk <span style="color:#e6db74">&#39;{print $2}&#39;</span> | grep <span style="color:#e6db74">&#39;^/run/k3s&#39;</span><span style="color:#e6db74">`</span>
+umount <span style="color:#e6db74">`</span>cat /proc/self/mounts | awk <span style="color:#e6db74">&#39;{print $2}&#39;</span> | grep <span style="color:#e6db74">&#39;^/var/lib/rancher/k3s&#39;</span><span style="color:#e6db74">`</span>
+
+rm -rf /var/lib/rancher/k3s
+rm -rf /etc/rancher/k3s
+
+rm -f /usr/local/bin/k3s-uninstall.sh</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="the-way-to-stop-k3s">The way to stop <code>k3s</code></h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl stop k3s
+sudo systemctl disable k3s
+sudo systemctl daemon-reload
+ps -ef |grep k3s | grep server</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">shane    <span style="color:#ae81ff">23944</span> <span style="color:#ae81ff">23430</span>  <span style="color:#ae81ff">0</span> 06:51 pts/644  00:00:00 /bin/bash /home/shane/scripts/emacsclient -a  -t -s /home/shane/.emacs.d/server/DEFAULT_org -e <span style="color:#f92672">(</span>progn <span style="color:#f92672">(</span>ignore-errors <span style="color:#f92672">(</span>find-file <span style="color:#e6db74">&#34;k3sup-bootstrap-a-lightweight-k8s.org&#34;</span> <span style="color:#f92672">)))</span>
+shane    <span style="color:#ae81ff">24057</span> <span style="color:#ae81ff">23944</span>  <span style="color:#ae81ff">0</span> 06:51 pts/644  00:00:00 /home/shane/local/emacs26/bin/emacsclient -a  -t -s /home/shane/.emacs.d/server/DEFAULT_org -e <span style="color:#f92672">(</span>progn <span style="color:#f92672">(</span>ignore-errors <span style="color:#f92672">(</span>find-file <span style="color:#e6db74">&#34;k3sup-bootstrap-a-lightweight-k8s.org&#34;</span> <span style="color:#f92672">)))</span>
+shane    <span style="color:#ae81ff">32671</span> <span style="color:#ae81ff">32100</span>  <span style="color:#ae81ff">0</span> 06:52 pts/651  00:00:00 /bin/bash /home/shane/scripts/emacsclient -a  -t -s /home/shane/.emacs.d/server/SPACEMACS -e <span style="color:#f92672">(</span>progn <span style="color:#f92672">(</span>ignore-errors <span style="color:#f92672">(</span>find-file <span style="color:#e6db74">&#34;/home/shane/blog/posts/k3sup-bootstrap-a-lightweight-k8s.org&#34;</span> <span style="color:#f92672">)))</span>
+shane    <span style="color:#ae81ff">32754</span> <span style="color:#ae81ff">32671</span>  <span style="color:#ae81ff">0</span> 06:52 pts/651  00:00:00 /home/shane/local/emacs26/bin/emacsclient -a  -t -s /home/shane/.emacs.d/server/SPACEMACS -e <span style="color:#f92672">(</span>progn <span style="color:#f92672">(</span>ignore-errors <span style="color:#f92672">(</span>find-file <span style="color:#e6db74">&#34;/home/shane/blog/posts/k3sup-bootstrap-a-lightweight-k8s.org&#34;</span> <span style="color:#f92672">)))</span>
+</code></pre></div>
     </div>
     <div class="post-footer">
         <p>
