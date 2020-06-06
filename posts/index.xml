@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 05 Jun 2020 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jun 2020 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>systemd service mode based on chkservice</title>
+      <link>https://mullikine.github.io/posts/systemd-service-mode-with-chkservice/</link>
+      <pubDate>Sat, 06 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/systemd-service-mode-with-chkservice/</guid>
+      <description>Code for creating a chkservice mode and assigning a keybinding to it 1 2 3 4 5 6 7 8 9  (defun make-etui-cmd (cmd) &amp;#34;This function expects a one term command (binary name only) and it returns a new interactive function.&amp;#34; (let ((funname (concat &amp;#34;esh-&amp;#34; cmd))) (eval `(defun ,(str2sym funname) (&amp;amp;rest args) &amp;#34;This function expects a one term command (binary name only).&amp;#34; (interactive) (term-nsfa (mapconcat &amp;#39;q (cons ,cmd args) &amp;#34; &amp;#34;) nil ,cmd))))) (define-key my-mode-map (kbd &amp;#34;M-m a y&amp;#34;) (make-etui-cmd &amp;#34;chkservice&amp;#34;))   Also create an external script chkservice wrapper script for starting chkservice with enough privileges 1 2 3 4 5 6 7 8 9 10 11 12  #!</description>
+    </item>
     
     <item>
       <title>k3sup, bootstrap a lightweight k8s</title>
