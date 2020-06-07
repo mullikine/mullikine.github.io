@@ -6,10 +6,19 @@
     <description>Recent content in babel on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Nov 2019 00:00:00 +1300</lastBuildDate>
+    <lastBuildDate>Sun, 07 Jun 2020 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/babel/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Add stdin to babel src blocks. Pipe one block into the next</title>
+      <link>https://mullikine.github.io/posts/add-stdin-to-babel-src-blocks-pipe-one-block-into-the-next/</link>
+      <pubDate>Sun, 07 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/add-stdin-to-babel-src-blocks-pipe-one-block-into-the-next/</guid>
+      <description>The plan  Do some research into existing emacs lisp code  Figure out how to get the contents of a named block and use it as the stdin to a babel block.    Here are some named blocks I&amp;rsquo;ll use for testing 1  (org-babel-goto-named-src-block &amp;#34;mycode&amp;#34;)   1 2  (org-babel-goto-named-result) (org-babel-goto-named-src-block)    1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  (defun org-copy-thing-here () (interactive) (if (or (org-in-src-block-p) (org-in-block-p &amp;#39;(&amp;#34;src&amp;#34; &amp;#34;example&amp;#34; &amp;#34;verbatim&amp;#34; &amp;#34;clocktable&amp;#34;))) (org-copy-src-block) (self-insert-command 1))) (defun org-copy-src-block () (interactive) (shut-up (my-copy org-get-src-block-here))) (defun org-get-src-block-here () (interactive) (org-edit-src-code) (mark-whole-buffer) (let ((contents (sh/chomp (selection)))) ;; (easy-kill 1) (org-edit-src-abort) contents))</description>
+    </item>
     
     <item>
       <title>GHCi and Haskell code intermixed in babel</title>
