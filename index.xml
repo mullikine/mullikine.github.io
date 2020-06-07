@@ -37,9 +37,9 @@ TODO Figure out how to get the contents of a named block and use it as the stdin
       <pubDate>Sun, 07 Jun 2020 00:00:00 +0800</pubDate>
       
       <guid>https://mullikine.github.io/posts/programmatically-query-term-mode/</guid>
-      <description>Work in progress
-Create a means of programmatically querying term-mode contents Creating a new buffer with the contents of the current buffer Can I do this with the existing term-mode buffer?
-1 2 3 4 5 6 7 8  (let ((row (term-current-row)) (col (term-current-column)) (buf (new-buffer-from-string (buffer-contents)))) (with-current-buffer buf (goto-line col) (move-to-column col t) (tv (thing-at-point &amp;#39;line))) (kill-buffer buf))   </description>
+      <description>I will create a means of querying the current term buffer.
+Then I will use it to add a key binding for my nano mode for taking the current URL from the current line of nano.
+Creating a new buffer with the contents of the current buffer 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  (defun term-get-line-at-point () (interactive) (let* ((row (+ (term-current-row) 1)) (col (term-current-column)) (buf (new-buffer-from-string (buffer-contents))) (height term-height) (linecontents (with-current-buffer buf (let ((nbackhistory (- (count-lines (point-min) (point-max)) height))) ;; term-height (goto-line (+ row nbackhistory)) (move-to-column col t) (thing-at-point &amp;#39;line))))) (kill-buffer buf) (my/copy (chomp linecontents) t) linecontents))   Can I do this with the existing term-mode buffer?</description>
     </item>
     
     <item>
