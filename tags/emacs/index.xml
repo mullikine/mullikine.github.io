@@ -12,6 +12,17 @@
     
     
     <item>
+      <title>Add stdin to babel src blocks. Pipe one block into the next</title>
+      <link>https://mullikine.github.io/posts/add-stdin-to-babel-src-blocks-pipe-one-block-into-the-next/</link>
+      <pubDate>Sun, 07 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/add-stdin-to-babel-src-blocks-pipe-one-block-into-the-next/</guid>
+      <description>Work in progress
+Create a means of programmatically querying term-mode contents Creating a new buffer with the contents of the current buffer Can I do this with the existing term-mode buffer?
+1 2 3 4 5 6 7 8  (let ((row (term-current-row)) (col (term-current-column)) (buf (new-buffer-from-string (buffer-contents)))) (with-current-buffer buf (goto-line col) (move-to-column col t) (tv (thing-at-point &amp;#39;line))) (kill-buffer buf))   TODO Figure out how to get the contents of a named block and use it as the stdin to a babel block 1  (org-babel-goto-named-src-block &amp;#34;mycode&amp;#34;)   1 2  (org-babel-goto-named-result) (org-babel-goto-named-src-block)    1 2 3 4 5 6  (defun org-copy-thing-here () (interactive) (if (or (org-in-src-block-p) (org-in-block-p &amp;#39;(&amp;#34;src&amp;#34; &amp;#34;example&amp;#34; &amp;#34;verbatim&amp;#34; &amp;#34;clocktable&amp;#34;))) (org-copy-src-block) (self-insert-command 1)))</description>
+    </item>
+    
+    <item>
       <title>Easily create term-mode wrappers for arbitrary TUI programs</title>
       <link>https://mullikine.github.io/posts/easily-create-term-mode-wrappers-for-arbitrary-tui-programs/</link>
       <pubDate>Sun, 07 Jun 2020 00:00:00 +0800</pubDate>
