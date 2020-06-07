@@ -621,7 +621,7 @@
     (if (and (string-empty-p (or stdincmd <span style="color:#e6db74">&#34;&#34;</span>))
              (not (string-empty-p (or stdinresult <span style="color:#e6db74">&#34;&#34;</span>))))
         (let ((fp (org-babel-temp-file <span style="color:#e6db74">&#34;stdin&#34;</span> <span style="color:#e6db74">&#34;txt&#34;</span>)))
-          (write-string-to-file (org-babel-get-named-result-contents stdinblock) fp)
+          (write-string-to-file (org-babel-get-named-result-contents stdinresult) fp)
           (setq stdincmd (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;cat &#34;</span> fp))))
 
 
