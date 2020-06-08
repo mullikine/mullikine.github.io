@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Create binding to add arguments to org babel block</title>
+      <link>https://mullikine.github.io/posts/create-binding-to-add-arguments-to-org-babel-block/</link>
+      <pubDate>Mon, 08 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/create-binding-to-add-arguments-to-org-babel-block/</guid>
+      <description>Make a keybinding that adds arguments 1 2 3 4 5 6 7 8 9 10  (defun org-babel-change-block-type () (interactive) (if (or (org-in-src-block-p) (org-in-block-p &amp;#39;(&amp;#34;src&amp;#34; &amp;#34;example&amp;#34; &amp;#34;verbatim&amp;#34; &amp;#34;clocktable&amp;#34;))) (progn (call-interactively &amp;#39;org-babel-raise) (call-interactively &amp;#39;hydra-org-template/body)) (self-insert-command 1))) (define-key org-mode-map (kbd &amp;#34;M-.&amp;#34;) &amp;#39;org-babel-change-block-type)   1  (org-babel-insert-header-arg &amp;#34;args&amp;#34; (read &amp;#34;arguments:&amp;#34;))   1 2 3 4 5 6  (defun org-babel-add-src-args () (interactive) (if (org-in-src-block-p) (org-babel-insert-header-arg &amp;#34;args&amp;#34; (read-string &amp;#34;arguments:&amp;#34;)))) (define-key org-mode-map (kbd &amp;#34;M-@&amp;#34;) &amp;#39;org-babel-add-src-args)</description>
+    </item>
+    
+    <item>
       <title>Separate revert command for org blocks</title>
       <link>https://mullikine.github.io/posts/separate-revert-command-for-org-blocks/</link>
       <pubDate>Mon, 08 Jun 2020 00:00:00 +0800</pubDate>
