@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Create binding to add arguments to org babel block"/>
-<meta name="twitter:description" content="Make a keybinding that adds arguments 1 2 3 4 5 6 7 8 9 10  (defun org-babel-change-block-type () (interactive) (if (or (org-in-src-block-p) (org-in-block-p &#39;(&#34;src&#34; &#34;example&#34; &#34;verbatim&#34; &#34;clocktable&#34;))) (progn (call-interactively &#39;org-babel-raise) (call-interactively &#39;hydra-org-template/body)) (self-insert-command 1))) (define-key org-mode-map (kbd &#34;M-.&#34;) &#39;org-babel-change-block-type)   1  (org-babel-insert-header-arg &#34;args&#34; (read &#34;arguments:&#34;))   1 2 3 4 5 6  (defun org-babel-add-src-args () (interactive) (if (org-in-src-block-p) (org-babel-insert-header-arg &#34;args&#34; (read-string &#34;arguments:&#34;)))) (define-key org-mode-map (kbd &#34;M-@&#34;) &#39;org-babel-add-src-args)"/>
+<meta name="twitter:description" content="Make a keybinding that adds CLI arguments 1 2 3 4 5 6 7 8 9 10  (defun org-babel-change-block-type () (interactive) (if (or (org-in-src-block-p) (org-in-block-p &#39;(&#34;src&#34; &#34;example&#34; &#34;verbatim&#34; &#34;clocktable&#34;))) (progn (call-interactively &#39;org-babel-raise) (call-interactively &#39;hydra-org-template/body)) (self-insert-command 1))) (define-key org-mode-map (kbd &#34;M-.&#34;) &#39;org-babel-change-block-type)   1  (org-babel-insert-header-arg &#34;args&#34; (read &#34;arguments:&#34;))   1 2 3 4 5 6  (defun org-babel-add-src-args () (interactive) (if (org-in-src-block-p) (org-babel-insert-header-arg &#34;args&#34; (read-string &#34;arguments:&#34;)))) (define-key org-mode-map (kbd &#34;M-@&#34;) &#39;org-babel-add-src-args)"/>
 
     <meta property="og:title" content="Create binding to add arguments to org babel block" />
-<meta property="og:description" content="Make a keybinding that adds arguments 1 2 3 4 5 6 7 8 9 10  (defun org-babel-change-block-type () (interactive) (if (or (org-in-src-block-p) (org-in-block-p &#39;(&#34;src&#34; &#34;example&#34; &#34;verbatim&#34; &#34;clocktable&#34;))) (progn (call-interactively &#39;org-babel-raise) (call-interactively &#39;hydra-org-template/body)) (self-insert-command 1))) (define-key org-mode-map (kbd &#34;M-.&#34;) &#39;org-babel-change-block-type)   1  (org-babel-insert-header-arg &#34;args&#34; (read &#34;arguments:&#34;))   1 2 3 4 5 6  (defun org-babel-add-src-args () (interactive) (if (org-in-src-block-p) (org-babel-insert-header-arg &#34;args&#34; (read-string &#34;arguments:&#34;)))) (define-key org-mode-map (kbd &#34;M-@&#34;) &#39;org-babel-add-src-args)" />
+<meta property="og:description" content="Make a keybinding that adds CLI arguments 1 2 3 4 5 6 7 8 9 10  (defun org-babel-change-block-type () (interactive) (if (or (org-in-src-block-p) (org-in-block-p &#39;(&#34;src&#34; &#34;example&#34; &#34;verbatim&#34; &#34;clocktable&#34;))) (progn (call-interactively &#39;org-babel-raise) (call-interactively &#39;hydra-org-template/body)) (self-insert-command 1))) (define-key org-mode-map (kbd &#34;M-.&#34;) &#39;org-babel-change-block-type)   1  (org-babel-insert-header-arg &#34;args&#34; (read &#34;arguments:&#34;))   1 2 3 4 5 6  (defun org-babel-add-src-args () (interactive) (if (org-in-src-block-p) (org-babel-insert-header-arg &#34;args&#34; (read-string &#34;arguments:&#34;)))) (define-key org-mode-map (kbd &#34;M-@&#34;) &#39;org-babel-add-src-args)" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/create-binding-to-add-arguments-to-org-babel-block/" />
 <meta property="article:published_time" content="2020-06-08T00:00:00+08:00" />
@@ -153,7 +153,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -171,7 +171,7 @@
 
 
     <div class="post-content">
-      <h2 id="make-a-keybinding-that-adds-arguments">Make a keybinding that adds arguments</h2>
+      <h2 id="make-a-keybinding-that-adds-cli-arguments">Make a keybinding that adds CLI arguments</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -226,6 +226,150 @@
 </div>
 </div>
 <p><a title="asciinema recording" href="https://asciinema.org/a/o0EgfA9kqn5bedDBy2dwVDOX9" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/o0EgfA9kqn5bedDBy2dwVDOX9.svg" /></a></p>
+<h2 id="make-a-keybinding-that-adds-previous-block-as-stdin">Make a keybinding that adds previous block as stdin</h2>
+<h3 id="get-previous-src-block-name">Get previous src block name</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(org-babel-previous-src-block <span style="color:#66d9ef">&amp;optional</span> ARG)</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun org-babel-previous-src-name ()
+  (save-excursion
+    (org-babel-previous-src-block <span style="color:#ae81ff">1</span>)
+    (org-element-property :name (org-element-at-point))))</code></pre></td></tr></table>
+</div>
+</div>
+<p>How to get the name of the current block?</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(org-babel-get-src-block-info)</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(org-element-property :name (org-element-at-point))</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="get-previous-results-block-name">Get previous results block name</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun org-babel-previous-results-name ()
+  (save-excursion
+    (org-babel-previous-src-block <span style="color:#ae81ff">1</span>)
+    (<span style="color:#a6e22e">car</span> (org-element-property :results (org-element-at-point)))))</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="get-previous-block-name">Get previous block name</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun org-babel-previous-results-name ()
+  (or (org-babel-previous-block-name)
+      (org-babel-previous-results-name)))</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="putting-it-all-together">Putting it all together</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun org-babel-add-src-args ()
+  (interactive)
+  (if (org-in-src-block-p)
+      (org-babel-insert-header-arg <span style="color:#e6db74">&#34;args&#34;</span> (<span style="color:#a6e22e">read-string</span> <span style="color:#e6db74">&#34;arguments:&#34;</span>))))
+
+(<span style="color:#a6e22e">define-key</span> org-mode-map (kbd <span style="color:#e6db74">&#34;M-@&#34;</span>) <span style="color:#e6db74">&#39;org-babel-add-src-args</span>)
+
+
+(defun org-babel-previous-src-name ()
+  (save-excursion
+    (org-babel-previous-src-block <span style="color:#ae81ff">1</span>)
+    (org-element-property :name (org-element-at-point))))
+
+(defun org-babel-previous-results-name ()
+  (save-excursion
+    (org-babel-previous-src-block <span style="color:#ae81ff">1</span>)
+    (<span style="color:#a6e22e">car</span> (org-element-property :results (org-element-at-point)))))
+
+<span style="color:#75715e">;; (defun org-babel-previous-block-name ()</span>
+<span style="color:#75715e">;;   (or (org-babel-previous-block-name)</span>
+<span style="color:#75715e">;;       (org-babel-previous-results-name)))</span>
+
+(defun org-babel-add-stdin-arg-for-previous-block ()
+  (interactive)
+  (if (org-in-src-block-p)
+      (let ((prevsrc (org-babel-previous-src-name))
+            (prevres (org-babel-previous-results-name)))
+        (if prevres
+            (org-babel-insert-header-arg <span style="color:#e6db74">&#34;inr&#34;</span> prevres)
+          (if prevsrc
+              (org-babel-insert-header-arg <span style="color:#e6db74">&#34;inb&#34;</span> prevsrc))))))
+
+(<span style="color:#a6e22e">define-key</span> org-mode-map (kbd <span style="color:#e6db74">&#34;M-!&#34;</span>) <span style="color:#e6db74">&#39;org-babel-add-stdin-arg-for-previous-block</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="demonstration">Demonstration</h2>
+<p><a title="asciinema recording" href="https://asciinema.org/a/l40AlvpWR1VIOJpsalGttAP37" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/l40AlvpWR1VIOJpsalGttAP37.svg" /></a></p>
 
     </div>
     <div class="post-footer">
