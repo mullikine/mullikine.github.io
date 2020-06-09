@@ -157,7 +157,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          3 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -424,6 +424,126 @@ splits it up into tokens (a list of strings).</p>
 </div>
 </div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">31</span>
+</code></pre></div><h2 id="a-very-big-sum">A very big sum</h2>
+<p>The type <code>Integer</code> has arbitrary precision.</p>
+<p>It automatically scales when the sum grows.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">:</span>info <span style="color:#66d9ef">Integer</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Integer</span>
+  <span style="color:#f92672">=</span> integer<span style="color:#f92672">-</span>gmp<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span><span style="color:#f92672">.</span><span style="color:#ae81ff">2.0</span><span style="color:#66d9ef">:GHC</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Integer</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Type</span><span style="color:#f92672">.</span><span style="color:#66d9ef">S</span><span style="color:#f92672">#</span> <span style="color:#66d9ef">GHC</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Prim</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Int</span><span style="color:#f92672">#</span>
+  <span style="color:#f92672">|</span> integer<span style="color:#f92672">-</span>gmp<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span><span style="color:#f92672">.</span><span style="color:#ae81ff">2.0</span><span style="color:#66d9ef">:GHC</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Integer</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Type</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Jp</span><span style="color:#f92672">#</span> <span style="color:#75715e">{-# UNPACK #-}</span>integer<span style="color:#f92672">-</span>gmp<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span><span style="color:#f92672">.</span><span style="color:#ae81ff">2.0</span><span style="color:#66d9ef">:GHC</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Integer</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Type</span><span style="color:#f92672">.</span><span style="color:#66d9ef">BigNat</span>
+  <span style="color:#f92672">|</span> integer<span style="color:#f92672">-</span>gmp<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span><span style="color:#f92672">.</span><span style="color:#ae81ff">2.0</span><span style="color:#66d9ef">:GHC</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Integer</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Type</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Jn</span><span style="color:#f92672">#</span> <span style="color:#75715e">{-# UNPACK #-}</span>integer<span style="color:#f92672">-</span>gmp<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span><span style="color:#f92672">.</span><span style="color:#ae81ff">2.0</span><span style="color:#66d9ef">:GHC</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Integer</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Type</span><span style="color:#f92672">.</span><span style="color:#66d9ef">BigNat</span>
+  	<span style="color:#75715e">-- Defined in ‘integer-gmp-1.0.2.0:GHC.Integer.Type’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Eq</span> <span style="color:#66d9ef">Integer</span>
+  <span style="color:#75715e">-- Defined in ‘integer-gmp-1.0.2.0:GHC.Integer.Type’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Ord</span> <span style="color:#66d9ef">Integer</span>
+  <span style="color:#75715e">-- Defined in ‘integer-gmp-1.0.2.0:GHC.Integer.Type’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Show</span> <span style="color:#66d9ef">Integer</span> <span style="color:#75715e">-- Defined in ‘GHC.Show’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Read</span> <span style="color:#66d9ef">Integer</span> <span style="color:#75715e">-- Defined in ‘GHC.Read’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Enum</span> <span style="color:#66d9ef">Integer</span> <span style="color:#75715e">-- Defined in ‘GHC.Enum’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Num</span> <span style="color:#66d9ef">Integer</span> <span style="color:#75715e">-- Defined in ‘GHC.Num’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Real</span> <span style="color:#66d9ef">Integer</span> <span style="color:#75715e">-- Defined in ‘GHC.Real’</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Integral</span> <span style="color:#66d9ef">Integer</span> <span style="color:#75715e">-- Defined in ‘GHC.Real’</span>
+</code></pre></div><p><a id="code-snippet--input-nums-long"></a>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">5
+1000000001 1000000002 1000000003 1000000004 1000000005</code></pre></td></tr></table>
+</div>
+</div></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> interact <span style="color:#f92672">$</span> show <span style="color:#f92672">.</span> sum <span style="color:#f92672">.</span> map read <span style="color:#f92672">.</span> tail <span style="color:#f92672">.</span> words</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">5000000015</span>
+</code></pre></div><h2 id="grading-students">Grading students</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">:</span>t mod</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">12</span> `mod` <span style="color:#ae81ff">5</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">2</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">mod</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integral</span> a <span style="color:#f92672">=&gt;</span> a <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-&gt;</span> a
+</code></pre></div><p><a id="code-snippet--grades"></a>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">4
+73
+67
+38
+33</code></pre></td></tr></table>
+</div>
+</div></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">-- The number we need to get to the next multiple of 5</span>
+<span style="color:#a6e22e">needfornext5</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">needfornext5</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">-</span> x `mod` <span style="color:#ae81ff">5</span>
+
+<span style="color:#75715e">-- m5 = the next multiple of 5</span>
+<span style="color:#75715e">-- | is a condition</span>
+<span style="color:#a6e22e">round5</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">round5</span> x
+       <span style="color:#f92672">|</span> x <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">38</span> <span style="color:#f92672">=</span> x
+       <span style="color:#f92672">|</span> (m5 <span style="color:#f92672">-</span> x) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">=</span> m5
+       <span style="color:#f92672">|</span> otherwise <span style="color:#f92672">=</span> x
+       <span style="color:#66d9ef">where</span> m5 <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> (needfornext5 x)
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> interact <span style="color:#f92672">$</span> unlines <span style="color:#f92672">.</span> map (show <span style="color:#f92672">.</span> round5 <span style="color:#f92672">.</span> read) <span style="color:#f92672">.</span> tail <span style="color:#f92672">.</span> words</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">75</span>
+<span style="color:#ae81ff">67</span>
+<span style="color:#ae81ff">40</span>
+<span style="color:#ae81ff">33</span>
 </code></pre></div>
     </div>
     <div class="post-footer">
