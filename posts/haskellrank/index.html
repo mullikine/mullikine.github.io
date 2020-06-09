@@ -157,7 +157,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          4 min read
+          5 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -538,6 +538,99 @@ splits it up into tokens (a list of strings).</p>
        <span style="color:#66d9ef">where</span> m5 <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> (needfornext5 x)
 
 <span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> interact <span style="color:#f92672">$</span> unlines <span style="color:#f92672">.</span> map (show <span style="color:#f92672">.</span> round5 <span style="color:#f92672">.</span> read) <span style="color:#f92672">.</span> tail <span style="color:#f92672">.</span> words</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">75</span>
+<span style="color:#ae81ff">67</span>
+<span style="color:#ae81ff">40</span>
+<span style="color:#ae81ff">33</span>
+</code></pre></div><h3 id="collapsed-a-condition">Collapsed a condition</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">-- unlines takes a list of strings and returns a single string</span>
+<span style="color:#75715e">-- concatenates all strings, separating with newlines</span>
+<span style="color:#66d9ef">:</span>t unlines</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">unlines</span> <span style="color:#f92672">::</span> [<span style="color:#66d9ef">String</span>] <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span>
+</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">-- The number we need to get to the next multiple of 5</span>
+<span style="color:#a6e22e">needfornext5</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">needfornext5</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">-</span> x `mod` <span style="color:#ae81ff">5</span>
+
+<span style="color:#75715e">-- m5 = the next multiple of 5</span>
+<span style="color:#75715e">-- | is a condition</span>
+<span style="color:#a6e22e">round5</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">round5</span> x
+       <span style="color:#f92672">|</span> x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">38</span> <span style="color:#f92672">&amp;&amp;</span> (m5 <span style="color:#f92672">-</span> x) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">=</span> m5
+       <span style="color:#f92672">|</span> otherwise <span style="color:#f92672">=</span> x
+       <span style="color:#66d9ef">where</span> m5 <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> (needfornext5 x)
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> interact <span style="color:#f92672">$</span> unlines <span style="color:#f92672">.</span> map (show <span style="color:#f92672">.</span> round5 <span style="color:#f92672">.</span> read) <span style="color:#f92672">.</span> tail <span style="color:#f92672">.</span> words</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">75</span>
+<span style="color:#ae81ff">67</span>
+<span style="color:#ae81ff">40</span>
+<span style="color:#ae81ff">33</span>
+</code></pre></div><h3 id="can-be-written-like-this">Can be written like this</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">-- The number we need to get to the next multiple of 5</span>
+<span style="color:#a6e22e">needfornext5</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">needfornext5</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">-</span> x `mod` <span style="color:#ae81ff">5</span>
+
+<span style="color:#75715e">-- m5 = the next multiple of 5</span>
+<span style="color:#75715e">-- | is a condition</span>
+<span style="color:#a6e22e">round5</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">round5</span> x
+       <span style="color:#f92672">|</span> x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">38</span> <span style="color:#f92672">&amp;&amp;</span> (m5 <span style="color:#f92672">-</span> x) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">=</span> m5
+       <span style="color:#f92672">|</span> otherwise <span style="color:#f92672">=</span> x
+       <span style="color:#66d9ef">where</span> m5 <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> (needfornext5 x)
+
+<span style="color:#a6e22e">solve</span> <span style="color:#f92672">::</span> [<span style="color:#66d9ef">Int</span>] <span style="color:#f92672">-&gt;</span> [<span style="color:#66d9ef">Int</span>]
+<span style="color:#a6e22e">solve</span> xs <span style="color:#f92672">=</span> map round5 xs
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> interact <span style="color:#f92672">$</span> unlines <span style="color:#f92672">.</span> map show <span style="color:#f92672">.</span> solve <span style="color:#f92672">.</span> map read <span style="color:#f92672">.</span>tail <span style="color:#f92672">.</span> words</code></pre></td></tr></table>
 </div>
 </div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">75</span>
