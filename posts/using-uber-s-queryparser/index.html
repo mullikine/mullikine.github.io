@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Using Uber&#39;s queryparser. Parsing and analysis of Vertica, Hive, and Presto SQL"/>
-<meta name="twitter:description" content="Source code https://github.com/uber/queryparser  Running the demo 1  cd &#34;$MYGIT/uber/queryparser&#34;; stack ghci   I will automate the starting of the repl and running of the code  1 2 3 4 5 6 7 8 9 10 11 12  :set prompt &#34;&gt; &#34; import Demo demoAllAnalyses &#34;SELECT * FROM foo&#34; -- note that the SELECT * expands to a,b,c demoAllAnalyses &#34;SELECT * FROM bar&#34; -- and here the SELECT * expands to x,y,z demoAllAnalyses &#34;SELECT x, count(1) FROM foo JOIN bar ON foo."/>
+<meta name="twitter:description" content="Source code https://github.com/uber/queryparser Article Queryparser, an Open Source Tool for Parsing and Analyzing SQL  Glossary 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16  OLAP vs OLTP Two kinds of database-backed operations that you need to do: - OLTP You need to use a database as part of some business process. - OLAP You use a database as part of analysis."/>
 
     <meta property="og:title" content="Using Uber&#39;s queryparser. Parsing and analysis of Vertica, Hive, and Presto SQL" />
-<meta property="og:description" content="Source code https://github.com/uber/queryparser  Running the demo 1  cd &#34;$MYGIT/uber/queryparser&#34;; stack ghci   I will automate the starting of the repl and running of the code  1 2 3 4 5 6 7 8 9 10 11 12  :set prompt &#34;&gt; &#34; import Demo demoAllAnalyses &#34;SELECT * FROM foo&#34; -- note that the SELECT * expands to a,b,c demoAllAnalyses &#34;SELECT * FROM bar&#34; -- and here the SELECT * expands to x,y,z demoAllAnalyses &#34;SELECT x, count(1) FROM foo JOIN bar ON foo." />
+<meta property="og:description" content="Source code https://github.com/uber/queryparser Article Queryparser, an Open Source Tool for Parsing and Analyzing SQL  Glossary 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16  OLAP vs OLTP Two kinds of database-backed operations that you need to do: - OLTP You need to use a database as part of some business process. - OLAP You use a database as part of analysis." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/using-uber-s-queryparser/" />
 <meta property="article:published_time" content="2020-06-11T00:00:00+08:00" />
@@ -154,7 +154,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          4 min read
+          6 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -175,7 +175,133 @@
       <dl>
 <dt>Source code</dt>
 <dd><a href="https://github.com/uber/queryparser">https://github.com/uber/queryparser</a></dd>
+<dt>Article</dt>
+<dd><a href="https://eng.uber.com/queryparser/">Queryparser, an Open Source Tool for Parsing and Analyzing SQL</a></dd>
 </dl>
+<h2 id="glossary">Glossary</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">OLAP vs OLTP
+    Two kinds of database-backed operations that
+    you need to do:
+    - OLTP
+      You need to use a database as part of
+      some business process.
+    - OLAP
+      You use a database as part of analysis.
+
+Online Analytical Processing
+OLAP
+    A fancy term used to describe a certain
+    class of database applications.
+
+columnar data warehouse
+    An alternative approach to OLAP workloads.</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="implementation">Implementation</h2>
+<ul>
+<li>Deployed in a streaming architecture</li>
+</ul>
+<!--listend-->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&#34;data warehouse&#34; -&gt; &#34;query logs&#34; -&gt; &#34;queryparser&#34; -&gt; &#34;analyse results&#34;
+&#34;queryparser&#34; -&gt; &#34;catalog info&#34;
+&#34;catalog info&#34; -&gt; &#34;queryparser&#34;</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">                                          +---------------------------------------+
+                                          v                                       |
++----------------+     +------------+     +--------------+     +-----------------+  |
+| data warehouse | --&gt; | query logs | --&gt; | queryparser  | --&gt; | analyse results |  |
++----------------+     +------------+     +--------------+     +-----------------+  |
+                                          |                                       |
+                                          |                                       |
+                                          v                                       |
+                                        +--------------+                          |
+                                        | catalog info | -------------------------+
+                                        +--------------+</code></pre></td></tr></table>
+</div>
+</div>
+<dl>
+<dt>Uber&rsquo;s data warehouse streaming architecture</dt>
+<dd>Feeds all queries through <code>Queryparser</code>. <br />
+Boxes denote services and pipes denote data-streams. <br />
+The catalog info service is responsible for <br />
+tracking the schemas of the tables in the data <br />
+warehouse.</dd>
+</dl>
+<p><code>Queryparser</code> consumes the real-time stream of
+queries submitted to the data warehouse,
+analyzes every single one, and emits the
+analysis results to a separate stream.</p>
+<ul>
+<li>Individual queries are processed in three steps.
+<ul>
+<li>
+<p><code>Phase 1: Parse</code>
+Transforms the query from a raw string of characters into an
+abstract syntax tree (AST) representation.</p>
+</li>
+<li>
+<p><code>Phase 2: Resolve</code>.
+Scans the raw AST and applies scoping
+rules.</p>
+<p>Transforms plain column names by adding
+the table name, and transforms plain
+table names by adding the schema name.</p>
+<p>Requires as input the full list of
+columns in every table and the full list
+of tables in every schema, otherwise
+known as &ldquo;catalog information.&rdquo;</p>
+</li>
+<li>
+<p><code>Phase 3: Analyze</code>
+Scans the resolved AST, looking for columns which are compared for
+equality.</p>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="running-the-demo">Running the demo</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
