@@ -154,13 +154,13 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          6 min read
+          9 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a><a class="tag" href="http://mullikine.github.io/tags/uber/">uber</a><a class="tag" href="http://mullikine.github.io/tags/sql/">sql</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a><a class="tag" href="http://mullikine.github.io/tags/uber/">uber</a><a class="tag" href="http://mullikine.github.io/tags/sql/">sql</a><a class="tag" href="http://mullikine.github.io/tags/platform-engineering/">platform-engineering</a></div></div>
     </header>
     
 
@@ -555,6 +555,216 @@ public.bar.z &lt;-&gt; public.foo.c
 &gt; demoJoins &#34;SELECT a FROM foo UNION SELECT x FROM bar&#34;
 public.bar.x &lt;-&gt; public.foo.a
 &gt;</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="the-haskell-choice">The Haskell choice</h2>
+<p>Originally conceived by an Uber engineer who was a Haskell enthusiast,
+and it quickly gained traction with several other engineers.</p>
+<p>Many of Uber engineers learned Haskell specifically to develop in it.</p>
+<p>Haskell turned out to be a good choice for prototyping Queryparser for a
+variety of reasons.</p>
+<ul>
+<li>Haskell has very mature <a href="https://hackage.haskell.org/package/parsec">library support</a> for language parsers.</li>
+<li>expressive type system was extremely useful for the frequent and extensive refactors of our internal model of a SQL query.</li>
+<li>leaned heavily on the compiler to guide us through those big, scary refactors.</li>
+</ul>
+<p>If we attempted the same using a dynamically-
+typed language, we would have lost weeks
+chasing runtime bugs that Haskell&rsquo;s compiler
+can quickly flag for us.</p>
+<h3 id="the-main-drawback-of-writing-queryparser-in-haskell">The main drawback of writing Queryparser in Haskell</h3>
+<ul>
+<li>not enough developers knew it.</li>
+</ul>
+<p>To introduce more of our engineers to Haskell,
+we started a weekly reading group, which met
+over lunch to discuss Haskell books and
+documentation.</p>
+<h3 id="deploying-queryparser">Deploying Queryparser</h3>
+<ul>
+<li>
+<p>Add stack to container dependencies</p>
+</li>
+<li>
+<p>Internally deployed as a Haskell artifact, running behind
+a Python service wrapper for interoperability with the rest of <code>Uber</code>'s
+infrastructure.</p>
+</li>
+</ul>
+<p>The Python wrapper acts as a proxy server and simply
+forwards requests to the Haskell backend server in the same docker
+container.</p>
+<p>The Haskell server consists of a main thread
+that listens for requests on a UNIX-domain
+socket; when a new request arrives, the main
+thread spawns a worker thread to handle the
+request.</p>
+<p>The Python wrapper also handles metric
+emission on behalf of the Haskell backend.</p>
+<p>Metric data is passed via a second UNIX-domain
+socket, with data flowing in the reverse
+direction: a daemon-thread in the Python layer
+listens for metrics from the Haskell layer.</p>
+<p>In order to share configuration between the
+Python and Haskell layers, we implemented a
+tiny configuration parser in Haskell, which
+understood Uber&rsquo;s standard Python convention
+of layered configuration files.</p>
+<p>Finally, to define the service interface, we
+used Thrift.</p>
+<p>This is the standard choice at Uber, and since
+Thrift has Haskell support, the Haskell server
+worked out-of-the-box.</p>
+<p>Writing the Python code to transparently
+forward requests required diving into the
+binary protocol and was the most difficult
+operations step.</p>
+<h3 id="summary">Summary</h3>
+<p>Queryparser unlocked a diversity of solutions
+and had some interesting limitations. From its
+humble origins as a migration tool, it became
+a vehicle for insight into large-scale data
+access patterns.</p>
+<h2 id="see-also">See also</h2>
+<dl>
+<dt>Parsec</dt>
+<dd><a href="https://hackage.haskell.org/package/parsec">https://hackage.haskell.org/package/parsec</a></dd>
+</dl>
+<h2 id="glossary">Glossary</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">leaky abstraction
+    An abstraction that leaks details that it
+    is supposed to abstract away.</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Unix domain socket
+IPC socket
+inter-process communication socket
+    A data communications endpoint for
+    exchanging data between processes
+    executing on the same host operating
+    system. Valid socket types in the UNIX
+    domain are:
+    - SOCK_STREAM (compare to TCP)
+      For a stream-oriented socket
+    - SOCK_DGRAM (compare to UDP)
+      For a datagram-oriented socket that
+      preserves message boundaries (as on most
+      UNIX implementations, UNIX domain
+      datagram sockets are always reliable and
+      don&#39;t reorder datagrams)
+    - SOCK_SEQPACKET (compare to SCTP)
+      For a sequenced-packet socket that is
+      connection-oriented, preserves message
+      boundaries, and delivers messages in the
+      order that they were sent.
+
+      The Unix domain socket facility is a
+      standard component of POSIX operating
+      systems.</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">daemon thread
+    https://docs.python.org/2/library/threading.html#thread-objects
+
+    A thread can be flagged as a “daemon
+    thread”.
+
+    The significance of this flag is that the
+    entire Python program exits when only
+    daemon threads are left.
+
+    The initial value is inherited from the
+    creating thread.
+
+    The flag can be set through the daemon
+    property.</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Apache Thrift
+    [software framework]
+
+    For scalable cross-language services
+    development, combines a software stack
+    with a code generation engine to build
+    services that work efficiently and
+    seamlessly between C++, Java, Python, PHP,
+    Ruby, Erlang, Perl, Haskell, C#, Cocoa,
+    JavaScript, Node.js, Smalltalk, OCaml and
+    Delphi and other languages.
+
+    RPC system.</code></pre></td></tr></table>
 </div>
 </div>
 
