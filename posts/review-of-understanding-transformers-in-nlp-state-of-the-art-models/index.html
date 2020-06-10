@@ -153,7 +153,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          15 min read
+          16 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -210,10 +210,7 @@ sequences of Type A to sequences of Type B.</p>
 <p>For example, translation of English sentences
 to German sentences is a seq2seq task.</p>
 <p><code>RNN-based seq2seq</code> have garnered a lot of
-traction ever since they were introduced in</p>
-<ol>
-<li></li>
-</ol>
+traction ever since they were introduced in 2014.</p>
 <p>Most of the data in the current world are in
 the form of sequences &ndash; it can be a number
 sequence, text sequence, a video frame
@@ -687,7 +684,99 @@ will break it down and understand it block by
 block.</p>
 <h3 id="understanding-transformer-s-model-architecture">Understanding Transformer&rsquo;s Model Architecture</h3>
 <p><span class="underline"><strong>Explanation of the <code>Encoder</code> and <code>Decoder</code> parts only</strong></span></p>
-<p>The Encoder block has 1 layer of a <strong>Multi-Head Attention</strong> followed by another layer of <strong>Feed Forward Neural Network</strong>.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Multi-Head Attention block
+    [component of the transformer]
+
+    We are now familiar with RNN’s shortcoming
+    is that it is not well versed in handling
+    dependencies between input or output
+    tokens themselves.
+
+    To handle this flaw, the Transformer just
+    allows the encoder and decoder to see the
+    entire input sequence all at once,
+    directly modelling these dependencies
+    using self-attention.
+
+    This fundamental idea of transformer is
+    implemented by its vital component, the
+    Multi-Head Attention block.
+
+transformer
+    [architecture]
+
+    https://rubikscode.net/2019/07/29/introduction-to-transformers-architecture/
+
+    Transformer architectures are not designed
+    to operate efficiently on CPU, so we
+    recommend you have a GPU available for
+    both training and usage.
+
+    https://explosion.ai/blog/spacy-pytorch-transformers
+
+    Let’s roll back a bit to understand the
+    basic concept of Transformers.
+
+    Components
+    - Multi-Head Attention block.
+
+    https://jalammar.github.io/illustrated-transformer/
+
+    Types of attention (in the Transformer)
+    https://youtu.be/BhlOGGzC0Q0?t=569
+    - encoder-decoder attention
+    - encoder self-attention
+    - decoder self-attention</code></pre></td></tr></table>
+</div>
+</div>
+<p>The Encoder block has 1 layer of a <code>Multi-Head Attention</code> followed by another layer of <code>FFNN</code>.</p>
 <p>The decoder, on the other hand, has an extra <strong>Masked</strong> <strong>Multi-Head Attention.</strong></p>
 <p><strong>The encoder and decoder blocks are actually multiple identical encoders
 and decoders stacked on top of each other.</strong> Both the encoder stack and
