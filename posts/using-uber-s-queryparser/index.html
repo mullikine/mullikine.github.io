@@ -292,34 +292,53 @@ warehouse.</dd>
 queries submitted to the data warehouse,
 analyzes every single one, and emits the
 analysis results to a separate stream.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">scoping rules
+    The scope of a name (variable names, data
+    structure names, procedure names) is the
+    part of the program within which the name
+    can be used.</code></pre></td></tr></table>
+</div>
+</div>
 <ul>
 <li>Individual queries are processed in three steps.
 <ul>
 <li>
 <p><code>Phase 1: Parse</code> <br />
 Transforms the query from a raw string of characters into an
-abstract syntax tree (AST) representation.</p>
+<code>AST</code> representation.</p>
 </li>
 <li>
 <p><code>Phase 2: Resolve</code>. <br />
-Scans the raw AST and applies scoping
-rules.</p>
+Scans the raw AST and <span class="underline">applies scoping rules</span>.</p>
 <p>Transforms plain column names by adding
 the table name, and transforms plain
 table names by adding the schema name.</p>
 <p>Requires as input the full list of
 columns in every table and the full list
 of tables in every schema, otherwise
-known as &ldquo;catalog information.&rdquo;</p>
+known as &ldquo;<code>catalog information</code>.&rdquo;</p>
 </li>
 <li>
-<p><code>Phase 3: Analyze</code>
+<p><code>Phase 3: Analyze</code> <br />
 Scans the resolved AST, looking for columns which are compared for
 equality.</p>
 </li>
 </ul>
 </li>
 </ul>
+<figure>
+    <img src="https://mullikine.github.io/ox-hugo/queryparser-phases.png"/> 
+</figure>
+
 <h2 id="running-the-demo">Running the demo</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
