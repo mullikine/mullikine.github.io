@@ -153,7 +153,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          6 min read
+          5 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -268,54 +268,98 @@ unsupervised machine translation.</p>
 strategy of Lample and Conneau, where a XLM
 is pretrained with a masked LMing objective on
 monolingual source code datasets.</p>
-<h3 id="first-principle-initialization">First principle: initialization</h3>
-<p>The first principle initializes the model with
-cross-lingual masked LM pretraining.</p>
-<p>As a result, pieces of code that express the
-same instructions are mapped to the same
-representation, regardless of the programming
+<dl>
+<dt>First principle: initialization</dt>
+<dd>The first principle initializes the model with <br />
+cross-lingual masked LM pretraining. <br />
+<p>As a result, pieces of code that express the <br />
+same instructions are mapped to the same <br />
+representation, regardless of the programming <br />
 language.</p>
-<p>Denoising auto-encoding, the second principle,
-trains the decoder to always generate valid
-sequences, even when fed with noisy data, and
-increases the encoder robustness to input
-noise.</p>
-<p>Back-translation, the last principle, allows
-the model to generate parallel data which can
-be used for training.</p>
-<p>Whenever the Python C++ model becomes better,
-it generates more accurate data for the C++
+</dd>
+<dt>Second principle: denoising</dt>
+<dd>Train the decoder to always generate valid <br />
+sequences, even when fed with noisy data, and <br />
+increases the encoder robustness to input <br />
+noise.</dd>
+<dt>Third (and last) principle: back-translation</dt>
+<dd>Allows the model to generate parallel data <br />
+which can be used for training. <br />
+<p>Whenever the Python C++ model becomes better, <br />
+it generates more accurate data for the C++ <br />
 Python model, and vice versa.</p>
+</dd>
+</dl>
 <blockquote>
 <p>We obtain cross-lingual embeddings after training.</p>
 </blockquote>
-<p>The cross-lingual nature of the resulting model comes from the significant number of common
-tokens (anchor points) that exist across languages. In the context of English-French translation, the
-anchor points consists essentially of digits and city and people names. In programming languages,
-these anchor points come from common keywords (e.g. for, while, if, try), and also digits,
-mathematical operators, and English strings that appear in the source code. 3
-For the masked language modeling (MLM) objective, at each iteration we consider an input stream
-of source code sequences, randomly mask out some of the tokens, and train TransCoder to predict
-the tokens that have been masked out based on their contexts. We alternate between streams of
-batches of different languages. This allows the model to create high quality, cross-lingual sequence
-representations. An example of XLM pretraining is given on top of Figure 1.</p>
-<p>3.2 Denoising auto-encoding</p>
-<p>We initialize the encoder and decoder of the seq2seq model with the XLM model pretrained in
-Section 3.1. The initialization is straightforward for the encoder, as it has the same architecture as the
-XLM model. The transformer decoder, however, has extra parameters related to the source attention
-mechanism [45]. Following Lample and Conneau [29], we initialize these parameters randomly.
-XLM pretraining allows the seq2seq model to generate high quality representations of input sequences.
-However, the decoder lacks the capacity to translate, as it has never been trained to decode a sequence
-based on a source representation. To address this issue, we train the model to encode and decode
-sequences with a Denoising Auto-Encoding (DAE) objective [46]. The DAE objective operates like a
-supervised machine translation algorithm, where the model is trained to predict a sequence of tokens
-given a corrupted version of that sequence. To corrupt a sequence, we use the same noise model as
-the one described in Lample et al. [30]. Namely, we randomly mask, remove and shuffle input tokens.</p>
-<p>3In practice, the &ldquo;cross-linguality&rdquo; of the model highly depends on the amount of anchor points across
-languages. As a result, a XLM model trained on English-French will provide better cross-lingual representations
-than a model trained on English-Chinese, because of the different alphabet which reduces the number of anchor
-points. In programming languages, the majority of strings are composed of English words, which results in a
-fairly high number of anchor points, and the model naturally becomes cross-lingual.</p>
+<p>The cross-lingual nature of the resulting
+model comes from the significant number of
+common tokens (anchor points) that exist
+across languages.</p>
+<p>In the context of English-French translation,
+the anchor points consists essentially of
+digits and city and people names.</p>
+<p>In programming languages, these anchor points
+come from common keywords (e.g. for, while,
+if, try), and also digits, mathematical
+operators, and English strings that appear in
+the source code.</p>
+<p>For the masked LMing (MLM) objective, at each
+iteration we consider an input stream of
+source code sequences, randomly mask out some
+of the tokens, and train TransCoder to predict
+the tokens that have been masked out based on
+their contexts.</p>
+<p>We alternate between streams of batches of
+different languages.</p>
+<p>This allows the model to create high quality,
+cross-lingual sequence representations.</p>
+<p><span class="underline"><strong>Denoising auto-encoding</strong></span></p>
+<p>We initialize the encoder and decoder of the
+seq2seq model with the XLM model that was pretrained.</p>
+<p>The initialization is straightforward for the
+encoder, as it has the same architecture as
+the XLM model.</p>
+<p>The transformer decoder, however, has extra
+parameters related to the source attention
+mechanism .</p>
+<p>Following Lample and Conneau, we initialize
+these parameters randomly.</p>
+<dl>
+<dt>XLM pretraining</dt>
+<dd>allows the <code>seq2seq</code> model to <br />
+generate high quality representations of input <br />
+sequences.</dd>
+</dl>
+<p>However, the decoder lacks the capacity to
+translate, as it has never been trained to
+decode a sequence based on a source
+representation.</p>
+<p>To address this issue, we train the model to
+encode and decode sequences with a <code>Denoising Auto-Encoding (DAE)</code> objective .</p>
+<p>The <code>DAE</code> objective operates like a supervised
+machine translation algorithm, where the model
+is trained to predict a sequence of tokens
+given a corrupted version of that sequence.</p>
+<p>To corrupt a sequence, we use the same noise
+model as the one described in Lample et al. .</p>
+<p>Namely, we randomly mask, remove and shuffle
+input tokens.</p>
+<p>In practice, the &ldquo;cross-linguality&rdquo; of the
+model highly depends on the amount of anchor
+points across languages.</p>
+<p>As a result, a XLM model trained on English-
+French will provide better cross-lingual
+representations than a model trained on
+English-Chinese, because of the different
+alphabet which reduces the number of anchor
+points.</p>
+<p>In programming languages, the majority of
+strings are composed of English words, which
+results in a fairly high number of anchor
+points, and the model naturally becomes cross-
+lingual.</p>
 <h2 id="summary">Summary</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
