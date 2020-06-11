@@ -6,10 +6,21 @@
     <description>Recent content in emacs on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Jun 2020 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 11 Jun 2020 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Emacs Websockets</title>
+      <link>https://mullikine.github.io/posts/review-of-emacs-websockets/</link>
+      <pubDate>Thu, 11 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/review-of-emacs-websockets/</guid>
+      <description>Original article Emacs Websockets  https://developer.mozilla.org/en-US/docs/Web/API/WebSockets%5FAPI
+websocket echo test https://websocket.org/echo.html
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22  ;; load the websocket extension (require &amp;#39;websocket) ;; open a new websocket and name it my-websocket (setq my-websocket (websocket-open &amp;#34;wss://echo.websocket.org&amp;#34; ;; provide a function to call when we receive a message from the server :on-message (lambda ( _websocket ; We ignore this frame ; frame data from which we can extract text with websocket-frame-text ) (message &amp;#34;ws frame: %S&amp;#34; (websocket-frame-text frame))) ;; provide a function to call when the websocket is closed :on-close (lambda (_websocket) (message &amp;#34;websocket closed&amp;#34;)))) ;; send &amp;#34;hello from emacs&amp;#34; through the websocket (websocket-send-text my-websocket &amp;#34;hello from emacs&amp;#34;) ;; close the websocket (websocket-close my-websocket)   turn Emacs into a websocket server 1 2 3 4 5 6 7 8 9 10  (setq my-websocket-server (websocket-server 3000 :host &amp;#39;local :on-message (lambda (_websocket frame) (message &amp;#34;received message through websocket&amp;#34;)) :on-open (lambda (_websocket) (message &amp;#34;websocket opened&amp;#34;)) :on-close (lambda (_websocket) (message &amp;#34;websocket closed&amp;#34;))))    we start a websocket server and call it my-websocket-server the server is running on localhost port 3000 when the server receives a message, we print &amp;ldquo;received message through websocket&amp;rdquo; when a client connects to the server, we print &amp;ldquo;websocket opened&amp;rdquo; when a client closes the websocket, we print &amp;ldquo;websocket closed&amp;rdquo;  Now to test this code, we could use the sample from the earlier section, but instead let&amp;rsquo;s use some Javascript code that we will enhance later on.</description>
+    </item>
     
     <item>
       <title>Scripting Haskell and creating projects with Stack</title>
