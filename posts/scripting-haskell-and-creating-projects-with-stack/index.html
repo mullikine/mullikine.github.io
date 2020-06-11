@@ -12,10 +12,12 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Scripting Haskell and creating projects with Stack"/>
-<meta name="twitter:description" content="How to script with stack How to Script with Stack How to create a stack project How to Build with Stack Write bitrot free code with Haskell Practical Haskell: Bitrot-free Scripts  How to script with stack Install ghc 1 2 3  stack setup # or stack --install-ghc exec -- ghc --version   Get the ghc version 1  stack exec -- ghc --version   Compile a simple program 1 2  main :: IO () main = putStrLn &#34;Hello World!"/>
+<meta name="twitter:description" content="How to script with stack How to Script with Stack How to create a stack project How to Build with Stack Write bitrot free code with Haskell Practical Haskell: Bitrot-free Scripts  Upgrading haskell 1 2 3 4 5 6 7 8 9  #!/bin/bash export TTY . $HOME/scripts/libraries/bash-library.sh export PATH=&#34;$HOME/.local/bin:$(remove_from_path $SCRIPTS)&#34; cabal install Cabal cabal-install cabal update sudo stack upgrade   Developing cabal packages https://cabal.readthedocs.io/en/latest/developing-packages.html
+ Given a directory of haskell (."/>
 
     <meta property="og:title" content="Scripting Haskell and creating projects with Stack" />
-<meta property="og:description" content="How to script with stack How to Script with Stack How to create a stack project How to Build with Stack Write bitrot free code with Haskell Practical Haskell: Bitrot-free Scripts  How to script with stack Install ghc 1 2 3  stack setup # or stack --install-ghc exec -- ghc --version   Get the ghc version 1  stack exec -- ghc --version   Compile a simple program 1 2  main :: IO () main = putStrLn &#34;Hello World!" />
+<meta property="og:description" content="How to script with stack How to Script with Stack How to create a stack project How to Build with Stack Write bitrot free code with Haskell Practical Haskell: Bitrot-free Scripts  Upgrading haskell 1 2 3 4 5 6 7 8 9  #!/bin/bash export TTY . $HOME/scripts/libraries/bash-library.sh export PATH=&#34;$HOME/.local/bin:$(remove_from_path $SCRIPTS)&#34; cabal install Cabal cabal-install cabal update sudo stack upgrade   Developing cabal packages https://cabal.readthedocs.io/en/latest/developing-packages.html
+ Given a directory of haskell (." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/scripting-haskell-and-creating-projects-with-stack/" />
 <meta property="article:published_time" content="2020-06-10T00:00:00+08:00" />
@@ -154,7 +156,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          6 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -180,6 +182,79 @@
 <dt>Write bitrot free code with Haskell</dt>
 <dd><a href="https://tech.fpcomplete.com/blog/2016/08/bitrot-free-scripts/">Practical Haskell: Bitrot-free Scripts</a></dd>
 </dl>
+<h2 id="upgrading-haskell">Upgrading haskell</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+. $HOME/scripts/libraries/bash-library.sh
+export PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$HOME<span style="color:#e6db74">/.local/bin:</span><span style="color:#66d9ef">$(</span>remove_from_path $SCRIPTS<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+
+cabal install Cabal cabal-install
+cabal update
+sudo stack upgrade</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="developing-cabal-packages">Developing <code>cabal</code> packages</h2>
+<p><a href="https://cabal.readthedocs.io/en/latest/developing-packages.html">https://cabal.readthedocs.io/en/latest/developing-packages.html</a></p>
+<ul>
+<li>Given a directory of haskell (<code>.hs</code>) files, to turn this into a Cabal package we need two extra files in the project’s root directory:
+<ul>
+<li><code>proglet.cabal</code> <br />
+Containing package metadata and build information.</li>
+<li>Setup.hs <br />
+Fsually containing a few standardized lines of code, but can be customized if necessary.</li>
+</ul>
+</li>
+</ul>
+<!--listend-->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cabal init --interactive</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="start-a-ghci-shell-with-a-cabal-package">Start a GHCi shell with a cabal package</h2>
+<p><a href="https://www.haskell.org/cabal/users-guide/nix-local-build.html#how-can-i-profile-my-library-application">https://www.haskell.org/cabal/users-guide/nix-local-build.html#how-can-i-profile-my-library-application</a></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd $MYGIT/uber/queryparser
+cabal v2-repl</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="how-to-compile-a-project-with-cabal">How to compile a project with <code>cabal</code></h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd $MYGIT/uber/queryparser
+ls queryparser.cabal <span style="color:#75715e"># This file exists here</span>
+cabal v2-build</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="profiling-wiht-cabal">Profiling wiht <code>cabal</code></h2>
+<p><a href="https://www.haskell.org/cabal/users-guide/nix-local-build.html#how-can-i-profile-my-library-application">https://www.haskell.org/cabal/users-guide/nix-local-build.html#how-can-i-profile-my-library-application</a></p>
 <h2 id="how-to-script-with-stack">How to script with stack</h2>
 <h3 id="install-ghc">Install <code>ghc</code></h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -289,13 +364,268 @@ an additional package needs to be present.</p>
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">NonDet -- backtracking search
+WriterT --
+ReaderT --
+StateT -- threads state through a function</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># ensure that it runs with the http-conduit package</span>
 stack runghc --package http-conduit -- http.hs</code></pre></td></tr></table>
 </div>
 </div>
+<h3 id="specify-a-resolver">Specify a resolver</h3>
+<p>There&rsquo;s unfortunately a major downside to
+everything we&rsquo;ve seen so far: there are no
+guarantees given about which version of GHC or
+libraries will be used.</p>
+<p>The selection will depend entirely on what
+Stack deems the most appropriate <em>resolver</em> -
+or collection of GHC and libraries - when you
+start using it.</p>
+<p>If you want to be guaranteed that a specific
+set of packages will be used, you can set the
+<code>--resolver</code> on the command line.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ stack --resolver lts-12.21 runghc --package http-conduit http.hs
+</code></pre></div><h3 id="script-interpreter">Script interpreter</h3>
+<p><a href="https://docs.haskellstack.org/en/stable/GUIDE/#script-interpreter">https://docs.haskellstack.org/en/stable/GUIDE/#script-interpreter</a></p>
+<p>Remembering to pass all of these flags on the
+command line is very tedious, error prone, and
+makes it difficult to share scripts with
+others.</p>
+<p>To address this, Stack has a [<em>script interpreter</em> feature](<a href="https://docs.ha">https://docs.ha</a> skellstack.org/en/stable/GUIDE/#script-%20interpreter)
+which allows these flags to be placed at the
+top of your script.</p>
+<p>Stack also has a dedicated <code>script</code> command
+which has some nice features like auto-
+detection of packages you need based on import
+statements.</p>
+<p>If we modify our <code>http.hs</code> to say:</p>
+<p><a id="code-snippet--curl-test"></a>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#f92672">#!/</span>usr<span style="color:#f92672">/</span>bin<span style="color:#f92672">/</span>env stack
+<span style="color:#75715e">-- stack --resolver lts-12.21 script</span>
+<span style="color:#75715e">{-# LANGUAGE OverloadedStrings #-}</span>
+<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.ByteString.Lazy.Char8 <span style="color:#66d9ef">as</span> L8
+<span style="color:#66d9ef">import</span>           Network.HTTP.Simple
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    response <span style="color:#f92672">&lt;-</span> httpLBS <span style="color:#e6db74">&#34;http://httpbin.org/get&#34;</span>
+
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;The status code was: &#34;</span> <span style="color:#f92672">++</span>
+               show (getResponseStatusCode response)
+    print <span style="color:#f92672">$</span> getResponseHeader <span style="color:#e6db74">&#34;Content-Type&#34;</span> response
+    <span style="color:#66d9ef">L8</span><span style="color:#f92672">.</span>putStrLn <span style="color:#f92672">$</span> getResponseBody response</code></pre></td></tr></table>
+</div>
+</div></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tf hs | xa stack</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">The status code was: <span style="color:#ae81ff">200</span>
+<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;application/json&#34;</span><span style="color:#f92672">]</span>
+<span style="color:#f92672">{</span>
+  <span style="color:#e6db74">&#34;args&#34;</span>: <span style="color:#f92672">{}</span>,
+  <span style="color:#e6db74">&#34;headers&#34;</span>: <span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;Accept-Encoding&#34;</span>: <span style="color:#e6db74">&#34;gzip&#34;</span>,
+    <span style="color:#e6db74">&#34;Host&#34;</span>: <span style="color:#e6db74">&#34;httpbin.org&#34;</span>,
+    <span style="color:#e6db74">&#34;X-Amzn-Trace-Id&#34;</span>: <span style="color:#e6db74">&#34;Root=1-5ee17e9a-035e13cc316aa1aeb985dc67&#34;</span>
+  <span style="color:#f92672">}</span>,
+  <span style="color:#e6db74">&#34;origin&#34;</span>: <span style="color:#e6db74">&#34;123.255.57.26&#34;</span>,
+  <span style="color:#e6db74">&#34;url&#34;</span>: <span style="color:#e6db74">&#34;http://httpbin.org/get&#34;</span>
+<span style="color:#f92672">}</span>
+
+</code></pre></div><p>If you want to create self contained scripts,
+a script interpreter line at the top of your
+file is a highly recommended practice.</p>
 <h2 id="how-to-create-a-stack-project">How to create a stack project</h2>
+<h3 id="start-a-new-project">Start a new project</h3>
+<p>You can start a new project with the command:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">stack new my-project-name</code></pre></td></tr></table>
+</div>
+</div>
+<p>This will use the default project template. You can also choose from
+many available templates which you can list with</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">stack templates</code></pre></td></tr></table>
+</div>
+</div>
+<p>For example, if you wanted to the <code>simple</code> template instead, you could
+run:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">stack new my-project-name simple</code></pre></td></tr></table>
+</div>
+</div>
+<p>You should now have a directory named <code>my-project-name</code> (or whatever
+string you used), with a <code>stack.yaml</code> file inside of it. A <code>stack.yaml</code>
+file must be present in the root directory of each project, and provides
+a number of settings. You can edit that file and view the comments, or
+<a href="https://docs.haskellstack.org/en/stable/yaml%5Fconfiguration/">view the
+configuration file documentation</a>.</p>
+<h3 id="convert-an-existing-package">Convert an existing package</h3>
+<p>If you have an existing Cabal package, you can use the <code>stack init</code>
+command inside the package directory to initialize a <code>stack.yaml</code> file.
+Stack will attempt to determine a package set compatible with the
+packages requested in your <code>.cabal</code> file.</p>
+<h3 id="project-versus-package">Project versus package</h3>
+<p>Note the difference in terminology above. This is important: a cabal
+package is identified by a single <code>.cabal</code> file, and has 0 or 1
+libraries, and 0 or more executables, test suites, and benchmarks.</p>
+<p>A Stack project has 1 or more cabal packages, and can build them all at
+the same time. In likely the majority of cases, your Stack project will
+have just one cabal package in it. However, multi-package projects can
+be very common for both open source library collections and for
+structuring commercial applications. Some open source examples of
+multi-package projects include
+<a href="http://github.com/yesodweb/yesod">Yesod</a>,
+<a href="https://github.com/yesodweb/wai">WAI</a>, and
+<a href="https://github.com/haskell-servant/servant">Servant</a>.</p>
+<h3 id="building">Building</h3>
+<p>The basic command for building your project is</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">stack build</code></pre></td></tr></table>
+</div>
+</div>
+<p>Very likely, you&rsquo;ll need to first tell Stack to install the appropriate
+GHC version for your project. You can do this with:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">stack setup</code></pre></td></tr></table>
+</div>
+</div>
+<p>or by using the <code>--install-ghc</code> option to <code>stack build</code>:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">stack --install-ghc build</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="running-executables">Running executables</h3>
+<p>Let&rsquo;s suppose your project defines an executable called <code>my-executable</code>.
+How do you run it? There are three common ways:</p>
+<ol>
+<li>
+<p><code>stack exec my-executable</code> will modify your <code>PATH</code> variable to
+include a number of additional directories, including the internal
+executable destination, and your build tools (like <code>ghc</code>).</p>
+</li>
+<li>
+<p><code>stack exec which my-executable</code> will use the <code>which</code> command to find
+the full path to your executable, which you could then run, without
+the additional modifications that <code>stack exec</code> implies. If you want
+to be clever, you could do something like this from your shell:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$ $(stack exec which my-executable)
+</code></pre></div></li>
+<li>
+<p>The <code>stack install</code> command will copy your executables into a
+user-specific directory, such as <code>$HOME/.local/bin</code> on POSIX systems.
+The directory will be printed to your console.</p>
+</li>
+</ol>
+<h3 id="testing">Testing</h3>
+<p>Testing is also straightforward:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">stack test</code></pre></td></tr></table>
+</div>
+</div>
+<p>As it happens, this is just a convenience shortcut for:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">stack build --test</code></pre></td></tr></table>
+</div>
+</div>
+<p>The same applies to <code>stack bench</code> (for benchmarking) and <code>stack haddock</code>
+(for building Haddock documentation). What this means is that you can
+compose these flags to build the code, build the docs, run tests, and
+run benchmarks:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">stack build --test --bench --haddock</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="common-flags">Common flags</h3>
+<ul>
+<li><code>--file-watch</code> will run build in file-watch mode, where it will wait
+for changes to files and then automatically rebuild. This can be very
+convenient to run in a terminal while simulatenously editing in
+another window.</li>
+<li><code>--fast</code> will disable optimizations</li>
+<li><code>--pedantic</code> turns on <code>-Wall -Werror</code> for GHC (all warnings on, and
+warnings treated as errors)</li>
+</ul>
+<p>So throwing a few of these together:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">stack build --test --file-watch --fast --pedantic</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
