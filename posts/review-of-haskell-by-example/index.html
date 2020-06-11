@@ -155,7 +155,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          11 min read
+          23 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -1086,7 +1086,1150 @@
 </div>
 </div>
 <p><a title="asciinema recording" href="https://asciinema.org/a/g1suLp5MBZBWXF3973YwwN13u" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/g1suLp5MBZBWXF3973YwwN13u.svg" /></a></p>
-<h2 id="json"><code>JSON</code></h2>
+<h2 id="channels">Channels</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Control.Concurrent
+<span style="color:#66d9ef">import</span> Control.Concurrent.STM
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    messages <span style="color:#f92672">&lt;-</span> atomically newTQueue
+
+    forkIO <span style="color:#f92672">$</span> atomically <span style="color:#f92672">$</span> writeTQueue messages <span style="color:#e6db74">&#34;ping&#34;</span>
+
+    msg <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> readTQueue messages
+    putStrLn msg</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">ping</span>
+</code></pre></div><h2 id="channel-buffering">Channel Buffering</h2>
+<ul>
+<li>You can treat <code>TQueue</code> as an unbounded FIFO channel.</li>
+</ul>
+<!--listend-->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Control.Concurrent.STM
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    messages <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+        msg <span style="color:#f92672">&lt;-</span> newTQueue
+        writeTQueue msg <span style="color:#e6db74">&#34;buffered&#34;</span>
+        writeTQueue msg <span style="color:#e6db74">&#34;queue&#34;</span>
+        return msg
+
+    putStrLn <span style="color:#f92672">=&lt;&lt;</span> (atomically <span style="color:#f92672">.</span> readTQueue) messages
+    putStrLn <span style="color:#f92672">=&lt;&lt;</span> (atomically <span style="color:#f92672">.</span> readTQueue) messages</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">buffered</span>
+<span style="color:#a6e22e">queue</span>
+</code></pre></div><h2 id="channel-synchronisation">Channel synchronisation</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Control.Concurrent
+<span style="color:#66d9ef">import</span> Control.Concurrent.STM
+
+<span style="color:#a6e22e">worker</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">TMVar</span> <span style="color:#66d9ef">Bool</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">worker</span> done <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    putStr <span style="color:#e6db74">&#34;working...&#34;</span>
+    threadDelay <span style="color:#ae81ff">1000000</span>
+
+    putStrLn <span style="color:#e6db74">&#34;done&#34;</span>
+    atomically <span style="color:#f92672">$</span> putTMVar done <span style="color:#66d9ef">True</span>
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    done <span style="color:#f92672">&lt;-</span> atomically newEmptyTMVar
+    forkIO <span style="color:#f92672">$</span> worker done
+
+    atomically <span style="color:#f92672">$</span> takeTMVar done
+    return ()</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">working</span><span style="color:#f92672">...</span>done
+</code></pre></div><h2 id="channel-directions">Channel directions</h2>
+<p>See also <code>privileged-concurrency</code>.</p>
+<p><a href="http://hackage.haskell.org/package/privileged-concurrency">http://hackage.haskell.org/package/privileged-concurrency</a></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Control.Concurrent.STM
+
+<span style="color:#a6e22e">ping</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">WriteOnly</span> w <span style="color:#f92672">=&gt;</span> w <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">ping</span> pings msg <span style="color:#f92672">=</span> write&#39; pings msg
+
+<span style="color:#a6e22e">pong</span> <span style="color:#f92672">::</span> (<span style="color:#66d9ef">ReadOnly</span> r, <span style="color:#66d9ef">WriteOnly</span> w) <span style="color:#f92672">=&gt;</span> r <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> w <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">pong</span> pings pongs <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    msg <span style="color:#f92672">&lt;-</span> read&#39; pings
+    write&#39; pongs msg
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    pings <span style="color:#f92672">&lt;-</span> atomically newTQueue
+    pongs <span style="color:#f92672">&lt;-</span> atomically newTQueue
+    ping pings <span style="color:#e6db74">&#34;passed message&#34;</span>
+    pong pings pongs
+    putStrLn <span style="color:#f92672">=&lt;&lt;</span> read&#39; pongs
+
+<span style="color:#66d9ef">class</span> <span style="color:#66d9ef">ReadOnly</span> f <span style="color:#66d9ef">where</span>
+    read&#39; <span style="color:#f92672">::</span> f a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> a
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">ReadOnly</span> <span style="color:#66d9ef">TQueue</span> <span style="color:#66d9ef">where</span>
+    read&#39; <span style="color:#f92672">=</span> atomically <span style="color:#f92672">.</span> readTQueue
+
+<span style="color:#66d9ef">class</span> <span style="color:#66d9ef">WriteOnly</span> f <span style="color:#66d9ef">where</span>
+    write&#39; <span style="color:#f92672">::</span> f a <span style="color:#f92672">-&gt;</span> a <span style="color:#f92672">-&gt;</span>  <span style="color:#66d9ef">IO</span> ()
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">WriteOnly</span> <span style="color:#66d9ef">TQueue</span> <span style="color:#66d9ef">where</span>
+    write&#39; <span style="color:#f92672">=</span> (atomically<span style="color:#f92672">.</span>) <span style="color:#f92672">.</span> writeTQueue</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">passed</span> message
+</code></pre></div><h2 id="select">Select</h2>
+<p>Actually, there is no select statement in
+Haskell. I implement a makeshift &ldquo;select&rdquo; in
+this example. If you have a better idea,
+please send a Pull Request to my repository!</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">{-# LANGUAGE GADTs #-}</span>
+<span style="color:#66d9ef">import</span> Control.Monad
+<span style="color:#66d9ef">import</span> Control.Concurrent
+<span style="color:#66d9ef">import</span> Control.Concurrent.STM
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    c1 <span style="color:#f92672">&lt;-</span> atomically newTQueue
+    c2 <span style="color:#f92672">&lt;-</span> atomically newTQueue
+
+    forkIO <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+        threadDelay (<span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000000</span>)
+        atomically <span style="color:#f92672">$</span> writeTQueue c1 <span style="color:#e6db74">&#34;one&#34;</span>
+
+    forkIO <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+        threadDelay (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000000</span>)
+        atomically <span style="color:#f92672">$</span> writeTQueue c2 <span style="color:#e6db74">&#34;two&#34;</span>
+
+    forM_ [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>i <span style="color:#f92672">-&gt;</span>
+        select [ <span style="color:#66d9ef">Case</span> c1 <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>msg1 <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;received &#34;</span> <span style="color:#f92672">++</span> msg1
+               , <span style="color:#66d9ef">Case</span> c2 <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>msg2 <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;received &#34;</span> <span style="color:#f92672">++</span> msg2
+               ]
+
+<span style="color:#66d9ef">class</span> <span style="color:#66d9ef">Selectable</span> f <span style="color:#66d9ef">where</span>
+    tryRead <span style="color:#f92672">::</span> f a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">STM</span> (<span style="color:#66d9ef">Maybe</span> a)
+
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Selectable</span> <span style="color:#66d9ef">TQueue</span> <span style="color:#66d9ef">where</span>
+    tryRead <span style="color:#f92672">=</span> tryReadTQueue
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Select</span> a <span style="color:#66d9ef">where</span>
+    <span style="color:#66d9ef">Default</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Select</span> a
+    <span style="color:#66d9ef">Case</span>    <span style="color:#f92672">::</span> <span style="color:#66d9ef">Selectable</span> s <span style="color:#f92672">=&gt;</span> s b <span style="color:#f92672">-&gt;</span> (b <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> a) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Select</span> a
+
+<span style="color:#a6e22e">select</span> <span style="color:#f92672">::</span> [<span style="color:#66d9ef">Select</span> a] <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> a
+<span style="color:#a6e22e">select</span> <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">error</span> <span style="color:#e6db74">&#34;select: empty list&#34;</span>
+<span style="color:#a6e22e">select</span> ((<span style="color:#66d9ef">Default</span> x)<span style="color:#66d9ef">:</span><span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> x
+<span style="color:#a6e22e">select</span> (x<span style="color:#f92672">@</span>(<span style="color:#66d9ef">Case</span> v f)<span style="color:#66d9ef">:</span>xs)  <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    var <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> tryRead v
+    <span style="color:#66d9ef">case</span> var <span style="color:#66d9ef">of</span>
+        <span style="color:#66d9ef">Just</span> b  <span style="color:#f92672">-&gt;</span> f b
+        <span style="color:#66d9ef">Nothing</span> <span style="color:#f92672">-&gt;</span> select (xs <span style="color:#f92672">++</span> [x])</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">received</span> one
+<span style="color:#a6e22e">received</span> two
+</code></pre></div><h2 id="timeouts">Timeouts</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">{-# LANGUAGE GADTs #-}</span>
+<span style="color:#66d9ef">import</span> Control.Concurrent
+<span style="color:#66d9ef">import</span> Control.Concurrent.STM
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    c1 <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> newTQueue
+    forkIO <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+        threadDelay (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000000</span>)
+        atomically <span style="color:#f92672">$</span> writeTQueue c1 <span style="color:#e6db74">&#34;result 1&#34;</span>
+
+    t1 <span style="color:#f92672">&lt;-</span> newTimer (<span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000000</span>)
+    select [ <span style="color:#66d9ef">Case</span> c1 <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>res <span style="color:#f92672">-&gt;</span> putStrLn res
+           , <span style="color:#66d9ef">Case</span> t1 <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span>   <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#e6db74">&#34;timeout 1&#34;</span>]
+
+    c2 <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> newTQueue
+    forkIO <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+        threadDelay (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000000</span>)
+        atomically <span style="color:#f92672">$</span> writeTQueue c2 <span style="color:#e6db74">&#34;result 2&#34;</span>
+
+    t2 <span style="color:#f92672">&lt;-</span> newTimer (<span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000000</span>)
+    select [ <span style="color:#66d9ef">Case</span> c2 <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>res <span style="color:#f92672">-&gt;</span> putStrLn res
+           , <span style="color:#66d9ef">Case</span> t2 <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span>   <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#e6db74">&#34;timeout 2&#34;</span>]
+
+<span style="color:#66d9ef">type</span> <span style="color:#66d9ef">Timer</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">TMVar</span> ()
+
+<span style="color:#a6e22e">newTimer</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">Timer</span>
+<span style="color:#a6e22e">newTimer</span> delay <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    timer <span style="color:#f92672">&lt;-</span> atomically newEmptyTMVar
+    forkIO <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+        threadDelay delay
+        atomically <span style="color:#f92672">$</span> putTMVar timer ()
+    return timer
+
+<span style="color:#66d9ef">class</span> <span style="color:#66d9ef">Selectable</span> f <span style="color:#66d9ef">where</span>
+    tryRead <span style="color:#f92672">::</span> f a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">STM</span> (<span style="color:#66d9ef">Maybe</span> a)
+
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Selectable</span> <span style="color:#66d9ef">TMVar</span> <span style="color:#66d9ef">where</span>
+    tryRead <span style="color:#f92672">=</span> tryReadTMVar
+
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Selectable</span> <span style="color:#66d9ef">TQueue</span> <span style="color:#66d9ef">where</span>
+    tryRead <span style="color:#f92672">=</span> tryReadTQueue
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Select</span> a <span style="color:#66d9ef">where</span>
+    <span style="color:#66d9ef">Default</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Select</span> a
+    <span style="color:#66d9ef">Case</span>    <span style="color:#f92672">::</span> <span style="color:#66d9ef">Selectable</span> s <span style="color:#f92672">=&gt;</span> s b <span style="color:#f92672">-&gt;</span> (b <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> a) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Select</span> a
+
+<span style="color:#a6e22e">select</span> <span style="color:#f92672">::</span> [<span style="color:#66d9ef">Select</span> a] <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> a
+<span style="color:#a6e22e">select</span> <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">error</span> <span style="color:#e6db74">&#34;select: empty list&#34;</span>
+<span style="color:#a6e22e">select</span> ((<span style="color:#66d9ef">Default</span> x)<span style="color:#66d9ef">:</span><span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> x
+<span style="color:#a6e22e">select</span> (x<span style="color:#f92672">@</span>(<span style="color:#66d9ef">Case</span> v f)<span style="color:#66d9ef">:</span>xs)  <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    var <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> tryRead v
+    <span style="color:#66d9ef">case</span> var <span style="color:#66d9ef">of</span>
+        <span style="color:#66d9ef">Just</span> b  <span style="color:#f92672">-&gt;</span> f b
+        <span style="color:#66d9ef">Nothing</span> <span style="color:#f92672">-&gt;</span> select (xs <span style="color:#f92672">++</span> [x])</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">timeout</span> <span style="color:#ae81ff">1</span>
+<span style="color:#a6e22e">result</span> <span style="color:#ae81ff">2</span>
+</code></pre></div><h2 id="non-blocking-channel-operations">Non-Blocking Channel Operations</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">{-# LANGUAGE GADTs #-}</span>
+<span style="color:#66d9ef">import</span> Control.Concurrent
+<span style="color:#66d9ef">import</span> Control.Concurrent.STM
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    messages <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> newEmptyTMVar <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> (<span style="color:#66d9ef">TMVar</span> <span style="color:#66d9ef">String</span>)
+    signals  <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> newEmptyTMVar <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> (<span style="color:#66d9ef">TMVar</span> <span style="color:#66d9ef">Bool</span>)
+
+    trymsg <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> tryReadTMVar messages
+    <span style="color:#66d9ef">case</span> trymsg <span style="color:#66d9ef">of</span>
+        <span style="color:#66d9ef">Just</span> m <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;received message &#34;</span> <span style="color:#f92672">++</span> m
+        <span style="color:#66d9ef">Nothing</span> <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#e6db74">&#34;no message received&#34;</span>
+
+    <span style="color:#66d9ef">let</span> msg <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hi&#34;</span>
+    success <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> tryPutTMVar messages msg
+    <span style="color:#66d9ef">if</span> success
+        <span style="color:#66d9ef">then</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;sent message &#34;</span> <span style="color:#f92672">++</span> msg
+        <span style="color:#66d9ef">else</span> putStrLn <span style="color:#e6db74">&#34;no message sent&#34;</span>
+
+    select [ <span style="color:#66d9ef">Case</span> messages <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>msg <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;received message &#34;</span> <span style="color:#f92672">++</span> msg
+           , <span style="color:#66d9ef">Case</span> signals  <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>sig <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;received signal &#34;</span> <span style="color:#f92672">++</span> show sig
+           , <span style="color:#66d9ef">Default</span> <span style="color:#f92672">$</span> putStrLn <span style="color:#e6db74">&#34;no activiry&#34;</span>
+           ]
+
+<span style="color:#66d9ef">class</span> <span style="color:#66d9ef">Selectable</span> f <span style="color:#66d9ef">where</span>
+    tryRead <span style="color:#f92672">::</span> f a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">STM</span> (<span style="color:#66d9ef">Maybe</span> a)
+
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Selectable</span> <span style="color:#66d9ef">TMVar</span> <span style="color:#66d9ef">where</span>
+    tryRead <span style="color:#f92672">=</span> tryReadTMVar
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Select</span> a <span style="color:#66d9ef">where</span>
+    <span style="color:#66d9ef">Default</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Select</span> a
+    <span style="color:#66d9ef">Case</span>    <span style="color:#f92672">::</span> <span style="color:#66d9ef">Selectable</span> s <span style="color:#f92672">=&gt;</span> s b <span style="color:#f92672">-&gt;</span> (b <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> a) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Select</span> a
+
+<span style="color:#a6e22e">select</span> <span style="color:#f92672">::</span> [<span style="color:#66d9ef">Select</span> a] <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> a
+<span style="color:#a6e22e">select</span> <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">error</span> <span style="color:#e6db74">&#34;select: empty list&#34;</span>
+<span style="color:#a6e22e">select</span> ((<span style="color:#66d9ef">Default</span> x)<span style="color:#66d9ef">:</span><span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> x
+<span style="color:#a6e22e">select</span> (x<span style="color:#f92672">@</span>(<span style="color:#66d9ef">Case</span> v f)<span style="color:#66d9ef">:</span>xs)  <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    var <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> tryRead v
+    <span style="color:#66d9ef">case</span> var <span style="color:#66d9ef">of</span>
+        <span style="color:#66d9ef">Just</span> b  <span style="color:#f92672">-&gt;</span> f b
+        <span style="color:#66d9ef">Nothing</span> <span style="color:#f92672">-&gt;</span> select (xs <span style="color:#f92672">++</span> [x])</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">no</span> message received
+<span style="color:#a6e22e">sent</span> message hi
+<span style="color:#a6e22e">received</span> message hi
+</code></pre></div><h2 id="timers">Timers</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Control.Concurrent
+<span style="color:#66d9ef">import</span> Control.Concurrent.STM
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    timer1 <span style="color:#f92672">&lt;-</span> newTimer (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000000</span>)
+    waitTimer timer1
+    putStrLn <span style="color:#e6db74">&#34;Timer 1 expired&#34;</span>
+
+    timer2 <span style="color:#f92672">&lt;-</span> newTimer (<span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000000</span>)
+    forkIO <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+        waitTimer timer2
+        putStrLn <span style="color:#e6db74">&#34;Timer 2 expired&#34;</span>
+    stopTimer timer2
+    putStrLn <span style="color:#e6db74">&#34;Timer 2 stopped&#34;</span>
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">State</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Start</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Stop</span>
+<span style="color:#66d9ef">type</span> <span style="color:#66d9ef">Timer</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">TVar</span> <span style="color:#66d9ef">State</span>, <span style="color:#66d9ef">TMVar</span> ())
+
+<span style="color:#a6e22e">waitTimer</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Timer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">waitTimer</span> (<span style="color:#66d9ef">_</span>, timer) <span style="color:#f92672">=</span> atomically <span style="color:#f92672">$</span> readTMVar timer
+
+<span style="color:#a6e22e">stopTimer</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Timer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">stopTimer</span> (state, <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> atomically <span style="color:#f92672">$</span> writeTVar state <span style="color:#66d9ef">Stop</span>
+
+<span style="color:#a6e22e">newTimer</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">Timer</span>
+<span style="color:#a6e22e">newTimer</span> n <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    state <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> newTVar <span style="color:#66d9ef">Start</span>
+    timer <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> newEmptyTMVar
+    forkIO <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+        threadDelay n
+        atomically <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+            runState <span style="color:#f92672">&lt;-</span> readTVar state
+            <span style="color:#66d9ef">case</span> runState <span style="color:#66d9ef">of</span>
+                <span style="color:#66d9ef">Start</span> <span style="color:#f92672">-&gt;</span> putTMVar timer ()
+                <span style="color:#66d9ef">Stop</span>  <span style="color:#f92672">-&gt;</span> return ()
+    return (state, timer)</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">Timer</span> <span style="color:#ae81ff">1</span> expired
+<span style="color:#66d9ef">Timer</span> <span style="color:#ae81ff">2</span> stopped
+</code></pre></div><h2 id="tickers">Tickers</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Control.Concurrent
+<span style="color:#66d9ef">import</span> Control.Monad.IO.Class
+<span style="color:#66d9ef">import</span> Data.Time
+<span style="color:#66d9ef">import</span> Data.IORef
+<span style="color:#66d9ef">import</span> System.IO.Streams (<span style="color:#66d9ef">InputStream</span>, <span style="color:#a6e22e">makeOutputStream</span>, <span style="color:#a6e22e">fromGenerator</span>, <span style="color:#a6e22e">connect</span>)
+<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> System.IO.Streams <span style="color:#66d9ef">as</span> Streams
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    ticker <span style="color:#f92672">&lt;-</span> newTicker (<span style="color:#ae81ff">500</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)
+    output <span style="color:#f92672">&lt;-</span> makeOutputStream <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>m <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">case</span> m <span style="color:#66d9ef">of</span>
+                  <span style="color:#66d9ef">Just</span> now <span style="color:#f92672">-&gt;</span> print now
+                  <span style="color:#66d9ef">Nothing</span>  <span style="color:#f92672">-&gt;</span> return ()
+    forkIO <span style="color:#f92672">$</span> (snd ticker) `connect` output
+
+    threadDelay (<span style="color:#ae81ff">1500</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)
+    stopTicker ticker
+    putStrLn <span style="color:#e6db74">&#34;Ticker stopped&#34;</span>
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">State</span>  <span style="color:#f92672">=</span> <span style="color:#66d9ef">Start</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">Stop</span>
+<span style="color:#66d9ef">type</span> <span style="color:#66d9ef">Ticker</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">IORef</span> <span style="color:#66d9ef">State</span>, <span style="color:#66d9ef">InputStream</span> <span style="color:#66d9ef">UTCTime</span>)
+
+<span style="color:#a6e22e">newTicker</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">Ticker</span>
+<span style="color:#a6e22e">newTicker</span> delay <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    state  <span style="color:#f92672">&lt;-</span> newIORef <span style="color:#66d9ef">Start</span>
+    stream <span style="color:#f92672">&lt;-</span> fromGenerator (gen state)
+    return (state, stream)
+    <span style="color:#66d9ef">where</span>
+    gen state <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+        runState <span style="color:#f92672">&lt;-</span> liftIO <span style="color:#f92672">$</span> readIORef state
+        <span style="color:#66d9ef">case</span> runState <span style="color:#66d9ef">of</span>
+            <span style="color:#66d9ef">Start</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+                now <span style="color:#f92672">&lt;-</span> liftIO getCurrentTime
+                <span style="color:#66d9ef">Streams</span><span style="color:#f92672">.</span>yield now
+                liftIO <span style="color:#f92672">$</span> threadDelay delay
+                gen state
+            <span style="color:#66d9ef">Stop</span> <span style="color:#f92672">-&gt;</span> return ()
+
+<span style="color:#a6e22e">stopTicker</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Ticker</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">stopTicker</span> (state, <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> writeIORef state <span style="color:#66d9ef">Stop</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">02</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">25</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">42.711083178</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">02</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">25</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">43.213333594</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">02</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">25</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">43.716132831</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#66d9ef">Ticker</span> stopped
+</code></pre></div><h2 id="worker-pools">Worker pools</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Control.Monad
+<span style="color:#66d9ef">import</span> Control.Concurrent
+<span style="color:#66d9ef">import</span> Control.Concurrent.STM
+
+<span style="color:#a6e22e">worker</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">TQueue</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">TQueue</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">MVar</span> () <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">worker</span> n jobs results lock <span style="color:#f92672">=</span> forever <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+    j <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> readTQueue jobs
+    withMVar lock <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+        putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;worker &#34;</span> <span style="color:#f92672">++</span> show n <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; processing job &#34;</span> <span style="color:#f92672">++</span> show j
+    threadDelay (<span style="color:#ae81ff">1</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000000</span>)
+    atomically <span style="color:#f92672">$</span> writeTQueue results (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> j)
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    jobs <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> newTQueue
+    results <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> newTQueue
+    lock <span style="color:#f92672">&lt;-</span> newMVar ()
+
+    forM_ [<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span><span style="color:#ae81ff">3</span>] <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>w <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+        forkIO <span style="color:#f92672">$</span> worker w jobs results lock
+
+    forM_ [<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span><span style="color:#ae81ff">9</span>] <span style="color:#f92672">$</span> atomically <span style="color:#f92672">.</span> writeTQueue jobs
+    forM_ [<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span><span style="color:#ae81ff">9</span>] <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> atomically <span style="color:#f92672">$</span> readTQueue results</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">worker</span> <span style="color:#ae81ff">1</span> processing job <span style="color:#ae81ff">1</span>
+<span style="color:#a6e22e">worker</span> <span style="color:#ae81ff">2</span> processing job <span style="color:#ae81ff">2</span>
+<span style="color:#a6e22e">worker</span> <span style="color:#ae81ff">3</span> processing job <span style="color:#ae81ff">3</span>
+<span style="color:#a6e22e">worker</span> <span style="color:#ae81ff">1</span> processing job <span style="color:#ae81ff">4</span>
+<span style="color:#a6e22e">worker</span> <span style="color:#ae81ff">3</span> processing job <span style="color:#ae81ff">5</span>
+<span style="color:#a6e22e">worker</span> <span style="color:#ae81ff">2</span> processing job <span style="color:#ae81ff">6</span>
+<span style="color:#a6e22e">worker</span> <span style="color:#ae81ff">1</span> processing job <span style="color:#ae81ff">7</span>
+<span style="color:#a6e22e">worker</span> <span style="color:#ae81ff">3</span> processing job <span style="color:#ae81ff">8</span>
+<span style="color:#a6e22e">worker</span> <span style="color:#ae81ff">2</span> processing job <span style="color:#ae81ff">9</span>
+</code></pre></div><h2 id="rate-limiting">Rate limiting</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.Time
+<span style="color:#66d9ef">import</span> Control.Monad
+<span style="color:#66d9ef">import</span> Control.Concurrent
+<span style="color:#66d9ef">import</span> Control.Concurrent.STM
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    requests <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+        req <span style="color:#f92672">&lt;-</span> newTQueue
+        mapM_ (writeTQueue req) [<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span><span style="color:#ae81ff">5</span>]
+        return req
+
+    limitter <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> newEmptyTMVar
+    forkIO <span style="color:#f92672">.</span> forever <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+        atomically <span style="color:#f92672">$</span> putTMVar limitter ()
+        threadDelay (<span style="color:#ae81ff">200</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)
+
+    <span style="color:#66d9ef">let</span> loop1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+        req <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+            r <span style="color:#f92672">&lt;-</span> readTQueue requests
+            takeTMVar limitter
+            return r
+        now <span style="color:#f92672">&lt;-</span> getCurrentTime
+        putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;request &#34;</span> <span style="color:#f92672">++</span> show req <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">++</span> show now
+        isEmpty <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> isEmptyTQueue requests
+        <span style="color:#66d9ef">if</span> isEmpty
+            <span style="color:#66d9ef">then</span> return ()
+            <span style="color:#66d9ef">else</span> loop1
+    loop1
+
+    now <span style="color:#f92672">&lt;-</span> getCurrentTime
+    burstyLimitter <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+        limitter <span style="color:#f92672">&lt;-</span> newTBQueue <span style="color:#ae81ff">3</span>
+        forM_ [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">2</span>] <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> writeTBQueue limitter now
+        return limitter
+
+    forkIO <span style="color:#f92672">.</span> forever <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+        now <span style="color:#f92672">&lt;-</span> getCurrentTime
+        atomically <span style="color:#f92672">$</span> writeTBQueue burstyLimitter now
+        threadDelay (<span style="color:#ae81ff">200</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>)
+
+    burstyRequests <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+        req <span style="color:#f92672">&lt;-</span> newTQueue
+        mapM_ (writeTQueue req) [<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span><span style="color:#ae81ff">5</span>]
+        return req
+
+    <span style="color:#66d9ef">let</span> loop2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+        req <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+            r <span style="color:#f92672">&lt;-</span> readTQueue burstyRequests
+            readTBQueue burstyLimitter
+            return r
+        now <span style="color:#f92672">&lt;-</span> getCurrentTime
+        putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;request &#34;</span> <span style="color:#f92672">++</span> show req <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">++</span> show now
+        isEmpty <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> isEmptyTQueue burstyRequests
+        <span style="color:#66d9ef">if</span> isEmpty
+            <span style="color:#66d9ef">then</span> return ()
+            <span style="color:#66d9ef">else</span> loop2
+    loop2</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">request</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">02</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">25.24928217</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#a6e22e">request</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">02</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">25.450402353</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#a6e22e">request</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">02</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">25.65148357</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#a6e22e">request</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">02</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">25.852578274</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#a6e22e">request</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">02</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26.052870473</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#a6e22e">request</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">02</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26.053095141</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#a6e22e">request</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">02</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26.053286259</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#a6e22e">request</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">02</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26.053388452</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#a6e22e">request</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">02</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26.053489202</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#a6e22e">request</span> <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">02</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">26.253451221</span> <span style="color:#66d9ef">UTC</span>
+</code></pre></div><h2 id="atomic-counter">Atomic counter</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Control.Monad
+<span style="color:#66d9ef">import</span> Control.Concurrent
+<span style="color:#66d9ef">import</span> Control.Concurrent.STM
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    ops <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> newTVar <span style="color:#ae81ff">0</span>
+    forM_ [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">49</span>] <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+        forkIO <span style="color:#f92672">.</span> forever <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+            atomically <span style="color:#f92672">$</span> modifyTVar ops (<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+            threadDelay <span style="color:#ae81ff">100</span>
+
+    threadDelay <span style="color:#ae81ff">1000000</span>
+    opsFinal <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> readTVar ops
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;ops: &#34;</span> <span style="color:#f92672">++</span> show opsFinal</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">ops</span><span style="color:#66d9ef">:</span> <span style="color:#ae81ff">43673</span>
+</code></pre></div><h2 id="mutexes">Mutexes</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Control.Monad
+<span style="color:#66d9ef">import</span> Control.Concurrent
+<span style="color:#66d9ef">import</span> Control.Concurrent.STM
+<span style="color:#66d9ef">import</span> Data.Maybe
+<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.Map <span style="color:#66d9ef">as</span> Map
+<span style="color:#66d9ef">import</span> System.Random
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    state <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> newTVar <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>empty
+    ops   <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> newTVar <span style="color:#ae81ff">0</span>
+
+    forM_ [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">99</span>] <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+        total <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> newTVar <span style="color:#ae81ff">0</span>
+        forkIO <span style="color:#f92672">.</span> forever <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+            key <span style="color:#f92672">&lt;-</span> randomRIO (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">4</span>) <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">Int</span>
+            atomically <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+                s <span style="color:#f92672">&lt;-</span> readTVar state
+                writeTVar state s
+                <span style="color:#66d9ef">let</span> v <span style="color:#f92672">=</span> maybe <span style="color:#ae81ff">0</span> id <span style="color:#f92672">$</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>lookup key s
+                modifyTVar total (<span style="color:#f92672">+</span>v)
+                modifyTVar ops (<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+
+    forM_ [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">9</span>] <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+        forkIO <span style="color:#f92672">.</span> forever <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+            key <span style="color:#f92672">&lt;-</span> randomRIO (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">4</span>) <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">Int</span>
+            val <span style="color:#f92672">&lt;-</span> randomRIO (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">99</span>) <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">Int</span>
+            atomically <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+                modifyTVar state (<span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>insert key val)
+                modifyTVar ops (<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+
+    threadDelay <span style="color:#ae81ff">1000000</span>
+    opsFinal <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> readTVar ops
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;ops: &#34;</span> <span style="color:#f92672">++</span> show opsFinal
+
+    s <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> readTVar state
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;state: &#34;</span> <span style="color:#f92672">++</span> show s</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">ops</span><span style="color:#66d9ef">:</span> <span style="color:#ae81ff">373344</span>
+<span style="color:#a6e22e">state</span><span style="color:#66d9ef">:</span> fromList [(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">10</span>),(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">64</span>),(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">13</span>),(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">46</span>),(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">26</span>)]
+</code></pre></div><h2 id="stateful-goroutines">Stateful goroutines</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">{-# LANGUAGE GADTs #-}</span>
+<span style="color:#66d9ef">import</span> Control.Monad
+<span style="color:#66d9ef">import</span> Control.Concurrent
+<span style="color:#66d9ef">import</span> Control.Concurrent.STM
+<span style="color:#66d9ef">import</span> System.Random
+<span style="color:#66d9ef">import</span> Data.IORef
+<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.Map <span style="color:#66d9ef">as</span> Map
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">ReadOp</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ReadOp</span> { readKey  <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
+                     , readResp <span style="color:#f92672">::</span> <span style="color:#66d9ef">MVar</span> <span style="color:#66d9ef">Int</span>
+                     }
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">WriteOp</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">WriteOp</span> { writeKey  <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
+                       , writeVal  <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
+                       , writeResp <span style="color:#f92672">::</span> <span style="color:#66d9ef">MVar</span> <span style="color:#66d9ef">Bool</span>
+                       }
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    ops <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> newTVar <span style="color:#ae81ff">0</span>
+
+    reads  <span style="color:#f92672">&lt;-</span> newEmptyMVar
+    writes <span style="color:#f92672">&lt;-</span> newEmptyMVar
+
+    forkIO <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+        state <span style="color:#f92672">&lt;-</span> newIORef <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>empty
+        forever <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+            select [ <span style="color:#66d9ef">Case</span> reads  <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>read  <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+                        s <span style="color:#f92672">&lt;-</span> readIORef state
+                        <span style="color:#66d9ef">let</span> val <span style="color:#f92672">=</span> maybe <span style="color:#ae81ff">0</span> id <span style="color:#f92672">$</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>lookup (readKey read) s
+                        putMVar (readResp read) val
+                   , <span style="color:#66d9ef">Case</span> writes <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>write <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+                        modifyIORef state (<span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>insert (writeKey write) (writeVal write))
+                        putMVar (writeResp write) <span style="color:#66d9ef">True</span>
+                   ]
+
+    forM_ [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">99</span>] <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+        forkIO <span style="color:#f92672">.</span> forever <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+            key  <span style="color:#f92672">&lt;-</span> randomRIO (<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">4</span>)
+            resp <span style="color:#f92672">&lt;-</span> newEmptyMVar
+            <span style="color:#66d9ef">let</span> read <span style="color:#f92672">=</span> <span style="color:#66d9ef">ReadOp</span> { readKey <span style="color:#f92672">=</span> key, readResp <span style="color:#f92672">=</span> resp }
+            putMVar reads read
+            takeMVar resp
+
+            atomically <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+                x <span style="color:#f92672">&lt;-</span> readTVar ops
+                writeTVar ops (x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+
+    forM_ [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">9</span>] <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+        forkIO <span style="color:#f92672">.</span> forever <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+            key  <span style="color:#f92672">&lt;-</span> randomRIO (<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">4</span>)
+            val  <span style="color:#f92672">&lt;-</span> randomRIO (<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">99</span>)
+            resp <span style="color:#f92672">&lt;-</span> newEmptyMVar
+            <span style="color:#66d9ef">let</span> write <span style="color:#f92672">=</span> <span style="color:#66d9ef">WriteOp</span> { writeKey <span style="color:#f92672">=</span> key, writeVal <span style="color:#f92672">=</span> val, writeResp <span style="color:#f92672">=</span> resp }
+            putMVar writes write
+            takeMVar resp
+
+            atomically <span style="color:#f92672">$</span> <span style="color:#66d9ef">do</span>
+                x <span style="color:#f92672">&lt;-</span> readTVar ops
+                writeTVar ops (x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+
+    threadDelay <span style="color:#ae81ff">1000000</span>
+
+    opsFinal <span style="color:#f92672">&lt;-</span> atomically <span style="color:#f92672">$</span> readTVar ops
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;ops: &#34;</span> <span style="color:#f92672">++</span> show opsFinal
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Select</span> a <span style="color:#66d9ef">where</span>
+    <span style="color:#66d9ef">Default</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Select</span> a
+    <span style="color:#66d9ef">Case</span>    <span style="color:#f92672">::</span> <span style="color:#66d9ef">MVar</span> b <span style="color:#f92672">-&gt;</span> (b <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> a) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Select</span> a
+
+<span style="color:#a6e22e">select</span> <span style="color:#f92672">::</span> [<span style="color:#66d9ef">Select</span> a] <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> a
+<span style="color:#a6e22e">select</span> <span style="color:#66d9ef">[]</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">error</span> <span style="color:#e6db74">&#34;select: empty list&#34;</span>
+<span style="color:#a6e22e">select</span> ((<span style="color:#66d9ef">Default</span> x)<span style="color:#66d9ef">:</span><span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> x
+<span style="color:#a6e22e">select</span> (x<span style="color:#f92672">@</span>(<span style="color:#66d9ef">Case</span> v f)<span style="color:#66d9ef">:</span>xs)  <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    var <span style="color:#f92672">&lt;-</span> tryTakeMVar v
+    <span style="color:#66d9ef">case</span> var <span style="color:#66d9ef">of</span>
+        <span style="color:#66d9ef">Just</span> b  <span style="color:#f92672">-&gt;</span> f b
+        <span style="color:#66d9ef">Nothing</span> <span style="color:#f92672">-&gt;</span> select (xs <span style="color:#f92672">++</span> [x])</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">ops</span><span style="color:#66d9ef">:</span> <span style="color:#ae81ff">6411</span>
+</code></pre></div><h2 id="sorting">Sorting</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.List
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> strs <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cab&#34;</span>
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;Strings: &#34;</span> <span style="color:#f92672">++</span> sort strs
+
+    <span style="color:#66d9ef">let</span> ints <span style="color:#f92672">=</span> [<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">4</span>]
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;Ints: &#34;</span> <span style="color:#f92672">++</span> show (sort ints)
+
+    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> ints <span style="color:#f92672">==</span> sort ints
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;Sorted: &#34;</span> <span style="color:#f92672">++</span> show s</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">Strings:</span> abc
+<span style="color:#66d9ef">Ints:</span> [<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">7</span>]
+<span style="color:#66d9ef">Sorted:</span> <span style="color:#66d9ef">False</span>
+</code></pre></div><h2 id="json"><code>JSON</code></h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
