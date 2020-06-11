@@ -1,0 +1,1200 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Stepping through &#39;Haskell by Example&#39; // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c93a97e54f16df99439e5c4acf79edb18fcb9e5384f1edc008a7a4639844b254.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Stepping through &#39;Haskell by Example&#39;"/>
+<meta name="twitter:description" content="Original article Haskell by Example  Hello World 1  main = putStrLn &#34;hello world&#34;   hello world Values 1 2 3 4 5 6 7 8  main = do putStrLn $ &#34;haskell &#34; &#43;&#43; &#34;lang&#34; putStrLn $ &#34;1&#43;1 = &#34; &#43;&#43; show (1&#43;1) putStrLn $ &#34;7.0/3.0 = &#34; &#43;&#43; show (7.0/3.0) print $ True &amp;&amp; False print $ True || False print $ not True   haskell lang 1&#43;1 = 2 7."/>
+
+    <meta property="og:title" content="Stepping through &#39;Haskell by Example&#39;" />
+<meta property="og:description" content="Original article Haskell by Example  Hello World 1  main = putStrLn &#34;hello world&#34;   hello world Values 1 2 3 4 5 6 7 8  main = do putStrLn $ &#34;haskell &#34; &#43;&#43; &#34;lang&#34; putStrLn $ &#34;1&#43;1 = &#34; &#43;&#43; show (1&#43;1) putStrLn $ &#34;7.0/3.0 = &#34; &#43;&#43; show (7.0/3.0) print $ True &amp;&amp; False print $ True || False print $ not True   haskell lang 1&#43;1 = 2 7." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/review-of-haskell-by-example/" />
+<meta property="article:published_time" content="2020-06-11T00:00:00+08:00" />
+<meta property="article:modified_time" content="2020-06-11T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+
+<a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (70 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/xenolinguistics/">xenolinguistics</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/gpt/">GPT (Generative Pre-Training)</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/shell/">shell</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/github/">GitHub</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsl/">DSL</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/diagrams/">diagrams</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a>
+<a class="tag" href="https://mullikine.github.io/tags/iac/">IaC</a>
+<a class="tag big" href="https://mullikine.github.io/tags/facebook/">Facebook</a>
+<a class="tag" href="https://mullikine.github.io/tags/wfh/">WFH</a>
+<a class="tag big" href="https://mullikine.github.io/tags/rocketlab/">Rocket Lab</a>
+<a class="tag" href="https://mullikine.github.io/tags/prayer/">prayer</a>
+<a class="tag" href="https://mullikine.github.io/tags/babel/">babel</a>
+<a class="tag big" href="https://mullikine.github.io/tags/uber/">Uber</a>
+</div>
+</div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/rat/">Automating rat</a>
+<br />
+<a href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">Automating Dwarf Fortress</a>
+<br />
+</div>
+
+
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Stepping through &#39;Haskell by Example&#39;</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jun 11, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          11 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a><a class="tag" href="http://mullikine.github.io/tags/babel/">babel</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      <dl>
+<dt>Original article</dt>
+<dd><a href="https://lotz84.github.io/haskellbyexample">Haskell by Example</a></dd>
+</dl>
+<h2 id="hello-world">Hello World</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> putStrLn <span style="color:#e6db74">&#34;hello world&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">hello</span> world
+</code></pre></div><h2 id="values">Values</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;haskell &#34;</span> <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34;lang&#34;</span>
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;1+1 = &#34;</span> <span style="color:#f92672">++</span> show (<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;7.0/3.0 = &#34;</span> <span style="color:#f92672">++</span> show (<span style="color:#ae81ff">7.0</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3.0</span>)
+
+    print <span style="color:#f92672">$</span> <span style="color:#66d9ef">True</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">False</span>
+    print <span style="color:#f92672">$</span> <span style="color:#66d9ef">True</span> <span style="color:#f92672">||</span> <span style="color:#66d9ef">False</span>
+    print <span style="color:#f92672">$</span> not <span style="color:#66d9ef">True</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">haskell</span> lang
+<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">7.0</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3.0</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.3333333333333335</span>
+<span style="color:#66d9ef">False</span>
+<span style="color:#66d9ef">True</span>
+<span style="color:#66d9ef">False</span>
+</code></pre></div><h2 id="variables">Variables</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;initial&#34;</span>
+    putStrLn a
+
+    <span style="color:#66d9ef">let</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">let</span> c <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+    print b <span style="color:#f92672">&gt;&gt;</span> print c
+
+    <span style="color:#66d9ef">let</span> d <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+    print d
+
+    <span style="color:#66d9ef">let</span> e <span style="color:#f92672">=</span> undefined <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
+    print e
+
+    <span style="color:#66d9ef">let</span> f <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;short&#34;</span>
+    putStrLn f</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">initial</span>
+<span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">2</span>
+<span style="color:#66d9ef">True</span>
+<span style="color:#a6e22e">file_tempfile_62oDrL_rand</span><span style="color:#f92672">-</span><span style="color:#ae81ff">7865</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">21741</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Prelude</span><span style="color:#f92672">.</span>undefined
+<span style="color:#66d9ef">CallStack</span> (from <span style="color:#66d9ef">HasCallStack</span>)<span style="color:#66d9ef">:</span>
+  <span style="color:#a6e22e">error</span>, called at libraries<span style="color:#f92672">/</span>base<span style="color:#f92672">/</span><span style="color:#66d9ef">GHC</span><span style="color:#f92672">/</span><span style="color:#66d9ef">Err</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">79</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">14</span> <span style="color:#66d9ef">in</span> base<span style="color:#66d9ef">:GHC</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Err</span>
+  undefined, called at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_62oDrL_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">7865</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">21741</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">14</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">13</span> <span style="color:#66d9ef">in</span> main<span style="color:#66d9ef">:Main</span>
+</code></pre></div><h2 id="constants">Constants</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">s</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">s</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;constant&#34;</span>
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    putStrLn s
+
+    <span style="color:#66d9ef">let</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">500000000</span>
+    <span style="color:#66d9ef">let</span> d <span style="color:#f92672">=</span> <span style="color:#ae81ff">3e20</span> <span style="color:#f92672">/</span> n
+
+    print d
+    print <span style="color:#f92672">$</span> sin n</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">constant</span>
+<span style="color:#ae81ff">6.0e11</span>
+<span style="color:#f92672">-</span><span style="color:#ae81ff">0.28470407323754404</span>
+</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">forM_</span> <span style="color:#f92672">=</span> flip mapM_
+
+<span style="color:#66d9ef">import</span> Control.Monad.Cont
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    forM_ [<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span><span style="color:#ae81ff">3</span>] <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>i <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+        print i
+
+    forM_ [<span style="color:#ae81ff">7</span><span style="color:#f92672">..</span><span style="color:#ae81ff">9</span>] <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>j <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+        print j
+
+    withBreak <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>break <span style="color:#f92672">-&gt;</span>
+        forM_ [<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span>] <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span><span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+            p <span style="color:#e6db74">&#34;loop&#34;</span>
+            break ()
+
+    <span style="color:#66d9ef">where</span>
+    withBreak <span style="color:#f92672">=</span> (`runContT` return) <span style="color:#f92672">.</span> callCC
+    p <span style="color:#f92672">=</span> liftIO <span style="color:#f92672">.</span> putStrLn</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">
+<span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_aTG70O_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">23181</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">26192</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">5</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span>
+    parse <span style="color:#a6e22e">error</span> on input <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">import</span><span style="color:#960050;background-color:#1e0010">’</span>
+  <span style="color:#960050;background-color:#1e0010">|</span>
+5 <span style="color:#f92672">|</span> <span style="color:#66d9ef">import</span> Control.Monad.Cont
+  <span style="color:#f92672">|</span> <span style="color:#f92672">^^^^^^</span>
+</code></pre></div><h2 id="if-else">If/Else</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">7</span> `mod` <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>
+        <span style="color:#66d9ef">then</span> putStrLn <span style="color:#e6db74">&#34;7 is even&#34;</span>
+        <span style="color:#66d9ef">else</span> putStrLn <span style="color:#e6db74">&#34;7 is odd&#34;</span>
+
+    <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">8</span> `mod` <span style="color:#ae81ff">4</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>
+        <span style="color:#66d9ef">then</span> putStrLn <span style="color:#e6db74">&#34;8 is divisible by 4&#34;</span>
+        <span style="color:#66d9ef">else</span> return ()
+
+    <span style="color:#66d9ef">let</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">9</span>
+    putStrLn <span style="color:#f92672">$</span>
+        <span style="color:#66d9ef">if</span> num <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>
+            <span style="color:#66d9ef">then</span> show num <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; is negative&#34;</span>
+            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> num <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>
+                <span style="color:#66d9ef">then</span> show num <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; has 1 digit&#34;</span>
+                <span style="color:#66d9ef">else</span> show num <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; has multiple digits&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">7</span> is odd
+<span style="color:#ae81ff">8</span> is divisible by <span style="color:#ae81ff">4</span>
+<span style="color:#ae81ff">9</span> has <span style="color:#ae81ff">1</span> digit
+</code></pre></div><h2 id="switch">Switch</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.Time
+<span style="color:#66d9ef">import</span> Data.Time.Calendar.WeekDate
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+    putStr <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;write &#34;</span> <span style="color:#f92672">++</span> show i <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; as &#34;</span>
+    <span style="color:#66d9ef">case</span> i <span style="color:#66d9ef">of</span>
+        <span style="color:#ae81ff">1</span> <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#e6db74">&#34;one&#34;</span>
+        <span style="color:#ae81ff">2</span> <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#e6db74">&#34;two&#34;</span>
+        <span style="color:#ae81ff">3</span> <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#e6db74">&#34;three&#34;</span>
+
+    now <span style="color:#f92672">&lt;-</span> getCurrentTime
+    <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">_</span>, <span style="color:#66d9ef">_</span>, week) <span style="color:#f92672">=</span> toWeekDate <span style="color:#f92672">.</span> utctDay <span style="color:#f92672">$</span> now
+    putStrLn <span style="color:#f92672">$</span>
+        <span style="color:#66d9ef">case</span> week <span style="color:#66d9ef">of</span>
+            <span style="color:#ae81ff">6</span> <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;it&#39;s the weekend&#34;</span>
+            <span style="color:#ae81ff">7</span> <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;it&#39;s the weekend&#34;</span>
+            <span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;it&#39;s a weekday&#34;</span>
+
+    localtime <span style="color:#f92672">&lt;-</span> utcToLocalZonedTime now
+    <span style="color:#66d9ef">let</span> hour <span style="color:#f92672">=</span> todHour <span style="color:#f92672">.</span> localTimeOfDay <span style="color:#f92672">.</span> zonedTimeToLocalTime <span style="color:#f92672">$</span> localtime
+    <span style="color:#66d9ef">case</span> hour <span style="color:#66d9ef">of</span>
+        <span style="color:#66d9ef">_</span>
+            <span style="color:#f92672">|</span> hour <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">12</span> <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#e6db74">&#34;it&#39;s before noon&#34;</span>
+            <span style="color:#f92672">|</span> otherwise <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#e6db74">&#34;it&#39;s after noon&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">write</span> <span style="color:#ae81ff">2</span> as two
+<span style="color:#a6e22e">it&#39;s</span> a weekday
+<span style="color:#a6e22e">it&#39;s</span> before noon
+</code></pre></div><h2 id="arrays">Arrays</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.Array
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> array (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">4</span>) [(i, <span style="color:#ae81ff">0</span>) <span style="color:#f92672">|</span> i <span style="color:#f92672">&lt;-</span> [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">4</span>]]
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;emp: &#34;</span> <span style="color:#f92672">++</span> show a
+
+    <span style="color:#66d9ef">let</span> a&#39; <span style="color:#f92672">=</span> a <span style="color:#f92672">//</span> [(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">100</span>)]
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;set: &#34;</span> <span style="color:#f92672">++</span> show a&#39;
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;get: &#34;</span> <span style="color:#f92672">++</span> show (a&#39; <span style="color:#f92672">!</span> <span style="color:#ae81ff">4</span>)
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;len: &#34;</span> <span style="color:#f92672">++</span> show ((<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">.</span> snd <span style="color:#f92672">.</span> bounds <span style="color:#f92672">$</span> a&#39;)
+
+    <span style="color:#66d9ef">let</span> b <span style="color:#f92672">=</span> array (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">4</span>) [(i, i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">|</span> i <span style="color:#f92672">&lt;-</span> [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">4</span>]]
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;dcl: &#34;</span> <span style="color:#f92672">++</span> show b
+
+    <span style="color:#66d9ef">let</span> twoD <span style="color:#f92672">=</span> array ((<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)) [((i, j), i <span style="color:#f92672">+</span> j) <span style="color:#f92672">|</span> i <span style="color:#f92672">&lt;-</span> [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">1</span>], j <span style="color:#f92672">&lt;-</span> [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">2</span>]]
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;2d: &#34;</span> <span style="color:#f92672">++</span> show twoD</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">emp</span><span style="color:#66d9ef">:</span> array (<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">4</span>) [(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>),(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>),(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">0</span>),(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">0</span>),(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">0</span>)]
+<span style="color:#a6e22e">set</span><span style="color:#66d9ef">:</span> array (<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">4</span>) [(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>),(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>),(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">0</span>),(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">0</span>),(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">100</span>)]
+<span style="color:#a6e22e">get</span><span style="color:#66d9ef">:</span> <span style="color:#ae81ff">100</span>
+<span style="color:#a6e22e">len</span><span style="color:#66d9ef">:</span> <span style="color:#ae81ff">5</span>
+<span style="color:#a6e22e">dcl</span><span style="color:#66d9ef">:</span> array (<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">4</span>) [(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>),(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>),(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>),(<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>),(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>)]
+<span style="color:#ae81ff">2</span>d<span style="color:#66d9ef">:</span> array ((<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>),(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>)) [((<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>),<span style="color:#ae81ff">0</span>),((<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>),<span style="color:#ae81ff">1</span>),((<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">2</span>),((<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>),<span style="color:#ae81ff">1</span>),((<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>),<span style="color:#ae81ff">2</span>),((<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">3</span>)]
+</code></pre></div><h2 id="slices">Slices</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> <span style="color:#66d9ef">[]</span> <span style="color:#f92672">::</span> [<span style="color:#66d9ef">String</span>]
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;emp: &#34;</span> <span style="color:#f92672">++</span> show s
+
+    <span style="color:#66d9ef">let</span> s&#39; <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;c&#34;</span>]
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;set: &#34;</span> <span style="color:#f92672">++</span> show s&#39;
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;get: &#34;</span> <span style="color:#f92672">++</span> s&#39; <span style="color:#f92672">!!</span> <span style="color:#ae81ff">2</span>
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;len: &#34;</span> <span style="color:#f92672">++</span> show (length s&#39;)
+
+    <span style="color:#66d9ef">let</span> s2 <span style="color:#f92672">=</span> s&#39; <span style="color:#f92672">++</span> [<span style="color:#e6db74">&#34;d&#34;</span>]
+    <span style="color:#66d9ef">let</span> s3 <span style="color:#f92672">=</span> s2 <span style="color:#f92672">++</span> [<span style="color:#e6db74">&#34;d&#34;</span>, <span style="color:#e6db74">&#34;f&#34;</span>]
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;apd: &#34;</span> <span style="color:#f92672">++</span> show s3
+
+    <span style="color:#66d9ef">let</span> c <span style="color:#f92672">=</span> s3
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;cpy: &#34;</span> <span style="color:#f92672">++</span> show c
+
+    <span style="color:#66d9ef">let</span> l1 <span style="color:#f92672">=</span> drop <span style="color:#ae81ff">2</span> <span style="color:#f92672">.</span> take <span style="color:#ae81ff">5</span> <span style="color:#f92672">$</span> s3
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;sl1: &#34;</span> <span style="color:#f92672">++</span> show l1
+
+    <span style="color:#66d9ef">let</span> l2 <span style="color:#f92672">=</span> take <span style="color:#ae81ff">5</span> s3
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;sl2: &#34;</span> <span style="color:#f92672">++</span> show l2
+
+    <span style="color:#66d9ef">let</span> l3 <span style="color:#f92672">=</span> drop <span style="color:#ae81ff">2</span> s3
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;sl3: &#34;</span> <span style="color:#f92672">++</span> show l3
+
+    <span style="color:#66d9ef">let</span> t <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;g&#34;</span>, <span style="color:#e6db74">&#34;h&#34;</span>, <span style="color:#e6db74">&#34;i&#34;</span>]
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;dcl: &#34;</span> <span style="color:#f92672">++</span> show t
+
+    <span style="color:#66d9ef">let</span> twoD <span style="color:#f92672">=</span> [[i <span style="color:#f92672">+</span> j <span style="color:#f92672">|</span> j <span style="color:#f92672">&lt;-</span> [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>i]] <span style="color:#f92672">|</span> i <span style="color:#f92672">&lt;-</span> [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">2</span>]]
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;2d: &#34;</span> <span style="color:#f92672">++</span> show twoD</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">emp</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">[]</span>
+<span style="color:#a6e22e">set</span><span style="color:#66d9ef">:</span> [<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;b&#34;</span>,<span style="color:#e6db74">&#34;c&#34;</span>]
+<span style="color:#a6e22e">get</span><span style="color:#66d9ef">:</span> c
+<span style="color:#a6e22e">len</span><span style="color:#66d9ef">:</span> <span style="color:#ae81ff">3</span>
+<span style="color:#a6e22e">apd</span><span style="color:#66d9ef">:</span> [<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;b&#34;</span>,<span style="color:#e6db74">&#34;c&#34;</span>,<span style="color:#e6db74">&#34;d&#34;</span>,<span style="color:#e6db74">&#34;d&#34;</span>,<span style="color:#e6db74">&#34;f&#34;</span>]
+<span style="color:#a6e22e">cpy</span><span style="color:#66d9ef">:</span> [<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;b&#34;</span>,<span style="color:#e6db74">&#34;c&#34;</span>,<span style="color:#e6db74">&#34;d&#34;</span>,<span style="color:#e6db74">&#34;d&#34;</span>,<span style="color:#e6db74">&#34;f&#34;</span>]
+<span style="color:#a6e22e">sl1</span><span style="color:#66d9ef">:</span> [<span style="color:#e6db74">&#34;c&#34;</span>,<span style="color:#e6db74">&#34;d&#34;</span>,<span style="color:#e6db74">&#34;d&#34;</span>]
+<span style="color:#a6e22e">sl2</span><span style="color:#66d9ef">:</span> [<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;b&#34;</span>,<span style="color:#e6db74">&#34;c&#34;</span>,<span style="color:#e6db74">&#34;d&#34;</span>,<span style="color:#e6db74">&#34;d&#34;</span>]
+<span style="color:#a6e22e">sl3</span><span style="color:#66d9ef">:</span> [<span style="color:#e6db74">&#34;c&#34;</span>,<span style="color:#e6db74">&#34;d&#34;</span>,<span style="color:#e6db74">&#34;d&#34;</span>,<span style="color:#e6db74">&#34;f&#34;</span>]
+<span style="color:#a6e22e">dcl</span><span style="color:#66d9ef">:</span> [<span style="color:#e6db74">&#34;g&#34;</span>,<span style="color:#e6db74">&#34;h&#34;</span>,<span style="color:#e6db74">&#34;i&#34;</span>]
+<span style="color:#ae81ff">2</span>d<span style="color:#66d9ef">:</span> [[<span style="color:#ae81ff">0</span>],[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>],[<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>]]
+</code></pre></div><h2 id="maps">Maps</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.Map (<span style="color:#66d9ef">Map</span>, (<span style="color:#f92672">!</span>))
+<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.Map <span style="color:#66d9ef">as</span> Map
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> m0 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>empty
+    <span style="color:#66d9ef">let</span> m1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>insert <span style="color:#e6db74">&#34;k1&#34;</span> <span style="color:#ae81ff">7</span> m0
+    <span style="color:#66d9ef">let</span> m  <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>insert <span style="color:#e6db74">&#34;k2&#34;</span> <span style="color:#ae81ff">13</span> m1
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;map: &#34;</span> <span style="color:#f92672">++</span> show m
+
+    <span style="color:#66d9ef">let</span> v1 <span style="color:#f92672">=</span> m <span style="color:#f92672">!</span> <span style="color:#e6db74">&#34;k1&#34;</span>
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;v1: &#34;</span> <span style="color:#f92672">++</span> show v1
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;len: &#34;</span> <span style="color:#f92672">++</span> show (<span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>size m)
+
+    <span style="color:#66d9ef">let</span> m&#39; <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>delete <span style="color:#e6db74">&#34;k2&#34;</span> m
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;map: &#34;</span> <span style="color:#f92672">++</span> show m&#39;
+
+    <span style="color:#66d9ef">let</span> prs <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>lookup <span style="color:#e6db74">&#34;k2&#34;</span> m&#39;
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;prs: &#34;</span> <span style="color:#f92672">++</span> show prs
+
+    <span style="color:#66d9ef">let</span> n <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>fromList [(<span style="color:#e6db74">&#34;foo&#34;</span>, <span style="color:#ae81ff">1</span>), (<span style="color:#e6db74">&#34;bar&#34;</span>, <span style="color:#ae81ff">2</span>)]
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;map: &#34;</span> <span style="color:#f92672">++</span> show n</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">map</span><span style="color:#66d9ef">:</span> fromList [(<span style="color:#e6db74">&#34;k1&#34;</span>,<span style="color:#ae81ff">7</span>),(<span style="color:#e6db74">&#34;k2&#34;</span>,<span style="color:#ae81ff">13</span>)]
+<span style="color:#a6e22e">v1</span><span style="color:#66d9ef">:</span> <span style="color:#ae81ff">7</span>
+<span style="color:#a6e22e">len</span><span style="color:#66d9ef">:</span> <span style="color:#ae81ff">2</span>
+<span style="color:#a6e22e">map</span><span style="color:#66d9ef">:</span> fromList [(<span style="color:#e6db74">&#34;k1&#34;</span>,<span style="color:#ae81ff">7</span>)]
+<span style="color:#a6e22e">prs</span><span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Nothing</span>
+<span style="color:#a6e22e">map</span><span style="color:#66d9ef">:</span> fromList [(<span style="color:#e6db74">&#34;bar&#34;</span>,<span style="color:#ae81ff">2</span>),(<span style="color:#e6db74">&#34;foo&#34;</span>,<span style="color:#ae81ff">1</span>)]
+</code></pre></div><h2 id="range">Range</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Control.Monad
+<span style="color:#66d9ef">import</span> Data.Map (<span style="color:#66d9ef">Map</span>)
+<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.Map <span style="color:#66d9ef">as</span> Map
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> nums <span style="color:#f92672">=</span> [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;sum: &#34;</span> <span style="color:#f92672">++</span> show (sum nums)
+
+    mapM_ putStrLn [<span style="color:#e6db74">&#34;index: &#34;</span> <span style="color:#f92672">++</span> show i <span style="color:#f92672">|</span> (i, num) <span style="color:#f92672">&lt;-</span> zip [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>] nums, num <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>]
+
+    <span style="color:#66d9ef">let</span> kvs <span style="color:#f92672">=</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>fromList [(<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;apple&#34;</span>), (<span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;banana&#34;</span>)]
+    forM_ (<span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>toList kvs) <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>(k, v) <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#f92672">$</span> k <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; -&gt; &#34;</span> <span style="color:#f92672">++</span> v
+
+    mapM_ print <span style="color:#f92672">$</span> zip [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>] <span style="color:#e6db74">&#34;haskell&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">sum</span><span style="color:#66d9ef">:</span> <span style="color:#ae81ff">9</span>
+<span style="color:#a6e22e">index</span><span style="color:#66d9ef">:</span> <span style="color:#ae81ff">1</span>
+<span style="color:#a6e22e">a</span> <span style="color:#f92672">-&gt;</span> apple
+<span style="color:#a6e22e">b</span> <span style="color:#f92672">-&gt;</span> banana
+(<span style="color:#ae81ff">0</span>,<span style="color:#e6db74">&#39;h&#39;</span>)
+(<span style="color:#ae81ff">1</span>,<span style="color:#e6db74">&#39;a&#39;</span>)
+(<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#39;s&#39;</span>)
+(<span style="color:#ae81ff">3</span>,<span style="color:#e6db74">&#39;k&#39;</span>)
+(<span style="color:#ae81ff">4</span>,<span style="color:#e6db74">&#39;e&#39;</span>)
+(<span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#39;l&#39;</span>)
+(<span style="color:#ae81ff">6</span>,<span style="color:#e6db74">&#39;l&#39;</span>)
+</code></pre></div><h2 id="functions">Functions</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">plus</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">plus</span> <span style="color:#f92672">=</span> (<span style="color:#f92672">+</span>)
+
+<span style="color:#a6e22e">plusPlus</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">plusPlus</span> a b c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b <span style="color:#f92672">+</span> c
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> res <span style="color:#f92672">=</span> plus <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span>
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;1+2 = &#34;</span> <span style="color:#f92672">++</span> show res
+
+    <span style="color:#66d9ef">let</span> res <span style="color:#f92672">=</span> plusPlus <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span>
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;1+2+3 = &#34;</span> <span style="color:#f92672">++</span> show res</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">1</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">3</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>
+</code></pre></div><h2 id="multiple-return-values">Multiple return values</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">vals</span> <span style="color:#f92672">::</span> () <span style="color:#f92672">-&gt;</span> (<span style="color:#66d9ef">Int</span>, <span style="color:#66d9ef">Int</span>)
+<span style="color:#a6e22e">vals</span> () <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>)
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> (a, b) <span style="color:#f92672">=</span> vals ()
+    print a
+    print b
+
+    <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">_</span>, c) <span style="color:#f92672">=</span> vals ()
+    print c</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">3</span>
+<span style="color:#ae81ff">7</span>
+<span style="color:#ae81ff">7</span>
+</code></pre></div><h2 id="variadic-functions">Variadic functions</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">sum&#39;</span> <span style="color:#f92672">::</span> [<span style="color:#66d9ef">Int</span>] <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">sum&#39;</span> xs <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    putStr <span style="color:#f92672">$</span> show xs <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; &#34;</span>
+    print <span style="color:#f92672">$</span> sum xs
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    sum&#39; [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>]
+    sum&#39; [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]
+
+    <span style="color:#66d9ef">let</span> nums <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>]
+    sum&#39; nums</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>] <span style="color:#ae81ff">3</span>
+[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>] <span style="color:#ae81ff">6</span>
+[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>] <span style="color:#ae81ff">10</span>
+</code></pre></div><h2 id="closures">Closures</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.IORef
+
+<span style="color:#a6e22e">intSeq</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">IORef</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">intSeq</span> ref <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    modifyIORef ref (<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+    readIORef ref
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    ref <span style="color:#f92672">&lt;-</span> newIORef <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">let</span> nextInt <span style="color:#f92672">=</span> intSeq ref
+
+    print <span style="color:#f92672">=&lt;&lt;</span> nextInt
+    print <span style="color:#f92672">=&lt;&lt;</span> nextInt
+    print <span style="color:#f92672">=&lt;&lt;</span> nextInt
+
+    ref&#39; <span style="color:#f92672">&lt;-</span> newIORef <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">let</span> newInts <span style="color:#f92672">=</span> intSeq ref&#39;
+    print <span style="color:#f92672">=&lt;&lt;</span> newInts</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">3</span>
+<span style="color:#ae81ff">1</span>
+</code></pre></div><h2 id="recursion">Recursion</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">fact</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">fact</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#a6e22e">fact</span> n <span style="color:#f92672">=</span> n <span style="color:#f92672">*</span> fact (n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> print <span style="color:#f92672">$</span> fact <span style="color:#ae81ff">7</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">5040</span>
+</code></pre></div><h2 id="structs">Structs</h2>
+<ul>
+<li>Structs are <code>records</code> in haskell</li>
+</ul>
+<!--listend-->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Person</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Person</span> { name <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>
+                     , age <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
+                     } <span style="color:#66d9ef">deriving</span> <span style="color:#66d9ef">Show</span>
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    print <span style="color:#f92672">$</span> <span style="color:#66d9ef">Person</span> <span style="color:#e6db74">&#34;Bob&#34;</span> <span style="color:#ae81ff">20</span>
+    print <span style="color:#f92672">$</span> <span style="color:#66d9ef">Person</span> {name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Alice&#34;</span>, age <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>}
+    <span style="color:#75715e">-- print $ Person {name = &#34;Fred&#34;}</span>
+    print <span style="color:#f92672">$</span> <span style="color:#66d9ef">Person</span> {name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Ann&#34;</span>, age <span style="color:#f92672">=</span> <span style="color:#ae81ff">40</span>}
+
+    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> <span style="color:#66d9ef">Person</span> {name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Sean&#34;</span>, age <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>}
+    putStrLn <span style="color:#f92672">$</span> name s
+    print <span style="color:#f92672">$</span> age s
+
+    <span style="color:#66d9ef">let</span> s&#39; <span style="color:#f92672">=</span> s {age <span style="color:#f92672">=</span> <span style="color:#ae81ff">51</span>}
+    print <span style="color:#f92672">$</span> age s&#39;</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="methods">Methods</h2>
+<p>Just use functions.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Rect</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Rect</span> <span style="color:#66d9ef">Int</span> <span style="color:#66d9ef">Int</span>
+
+<span style="color:#a6e22e">area</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Rect</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">area</span> (<span style="color:#66d9ef">Rect</span> w h) <span style="color:#f92672">=</span> w <span style="color:#f92672">*</span> h
+
+<span style="color:#a6e22e">perim</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Rect</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">perim</span> (<span style="color:#66d9ef">Rect</span> w h) <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> w <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> h
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> r <span style="color:#f92672">=</span> <span style="color:#66d9ef">Rect</span> <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">5</span>
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;area: &#34;</span> <span style="color:#f92672">++</span> show (area r)
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;perim: &#34;</span> <span style="color:#f92672">++</span> show (perim r)</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="interfaces">Interfaces</h2>
+<ul>
+<li>Use <code>Type Classes</code> and <code>Class Methods</code>.</li>
+</ul>
+<!--listend-->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">class</span> <span style="color:#66d9ef">Geometry</span> g <span style="color:#66d9ef">where</span>
+    area <span style="color:#f92672">::</span> g <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Double</span>
+    perim <span style="color:#f92672">::</span> g <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Double</span>
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Square</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Square</span> <span style="color:#66d9ef">Double</span> <span style="color:#66d9ef">Double</span> <span style="color:#66d9ef">deriving</span> <span style="color:#66d9ef">Show</span>
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Circle</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Circle</span> <span style="color:#66d9ef">Double</span> <span style="color:#66d9ef">deriving</span> <span style="color:#66d9ef">Show</span>
+
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Geometry</span> <span style="color:#66d9ef">Square</span> <span style="color:#66d9ef">where</span>
+    area (<span style="color:#66d9ef">Square</span> w h)  <span style="color:#f92672">=</span> w <span style="color:#f92672">*</span> h
+    perim (<span style="color:#66d9ef">Square</span> w h) <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> w <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> h
+
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Geometry</span> <span style="color:#66d9ef">Circle</span> <span style="color:#66d9ef">where</span>
+    area (<span style="color:#66d9ef">Circle</span> r) <span style="color:#f92672">=</span> pi <span style="color:#f92672">*</span> r <span style="color:#f92672">*</span> r
+    perim (<span style="color:#66d9ef">Circle</span> r) <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> pi <span style="color:#f92672">*</span> r
+
+<span style="color:#a6e22e">measure</span> <span style="color:#f92672">::</span> (<span style="color:#66d9ef">Geometry</span> a, <span style="color:#66d9ef">Show</span> a) <span style="color:#f92672">=&gt;</span> a <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">measure</span> g <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    print g
+    print <span style="color:#f92672">$</span> area g
+    print <span style="color:#f92672">$</span> perim g
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> <span style="color:#66d9ef">Square</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span>
+    <span style="color:#66d9ef">let</span> c <span style="color:#f92672">=</span> <span style="color:#66d9ef">Circle</span> <span style="color:#ae81ff">5</span>
+
+    measure s
+    measure c</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="errors">Errors</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Control.Monad
+
+<span style="color:#a6e22e">f1</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Either</span> <span style="color:#66d9ef">String</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">f1</span> arg <span style="color:#f92672">=</span> <span style="color:#66d9ef">if</span> arg <span style="color:#f92672">==</span> <span style="color:#ae81ff">42</span>
+             <span style="color:#66d9ef">then</span> <span style="color:#66d9ef">Left</span> <span style="color:#e6db74">&#34;can&#39;t work with 42&#34;</span>
+             <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">Right</span> (arg <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">ArgError</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">ArgError</span> <span style="color:#66d9ef">Int</span> <span style="color:#66d9ef">String</span>
+
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">Show</span> <span style="color:#66d9ef">ArgError</span> <span style="color:#66d9ef">where</span>
+    show (<span style="color:#66d9ef">ArgError</span> arg err) <span style="color:#f92672">=</span> show arg <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; - &#34;</span> <span style="color:#f92672">++</span> err
+
+<span style="color:#a6e22e">f2</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Either</span> <span style="color:#66d9ef">ArgError</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">f2</span> arg <span style="color:#f92672">=</span> <span style="color:#66d9ef">if</span> arg <span style="color:#f92672">==</span> <span style="color:#ae81ff">42</span>
+             <span style="color:#66d9ef">then</span> <span style="color:#66d9ef">Left</span> (<span style="color:#66d9ef">ArgError</span> arg <span style="color:#e6db74">&#34;can&#39;t work with it&#34;</span>)
+             <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">Right</span> (arg <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    forM_ [<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">42</span>] <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>i <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+        <span style="color:#66d9ef">case</span> f1 i <span style="color:#66d9ef">of</span>
+            <span style="color:#66d9ef">Left</span> <span style="color:#a6e22e">error</span> <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;f1 failed: &#34;</span> <span style="color:#f92672">++</span> <span style="color:#a6e22e">error</span>
+            <span style="color:#66d9ef">Right</span> value <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;f1 worked: &#34;</span> <span style="color:#f92672">++</span> show value
+
+    forM_ [<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">42</span>] <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>i <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+        <span style="color:#66d9ef">case</span> f2 i <span style="color:#66d9ef">of</span>
+            <span style="color:#66d9ef">Left</span> err <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;f2 failed: &#34;</span> <span style="color:#f92672">++</span> show err
+            <span style="color:#66d9ef">Right</span> value <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;f2 worked: &#34;</span> <span style="color:#f92672">++</span> show value
+    <span style="color:#66d9ef">case</span> f2 <span style="color:#ae81ff">42</span> <span style="color:#66d9ef">of</span>
+        <span style="color:#66d9ef">Left</span> (<span style="color:#66d9ef">ArgError</span> arg err) <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+            print arg
+            putStrLn err
+        <span style="color:#66d9ef">_</span> <span style="color:#f92672">-&gt;</span> return ()</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">f1</span> worked<span style="color:#66d9ef">:</span> <span style="color:#ae81ff">10</span>
+<span style="color:#a6e22e">f1</span> failed<span style="color:#66d9ef">:</span> can&#39;t work with <span style="color:#ae81ff">42</span>
+<span style="color:#a6e22e">f2</span> worked<span style="color:#66d9ef">:</span> <span style="color:#ae81ff">10</span>
+<span style="color:#a6e22e">f2</span> failed<span style="color:#66d9ef">:</span> <span style="color:#ae81ff">42</span> <span style="color:#f92672">-</span> can&#39;t work with it
+<span style="color:#ae81ff">42</span>
+<span style="color:#a6e22e">can&#39;t</span> work with it
+</code></pre></div><h2 id="goroutines">goroutines</h2>
+<ul>
+<li>Use <code>forkIO</code>. It is a common way to use concurrency in Haskell.</li>
+</ul>
+<!--listend-->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Control.Monad
+<span style="color:#66d9ef">import</span> Control.Concurrent
+
+<span style="color:#a6e22e">f</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">f</span> from <span style="color:#f92672">=</span> forM_ [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">2</span>] (<span style="color:#a6e22e">\</span>i <span style="color:#f92672">-&gt;</span> putStrLn <span style="color:#f92672">$</span> from <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#f92672">++</span> show i)
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    f <span style="color:#e6db74">&#34;direct&#34;</span>
+    forkIO <span style="color:#f92672">$</span> f <span style="color:#e6db74">&#34;forkIO&#34;</span>
+    forkIO <span style="color:#f92672">$</span> (<span style="color:#a6e22e">\</span>msg <span style="color:#f92672">-&gt;</span> putStrLn msg) <span style="color:#e6db74">&#34;going&#34;</span>
+
+    getLine
+    putStrLn <span style="color:#e6db74">&#34;done&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a title="asciinema recording" href="https://asciinema.org/a/g1suLp5MBZBWXF3973YwwN13u" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/g1suLp5MBZBWXF3973YwwN13u.svg" /></a></p>
+<h2 id="json"><code>JSON</code></h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">{-# LANGUAGE DeriveGeneric, OverloadedStrings #-}</span>
+<span style="color:#66d9ef">import</span> GHC.Generics
+<span style="color:#66d9ef">import</span> Control.Lens
+<span style="color:#66d9ef">import</span> Data.Aeson
+<span style="color:#66d9ef">import</span> Data.Aeson.Lens
+<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.Map <span style="color:#66d9ef">as</span> Map
+<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.ByteString.Lazy.Char8 <span style="color:#66d9ef">as</span> BS
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Response1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Response1</span> { page <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
+                           , fruits <span style="color:#f92672">::</span> [<span style="color:#66d9ef">String</span>]
+                           } <span style="color:#66d9ef">deriving</span> (<span style="color:#66d9ef">Show</span>, <span style="color:#66d9ef">Generic</span>)
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">FromJSON</span> <span style="color:#66d9ef">Response1</span>
+<span style="color:#66d9ef">instance</span> <span style="color:#66d9ef">ToJSON</span> <span style="color:#66d9ef">Response1</span>
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">BS</span><span style="color:#f92672">.</span>putStrLn <span style="color:#f92672">$</span> encode <span style="color:#66d9ef">True</span>
+    <span style="color:#66d9ef">BS</span><span style="color:#f92672">.</span>putStrLn <span style="color:#f92672">$</span> encode (<span style="color:#ae81ff">1</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>)
+    <span style="color:#66d9ef">BS</span><span style="color:#f92672">.</span>putStrLn <span style="color:#f92672">$</span> encode (<span style="color:#ae81ff">2.34</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Double</span>)
+    <span style="color:#66d9ef">BS</span><span style="color:#f92672">.</span>putStrLn <span style="color:#f92672">$</span> encode (<span style="color:#e6db74">&#34;haskell&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>)
+    <span style="color:#66d9ef">BS</span><span style="color:#f92672">.</span>putStrLn <span style="color:#f92672">$</span> encode ([<span style="color:#e6db74">&#34;apple&#34;</span>, <span style="color:#e6db74">&#34;peach&#34;</span>, <span style="color:#e6db74">&#34;pear&#34;</span>] <span style="color:#f92672">::</span> [<span style="color:#66d9ef">String</span>])
+    <span style="color:#66d9ef">BS</span><span style="color:#f92672">.</span>putStrLn <span style="color:#f92672">$</span> encode <span style="color:#f92672">$</span> <span style="color:#66d9ef">Map</span><span style="color:#f92672">.</span>fromList ([(<span style="color:#e6db74">&#34;apple&#34;</span>, <span style="color:#ae81ff">5</span>), (<span style="color:#e6db74">&#34;lettuce&#34;</span>, <span style="color:#ae81ff">7</span>)] <span style="color:#f92672">::</span> [(<span style="color:#66d9ef">String</span>, <span style="color:#66d9ef">Int</span>)])
+    <span style="color:#66d9ef">BS</span><span style="color:#f92672">.</span>putStrLn <span style="color:#f92672">$</span> encode <span style="color:#f92672">$</span> <span style="color:#66d9ef">Response1</span> {page <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, fruits <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;apple&#34;</span>, <span style="color:#e6db74">&#34;peach&#34;</span>, <span style="color:#e6db74">&#34;pear&#34;</span>]}
+
+    <span style="color:#66d9ef">let</span> byt <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">num</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">:6.13,</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">strs</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">:[</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">a</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">b</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">]}&#34;</span>
+    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">Just</span> dat <span style="color:#f92672">=</span> decode byt <span style="color:#f92672">::</span> <span style="color:#66d9ef">Maybe</span> <span style="color:#66d9ef">Value</span>
+    print dat
+    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">Just</span> num <span style="color:#f92672">=</span> dat <span style="color:#f92672">^?</span> key <span style="color:#e6db74">&#34;num&#34;</span>
+    print num
+    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">Just</span> str1 <span style="color:#f92672">=</span> dat <span style="color:#f92672">^?</span> key <span style="color:#e6db74">&#34;strs&#34;</span> <span style="color:#f92672">.</span> nth <span style="color:#ae81ff">0</span>
+    print str1
+
+    <span style="color:#66d9ef">let</span> str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">page</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: 1, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">fruits</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: [</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">apple</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">peach</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">]}&#34;</span>
+    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">Just</span> res <span style="color:#f92672">=</span> decode str <span style="color:#f92672">::</span> <span style="color:#66d9ef">Maybe</span> <span style="color:#66d9ef">Response1</span>
+    print res
+    putStrLn <span style="color:#f92672">$</span> (fruits res) <span style="color:#f92672">!!</span> <span style="color:#ae81ff">0</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">true</span>
+<span style="color:#ae81ff">1</span>
+<span style="color:#ae81ff">2.34</span>
+<span style="color:#e6db74">&#34;haskell&#34;</span>
+[<span style="color:#e6db74">&#34;apple&#34;</span>,<span style="color:#e6db74">&#34;peach&#34;</span>,<span style="color:#e6db74">&#34;pear&#34;</span>]
+{<span style="color:#e6db74">&#34;apple&#34;</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#34;lettuce&#34;</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">7</span>}
+{<span style="color:#e6db74">&#34;fruits&#34;</span><span style="color:#66d9ef">:</span>[<span style="color:#e6db74">&#34;apple&#34;</span>,<span style="color:#e6db74">&#34;peach&#34;</span>,<span style="color:#e6db74">&#34;pear&#34;</span>],<span style="color:#e6db74">&#34;page&#34;</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span>}
+<span style="color:#66d9ef">Object</span> (fromList [(<span style="color:#e6db74">&#34;num&#34;</span>,<span style="color:#66d9ef">Number</span> <span style="color:#ae81ff">6.13</span>),(<span style="color:#e6db74">&#34;strs&#34;</span>,<span style="color:#66d9ef">Array</span> [<span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;b&#34;</span>])])
+<span style="color:#66d9ef">Number</span> <span style="color:#ae81ff">6.13</span>
+<span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;a&#34;</span>
+<span style="color:#66d9ef">Response1</span> {page <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, fruits <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;apple&#34;</span>,<span style="color:#e6db74">&#34;peach&#34;</span>]}
+<span style="color:#a6e22e">apple</span>
+</code></pre></div>
+    </div>
+    <div class="post-footer">
+        <p>
+        <a href="https://mullikine.github.io/about/">About this weblog</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://asciinema.org/~mullikine">Asciinema recordings</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/posts/blogs-and-vlogs/">Blogs and Vlogs</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/tags/">Site Map</a>
+        </p>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
