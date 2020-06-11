@@ -155,7 +155,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          23 min read
+          36 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -2229,6 +2229,385 @@ please send a Pull Request to my repository!</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">Strings:</span> abc
 <span style="color:#66d9ef">Ints:</span> [<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">7</span>]
 <span style="color:#66d9ef">Sorted:</span> <span style="color:#66d9ef">False</span>
+</code></pre></div><h2 id="sorting-by-function">Sorting by function</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.List
+<span style="color:#66d9ef">import</span> Data.Function
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> fruits <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;peach&#34;</span>, <span style="color:#e6db74">&#34;banana&#34;</span>, <span style="color:#e6db74">&#34;kiwi&#34;</span>]
+    print <span style="color:#f92672">$</span> sortBy (compare `on` length) fruits</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">[<span style="color:#e6db74">&#34;kiwi&#34;</span>,<span style="color:#e6db74">&#34;peach&#34;</span>,<span style="color:#e6db74">&#34;banana&#34;</span>]
+</code></pre></div><h2 id="panic">Panic</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">error</span> <span style="color:#e6db74">&#34;a problem&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">file_tempfile_9ssS58_rand</span><span style="color:#f92672">-</span><span style="color:#ae81ff">23749</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">10383</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span> a problem
+<span style="color:#66d9ef">CallStack</span> (from <span style="color:#66d9ef">HasCallStack</span>)<span style="color:#66d9ef">:</span>
+  <span style="color:#a6e22e">error</span>, called at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_9ssS58_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">23749</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">10383</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">3</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">8</span> <span style="color:#66d9ef">in</span> main<span style="color:#66d9ef">:Main</span>
+</code></pre></div><h2 id="defer">Defer</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Control.Exception
+<span style="color:#66d9ef">import</span> System.IO
+<span style="color:#66d9ef">import</span> System.IO.Error
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> bracket (createFile <span style="color:#e6db74">&#34;/tmp/defer.txt&#34;</span>) closeFile writeFile&#39;
+
+<span style="color:#a6e22e">createFile</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">FilePath</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">Handle</span>
+<span style="color:#a6e22e">createFile</span> path <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    putStrLn <span style="color:#e6db74">&#34;creating&#34;</span>
+    openFile path <span style="color:#66d9ef">WriteMode</span> `catch` (<span style="color:#a6e22e">error</span> <span style="color:#f92672">.</span> ioeGetErrorString)
+
+<span style="color:#a6e22e">writeFile&#39;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Handle</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">writeFile&#39;</span> handle <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    putStrLn <span style="color:#e6db74">&#34;writing&#34;</span>
+    hPutStr handle <span style="color:#e6db74">&#34;data&#34;</span>
+
+<span style="color:#a6e22e">closeFile</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Handle</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">closeFile</span> handle <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    putStrLn <span style="color:#e6db74">&#34;closing&#34;</span>
+    hClose handle</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">creating</span>
+<span style="color:#a6e22e">writing</span>
+<span style="color:#a6e22e">closing</span>
+</code></pre></div><h2 id="collection-functions">Collection functions</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.List
+<span style="color:#66d9ef">import</span> Data.Char
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> strs <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;peach&#34;</span>, <span style="color:#e6db74">&#34;apple&#34;</span>, <span style="color:#e6db74">&#34;pear&#34;</span>, <span style="color:#e6db74">&#34;plum&#34;</span>]
+
+    print <span style="color:#f92672">$</span> lookup <span style="color:#e6db74">&#34;pear&#34;</span> (zip strs [<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span>])
+    print <span style="color:#f92672">$</span> elem <span style="color:#e6db74">&#34;grape&#34;</span> strs
+    print <span style="color:#f92672">$</span> any (isPrefixOf <span style="color:#e6db74">&#34;p&#34;</span>) strs
+    print <span style="color:#f92672">$</span> all (isPrefixOf <span style="color:#e6db74">&#34;p&#34;</span>) strs
+    print <span style="color:#f92672">$</span> filter (elem <span style="color:#e6db74">&#39;e&#39;</span>) strs
+    print <span style="color:#f92672">$</span> map (map toUpper) strs</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">Just</span> <span style="color:#ae81ff">2</span>
+<span style="color:#66d9ef">False</span>
+<span style="color:#66d9ef">True</span>
+<span style="color:#66d9ef">False</span>
+[<span style="color:#e6db74">&#34;peach&#34;</span>,<span style="color:#e6db74">&#34;apple&#34;</span>,<span style="color:#e6db74">&#34;pear&#34;</span>]
+[<span style="color:#e6db74">&#34;PEACH&#34;</span>,<span style="color:#e6db74">&#34;APPLE&#34;</span>,<span style="color:#e6db74">&#34;PEAR&#34;</span>,<span style="color:#e6db74">&#34;PLUM&#34;</span>]
+</code></pre></div><h2 id="string-functions">String functions</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.List
+<span style="color:#66d9ef">import</span> Data.Char
+
+<span style="color:#a6e22e">include</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Bool</span>
+<span style="color:#a6e22e">include</span> xs ys <span style="color:#f92672">=</span> or <span style="color:#f92672">.</span> map (isPrefixOf ys) <span style="color:#f92672">.</span> tails <span style="color:#f92672">$</span> xs
+
+<span style="color:#a6e22e">joinWith</span> <span style="color:#f92672">::</span> [<span style="color:#66d9ef">String</span>] <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">joinWith</span> xs sep <span style="color:#f92672">=</span> concat <span style="color:#f92672">.</span> init <span style="color:#f92672">.</span> concat <span style="color:#f92672">$</span> [[x, sep] <span style="color:#f92672">|</span> x <span style="color:#f92672">&lt;-</span> xs]
+
+<span style="color:#a6e22e">split</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Char</span> <span style="color:#f92672">-&gt;</span> [<span style="color:#66d9ef">String</span>]
+<span style="color:#a6e22e">split</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">_</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">[]</span>
+<span style="color:#a6e22e">split</span> xs c <span style="color:#f92672">=</span> <span style="color:#66d9ef">let</span> (ys, zs) <span style="color:#f92672">=</span> break (<span style="color:#f92672">==</span> c) xs
+             <span style="color:#66d9ef">in</span>  <span style="color:#66d9ef">if</span> null zs <span style="color:#66d9ef">then</span> [ys] <span style="color:#66d9ef">else</span> ys <span style="color:#66d9ef">:</span> split (tail zs) c
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;Contains:  &#34;</span> <span style="color:#f92672">++</span> show (<span style="color:#e6db74">&#34;test&#34;</span> `include` <span style="color:#e6db74">&#34;es&#34;</span>)
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;Count:     &#34;</span> <span style="color:#f92672">++</span> show (length <span style="color:#f92672">.</span> filter (<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;t&#39;</span>) <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;test&#34;</span>)
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;HasPrefix: &#34;</span> <span style="color:#f92672">++</span> show (isPrefixOf <span style="color:#e6db74">&#34;te&#34;</span> <span style="color:#e6db74">&#34;test&#34;</span>)
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;HasSuffix: &#34;</span> <span style="color:#f92672">++</span> show (isSuffixOf <span style="color:#e6db74">&#34;st&#34;</span> <span style="color:#e6db74">&#34;test&#34;</span>)
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;Index:     &#34;</span> <span style="color:#f92672">++</span> show (elemIndex <span style="color:#e6db74">&#39;e&#39;</span> <span style="color:#e6db74">&#34;test&#34;</span>)
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;Join:      &#34;</span> <span style="color:#f92672">++</span> show ([<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>] `joinWith` <span style="color:#e6db74">&#34;-&#34;</span>)
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;Repeat:    &#34;</span> <span style="color:#f92672">++</span> show (replicate <span style="color:#ae81ff">5</span> <span style="color:#e6db74">&#39;a&#39;</span>)
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;Replace:   &#34;</span> <span style="color:#f92672">++</span> show (map (<span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">if</span> x <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;o&#39;</span> <span style="color:#66d9ef">then</span> <span style="color:#e6db74">&#39;0&#39;</span> <span style="color:#66d9ef">else</span> x) <span style="color:#e6db74">&#34;foo&#34;</span>)
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;Split:     &#34;</span> <span style="color:#f92672">++</span> show (split <span style="color:#e6db74">&#34;a-b-c-d-e&#34;</span> <span style="color:#e6db74">&#39;-&#39;</span>)
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;ToLower:   &#34;</span> <span style="color:#f92672">++</span> map toLower <span style="color:#e6db74">&#34;TEST&#34;</span>
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;ToUpper:   &#34;</span> <span style="color:#f92672">++</span> map toUpper <span style="color:#e6db74">&#34;test&#34;</span>
+    putStrLn <span style="color:#e6db74">&#34;&#34;</span>
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;Len: &#34;</span> <span style="color:#f92672">++</span> show (length <span style="color:#e6db74">&#34;hello&#34;</span>)
+    putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;Char:&#34;</span> <span style="color:#f92672">++</span> show (<span style="color:#e6db74">&#34;hello&#34;</span> <span style="color:#f92672">!!</span> <span style="color:#ae81ff">1</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">Contains:</span>  <span style="color:#66d9ef">True</span>
+<span style="color:#66d9ef">Count:</span>     <span style="color:#ae81ff">2</span>
+<span style="color:#66d9ef">HasPrefix:</span> <span style="color:#66d9ef">True</span>
+<span style="color:#66d9ef">HasSuffix:</span> <span style="color:#66d9ef">True</span>
+<span style="color:#66d9ef">Index:</span>     <span style="color:#66d9ef">Just</span> <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">Join:</span>      <span style="color:#e6db74">&#34;a-b&#34;</span>
+<span style="color:#66d9ef">Repeat:</span>    <span style="color:#e6db74">&#34;aaaaa&#34;</span>
+<span style="color:#66d9ef">Replace:</span>   <span style="color:#e6db74">&#34;f00&#34;</span>
+<span style="color:#66d9ef">Split:</span>     [<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;b&#34;</span>,<span style="color:#e6db74">&#34;c&#34;</span>,<span style="color:#e6db74">&#34;d&#34;</span>,<span style="color:#e6db74">&#34;e&#34;</span>]
+<span style="color:#66d9ef">ToLower:</span>   test
+<span style="color:#66d9ef">ToUpper:</span>   <span style="color:#66d9ef">TEST</span>
+
+<span style="color:#66d9ef">Len:</span> <span style="color:#ae81ff">5</span>
+<span style="color:#66d9ef">Char:</span><span style="color:#e6db74">&#39;e&#39;</span>
+</code></pre></div><h2 id="string-formatting">String formatting</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">{-# LANGUAGE OverloadedStrings #-}</span>
+<span style="color:#66d9ef">import</span> Data.Char (<span style="color:#a6e22e">chr</span>)
+<span style="color:#66d9ef">import</span> System.IO
+<span style="color:#66d9ef">import</span> Formatting
+
+<span style="color:#66d9ef">data</span> <span style="color:#66d9ef">Point</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">Point</span> { x <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
+                   , y <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>
+                   } <span style="color:#66d9ef">deriving</span> <span style="color:#66d9ef">Show</span>
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> p <span style="color:#f92672">=</span> <span style="color:#66d9ef">Point</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span>
+
+    fprint (shown<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) p
+    fprint (shown<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) <span style="color:#66d9ef">True</span>
+    fprint (int<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) <span style="color:#ae81ff">123</span>
+    fprint (bin<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) <span style="color:#ae81ff">14</span>
+    fprint (char<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) <span style="color:#f92672">$</span> chr <span style="color:#ae81ff">33</span>
+    fprint (hex<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) <span style="color:#ae81ff">456</span>
+    fprint (float<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) <span style="color:#ae81ff">78.9</span>
+    fprint ((expt <span style="color:#ae81ff">4</span>)<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) <span style="color:#ae81ff">123400000.0</span>
+    fprint (text<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) <span style="color:#e6db74">&#34;string&#34;</span>
+    fprint (shown<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) <span style="color:#e6db74">&#34;string&#34;</span>
+    fprint (<span style="color:#e6db74">&#34;|&#34;</span><span style="color:#f92672">%</span>(left <span style="color:#ae81ff">6</span> <span style="color:#e6db74">&#39; &#39;</span>)<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;|&#34;</span><span style="color:#f92672">%</span>(left <span style="color:#ae81ff">6</span> <span style="color:#e6db74">&#39; &#39;</span>)<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;|</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) (<span style="color:#ae81ff">12</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>) (<span style="color:#ae81ff">345</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>)
+    fprint (<span style="color:#e6db74">&#34;|&#34;</span><span style="color:#f92672">%</span>(prec <span style="color:#ae81ff">5</span>)<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;|&#34;</span><span style="color:#f92672">%</span>(prec <span style="color:#ae81ff">5</span>)<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;|</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) (<span style="color:#ae81ff">1.2</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Double</span>) (<span style="color:#ae81ff">3.45</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Double</span>)
+    fprint (<span style="color:#e6db74">&#34;|&#34;</span><span style="color:#f92672">%</span>(left <span style="color:#ae81ff">6</span> <span style="color:#e6db74">&#39; &#39;</span>)<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;|&#34;</span><span style="color:#f92672">%</span>(left <span style="color:#ae81ff">6</span> <span style="color:#e6db74">&#39; &#39;</span>)<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;|</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) (<span style="color:#e6db74">&#34;foo&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>) (<span style="color:#e6db74">&#34;b&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>)
+    fprint (<span style="color:#e6db74">&#34;|&#34;</span><span style="color:#f92672">%</span>(right <span style="color:#ae81ff">6</span> <span style="color:#e6db74">&#39; &#39;</span>)<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;|&#34;</span><span style="color:#f92672">%</span>(right <span style="color:#ae81ff">6</span> <span style="color:#e6db74">&#39; &#39;</span>)<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;|</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) (<span style="color:#e6db74">&#34;foo&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>) (<span style="color:#e6db74">&#34;b&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">String</span>)
+
+    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> format (<span style="color:#e6db74">&#34;a &#34;</span><span style="color:#f92672">%</span>string) <span style="color:#e6db74">&#34;string&#34;</span>
+    print s
+
+    hPrint stderr <span style="color:#f92672">$</span> format (<span style="color:#e6db74">&#34;an &#34;</span><span style="color:#f92672">%</span>string) <span style="color:#e6db74">&#34;error&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">
+<span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_vXFJVR_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">15447</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">17089</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">22</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">14</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span>
+    <span style="color:#960050;background-color:#1e0010">•</span> <span style="color:#66d9ef">Variable</span> not <span style="color:#66d9ef">in</span> scope<span style="color:#66d9ef">:</span>
+        expt <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Format</span> (<span style="color:#66d9ef">IO</span> ()) (<span style="color:#66d9ef">Double</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> a0)
+    <span style="color:#960050;background-color:#1e0010">•</span> <span style="color:#66d9ef">Perhaps</span> you meant <span style="color:#960050;background-color:#1e0010">‘</span>exp<span style="color:#960050;background-color:#1e0010">’</span> (imported from <span style="color:#66d9ef">Prelude</span>)
+   <span style="color:#f92672">|</span>
+<span style="color:#ae81ff">22</span> <span style="color:#f92672">|</span>     fprint ((expt <span style="color:#ae81ff">4</span>)<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) <span style="color:#ae81ff">123400000.0</span>
+   <span style="color:#f92672">|</span>              <span style="color:#f92672">^^^^</span>
+
+<span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_vXFJVR_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">15447</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">17089</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">26</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">18</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span>
+    <span style="color:#960050;background-color:#1e0010">•</span> <span style="color:#66d9ef">Variable</span> not <span style="color:#66d9ef">in</span> scope<span style="color:#66d9ef">:</span>
+        prec <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Format</span> r0 (<span style="color:#66d9ef">Double</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Double</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> a1)
+    <span style="color:#960050;background-color:#1e0010">•</span> <span style="color:#66d9ef">Perhaps</span> you meant <span style="color:#960050;background-color:#1e0010">‘</span>pred<span style="color:#960050;background-color:#1e0010">’</span> (imported from <span style="color:#66d9ef">Prelude</span>)
+   <span style="color:#f92672">|</span>
+<span style="color:#ae81ff">26</span> <span style="color:#f92672">|</span>     fprint (<span style="color:#e6db74">&#34;|&#34;</span><span style="color:#f92672">%</span>(prec <span style="color:#ae81ff">5</span>)<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;|&#34;</span><span style="color:#f92672">%</span>(prec <span style="color:#ae81ff">5</span>)<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;|</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) (<span style="color:#ae81ff">1.2</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Double</span>) (<span style="color:#ae81ff">3.45</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Double</span>)
+   <span style="color:#f92672">|</span>                  <span style="color:#f92672">^^^^</span>
+
+<span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_vXFJVR_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">15447</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">17089</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">26</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">31</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span>
+    <span style="color:#960050;background-color:#1e0010">•</span> <span style="color:#66d9ef">Variable</span> not <span style="color:#66d9ef">in</span> scope<span style="color:#66d9ef">:</span> prec <span style="color:#f92672">::</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Format</span> (<span style="color:#66d9ef">IO</span> ()) r0
+    <span style="color:#960050;background-color:#1e0010">•</span> <span style="color:#66d9ef">Perhaps</span> you meant <span style="color:#960050;background-color:#1e0010">‘</span>pred<span style="color:#960050;background-color:#1e0010">’</span> (imported from <span style="color:#66d9ef">Prelude</span>)
+   <span style="color:#f92672">|</span>
+<span style="color:#ae81ff">26</span> <span style="color:#f92672">|</span>     fprint (<span style="color:#e6db74">&#34;|&#34;</span><span style="color:#f92672">%</span>(prec <span style="color:#ae81ff">5</span>)<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;|&#34;</span><span style="color:#f92672">%</span>(prec <span style="color:#ae81ff">5</span>)<span style="color:#f92672">%</span><span style="color:#e6db74">&#34;|</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>) (<span style="color:#ae81ff">1.2</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Double</span>) (<span style="color:#ae81ff">3.45</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Double</span>)
+   <span style="color:#f92672">|</span>                               <span style="color:#f92672">^^^^</span>
+</code></pre></div><h2 id="regular-expressions">Regular expressions</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.Array
+<span style="color:#66d9ef">import</span> Text.Regex
+<span style="color:#66d9ef">import</span> Text.Regex.Base
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> mch <span style="color:#f92672">=</span> matchTest (mkRegex <span style="color:#e6db74">&#34;p([a-z]+)ch&#34;</span>) <span style="color:#e6db74">&#34;peach&#34;</span>
+    print mch
+
+    <span style="color:#66d9ef">let</span> r <span style="color:#f92672">=</span> mkRegex <span style="color:#e6db74">&#34;p([a-z]+)ch&#34;</span>
+
+    <span style="color:#75715e">-- MatchString</span>
+    print <span style="color:#f92672">$</span> matchTest r <span style="color:#e6db74">&#34;peach&#34;</span>
+
+    <span style="color:#75715e">-- FindString</span>
+    putStrLn <span style="color:#f92672">$</span> fst <span style="color:#f92672">.</span> (<span style="color:#f92672">!</span><span style="color:#ae81ff">0</span>) <span style="color:#f92672">.</span> head <span style="color:#f92672">$</span> matchAllText r <span style="color:#e6db74">&#34;peach punch&#34;</span>
+
+    <span style="color:#75715e">-- FindStringIndex</span>
+    print <span style="color:#f92672">$</span> snd <span style="color:#f92672">.</span> (<span style="color:#f92672">!</span><span style="color:#ae81ff">0</span>) <span style="color:#f92672">.</span> head <span style="color:#f92672">$</span> matchAllText r <span style="color:#e6db74">&#34;peach punch&#34;</span>
+
+    <span style="color:#75715e">-- FindStringSubmatch</span>
+    print <span style="color:#f92672">$</span> map fst <span style="color:#f92672">.</span> elems <span style="color:#f92672">.</span> head <span style="color:#f92672">$</span> matchAllText r <span style="color:#e6db74">&#34;peach punch&#34;</span>
+
+    <span style="color:#75715e">-- FindStringSubmatchIndex</span>
+    print <span style="color:#f92672">$</span> map snd <span style="color:#f92672">.</span> elems <span style="color:#f92672">.</span> head <span style="color:#f92672">$</span> matchAllText r <span style="color:#e6db74">&#34;peach punch&#34;</span>
+
+    <span style="color:#75715e">-- FindAllString</span>
+    print <span style="color:#f92672">$</span> map (fst <span style="color:#f92672">.</span> head <span style="color:#f92672">.</span> elems) <span style="color:#f92672">$</span> matchAllText r <span style="color:#e6db74">&#34;peach punch pinch&#34;</span>
+
+    <span style="color:#75715e">-- FindAllStringSubmatchIndex</span>
+    print <span style="color:#f92672">$</span> map (map snd <span style="color:#f92672">.</span> elems) <span style="color:#f92672">$</span> matchAllText r <span style="color:#e6db74">&#34;peach punch pinch&#34;</span>
+
+    <span style="color:#75715e">-- FindAllString (2)</span>
+    print <span style="color:#f92672">$</span> take <span style="color:#ae81ff">2</span> <span style="color:#f92672">.</span> map (fst <span style="color:#f92672">.</span> head <span style="color:#f92672">.</span> elems) <span style="color:#f92672">$</span> matchAllText r <span style="color:#e6db74">&#34;peach punch pinch&#34;</span>
+
+    <span style="color:#75715e">-- ReplaceAllString</span>
+    putStrLn <span style="color:#f92672">$</span> subRegex r <span style="color:#e6db74">&#34;a peach&#34;</span> <span style="color:#e6db74">&#34;&lt;fruit&gt;&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">True</span>
+<span style="color:#66d9ef">True</span>
+<span style="color:#a6e22e">peach</span>
+(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">5</span>)
+[<span style="color:#e6db74">&#34;peach&#34;</span>,<span style="color:#e6db74">&#34;ea&#34;</span>]
+[(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">5</span>),(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>)]
+[<span style="color:#e6db74">&#34;peach&#34;</span>,<span style="color:#e6db74">&#34;punch&#34;</span>,<span style="color:#e6db74">&#34;pinch&#34;</span>]
+[[(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">5</span>),(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>)],[(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">5</span>),(<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">2</span>)],[(<span style="color:#ae81ff">12</span>,<span style="color:#ae81ff">5</span>),(<span style="color:#ae81ff">13</span>,<span style="color:#ae81ff">2</span>)]]
+[<span style="color:#e6db74">&#34;peach&#34;</span>,<span style="color:#e6db74">&#34;punch&#34;</span>]
+<span style="color:#a6e22e">a</span> <span style="color:#f92672">&lt;</span>fruit<span style="color:#f92672">&gt;</span>
 </code></pre></div><h2 id="json"><code>JSON</code></h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -2318,6 +2697,805 @@ please send a Pull Request to my repository!</p>
 <span style="color:#66d9ef">String</span> <span style="color:#e6db74">&#34;a&#34;</span>
 <span style="color:#66d9ef">Response1</span> {page <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, fruits <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;apple&#34;</span>,<span style="color:#e6db74">&#34;peach&#34;</span>]}
 <span style="color:#a6e22e">apple</span>
+</code></pre></div><h2 id="time">Time</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.Time
+<span style="color:#66d9ef">import</span> Data.Time.Calendar.WeekDate
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    now <span style="color:#f92672">&lt;-</span> getCurrentTime
+    print now
+
+    <span style="color:#66d9ef">let</span> next <span style="color:#f92672">=</span> <span style="color:#66d9ef">UTCTime</span> { utctDay <span style="color:#f92672">=</span> fromGregorian <span style="color:#ae81ff">2009</span> <span style="color:#ae81ff">11</span> <span style="color:#ae81ff">17</span>
+                       , utctDayTime <span style="color:#f92672">=</span> timeOfDayToTime (<span style="color:#66d9ef">TimeOfDay</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">34</span> <span style="color:#ae81ff">58.651387237</span>)
+                       }
+    print next
+
+    <span style="color:#66d9ef">let</span> (year, month, day) <span style="color:#f92672">=</span> toGregorian <span style="color:#f92672">.</span> utctDay <span style="color:#f92672">$</span> next
+    print year
+    print month
+    print day
+    <span style="color:#66d9ef">let</span> hour <span style="color:#f92672">=</span> todHour <span style="color:#f92672">.</span> timeToTimeOfDay <span style="color:#f92672">.</span> utctDayTime <span style="color:#f92672">$</span> next
+    <span style="color:#66d9ef">let</span> minute <span style="color:#f92672">=</span> todMin <span style="color:#f92672">.</span> timeToTimeOfDay <span style="color:#f92672">.</span> utctDayTime <span style="color:#f92672">$</span> next
+    <span style="color:#66d9ef">let</span> (second, nano) <span style="color:#f92672">=</span> properFraction <span style="color:#f92672">.</span> todSec <span style="color:#f92672">.</span> timeToTimeOfDay <span style="color:#f92672">.</span> utctDayTime <span style="color:#f92672">$</span> next
+    <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">_</span>, <span style="color:#66d9ef">_</span>, week) <span style="color:#f92672">=</span> toWeekDate <span style="color:#f92672">.</span> utctDay <span style="color:#f92672">$</span> next
+    print hour
+    print minute
+    print second
+    print nano
+    print week
+
+    print <span style="color:#f92672">$</span> next <span style="color:#f92672">&lt;</span> now
+    print <span style="color:#f92672">$</span> next <span style="color:#f92672">&gt;</span> now
+    print <span style="color:#f92672">$</span> next <span style="color:#f92672">==</span> now</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">04</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">21</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">33.288764027</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#ae81ff">2009</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">17</span> <span style="color:#ae81ff">20</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">34</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">58.651387237</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#ae81ff">2009</span>
+<span style="color:#ae81ff">11</span>
+<span style="color:#ae81ff">17</span>
+<span style="color:#ae81ff">20</span>
+<span style="color:#ae81ff">34</span>
+<span style="color:#ae81ff">58</span>
+<span style="color:#ae81ff">0.651387237000</span>
+<span style="color:#ae81ff">2</span>
+<span style="color:#66d9ef">True</span>
+<span style="color:#66d9ef">False</span>
+<span style="color:#66d9ef">False</span>
+</code></pre></div><h2 id="epoch">Epoch</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.Time
+<span style="color:#66d9ef">import</span> Data.Time.Calendar.WeekDate
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    now <span style="color:#f92672">&lt;-</span> getCurrentTime
+    print now
+
+    <span style="color:#66d9ef">let</span> next <span style="color:#f92672">=</span> <span style="color:#66d9ef">UTCTime</span> { utctDay <span style="color:#f92672">=</span> fromGregorian <span style="color:#ae81ff">2009</span> <span style="color:#ae81ff">11</span> <span style="color:#ae81ff">17</span>
+                       , utctDayTime <span style="color:#f92672">=</span> timeOfDayToTime (<span style="color:#66d9ef">TimeOfDay</span> <span style="color:#ae81ff">20</span> <span style="color:#ae81ff">34</span> <span style="color:#ae81ff">58.651387237</span>)
+                       }
+    print next
+
+    <span style="color:#66d9ef">let</span> (year, month, day) <span style="color:#f92672">=</span> toGregorian <span style="color:#f92672">.</span> utctDay <span style="color:#f92672">$</span> next
+    print year
+    print month
+    print day
+    <span style="color:#66d9ef">let</span> hour <span style="color:#f92672">=</span> todHour <span style="color:#f92672">.</span> timeToTimeOfDay <span style="color:#f92672">.</span> utctDayTime <span style="color:#f92672">$</span> next
+    <span style="color:#66d9ef">let</span> minute <span style="color:#f92672">=</span> todMin <span style="color:#f92672">.</span> timeToTimeOfDay <span style="color:#f92672">.</span> utctDayTime <span style="color:#f92672">$</span> next
+    <span style="color:#66d9ef">let</span> (second, nano) <span style="color:#f92672">=</span> properFraction <span style="color:#f92672">.</span> todSec <span style="color:#f92672">.</span> timeToTimeOfDay <span style="color:#f92672">.</span> utctDayTime <span style="color:#f92672">$</span> next
+    <span style="color:#66d9ef">let</span> (<span style="color:#66d9ef">_</span>, <span style="color:#66d9ef">_</span>, week) <span style="color:#f92672">=</span> toWeekDate <span style="color:#f92672">.</span> utctDay <span style="color:#f92672">$</span> next
+    print hour
+    print minute
+    print second
+    print nano
+    print week
+
+    print <span style="color:#f92672">$</span> next <span style="color:#f92672">&lt;</span> now
+    print <span style="color:#f92672">$</span> next <span style="color:#f92672">&gt;</span> now
+    print <span style="color:#f92672">$</span> next <span style="color:#f92672">==</span> now</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">06</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span> <span style="color:#ae81ff">04</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">21</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">45.171768283</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#ae81ff">2009</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">17</span> <span style="color:#ae81ff">20</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">34</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">58.651387237</span> <span style="color:#66d9ef">UTC</span>
+<span style="color:#ae81ff">2009</span>
+<span style="color:#ae81ff">11</span>
+<span style="color:#ae81ff">17</span>
+<span style="color:#ae81ff">20</span>
+<span style="color:#ae81ff">34</span>
+<span style="color:#ae81ff">58</span>
+<span style="color:#ae81ff">0.651387237000</span>
+<span style="color:#ae81ff">2</span>
+<span style="color:#66d9ef">True</span>
+<span style="color:#66d9ef">False</span>
+<span style="color:#66d9ef">False</span>
+</code></pre></div><h2 id="time-formatting-parsing">Time formatting / parsing</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.Time
+<span style="color:#66d9ef">import</span> System.Locale
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> rfc3339like <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;%FT%T%z&#34;</span>
+
+    t <span style="color:#f92672">&lt;-</span> getZonedTime
+    putStrLn <span style="color:#f92672">$</span> formatTime defaultTimeLocale rfc3339like t
+
+    print <span style="color:#f92672">$</span> (parseTime defaultTimeLocale rfc3339like <span style="color:#e6db74">&#34;2012-11-01T22:08:41+00:00&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Maybe</span> <span style="color:#66d9ef">ZonedTime</span>)
+
+    putStrLn <span style="color:#f92672">$</span> formatTime defaultTimeLocale <span style="color:#e6db74">&#34;%-l:%M%p&#34;</span> t
+    putStrLn <span style="color:#f92672">$</span> formatTime defaultTimeLocale <span style="color:#e6db74">&#34;%a %b %-e %X %Y&#34;</span> t
+    putStrLn <span style="color:#f92672">$</span> formatTime defaultTimeLocale <span style="color:#e6db74">&#34;%FT%T.%q%z&#34;</span> t
+
+    <span style="color:#66d9ef">let</span> form <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;%-l %M %p&#34;</span>
+    print <span style="color:#f92672">$</span> (parseTime defaultTimeLocale form <span style="color:#e6db74">&#34;8 41 PM&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Maybe</span> <span style="color:#66d9ef">UTCTime</span>)
+
+    <span style="color:#66d9ef">let</span> ansic <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;%a %b %-e %X %Y&#34;</span>
+    print <span style="color:#f92672">$</span> (parseTime defaultTimeLocale form <span style="color:#e6db74">&#34;8:41PM&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Maybe</span> <span style="color:#66d9ef">UTCTime</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">
+<span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">10</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">27</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span>
+    <span style="color:#66d9ef">Ambiguous</span> occurrence <span style="color:#960050;background-color:#1e0010">‘</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>
+    <span style="color:#66d9ef">It</span> could refer to either <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>,
+                             imported from <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#960050;background-color:#1e0010">’</span> at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">3</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">16</span>
+                             (and originally defined <span style="color:#66d9ef">in</span> <span style="color:#960050;background-color:#1e0010">‘</span>time<span style="color:#f92672">-</span><span style="color:#ae81ff">1.8</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">:Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Format</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#960050;background-color:#1e0010">’</span>)
+                          or <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">System</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#f92672">.</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>,
+                             imported from <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">System</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#960050;background-color:#1e0010">’</span> at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">4</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>
+   <span style="color:#f92672">|</span>
+<span style="color:#ae81ff">10</span> <span style="color:#f92672">|</span>     putStrLn <span style="color:#f92672">$</span> formatTime defaultTimeLocale rfc3339like t
+   <span style="color:#f92672">|</span>                           <span style="color:#f92672">^^^^^^^^^^^^^^^^^</span>
+
+<span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">12</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">24</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span>
+    <span style="color:#66d9ef">Ambiguous</span> occurrence <span style="color:#960050;background-color:#1e0010">‘</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>
+    <span style="color:#66d9ef">It</span> could refer to either <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>,
+                             imported from <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#960050;background-color:#1e0010">’</span> at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">3</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">16</span>
+                             (and originally defined <span style="color:#66d9ef">in</span> <span style="color:#960050;background-color:#1e0010">‘</span>time<span style="color:#f92672">-</span><span style="color:#ae81ff">1.8</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">:Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Format</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#960050;background-color:#1e0010">’</span>)
+                          or <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">System</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#f92672">.</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>,
+                             imported from <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">System</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#960050;background-color:#1e0010">’</span> at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">4</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>
+   <span style="color:#f92672">|</span>
+<span style="color:#ae81ff">12</span> <span style="color:#f92672">|</span>     print <span style="color:#f92672">$</span> (parseTime defaultTimeLocale rfc3339like <span style="color:#e6db74">&#34;2012-11-01T22:08:41+00:00&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Maybe</span> <span style="color:#66d9ef">ZonedTime</span>)
+   <span style="color:#f92672">|</span>                        <span style="color:#f92672">^^^^^^^^^^^^^^^^^</span>
+
+<span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">14</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">27</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span>
+    <span style="color:#66d9ef">Ambiguous</span> occurrence <span style="color:#960050;background-color:#1e0010">‘</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>
+    <span style="color:#66d9ef">It</span> could refer to either <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>,
+                             imported from <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#960050;background-color:#1e0010">’</span> at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">3</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">16</span>
+                             (and originally defined <span style="color:#66d9ef">in</span> <span style="color:#960050;background-color:#1e0010">‘</span>time<span style="color:#f92672">-</span><span style="color:#ae81ff">1.8</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">:Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Format</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#960050;background-color:#1e0010">’</span>)
+                          or <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">System</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#f92672">.</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>,
+                             imported from <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">System</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#960050;background-color:#1e0010">’</span> at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">4</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>
+   <span style="color:#f92672">|</span>
+<span style="color:#ae81ff">14</span> <span style="color:#f92672">|</span>     putStrLn <span style="color:#f92672">$</span> formatTime defaultTimeLocale <span style="color:#e6db74">&#34;%-l:%M%p&#34;</span> t
+   <span style="color:#f92672">|</span>                           <span style="color:#f92672">^^^^^^^^^^^^^^^^^</span>
+
+<span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">15</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">27</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span>
+    <span style="color:#66d9ef">Ambiguous</span> occurrence <span style="color:#960050;background-color:#1e0010">‘</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>
+    <span style="color:#66d9ef">It</span> could refer to either <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>,
+                             imported from <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#960050;background-color:#1e0010">’</span> at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">3</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">16</span>
+                             (and originally defined <span style="color:#66d9ef">in</span> <span style="color:#960050;background-color:#1e0010">‘</span>time<span style="color:#f92672">-</span><span style="color:#ae81ff">1.8</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">:Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Format</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#960050;background-color:#1e0010">’</span>)
+                          or <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">System</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#f92672">.</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>,
+                             imported from <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">System</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#960050;background-color:#1e0010">’</span> at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">4</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>
+   <span style="color:#f92672">|</span>
+<span style="color:#ae81ff">15</span> <span style="color:#f92672">|</span>     putStrLn <span style="color:#f92672">$</span> formatTime defaultTimeLocale <span style="color:#e6db74">&#34;%a %b %-e %X %Y&#34;</span> t
+   <span style="color:#f92672">|</span>                           <span style="color:#f92672">^^^^^^^^^^^^^^^^^</span>
+
+<span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">16</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">27</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span>
+    <span style="color:#66d9ef">Ambiguous</span> occurrence <span style="color:#960050;background-color:#1e0010">‘</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>
+    <span style="color:#66d9ef">It</span> could refer to either <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>,
+                             imported from <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#960050;background-color:#1e0010">’</span> at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">3</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">16</span>
+                             (and originally defined <span style="color:#66d9ef">in</span> <span style="color:#960050;background-color:#1e0010">‘</span>time<span style="color:#f92672">-</span><span style="color:#ae81ff">1.8</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">:Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Format</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#960050;background-color:#1e0010">’</span>)
+                          or <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">System</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#f92672">.</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>,
+                             imported from <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">System</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#960050;background-color:#1e0010">’</span> at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">4</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>
+   <span style="color:#f92672">|</span>
+<span style="color:#ae81ff">16</span> <span style="color:#f92672">|</span>     putStrLn <span style="color:#f92672">$</span> formatTime defaultTimeLocale <span style="color:#e6db74">&#34;%FT%T.%q%z&#34;</span> t
+   <span style="color:#f92672">|</span>                           <span style="color:#f92672">^^^^^^^^^^^^^^^^^</span>
+
+<span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">19</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">24</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span>
+    <span style="color:#66d9ef">Ambiguous</span> occurrence <span style="color:#960050;background-color:#1e0010">‘</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>
+    <span style="color:#66d9ef">It</span> could refer to either <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>,
+                             imported from <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#960050;background-color:#1e0010">’</span> at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">3</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">16</span>
+                             (and originally defined <span style="color:#66d9ef">in</span> <span style="color:#960050;background-color:#1e0010">‘</span>time<span style="color:#f92672">-</span><span style="color:#ae81ff">1.8</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">:Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Format</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#960050;background-color:#1e0010">’</span>)
+                          or <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">System</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#f92672">.</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>,
+                             imported from <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">System</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#960050;background-color:#1e0010">’</span> at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">4</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>
+   <span style="color:#f92672">|</span>
+<span style="color:#ae81ff">19</span> <span style="color:#f92672">|</span>     print <span style="color:#f92672">$</span> (parseTime defaultTimeLocale form <span style="color:#e6db74">&#34;8 41 PM&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Maybe</span> <span style="color:#66d9ef">UTCTime</span>)
+   <span style="color:#f92672">|</span>                        <span style="color:#f92672">^^^^^^^^^^^^^^^^^</span>
+
+<span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">22</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">24</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span>
+    <span style="color:#66d9ef">Ambiguous</span> occurrence <span style="color:#960050;background-color:#1e0010">‘</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>
+    <span style="color:#66d9ef">It</span> could refer to either <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>,
+                             imported from <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#960050;background-color:#1e0010">’</span> at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">3</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">16</span>
+                             (and originally defined <span style="color:#66d9ef">in</span> <span style="color:#960050;background-color:#1e0010">‘</span>time<span style="color:#f92672">-</span><span style="color:#ae81ff">1.8</span><span style="color:#f92672">.</span><span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">:Data</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Format</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#960050;background-color:#1e0010">’</span>)
+                          or <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">System</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#f92672">.</span>defaultTimeLocale<span style="color:#960050;background-color:#1e0010">’</span>,
+                             imported from <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">System</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Locale</span><span style="color:#960050;background-color:#1e0010">’</span> at <span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_HnZHXP_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">32429</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2482</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">4</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#ae81ff">20</span>
+   <span style="color:#f92672">|</span>
+<span style="color:#ae81ff">22</span> <span style="color:#f92672">|</span>     print <span style="color:#f92672">$</span> (parseTime defaultTimeLocale form <span style="color:#e6db74">&#34;8:41PM&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Maybe</span> <span style="color:#66d9ef">UTCTime</span>)
+   <span style="color:#f92672">|</span>                        <span style="color:#f92672">^^^^^^^^^^^^^^^^^</span>
+</code></pre></div><h2 id="random-numbers">Random numbers</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> System.Random
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    putStr <span style="color:#f92672">.</span> show <span style="color:#f92672">=&lt;&lt;</span> randomRIO (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>)
+    putStr <span style="color:#e6db74">&#34;, &#34;</span>
+    print         <span style="color:#f92672">=&lt;&lt;</span> randomRIO (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>)
+
+    print <span style="color:#f92672">=&lt;&lt;</span> (randomIO <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">Float</span>)
+
+    f1 <span style="color:#f92672">&lt;-</span> randomIO <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">Float</span>
+    putStr <span style="color:#f92672">$</span> show (f1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>) <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34;, &#34;</span>
+    f2 <span style="color:#f92672">&lt;-</span> randomIO <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">Float</span>
+    print  <span style="color:#f92672">$</span> f2 <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>
+
+    <span style="color:#66d9ef">let</span> s1 <span style="color:#f92672">=</span> mkStdGen <span style="color:#ae81ff">42</span>
+    <span style="color:#66d9ef">let</span> (i1, s2) <span style="color:#f92672">=</span> randomR (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>) s1
+    <span style="color:#66d9ef">let</span> (i2,  <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> randomR (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>) s2
+    putStrLn <span style="color:#f92672">$</span> show i1 <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34;, &#34;</span> <span style="color:#f92672">++</span> show i2
+
+    <span style="color:#66d9ef">let</span> s3 <span style="color:#f92672">=</span> mkStdGen <span style="color:#ae81ff">42</span>
+    <span style="color:#66d9ef">let</span> (i3, s4) <span style="color:#f92672">=</span> randomR (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>) s3
+    <span style="color:#66d9ef">let</span> (i4,  <span style="color:#66d9ef">_</span>) <span style="color:#f92672">=</span> randomR (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">100</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>) s4
+    putStrLn <span style="color:#f92672">$</span> show i3 <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34;, &#34;</span> <span style="color:#f92672">++</span> show i4</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">54</span>
+<span style="color:#ae81ff">0.3052525</span>
+<span style="color:#ae81ff">8.599604</span>, <span style="color:#ae81ff">8.112543</span>
+<span style="color:#ae81ff">77</span>, <span style="color:#ae81ff">38</span>
+<span style="color:#ae81ff">77</span>, <span style="color:#ae81ff">38</span>
+</code></pre></div><h2 id="number-parsing">Number parsing</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    print (read <span style="color:#e6db74">&#34;1.234&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Double</span>)
+    print (read <span style="color:#e6db74">&#34;123&#34;</span>   <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>)
+    print (read <span style="color:#e6db74">&#34;0x1c8&#34;</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>)
+    print (read <span style="color:#e6db74">&#34;wat&#34;</span>   <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">1.234</span>
+<span style="color:#ae81ff">123</span>
+<span style="color:#ae81ff">456</span>
+<span style="color:#a6e22e">file_tempfile_LEVelw_rand</span><span style="color:#f92672">-</span><span style="color:#ae81ff">14323</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">2048</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span> <span style="color:#66d9ef">Prelude</span><span style="color:#f92672">.</span>read<span style="color:#66d9ef">:</span> no parse
+</code></pre></div><h2 id="url-parsing">URL Parsing</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Network.URI
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;postgres://user:pass@host.com:5432/path?k=v#f&#34;</span>
+    <span style="color:#66d9ef">case</span> parseURI s <span style="color:#66d9ef">of</span>
+        <span style="color:#66d9ef">Nothing</span>  <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">error</span> <span style="color:#e6db74">&#34;no URI&#34;</span>
+        <span style="color:#66d9ef">Just</span> uri <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+            putStrLn <span style="color:#f92672">$</span> uriScheme uri
+            <span style="color:#66d9ef">case</span> uriAuthority uri <span style="color:#66d9ef">of</span>
+                <span style="color:#66d9ef">Nothing</span>   <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">error</span> <span style="color:#e6db74">&#34;no Authority&#34;</span>
+                <span style="color:#66d9ef">Just</span> auth <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+                    putStrLn <span style="color:#f92672">$</span> uriUserInfo auth
+                    putStrLn <span style="color:#f92672">$</span> uriRegName auth
+                    putStrLn <span style="color:#f92672">$</span> uriPort auth
+            putStrLn <span style="color:#f92672">$</span> uriPath uri
+            putStrLn <span style="color:#f92672">$</span> uriFragment uri
+            putStrLn <span style="color:#f92672">$</span> uriQuery uri</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">postgres</span><span style="color:#66d9ef">:</span>
+<span style="color:#a6e22e">user</span><span style="color:#66d9ef">:</span>pass<span style="color:#f92672">@</span>
+<span style="color:#a6e22e">host</span><span style="color:#f92672">.</span>com
+<span style="color:#66d9ef">:</span><span style="color:#ae81ff">5432</span>
+<span style="color:#f92672">/</span>path
+<span style="color:#f92672">#</span>f
+<span style="color:#f92672">?</span>k<span style="color:#f92672">=</span>v
+</code></pre></div><h2 id="sha1-hashes">SHA1 hashes</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">{-# LANGUAGE OverloadedStrings #-}</span>
+<span style="color:#66d9ef">import</span> Numeric (<span style="color:#a6e22e">showHex</span>)
+<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Data.ByteString <span style="color:#66d9ef">as</span> BS
+<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Crypto.Hash.SHA1 <span style="color:#66d9ef">as</span> SHA1
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sha1 this string&#34;</span>
+    <span style="color:#66d9ef">let</span> bs <span style="color:#f92672">=</span> <span style="color:#66d9ef">SHA1</span><span style="color:#f92672">.</span>hash s
+
+    print s
+    putStrLn <span style="color:#f92672">$</span> concatMap (flip showHex <span style="color:#e6db74">&#34;&#34;</span>) <span style="color:#f92672">$</span> <span style="color:#66d9ef">BS</span><span style="color:#f92672">.</span>unpack bs</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">
+<span style="color:#f92672">/</span>tmp<span style="color:#f92672">/</span>file_tempfile_NQ9WzM_rand<span style="color:#f92672">-</span><span style="color:#ae81ff">7102</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">30704</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span><span style="color:#ae81ff">10</span><span style="color:#66d9ef">:</span><span style="color:#ae81ff">14</span><span style="color:#66d9ef">:</span> <span style="color:#a6e22e">error</span><span style="color:#66d9ef">:</span>
+    <span style="color:#66d9ef">Not</span> <span style="color:#66d9ef">in</span> scope<span style="color:#66d9ef">:</span> <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">SHA1</span><span style="color:#f92672">.</span>hash<span style="color:#960050;background-color:#1e0010">’</span>
+    <span style="color:#66d9ef">Module</span> <span style="color:#960050;background-color:#1e0010">‘</span><span style="color:#66d9ef">Crypto</span><span style="color:#f92672">.</span><span style="color:#66d9ef">Hash</span><span style="color:#f92672">.</span><span style="color:#66d9ef">SHA1</span><span style="color:#960050;background-color:#1e0010">’</span> does not export <span style="color:#960050;background-color:#1e0010">‘</span>hash<span style="color:#960050;background-color:#1e0010">’</span><span style="color:#f92672">.</span>
+   <span style="color:#f92672">|</span>
+<span style="color:#ae81ff">10</span> <span style="color:#f92672">|</span>     <span style="color:#66d9ef">let</span> bs <span style="color:#f92672">=</span> <span style="color:#66d9ef">SHA1</span><span style="color:#f92672">.</span>hash s
+   <span style="color:#f92672">|</span>              <span style="color:#f92672">^^^^^^^^^</span>
+</code></pre></div><h2 id="base64-encoding">Base64 encoding</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">{-# LANGUAGE OverloadedStrings #-}</span>
+<span style="color:#66d9ef">import</span> Data.ByteString.Base64
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> dat <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;abc123!?$*&amp;()&#39;-=@~&#34;</span>
+    <span style="color:#66d9ef">let</span> sEnc <span style="color:#f92672">=</span> encode dat
+    print sEnc
+
+    <span style="color:#66d9ef">let</span> sDec <span style="color:#f92672">=</span> decode sEnc
+    print sDec</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#e6db74">&#34;YWJjMTIzIT8kKiYoKSctPUB+&#34;</span>
+<span style="color:#66d9ef">Right</span> <span style="color:#e6db74">&#34;abc123!?$*&amp;()&#39;-=@~&#34;</span>
+</code></pre></div><h2 id="reading-files">Reading files</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;hello&#34;</span> &gt; /tmp/dat
+echo <span style="color:#e6db74">&#34;haskell&#34;</span> &gt;&gt;   /tmp/dat</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
+</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> System.IO
+
+<span style="color:#a6e22e">readAtLeast</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Handle</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Integer</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">IO</span> <span style="color:#66d9ef">String</span>
+<span style="color:#a6e22e">readAtLeast</span> handle n
+    <span style="color:#f92672">|</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">=</span> return <span style="color:#e6db74">&#34;&#34;</span>
+    <span style="color:#f92672">|</span> otherwise <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+        eof <span style="color:#f92672">&lt;-</span> hIsEOF handle
+        <span style="color:#66d9ef">if</span> eof
+            <span style="color:#66d9ef">then</span> return <span style="color:#e6db74">&#34;&#34;</span>
+            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">do</span>
+              c <span style="color:#f92672">&lt;-</span> hGetChar handle
+              str <span style="color:#f92672">&lt;-</span> readAtLeast handle (n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+              return (c<span style="color:#66d9ef">:</span>str)
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    dat <span style="color:#f92672">&lt;-</span> readFile <span style="color:#e6db74">&#34;/tmp/dat&#34;</span>
+    putStrLn dat
+
+    handle <span style="color:#f92672">&lt;-</span> openFile <span style="color:#e6db74">&#34;/tmp/dat&#34;</span> <span style="color:#66d9ef">ReadMode</span>
+
+    b1 <span style="color:#f92672">&lt;-</span> readAtLeast handle <span style="color:#ae81ff">5</span>
+    putStrLn <span style="color:#f92672">$</span> show (length b1) <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; bytes: &#34;</span> <span style="color:#f92672">++</span> b1
+
+    hSeek handle <span style="color:#66d9ef">AbsoluteSeek</span> <span style="color:#ae81ff">6</span>
+    at2 <span style="color:#f92672">&lt;-</span> hTell handle
+    b2  <span style="color:#f92672">&lt;-</span> sequence <span style="color:#f92672">.</span> take <span style="color:#ae81ff">7</span> <span style="color:#f92672">.</span> repeat <span style="color:#f92672">$</span> hGetChar handle
+    putStrLn <span style="color:#f92672">$</span> show (length b2) <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; bytes @ &#34;</span> <span style="color:#f92672">++</span> show at2 <span style="color:#f92672">++</span>  <span style="color:#e6db74">&#34;: &#34;</span> <span style="color:#f92672">++</span> b2
+
+    hSeek handle <span style="color:#66d9ef">AbsoluteSeek</span> <span style="color:#ae81ff">6</span>
+    at3 <span style="color:#f92672">&lt;-</span> hTell handle
+    b3  <span style="color:#f92672">&lt;-</span> readAtLeast handle <span style="color:#ae81ff">7</span>
+    putStrLn <span style="color:#f92672">$</span> show (length b3) <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; bytes @ &#34;</span> <span style="color:#f92672">++</span> show at3 <span style="color:#f92672">++</span>  <span style="color:#e6db74">&#34;: &#34;</span> <span style="color:#f92672">++</span> b3
+
+    hSeek handle <span style="color:#66d9ef">AbsoluteSeek</span> <span style="color:#ae81ff">0</span>
+    hSetBuffering handle (<span style="color:#66d9ef">BlockBuffering</span> <span style="color:#66d9ef">Nothing</span>) <span style="color:#75715e">-- default</span>
+    b3 <span style="color:#f92672">&lt;-</span> readAtLeast handle <span style="color:#ae81ff">5</span>
+    putStrLn <span style="color:#f92672">$</span> show (length b3) <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; bytes: &#34;</span> <span style="color:#f92672">++</span> b3
+
+    hClose handle</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">hello</span>
+<span style="color:#a6e22e">haskell</span>
+
+<span style="color:#ae81ff">5</span> bytes<span style="color:#66d9ef">:</span> hello
+<span style="color:#ae81ff">7</span> bytes <span style="color:#f92672">@</span> <span style="color:#ae81ff">6</span><span style="color:#66d9ef">:</span> haskell
+<span style="color:#ae81ff">7</span> bytes <span style="color:#f92672">@</span> <span style="color:#ae81ff">6</span><span style="color:#66d9ef">:</span> haskell
+<span style="color:#ae81ff">5</span> bytes<span style="color:#66d9ef">:</span> hello
+</code></pre></div><h2 id="writing-files">Writing files</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Foreign.Marshal.Array
+<span style="color:#66d9ef">import</span> Control.Exception
+<span style="color:#66d9ef">import</span> Data.Int
+<span style="color:#66d9ef">import</span> System.IO
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    <span style="color:#66d9ef">let</span> d1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hello</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">haskell</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+    writeFile <span style="color:#e6db74">&#34;/tmp/dat1&#34;</span> d1
+
+    bracket (openBinaryFile <span style="color:#e6db74">&#34;/tmp/dat2&#34;</span> <span style="color:#66d9ef">WriteMode</span>)
+            (<span style="color:#a6e22e">\</span>handle <span style="color:#f92672">-&gt;</span> hClose handle)
+            <span style="color:#f92672">$</span> <span style="color:#a6e22e">\</span>handle <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">do</span>
+                <span style="color:#66d9ef">let</span> d2 <span style="color:#f92672">=</span> [<span style="color:#ae81ff">115</span>, <span style="color:#ae81ff">111</span>, <span style="color:#ae81ff">109</span>, <span style="color:#ae81ff">101</span>, <span style="color:#ae81ff">10</span>] <span style="color:#f92672">::</span> [<span style="color:#66d9ef">Int8</span>]
+                p <span style="color:#f92672">&lt;-</span> newArray d2
+                hPutBuf handle p (length d2)
+                putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;wrote &#34;</span> <span style="color:#f92672">++</span> show (length d2) <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34; bytes&#34;</span>
+
+                hPutStr handle <span style="color:#e6db74">&#34;writes</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+                putStrLn <span style="color:#e6db74">&#34;wrote 7 bytes&#34;</span>
+
+                hSetBuffering handle (<span style="color:#66d9ef">BlockBuffering</span> <span style="color:#66d9ef">Nothing</span>) <span style="color:#75715e">-- default</span>
+                hPutStr handle <span style="color:#e6db74">&#34;buffered</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+                putStrLn <span style="color:#e6db74">&#34;wrote 9 bytes&#34;</span>
+                hFlush handle</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">wrote</span> <span style="color:#ae81ff">5</span> bytes
+<span style="color:#a6e22e">wrote</span> <span style="color:#ae81ff">7</span> bytes
+<span style="color:#a6e22e">wrote</span> <span style="color:#ae81ff">9</span> bytes
+</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat /tmp/dat1
+echo
+cat /tmp/dat2</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hello
+haskell
+
+some
+writes
+buffered
+</code></pre></div><h2 id="line-filters">Line filters</h2>
+<p><a id="code-snippet--filter-input"></a>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#39;hello&#39;</span>
+echo <span style="color:#e6db74">&#39;filter&#39;</span></code></pre></td></tr></table>
+</div>
+</div></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hello
+filter
+</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> Data.Char
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> interact <span style="color:#f92672">$</span> fmap toUpper</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">HELLO</span>
+<span style="color:#66d9ef">FILTER</span>
+</code></pre></div><h2 id="command-line-arguments">Command-line arguments</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">import</span> System.Environment
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    args <span style="color:#f92672">&lt;-</span> getArgs
+    <span style="color:#66d9ef">let</span> arg <span style="color:#f92672">=</span> args <span style="color:#f92672">!!</span> <span style="color:#ae81ff">3</span>
+
+    print args
+    putStrLn arg
+
+    progName <span style="color:#f92672">&lt;-</span> getProgName
+    putStrLn progName</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">[<span style="color:#e6db74">&#34;/tmp/babel-ZVlBg0/generic-jKfEk7&#34;</span>,<span style="color:#e6db74">&#34;a&#34;</span>,<span style="color:#e6db74">&#34;b&#34;</span>,<span style="color:#e6db74">&#34;c&#34;</span>,<span style="color:#e6db74">&#34;d&#34;</span>]
+<span style="color:#a6e22e">c</span>
+<span style="color:#a6e22e">file_tempfile_0cmjec_rand</span><span style="color:#f92672">-</span><span style="color:#ae81ff">27119</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">24691</span><span style="color:#f92672">.</span>hs
+</code></pre></div><h2 id="command-line-flags">Command-line flags</h2>
+<p><a id="code-snippet--cli-flags-hs-contents"></a>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#75715e">{-# LANGUAGE DataKinds #-}</span>
+<span style="color:#66d9ef">import</span> Options.Declarative
+<span style="color:#66d9ef">import</span> Control.Monad.IO.Class (<span style="color:#a6e22e">liftIO</span>)
+
+<span style="color:#a6e22e">flags</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Flag</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">&#39;[&#34;word&#34;]</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">foo</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;a string&#34;</span>     (<span style="color:#66d9ef">Def</span> <span style="color:#e6db74">&#34;foo&#34;</span> <span style="color:#66d9ef">String</span>)
+      <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Flag</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">&#39;[&#34;numb&#34;]</span> <span style="color:#e6db74">&#34;42&#34;</span>      <span style="color:#e6db74">&#34;an int&#34;</span>       (<span style="color:#66d9ef">Def</span> <span style="color:#e6db74">&#34;42&#34;</span> <span style="color:#66d9ef">Int</span>)
+      <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Flag</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">&#39;[&#34;fork&#34;]</span> <span style="color:#e6db74">&#34;false&#34;</span>   <span style="color:#e6db74">&#34;a bool&#34;</span>       <span style="color:#66d9ef">Bool</span>
+      <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Flag</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">&#39;[&#34;svar&#34;]</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">bar</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;a string var&#34;</span> (<span style="color:#66d9ef">Def</span> <span style="color:#e6db74">&#34;bar&#34;</span> <span style="color:#66d9ef">String</span>)
+      <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Arg</span> <span style="color:#e6db74">&#34;ARGS&#34;</span> [<span style="color:#66d9ef">String</span>]
+      <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Cmd</span> <span style="color:#e6db74">&#34;Command-Line Flags&#34;</span> ()
+<span style="color:#a6e22e">flags</span> word numb fork svar args <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    liftIO <span style="color:#f92672">.</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;word:&#34;</span> <span style="color:#f92672">++</span> get word
+    liftIO <span style="color:#f92672">.</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;numb:&#34;</span> <span style="color:#f92672">++</span> (show <span style="color:#f92672">.</span> get <span style="color:#f92672">$</span> numb)
+    liftIO <span style="color:#f92672">.</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;fork:&#34;</span> <span style="color:#f92672">++</span> (show <span style="color:#f92672">.</span> get <span style="color:#f92672">$</span> fork)
+    liftIO <span style="color:#f92672">.</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;svar:&#34;</span> <span style="color:#f92672">++</span> get svar
+    liftIO <span style="color:#f92672">.</span> putStrLn <span style="color:#f92672">$</span> <span style="color:#e6db74">&#34;tail:&#34;</span> <span style="color:#f92672">++</span> (show <span style="color:#f92672">.</span> get <span style="color:#f92672">$</span> args)
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">IO</span> ()
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> run_ flags</code></pre></td></tr></table>
+</div>
+</div></p>
+<p><a id="code-snippet--cli-flags-prog-name"></a>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tf hs</code></pre></td></tr></table>
+</div>
+</div></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/tmp/file_tempfile_qGaEZt_rand-19108_pid-28114.hs
+</code></pre></div><p><a id="code-snippet--cli-flags-first-invokation"></a>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">babel-script <span style="color:#66d9ef">$(</span>cat<span style="color:#66d9ef">)</span> --word<span style="color:#f92672">=</span>opt --numb<span style="color:#f92672">=</span><span style="color:#ae81ff">7</span> --fork --svar<span style="color:#f92672">=</span>flag</code></pre></td></tr></table>
+</div>
+</div></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
+/tmp/file_tempfile_xvzSpb_rand-32526_pid-31422.hs:4:1: error:
+    Could not find module ‘Options.Declarative’
+    Use -v to see a list of the files searched <span style="color:#66d9ef">for</span>.
+  |
+<span style="color:#ae81ff">4</span> | import Options.Declarative
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^
+</code></pre></div><p><a id="code-snippet--cli-flags-second-invokation"></a>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">babel-script <span style="color:#66d9ef">$(</span>cat<span style="color:#66d9ef">)</span> --word<span style="color:#f92672">=</span>opt</code></pre></td></tr></table>
+</div>
+</div></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
+/tmp/file_tempfile_XqbRsl_rand-14068_pid-32525.hs:4:1: error:
+    Could not find module ‘Options.Declarative’
+    Use -v to see a list of the files searched <span style="color:#66d9ef">for</span>.
+  |
+<span style="color:#ae81ff">4</span> | import Options.Declarative
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^
 </code></pre></div>
     </div>
     <div class="post-footer">
