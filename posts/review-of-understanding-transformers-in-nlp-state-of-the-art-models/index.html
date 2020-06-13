@@ -153,7 +153,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          16 min read
+          17 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -1020,6 +1020,67 @@ any doubts/queries, then do let me know and I will get back to you.</p>
 <p>You can also take the below course to learn or brush up your NLP skills:</p>
 <ul>
 <li><a href="https://courses.analyticsvidhya.com/courses/natural-language-processing-nlp??utm%5Fsource=blog&amp;utm%5Fmedium=understanding-transformers-nlp-state-of-the-art-models">Natural Language Processing (NLP) using Python</a></li>
+</ul>
+<h2 id="intuition-about-the-transformer">Intuition about the transformer</h2>
+<p><a href="https://www.youtube.com/watch?v=S27pHKBEp30">YouTube</a></p>
+<p>You need to somehow take your document and
+represent it as a fixed-size vector.</p>
+<p>&ldquo;I&rsquo;m not aware of any linear algebra that
+works on vectors of variable dimensionality&rdquo;.</p>
+<p>The challenge with this is that documents are
+of variable length.</p>
+<p>You have to come up with some way of taking
+that document and meaningfully encoding it
+into a fixed size vector.</p>
+<p>The classic way of doing this is the bag of
+words right where you have one dimension per
+unique word in your vocabulary.</p>
+<h3 id="evolution-of-sequence-modelling">Evolution of sequence modelling</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&#34;bag of words&#34; -&gt; RNN -&gt; LSTM -&gt; Transformer</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">+--------------+     +-----+     +------+     +-------------+
+| bag of words | --&gt; | RNN | --&gt; | LSTM | --&gt; | Transformer |
++--------------+     +-----+     +------+     +-------------+
+</code></pre></div><ul>
+<li>BoW Bag of Words
+<ul>
+<li>One dimension per word in vocabulary</li>
+<li>d = 100,000</li>
+<li>Almost all values are zero</li>
+<li>Leads to sparse data
+<ul>
+<li>Don&rsquo;t actually store the zeros. You store lists
+of position-value tuples. &ndash; skip list?</li>
+</ul>
+</li>
+<li>Key limitation:
+<ul>
+<li>Order of words matters and BoW doesn&rsquo;t take order into account.</li>
+<li>One solution: n-grams and bigrams.
+<ul>
+<li>Problem: English trigrams: 10^15 dimensions. Impractical.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>RNN: Solution to BoW
+<ul>
+<li>Recursively define the output at any stage
+as a function of inputs at the previous
+stages in the previous output.</li>
+<li>For the purpose of supervised learning,
+the final output is just the final hidden
+state.</li>
+</ul>
+</li>
 </ul>
 
     </div>
