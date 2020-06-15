@@ -159,7 +159,7 @@ Glossary 1 2 3 4  staging programs Writing programs using template haskell. stag
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          4 min read
+          5 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -322,6 +322,7 @@ variable called <code>x</code> at stage 1.</p>
 <dd>A variable can only be used at the level it is bound.</dd>
 </dl>
 <h3 id="cross-stage-persistence-serialisation-based">Cross-Stage persistence - Serialisation Based</h3>
+<p>This is the <span class="underline">1st</span> way to persist values.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -360,6 +361,43 @@ and then we get a level-correct program.</p>
 <dt>Refined Principle of Levels</dt>
 <dd>A variable can only be used at the level it is bound <strong>unless we can persist it</strong>.</dd>
 </dl>
+<p>The main thing you can&rsquo;t persist is functions,
+because how can you take an arbitrary function
+that lives at runtime and produce code that
+generates that function? It&rsquo;s not in general possible.</p>
+<p>But with an integer, you can just create the
+syntax tree that has the integer in it.</p>
+<h3 id="cross-stage-persistence-path-based">Cross-Stage Persistence - Path Based</h3>
+<p>This is the <span class="underline">2nd</span> way to persist values.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">module</span> M <span style="color:#66d9ef">where</span>
+
+<span style="color:#a6e22e">succ</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">succ</span> x <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+<span style="color:#75715e">-- 0</span>
+
+<span style="color:#a6e22e">codeSucc</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Code</span> (<span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Int</span>)
+<span style="color:#a6e22e">codeSucc</span> <span style="color:#f92672">=</span> [<span style="color:#f92672">|</span> succ <span style="color:#f92672">|</span>]
+<span style="color:#75715e">--            1</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Persist the value of <code>succ</code> to the future for
+when we generate the program.</p>
+<p>This is possible because top level identifiers
+will still be bound when you run this program
+later on.</p>
 <h3 id="a-specialised-function">A specialised function</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
