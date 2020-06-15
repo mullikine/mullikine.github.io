@@ -282,6 +282,45 @@ puts it into this expression.</p>
 <span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> [<span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#f92672">$</span>(<span style="color:#66d9ef">X</span>) <span style="color:#f92672">|</span>]</code></pre></td></tr></table>
 </div>
 </div>
+<h3 id="hygiene">hygiene</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> [<span style="color:#f92672">|</span> <span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">$</span>(x) <span style="color:#f92672">|</span>]
+<span style="color:#75715e">--        1      0</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>This is not going to work. Why? The
+information flows in the wrong direction.</p>
+<p>Needs to evaluate <code>x</code> while the splice is
+being compiled and at that point <code>x</code> is not
+going to be bound.</p>
+<p>So, assign a level to each variable. When you
+enter the splice, you decrease the level.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">foo</span> <span style="color:#f92672">=</span> [<span style="color:#f92672">|</span> <span style="color:#a6e22e">\</span>x <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">$</span>([<span style="color:#f92672">|</span> x <span style="color:#f92672">|</span>])
+<span style="color:#75715e">--        1         1</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Quote the variable quote and then it&rsquo;s ok. By
+inserting the quotes we make sure the
+variables have the same level.</p>
+<p>An intuitive way to think about this is while
+we don&rsquo;t know what <code>x</code> will be at stage zero,
+at least we do know that there will be a
+variable called <code>x</code> at stage 1.</p>
+<dl>
+<dt>Principle of Levels</dt>
+<dd>A variable can only be used at the level it is bound.</dd>
+</dl>
 <h3 id="a-specialised-function">A specialised function</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
