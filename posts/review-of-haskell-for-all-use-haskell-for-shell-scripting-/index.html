@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Review of &#39;Haskell for all: Use Haskell for shell scripting&#39;"/>
-<meta name="twitter:description" content="Original article Haskell for all: Use Haskell for shell scripting  Work in progress"/>
+<meta name="twitter:description" content="Original article Haskell for all: Use Haskell for shell scripting   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  #!/usr/bin/env runhaskell {-# LANGUAGE OverloadedStrings #-} import Turtle main = do cd &#34;/tmp&#34; mkdir &#34;test&#34; output &#34;test/foo&#34; &#34;Hello, world!&#34; -- Write &#34;Hello, world!&#34; to &#34;test/foo&#34; stdout (input &#34;test/foo&#34;) -- Stream &#34;test/foo&#34; to stdout rm &#34;test/foo&#34; rmdir &#34;test&#34; sleep 1 die &#34;Urk!&#34;   Hello, world!"/>
 
     <meta property="og:title" content="Review of &#39;Haskell for all: Use Haskell for shell scripting&#39;" />
-<meta property="og:description" content="Original article Haskell for all: Use Haskell for shell scripting  Work in progress" />
+<meta property="og:description" content="Original article Haskell for all: Use Haskell for shell scripting   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  #!/usr/bin/env runhaskell {-# LANGUAGE OverloadedStrings #-} import Turtle main = do cd &#34;/tmp&#34; mkdir &#34;test&#34; output &#34;test/foo&#34; &#34;Hello, world!&#34; -- Write &#34;Hello, world!&#34; to &#34;test/foo&#34; stdout (input &#34;test/foo&#34;) -- Stream &#34;test/foo&#34; to stdout rm &#34;test/foo&#34; rmdir &#34;test&#34; sleep 1 die &#34;Urk!&#34;   Hello, world!" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/review-of-haskell-for-all-use-haskell-for-shell-scripting-/" />
 <meta property="article:published_time" content="2019-12-09T00:00:00+08:00" />
@@ -153,13 +153,13 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a><a class="tag" href="http://mullikine.github.io/tags/shell/">shell</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a><a class="tag" href="http://mullikine.github.io/tags/shell/">shell</a><a class="tag" href="http://mullikine.github.io/tags/turtle/">turtle</a></div></div>
     </header>
     
 
@@ -175,8 +175,168 @@
 <dt>Original article</dt>
 <dd><a href="http://www.haskellforall.com/2015/01/use-haskell-for-shell-scripting.html">Haskell for all: Use Haskell for shell scripting</a></dd>
 </dl>
-<p><em><span class="underline"><strong>Work in progress</strong></span></em></p>
+<!--listend-->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#f92672">#!/</span>usr<span style="color:#f92672">/</span>bin<span style="color:#f92672">/</span>env runhaskell
 
+<span style="color:#75715e">{-# LANGUAGE OverloadedStrings #-}</span>
+
+<span style="color:#66d9ef">import</span> Turtle
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    cd <span style="color:#e6db74">&#34;/tmp&#34;</span>
+    mkdir <span style="color:#e6db74">&#34;test&#34;</span>
+    output <span style="color:#e6db74">&#34;test/foo&#34;</span> <span style="color:#e6db74">&#34;Hello, world!&#34;</span>  <span style="color:#75715e">-- Write &#34;Hello, world!&#34; to &#34;test/foo&#34;</span>
+    stdout (input <span style="color:#e6db74">&#34;test/foo&#34;</span>)          <span style="color:#75715e">-- Stream &#34;test/foo&#34; to stdout</span>
+    rm <span style="color:#e6db74">&#34;test/foo&#34;</span>
+    rmdir <span style="color:#e6db74">&#34;test&#34;</span>
+    sleep <span style="color:#ae81ff">1</span>
+    die <span style="color:#e6db74">&#34;Urk!&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">Hello</span>, world<span style="color:#f92672">!</span>
+<span style="color:#a6e22e">file_tempfile_3tXy4x_rand</span><span style="color:#f92672">-</span><span style="color:#ae81ff">16455</span>_pid<span style="color:#f92672">-</span><span style="color:#ae81ff">23793</span><span style="color:#f92672">.</span>hs<span style="color:#66d9ef">:</span> user <span style="color:#a6e22e">error</span> (<span style="color:#66d9ef">Urk</span><span style="color:#f92672">!</span>)
+</code></pre></div><h2 id="invoke-an-external-process-or-shell-command-using-proc-or-shell">invoke an external process or shell command using proc or shell</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#f92672">#!/</span>usr<span style="color:#f92672">/</span>bin<span style="color:#f92672">/</span>env runhaskell
+
+<span style="color:#75715e">{-# LANGUAGE OverloadedStrings #-}</span>
+
+<span style="color:#66d9ef">import</span> Turtle
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    mkdir <span style="color:#e6db74">&#34;test&#34;</span>
+    output <span style="color:#e6db74">&#34;test/file.txt&#34;</span> <span style="color:#e6db74">&#34;Hello!&#34;</span>
+    proc <span style="color:#e6db74">&#34;tar&#34;</span> [<span style="color:#e6db74">&#34;czf&#34;</span>, <span style="color:#e6db74">&#34;test.tar.gz&#34;</span>, <span style="color:#e6db74">&#34;test&#34;</span>] empty
+
+    <span style="color:#75715e">-- or: shell &#34;tar czf test.tar.gz test&#34; empty</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell">
+</code></pre></div><h2 id="build-or-consume-streaming-sources">build or consume streaming sources</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#f92672">#!/</span>usr<span style="color:#f92672">/</span>bin<span style="color:#f92672">/</span>env runhaskell
+
+<span style="color:#75715e">{-# LANGUAGE OverloadedStrings #-}</span>
+
+<span style="color:#66d9ef">import</span> Turtle
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> view (lstree <span style="color:#e6db74">&#34;/home/shane/notes/ws/number-theory&#34;</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#66d9ef">FilePath</span> <span style="color:#e6db74">&#34;/home/shane/notes/ws/number-theory/reading.org&#34;</span>
+<span style="color:#66d9ef">FilePath</span> <span style="color:#e6db74">&#34;/home/shane/notes/ws/number-theory/glossary.txt&#34;</span>
+<span style="color:#66d9ef">FilePath</span> <span style="color:#e6db74">&#34;/home/shane/notes/ws/number-theory/topics.org&#34;</span>
+</code></pre></div><h2 id="count-the-number-of-descendants">count the number of descendants</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#f92672">#!/</span>usr<span style="color:#f92672">/</span>bin<span style="color:#f92672">/</span>env runhaskell
+
+<span style="color:#75715e">{-# LANGUAGE OverloadedStrings #-}</span>
+
+<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Control.Foldl <span style="color:#66d9ef">as</span> Fold
+<span style="color:#66d9ef">import</span> Turtle
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    n <span style="color:#f92672">&lt;-</span> fold (lstree <span style="color:#e6db74">&#34;/home/shane/notes/ws&#34;</span>) <span style="color:#66d9ef">Fold</span><span style="color:#f92672">.</span>length
+    print n</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">17957</span>
+</code></pre></div><h2 id="count-the-number-of-lines-in-all-descendant-files">count the number of lines in all descendant files</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#f92672">#!/</span>usr<span style="color:#f92672">/</span>bin<span style="color:#f92672">/</span>env runhaskell
+
+<span style="color:#75715e">{-# LANGUAGE OverloadedStrings #-}</span>
+
+<span style="color:#66d9ef">import</span> <span style="color:#66d9ef">qualified</span> Control.Foldl <span style="color:#66d9ef">as</span> Fold
+<span style="color:#66d9ef">import</span> Turtle
+
+<span style="color:#a6e22e">descendantLines</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    file <span style="color:#f92672">&lt;-</span> lstree <span style="color:#e6db74">&#34;/home/shane/notes/ws/number-theory&#34;</span>
+    <span style="color:#66d9ef">True</span> <span style="color:#f92672">&lt;-</span> liftIO (testfile file)
+    input file
+
+<span style="color:#a6e22e">main</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">do</span>
+    n <span style="color:#f92672">&lt;-</span> fold descendantLines <span style="color:#66d9ef">Fold</span><span style="color:#f92672">.</span>length
+    print n</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#ae81ff">23</span>
+</code></pre></div>
     </div>
     <div class="post-footer">
         <p>
