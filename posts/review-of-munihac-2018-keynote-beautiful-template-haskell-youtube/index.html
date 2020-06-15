@@ -159,7 +159,7 @@ Glossary 1 2 3 4  staging programs Writing programs using template haskell. stag
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          3 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -321,6 +321,41 @@ variable called <code>x</code> at stage 1.</p>
 <dt>Principle of Levels</dt>
 <dd>A variable can only be used at the level it is bound.</dd>
 </dl>
+<h3 id="cross-stage-persistence-serialisation-based">Cross-Stage persistence - Serialisation Based</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">double</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Code</span> <span style="color:#66d9ef">In</span>
+<span style="color:#a6e22e">double</span> x <span style="color:#f92672">=</span> [<span style="color:#f92672">|</span> x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">|</span>]
+<span style="color:#75715e">--     0      1</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>x</code> is bound in level 0 and used in level 1,
+which is in the future.</p>
+<p>This program is not level correct so it should
+be rejected.</p>
+<p>Because we can persist integers (given the
+code at runtime, we can produce the code that
+produces that integer)</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-haskell" data-lang="haskell"><span style="color:#a6e22e">double</span> <span style="color:#f92672">::</span> <span style="color:#66d9ef">Int</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">Code</span> <span style="color:#66d9ef">Int</span>
+<span style="color:#a6e22e">double</span> x <span style="color:#f92672">=</span> [<span style="color:#f92672">|</span> <span style="color:#f92672">$</span>(lift x) <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">|</span>]
+<span style="color:#75715e">--     0             0</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>What <code>lift</code> does, is it takes the integer and
+it produces code that produces that integer
+and then we get a level-correct program.</p>
 <h3 id="a-specialised-function">A specialised function</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
