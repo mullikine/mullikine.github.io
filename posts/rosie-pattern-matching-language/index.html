@@ -12,10 +12,24 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Rosie Pattern Matching Language (RPL)"/>
-<meta name="twitter:description" content="Will regex remain relevant? Probably. Rosie Pattern Language: Why Create a Regex Replacement? Regex are ubiquitous because they fill a persistent need. Today, we rely on regex in so many ways, including:  lexical analysis for the vast majority of programming language parsers;  lexical analysis for Natural Language Processing;  lexical analysis for parsing serialized data formats (JSON, yaml, XML, etc.);  searching within text editors;  operations, in scripts that search and manipulate configuration files, log files, the output of other programs, and more;  development, in tools that manage source code, issues, builds, and tests."/>
+<meta name="twitter:description" content="Thoughts  It will be useful in parsing s-expressions.  RPL   compiled,
+  block-structured,
+  lexically scoped,
+  declarative
+  pattern expression language with a module system.
+  Names are bound to values of type:
+ pattern, macro, function, and environment (module)    Only patterns are first-class.
+Block structure There are lexical units (imaginatively called &ldquo;blocks&rdquo;) of code that we can talk about."/>
 
     <meta property="og:title" content="Rosie Pattern Matching Language (RPL)" />
-<meta property="og:description" content="Will regex remain relevant? Probably. Rosie Pattern Language: Why Create a Regex Replacement? Regex are ubiquitous because they fill a persistent need. Today, we rely on regex in so many ways, including:  lexical analysis for the vast majority of programming language parsers;  lexical analysis for Natural Language Processing;  lexical analysis for parsing serialized data formats (JSON, yaml, XML, etc.);  searching within text editors;  operations, in scripts that search and manipulate configuration files, log files, the output of other programs, and more;  development, in tools that manage source code, issues, builds, and tests." />
+<meta property="og:description" content="Thoughts  It will be useful in parsing s-expressions.  RPL   compiled,
+  block-structured,
+  lexically scoped,
+  declarative
+  pattern expression language with a module system.
+  Names are bound to values of type:
+ pattern, macro, function, and environment (module)    Only patterns are first-class.
+Block structure There are lexical units (imaginatively called &ldquo;blocks&rdquo;) of code that we can talk about." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/rosie-pattern-matching-language/" />
 <meta property="article:published_time" content="2019-11-19T00:00:00+08:00" />
@@ -153,7 +167,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          8 min read
+          9 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -171,30 +185,101 @@
 
 
     <div class="post-content">
-      <dl>
-<dt>Will regex remain relevant? Probably.</dt>
-<dd><a href="https://rosie-lang.org/blog/2018/02/25/why-rpl.html#rpl-looks-like-overkill-wouldnt-something-simpler-work">Rosie Pattern Language: Why Create a Regex Replacement?</a> <br />
-<br />
-Regex are ubiquitous because they fill a persistent need. Today, we rely  <br />
-on regex in so many ways, including:                                      <br />
+      <h2 id="thoughts">Thoughts</h2>
 <ul>
-<li>lexical analysis for the vast majority of programming language parsers;                                                                <br /></li>
-<li>lexical analysis for Natural Language Processing;                       <br /></li>
-<li>lexical analysis for parsing serialized data formats (JSON, yaml, XML, etc.);                                                                  <br /></li>
-<li>searching within text editors;                                          <br /></li>
-<li>operations, in scripts that search and manipulate configuration files, log files, the output of other programs, and more;                      <br /></li>
+<li>It will be useful in parsing <code>s-expressions</code>.</li>
+</ul>
+<h2 id="rpl">RPL</h2>
+<ul>
+<li>
+<p>compiled,</p>
+</li>
+<li>
+<p>block-structured,</p>
+</li>
+<li>
+<p>lexically scoped,</p>
+</li>
+<li>
+<p>declarative</p>
+</li>
+<li>
+<p>pattern expression language with a module system.</p>
+</li>
+<li>
+<p>Names are bound to values of type:</p>
+<ul>
+<li><span class="underline">pattern</span>,</li>
+<li><span class="underline">macro</span>,</li>
+<li><span class="underline">function</span>, and</li>
+<li><span class="underline">environment</span> (module)</li>
+</ul>
+</li>
+</ul>
+<p>Only patterns are first-class.</p>
+<h3 id="block-structure"><strong><strong>Block structure</strong></strong></h3>
+<p>There are lexical units (imaginatively called &ldquo;blocks&rdquo;) of code that we can talk about.</p>
+<ul>
+<li>In RPL 1.2, there are two kinds ofblocks:
+<ul>
+<li>Files of RPL code</li>
+<li>Grammars</li>
+</ul>
+</li>
+</ul>
+<h3 id="declarative"><strong><strong>Declarative</strong></strong></h3>
+<p>RPL is a <strong><strong>declarative expression language</strong></strong> for syntactic patterns, as are regular
+expressions and context free grammars.</p>
+<p>RPL is based on Parsing Expression Grammars.</p>
+<h3 id="grammar-blocks">grammar blocks</h3>
+<p>Inside a grammar block, all of the outer (file
+scope) names are visible, unless they are
+shadowed by a binding of the same name in the
+grammar.</p>
+<p>Grammars allow mutually recursive pattern
+definitions, making them useful for expressing
+patterns to match recursively defined syntax
+like JSON, XML, and s-expressions.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">mutual recursion
+    Two functions are called mutually
+    recursive if the first function makes a
+    recursive call to the second function and
+    the second function, in turn, calls the
+    first one.</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="will-regex-remain-relevant-probably">Will regex remain relevant? Probably</h2>
+<ul>
+<li>
+<p>We still rely on regex:</p>
+<ul>
+<li>lexical analysis for the vast majority of programming language parsers</li>
+<li>lexical analysis for NLP</li>
+<li>lexical analysis for parsing serialized data formats (JSON, yaml, XML, etc.)</li>
+<li>searching within text editors</li>
+<li>operations, in scripts that search and manipulate configuration files, log files, the output of other programs, and more;</li>
 <li>development, in tools that manage source code, issues, builds, and tests.</li>
 </ul>
-</dd>
-<dt>PEG vs CFG - Why use Parsing Expression Grammars (PEGs)?</dt>
-<dd><a href="https://rosie-lang.org/blog/2018/02/25/why-rpl.html#why-use-parsing-expression-grammars-pegs">Rosie Pattern Language: Why Create a Regex Replacement?</a> <br />
+</li>
+<li>
+<p><a href="https://rosie-lang.org/blog/2018/02/25/why-rpl.html#why-use-parsing-expression-grammars-pegs">Rosie Pattern Language: Why Create a Regex Replacement?</a></p>
 <ul>
-<li>I wanted an approach that had a formal basis, so that we can (in future) prove useful properties about RPL expressions. For example, we want to prove correct the transformations and optimizations that are done by the RPL compiler. <br /></li>
-<li>As mentioned already, there is a common need to parse recursively-defined structures, and PEGs can do this. <br /></li>
+<li>I wanted an approach that had a formal basis, so that we can (in future) prove useful properties about RPL expressions. For example, we want to prove correct the transformations and optimizations that are done by the RPL compiler.</li>
+<li>As mentioned already, there is a common need to parse recursively-defined structures, and PEGs can do this.</li>
 <li>Context Free Grammars are expensive to parse, whereas PEGs can be parsed in linear time in the input size.</li>
 </ul>
-</dd>
-</dl>
+</li>
+</ul>
 <h2 id="glossary">Glossary</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
