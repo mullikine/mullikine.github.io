@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Review of &#39;Introduction - Rust By Example&#39; // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c93a97e54f16df99439e5c4acf79edb18fcb9e5384f1edc008a7a4639844b254.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Review of &#39;Introduction - Rust By Example&#39;"/>
+<meta name="twitter:description" content="Original article Introduction - Rust By Example  hello world 1 2 3 4 5 6  fn main() { // Statements here are executed when the compiled binary is called  // Print text to the console  println!(&#34;Hello World!&#34;); }    Hello World! primitives Rust provides access to a wide variety of primitives. A sample includes:
+ Scalar Types  signed integers: i8, i16, i32, i64, i128 and isize (pointer size) unsigned integers: u8, u16, u32, u64, u128 and usize (pointer size) floating point: f32, f64 char Unicode scalar values like &lsquo;a&rsquo;, &lsquo;α&rsquo; and &lsquo;∞&rsquo; (4 bytes each) bool either true or false and the unit type (), whose only possible value is an empty tuple: ()    Despite the value of a unit type being a tuple, it is not considered a compound type because it does not contain multiple values."/>
+
+    <meta property="og:title" content="Review of &#39;Introduction - Rust By Example&#39;" />
+<meta property="og:description" content="Original article Introduction - Rust By Example  hello world 1 2 3 4 5 6  fn main() { // Statements here are executed when the compiled binary is called  // Print text to the console  println!(&#34;Hello World!&#34;); }    Hello World! primitives Rust provides access to a wide variety of primitives. A sample includes:
+ Scalar Types  signed integers: i8, i16, i32, i64, i128 and isize (pointer size) unsigned integers: u8, u16, u32, u64, u128 and usize (pointer size) floating point: f32, f64 char Unicode scalar values like &lsquo;a&rsquo;, &lsquo;α&rsquo; and &lsquo;∞&rsquo; (4 bytes each) bool either true or false and the unit type (), whose only possible value is an empty tuple: ()    Despite the value of a unit type being a tuple, it is not considered a compound type because it does not contain multiple values." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/review-of-introduction-rust-by-example/" />
+<meta property="article:published_time" content="2020-06-18T00:00:00+08:00" />
+<meta property="article:modified_time" content="2020-06-18T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+
+<a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">Automating Dwarf Fortress</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (199 topics)</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/xenolinguistics/">xenolinguistics</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/gpt/">GPT (Generative Pre-Training)</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/shell/">shell</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/github/">GitHub</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsl/">DSL</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/diagrams/">diagrams</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a>
+<a class="tag" href="https://mullikine.github.io/tags/iac/">IaC</a>
+<a class="tag big" href="https://mullikine.github.io/tags/facebook/">Facebook</a>
+<a class="tag" href="https://mullikine.github.io/tags/wfh/">WFH</a>
+<a class="tag big" href="https://mullikine.github.io/tags/rocketlab/">Rocket Lab</a>
+<a class="tag" href="https://mullikine.github.io/tags/prayer/">prayer</a>
+<a class="tag" href="https://mullikine.github.io/tags/babel/">babel</a>
+<a class="tag big" href="https://mullikine.github.io/tags/uber/">Uber</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/microsoft/">Microsoft</a>
+<a class="tag big" href="https://mullikine.github.io/tags/openai/">OpenAI</a>
+</div>
+</div>
+
+
+
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Review of &#39;Introduction - Rust By Example&#39;</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jun 18, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          6 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/rust/">Rust</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      <dl>
+<dt>Original article</dt>
+<dd><a href="https://doc.rust-lang.org/stable/rust-by-example/">Introduction - Rust By Example</a></dd>
+</dl>
+<h2 id="hello-world">hello world</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#75715e">// Statements here are executed when the compiled binary is called
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// Print text to the console
+</span><span style="color:#75715e"></span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;Hello World!&#34;</span>);
+}
+</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">Hello World<span style="color:#f92672">!</span>
+</code></pre></div><h2 id="primitives">primitives</h2>
+<p>Rust provides access to a wide variety of
+primitives. A sample includes:</p>
+<ul>
+<li>Scalar Types
+<ul>
+<li>signed integers: i8, i16, i32, i64, i128 and isize (pointer size)</li>
+<li>unsigned integers: u8, u16, u32, u64, u128 and usize (pointer size)</li>
+<li>floating point: f32, f64</li>
+<li>char Unicode scalar values like &lsquo;a&rsquo;, &lsquo;α&rsquo; and &lsquo;∞&rsquo; (4 bytes each)</li>
+<li>bool either true or false</li>
+<li>and the unit type (), whose only possible value is an empty tuple: ()</li>
+</ul>
+</li>
+</ul>
+<p>Despite the value of a unit type being a
+tuple, it is not considered a compound type
+because it does not contain multiple values.</p>
+<ul>
+<li>Compound Types
+<ul>
+<li>arrays like [1, 2, 3]</li>
+<li>tuples like (1, true)</li>
+</ul>
+</li>
+</ul>
+<p>Variables can always be type annotated.
+Numbers may additionally be annotated via a
+suffix or by default. Integers default to i32
+and floats to f64. Note that Rust can also
+infer types from context.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#75715e">// Variables can be type annotated.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> logical: <span style="color:#66d9ef">bool</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+
+    <span style="color:#66d9ef">let</span> a_float: <span style="color:#66d9ef">f64</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span>;  <span style="color:#75715e">// Regular annotation
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> an_integer   <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span><span style="color:#66d9ef">i32</span>; <span style="color:#75715e">// Suffix annotation
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// Or a default will be used.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> default_float   <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.0</span>; <span style="color:#75715e">// `f64`
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> default_integer <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>;   <span style="color:#75715e">// `i32`
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// A type can also be inferred from context
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> inferred_type <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>; <span style="color:#75715e">// Type i64 is inferred from another line
+</span><span style="color:#75715e"></span>    inferred_type <span style="color:#f92672">=</span> <span style="color:#ae81ff">4294967296</span><span style="color:#66d9ef">i64</span>;
+
+    <span style="color:#75715e">// A mutable variable&#39;s value can be changed.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> mutable <span style="color:#f92672">=</span> <span style="color:#ae81ff">12</span>; <span style="color:#75715e">// Mutable `i32`
+</span><span style="color:#75715e"></span>    mutable <span style="color:#f92672">=</span> <span style="color:#ae81ff">21</span>;
+
+    <span style="color:#75715e">// Error! The type of a variable can&#39;t be changed.
+</span><span style="color:#75715e"></span>    mutable <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+
+    <span style="color:#75715e">// Variables can be overwritten with shadowing.
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> mutable <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="tuples">tuples</h3>
+<p>A tuple is a collection of values of different
+types. Tuples are constructed using
+parentheses <code>()</code>, and each tuple itself is a
+value with type signature <code>(T1, T2, ...)</code>, where
+T1, T2 are the types of its members. Functions
+can use tuples to return multiple values, as
+tuples can hold any number of values.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#75715e">// Tuples can be used as function arguments and as return values
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">reverse</span>(pair: (<span style="color:#66d9ef">i32</span>, <span style="color:#66d9ef">bool</span>)) -&gt; (<span style="color:#66d9ef">bool</span>, <span style="color:#66d9ef">i32</span>) {
+    <span style="color:#75715e">// `let` can be used to bind the members of a tuple to variables
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> (integer, boolean) <span style="color:#f92672">=</span> pair;
+
+    (boolean, integer)
+}
+
+<span style="color:#75715e">// The following struct is for the activity.
+</span><span style="color:#75715e"></span><span style="color:#75715e">#[derive(Debug)]</span>
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Matrix</span>(<span style="color:#66d9ef">f32</span>, <span style="color:#66d9ef">f32</span>, <span style="color:#66d9ef">f32</span>, <span style="color:#66d9ef">f32</span>);
+
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#75715e">// A tuple with a bunch of different types
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> long_tuple <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span><span style="color:#66d9ef">u8</span>, <span style="color:#ae81ff">2</span><span style="color:#66d9ef">u16</span>, <span style="color:#ae81ff">3</span><span style="color:#66d9ef">u32</span>, <span style="color:#ae81ff">4</span><span style="color:#66d9ef">u64</span>,
+                      <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#66d9ef">i8</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span><span style="color:#66d9ef">i16</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">3</span><span style="color:#66d9ef">i32</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">4</span><span style="color:#66d9ef">i64</span>,
+                      <span style="color:#ae81ff">0.1</span><span style="color:#66d9ef">f32</span>, <span style="color:#ae81ff">0.2</span><span style="color:#66d9ef">f64</span>,
+                      <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#66d9ef">true</span>);
+
+    <span style="color:#75715e">// Values can be extracted from the tuple using tuple indexing
+</span><span style="color:#75715e"></span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;long tuple first value: {}&#34;</span>, long_tuple.<span style="color:#ae81ff">0</span>);
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;long tuple second value: {}&#34;</span>, long_tuple.<span style="color:#ae81ff">1</span>);
+
+    <span style="color:#75715e">// Tuples can be tuple members
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> tuple_of_tuples <span style="color:#f92672">=</span> ((<span style="color:#ae81ff">1</span><span style="color:#66d9ef">u8</span>, <span style="color:#ae81ff">2</span><span style="color:#66d9ef">u16</span>, <span style="color:#ae81ff">2</span><span style="color:#66d9ef">u32</span>), (<span style="color:#ae81ff">4</span><span style="color:#66d9ef">u64</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#66d9ef">i8</span>), <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span><span style="color:#66d9ef">i16</span>);
+
+    <span style="color:#75715e">// Tuples are printable
+</span><span style="color:#75715e"></span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;tuple of tuples: {:?}&#34;</span>, tuple_of_tuples);
+
+    <span style="color:#75715e">// But long Tuples cannot be printed
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// let too_long_tuple = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13);
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// println!(&#34;too long tuple: {:?}&#34;, too_long_tuple);
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// TODO ^ Uncomment the above 2 lines to see the compiler error
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">let</span> pair <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">true</span>);
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;pair is {:?}&#34;</span>, pair);
+
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;the reversed pair is {:?}&#34;</span>, reverse(pair));
+
+    <span style="color:#75715e">// To create one element tuples, the comma is required to tell them apart
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// from a literal surrounded by parentheses
+</span><span style="color:#75715e"></span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;one element tuple: {:?}&#34;</span>, (<span style="color:#ae81ff">5</span><span style="color:#66d9ef">u32</span>,));
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;just an integer: {:?}&#34;</span>, (<span style="color:#ae81ff">5</span><span style="color:#66d9ef">u32</span>));
+
+    <span style="color:#75715e">//tuples can be destructured to create bindings
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> tuple <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;hello&#34;</span>, <span style="color:#ae81ff">4.5</span>, <span style="color:#66d9ef">true</span>);
+
+    <span style="color:#66d9ef">let</span> (a, b, c, d) <span style="color:#f92672">=</span> tuple;
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{:?}, {:?}, {:?}, {:?}&#34;</span>, a, b, c, d);
+
+    <span style="color:#66d9ef">let</span> matrix <span style="color:#f92672">=</span> Matrix(<span style="color:#ae81ff">1.1</span>, <span style="color:#ae81ff">1.2</span>, <span style="color:#ae81ff">2.1</span>, <span style="color:#ae81ff">2.2</span>);
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;{:?}&#34;</span>, matrix);
+
+}
+</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">long tuple first value: <span style="color:#ae81ff">1</span>
+long tuple second value: <span style="color:#ae81ff">2</span>
+tuple of tuples: ((<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>), (<span style="color:#ae81ff">4</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
+pair is (<span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">true</span>)
+the reversed pair is (<span style="color:#66d9ef">true</span>, <span style="color:#ae81ff">1</span>)
+one element tuple: (<span style="color:#ae81ff">5</span>,)
+just an integer: <span style="color:#ae81ff">5</span>
+<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;hello&#34;</span>, <span style="color:#ae81ff">4.5</span>, <span style="color:#66d9ef">true</span>
+Matrix(<span style="color:#ae81ff">1.1</span>, <span style="color:#ae81ff">1.2</span>, <span style="color:#ae81ff">2.1</span>, <span style="color:#ae81ff">2.2</span>)
+</code></pre></div><h3 id="arrays-and-slices">Arrays and Slices</h3>
+<p>An array is a collection of objects of the
+same type <code>T</code>, stored in contiguous memory.
+Arrays are created using brackets <code>[]</code>, and
+their size, which is known at compile time, is
+part of their type signature <code>[T; size]</code>.</p>
+<p>Slices are similar to arrays, but their size
+is not known at compile time. Instead, a slice
+is a <span class="underline">two-word</span> object, the first word is a
+<span class="underline">pointer to the data</span>, and the second word is
+the <span class="underline">length of the slice</span>. The word size is the
+same as usize, determined by the processor
+architecture eg 64 bits on an x86-64.</p>
+<p>Slices can be used to borrow a section of an
+array, and have the type signature <code>&amp;[T]</code>.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#66d9ef">use</span> std::mem;
+
+<span style="color:#75715e">// This function borrows a slice
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">analyze_slice</span>(slice: <span style="color:#66d9ef">&amp;</span>[<span style="color:#66d9ef">i32</span>]) {
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;first element of the slice: {}&#34;</span>, slice[<span style="color:#ae81ff">0</span>]);
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;the slice has {} elements&#34;</span>, slice.len());
+}
+
+<span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#75715e">// Fixed-size array (type signature is superfluous)
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> xs: [<span style="color:#66d9ef">i32</span>; <span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>];
+
+    <span style="color:#75715e">// All elements can be initialized to the same value
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> ys: [<span style="color:#66d9ef">i32</span>; <span style="color:#ae81ff">500</span>] <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>; <span style="color:#ae81ff">500</span>];
+
+    <span style="color:#75715e">// Indexing starts at 0
+</span><span style="color:#75715e"></span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;first element of the array: {}&#34;</span>, xs[<span style="color:#ae81ff">0</span>]);
+    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;second element of the array: {}&#34;</span>, xs[<span style="color:#ae81ff">1</span>]);
+
+    <span style="color:#75715e">// `len` returns the size of the array
+</span><span style="color:#75715e"></span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;array size: {}&#34;</span>, xs.len());
+
+    <span style="color:#75715e">// Arrays are stack allocated
+</span><span style="color:#75715e"></span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;array occupies {} bytes&#34;</span>, mem::size_of_val(<span style="color:#f92672">&amp;</span>xs));
+
+    <span style="color:#75715e">// Arrays can be automatically borrowed as slices
+</span><span style="color:#75715e"></span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;borrow the whole array as a slice&#34;</span>);
+    analyze_slice(<span style="color:#f92672">&amp;</span>xs);
+
+    <span style="color:#75715e">// Slices can point to a section of an array
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// They are of the form [starting_index..ending_index]
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// starting_index is the first position in the slice
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// ending_index is one more than the last position in the slice
+</span><span style="color:#75715e"></span>    println<span style="color:#f92672">!</span>(<span style="color:#e6db74">&#34;borrow a section of the array as a slice&#34;</span>);
+    analyze_slice(<span style="color:#f92672">&amp;</span>ys[<span style="color:#ae81ff">1</span> .. <span style="color:#ae81ff">4</span>]);
+
+    <span style="color:#75715e">// Out of bound indexing causes compile error
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// println!(&#34;{}&#34;, xs[5]);
+</span><span style="color:#75715e"></span>}
+</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust">first element of the array: <span style="color:#ae81ff">1</span>
+second element of the array: <span style="color:#ae81ff">2</span>
+array size: <span style="color:#ae81ff">5</span>
+array occupies <span style="color:#ae81ff">20</span> bytes
+borrow the whole array <span style="color:#66d9ef">as</span> a slice
+first element of the slice: <span style="color:#ae81ff">1</span>
+the slice has <span style="color:#ae81ff">5</span> elements
+borrow a section of the array <span style="color:#66d9ef">as</span> a slice
+first element of the slice: <span style="color:#ae81ff">0</span>
+the slice has <span style="color:#ae81ff">3</span> elements
+</code></pre></div>
+    </div>
+    <div class="post-footer">
+        <p>
+        <a href="https://mullikine.github.io/about/">About this weblog</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://asciinema.org/~mullikine">Asciinema recordings</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/posts/blogs-and-vlogs/">Blogs and Vlogs</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/tags/">Site Map</a>
+        </p>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
