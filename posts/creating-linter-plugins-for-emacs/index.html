@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>GitHub Super-Linter and emacs // Bodacious Blog</title>
+    <title>Creating linter plugins for emacs with flycheck // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.71.0" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,13 +11,19 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="GitHub Super-Linter and emacs"/>
-<meta name="twitter:description" content="Article https://github.blog/2020-06-18-introducing-github-super-linter-one-linter-to-rule-them-all/ Source Code https://github.com/github/super-linter TLDR I create a plugin for emacs to use GitHub super linter  Use Super linter locally  Instructions https://github.com/github/super-linter/blob/master/docs/run-linter-locally.md  Create a wrapper script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null if test &#34;$#&#34; -eq 0; then set -- ."/>
+<meta name="twitter:title" content="Creating linter plugins for emacs with flycheck"/>
+<meta name="twitter:description" content="Options :standard-input t This instructs emacs to pipe the buffer into the linter command.
+variables These are used in the command definition.
+For syntax checkers that can’t read from standard input Flycheck provides the special source and source-inplace argument symbols for the :command property.
+These argument symbols create temporary files in the system temp directory or beneath the original file respectively and give pass them to the syntax checker upon invocation."/>
 
-    <meta property="og:title" content="GitHub Super-Linter and emacs" />
-<meta property="og:description" content="Article https://github.blog/2020-06-18-introducing-github-super-linter-one-linter-to-rule-them-all/ Source Code https://github.com/github/super-linter TLDR I create a plugin for emacs to use GitHub super linter  Use Super linter locally  Instructions https://github.com/github/super-linter/blob/master/docs/run-linter-locally.md  Create a wrapper script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null if test &#34;$#&#34; -eq 0; then set -- ." />
+    <meta property="og:title" content="Creating linter plugins for emacs with flycheck" />
+<meta property="og:description" content="Options :standard-input t This instructs emacs to pipe the buffer into the linter command.
+variables These are used in the command definition.
+For syntax checkers that can’t read from standard input Flycheck provides the special source and source-inplace argument symbols for the :command property.
+These argument symbols create temporary files in the system temp directory or beneath the original file respectively and give pass them to the syntax checker upon invocation." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/github-super-linter-and-emacs/" />
+<meta property="og:url" content="https://mullikine.github.io/posts/creating-linter-plugins-for-emacs/" />
 <meta property="article:published_time" content="2020-06-19T00:00:00+08:00" />
 <meta property="article:modified_time" content="2020-06-19T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
 
@@ -139,7 +145,7 @@
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">GitHub Super-Linter and emacs</h1>
+      <h1 class ="post-title">Creating linter plugins for emacs with flycheck</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -159,7 +165,7 @@
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/linting/">linting</a><a class="tag" href="http://mullikine.github.io/tags/tooling/">tooling</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a></div></div>
     </header>
     
 
@@ -171,20 +177,24 @@
 
 
     <div class="post-content">
-      <dl>
-<dt>Article</dt>
-<dd><a href="https://github.blog/2020-06-18-introducing-github-super-linter-one-linter-to-rule-them-all/">https://github.blog/2020-06-18-introducing-github-super-linter-one-linter-to-rule-them-all/</a></dd>
-<dt>Source Code</dt>
-<dd><a href="https://github.com/github/super-linter">https://github.com/github/super-linter</a></dd>
-<dt>TLDR</dt>
-<dd>I create a plugin for emacs to use GitHub super linter</dd>
-</dl>
-<h2 id="use-super-linter-locally">Use Super linter locally</h2>
-<dl>
-<dt>Instructions</dt>
-<dd><a href="https://github.com/github/super-linter/blob/master/docs/run-linter-locally.md">https://github.com/github/super-linter/blob/master/docs/run-linter-locally.md</a></dd>
-</dl>
-<h3 id="create-a-wrapper-script">Create a wrapper script</h3>
+      <h2 id="options">Options</h2>
+<h3 id="standard-input-t"><code>:standard-input t</code></h3>
+<p>This instructs emacs to pipe the buffer into the linter command.</p>
+<h2 id="variables">variables</h2>
+<p>These are used in the command definition.</p>
+<p>For syntax checkers that can’t read from
+standard input Flycheck provides the special
+<code>source</code> and <code>source-inplace</code> argument symbols for
+the <code>:command</code> property.</p>
+<p>These argument symbols create temporary files
+in the system temp directory or beneath the
+original file respectively and give pass them
+to the syntax checker upon invocation.</p>
+<ul>
+<li><code>source</code></li>
+<li><code>source-inplace</code></li>
+</ul>
+<h3 id="example-jsonnet">Example: <code>jsonnet</code></h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -212,69 +222,37 @@
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span>export TTY
-
-<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#e6db74">&#34;&lt;==&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ps -o comm<span style="color:#f92672">=</span> $PPID<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> 0&lt;/dev/null <span style="color:#f92672">)</span> &amp;&gt;/dev/null
-
-<span style="color:#66d9ef">if</span> test <span style="color:#e6db74">&#34;</span>$#<span style="color:#e6db74">&#34;</span> -eq 0; <span style="color:#66d9ef">then</span>
-    set -- . <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span>
-<span style="color:#66d9ef">fi</span>
-
-path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
-
-<span style="color:#66d9ef">if</span> test -e <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">then</span>
-    path<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>realpath <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
-<span style="color:#66d9ef">fi</span>
-
-image<span style="color:#f92672">=</span>admiralawkbar/super-linter
-<span style="color:#75715e"># image=github/super-linter</span>
-
-<span style="color:#66d9ef">if</span> test -d <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">then</span>
-    docker run -e RUN_LOCAL<span style="color:#f92672">=</span>true -v <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">:/tmp/lint&#34;</span> <span style="color:#e6db74">&#34;</span>$image<span style="color:#e6db74">&#34;</span>
-<span style="color:#66d9ef">elif</span> test -f <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">then</span>
-    bn<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
-    docker run -e RUN_LOCAL<span style="color:#f92672">=</span>true -v <span style="color:#e6db74">&#34;</span>$path<span style="color:#e6db74">:/tmp/lint/</span>$bn<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$image<span style="color:#e6db74">&#34;</span>
-<span style="color:#66d9ef">else</span>
-    docker run --rm --entrypoint<span style="color:#f92672">=</span> github/super-linter:latest cat /action/lib/linter.sh | pavs
-    <span style="color:#75715e"># exit 1</span>
-<span style="color:#66d9ef">fi</span></code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(flycheck-define-checker jsonnet
+  <span style="color:#e6db74">&#34;A Jsonnet syntax checker using the jsonnet binary.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">See URL </span><span style="color:#e6db74">`https://jsonnet.org&#39;</span><span style="color:#e6db74">.&#34;</span>
+  :command (<span style="color:#e6db74">&#34;jsonnet&#34;</span> source-inplace)
+  :error-patterns
+  ((<span style="color:#a6e22e">error</span> line-start <span style="color:#e6db74">&#34;STATIC ERROR: &#34;</span> (file-name) <span style="color:#e6db74">&#34;:&#34;</span>
+          (or (seq line <span style="color:#e6db74">&#34;:&#34;</span> column (zero-or-one (seq <span style="color:#e6db74">&#34;-&#34;</span> end-column)))
+              (seq <span style="color:#e6db74">&#34;(&#34;</span> line <span style="color:#e6db74">&#34;:&#34;</span> column <span style="color:#e6db74">&#34;)&#34;</span> <span style="color:#e6db74">&#34;-&#34;</span>
+                   <span style="color:#e6db74">&#34;(&#34;</span> end-line <span style="color:#e6db74">&#34;:&#34;</span> end-column <span style="color:#e6db74">&#34;)&#34;</span>))
+          <span style="color:#e6db74">&#34;: &#34;</span> (<span style="color:#a6e22e">message</span>) line-end)
+   (<span style="color:#a6e22e">error</span> line-start <span style="color:#e6db74">&#34;RUNTIME ERROR: &#34;</span> (<span style="color:#a6e22e">message</span>) <span style="color:#e6db74">&#34;\n&#34;</span>
+          (<span style="color:#e6db74">? </span><span style="color:#e6db74">&#34;\t&#34;</span> (file-name) <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#75715e">;; first line of the backtrace</span>
+             (or (seq line <span style="color:#e6db74">&#34;:&#34;</span> column (zero-or-one (seq <span style="color:#e6db74">&#34;-&#34;</span> end-column)))
+                 (seq <span style="color:#e6db74">&#34;(&#34;</span> line <span style="color:#e6db74">&#34;:&#34;</span> column <span style="color:#e6db74">&#34;)&#34;</span> <span style="color:#e6db74">&#34;-&#34;</span>
+                      <span style="color:#e6db74">&#34;(&#34;</span> end-line <span style="color:#e6db74">&#34;:&#34;</span> end-column <span style="color:#e6db74">&#34;)&#34;</span>)))))
+  :error-filter
+  (lambda (errs)
+    <span style="color:#75715e">;; Some errors are missing line numbers. See URL</span>
+    <span style="color:#75715e">;; `https://github.com/google/jsonnet/issues/786&#39;.</span>
+    (dolist (err errs)
+      (unless (flycheck-error-line err)
+        (setf (flycheck-error-line err) <span style="color:#ae81ff">1</span>)))
+    (flycheck-sanitize-errors errs))
+  :modes jsonnet-mode)</code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="read-the-linter-dot-sh-script">Read the <code>linter.sh</code> script</h3>
-<p><code>linter.sh</code> script is written in shell.</p>
-<p>I could easily extend this.</p>
-<p><a title="asciinema recording" href="https://asciinema.org/a/WOEWbh5Jf0Oo2gb82KdpJdeDZ" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/WOEWbh5Jf0Oo2gb82KdpJdeDZ.svg" /></a></p>
-<h2 id="set-up-for-emacs">Set up for <code>emacs</code></h2>
-<h3 id="use-gometalinter-as-an-example">Use <code>gometalinter</code> as an example</h3>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">e ia flycheck-gometalinter</code></pre></td></tr></table>
-</div>
-</div>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(use-package flycheck-gometalinter
-       :ensure <span style="color:#66d9ef">t</span>
-       :config
-       (progn
-         (flycheck-gometalinter-setup)))</code></pre></td></tr></table>
-</div>
-</div>
+<h2 id="stdin">stdin</h2>
+<h3 id="example-html-tidy">Example: <code>html-tidy</code></h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -295,58 +273,44 @@ image<span style="color:#f92672">=</span>admiralawkbar/super-linter
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(flycheck-define-checker gometalinter
-  <span style="color:#e6db74">&#34;A all-in-one Go linter.
-</span><span style="color:#e6db74">See URL: </span><span style="color:#e6db74">`https://github.com/alecthomas/gometalinter&#39;</span><span style="color:#e6db74">&#34;</span>
-  :command (<span style="color:#e6db74">&#34;gometalinter&#34;</span>
-            (option <span style="color:#e6db74">&#34;--concurrency=&#34;</span> flycheck-gometalinter-concurrency <span style="color:#a6e22e">concat</span> flycheck-option-int)
-            (option-flag <span style="color:#e6db74">&#34;--vendor&#34;</span> flycheck-gometalinter-vendor)
-            (option-flag <span style="color:#e6db74">&#34;--errors&#34;</span> flycheck-gometalinter-errors-only)
-            (option-flag <span style="color:#e6db74">&#34;--disable-all&#34;</span> flycheck-gometalinter-disable-all)
-            (option-flag <span style="color:#e6db74">&#34;--fast&#34;</span> flycheck-gometalinter-fast)
-            (option-flag <span style="color:#e6db74">&#34;--tests&#34;</span> flycheck-gometalinter-tests)
-            (option <span style="color:#e6db74">&#34;--deadline=&#34;</span> flycheck-gometalinter-deadline <span style="color:#a6e22e">concat</span>)
-            (option-list <span style="color:#e6db74">&#34;--disable=&#34;</span> flycheck-gometalinter-disable-linters <span style="color:#a6e22e">concat</span>)
-            (option-list <span style="color:#e6db74">&#34;--enable=&#34;</span> flycheck-gometalinter-enable-linters <span style="color:#a6e22e">concat</span>)
-            (option <span style="color:#e6db74">&#34;--config=&#34;</span> flycheck-gometalinter-config <span style="color:#a6e22e">concat</span>)
-            <span style="color:#e6db74">&#34;--checkstyle&#34;</span>
-            <span style="color:#e6db74">&#34;.&#34;</span>)
-   :error-parser flycheck-parse-checkstyle
-   :error-filter flycheck-dequalify-error-ids
-   :modes go-mode)</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(flycheck-define-checker html-tidy
+  <span style="color:#e6db74">&#34;A HTML syntax and style checker using Tidy.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">See URL </span><span style="color:#e6db74">`https://github.com/htacg/tidy-html5&#39;</span><span style="color:#e6db74">.&#34;</span>
+  :command (<span style="color:#e6db74">&#34;tidy&#34;</span> (config-file <span style="color:#e6db74">&#34;-config&#34;</span> flycheck-tidyrc)
+            <span style="color:#e6db74">&#34;-lang&#34;</span> <span style="color:#e6db74">&#34;en&#34;</span>
+            <span style="color:#e6db74">&#34;-e&#34;</span> <span style="color:#e6db74">&#34;-q&#34;</span>)
+  :standard-input <span style="color:#66d9ef">t</span>
+  :error-patterns
+  ((<span style="color:#a6e22e">error</span> line-start
+          <span style="color:#e6db74">&#34;line &#34;</span> line
+          <span style="color:#e6db74">&#34; column &#34;</span> column
+          <span style="color:#e6db74">&#34; - Error: &#34;</span> (<span style="color:#a6e22e">message</span>) line-end)
+   (warning line-start
+            <span style="color:#e6db74">&#34;line &#34;</span> line
+            <span style="color:#e6db74">&#34; column &#34;</span> column
+            <span style="color:#e6db74">&#34; - Warning: &#34;</span> (<span style="color:#a6e22e">message</span>) line-end))
+  :modes (html-mode mhtml-mode nxhtml-mode))</code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="create-a-flycheck-checker-for-github-super-linter">Create a <code>flycheck</code> checker for <code>github-super-linter</code></h3>
+<h2 id="debugging">Debugging</h2>
+<ul>
+<li>Open a file you want to test the linter on</li>
+<li>Check the linter that will be use with <code>flycheck-get-checker-for-buffer</code></li>
+</ul>
+<h3 id="this-outputs-proselint-because-we-are-in-org-mode">This outputs <code>proselint</code> because we are in <code>org-mode</code></h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(flycheck-define-checker github-super-linter
-  <span style="color:#e6db74">&#34;GitHub&#39;s super linter&#34;</span>
-  :command (<span style="color:#e6db74">&#34;super-linter&#34;</span>
-            <span style="color:#e6db74">&#34;.&#34;</span>)
-  :error-parser flycheck-parse-checkstyle
-  :error-filter flycheck-dequalify-error-ids
-  :modes (go-mode yaml-mode terraform-mode markdown-mode dockerfile-mode sh-mode xml-mode json-mode ruby-mode javascript-mode))
-
-(add-to-list <span style="color:#e6db74">&#39;flycheck-checkers</span> <span style="color:#e6db74">&#39;github-super-linter</span>)</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(flycheck-get-checker-for-buffer)</code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="using-the-linter-through-emacs">Using the linter through emacs</h3>
-<p><a title="asciinema recording" href="https://asciinema.org/a/BWYMC650UMJ8jNW7Jx9veoN5S" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/BWYMC650UMJ8jNW7Jx9veoN5S.svg" /></a></p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#e6db74">&#34;proselint&#34;</span>
+</code></pre></div>
     </div>
     <div class="post-footer">
         <p>

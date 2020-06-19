@@ -12,12 +12,12 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Using the terraform linter"/>
-<meta name="twitter:description" content="TLDR  Create a wrapper script for tflint Search for terraform files Lint them  The point of this blog post is to demonstrate that this process is very quick.jj
-Wrapper script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null last_arg=&#34;${@: -1}&#34; fp=&#34;$last_arg&#34; if test -f &#34;$fp&#34;; then rp=&#34;$(realpath &#34;$fp&#34;)&#34; bn=&#34;$(basename &#34;$fp&#34;)&#34; dn=&#34;$(dirname &#34;$rp&#34;)&#34; cd &#34;$dn&#34; test &#34;$#&#34; -gt 0 &amp;&amp; set -- &#34;${@:1:$(($#-1))}&#34; # shift last arg set -- &#34;$@&#34; &#34;$bn&#34; fi docker run --rm -v &#34;$(pwd):/$(pwd | slugify)&#34; -w &#34;/$(pwd | slugify)&#34; -ti --entrypoint= wata727/tflint:latest tflint &#34;$@&#34;   Demonstration"/>
+<meta name="twitter:description" content="TLDR  Create a wrapper script for tflint Search for terraform files Lint them  The point of this blog post is to demonstrate that this process is very quick.
+Wrapper script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null last_arg=&#34;${@: -1}&#34; fp=&#34;$last_arg&#34; if test -f &#34;$fp&#34;; then rp=&#34;$(realpath &#34;$fp&#34;)&#34; bn=&#34;$(basename &#34;$fp&#34;)&#34; dn=&#34;$(dirname &#34;$rp&#34;)&#34; cd &#34;$dn&#34; test &#34;$#&#34; -gt 0 &amp;&amp; set -- &#34;${@:1:$(($#-1))}&#34; # shift last arg set -- &#34;$@&#34; &#34;$bn&#34; fi docker run --rm -v &#34;$(pwd):/$(pwd | slugify)&#34; -w &#34;/$(pwd | slugify)&#34; --entrypoint= wata727/tflint:latest tflint &#34;$@&#34; | strip-ansi   Demonstration"/>
 
     <meta property="og:title" content="Using the terraform linter" />
-<meta property="og:description" content="TLDR  Create a wrapper script for tflint Search for terraform files Lint them  The point of this blog post is to demonstrate that this process is very quick.jj
-Wrapper script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null last_arg=&#34;${@: -1}&#34; fp=&#34;$last_arg&#34; if test -f &#34;$fp&#34;; then rp=&#34;$(realpath &#34;$fp&#34;)&#34; bn=&#34;$(basename &#34;$fp&#34;)&#34; dn=&#34;$(dirname &#34;$rp&#34;)&#34; cd &#34;$dn&#34; test &#34;$#&#34; -gt 0 &amp;&amp; set -- &#34;${@:1:$(($#-1))}&#34; # shift last arg set -- &#34;$@&#34; &#34;$bn&#34; fi docker run --rm -v &#34;$(pwd):/$(pwd | slugify)&#34; -w &#34;/$(pwd | slugify)&#34; -ti --entrypoint= wata727/tflint:latest tflint &#34;$@&#34;   Demonstration" />
+<meta property="og:description" content="TLDR  Create a wrapper script for tflint Search for terraform files Lint them  The point of this blog post is to demonstrate that this process is very quick.
+Wrapper script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null last_arg=&#34;${@: -1}&#34; fp=&#34;$last_arg&#34; if test -f &#34;$fp&#34;; then rp=&#34;$(realpath &#34;$fp&#34;)&#34; bn=&#34;$(basename &#34;$fp&#34;)&#34; dn=&#34;$(dirname &#34;$rp&#34;)&#34; cd &#34;$dn&#34; test &#34;$#&#34; -gt 0 &amp;&amp; set -- &#34;${@:1:$(($#-1))}&#34; # shift last arg set -- &#34;$@&#34; &#34;$bn&#34; fi docker run --rm -v &#34;$(pwd):/$(pwd | slugify)&#34; -w &#34;/$(pwd | slugify)&#34; --entrypoint= wata727/tflint:latest tflint &#34;$@&#34; | strip-ansi   Demonstration" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/using-the-terraform-linter/" />
 <meta property="article:published_time" content="2020-06-19T00:00:00+08:00" />
@@ -155,7 +155,7 @@ Wrapper script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  #!/bin/bash export 
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -179,7 +179,7 @@ Wrapper script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  #!/bin/bash export 
 <li>Search for terraform files</li>
 <li>Lint them</li>
 </ul>
-<p>The point of this blog post is to demonstrate that this process is very quick.jj</p>
+<p>The point of this blog post is to demonstrate that this process is very quick.</p>
 <h2 id="wrapper-script">Wrapper script</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -220,12 +220,170 @@ fp<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$l
     test <span style="color:#e6db74">&#34;</span>$#<span style="color:#e6db74">&#34;</span> -gt <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> set -- <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>@:1:<span style="color:#66d9ef">$((</span>$#<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#66d9ef">))</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#75715e"># shift last arg</span>
     set -- <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$bn<span style="color:#e6db74">&#34;</span>
 <span style="color:#66d9ef">fi</span>
-docker run --rm -v <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">:/</span><span style="color:#66d9ef">$(</span>pwd | slugify<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> -w <span style="color:#e6db74">&#34;/</span><span style="color:#66d9ef">$(</span>pwd | slugify<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> -ti --entrypoint<span style="color:#f92672">=</span> wata727/tflint:latest tflint <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+docker run --rm -v <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">:/</span><span style="color:#66d9ef">$(</span>pwd | slugify<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> -w <span style="color:#e6db74">&#34;/</span><span style="color:#66d9ef">$(</span>pwd | slugify<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> --entrypoint<span style="color:#f92672">=</span> wata727/tflint:latest tflint <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> | strip-ansi</code></pre></td></tr></table>
 </div>
 </div>
 <h2 id="demonstration">Demonstration</h2>
 <p><a title="asciinema recording" href="https://asciinema.org/a/RrSQ29cdb3xNhiV6SUPpKV7V2" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/RrSQ29cdb3xNhiV6SUPpKV7V2.svg" /></a></p>
+<h2 id="create-a-flycheck-checker-for-emacs">Create a <code>flycheck</code> checker for <code>emacs</code></h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(flycheck-define-checker tflint
+  <span style="color:#e6db74">&#34;Terraform linter tflint&#34;</span>
+  :command (<span style="color:#e6db74">&#34;tflint&#34;</span>
+            source-inplace)
+  :error-parser flycheck-parse-checkstyle
+  :error-filter flycheck-dequalify-error-ids
+  :modes (terraform-mode))
 
+(add-to-list <span style="color:#e6db74">&#39;flycheck-checkers</span> <span style="color:#e6db74">&#39;tflint</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="optionally-add-this-to-handle">Optionally, add this to handle</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun flycheck-compile-tflint ()
+  (interactive)
+  (flycheck-compile <span style="color:#e6db74">&#39;tflint</span>))
+
+(handle <span style="color:#f92672">&#39;</span>(terraform-mode)
+        :repls <span style="color:#f92672">&#39;</span>()
+        :formatters <span style="color:#f92672">&#39;</span>()
+        :docs <span style="color:#f92672">&#39;</span>()
+        :godef <span style="color:#f92672">&#39;</span>()
+        :docsearch <span style="color:#f92672">&#39;</span>()
+        :nextdef <span style="color:#f92672">&#39;</span>()
+        :prevdef <span style="color:#f92672">&#39;</span>()
+        :nexterr <span style="color:#f92672">&#39;</span>()
+        :preverr <span style="color:#f92672">&#39;</span>()
+        :errors <span style="color:#f92672">&#39;</span>()
+        <span style="color:#75715e">;; :errors &#39;(flycheck-compile-tflint)</span>
+        )</code></pre></td></tr></table>
+</div>
+</div>
+<p>Without specifying, the default <code>handle</code> linter function will be called.</p>
+<p>In order of attempts, they are <code>lsp-ui-flycheck-list</code> and <code>flycheck-buffer</code> as specified in the <code>prog-mode</code> handler.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(handle <span style="color:#f92672">&#39;</span>(prog-mode)
+        :complete <span style="color:#f92672">&#39;</span>(indent-for-tab-command)
+        :run <span style="color:#f92672">&#39;</span>(compile-run)
+        :repls <span style="color:#f92672">&#39;</span>(rtog/toggle-repl
+                 term-pg-for-mode-or-lang
+                 <span style="color:#75715e">;; v +/&#34;(defun rtog\/toggle-repl (&amp;optional passAlong? &amp;rest ignored)&#34; &#34;$MYGIT/bbatsov/prelude/elpa/repl-toggle-20190426.817/repl-toggle.el&#34;</span>
+                 )
+        :formatters <span style="color:#f92672">&#39;</span>(lsp-format)
+        :debug <span style="color:#f92672">&#39;</span>(dap-debug-and-hydra)
+        :docs <span style="color:#f92672">&#39;</span>(
+                my-doc-override
+                <span style="color:#75715e">;; lsp-ui-doc-show</span>
+                my/doc-thing-at-point)
+        :docsearch <span style="color:#f92672">&#39;</span>(my/doc-ask)
+        :godec <span style="color:#f92672">&#39;</span>(lsp-find-declaration
+                 google-for-docs
+                 )
+        :godef <span style="color:#f92672">&#39;</span>(lsp-find-definition
+                 xref-find-definitions
+                 helm-gtags-dwim
+                 google-for-def)
+        :nextdef <span style="color:#f92672">&#39;</span>(my-prog-next-def)
+        :prevdef <span style="color:#f92672">&#39;</span>(my-prog-prev-def)
+        :nexterr <span style="color:#f92672">&#39;</span>(flycheck-next-error)
+        :preverr <span style="color:#f92672">&#39;</span>(flycheck-previous-error)
+        :rc <span style="color:#f92672">&#39;</span>(my-goto-rc)
+        <span style="color:#75715e">;; select from multiple</span>
+        :errors <span style="color:#f92672">&#39;</span>(lsp-ui-flycheck-list flycheck-buffer)
+        :assignments <span style="color:#f92672">&#39;</span>()
+        :references <span style="color:#f92672">&#39;</span>(lsp-ui-peek-find-references)
+        :definitions <span style="color:#f92672">&#39;</span>(lsp-ui-peek-find-definitions)
+        :implementations <span style="color:#f92672">&#39;</span>(lsp-ui-peek-find-implementation))</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="debug-to-ensure-the-linter-will-be-called">Debug to ensure the linter will be called</h3>
+<ul>
+<li>
+<p>Open a file you want to test the linter on</p>
+</li>
+<li>
+<p>Check the linter that will be use with <code>flycheck-get-checker-for-buffer</code></p>
+<p>This outputs <code>proselint</code> because we are in <code>org-mode</code></p>
+</li>
+</ul>
+<!--listend-->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(flycheck-get-checker-for-buffer)</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs" data-lang="emacs"><span style="color:#e6db74">&#34;proselint&#34;</span>
+</code></pre></div>
     </div>
     <div class="post-footer">
         <p>
