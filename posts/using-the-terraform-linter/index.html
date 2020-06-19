@@ -13,11 +13,11 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Using the terraform linter"/>
 <meta name="twitter:description" content="TLDR  Create a wrapper script for tflint Search for terraform files Lint them  The point of this blog post is to demonstrate that this process is very quick.jj
-Wrapper script#!/bin/bash 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null last_arg=&#34;${@: -1}&#34; fp=&#34;$last_arg&#34; if test -f &#34;$fp&#34;; then rp=&#34;$(realpath &#34;$fp&#34;)&#34; bn=&#34;$(basename &#34;$fp&#34;)&#34; dn=&#34;$(dirname &#34;$rp&#34;)&#34; cd &#34;$dn&#34; test &#34;$#&#34; -gt 0 &amp;&amp; set -- &#34;${@:1:$(($#-1))}&#34; # shift last arg set -- &#34;$@&#34; &#34;$bn&#34; fi docker run --rm -v &#34;$(pwd):/$(pwd | slugify)&#34; -w &#34;/$(pwd | slugify)&#34; -ti --entrypoint= wata727/tflint:latest tflint &#34;$@&#34;   Demonstration"/>
+Wrapper script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null last_arg=&#34;${@: -1}&#34; fp=&#34;$last_arg&#34; if test -f &#34;$fp&#34;; then rp=&#34;$(realpath &#34;$fp&#34;)&#34; bn=&#34;$(basename &#34;$fp&#34;)&#34; dn=&#34;$(dirname &#34;$rp&#34;)&#34; cd &#34;$dn&#34; test &#34;$#&#34; -gt 0 &amp;&amp; set -- &#34;${@:1:$(($#-1))}&#34; # shift last arg set -- &#34;$@&#34; &#34;$bn&#34; fi docker run --rm -v &#34;$(pwd):/$(pwd | slugify)&#34; -w &#34;/$(pwd | slugify)&#34; -ti --entrypoint= wata727/tflint:latest tflint &#34;$@&#34;   Demonstration"/>
 
     <meta property="og:title" content="Using the terraform linter" />
 <meta property="og:description" content="TLDR  Create a wrapper script for tflint Search for terraform files Lint them  The point of this blog post is to demonstrate that this process is very quick.jj
-Wrapper script#!/bin/bash 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null last_arg=&#34;${@: -1}&#34; fp=&#34;$last_arg&#34; if test -f &#34;$fp&#34;; then rp=&#34;$(realpath &#34;$fp&#34;)&#34; bn=&#34;$(basename &#34;$fp&#34;)&#34; dn=&#34;$(dirname &#34;$rp&#34;)&#34; cd &#34;$dn&#34; test &#34;$#&#34; -gt 0 &amp;&amp; set -- &#34;${@:1:$(($#-1))}&#34; # shift last arg set -- &#34;$@&#34; &#34;$bn&#34; fi docker run --rm -v &#34;$(pwd):/$(pwd | slugify)&#34; -w &#34;/$(pwd | slugify)&#34; -ti --entrypoint= wata727/tflint:latest tflint &#34;$@&#34;   Demonstration" />
+Wrapper script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null last_arg=&#34;${@: -1}&#34; fp=&#34;$last_arg&#34; if test -f &#34;$fp&#34;; then rp=&#34;$(realpath &#34;$fp&#34;)&#34; bn=&#34;$(basename &#34;$fp&#34;)&#34; dn=&#34;$(dirname &#34;$rp&#34;)&#34; cd &#34;$dn&#34; test &#34;$#&#34; -gt 0 &amp;&amp; set -- &#34;${@:1:$(($#-1))}&#34; # shift last arg set -- &#34;$@&#34; &#34;$bn&#34; fi docker run --rm -v &#34;$(pwd):/$(pwd | slugify)&#34; -w &#34;/$(pwd | slugify)&#34; -ti --entrypoint= wata727/tflint:latest tflint &#34;$@&#34;   Demonstration" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/using-the-terraform-linter/" />
 <meta property="article:published_time" content="2020-06-19T00:00:00+08:00" />
@@ -180,7 +180,7 @@ Wrapper script#!/bin/bash 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  export TTY 
 <li>Lint them</li>
 </ul>
 <p>The point of this blog post is to demonstrate that this process is very quick.jj</p>
-<h2 id="wrapper-script-bin-bash">Wrapper script#!/bin/bash</h2>
+<h2 id="wrapper-script">Wrapper script</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -200,9 +200,11 @@ Wrapper script#!/bin/bash 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  export TTY 
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export TTY
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
 
 <span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#e6db74">&#34;&lt;==&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ps -o comm<span style="color:#f92672">=</span> $PPID<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> 0&lt;/dev/null <span style="color:#f92672">)</span> &amp;&gt;/dev/null
 

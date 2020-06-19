@@ -12,13 +12,23 @@
     
     
     <item>
+      <title>GitHub Super-Linter and emacs</title>
+      <link>https://mullikine.github.io/posts/github-super-linter-and-emacs/</link>
+      <pubDate>Fri, 19 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/github-super-linter-and-emacs/</guid>
+      <description>Article https://github.blog/2020-06-18-introducing-github-super-linter-one-linter-to-rule-them-all/ Source Code https://github.com/github/super-linter  +* TLDR :: I create a plugin for emacs to use GitHub super linter
+Use Super linter locally  Instructions https://github.com/github/super-linter/blob/master/docs/run-linter-locally.md  Create a wrapper script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null if test &amp;#34;$#&amp;#34; -eq 0; then set -- .</description>
+    </item>
+    
+    <item>
       <title>Using the terraform linter</title>
       <link>https://mullikine.github.io/posts/using-the-terraform-linter/</link>
       <pubDate>Fri, 19 Jun 2020 00:00:00 +0800</pubDate>
       
       <guid>https://mullikine.github.io/posts/using-the-terraform-linter/</guid>
       <description>TLDR  Create a wrapper script for tflint Search for terraform files Lint them  The point of this blog post is to demonstrate that this process is very quick.jj
-Wrapper script#!/bin/bash 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null last_arg=&amp;#34;${@: -1}&amp;#34; fp=&amp;#34;$last_arg&amp;#34; if test -f &amp;#34;$fp&amp;#34;; then rp=&amp;#34;$(realpath &amp;#34;$fp&amp;#34;)&amp;#34; bn=&amp;#34;$(basename &amp;#34;$fp&amp;#34;)&amp;#34; dn=&amp;#34;$(dirname &amp;#34;$rp&amp;#34;)&amp;#34; cd &amp;#34;$dn&amp;#34; test &amp;#34;$#&amp;#34; -gt 0 &amp;amp;&amp;amp; set -- &amp;#34;${@:1:$(($#-1))}&amp;#34; # shift last arg set -- &amp;#34;$@&amp;#34; &amp;#34;$bn&amp;#34; fi docker run --rm -v &amp;#34;$(pwd):/$(pwd | slugify)&amp;#34; -w &amp;#34;/$(pwd | slugify)&amp;#34; -ti --entrypoint= wata727/tflint:latest tflint &amp;#34;$@&amp;#34;   Demonstration</description>
+Wrapper script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null last_arg=&amp;#34;${@: -1}&amp;#34; fp=&amp;#34;$last_arg&amp;#34; if test -f &amp;#34;$fp&amp;#34;; then rp=&amp;#34;$(realpath &amp;#34;$fp&amp;#34;)&amp;#34; bn=&amp;#34;$(basename &amp;#34;$fp&amp;#34;)&amp;#34; dn=&amp;#34;$(dirname &amp;#34;$rp&amp;#34;)&amp;#34; cd &amp;#34;$dn&amp;#34; test &amp;#34;$#&amp;#34; -gt 0 &amp;amp;&amp;amp; set -- &amp;#34;${@:1:$(($#-1))}&amp;#34; # shift last arg set -- &amp;#34;$@&amp;#34; &amp;#34;$bn&amp;#34; fi docker run --rm -v &amp;#34;$(pwd):/$(pwd | slugify)&amp;#34; -w &amp;#34;/$(pwd | slugify)&amp;#34; -ti --entrypoint= wata727/tflint:latest tflint &amp;#34;$@&amp;#34;   Demonstration</description>
     </item>
     
     <item>
