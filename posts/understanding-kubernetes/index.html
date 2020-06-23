@@ -155,7 +155,7 @@ Objects 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          4 min read
+          10 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -255,7 +255,8 @@ Objects 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 
 </ul>
 <p>The spec describes the desired state. You
 write this.</p>
-<p>The <code>status</code> describes the <em>current state</em> of the object. This is auto-generated.</p>
+<p>The <code>status</code> describes the <em>current state</em> of the object.</p>
+<p>This is auto-generated.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -335,15 +336,19 @@ write this.</p>
     starting a replacement instance.</code></pre></td></tr></table>
 </div>
 </div>
-<p>For more information on the object spec, status, and metadata, see the
-<a href="https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md">Kubernetes API Conventions</a>.</p>
+<p>For more information on the object spec,
+status, and metadata, see the <a href="https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md">Kubernetes API Conventions</a>.</p>
 <h3 id="describing-a-kubernetes-object">Describing a Kubernetes object</h3>
-<p>When you create an object in Kubernetes, you must provide the object
-spec that describes its desired state, as well as some basic information
-about the object (such as a name). When you use the Kubernetes API to
-create the object (either directly or via <code>kubectl</code>), that API request
-must include that information as JSON in the request body. <strong>Most often, you provide the information to <code>kubectl</code> in a .yaml file.</strong> <code>kubectl</code>
-converts the information to JSON when making the API request.</p>
+<p>When you create an object in k8s, you must
+provide the object spec that describes its
+desired state, as well as some basic
+information about the object (such as a name).</p>
+<p>When you use the k8s API to create the object
+(either directly or via <code>kubectl</code>), that API
+request must include that information as JSON
+in the request body.</p>
+<p>Most often, you provide the information to <code>kubectl</code> in a .yaml file.</p>
+<p><code>kubectl</code> converts the information to JSON when making the API request.</p>
 <p>Here&rsquo;s an example <code>.yaml</code> file that shows the required fields and object
 spec for a Kubernetes Deployment:</p>
 <p><a href="https://raw.githubusercontent.com/kubernetes/website/master/content/en/examples/application/deployment.yaml"><code>application/deployment.yaml</code></a></p>
@@ -423,6 +428,373 @@ the following fields:</p>
 <li><code>metadata</code> - Data that helps uniquely identify the object, including a <code>name</code> string, <code>UID</code>, and optional <code>namespace</code></li>
 <li><code>spec</code> - What state you desire for the object</li>
 </ul>
+<h2 id="chart-repositories">Chart repositories</h2>
+<p>These are easy to make yourself.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">chart repository
+    An HTTP server that houses an index.yaml
+    file and optionally some packaged charts.
+
+    When you&#39;re ready to share your charts,
+    the preferred way to do so is by uploading
+    them to a chart repository.
+
+    charts/
+      |
+      |- index.yaml
+      |
+      |- alpine-0.1.2.tgz
+      |
+      |- alpine-0.1.2.tgz.prov</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="kubectl-command-cheatsheet">Kubectl Command Cheatsheet</h2>
+<dl>
+<dt>Original source</dt>
+<dd><a href="https://www.bluematador.com/learn/kubectl-cheatsheet">https://www.bluematador.com/learn/kubectl-cheatsheet</a></dd>
+</dl>
+<p>Kubectl is the command line configuration tool
+for k8s that communicates with a k8s API
+server.</p>
+<ul>
+<li>kubectl allows you to
+<ul>
+<li>create,</li>
+<li>inspect,</li>
+<li>update,</li>
+<li>delete k8s objects.</li>
+</ul>
+</li>
+</ul>
+<p>You can use the full command for an object,
+like <code>pod</code>, the plural form (<code>pods</code>) or the
+shortcode variation we mention in parantheses
+in the heading of each section.</p>
+<p>They will all generate the same outcome.</p>
+<p>You&rsquo;ll need to follow up most of the commands
+with the specific <code>&lt;name&gt;</code> of the resource you
+are managing.</p>
+<h3 id="cluster-management">Cluster Management</h3>
+<p>Display endpoint information about the master
+and services in the cluster.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl cluster-info</code></pre></td></tr></table>
+</div>
+</div>
+<p>Display the Kubernetes version running on the client and server</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl version</code></pre></td></tr></table>
+</div>
+</div>
+<p>Get the configuration of the cluster</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl config view</code></pre></td></tr></table>
+</div>
+</div>
+<p>List the API resources that are available</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl api-resources</code></pre></td></tr></table>
+</div>
+</div>
+<p>List the API versions that are available</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl api-versions</code></pre></td></tr></table>
+</div>
+</div>
+<p>List everything</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl get all --all-namespaces</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="daemonsets">Daemonsets</h3>
+<p><strong>*Shortcode = ds</strong></p>
+<p>List one or more daemonsets</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl get daemonset</code></pre></td></tr></table>
+</div>
+</div>
+<p>Edit and update the definition of one or more daemonset</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl edit daemonset &lt;daemonset_name&gt;</code></pre></td></tr></table>
+</div>
+</div>
+<p>Delete a daemonset</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl delete daemonset &lt;daemonset_name&gt;</code></pre></td></tr></table>
+</div>
+</div>
+<p>Create a new daemonset</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl create daemonset &lt;daemonset_name&gt;</code></pre></td></tr></table>
+</div>
+</div>
+<p>Manage the rollout of a daemonset</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl rollout daemonset</code></pre></td></tr></table>
+</div>
+</div>
+<p>Display the detailed state of daemonsets within a namespace</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl describe ds &lt;daemonset_name&gt; -n &lt;namespace_name&gt;</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="deployments">Deployments</h3>
+<p><strong>*Shortcode = deploy</strong></p>
+<p>List one or more deployments</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get deployment
+</code></pre></div><p>Display the detailed state of one or more deployments</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl describe deployment &lt;deployment_name&gt;
+</code></pre></div><p>Edit and update the definition of one or more deployment on the server</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl edit deployment &lt;deployment_name&gt;
+</code></pre></div><p>Create one a new deployment</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl create deployment &lt;deployment_name&gt;
+</code></pre></div><p>Delete deployments</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl delete deployment &lt;deployment_name&gt;
+</code></pre></div><p>See the rollout status of a deployment</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl rollout status deployment &lt;deployment_name&gt;
+</code></pre></div><h3 id="events">Events</h3>
+<p><strong>*Shortcode = ev</strong></p>
+<p>List recent events for all resources in the system</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get events
+</code></pre></div><p>List Warnings only</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get events --field-selector type=Warning
+</code></pre></div><p>List events but exclude Pod events</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get events --field-selector involvedObject.kind!=Pod
+</code></pre></div><p>Pull events for a single node with a specific name</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get events --field-selector involvedObject.kind=Node, involvedObject.name=&lt;node_name&gt;
+</code></pre></div><p>Filter out normal events from a list of events</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get events --field-selector type!=Normal
+</code></pre></div><h3 id="logs">Logs</h3>
+<p>Print the logs for a pod</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl logs &lt;pod_name&gt;
+</code></pre></div><p>Print the logs for the last hour for a pod</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl logs --since=1h &lt;pod_name&gt;
+</code></pre></div><p>Get the most recent 20 lines of logs</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl logs --tail=20 &lt;pod_name&gt;
+</code></pre></div><p>Get logs from a service and optionally select which container</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl logs -f &lt;service_name&gt; [-c &lt;$container&gt;]
+</code></pre></div><p>Print the logs for a pod and follow new logs</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl logs -f &lt;pod_name&gt;
+</code></pre></div><p>Print the logs for a container in a pod</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl logs -c &lt;container_name&gt; &lt;pod_name&gt;
+</code></pre></div><p>Output the logs for a pod into a file named ‘pod.log&rsquo;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl logs &lt;pod_name&gt; &gt; pod.log
+</code></pre></div><p>For logs we also recommend using a tool developed by Johan Haleby called
+Kubetail. This is a bash script that will allow you to get logs from
+multiple pods simultaneously. You can learn more about it at its
+<a href="https://github.com/johanhaleby/kubetail">Github repository.</a> Here are
+some sample commands using Kubetail.</p>
+<p>Get logs for all pods named with pod\_prefix</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubetail &lt;pod_prefix&gt;
+</code></pre></div><p>Include the most recent 5 minutes of logs</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubetail &lt;pod_prefix&gt; -s 5m
+</code></pre></div><h3 id="manifest-files">Manifest Files</h3>
+<p>Another option for modifying objects is through Manifest Files. We
+highly recommend using this method. It is done by using yaml files with
+all the necessary options for objects configured. We have our yaml files
+stored in a git repository, so we can track changes and streamline
+changes.</p>
+<p>Apply a configuration to an object by filename or stdin. Overrides the
+existing configuration.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl apply -f manifest_file.yaml
+</code></pre></div><p>Create objects</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl create -f manifest_file.yaml
+</code></pre></div><p>Create objects in all manifest files in a directory</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl create -f ./dir
+</code></pre></div><p>Create objects from a URL</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl create -f ‘url’
+</code></pre></div><p>Delete an object</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl delete -f manifest_file.yaml
+</code></pre></div><h3 id="namespaces">Namespaces</h3>
+<p><strong>*Shortcode = ns</strong></p>
+<p>Create namespace <name></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl create namespace &lt;namespace_name&gt;
+</code></pre></div><p>List one or more namespaces</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get namespace &lt;namespace_name&gt;
+</code></pre></div><p>Display the detailed state of one or more namespace</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl describe namespace &lt;namespace_name&gt;
+</code></pre></div><p>Delete a namespace</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl delete namespace &lt;namespace_name&gt;
+</code></pre></div><p>Edit and update the definition of a namespace</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl edit namespace &lt;namespace_name&gt;
+</code></pre></div><p>Display Resource (CPU/Memory/Storage) usage for a namespace</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl top namespace &lt;namespace_name&gt;
+</code></pre></div><h3 id="nodes">Nodes</h3>
+<p><strong>*Shortcode = no</strong></p>
+<p>Update the taints on one or more nodes</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl taint node &lt;node_name&gt;
+</code></pre></div><p>List one or more nodes</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get node
+</code></pre></div><p>Delete a node or multiple nodes</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl delete node &lt;node_name&gt;
+</code></pre></div><p>Display Resource usage (CPU/Memory/Storage) for nodes</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl top node
+</code></pre></div><p>Resource allocation per node</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl describe nodes | grep Allocated -A 5
+</code></pre></div><p>Pods running on a node</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get pods -o wide | grep &lt;node_name&gt;
+</code></pre></div><p>Annotate a node</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl annotate node &lt;node_name&gt;
+</code></pre></div><p>Mark a node as unschedulable</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl cordon node &lt;node_name&gt;
+</code></pre></div><p>Mark node as schedulable</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl uncordon node &lt;node_name&gt;
+</code></pre></div><p>Drain a node in preparation for maintenance</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl drain node &lt;node_name&gt;
+</code></pre></div><p>Add or update the labels of one or more nodes</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl label node
+</code></pre></div><h3 id="pods">Pods</h3>
+<p><strong>*Shortcode = po</strong></p>
+<p>List one or more pods</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get pod
+</code></pre></div><p>Delete a pod</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl delete pod &lt;pod_name&gt;
+</code></pre></div><p>Display the detailed state of a pods</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl describe pod &lt;pod_name&gt;
+</code></pre></div><p>Create a pod</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl create pod &lt;pod_name&gt;
+</code></pre></div><p>Execute a command against a container in a pod</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl exec &lt;pod_name&gt; -c &lt;container_name&gt; &lt;command&gt;
+</code></pre></div><p>Get interactive shell on a a single-container pod</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl exec -it &lt;pod_name&gt; /bin/sh
+</code></pre></div><p>Display Resource usage (CPU/Memory/Storage) for pods</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl top pod
+</code></pre></div><p>Add or update the annotations of a pod</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl annotate pod &lt;pod_name&gt; &lt;annotation&gt;
+</code></pre></div><p>Add or update the label of a pod</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl label pod &lt;pod_name&gt;
+</code></pre></div><h3 id="replication-controllers">Replication Controllers</h3>
+<p><strong>*Shortcode = rc</strong></p>
+<p>List the replication controllers</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get rc
+</code></pre></div><p>List the replication controllers by namespace</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get rc --namespace=”&lt;namespace_name&gt;”
+</code></pre></div><h3 id="replicasets">ReplicaSets</h3>
+<p><strong>*Shortcode = rs</strong></p>
+<p>List ReplicaSets</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get replicasets
+</code></pre></div><p>Display the detailed state of one or more ReplicaSets</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl describe replicasets &lt;replicaset_name&gt;
+</code></pre></div><p>Scale a ReplicaSet</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl scale --replicas=[x]
+</code></pre></div><h3 id="secrets">Secrets</h3>
+<p>Create a secret</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl create secret
+</code></pre></div><p>List secrets</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get secrets
+</code></pre></div><p>List details about secrets</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl describe secrets
+</code></pre></div><p>Delete a secret</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl delete secret &lt;secret_name&gt;
+</code></pre></div><h3 id="services">Services</h3>
+<p><strong>*Shortcode = svc</strong></p>
+<p>List one or more services</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get services
+</code></pre></div><p>Display the detailed state of a service</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl describe services
+</code></pre></div><p>Expose a replication controller, service, deployment or pod as a new
+Kubernetes service</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl expose deployment [deployment_name]
+</code></pre></div><p>Edit and update the definition of one or more services</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl edit services
+</code></pre></div><h3 id="service-accounts">Service Accounts</h3>
+<p><strong>*Shortcode = sa</strong></p>
+<p>List service accounts</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get serviceaccounts
+</code></pre></div><p>Display the detailed state of one or more service accounts</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl describe serviceaccounts
+</code></pre></div><p>Replace a service account</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl replace serviceaccount
+</code></pre></div><p>Delete a service account</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl delete serviceaccount &lt;service_account_name&gt;
+</code></pre></div><h3 id="statefulset">StatefulSet</h3>
+<p><strong>*Shortcode = sts</strong></p>
+<p>List StatefulSet</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get statefulset
+</code></pre></div><p>Delete StatefulSet only (not pods)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl delete statefulset/[stateful_set_name] --cascade=false
+</code></pre></div><h3 id="common-options">Common Options</h3>
+<p>In Kubectl you can specify optional flags with commands. Here are some
+of the most common and useful ones.</p>
+<p>-o Output format. For example if you wanted to list all of the pods in
+ps output format with more information.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get pods -o wide
+</code></pre></div><p>-n Shorthand for &ndash;namespace. For example, if you&rsquo;d like to list all the
+Pods in a specific Namespace you would do this command:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get pods --namespace=[namespace_name]
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl get pods -n=[namespace_name]
+</code></pre></div><p>-f Filename, directory, or URL to files to use to create a resource. For
+example when creating a pod using data in a file named newpod.json.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">kubectl create -f ./newpod.json
+</code></pre></div><p>-l Selector to filter on, supports ‘=&rsquo;, ‘==&rsquo;, and ‘!=&rsquo;.</p>
+<p>Help for kubectl</p>
+<p>-h</p>
 
     </div>
     <div class="post-footer">
