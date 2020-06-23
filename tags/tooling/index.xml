@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Automating Google vs via the terminal</title>
+      <link>https://mullikine.github.io/posts/automating-google-vs-via-the-terminal/</link>
+      <pubDate>Tue, 23 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/automating-google-vs-via-the-terminal/</guid>
+      <description>Original article https://medium.com/applied-data-science/the-google-vs-trick-618c8fd5359f   1 2 3 4 5 6 7 8 9 10 11  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null term=&amp;#34;$@&amp;#34; term=&amp;#34;$(p &amp;#34;$term&amp;#34; | urlencode)&amp;#34; curl &amp;#34;http://suggestqueries.google.com/complete/search?&amp;amp;output=toolbar&amp;amp;gl=us&amp;amp;hl=en&amp;amp;q=$term%20vs&amp;#34; | xml2json | jq -r &amp;#39;.toplevel.CompleteSuggestion[].suggestion.data&amp;#39; | sed &amp;#34;s/^$termvs \?//&amp;#34; | uniqnosort | sed &amp;#34;/^$/d&amp;#34; | pavs   1  google-vs apple | fzf --sync | xa google-vs | fzf --sync | xa google-vs | fzf --sync | xa google-vs | fzf --sync | xa google-vs   Demonstration: Finding alternatives</description>
+    </item>
+    
+    <item>
       <title>Rosetta stones for commands and code</title>
       <link>https://mullikine.github.io/posts/rosetta-stones-for-commands-and-code/</link>
       <pubDate>Tue, 23 Jun 2020 00:00:00 +0800</pubDate>
