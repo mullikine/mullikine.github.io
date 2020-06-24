@@ -12,24 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Rosie Pattern Matching Language (RPL)"/>
-<meta name="twitter:description" content="Thoughts  It will be useful in parsing s-expressions.  RPL   compiled,
-  block-structured,
-  lexically scoped,
-  declarative
-  pattern expression language with a module system.
-  Names are bound to values of type:
- pattern, macro, function, and environment (module)    Only patterns are first-class.
-Block structure There are lexical units (imaginatively called &ldquo;blocks&rdquo;) of code that we can talk about."/>
+<meta name="twitter:description" content="bracket expressions 1 2 3 4 5 6 7 8  -- a sequence of expressions (the pliers ie. squeezed together) {e1 e2 ... en} === e1 e2 ... en -- ~ matches a token boundary (e1 e2 ... en) === e1 ~ e2 ~ ... ~ en -- / is the ordered choice operator [e1 e2 ... en] === e1 / e2 / ... / en   Thoughts  It will be useful in parsing s-expressions."/>
 
     <meta property="og:title" content="Rosie Pattern Matching Language (RPL)" />
-<meta property="og:description" content="Thoughts  It will be useful in parsing s-expressions.  RPL   compiled,
-  block-structured,
-  lexically scoped,
-  declarative
-  pattern expression language with a module system.
-  Names are bound to values of type:
- pattern, macro, function, and environment (module)    Only patterns are first-class.
-Block structure There are lexical units (imaginatively called &ldquo;blocks&rdquo;) of code that we can talk about." />
+<meta property="og:description" content="bracket expressions 1 2 3 4 5 6 7 8  -- a sequence of expressions (the pliers ie. squeezed together) {e1 e2 ... en} === e1 e2 ... en -- ~ matches a token boundary (e1 e2 ... en) === e1 ~ e2 ~ ... ~ en -- / is the ordered choice operator [e1 e2 ... en] === e1 / e2 / ... / en   Thoughts  It will be useful in parsing s-expressions." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/rosie-pattern-matching-language/" />
 <meta property="article:published_time" content="2019-11-19T00:00:00+08:00" />
@@ -186,7 +172,30 @@ Block structure There are lexical units (imaginatively called &ldquo;blocks&rdqu
 
 
     <div class="post-content">
-      <h2 id="thoughts">Thoughts</h2>
+      <h2 id="bracket-expressions">bracket expressions</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">-- a sequence of expressions (the pliers ie. squeezed together)
+{e1 e2 ... en} === e1 e2 ... en
+
+-- ~ matches a token boundary
+(e1 e2 ... en) === e1 ~ e2 ~ ... ~ en
+
+-- / is the ordered choice operator
+[e1 e2 ... en] === e1 / e2 / ... / en</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="thoughts">Thoughts</h2>
 <ul>
 <li>It will be useful in parsing <code>s-expressions</code>.</li>
 </ul>
@@ -1140,6 +1149,8 @@ echo <span style="color:#e6db74">&#34;177&#34;</span> | rosie --rpl <span style=
 </tbody>
 </table>
 <h2 id="character-sets">character sets</h2>
+<p>Character sets are disjunctions.</p>
+<p>A character list like [abc] matches a or b or c.</p>
 <h3 id="grep-accidental-range">grep accidental range</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
