@@ -168,7 +168,7 @@ Block structure There are lexical units (imaginatively called &ldquo;blocks&rdqu
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          10 min read
+          11 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -912,6 +912,22 @@ the sequence <code>&quot;a b&quot;</code> first.</p>
 <h2 id="faster-than-grok--elasticsearch">faster than grok (elasticsearch)</h2>
 <p><a href="https://www.elastic.co/guide/en/logstash/current/plugins-filters-grok.html">https://www.elastic.co/guide/en/logstash/current/plugins-filters-grok.html</a></p>
 <h2 id="lookbehind">lookbehind <code>&lt;</code></h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sp +/<span style="color:#e6db74">&#34;heading(\&#34;Lookarounds\&#34;)&#34;</span> <span style="color:#e6db74">&#34;</span>$MYGIT<span style="color:#e6db74">/rosie-pattern-language/rosie/test/rpl-core-test.lua&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">eww <span style="color:#e6db74">&#34;https://rosie-lang.org/blog/2018/01/08/rpl-character-sets.html&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>Quoted strings are literals.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -1011,35 +1027,69 @@ echo
 echo <span style="color:#e6db74">&#34;177&#34;</span> | rosie --rpl <span style="color:#e6db74">&#39;h = [:xdigit:]; o = { [01] [0-7]{2} }&#39;</span> match -o jsonpp <span style="color:#e6db74">&#39;h{2} / o&#39;</span> | jq -r <span style="color:#e6db74">&#34;.subs[]&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ae81ff">177</span>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">177
 
-<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;e&#34;</span>: 3,
- <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;*&#34;</span>,
- <span style="color:#e6db74">&#34;data&#34;</span>: <span style="color:#e6db74">&#34;17&#34;</span>,
- <span style="color:#e6db74">&#34;s&#34;</span>: 1,
- <span style="color:#e6db74">&#34;subs&#34;</span>:
-   <span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;e&#34;</span>: 2,
-     <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;h&#34;</span>,
-     <span style="color:#e6db74">&#34;s&#34;</span>: 1,
-     <span style="color:#e6db74">&#34;data&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span><span style="color:#f92672">}</span>,
-    <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;e&#34;</span>: 3,
-     <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;h&#34;</span>,
-     <span style="color:#e6db74">&#34;s&#34;</span>: 2,
-     <span style="color:#e6db74">&#34;data&#34;</span>: <span style="color:#e6db74">&#34;7&#34;</span><span style="color:#f92672">}]}</span>
+{&#34;e&#34;: 3,
+ &#34;type&#34;: &#34;*&#34;,
+ &#34;data&#34;: &#34;17&#34;,
+ &#34;s&#34;: 1,
+ &#34;subs&#34;:
+ [{&#34;e&#34;: 2,
+   &#34;type&#34;: &#34;h&#34;,
+   &#34;s&#34;: 1,
+   &#34;data&#34;: &#34;1&#34;},
+  {&#34;e&#34;: 3,
+   &#34;type&#34;: &#34;h&#34;,
+   &#34;s&#34;: 2,
+   &#34;data&#34;: &#34;7&#34;}]}
 
-<span style="color:#f92672">{</span>
-  <span style="color:#e6db74">&#34;e&#34;</span>: 2,
-  <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;h&#34;</span>,
-  <span style="color:#e6db74">&#34;data&#34;</span>: <span style="color:#e6db74">&#34;1&#34;</span>,
-  <span style="color:#e6db74">&#34;s&#34;</span>: <span style="color:#ae81ff">1</span>
-<span style="color:#f92672">}</span>
-<span style="color:#f92672">{</span>
-  <span style="color:#e6db74">&#34;e&#34;</span>: 3,
-  <span style="color:#e6db74">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;h&#34;</span>,
-  <span style="color:#e6db74">&#34;data&#34;</span>: <span style="color:#e6db74">&#34;7&#34;</span>,
-  <span style="color:#e6db74">&#34;s&#34;</span>: <span style="color:#ae81ff">2</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+{
+&#34;e&#34;: 2,
+&#34;type&#34;: &#34;h&#34;,
+&#34;data&#34;: &#34;1&#34;,
+&#34;s&#34;: 1
+}
+{
+&#34;e&#34;: 3,
+&#34;type&#34;: &#34;h&#34;,
+&#34;data&#34;: &#34;7&#34;,
+&#34;s&#34;: 2
+}</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
@@ -1089,7 +1139,99 @@ echo <span style="color:#e6db74">&#34;177&#34;</span> | rosie --rpl <span style=
 </tr>
 </tbody>
 </table>
-
+<h2 id="character-sets">character sets</h2>
+<h3 id="grep-accidental-range">grep accidental range</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#39;y = (-b +- sqrt(b^2)-4ac)/2a&#39;</span> | egrep -o <span style="color:#e6db74">&#39;[+-=*/]&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">=</span>
+-
++
+-
+<span style="color:#ae81ff">2</span>
+-
+<span style="color:#ae81ff">4</span>
+/
+<span style="color:#ae81ff">2</span>
+</code></pre></div><h3 id="rpl">RPL</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#39;y = (-b +- sqrt(b^2)-4ac)/2a&#39;</span> | rosie grep -o subs <span style="color:#e6db74">&#39;[+\-=*/]&#39;</span>
+echo
+echo <span style="color:#e6db74">&#39;y = (-b +- sqrt(b^2)-4ac)/2a&#39;</span> | rosie grep -o subs <span style="color:#e6db74">&#39;[+-=]&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">=</span>
+-
++
+-
+-
+/
+///////////////
+<span style="color:#f92672">=</span>
+-
++
+-
+<span style="color:#ae81ff">2</span>
+-
+<span style="color:#ae81ff">4</span>
+/
+<span style="color:#ae81ff">2</span>
+</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;he432llo354 the534re&#34;</span> | rosie grep -o subs <span style="color:#e6db74">&#39;[[a-z][0-9]]&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">h
+e
+<span style="color:#ae81ff">4</span>
+<span style="color:#ae81ff">3</span>
+<span style="color:#ae81ff">2</span>
+l
+l
+o
+<span style="color:#ae81ff">3</span>
+<span style="color:#ae81ff">5</span>
+<span style="color:#ae81ff">4</span>
+t
+h
+e
+<span style="color:#ae81ff">5</span>
+<span style="color:#ae81ff">3</span>
+<span style="color:#ae81ff">4</span>
+r
+e
+</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">echo <span style="color:#e6db74">&#34;he432llo354 the534re&#34;</span> | rosie grep -o subs <span style="color:#e6db74">&#39;[ [0-9] [+\-\[\]] ]&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#ae81ff">4</span>
+<span style="color:#ae81ff">3</span>
+<span style="color:#ae81ff">2</span>
+<span style="color:#ae81ff">3</span>
+<span style="color:#ae81ff">5</span>
+<span style="color:#ae81ff">4</span>
+<span style="color:#ae81ff">5</span>
+<span style="color:#ae81ff">3</span>
+<span style="color:#ae81ff">4</span>
+</code></pre></div>
     </div>
     <div class="post-footer">
         <p>
