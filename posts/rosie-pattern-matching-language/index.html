@@ -12,10 +12,16 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Rosie Pattern Matching Language (RPL)"/>
-<meta name="twitter:description" content="bracket expressions 1 2 3 4 5 6 7 8  -- a sequence of expressions (the pliers ie. squeezed together) {e1 e2 ... en} === e1 e2 ... en -- ~ matches a token boundary (e1 e2 ... en) === e1 ~ e2 ~ ... ~ en -- / is the ordered choice operator [e1 e2 ... en] === e1 / e2 / ... / en   Thoughts  It will be useful in parsing s-expressions."/>
+<meta name="twitter:description" content="Simple associativity and precedence rules All RPL operators are right-associative  expressions etc.  Binary operators have equal precedence in RPL bracket expressions Brackets behave very much like parentheses and braces.
+It means that the expressions e1 … en can be any RPL expressions.
+It means that extra layers of brackets around an expression do not change its meaning.
+1 2 3 4 5 6 7 8  -- a sequence of expressions (the pliers ie."/>
 
     <meta property="og:title" content="Rosie Pattern Matching Language (RPL)" />
-<meta property="og:description" content="bracket expressions 1 2 3 4 5 6 7 8  -- a sequence of expressions (the pliers ie. squeezed together) {e1 e2 ... en} === e1 e2 ... en -- ~ matches a token boundary (e1 e2 ... en) === e1 ~ e2 ~ ... ~ en -- / is the ordered choice operator [e1 e2 ... en] === e1 / e2 / ... / en   Thoughts  It will be useful in parsing s-expressions." />
+<meta property="og:description" content="Simple associativity and precedence rules All RPL operators are right-associative  expressions etc.  Binary operators have equal precedence in RPL bracket expressions Brackets behave very much like parentheses and braces.
+It means that the expressions e1 … en can be any RPL expressions.
+It means that extra layers of brackets around an expression do not change its meaning.
+1 2 3 4 5 6 7 8  -- a sequence of expressions (the pliers ie." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/rosie-pattern-matching-language/" />
 <meta property="article:published_time" content="2019-11-19T00:00:00+08:00" />
@@ -154,7 +160,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          11 min read
+          12 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -172,7 +178,20 @@
 
 
     <div class="post-content">
-      <h2 id="bracket-expressions">bracket expressions</h2>
+      <h2 id="simple-associativity-and-precedence-rules">Simple associativity and precedence rules</h2>
+<h3 id="all-rpl-operators-are-right-associative">All RPL operators are right-associative</h3>
+<ul>
+<li>expressions</li>
+<li>etc.</li>
+</ul>
+<h3 id="binary-operators-have-equal-precedence-in-rpl">Binary operators have equal precedence in RPL</h3>
+<h2 id="bracket-expressions">bracket expressions</h2>
+<p>Brackets behave very much like parentheses and
+braces.</p>
+<p>It means that the expressions e1 … en can be
+any RPL expressions.</p>
+<p>It means that extra layers of brackets around
+an expression do not change its meaning.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -193,6 +212,43 @@
 
 -- / is the ordered choice operator
 [e1 e2 ... en] === e1 / e2 / ... / en</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="empty-character-set"><code>[]</code> empty character set</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">[[] &#34;hi&#34; &#34;bye&#34;] === [] / &#34;hi&#34; / &#34;bye&#34; === &#34;hi&#34; / &#34;bye&#34;</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="and-operator"><code>&amp;</code> operator</h3>
+<p>Denotes the set intersection of the posix set
+<code>xdigit</code> and the uppercase letters A through Z.</p>
+<p>This expression is the equivalent of <code>[A-F]</code>.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">[[:xdigit:] &amp; [A-Z]]</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">-- either p or the set intersection as described above.
+-- As with the rest of RPL, expressions are
+-- right associative, and binary operators have
+-- equal precedence.
+[[p] [:xdigit:] &amp; [A-Z]]</code></pre></td></tr></table>
 </div>
 </div>
 <h2 id="thoughts">Thoughts</h2>
@@ -1151,6 +1207,13 @@ echo <span style="color:#e6db74">&#34;177&#34;</span> | rosie --rpl <span style=
 <h2 id="character-sets">character sets</h2>
 <p>Character sets are disjunctions.</p>
 <p>A character list like [abc] matches a or b or c.</p>
+<h3 id="syntactic-ambiguity">syntactic ambiguity</h3>
+<p>We choose to regard [abc] as a list of 3
+characters and not a bracket expression
+containing the identifier abc.</p>
+<p>Similarly, [a b] is a list of 3 characters,
+and not the disjunction of the patterns named
+a and b.</p>
 <h3 id="grep-accidental-range">grep accidental range</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
