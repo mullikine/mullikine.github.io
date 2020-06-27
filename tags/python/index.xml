@@ -18,7 +18,7 @@
       
       <guid>https://mullikine.github.io/posts/parsing-c-with-python/</guid>
       <description>Example https://pygccxml.readthedocs.io/en/master/examples/templates/example.html  C++ is notoriously difficult to parse.
-parse-cpp 1 2 3 4 5 6 7 8 9  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null fp=&amp;#34;$1&amp;#34; test -f &amp;#34;$fp&amp;#34; || exit 1 x -sh &amp;#34;parse-cpp.py $(aqf &amp;#34;$fp&amp;#34;)&amp;#34; -e &amp;#34;]: &amp;#34; -c m -s &amp;#34;j(decls)&amp;#34; -c m -i   parse-cpp.py 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29  #!</description>
+parse-cpp 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null stdin_exists() { ! [ -t 0 ] &amp;amp;&amp;amp; ! test &amp;#34;$(readlink /proc/$$/fd/0)&amp;#34; = /dev/null } if stdin_exists; then fp=&amp;#34;$(tf cpp)&amp;#34; set -- &amp;#34;$fp&amp;#34; &amp;#34;$@&amp;#34; exec &amp;lt;&amp;amp;1 fi fp=&amp;#34;$1&amp;#34; test -f &amp;#34;$fp&amp;#34; || exit 1 x -sh &amp;#34;parse-cpp.</description>
     </item>
     
     <item>
