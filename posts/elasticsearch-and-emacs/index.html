@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>games // Bodacious Blog</title>
+    <title>ElasticSearch and emacs // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.71.0" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,21 +11,25 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="games"/>
-<meta name="twitter:description" content="My journey into biosemiotics 🌻, xenolingustics 👽 and emacs 🐄"/>
+<meta name="twitter:title" content="ElasticSearch and emacs"/>
+<meta name="twitter:description" content="babel https://github.com/dakrone/es-mode
+The built-in babel interpreter for ES query DSL targets http://localhost:9200/.
+POST /_search?pretty { &#34;query&#34;: { &#34;match_all&#34;: {} } } { &#34;took&#34; : 0, &#34;timed_out&#34; : false, &#34;_shards&#34; : { &#34;total&#34; : 0, &#34;successful&#34; : 0, &#34;skipped&#34; : 0, &#34;failed&#34; : 0 }, &#34;hits&#34; : { &#34;total&#34; : 0, &#34;max_score&#34; : 0.0, &#34;hits&#34; : [ ] } } tablify POST /test/doc/_search { &#34;aggs&#34; : { &#34;my_terms_agg&#34; : { &#34;terms&#34; : { &#34;field&#34; : &#34;type&#34; } } }, &#34;size&#34;: 0 } "/>
 
-    <meta property="og:title" content="games" />
-<meta property="og:description" content="My journey into biosemiotics 🌻, xenolingustics 👽 and emacs 🐄" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://mullikine.github.io/tags/games/" />
-<meta property="og:updated_time" content="2020-06-27T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+    <meta property="og:title" content="ElasticSearch and emacs" />
+<meta property="og:description" content="babel https://github.com/dakrone/es-mode
+The built-in babel interpreter for ES query DSL targets http://localhost:9200/.
+POST /_search?pretty { &#34;query&#34;: { &#34;match_all&#34;: {} } } { &#34;took&#34; : 0, &#34;timed_out&#34; : false, &#34;_shards&#34; : { &#34;total&#34; : 0, &#34;successful&#34; : 0, &#34;skipped&#34; : 0, &#34;failed&#34; : 0 }, &#34;hits&#34; : { &#34;total&#34; : 0, &#34;max_score&#34; : 0.0, &#34;hits&#34; : [ ] } } tablify POST /test/doc/_search { &#34;aggs&#34; : { &#34;my_terms_agg&#34; : { &#34;terms&#34; : { &#34;field&#34; : &#34;type&#34; } } }, &#34;size&#34;: 0 } " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/elasticsearch-and-emacs/" />
+<meta property="article:published_time" content="2020-06-27T00:00:00+08:00" />
+<meta property="article:modified_time" content="2020-06-27T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
 
 
   </head>
   <body>
     <header class="app-header">
 
-<link rel="alternate" type="application/rss+xml" href="https://mullikine.github.io/tags/games/index.xml" title="Bodacious Blog" />
 <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
       <h1>Bodacious Blog</h1>
       
@@ -138,82 +142,95 @@
     </header>
     <main class="app-container">
       
-  <article>
-    <h1>games</h1>
-    <p>My journey into biosemiotics 🌻, xenolingustics 👽 and emacs 🐄</p>
-    <ul class="posts-list">
-      
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="https://mullikine.github.io/posts/ts-aoe2de/">Updating Trigger Studio for Age of Empires II: DE</a>
-          <span class="posts-list-item-description">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">ElasticSearch and emacs</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jun 27, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg> 14 min read -
-            Jun 27, 2020
-          </span>
-        </li>
-      
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">★ Complex Dwarf Fortress macros with tcl/expect, emacs and tmux ★</a>
-          <span class="posts-list-item-description">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg> 4 min read -
-            Dec 18, 2019
-          </span>
-        </li>
-      
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="https://mullikine.github.io/posts/infinitely-generated-text-adventures/">Creating Infinitely Generated Text Adventures with DL LMs</a>
-          <span class="posts-list-item-description">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg> 1 min read -
-            Dec 6, 2019
-          </span>
-        </li>
-      
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="https://mullikine.github.io/posts/dwarf-fortress/">(WIP) How to play Dwarf Fortress (in fortress mode)</a>
-          <span class="posts-list-item-description">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg> 4 min read -
-            Oct 7, 2019
-          </span>
-        </li>
-      
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="https://mullikine.github.io/posts/hhgttg/">Hitchhiker&#39;s Guide To The Galaxy – The Infocom Game, on Ubuntu, in a terminal!</a>
-          <span class="posts-list-item-description">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg> 1 min read -
-            Sep 22, 2019
-          </span>
-        </li>
-      
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="https://mullikine.github.io/posts/emacs-tetris-nice/">Best emacs tetris in emacs 26&#43;</a>
-          <span class="posts-list-item-description">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg> 3 min read -
-            Sep 20, 2019
-          </span>
-        </li>
-      
-    </ul>
+</svg>
+          1 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/elasticsearch/">elasticsearch</a></div></div>
+    </header>
     
 
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
 
 
+    <div class="post-content">
+      <h2 id="babel">babel</h2>
+<p><a href="https://github.com/dakrone/es-mode">https://github.com/dakrone/es-mode</a></p>
+<p>The built-in babel interpreter for ES query DSL targets <code>http://localhost:9200/</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-es" data-lang="es">POST <span style="color:#f92672">/</span>_search<span style="color:#f92672">?</span>pretty
+{
+  <span style="color:#e6db74">&#34;query&#34;</span>: {
+    <span style="color:#e6db74">&#34;match_all&#34;</span>: {}
+  }
+}
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">{
+  &#34;took&#34; : 0,
+  &#34;timed_out&#34; : false,
+  &#34;_shards&#34; : {
+    &#34;total&#34; : 0,
+    &#34;successful&#34; : 0,
+    &#34;skipped&#34; : 0,
+    &#34;failed&#34; : 0
+  },
+  &#34;hits&#34; : {
+    &#34;total&#34; : 0,
+    &#34;max_score&#34; : 0.0,
+    &#34;hits&#34; : [ ]
+  }
+}
+</code></pre></div><h3 id="tablify"><code>tablify</code></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-es" data-lang="es">POST <span style="color:#f92672">/</span>test<span style="color:#f92672">/</span>doc<span style="color:#f92672">/</span>_search
+{
+  <span style="color:#e6db74">&#34;aggs&#34;</span> : {
+    <span style="color:#e6db74">&#34;my_terms_agg&#34;</span> : {
+      <span style="color:#e6db74">&#34;terms&#34;</span> : {
+        <span style="color:#e6db74">&#34;field&#34;</span> : <span style="color:#e6db74">&#34;type&#34;</span>
+      }
+    }
+  },
+  <span style="color:#e6db74">&#34;size&#34;</span>: <span style="color:#ae81ff">0</span>
+}
+</code></pre></div>
+    </div>
+    <div class="post-footer">
+        <p>
+        <a href="https://mullikine.github.io/about/">About this weblog</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://asciinema.org/~mullikine">Asciinema recordings</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/posts/blogs-and-vlogs/">Blogs and Vlogs</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/tags/">Site Map</a>
+        </p>
+    </div>
   </article>
 
     </main>
