@@ -12,6 +12,33 @@
     
     
     <item>
+      <title>PlantUML</title>
+      <link>https://mullikine.github.io/posts/plantuml/</link>
+      <pubDate>Sat, 27 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/plantuml/</guid>
+      <description>docker wrapper 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null stdin_exists() { ! [ -t 0 ] &amp;amp;&amp;amp; ! test &amp;#34;$(readlink /proc/$$/fd/0)&amp;#34; = /dev/null } if ! stdin_exists; then echo stdin required 1&amp;gt;&amp;amp;2 exit 1 fi /usr/bin/docker run -i --entrypoint= think/plantuml:8059 java &amp;#34;-Djava.awt.headless=true&amp;#34; -jar plantuml.jar -p -ttxt &amp;#34;$@&amp;#34;   Examples class diagram 1 2 3 4 5 6 7 8  @startuml class User { -String id -String name +String name() } User &amp;lt;|-- SpecificUser @enduml   ,--------------.</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch concepts</title>
+      <link>https://mullikine.github.io/posts/elasticsearch-concepts/</link>
+      <pubDate>Thu, 25 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/elasticsearch-concepts/</guid>
+      <description>search  Original article https://icij.gitbook.io/datashare/all/search-with-operators Original article https://www.elastic.co/guide/en/elasticsearch/reference/7.x/query-dsl-query-string-query.html   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60  Fuzziness Character-level edit-distance.</description>
+    </item>
+    
+    <item>
+      <title>Python property</title>
+      <link>https://mullikine.github.io/posts/python-property/</link>
+      <pubDate>Thu, 25 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/python-property/</guid>
+      <description>Using regular attributes 1 2 3 4 5 6 7 8 9 10 11 12  class Student: def __init__(self, name, marks): self.name = name self.marks = marks self.gotmarks = self.name + &amp;#39; obtained &amp;#39; + self.marks + &amp;#39; marks&amp;#39; st = Student(&amp;#34;Jaki&amp;#34;, &amp;#34;25&amp;#34;) print(st.name) print(st.marks) print(st.gotmarks)   Using functions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  class Student: def __init__(self, name, marks): self.</description>
+    </item>
+    
+    <item>
       <title>Effective Communication in a Digital Work Environment</title>
       <link>https://mullikine.github.io/posts/review-of-airsend/</link>
       <pubDate>Wed, 24 Jun 2020 00:00:00 +0800</pubDate>
@@ -3458,6 +3485,16 @@ An example of define-syntax-parser: Generating C with racket // Bodacious Blog
       <guid>https://mullikine.github.io/posts/use-ssh-key-to-encrypt-messages/</guid>
       <description>Create self-decrypting encrypted files using your ssh public key. The self decrypting file will only decrypt if you have the private key. Only works on small files like short messages.
 The script makemsg 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74  #!</description>
+    </item>
+    
+    <item>
+      <title>Python data structures</title>
+      <link>https://mullikine.github.io/posts/python-data-structures/</link>
+      <pubDate>Fri, 12 Oct 2012 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/python-data-structures/</guid>
+      <description>bidict https://bidict.readthedocs.io/en/master/basic-usage.html
+ordereddict 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36  import collections print(&amp;#39;dict :&amp;#39;, end=&amp;#39; &amp;#39;) d1 = {} d1[&amp;#39;a&amp;#39;] = &amp;#39;A&amp;#39; d1[&amp;#39;b&amp;#39;] = &amp;#39;B&amp;#39; d1[&amp;#39;c&amp;#39;] = &amp;#39;C&amp;#39; d1[&amp;#39;d&amp;#39;] = &amp;#39;D&amp;#39; d1[&amp;#39;e&amp;#39;] = &amp;#39;E&amp;#39; d2 = {} d2[&amp;#39;e&amp;#39;] = &amp;#39;E&amp;#39; d2[&amp;#39;d&amp;#39;] = &amp;#39;D&amp;#39; d2[&amp;#39;c&amp;#39;] = &amp;#39;C&amp;#39; d2[&amp;#39;b&amp;#39;] = &amp;#39;B&amp;#39; d2[&amp;#39;a&amp;#39;] = &amp;#39;A&amp;#39; print(d1 == d2) print(&amp;#39;OrderedDict:&amp;#39;, end=&amp;#39; &amp;#39;) d1 = collections.</description>
     </item>
     
     <item>
