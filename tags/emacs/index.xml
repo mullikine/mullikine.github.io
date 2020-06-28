@@ -6,10 +6,21 @@
     <description>Recent content in emacs on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Jun 2020 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 28 Jun 2020 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Effective lisp string editing in emacs</title>
+      <link>https://mullikine.github.io/posts/effective-lisp-string-editing-in-emacs/</link>
+      <pubDate>Sun, 28 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/effective-lisp-string-editing-in-emacs/</guid>
+      <description>Premise I wanted to edit strings in a more isolated and optimised environment for editing strings.
+The best way to do so turned out to be a combination of buffer narrowing and switching to a new mode who&amp;rsquo;s sole purpose is to provide a generic mode for editing text and a key binding to widen the buffer again.
+Create the major mode and the &amp;lsquo;edit string&amp;rsquo; function 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25  (defvar lispy-string-edit-mode-map (let ((map (make-sparse-keymap)) (menu-map (make-sparse-keymap &amp;#34;lispy string&amp;#34;))) (define-key map (kbd &amp;#34;C-c &amp;#39;&amp;#34;) &amp;#39;lispy-edit-string) map)) (define-derived-mode lispy-string-edit-mode text-mode &amp;#34;lispy string&amp;#34; &amp;#34;Major mode for editing lisp strings&amp;#34;) (defun emacs-lisp-edit-string () (interactive) (if (and (lispy--buffer-narrowed-p) (major-mode-p &amp;#39;lispy-string-edit-mode)) (progn (cfilter &amp;#34;q -f&amp;#34;) (while (lispy--buffer-narrowed-p) (ignore-errors (call-interactively &amp;#39;recursive-widen))) (emacs-lisp-mode)) (if (lispy--in-string-p) (save-mark-and-excursion (progn (lispy-mark) (call-interactively &amp;#39;my/enter-edit-emacs) (lispy-string-edit-mode) (cfilter &amp;#34;uq&amp;#34;)))))) (defalias &amp;#39;lispy-edit-string &amp;#39;emacs-lisp-edit-string)   Demonstration Editing strings is so much easier now!</description>
+    </item>
     
     <item>
       <title>ElasticSearch and emacs</title>
