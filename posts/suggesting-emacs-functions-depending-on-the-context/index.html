@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Suggesting emacs functions depending on the context"/>
-<meta name="twitter:description" content="TL;DR Implement in emacs lisp a way of suggesting functions to myself depending on a set of cues Designing the plugin Some predicate atoms 1 2 3 4 5 6 7 8 9 10 11  (defun rpl-at-line-p (rpl) (let* ((output (chomp (sn (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;line t)))) (matches (str2list output)) (n (length matches))) (and (not (string-empty-p output)) (&gt; n 0)))) (defun rpl-at-point-p (rpl) (let* ((output (chomp (sn (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;sexp t)))) (matches (str2list output)) (n (length matches))) (and (not (string-empty-p output)) (&gt; n 0))))   Some functions to debug the above predicate atoms 1 2 3 4 5 6 7 8 9  (defun rpl-at-line (rpl) (let* ((output (chomp (sn (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;line t)))) (matches (str2list output))) matches)) (defun rpl-at-point (rpl) (let* ((output (chomp (sn (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;sexp t)))) (matches (str2list output))) matches))   Some functions that we might want to suggest 1 2  (df copy-ip-here (xc (first (rpl-at-point &#34;net."/>
+<meta name="twitter:description" content="TL;DR Implement in emacs lisp a way of suggesting functions to myself depending on a set of cues Designing the plugin Some predicate atoms 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20  (defun chomp (str) &#34;Chomp leading and tailing whitespace from STR for each line.&#34; (while (string-match &#34;\\`\n&#43;\\|^\\s-&#43;\\|\\s-&#43;$\\|\n&#43;\\&#39;&#34; str) (setq str (replace-match &#34;&#34; t t str))) str) (defalias &#39;q &#39;shell-quote-argument) (defun rpl-at-line-p (rpl) (let* ((output (chomp (shell-command-to-string (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;line t)))) (matches (str2list output)) (n (length matches))) (and (not (string-empty-p output)) (&gt; n 0)))) (defun rpl-at-point-p (rpl) (let* ((output (chomp (sn (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;sexp t)))) (matches (str2list output)) (n (length matches))) (and (not (string-empty-p output)) (&gt; n 0))))   Some functions to debug the above predicate atoms 1 2 3 4 5 6 7 8 9  (defun rpl-at-line (rpl) (let* ((output (chomp (sn (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;line t)))) (matches (str2list output))) matches)) (defun rpl-at-point (rpl) (let* ((output (chomp (sn (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;sexp t)))) (matches (str2list output))) matches))   Some functions that we might want to suggest 1 2 3 4 5 6 7 8 9 10  (defun copy-ip-here () (interactive) (xc (first (rpl-at-point &#34;net."/>
 
     <meta property="og:title" content="Suggesting emacs functions depending on the context" />
-<meta property="og:description" content="TL;DR Implement in emacs lisp a way of suggesting functions to myself depending on a set of cues Designing the plugin Some predicate atoms 1 2 3 4 5 6 7 8 9 10 11  (defun rpl-at-line-p (rpl) (let* ((output (chomp (sn (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;line t)))) (matches (str2list output)) (n (length matches))) (and (not (string-empty-p output)) (&gt; n 0)))) (defun rpl-at-point-p (rpl) (let* ((output (chomp (sn (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;sexp t)))) (matches (str2list output)) (n (length matches))) (and (not (string-empty-p output)) (&gt; n 0))))   Some functions to debug the above predicate atoms 1 2 3 4 5 6 7 8 9  (defun rpl-at-line (rpl) (let* ((output (chomp (sn (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;line t)))) (matches (str2list output))) matches)) (defun rpl-at-point (rpl) (let* ((output (chomp (sn (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;sexp t)))) (matches (str2list output))) matches))   Some functions that we might want to suggest 1 2  (df copy-ip-here (xc (first (rpl-at-point &#34;net." />
+<meta property="og:description" content="TL;DR Implement in emacs lisp a way of suggesting functions to myself depending on a set of cues Designing the plugin Some predicate atoms 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20  (defun chomp (str) &#34;Chomp leading and tailing whitespace from STR for each line.&#34; (while (string-match &#34;\\`\n&#43;\\|^\\s-&#43;\\|\\s-&#43;$\\|\n&#43;\\&#39;&#34; str) (setq str (replace-match &#34;&#34; t t str))) str) (defalias &#39;q &#39;shell-quote-argument) (defun rpl-at-line-p (rpl) (let* ((output (chomp (shell-command-to-string (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;line t)))) (matches (str2list output)) (n (length matches))) (and (not (string-empty-p output)) (&gt; n 0)))) (defun rpl-at-point-p (rpl) (let* ((output (chomp (sn (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;sexp t)))) (matches (str2list output)) (n (length matches))) (and (not (string-empty-p output)) (&gt; n 0))))   Some functions to debug the above predicate atoms 1 2 3 4 5 6 7 8 9  (defun rpl-at-line (rpl) (let* ((output (chomp (sn (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;line t)))) (matches (str2list output))) matches)) (defun rpl-at-point (rpl) (let* ((output (chomp (sn (concat &#34;rosie grep -o subs &#34; (q rpl)) (thing-at-point &#39;sexp t)))) (matches (str2list output))) matches))   Some functions that we might want to suggest 1 2 3 4 5 6 7 8 9 10  (defun copy-ip-here () (interactive) (xc (first (rpl-at-point &#34;net." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/suggesting-emacs-functions-depending-on-the-context/" />
 <meta property="article:published_time" content="2020-07-01T00:00:00+08:00" />
@@ -189,10 +189,28 @@
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun rpl-at-line-p (rpl)
-  (let* ((output (chomp (sn (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;rosie grep -o subs &#34;</span> (q rpl)) (thing-at-point <span style="color:#e6db74">&#39;line</span> <span style="color:#66d9ef">t</span>))))
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun chomp (str)
+  <span style="color:#e6db74">&#34;Chomp leading and tailing whitespace from STR for each line.&#34;</span>
+  (while (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34;\\</span><span style="color:#e6db74">`\n+\\|^\\s-+\\|\\s-+$\\|\n+\\&#39;</span><span style="color:#e6db74">&#34;</span>
+                       str)
+    (setq str (<span style="color:#a6e22e">replace-match</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">t</span> <span style="color:#66d9ef">t</span> str)))
+  str)
+
+(defalias <span style="color:#e6db74">&#39;q</span> <span style="color:#e6db74">&#39;shell-quote-argument</span>)
+
+(defun rpl-at-line-p (rpl)
+  (let* ((output (chomp (shell-command-to-string (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;rosie grep -o subs &#34;</span> (q rpl)) (thing-at-point <span style="color:#e6db74">&#39;line</span> <span style="color:#66d9ef">t</span>))))
          (matches (str2list output))
          (n (<span style="color:#a6e22e">length</span> matches)))
     (and (not (string-empty-p output)) (<span style="color:#a6e22e">&gt;</span> n <span style="color:#ae81ff">0</span>))))
@@ -232,12 +250,28 @@
 <h3 id="some-functions-that-we-might-want-to-suggest">Some functions that we might want to suggest</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(df copy-ip-here (xc (first (rpl-at-point <span style="color:#e6db74">&#34;net.ipv4&#34;</span>))))
-(df copy-email-here (xc (first (rpl-at-line <span style="color:#e6db74">&#34;net.email&#34;</span>))))</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun copy-ip-here ()
+  (interactive)
+  (xc
+   (first
+    (rpl-at-point <span style="color:#e6db74">&#34;net.ipv4&#34;</span>))))
+(defun copy-email-here ()
+  (interactive)
+  (xc
+   (first
+    (rpl-at-line <span style="color:#e6db74">&#34;net.email&#34;</span>))))</code></pre></td></tr></table>
 </div>
 </div>
 <h3 id="create-the-plugin">Create the plugin</h3>
