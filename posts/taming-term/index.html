@@ -12,14 +12,18 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Taming term-mode"/>
-<meta name="twitter:description" content="libertyprime to #emacs i found myself recording an asciinema recording of me making an asciinema recording of me playing tetris inside of tmux inside of neovim inside of emacs inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about  First attempt You can skip this and scroll down to the solution or read it to see some of the problems I was having with term."/>
+<meta name="twitter:description" content="First attempt You can skip this and scroll down to the solution or read it to see some of the problems I was having with term.el.
+Problems with term.el Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
+1 2 3 4 5 6 7 8  ;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char)   gud-mode stole C-c C-a C-a is important in many programs for going to the start of the line."/>
 
     <meta property="og:title" content="Taming term-mode" />
-<meta property="og:description" content="libertyprime to #emacs i found myself recording an asciinema recording of me making an asciinema recording of me playing tetris inside of tmux inside of neovim inside of emacs inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about  First attempt You can skip this and scroll down to the solution or read it to see some of the problems I was having with term." />
+<meta property="og:description" content="First attempt You can skip this and scroll down to the solution or read it to see some of the problems I was having with term.el.
+Problems with term.el Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
+1 2 3 4 5 6 7 8  ;; Comment this out ;; (define-key my-mode-map (kbd &#34;M-k&#34;) &#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &#34;M-k&#34;) nil) ;; Replace with this (define-key global-map (kbd &#34;M-k&#34;) &#39;avy-goto-char)   gud-mode stole C-c C-a C-a is important in many programs for going to the start of the line." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/taming-term/" />
-<meta property="article:published_time" content="2019-10-07T00:00:00+13:00" />
-<meta property="article:modified_time" content="2019-10-07T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="article:published_time" content="2019-10-07T00:00:00+08:00" />
+<meta property="article:modified_time" content="2019-10-07T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
 
 
   </head>
@@ -155,7 +159,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          12 min read
+          11 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -173,13 +177,7 @@
 
 
     <div class="post-content">
-      <dl>
-<dt>libertyprime to #emacs</dt>
-<dd>i found myself recording an asciinema recording of me making an asciinema
-recording of me playing tetris inside of tmux inside of neovim inside of emacs
-inside of an emacs term inside of 4 nested tmuxes. it became hard to actually think about</dd>
-</dl>
-<h2 id="first-attempt">First attempt</h2>
+      <h2 id="first-attempt">First attempt</h2>
 <p>You can skip this and scroll down to the
 solution or read it to see some of the
 problems I was having with <code>term.el</code>.</p>
@@ -1050,30 +1048,6 @@ sending those function keys through.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun term-move-columns (delta)
@@ -1090,30 +1064,6 @@ sending those function keys through.</p>
   (<span style="color:#a6e22e">set-window-margins</span> (<span style="color:#a6e22e">selected-window</span>) <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>)
   (<span style="color:#a6e22e">set-window-hscroll</span> (<span style="color:#a6e22e">selected-window</span>) <span style="color:#ae81ff">0</span>)
   (<span style="color:#a6e22e">set-window-vscroll</span> (<span style="color:#a6e22e">selected-window</span>) <span style="color:#ae81ff">0</span>)
-
-  <span style="color:#75715e">;; TODO Find a way to keep the column within</span>
-  <span style="color:#75715e">;; (window-body-width)</span>
-
-  <span style="color:#75715e">;; (window-total-width)</span>
-  <span style="color:#75715e">;; (frame-width)</span>
-
-  <span style="color:#75715e">;; (window-vscroll)</span>
-  <span style="color:#75715e">;; (window-hscroll)</span>
-  <span style="color:#75715e">;; (set-window-vscroll (selected-window) 0)</span>
-  <span style="color:#75715e">;; (set-window-hscroll (selected-window) 0)</span>
-  <span style="color:#75715e">;; (set-fringe-mode &#39;(0 . 0))</span>
-  <span style="color:#75715e">;; (window-margins) ;this must be changed to (nil) from (1)</span>
-  <span style="color:#75715e">;; Running git-gutter+-mode removed the margin/fringe/whatever it is</span>
-
-  <span style="color:#75715e">;; This corrects it:</span>
-  <span style="color:#75715e">;; But the terminal is still badly drawn</span>
-  <span style="color:#75715e">;; (set-window-margins (selected-window) 0 0)</span>
-  <span style="color:#75715e">;; (set-window-hscroll (selected-window) 0)</span>
-  <span style="color:#75715e">;; (set-window-vscroll (selected-window) 0)</span>
-
-  <span style="color:#75715e">;; Keep in mind that the columns may have not even</span>
-  <span style="color:#75715e">;; If I call this every time then the screen will get messed up</span>
-  <span style="color:#75715e">;; (call-interactively &#39;evil-scroll-left)</span>
   )</code></pre></td></tr></table>
 </div>
 </div>
