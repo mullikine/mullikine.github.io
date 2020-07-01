@@ -211,11 +211,8 @@ mappings instead.</p>
 <h4 id="gud-mode-stole-c-c-c-a"><code>gud-mode</code> stole <code>C-c C-a</code></h4>
 <p><code>C-a</code> is important in many programs for going to the start of the line.</p>
 <p><code>gud-mode</code> creates a global prefix before we have time to prevent that from happening</p>
-<ul>
-<li>Load this early before <code>gud</code> is required</li>
-</ul>
-<pre><code>That way it will set its global binding to this prefix instead.
-
+<p><span class="underline"><strong>Load this early before <code>gud</code> is required</strong></span></p>
+<p>That way it will set its global binding to this prefix instead.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -226,21 +223,18 @@ mappings instead.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">    <span style="color:#75715e">;; This prefix must never be accessible</span>
-    (<span style="color:#a6e22e">define-prefix-command</span> <span style="color:#e6db74">&#39;my-prefix-tick</span>)
-    <span style="color:#75715e">;; This is not a real key. Therefore it won&#39;t be pressed.</span>
-    (global-set-key (kbd <span style="color:#e6db74">&#34;✓&#34;</span>) <span style="color:#e6db74">&#39;my-prefix-tick</span>)
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; This prefix must never be accessible</span>
+(<span style="color:#a6e22e">define-prefix-command</span> <span style="color:#e6db74">&#39;my-prefix-tick</span>)
+<span style="color:#75715e">;; This is not a real key. Therefore it won&#39;t be pressed.</span>
+(global-set-key (kbd <span style="color:#e6db74">&#34;✓&#34;</span>) <span style="color:#e6db74">&#39;my-prefix-tick</span>)
 
-    (setq gud-key-prefix (kbd <span style="color:#e6db74">&#34;✓&#34;</span>))
+(setq gud-key-prefix (kbd <span style="color:#e6db74">&#34;✓&#34;</span>))
 
-    (provide <span style="color:#e6db74">&#39;my-gud</span>)
-    </code></pre></td></tr></table>
+(provide <span style="color:#e6db74">&#39;my-gud</span>)</code></pre></td></tr></table>
 </div>
 </div>
-</code></pre>
 <h4 id="if-you-can-disable-modes-that-interfere-with-term-using-manage-minor-mode">If you can, disable modes that interfere with term using <code>manage-minor-mode</code></h4>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
