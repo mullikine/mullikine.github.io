@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>Suggesting emacs functions depending on the context</title>
+      <link>https://mullikine.github.io/posts/suggesting-emacs-functions-depending-on-the-context/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/suggesting-emacs-functions-depending-on-the-context/</guid>
+      <description>TL;DR Implement in emacs lisp a way of suggesting functions to myself depending on a set of cues Designing the plugin Some predicate atoms 1 2 3 4 5 6 7 8 9 10 11  (defun rpl-at-line-p (rpl) (let* ((output (chomp (sn (concat &amp;#34;rosie grep -o subs &amp;#34; (q rpl)) (thing-at-point &amp;#39;line t)))) (matches (str2list output)) (n (length matches))) (and (not (string-empty-p output)) (&amp;gt; n 0)))) (defun rpl-at-point-p (rpl) (let* ((output (chomp (sn (concat &amp;#34;rosie grep -o subs &amp;#34; (q rpl)) (thing-at-point &amp;#39;sexp t)))) (matches (str2list output)) (n (length matches))) (and (not (string-empty-p output)) (&amp;gt; n 0))))   Some functions to debug the above predicate atoms 1 2 3 4 5 6 7 8 9  (defun rpl-at-line (rpl) (let* ((output (chomp (sn (concat &amp;#34;rosie grep -o subs &amp;#34; (q rpl)) (thing-at-point &amp;#39;line t)))) (matches (str2list output))) matches)) (defun rpl-at-point (rpl) (let* ((output (chomp (sn (concat &amp;#34;rosie grep -o subs &amp;#34; (q rpl)) (thing-at-point &amp;#39;sexp t)))) (matches (str2list output))) matches))   Some functions that we might want to suggest 1 2  (df copy-ip-here (xc (first (rpl-at-point &amp;#34;net.</description>
+    </item>
+    
+    <item>
       <title>Trying out python libraries in emacs</title>
       <link>https://mullikine.github.io/posts/trying-out-python-libraries-in-emacs/</link>
       <pubDate>Mon, 29 Jun 2020 00:00:00 +0800</pubDate>
