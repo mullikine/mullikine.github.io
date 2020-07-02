@@ -16,6 +16,7 @@
 The common pattern might be an IP address, say or an email.
 I extend emacs to use output from the rosie parser to navigate a file.
 This will be useful in future because most likely I will want to use other parsers.
+Demonstration 
 Create hydra 1 2 3 4 5 6 7 8  (defhydra position-list-nav (:exit nil :color green :hint nil :columns 1) &#34;position list navigation&#34; (&#34;M-."/>
 
     <meta property="og:title" content="Navigate files in emacs using rosielang" />
@@ -23,6 +24,7 @@ Create hydra 1 2 3 4 5 6 7 8  (defhydra position-list-nav (:exit nil :color gree
 The common pattern might be an IP address, say or an email.
 I extend emacs to use output from the rosie parser to navigate a file.
 This will be useful in future because most likely I will want to use other parsers.
+Demonstration 
 Create hydra 1 2 3 4 5 6 7 8  (defhydra position-list-nav (:exit nil :color green :hint nil :columns 1) &#34;position list navigation&#34; (&#34;M-." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/navigate-files-in-emacs-using-rosielang/" />
@@ -190,6 +192,8 @@ a common pattern in a file.</p>
 parser to navigate a file.</p>
 <p>This will be useful in future because most
 likely I will want to use other parsers.</p>
+<h3 id="demonstration">Demonstration</h3>
+<p><a title="asciinema recording" href="https://asciinema.org/a/kg91dYdBtnAynjw5k6IN2U44K" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/kg91dYdBtnAynjw5k6IN2U44K.svg" /></a></p>
 <h2 id="create-hydra">Create hydra</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -330,6 +334,13 @@ likely I will want to use other parsers.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(require <span style="color:#e6db74">&#39;dash</span>)
@@ -391,7 +402,7 @@ likely I will want to use other parsers.</p>
   <span style="color:#75715e">;; (interactive (list (str2sym (fz position-list-functions)) (point)))</span>
   (interactive (<span style="color:#a6e22e">list</span> position-list-current-function (<span style="color:#a6e22e">point</span>)))
 
-  (if (not func)
+  (if (or current-prefix-arg (not func))
       (progn (setq position-list-current-function (str2sym (fz position-list-functions)))
              (setq func position-list-current-function)))
 
@@ -407,14 +418,16 @@ likely I will want to use other parsers.</p>
            (throw <span style="color:#e6db74">&#39;bbb</span> x)))
        positions)
       <span style="color:#66d9ef">nil</span>)
-    (<span style="color:#a6e22e">goto-char</span> next))
-  (<span style="color:#a6e22e">message</span> (str current-prefix-arg)))
+    (if (equalp current next)
+        (progn (mode-line-bell-flash)
+               (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;None further down&#34;</span>))
+      (<span style="color:#a6e22e">goto-char</span> next))))
 
 (defun position-list-prev (<span style="color:#66d9ef">&amp;optional</span> func current)
   <span style="color:#75715e">;; (interactive (list (str2sym (fz position-list-functions)) (point)))</span>
   (interactive (<span style="color:#a6e22e">list</span> position-list-current-function (<span style="color:#a6e22e">point</span>)))
 
-  (if (not func)
+  (if (or current-prefix-arg (not func))
       (progn (setq position-list-current-function (str2sym (fz position-list-functions)))
              (setq func position-list-current-function)))
 
@@ -430,7 +443,10 @@ likely I will want to use other parsers.</p>
            (throw <span style="color:#e6db74">&#39;bbb</span> x)))
        positions)
       <span style="color:#66d9ef">nil</span>)
-    (<span style="color:#a6e22e">goto-char</span> next)))
+    (if (equalp current next)
+        (progn (mode-line-bell-flash)
+               (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;None further up&#34;</span>))
+      (<span style="color:#a6e22e">goto-char</span> next))))
 
 (defun position-list-function-select (<span style="color:#66d9ef">&amp;optional</span> func)
   (interactive)
@@ -444,9 +460,15 @@ likely I will want to use other parsers.</p>
 
 <span style="color:#75715e">;; TODO Memoise the current function until the hydra exits</span>
 
+(sslk <span style="color:#e6db74">&#34;lg=&#34;</span> <span style="color:#e6db74">&#39;position-list-nav/body</span>)
+
 (provide <span style="color:#e6db74">&#39;my-position-list-navigator</span>)</code></pre></td></tr></table>
 </div>
 </div>
+<h2 id="improvements">Improvements</h2>
+<h3 id="integrate-with-occur-mode"><span class="org-todo todo TODO">TODO</span> Integrate with <code>occur-mode</code></h3>
+<h3 id="integrate-with-grep-mode"><span class="org-todo todo TODO">TODO</span> Integrate with <code>grep-mode</code></h3>
+<h3 id="memoise-the-current-function-until-the-hydra-exits"><span class="org-todo todo TODO">TODO</span> Memoise the current function until the hydra exits</h3>
 
     </div>
     <div class="post-footer">
