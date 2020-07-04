@@ -12,6 +12,28 @@
     
     
     <item>
+      <title>Automate vim with emacs keyboard macros</title>
+      <link>https://mullikine.github.io/posts/automate-vim-with-emacs-keyboard-macros/</link>
+      <pubDate>Sat, 04 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/automate-vim-with-emacs-keyboard-macros/</guid>
+      <description>This will open the list of blog posts inside of vim.
+This outputs a shell command into vim and starts it within spacemacs via emacsclient.
+1  sp -shE &amp;#34;cd /home/shane/blog/posts; find . -name &amp;#39;*.org&amp;#39; | v&amp;#34;   I now want to go through the remaining blog posts listed in vim (which do not have margin=0.05in as the first line and add it.
+Not knowing if it&amp;rsquo;s possible to create a multi-file keyboard macro in vim, I will use emacs macros on vim via term-mode.</description>
+    </item>
+    
+    <item>
+      <title>Creating a portfolio PDF from my blog</title>
+      <link>https://mullikine.github.io/posts/creating-a-portfolio-pdf-from-my-blog/</link>
+      <pubDate>Sat, 04 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/creating-a-portfolio-pdf-from-my-blog/</guid>
+      <description>Firstly, touch up my blog articles to be suitable for PDF Do this by automating vim with emacs.
+Find blog articles without LATEX_HEADER 1  cd $HOME/blog/posts; find . -name &amp;#39;*.org&amp;#39; | eipct -x -E &amp;#34;! grep -q LATEX_HEADER&amp;#34; | eipct -x grep -q HUGO_BASE | head -n 5   ./aws-services.org ./rat.org ./music-playlists-in-emacs-lisp.org ./minor-mode-wrappers-for-shell-commands.org ./review-of-introduction-rust-by-example.org Automate vim with emacs keyboard macros I want to add the latex header to all the blog posts without one.</description>
+    </item>
+    
+    <item>
       <title>Install haskell missing libraries</title>
       <link>https://mullikine.github.io/posts/install-haskell-missing-libraries/</link>
       <pubDate>Sat, 04 Jul 2020 00:00:00 +0800</pubDate>
@@ -2588,6 +2610,16 @@ https://mullikine.github.io/posts/macro-tutorial/
     </item>
     
     <item>
+      <title>Scripting Mathematica</title>
+      <link>https://mullikine.github.io/posts/scripting-mathematica/</link>
+      <pubDate>Fri, 25 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/scripting-mathematica/</guid>
+      <description>Mathematica keyboard shortcuts https://reference.wolfram.com/language/tutorial/KeyboardShortcutListing.html
+shell commands mmadoc Getting documentation with Mathematica code 1 2  ?Integrate ?WolframAlpha   1 2 3 4 5 6  #!/bin/bash export TTY funcname=&amp;#34;$1&amp;#34; mma &amp;#34;?$funcname&amp;#34;   mma 1 2 3 4 5 6 7 8 9 10 11 12 13  #!/bin/bash export TTY # Mathematica tf_script=&amp;#34;$(ux tf script wls || echo /dev/null)&amp;#34; trap &amp;#34;rm \&amp;#34;$tf_script\&amp;#34; 2&amp;gt;/dev/null&amp;#34; 0 cat &amp;gt; &amp;#34;$tf_script&amp;#34; &amp;lt;&amp;lt;HEREDOC Print[$@] HEREDOC wolframscript -file &amp;#34;$tf_script&amp;#34; &amp;#34;$@&amp;#34;   Example 1 2 3 4 5 6  mmadoc Integrate mmadoc WolframAlpha mma &amp;#34;WolframAlpha[\&amp;#34;size of the moon\&amp;#34;]&amp;#34; WolframAlpha[&amp;#34;size of the moon&amp;#34;] wa size of the moon mma &amp;#34;Integrate[5x,x]&amp;#34;   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29  Integrate[f, x] gives the indefinite integral ∫ f dx.</description>
+    </item>
+    
+    <item>
       <title>Searching awesome lists for curated web browsing</title>
       <link>https://mullikine.github.io/posts/curated-surfing/</link>
       <pubDate>Fri, 25 Oct 2019 00:00:00 +0800</pubDate>
@@ -2640,16 +2672,6 @@ Create the elisp function which uses xurls to scrape URLs from text 1 2 3 4 5  (
       <guid>https://mullikine.github.io/posts/kaggle-r-ess/</guid>
       <description>Build the script kag This is used for
  Downloading datasets to an organised directory structure Viewing CSV results in visidata by default Keeping track of history Caching results   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null is_tty() { # If stout is a tty [[ -t 1 ]] } slug=&amp;#34;$(echo &amp;#34;$3&amp;#34; | slugify)&amp;#34; dsname=&amp;#34;$(echo &amp;#34;$3&amp;#34; | sed &amp;#39;s=.</description>
-    </item>
-    
-    <item>
-      <title>Scripting Mathematica</title>
-      <link>https://mullikine.github.io/posts/scripting-mathematica/</link>
-      <pubDate>Fri, 25 Oct 2019 00:00:00 +1300</pubDate>
-      
-      <guid>https://mullikine.github.io/posts/scripting-mathematica/</guid>
-      <description>Mathematica keyboard shortcuts https://reference.wolfram.com/language/tutorial/KeyboardShortcutListing.html
-shell commands mmadoc Getting documentation with Mathematica code ?Integrate ?WolframAlpha #!/bin/bash export TTY funcname=&amp;#34;$1&amp;#34; mma &amp;#34;?$funcname&amp;#34; mma #!/bin/bash export TTY # Mathematica tf_script=&amp;#34;$(ux tf script wls || echo /dev/null)&amp;#34; trap &amp;#34;rm \&amp;#34;$tf_script\&amp;#34; 2&amp;gt;/dev/null&amp;#34; 0 cat &amp;gt; &amp;#34;$tf_script&amp;#34; &amp;lt;&amp;lt;HEREDOC Print[$@] HEREDOC wolframscript -file &amp;#34;$tf_script&amp;#34; &amp;#34;$@&amp;#34; Example mmadoc Integrate mmadoc WolframAlpha mma &amp;#34;WolframAlpha[\&amp;#34;size of the moon\&amp;#34;]&amp;#34; WolframAlpha[&amp;#34;size of the moon&amp;#34;] wa size of the moon mma &amp;#34;Integrate[5x,x]&amp;#34; Integrate[f, x] gives the indefinite integral ∫ f dx.</description>
     </item>
     
     <item>
