@@ -12,6 +12,17 @@
     
     
     <item>
+      <title>Add super and hyper to terminal emacs</title>
+      <link>https://mullikine.github.io/posts/add-super-and-hyper-to-terminal-emacs/</link>
+      <pubDate>Sat, 04 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/add-super-and-hyper-to-terminal-emacs/</guid>
+      <description>Tapping these chords will add the modifier to the chord that follows.
+ Source material https://www.gnu.org/software/emacs/manual/html%5Fnode/elisp/Translation-Keymaps.html https://emacs.stackexchange.com/questions/18245/making-terminal-emacs-treat-apps-aka-menu-key-as-super-modifier  Now I have a means of typing any bindings that use the super or hyper keys.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26  (defun add-event-modifier (string e) (let ((symbol (if (symbolp e) e (car e)))) (setq symbol (intern (concat string (symbol-name symbol)))) (if (symbolp e) symbol (cons symbol (cdr e))))) (defun superify (prompt) (let ((e (read-event))) (vector (if (numberp e) (logior (lsh 1 23) e) (if (memq &amp;#39;super (event-modifiers e)) e (add-event-modifier &amp;#34;s-&amp;#34; e)))))) (defun hyperify (prompt) (let ((e (read-event))) (vector (if (numberp e) (logior (lsh 1 24) e) (if (memq &amp;#39;hyper (event-modifiers e)) e (add-event-modifier &amp;#34;H-&amp;#34; e)))))) (define-key local-function-key-map (kbd &amp;#34;C-M-^&amp;#34;) &amp;#39;superify) (define-key local-function-key-map (kbd &amp;#34;C-M-\\&amp;#34;) &amp;#39;hyperify)   </description>
+    </item>
+    
+    <item>
       <title>Automate vim with emacs keyboard macros</title>
       <link>https://mullikine.github.io/posts/automate-vim-with-emacs-keyboard-macros/</link>
       <pubDate>Sat, 04 Jul 2020 00:00:00 +0800</pubDate>
