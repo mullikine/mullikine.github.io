@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>Add super and hyper to terminal emacs // Bodacious Blog</title>
+    <title>Fixing LSP for Python in emacs // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.71.0" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,19 +11,25 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Add super and hyper to terminal emacs"/>
-<meta name="twitter:description" content="Tapping these chords will add the modifier to the chord that follows.
- Source material https://www.gnu.org/software/emacs/manual/html%5Fnode/elisp/Translation-Keymaps.html https://emacs.stackexchange.com/questions/18245/making-terminal-emacs-treat-apps-aka-menu-key-as-super-modifier  Now I have a means of typing any bindings that use the super or hyper keys.
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29  (defun add-event-modifier (string e) (let ((symbol (if (symbolp e) e (car e)))) (setq symbol (intern (concat string (symbol-name symbol)))) (if (symbolp e) symbol (cons symbol (cdr e))))) (defun superify (prompt) (let ((e (read-event))) (vector (if (numberp e) (logior (lsh 1 23) e) (if (memq &#39;super (event-modifiers e)) e (add-event-modifier &#34;s-&#34; e)))))) (defun hyperify (prompt) (let ((e (read-event))) (vector (if (numberp e) (logior (lsh 1 24) e) (if (memq &#39;hyper (event-modifiers e)) e (add-event-modifier &#34;H-&#34; e)))))) (define-key global-map (kbd &#34;C-M-6&#34;) nil) ;For GUI (define-key function-key-map (kbd &#34;C-M-6&#34;) &#39;superify) ;For GUI (define-key function-key-map (kbd &#34;C-M-^&#34;) &#39;superify) (define-key global-map (kbd &#34;C-M-\\&#34;) nil) ;Ensure that this bindings isnt taken (define-key function-key-map (kbd &#34;C-M-\\&#34;) &#39;hyperify)   "/>
+<meta name="twitter:title" content="Fixing LSP for Python in emacs"/>
+<meta name="twitter:description" content="TL;DR The documentation doesn&rsquo;t appear in python mode.
+I was using anaconda-mode to display documentation to alleviate the problem.
+I found the problem in the way lsp-mode extracts documentation from the request.
+Now it works.
+I&rsquo;ve also created a function my-lsp-get- hover-docs to create a new buffer from the documentation for the thing under the cursor.
+As a side-effect of all of this, I&rsquo;ve learned to create my own overlays."/>
 
-    <meta property="og:title" content="Add super and hyper to terminal emacs" />
-<meta property="og:description" content="Tapping these chords will add the modifier to the chord that follows.
- Source material https://www.gnu.org/software/emacs/manual/html%5Fnode/elisp/Translation-Keymaps.html https://emacs.stackexchange.com/questions/18245/making-terminal-emacs-treat-apps-aka-menu-key-as-super-modifier  Now I have a means of typing any bindings that use the super or hyper keys.
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29  (defun add-event-modifier (string e) (let ((symbol (if (symbolp e) e (car e)))) (setq symbol (intern (concat string (symbol-name symbol)))) (if (symbolp e) symbol (cons symbol (cdr e))))) (defun superify (prompt) (let ((e (read-event))) (vector (if (numberp e) (logior (lsh 1 23) e) (if (memq &#39;super (event-modifiers e)) e (add-event-modifier &#34;s-&#34; e)))))) (defun hyperify (prompt) (let ((e (read-event))) (vector (if (numberp e) (logior (lsh 1 24) e) (if (memq &#39;hyper (event-modifiers e)) e (add-event-modifier &#34;H-&#34; e)))))) (define-key global-map (kbd &#34;C-M-6&#34;) nil) ;For GUI (define-key function-key-map (kbd &#34;C-M-6&#34;) &#39;superify) ;For GUI (define-key function-key-map (kbd &#34;C-M-^&#34;) &#39;superify) (define-key global-map (kbd &#34;C-M-\\&#34;) nil) ;Ensure that this bindings isnt taken (define-key function-key-map (kbd &#34;C-M-\\&#34;) &#39;hyperify)   " />
+    <meta property="og:title" content="Fixing LSP for Python in emacs" />
+<meta property="og:description" content="TL;DR The documentation doesn&rsquo;t appear in python mode.
+I was using anaconda-mode to display documentation to alleviate the problem.
+I found the problem in the way lsp-mode extracts documentation from the request.
+Now it works.
+I&rsquo;ve also created a function my-lsp-get- hover-docs to create a new buffer from the documentation for the thing under the cursor.
+As a side-effect of all of this, I&rsquo;ve learned to create my own overlays." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/add-super-and-hyper-to-terminal-emacs/" />
-<meta property="article:published_time" content="2020-07-04T00:00:00+08:00" />
-<meta property="article:modified_time" content="2020-07-04T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:url" content="https://mullikine.github.io/posts/fixing-lsp-for-python-in-emacs/" />
+<meta property="article:published_time" content="2020-07-05T00:00:00+08:00" />
+<meta property="article:modified_time" content="2020-07-05T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
 
 
   </head>
@@ -145,27 +151,27 @@
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Add super and hyper to terminal emacs</h1>
+      <h1 class ="post-title">Fixing LSP for Python in emacs</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
   <title>calendar</title>
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
 </svg>
-          Jul 4, 2020
+          Jul 5, 2020
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/lsp/">lsp</a><a class="tag" href="http://mullikine.github.io/tags/python/">python</a></div></div>
     </header>
     
 
@@ -177,13 +183,14 @@
 
 
     <div class="post-content">
-      <p>Tapping these chords will add the modifier to the chord that follows.</p>
-<dl>
-<dt>Source material</dt>
-<dd><a href="https://www.gnu.org/software/emacs/manual/html%5Fnode/elisp/Translation-Keymaps.html">https://www.gnu.org/software/emacs/manual/html%5Fnode/elisp/Translation-Keymaps.html</a> <br />
-<a href="https://emacs.stackexchange.com/questions/18245/making-terminal-emacs-treat-apps-aka-menu-key-as-super-modifier">https://emacs.stackexchange.com/questions/18245/making-terminal-emacs-treat-apps-aka-menu-key-as-super-modifier</a></dd>
-</dl>
-<p>Now I have a means of typing any bindings that use the super or hyper keys.</p>
+      <h2 id="tl-dr">TL;DR</h2>
+<p>The documentation doesn&rsquo;t appear in python mode.</p>
+<p>I was using <code>anaconda-mode</code> to display documentation to alleviate the problem.</p>
+<p>I found the problem in the way <code>lsp-mode</code> extracts documentation from the request.</p>
+<p>Now it works.</p>
+<p>I&rsquo;ve also created a function <code>my-lsp-get- hover-docs</code> to create a new buffer from the
+documentation for the thing under the cursor.</p>
+<p>As a side-effect of all of this, I&rsquo;ve learned to create my own overlays.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -215,37 +222,117 @@
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun add-event-modifier (<span style="color:#a6e22e">string</span> e)
-  (let ((symbol (if (<span style="color:#a6e22e">symbolp</span> e) e (<span style="color:#a6e22e">car</span> e))))
-    (setq symbol (<span style="color:#a6e22e">intern</span> (<span style="color:#a6e22e">concat</span> <span style="color:#a6e22e">string</span>
-                                 (<span style="color:#a6e22e">symbol-name</span> symbol))))
-    (if (<span style="color:#a6e22e">symbolp</span> e)
-        symbol
-      (<span style="color:#a6e22e">cons</span> symbol (<span style="color:#a6e22e">cdr</span> e)))))
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(lsp-defun lsp-ui-doc--callback ((hover &amp;as &amp;Hover? :contents) bounds buffer)
+  <span style="color:#e6db74">&#34;Process the received documentation.
+</span><span style="color:#e6db74">HOVER is the doc returned by the LS.
+</span><span style="color:#e6db74">BOUNDS are points of the symbol that have been requested.
+</span><span style="color:#e6db74">BUFFER is the buffer where the request has been made.&#34;</span>
+  (if
+      (not (and
+            hover
+            (<span style="color:#a6e22e">&gt;=</span> (<span style="color:#a6e22e">point</span>) (<span style="color:#a6e22e">car</span> bounds)) (<span style="color:#a6e22e">&lt;=</span> (<span style="color:#a6e22e">point</span>) (<span style="color:#a6e22e">cdr</span> bounds))
+            (<span style="color:#a6e22e">eq</span> buffer (<span style="color:#a6e22e">current-buffer</span>))))
+      (setq contents <span style="color:#e6db74">&#34;-&#34;</span>)
+    (setq contents (or (-some-&gt;&gt;
+                        <span style="color:#75715e">;; &#34;shane&#34;</span>
+                        contents
+                        lsp-ui-doc--extract
+                        (replace-regexp-in-string <span style="color:#e6db74">&#34;\r&#34;</span> <span style="color:#e6db74">&#34;&#34;</span>))
+                       <span style="color:#75715e">;; (replace-regexp-in-string &#34;\r&#34; &#34;&#34; (lsp-ui-doc--extract contents))</span>
+                       <span style="color:#e6db74">&#34;Cant extract or docs are empty&#34;</span>)))
 
-(defun superify (prompt)
-  (let ((e (<span style="color:#a6e22e">read-event</span>)))
-    (<span style="color:#a6e22e">vector</span> (if (<span style="color:#a6e22e">numberp</span> e)
-                (<span style="color:#a6e22e">logior</span> (<span style="color:#a6e22e">lsh</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">23</span>) e)
-              (if (<span style="color:#a6e22e">memq</span> <span style="color:#e6db74">&#39;super</span> (event-modifiers e))
-                  e
-                (add-event-modifier <span style="color:#e6db74">&#34;s-&#34;</span> e))))))
+  (progn
+    (setq lsp-ui-doc--bounds bounds)
+    (lsp-ui-doc--display
+     (thing-at-point <span style="color:#e6db74">&#39;symbol</span> <span style="color:#66d9ef">t</span>)
+     contents))
+  <span style="color:#75715e">;; (lsp-ui-doc--hide-frame)</span>
+  )
 
-(defun hyperify (prompt)
-  (let ((e (<span style="color:#a6e22e">read-event</span>)))
-    (<span style="color:#a6e22e">vector</span> (if (<span style="color:#a6e22e">numberp</span> e)
-                (<span style="color:#a6e22e">logior</span> (<span style="color:#a6e22e">lsh</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">24</span>) e)
-              (if (<span style="color:#a6e22e">memq</span> <span style="color:#e6db74">&#39;hyper</span> (event-modifiers e))
-                  e
-                (add-event-modifier <span style="color:#e6db74">&#34;H-&#34;</span> e))))))
 
-(<span style="color:#a6e22e">define-key</span> global-map (kbd <span style="color:#e6db74">&#34;C-M-6&#34;</span>) <span style="color:#66d9ef">nil</span>)             <span style="color:#75715e">;For GUI</span>
-(<span style="color:#a6e22e">define-key</span> function-key-map (kbd <span style="color:#e6db74">&#34;C-M-6&#34;</span>) <span style="color:#e6db74">&#39;superify</span>) <span style="color:#75715e">;For GUI</span>
-(<span style="color:#a6e22e">define-key</span> function-key-map (kbd <span style="color:#e6db74">&#34;C-M-^&#34;</span>) <span style="color:#e6db74">&#39;superify</span>)
-(<span style="color:#a6e22e">define-key</span> global-map (kbd <span style="color:#e6db74">&#34;C-M-\\&#34;</span>) <span style="color:#66d9ef">nil</span>) <span style="color:#75715e">;Ensure that this bindings isnt taken</span>
-(<span style="color:#a6e22e">define-key</span> function-key-map (kbd <span style="color:#e6db74">&#34;C-M-\\&#34;</span>) <span style="color:#e6db74">&#39;hyperify</span>)</code></pre></td></tr></table>
+(defun lsp-ui-doc--extract (contents)
+  <span style="color:#e6db74">&#34;Extract the documentation from CONTENTS.
+</span><span style="color:#e6db74">CONTENTS can be differents type of values:
+</span><span style="color:#e6db74">MarkedString | MarkedString[] | MarkupContent (as defined in the LSP).
+</span><span style="color:#e6db74">We don&#39;t extract the string that </span><span style="color:#e6db74">`lps-line&#39;</span><span style="color:#e6db74"> is already displaying.&#34;</span>
+  <span style="color:#75715e">;; (tv contents)</span>
+  (cond
+   ((<span style="color:#a6e22e">vectorp</span> contents) <span style="color:#75715e">;; MarkedString[]</span>
+    (<span style="color:#a6e22e">mapconcat</span> <span style="color:#e6db74">&#39;lsp-ui-doc--extract-marked-string</span>
+               (lsp-ui-doc--filter-marked-string (seq-filter <span style="color:#a6e22e">#&#39;identity</span> contents))
+               <span style="color:#e6db74">&#34;\n\n&#34;</span>
+               <span style="color:#75715e">;; (propertize &#34;\n\n&#34; &#39;face &#39;(:height 0.4))</span>
+               ))
+   <span style="color:#75715e">;; when we get markdown contents, render using emacs gfm-view-mode / markdown-mode</span>
+   ((and (lsp-marked-string? contents)
+         (lsp:marked-string-language contents))
+    (lsp-ui-doc--extract-marked-string (lsp:marked-string-value contents)
+                                       (lsp:marked-string-language contents)))
+   ((lsp-marked-string? contents) (lsp-ui-doc--extract-marked-string contents))
+   ((and (lsp-markup-content? contents)
+         (string= (lsp:markup-content-kind contents) lsp/markup-kind-markdown))
+    (lsp-ui-doc--extract-marked-string (lsp:markup-content-value contents) lsp/markup-kind-markdown))
+   ((and (lsp-markup-content? contents)
+         (string= (lsp:markup-content-kind contents) lsp/markup-kind-plain-text))
+    (lsp:markup-content-value contents))
+   (<span style="color:#66d9ef">t</span>
+    <span style="color:#75715e">;; This makes python work</span>
+    contents)))
+
+
+(defun my-lsp-get-hover-docs ()
+  (interactive)
+  (let* ((ht (lsp-request <span style="color:#e6db74">&#34;textDocument/hover&#34;</span> (lsp--text-document-position-params)))
+         (docs
+          (if (<span style="color:#a6e22e">hash-table-p</span> ht)
+              (lsp-ui-doc--extract (<span style="color:#a6e22e">gethash</span> <span style="color:#e6db74">&#34;contents&#34;</span> ht))
+            <span style="color:#e6db74">&#34;&#34;</span>)))
+    (if (called-interactively-p <span style="color:#e6db74">&#39;interactive</span>)
+        <span style="color:#75715e">;; (tvd docs)</span>
+        (new-buffer-from-string docs)
+      docs)))</code></pre></td></tr></table>
 </div>
 </div>
 
