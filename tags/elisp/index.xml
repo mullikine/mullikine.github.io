@@ -23,6 +23,17 @@ Solution I made a macro to do this automatically.
     </item>
     
     <item>
+      <title>Interactively run elisp commands using a stripped down-syntax</title>
+      <link>https://mullikine.github.io/posts/interactively-run-elisp-commands-using-a-stripped-down-syntax/</link>
+      <pubDate>Mon, 13 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/interactively-run-elisp-commands-using-a-stripped-down-syntax/</guid>
+      <description>Premise It takes too long to run emacs lisp functions with the usual syntax.
+Solution I create a new emacs REPL that enables me to run emacs commands in a far more efficient manner.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34  (defun call-command-or-function (funcsym &amp;amp;rest body) (if (and (function-p funcsym) (commandp funcsym)) (if body (eval `(funcall-interactively funcsym ,@body)) (call-interactively funcsym)) (eval `(call-function funcsym ,@body)))) (defun degloved-command-to-sexp (s) (let ((lisp-code (concat &amp;#34;&amp;#39;(&amp;#34; (sn (concat &amp;#34;cmd-cip \\=&amp;#34; s)) &amp;#34;)&amp;#34;))) (eval-string lisp-code))) (defun degloved-get-command () (interactive) (let* ((funname (str (car (find-function-read)))) (funsym (str2sym funname)) (arglist (help-function-arglist funsym)) (cmd-arglist (cons funsym arglist)) (cmd-arglist-string (str cmd-arglist)) (full-command (if arglist (read-string-hist (concat cmd-arglist-string &amp;#34;: &amp;#34;) nil (concat funname &amp;#34; &amp;#34;)) funname))) (if (called-interactively-p &amp;#39;interative) (new-buffer-from-string full-command) full-command))) (defun degloved-run (command) (interactive (list (degloved-get-command))) (let* ((lisp-code (degloved-command-to-sexp command)) (funcsym (car lisp-code)) (body (cdr lisp-code))) (eval `(call-command-or-function funcsym ,@body)))) (define-key global-map (kbd &amp;#34;M-X&amp;#34;) &amp;#39;degloved-run) (define-key global-map (kbd &amp;#34;H-d&amp;#34;) &amp;#39;degloved-run)   The follow script demonstrates how I quote tokens conditionally for elisp generation 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16  #!</description>
+    </item>
+    
+    <item>
       <title>Navigate buffers in emacs using arbitrary string filters and parsers</title>
       <link>https://mullikine.github.io/posts/navigate-files-in-emacs-using-rosielang/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0800</pubDate>
