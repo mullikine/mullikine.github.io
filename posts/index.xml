@@ -34,6 +34,16 @@ Solution I create a new emacs REPL that enables me to run emacs commands in a fa
     </item>
     
     <item>
+      <title>The best regex trick ever in different languages</title>
+      <link>https://mullikine.github.io/posts/the-best-regex-trick-ever-in-different-languages/</link>
+      <pubDate>Mon, 13 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/the-best-regex-trick-ever-in-different-languages/</guid>
+      <description> Original article https://www.rexegg.com/regex-best-trick.html  The trick is a way to **match all except for &amp;hellip;** For example, Match Tarzan but not &amp;ldquo;Tarzan&amp;rdquo;.
+emacs lisp 1 2 3 4 5 6  (let ((str1 &amp;#34;\&amp;#34;Tarzan\&amp;#34;&amp;#34;) (str2 &amp;#34;Tarzan&amp;#34;)) (when (string-match &amp;#34;\&amp;#34;Tarzan\&amp;#34;\\|\\(Tarzan\\)&amp;#34; str1) (message (concat &amp;#34;str1:&amp;#34; (match-string 1 str1)))) (when (string-match &amp;#34;\&amp;#34;Tarzan\&amp;#34;\\|\\(Tarzan\\)&amp;#34; str2) (message (concat &amp;#34;str2:&amp;#34; (match-string 1 str2)))))   &amp;#34;\&amp;#34;str2:Tarzan\&amp;#34;&amp;#34; </description>
+    </item>
+    
+    <item>
       <title>Fixing LSP for Python in emacs</title>
       <link>https://mullikine.github.io/posts/fixing-lsp-for-python-in-emacs/</link>
       <pubDate>Sun, 05 Jul 2020 00:00:00 +0800</pubDate>
