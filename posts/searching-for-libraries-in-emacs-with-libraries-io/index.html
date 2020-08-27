@@ -14,11 +14,13 @@
 <meta name="twitter:title" content="searching for libraries in emacs with libraries.io"/>
 <meta name="twitter:description" content="Summary I&rsquo;d like to search for libraries using libraries.io, but not have to leave emacs.
 Demonstration 
+Add to eww&rsquo;s URL handling hook to download the actual code 
 Code Define an engine-mode engine 1 2 3  (defengine libraries &#34;https://libraries.io/search?q=%s&#34; :keybinding &#34;/&#34;)   Create the function to clean up the page after loading in eww 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31  (defun clean-up-libraries-io () (interactive) (beginning-of-buffer) (toggle-read-only) (cua-set-mark) (search-forward &#34;------&#34;) (forward-line) (forward-char) (delete-selected) (end-of-buffer) (cua-set-mark) (re-search-backward &#34;^License&#34;) (previous-line) (delete-selected) (beginning-of-buffer) (toggle-read-only)) (add-to-list &#39;eww-patchup-url-alist &#39;(&#34;://libraries."/>
 
     <meta property="og:title" content="searching for libraries in emacs with libraries.io" />
 <meta property="og:description" content="Summary I&rsquo;d like to search for libraries using libraries.io, but not have to leave emacs.
 Demonstration 
+Add to eww&rsquo;s URL handling hook to download the actual code 
 Code Define an engine-mode engine 1 2 3  (defengine libraries &#34;https://libraries.io/search?q=%s&#34; :keybinding &#34;/&#34;)   Create the function to clean up the page after loading in eww 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31  (defun clean-up-libraries-io () (interactive) (beginning-of-buffer) (toggle-read-only) (cua-set-mark) (search-forward &#34;------&#34;) (forward-line) (forward-char) (delete-selected) (end-of-buffer) (cua-set-mark) (re-search-backward &#34;^License&#34;) (previous-line) (delete-selected) (beginning-of-buffer) (toggle-read-only)) (add-to-list &#39;eww-patchup-url-alist &#39;(&#34;://libraries." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/searching-for-libraries-in-emacs-with-libraries-io/" />
@@ -181,6 +183,8 @@ Code Define an engine-mode engine 1 2 3  (defengine libraries &#34;https://libra
 <p>I&rsquo;d like to search for libraries using libraries.io, but not have to leave emacs.</p>
 <h2 id="demonstration">Demonstration</h2>
 <p><a title="asciinema recording" href="https://asciinema.org/a/HOGHcq9Rj8sKf4nJKcWVM5k5R" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/HOGHcq9Rj8sKf4nJKcWVM5k5R.svg" /></a></p>
+<h3 id="add-to-eww-s-url-handling-hook-to-download-the-actual-code">Add to eww&rsquo;s URL handling hook to download the actual code</h3>
+<p><a title="asciinema recording" href="https://asciinema.org/a/ctxdmLFR71KNmdJ7QvczX1hyy" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/ctxdmLFR71KNmdJ7QvczX1hyy.svg" /></a></p>
 <h2 id="code">Code</h2>
 <h3 id="define-an-engine-mode-engine">Define an engine-mode engine</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -264,7 +268,6 @@ Code Define an engine-mode engine 1 2 3  (defengine libraries &#34;https://libra
 (add-hook <span style="color:#e6db74">&#39;eww-after-render-hook</span> <span style="color:#a6e22e">#&#39;</span>finished-loading-page)</code></pre></td></tr></table>
 </div>
 </div>
-<h2 id="add-to-eww-s-url-handling-hook-to-download-the-actual-code"><span class="org-todo todo TODO">TODO</span> Add to eww&rsquo;s URL handling hook to download the actual code</h2>
 
     </div>
     <div class="post-footer">
