@@ -292,10 +292,18 @@ shopt -s nullglob
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; It&#39;s actually problematic. It forces itself to be first. I don&#39;t like that</span>
-(remove-hook <span style="color:#e6db74">&#39;find-file-hooks</span> <span style="color:#e6db74">&#39;persp-add-or-not-on-find-file</span>)</code></pre></td></tr></table>
+<span style="color:#75715e">;; (remove-hook &#39;find-file-hooks &#39;persp-add-or-not-on-find-file)</span>
+<span style="color:#75715e">;; (remove-hook &#39;find-file-hook &#39;persp-add-or-not-on-find-file)</span>
+<span style="color:#75715e">;; I couldn&#39;t fix it, so I&#39;m just going to redefine the function</span>
+<span style="color:#75715e">;; v +/&#34;(add-hook &#39;find-file-hook              #&#39;persp-add-or-not-on-find-file)&#34; &#34;$EMACSD/packages26/persp-mode-20180930.1720/persp-mode.el&#34;</span>
+(defun persp-add-or-not-on-find-file ())(remove-hook <span style="color:#e6db74">&#39;find-file-hooks</span> <span style="color:#e6db74">&#39;persp-add-or-not-on-find-file</span>)</code></pre></td></tr></table>
 </div>
 </div>
 
