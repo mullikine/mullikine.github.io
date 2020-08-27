@@ -24,6 +24,17 @@ Solution Ensure there are no openwith associations for pdfs 1  (remove-from-list
     </item>
     
     <item>
+      <title>easy elisp variable editing</title>
+      <link>https://mullikine.github.io/posts/easy-elisp-variable-editing/</link>
+      <pubDate>Thu, 27 Aug 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/easy-elisp-variable-editing/</guid>
+      <description>Summary It&amp;rsquo;s useful to be able to make quick edits to the contents elisp variables, such as rearranging elements in a hook.
+Demonstration 
+Here is the code 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26  (defun edit-var-elisp (variable &amp;amp;optional buffer frame) (interactive (let ((v (variable-at-point)) (enable-recursive-minibuffers t) (orig-buffer (current-buffer)) val) (setq val (completing-read (if (symbolp v) (format &amp;#34;Describe variable (default %s): &amp;#34; v) &amp;#34;Describe variable: &amp;#34;) #&amp;#39;help--symbol-completion-table (lambda (vv) ;; In case the variable only exists in the buffer ;; the command we switch back to that buffer before ;; we examine the variable.</description>
+    </item>
+    
+    <item>
       <title>grep.app inside emacs</title>
       <link>https://mullikine.github.io/posts/grep-app-inside-emacs/</link>
       <pubDate>Sun, 23 Aug 2020 00:00:00 +1200</pubDate>
