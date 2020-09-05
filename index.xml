@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>Use selection as input to occur-mode</title>
+      <link>https://mullikine.github.io/posts/use-selection-as-input-to-occur-mode/</link>
+      <pubDate>Sat, 05 Sep 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/use-selection-as-input-to-occur-mode/</guid>
+      <description>This is the magic 1 2 3 4 5 6 7 8 9 10 11 12 13 14  ;; This allows me to select text and use that for the basis of occur (defun occur-around-advice (proc &amp;amp;rest args) (interactive (nconc (or (if (selection-p) (let ((sel (selection))) (deselect) (list (concat &amp;#34;\\b&amp;#34; sel &amp;#34;\\b&amp;#34;))) nil) (occur-read-primary-args)) (and (use-region-p) (list (region-bounds))))) (let ((res (if (use-region-p) (apply proc (list (selection))) (apply proc args)))) res)) (advice-add &amp;#39;occur :around #&amp;#39;occur-around-advice)   If you want to revert the behaviour then run this 1  (advice-remove &amp;#39;occur #&amp;#39;occur-around-advice)   Demonstration</description>
+    </item>
+    
+    <item>
       <title>Stream editing code at macro time</title>
       <link>https://mullikine.github.io/posts/stream-editing-code-at-macro-time/</link>
       <pubDate>Fri, 04 Sep 2020 00:00:00 +1200</pubDate>
