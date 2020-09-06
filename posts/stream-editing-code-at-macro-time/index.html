@@ -518,6 +518,7 @@ variables which affect the path.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun pp-oneline (l)
@@ -533,7 +534,8 @@ variables which affect the path.</p>
   (let* ((codestring (pp-map-line body))
          (ucodestring (sed expr codestring))
          (newcode (my-eval-string (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;&#39;(progn &#34;</span> ucodestring <span style="color:#e6db74">&#34;)&#34;</span>))))
-    <span style="color:#f92672">`</span>(progn <span style="color:#f92672">,@</span>newcode)))
+    <span style="color:#75715e">;; `(progn ,@newcode)</span>
+    newcode))
 (defalias <span style="color:#e6db74">&#39;ms</span> <span style="color:#e6db74">&#39;macro-sed</span>)</code></pre></td></tr></table>
 </div>
 </div>
@@ -630,65 +632,65 @@ variables which affect the path.</p>
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(progn
-  (progn progn
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-m d w&#34;</span>)
-           <span style="color:#e6db74">&#39;fz-find-ws</span>)
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-l d w&#34;</span>)
-           <span style="color:#e6db74">&#39;fz-find-ws</span>)
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-m d DEL&#34;</span>)
-           <span style="color:#e6db74">&#39;fz-tm-shortcuts</span>)
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-l d DEL&#34;</span>)
-           <span style="color:#e6db74">&#39;fz-tm-shortcuts</span>)
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-m d L&#34;</span>)
-           (dff
-            (my-open-dir <span style="color:#e6db74">&#34;/home/shane/glossaries&#34;</span>)))
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-l d L&#34;</span>)
-           (dff
-            (my-open-dir <span style="color:#e6db74">&#34;/home/shane/glossaries&#34;</span>)))
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-m d o&#34;</span>)
-           (dff
-            (my-open-dir <span style="color:#e6db74">&#34;/home/shane/notes/ws&#34;</span>)))
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-l d o&#34;</span>)
-           (dff
-            (my-open-dir <span style="color:#e6db74">&#34;/home/shane/notes/ws&#34;</span>)))
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-m d O&#34;</span>)
-           <span style="color:#e6db74">&#39;fz-find-ws</span>)
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-l d O&#34;</span>)
-           <span style="color:#e6db74">&#39;fz-find-ws</span>)
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-m d C&#34;</span>)
-           (dff
-            (my-open-dir <span style="color:#e6db74">&#34;/home/shane/source/git/config/emacs/config&#34;</span>)))
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-l d C&#34;</span>)
-           (dff
-            (my-open-dir <span style="color:#e6db74">&#34;/home/shane/source/git/config/emacs/config&#34;</span>)))
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-m 3 d w&#34;</span>)
-           (dff
-            (my-open-dir <span style="color:#e6db74">&#34;/home/shane/source/git/takaheai/otagoai-website&#34;</span>)))
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-l 3 d w&#34;</span>)
-           (dff
-            (my-open-dir <span style="color:#e6db74">&#34;/home/shane/source/git/takaheai/otagoai-website&#34;</span>)))
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-m d g g&#34;</span>)
-           (dff
-            (my-open-dir <span style="color:#e6db74">&#34;/home/shane/source/git&#34;</span>)))
-         (<span style="color:#a6e22e">define-key</span> my-mode-map
-           (kbd <span style="color:#e6db74">&#34;M-l d g g&#34;</span>)
-           (dff
-            (my-open-dir <span style="color:#e6db74">&#34;/home/shane/source/git&#34;</span>)))))</code></pre></td></tr></table>
+  (progn
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-m d w&#34;</span>)
+      <span style="color:#e6db74">&#39;fz-find-ws</span>)
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-l d w&#34;</span>)
+      <span style="color:#e6db74">&#39;fz-find-ws</span>)
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-m d DEL&#34;</span>)
+      <span style="color:#e6db74">&#39;fz-tm-shortcuts</span>)
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-l d DEL&#34;</span>)
+      <span style="color:#e6db74">&#39;fz-tm-shortcuts</span>)
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-m d L&#34;</span>)
+      (dff
+       (my-open-dir <span style="color:#e6db74">&#34;/home/shane/glossaries&#34;</span>)))
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-l d L&#34;</span>)
+      (dff
+       (my-open-dir <span style="color:#e6db74">&#34;/home/shane/glossaries&#34;</span>)))
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-m d o&#34;</span>)
+      (dff
+       (my-open-dir <span style="color:#e6db74">&#34;/home/shane/notes/ws&#34;</span>)))
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-l d o&#34;</span>)
+      (dff
+       (my-open-dir <span style="color:#e6db74">&#34;/home/shane/notes/ws&#34;</span>)))
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-m d O&#34;</span>)
+      <span style="color:#e6db74">&#39;fz-find-ws</span>)
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-l d O&#34;</span>)
+      <span style="color:#e6db74">&#39;fz-find-ws</span>)
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-m d C&#34;</span>)
+      (dff
+       (my-open-dir <span style="color:#e6db74">&#34;/home/shane/source/git/config/emacs/config&#34;</span>)))
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-l d C&#34;</span>)
+      (dff
+       (my-open-dir <span style="color:#e6db74">&#34;/home/shane/source/git/config/emacs/config&#34;</span>)))
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-m 3 d w&#34;</span>)
+      (dff
+       (my-open-dir <span style="color:#e6db74">&#34;/home/shane/source/git/takaheai/otagoai-website&#34;</span>)))
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-l 3 d w&#34;</span>)
+      (dff
+       (my-open-dir <span style="color:#e6db74">&#34;/home/shane/source/git/takaheai/otagoai-website&#34;</span>)))
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-m d g g&#34;</span>)
+      (dff
+       (my-open-dir <span style="color:#e6db74">&#34;/home/shane/source/git&#34;</span>)))
+    (<span style="color:#a6e22e">define-key</span> my-mode-map
+      (kbd <span style="color:#e6db74">&#34;M-l d g g&#34;</span>)
+      (dff
+       (my-open-dir <span style="color:#e6db74">&#34;/home/shane/source/git&#34;</span>)))))</code></pre></td></tr></table>
 </div>
 </div>
 
