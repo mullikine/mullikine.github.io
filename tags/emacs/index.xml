@@ -6,10 +6,22 @@
     <description>Recent content in emacs on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 05 Sep 2020 00:00:00 +1200</lastBuildDate>
+    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +1200</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>annotate any buffer in emacs</title>
+      <link>https://mullikine.github.io/posts/annotate-any-buffer-in-emacs/</link>
+      <pubDate>Mon, 07 Sep 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/annotate-any-buffer-in-emacs/</guid>
+      <description>Synopsis Using annotate.el, it&amp;rsquo;s possible to annotate files and Info buffers, without modifying the file itself.
+I&amp;rsquo;d like to make this work for any buffer.
+Demonstration &amp;ndash; annotating dired 
+Firstly, override the annotate-actual-file-name function to handle more buffer types 1 2 3 4 5 6 7 8 9 10 11  (defun annotate-actual-file-name () &amp;#34;Get the actual file name of the current buffer&amp;#34; (substring-no-properties (or (annotate-info-actual-filename) (string-or (buffer-file-name)) (string-or (if (major-mode-p &amp;#39;eww-mode) (concat &amp;#34;**&amp;#34; (get-path)))) (string-or (try (concat &amp;#34;**&amp;#34; (cond ((major-mode-p &amp;#39;dired-mode) (slugify (concat (str (buffer-mode)) &amp;#34;-&amp;#34; (mnm (my/pwd)) &amp;#34;-&amp;#34; (buffer-name)))) (t (slugify (concat (str (buffer-mode)) &amp;#34;-&amp;#34; (buffer-name)))))) &amp;#34;&amp;#34;)) &amp;#34;&amp;#34;)))   Add to some hooks for buffer types I&amp;rsquo;d like to annotate 1 2 3 4 5  (defset modes-for-annotate-mode &amp;#39;(Info-mode-hook helpful-mode help-mode prog-mode conf-mode text-mode yaml-mode ssh-config-mode)) (cl-loop for m in modes-for-annotate-mode do ;; (message (str m)) (let ((h (str2sym (concat (sym2str m) &amp;#34;-hook&amp;#34;)))) (add-hook h &amp;#39;enable-annotate t)))   dired-mode-hook happens too early, so I needed this 1 2 3 4 5  (defun dired-around-advice (proc &amp;amp;rest args) (let ((res (apply proc args))) (enable-annotate) res)) (advice-add &amp;#39;dired :around #&amp;#39;dired-around-advice)   When annotate is loaded, it creates some overlays.</description>
+    </item>
     
     <item>
       <title>Use selection as input to occur-mode</title>
