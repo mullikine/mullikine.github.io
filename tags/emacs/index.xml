@@ -6,10 +6,19 @@
     <description>Recent content in emacs on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 09 Sep 2020 00:00:00 +1200</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2020 00:00:00 +1200</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Easy, hyperlink wordclouds in emacs</title>
+      <link>https://mullikine.github.io/posts/easy-hyperlink-wordclouds-in-emacs/</link>
+      <pubDate>Wed, 16 Sep 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/easy-hyperlink-wordclouds-in-emacs/</guid>
+      <description>Word clouds 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26  (defface glossary-button-face &amp;#39;((t :foreground &amp;#34;#3fa75f&amp;#34; :background &amp;#34;#2e2e2e&amp;#34; :weight bold :underline t)) &amp;#34;Face for glossary buttons.&amp;#34;) (define-button-type &amp;#39;glossary-button &amp;#39;follow-link t &amp;#39;help-echo &amp;#34;Click to go to definition&amp;#34; &amp;#39;face &amp;#39;glossary-button-face) (defun create-buttoncloud (button-name-action-tuples-list) (with-output-to-temp-buffer &amp;#34;*button cloud*&amp;#34; (with-current-buffer &amp;#34;*button cloud*&amp;#34; (let ((consecutive)) (cl-loop for bt in button-name-action-tuples-list do (progn (if consecutive (insert &amp;#34; &amp;#34;)) (insert-button (car bt) &amp;#39;type &amp;#39;glossary-button &amp;#39;action (cdr bt)) (setq consecutive t))))))) (create-buttoncloud &amp;#39;((&amp;#34;yo&amp;#34; .</description>
+    </item>
     
     <item>
       <title>Generating hyperlinks for glossaries and other parsers in emacs</title>
