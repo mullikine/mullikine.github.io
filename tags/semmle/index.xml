@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>semmle on Bodacious Blog</title>
+    <link>https://mullikine.github.io/tags/semmle/</link>
+    <description>Recent content in semmle on Bodacious Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 03 Nov 2020 00:00:00 +1300</lastBuildDate>
+    
+	<atom:link href="https://mullikine.github.io/tags/semmle/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>go straight to the main functions of arbitrary repos</title>
+      <link>https://mullikine.github.io/posts/open-main-function-in-emacs/</link>
+      <pubDate>Tue, 03 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/open-main-function-in-emacs/</guid>
+      <description>Premise I would like to quckly jump to the entrypoint of a repository I have just downloaded.
+Demonstration 
+Repositories with lots of languages 
+Code elisp 1 2 3 4 5 6 7 8 9 10 11 12 13  (defun open-main () (interactive) (let ((found (fz (sn &amp;#34;open-main&amp;#34;) nil nil nil nil t))) (if found ;; (find-file found) (let ((path (s-replace-regexp &amp;#34;^\\([^:]+\\).*&amp;#34; &amp;#34;\\1&amp;#34; found)) (pos (s-replace-regexp &amp;#34;^[^:]+:\\([0-9]+\\):.*&amp;#34; &amp;#34;\\1&amp;#34; found))) (with-current-buffer (find-file path) (goto-byte (string-to-int pos)))) ;; (etv found) ))) (define-key global-map (kbd &amp;#34;H-o&amp;#34;) &amp;#39;open-main)   shell open-main</description>
+    </item>
+    
+    <item>
+      <title>Technologies Facebook is using</title>
+      <link>https://mullikine.github.io/posts/technologies-facebook-is-using/</link>
+      <pubDate>Tue, 26 May 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/technologies-facebook-is-using/</guid>
+      <description>From Facebook https://opensource.facebook.com/
+Hydra  Links https://github.com/facebookresearch/hydra https://hydra.cc/  Powered by Omegaconf.
+1 2 3 4 5 6  Hydra [framework] Elegantly configure complex applications. https://hydra.cc   Basic example
+ Configuration file config.yaml   1 2 3 4  db: driver: mysql user: omry pass: secret    Python file my_app.py   1 2 3 4 5 6 7 8 9  import hydra from omegaconf import DictConfig @hydra.</description>
+    </item>
+    
+    <item>
+      <title>CodeQL by GitHub and Semmle</title>
+      <link>https://mullikine.github.io/posts/codeql-by-github-and-semmle/</link>
+      <pubDate>Tue, 07 Jan 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/codeql-by-github-and-semmle/</guid>
+      <description>Reference material Getting started with the CodeQL CLI - CodeQL QL packs - CodeQL Related articles CodeLingo vs Linters: TLDR // Bodacious Blog  Glossary 1 2 3  QL pack Contains important metadata that tells the CodeQL CLI how to process the query files.   Install the CLI Releases github/codeql-cli-binaries GitHub
+Obtain a local copy of the CodeQL queries Using my xsh script, which is like bash but works over interactive subshells.</description>
+    </item>
+    
+  </channel>
+</rss>
