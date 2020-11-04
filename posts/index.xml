@@ -38,6 +38,7 @@
       <description>Premise I would like to quckly jump to the entrypoint of a repository I have just downloaded.
 Demonstration 
 Repositories with lots of languages 
+
 Code elisp 1 2 3 4 5 6 7 8 9 10 11 12 13  (defun open-main () (interactive) (let ((found (fz (sn &amp;#34;open-main&amp;#34;) nil nil nil nil t))) (if found ;; (find-file found) (let ((path (s-replace-regexp &amp;#34;^\\([^:]+\\).*&amp;#34; &amp;#34;\\1&amp;#34; found)) (pos (s-replace-regexp &amp;#34;^[^:]+:\\([0-9]+\\):.*&amp;#34; &amp;#34;\\1&amp;#34; found))) (with-current-buffer (find-file path) (goto-byte (string-to-int pos)))) ;; (etv found) ))) (define-key global-map (kbd &amp;#34;H-o&amp;#34;) &amp;#39;open-main)   shell open-main</description>
     </item>
     
