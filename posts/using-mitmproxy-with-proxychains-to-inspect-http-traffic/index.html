@@ -12,14 +12,16 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Using mitmproxy with proxychains to inspect http traffic"/>
-<meta name="twitter:description" content="Synopsis With mitmproxy it is possible to inspect live applications for their http traffic. This is useful for reverse-engineering APIs, among other purposes.
-Configure proxychains4 proxychains-mitm.conf
-1 2 3 4 5 6 7 8 9 10  proxychains.conf VER 4 strict_chain proxy_dns remote_dns_subnet 224 tcp_read_time_out 15000 tcp_connect_time_out 8000 localnet 127.0.0.0/255.0.0.0 [ProxyList] http 127.0.0.1 8555   Create the mitmproxify script 1 2 3  #!/bin/bash  proxychains4 -f $NOTES/ws/proxychains/configs/proxychains-mitm.conf &#34;$@&#34;   Start mitmproxy 1  mitmproxy -p 8555   Run the mitmproxify command with elinks 1  mitmproxify /usr/bin/elinks   Demonstration"/>
+<meta name="twitter:description" content="Synopsis With mitmproxy it is possible to inspect live applications for their http traffic. This is useful for reverse-engineering APIs, among other purposes. Proxychains allows you to run an application through a proxy, even if the applications doesn&rsquo;t directly support proxies. It doesn&rsquo;t work for every application you might try, but it&rsquo;s still quite handy.
+Demonstration 
+Automate the process further mitm
+1 2 3 4 5 6 7 8  #!"/>
 
     <meta property="og:title" content="Using mitmproxy with proxychains to inspect http traffic" />
-<meta property="og:description" content="Synopsis With mitmproxy it is possible to inspect live applications for their http traffic. This is useful for reverse-engineering APIs, among other purposes.
-Configure proxychains4 proxychains-mitm.conf
-1 2 3 4 5 6 7 8 9 10  proxychains.conf VER 4 strict_chain proxy_dns remote_dns_subnet 224 tcp_read_time_out 15000 tcp_connect_time_out 8000 localnet 127.0.0.0/255.0.0.0 [ProxyList] http 127.0.0.1 8555   Create the mitmproxify script 1 2 3  #!/bin/bash  proxychains4 -f $NOTES/ws/proxychains/configs/proxychains-mitm.conf &#34;$@&#34;   Start mitmproxy 1  mitmproxy -p 8555   Run the mitmproxify command with elinks 1  mitmproxify /usr/bin/elinks   Demonstration" />
+<meta property="og:description" content="Synopsis With mitmproxy it is possible to inspect live applications for their http traffic. This is useful for reverse-engineering APIs, among other purposes. Proxychains allows you to run an application through a proxy, even if the applications doesn&rsquo;t directly support proxies. It doesn&rsquo;t work for every application you might try, but it&rsquo;s still quite handy.
+Demonstration 
+Automate the process further mitm
+1 2 3 4 5 6 7 8  #!" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/using-mitmproxy-with-proxychains-to-inspect-http-traffic/" />
 <meta property="article:published_time" content="2020-11-09T00:00:00+13:00" />
@@ -185,7 +187,44 @@ Configure proxychains4 proxychains-mitm.conf
 
     <div class="post-content">
       <h2 id="synopsis">Synopsis</h2>
-<p>With <code>mitmproxy</code> it is possible to inspect live applications for their http traffic. This is useful for reverse-engineering APIs, among other purposes.</p>
+<p>With <code>mitmproxy</code> it is possible to inspect live applications for their http traffic. This is useful for reverse-engineering APIs, among other purposes.
+Proxychains allows you to run an application through a proxy, even if the applications doesn&rsquo;t directly support proxies. It doesn&rsquo;t work for every application you might try, but it&rsquo;s still quite handy.</p>
+<h2 id="demonstration">Demonstration</h2>
+<p><a title="asciinema recording" href="https://asciinema.org/a/IrFvmz7kXyOzp4PcxxVShewOE" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/IrFvmz7kXyOzp4PcxxVShewOE.svg" /></a></p>
+<h2 id="automate-the-process-further">Automate the process further</h2>
+<p><code>mitm</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#e6db74">&#34;&lt;==&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ps -o comm<span style="color:#f92672">=</span> $PPID<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> 0&lt;/dev/null <span style="color:#f92672">)</span> &amp;&gt;/dev/null
+
+sps mitmproxy -p <span style="color:#ae81ff">8555</span>
+sleep <span style="color:#ae81ff">1</span>
+mitmproxify <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="where-does-dman-get-its-man-pages-from">Where does <code>dman</code> get its man pages from?</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mitm dman ifconfig</code></pre></td></tr></table>
+</div>
+</div>
+<p><a title="asciinema recording" href="https://asciinema.org/a/6JIiQZE39r4UuaSImNnVrBDSW" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/6JIiQZE39r4UuaSImNnVrBDSW.svg" /></a></p>
 <h2 id="configure-proxychains4">Configure <code>proxychains4</code></h2>
 <p><code>proxychains-mitm.conf</code></p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -227,6 +266,22 @@ http 	127.0.0.1 8555</code></pre></td></tr></table>
 proxychains4 -f $NOTES/ws/proxychains/configs/proxychains-mitm.conf <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
+<h2 id="silence-proxychains-output-with-a-wrapper-script">Silence <code>proxychains</code> output with a wrapper script</h2>
+<p><code>proxychains4</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+export PROXYCHAINS_QUIET_MODE<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+/usr/bin/proxychains4 <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="start-mitmproxy">Start <code>mitmproxy</code></h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -245,8 +300,6 @@ proxychains4 -f $NOTES/ws/proxychains/configs/proxychains-mitm.conf <span style=
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mitmproxify /usr/bin/elinks</code></pre></td></tr></table>
 </div>
 </div>
-<h2 id="demonstration">Demonstration</h2>
-<p><a title="asciinema recording" href="https://asciinema.org/a/IrFvmz7kXyOzp4PcxxVShewOE" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/IrFvmz7kXyOzp4PcxxVShewOE.svg" /></a></p>
 
     </div>
     <div class="post-footer">
