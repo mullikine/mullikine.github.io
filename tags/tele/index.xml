@@ -6,10 +6,21 @@
     <description>Recent content in tele on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 15 Dec 2019 00:00:00 +1300</lastBuildDate>
+    <lastBuildDate>Mon, 09 Nov 2020 00:00:00 +1300</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/tele/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Using mitmproxy with proxychains to inspect http traffic</title>
+      <link>https://mullikine.github.io/posts/using-mitmproxy-with-proxychains-to-inspect-http-traffic/</link>
+      <pubDate>Mon, 09 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/using-mitmproxy-with-proxychains-to-inspect-http-traffic/</guid>
+      <description>Synopsis With mitmproxy it is possible to inspect live applications for their http traffic. This is useful for reverse-engineering APIs, among other purposes.
+Configure proxychains4 proxychains-mitm.conf
+1 2 3 4 5 6 7 8 9 10  proxychains.conf VER 4 strict_chain proxy_dns remote_dns_subnet 224 tcp_read_time_out 15000 tcp_connect_time_out 8000 localnet 127.0.0.0/255.0.0.0 [ProxyList] http 127.0.0.1 8555   Create the mitmproxify script 1 2 3  #!/bin/bash  proxychains4 -f $NOTES/ws/proxychains/configs/proxychains-mitm.conf &amp;#34;$@&amp;#34;   Start mitmproxy 1  mitmproxy -p 8555   Run the mitmproxify command with elinks 1  mitmproxify /usr/bin/elinks   Demonstration</description>
+    </item>
     
     <item>
       <title>Review of &#39;BPF: A New Type of Software&#39;</title>
