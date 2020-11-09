@@ -225,6 +225,24 @@ mitmproxify <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74
 </div>
 </div>
 <p><a title="asciinema recording" href="https://asciinema.org/a/6JIiQZE39r4UuaSImNnVrBDSW" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/6JIiQZE39r4UuaSImNnVrBDSW.svg" /></a></p>
+<h3 id="where-does-youtube-dl-get-its-videos">Where does <code>youtube-dl</code> get its videos?</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">youtube-dl --no-check-certificate --proxy<span style="color:#f92672">=</span>localhost:8555 --ignore-errors -f <span style="color:#ae81ff">251</span> <span style="color:#e6db74">&#39;https://www.youtube.com/watch?v=qmN4jzEr7TE&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mitmproxy -p <span style="color:#ae81ff">8555</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a title="asciinema recording" href="https://asciinema.org/a/SrL3xFus44oaoycz9nARGV8di" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/SrL3xFus44oaoycz9nARGV8di.svg" /></a></p>
 <h2 id="configure-proxychains4">Configure <code>proxychains4</code></h2>
 <p><code>proxychains-mitm.conf</code></p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
