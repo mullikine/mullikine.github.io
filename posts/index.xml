@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 09 Nov 2020 00:00:00 +1300</lastBuildDate>
+    <lastBuildDate>Tue, 10 Nov 2020 00:00:00 +1300</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Automating cookiecutter in emacs</title>
+      <link>https://mullikine.github.io/posts/automating-cookiecutter-in-emacs/</link>
+      <pubDate>Tue, 10 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/automating-cookiecutter-in-emacs/</guid>
+      <description>Demo 
+Code  This does a few things.  It searches Google for a cookiecutter repo on GitHub It downloads the template and files it away nicely. It creates a new project directory. It creates a new project within the new project directory from the template and prompts interactively.     1 2 3 4 5 6 7  (defun my-github-search-and-clone-cookiecutter (query) (interactive (list (read-string-hist &amp;#34;cookiecutter query:&amp;#34;))) (let* ((url (fz (cl-sn (concat &amp;#34;upd glh cookiecutter &amp;#34; (q query) &amp;#34; | cat&amp;#34; ) :chomp t))) (dir (if url (gc url))) (name (if (and url dir) (read-string-hist &amp;#34;project name: &amp;#34; query)))) (if (and dir name) (term-sps (concat &amp;#34;CWD= zrepl cookiecutter &amp;#34; (q dir)) (new-project-dir name)))))   </description>
+    </item>
     
     <item>
       <title>Using mitmproxy with proxychains to inspect http traffic</title>
