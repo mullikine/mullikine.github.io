@@ -6,10 +6,21 @@
     <description>Recent content in expect on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Jul 2020 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 12 Nov 2020 00:00:00 +1300</lastBuildDate>
     
 	<atom:link href="https://mullikine.github.io/tags/expect/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>make-it-run, an expect script to automate fixing errors from running programs</title>
+      <link>https://mullikine.github.io/posts/make-it-run-an-expect-script-to-automate-fixing-errors-from-running-programs/</link>
+      <pubDate>Thu, 12 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/make-it-run-an-expect-script-to-automate-fixing-errors-from-running-programs/</guid>
+      <description>Demo Run on a loop until the program works 1  while ! make-it-run pti38 &amp;#34;ModuleNotFoundError:.*&amp;#34; &amp;#34;tm -w -te sps -args pip-install-from-error&amp;#34;; do echo &amp;#34;Retrying&amp;#34;; done   
+Code The invocation command 1  make-it-run pti38 &amp;#34;ModuleNotFoundError:.*&amp;#34; &amp;#34;sps pip-install-from-error&amp;#34;   shell make-it-run
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null # command c=&amp;#34;$1&amp;#34; # expect bad pattern e=&amp;#34;$2&amp;#34; # fix command fc=&amp;#34;$3&amp;#34; { test -z &amp;#34;$c&amp;#34; || test -z &amp;#34;$e&amp;#34; || test -z &amp;#34;$fc&amp;#34;; } &amp;amp;&amp;amp; exit 1 e=&amp;#34;$(p &amp;#34;$e&amp;#34; | sed &amp;#39;s/\([[`;$&amp;#34;]\)/\\\1/g&amp;#39;)&amp;#34; x -sh &amp;#34;$c&amp;#34; -w &amp;#34;expect {\n-re \&amp;#34;$e\&amp;#34; { set user_input \&amp;#34;\$expect_out(0,string)\&amp;#34;; set ret [exec $fc\&amp;#34;\$user_input\&amp;#34;]; exit 1; } default { interact; }; }&amp;#34;   py-import-to-package Use Google to guess what the pypi package name is from its import.</description>
+    </item>
     
     <item>
       <title>Creating a portfolio PDF from my blog</title>
@@ -19,6 +30,17 @@
       <guid>https://mullikine.github.io/posts/creating-a-portfolio-pdf-from-my-blog/</guid>
       <description>Firstly, touch up my blog articles to be suitable for PDF Do this by automating vim with emacs.
 Find blog articles without LATEX_HEADER 1  cd $HOME/blog/posts; find . -name &amp;#39;*.org&amp;#39; | eipct -x -E &amp;#34;! grep -q LATEX_HEADER&amp;#34; | eipct -x grep -q HUGO_BASE | head -n 5   ./aws-services.org ./rat.org ./music-playlists-in-emacs-lisp.org ./minor-mode-wrappers-for-shell-commands.org ./review-of-introduction-rust-by-example.org Automate vim with emacs keyboard macros I want to add the latex header to all the blog posts without one.</description>
+    </item>
+    
+    <item>
+      <title>Testing CLI and TUI programs</title>
+      <link>https://mullikine.github.io/posts/testing-cli-and-tui-programs/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/testing-cli-and-tui-programs/</guid>
+      <description>cmdtest https://liw.fi/cmdtest/
+Black box tests Unix command line tools. Roughly, it is given a a script, its input files, and its expected output files. cmdtest runs the script, and checks the output is as expected.
+1  apt show cmdtest   Package: cmdtest Version: 0.22-1 Priority: optional Section: universe/python Origin: Ubuntu Maintainer: Ubuntu Developers &amp;lt;ubuntu-devel-discuss@lists.ubuntu.com&amp;gt; Original-Maintainer: Lars Wirzenius &amp;lt;liw@liw.fi&amp;gt; Bugs: https://bugs.launchpad.net/ubuntu/+filebug Installed-Size: 78.8 kB Depends: python (&amp;gt;= 2.7), python (&amp;lt;&amp;lt; 2.</description>
     </item>
     
     <item>
