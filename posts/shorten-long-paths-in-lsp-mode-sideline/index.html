@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>Selecting the matching regex at point, greedily, in emacs // Bodacious Blog</title>
+    <title>Shorten long paths in lsp-mode sideline // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.71.0" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,15 +11,21 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Selecting the matching regex at point, greedily, in emacs"/>
-<meta name="twitter:description" content="Synopsis It&rsquo;s quite frustrating, really, that there is no builtin command for this. However useful er/expand-region may be at selecting a semantic region monotonically increasingly beneath the cursor, it makes more sense to have a function of my own design that decides what is important beneath the cursor and to use that as the specification for what I want to select.
-Enter my-select-regex-at-point. I am using this as I speak to select the function my-select-regex-at-point as I enter it into my blog."/>
+<meta name="twitter:title" content="Shorten long paths in lsp-mode sideline"/>
+<meta name="twitter:description" content="Premise As I was reading some haskell, I was bothered by the long lsp-ui-sideline strings, which were encroaching upon my code.
+Demo: Before and after 
+LSP string format There is a file in lsp-mode, lsp- protocol.el which contains code to generate functions for reading and writing to lsp formatted strings.
+https://github.com/emacs-lsp/lsp-mode/blob/master/lsp-protocol.el
+Code Before 1 2 3 4 5 6 7 8 9 10 11 12 13 14  (defun lsp-ui-sideline--extract-info (contents) &#34;Extract the line to print from CONTENTS."/>
 
-    <meta property="og:title" content="Selecting the matching regex at point, greedily, in emacs" />
-<meta property="og:description" content="Synopsis It&rsquo;s quite frustrating, really, that there is no builtin command for this. However useful er/expand-region may be at selecting a semantic region monotonically increasingly beneath the cursor, it makes more sense to have a function of my own design that decides what is important beneath the cursor and to use that as the specification for what I want to select.
-Enter my-select-regex-at-point. I am using this as I speak to select the function my-select-regex-at-point as I enter it into my blog." />
+    <meta property="og:title" content="Shorten long paths in lsp-mode sideline" />
+<meta property="og:description" content="Premise As I was reading some haskell, I was bothered by the long lsp-ui-sideline strings, which were encroaching upon my code.
+Demo: Before and after 
+LSP string format There is a file in lsp-mode, lsp- protocol.el which contains code to generate functions for reading and writing to lsp formatted strings.
+https://github.com/emacs-lsp/lsp-mode/blob/master/lsp-protocol.el
+Code Before 1 2 3 4 5 6 7 8 9 10 11 12 13 14  (defun lsp-ui-sideline--extract-info (contents) &#34;Extract the line to print from CONTENTS." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/selecting-the-matching-regex-at-point-greedily-in-emacs/" />
+<meta property="og:url" content="https://mullikine.github.io/posts/shorten-long-paths-in-lsp-mode-sideline/" />
 <meta property="article:published_time" content="2020-11-12T00:00:00+13:00" />
 <meta property="article:modified_time" content="2020-11-12T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
 
@@ -150,7 +156,7 @@ Enter my-select-regex-at-point. I am using this as I speak to select the functio
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Selecting the matching regex at point, greedily, in emacs</h1>
+      <h1 class ="post-title">Shorten long paths in lsp-mode sideline</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -170,7 +176,7 @@ Enter my-select-regex-at-point. I am using this as I speak to select the functio
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/lsp/">lsp</a></div></div>
     </header>
     
 
@@ -182,21 +188,54 @@ Enter my-select-regex-at-point. I am using this as I speak to select the functio
 
 
     <div class="post-content">
-      <h2 id="synopsis">Synopsis</h2>
-<p>It&rsquo;s quite frustrating, really, that there is
-no builtin command for this. However useful
-<code>er/expand-region</code> may be at selecting a
-semantic region monotonically increasingly
-beneath the cursor, it makes more sense to
-have a function of my own design that decides
-what is important beneath the cursor and to
-use that as the specification for what I want
-to select.</p>
-<p>Enter <code>my-select-regex-at-point</code>. I am using
-this as I speak to select the function <code>my-select-regex-at-point</code> as I enter it into my
-blog.</p>
-<p><a title="asciinema recording" href="https://asciinema.org/a/Rt9aRkuTPix6Zaz4pmrkgeqWY" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/Rt9aRkuTPix6Zaz4pmrkgeqWY.svg" /></a></p>
+      <h2 id="premise">Premise</h2>
+<p>As I was reading some haskell, I was bothered
+by the long <code>lsp-ui-sideline</code> strings, which
+were encroaching upon my code.</p>
+<h2 id="demo-before-and-after">Demo: Before and after</h2>
+<p><a title="asciinema recording" href="https://asciinema.org/a/F1tsUAXHlpwivutZLA4Z7DNVe" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/F1tsUAXHlpwivutZLA4Z7DNVe.svg" /></a></p>
+<h2 id="lsp-string-format">LSP string format</h2>
+<p>There is a file in <code>lsp-mode</code>, <code>lsp- protocol.el</code> which contains code to <em>generate</em>
+functions for reading and writing to lsp
+formatted strings.</p>
+<p><a href="https://github.com/emacs-lsp/lsp-mode/blob/master/lsp-protocol.el">https://github.com/emacs-lsp/lsp-mode/blob/master/lsp-protocol.el</a></p>
 <h2 id="code">Code</h2>
+<h3 id="before">Before</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun lsp-ui-sideline--extract-info (contents)
+  <span style="color:#e6db74">&#34;Extract the line to print from CONTENTS.
+</span><span style="color:#e6db74">CONTENTS can be differents type of values:
+</span><span style="color:#e6db74">MarkedString | MarkedString[] | MarkupContent (as defined in the LSP).
+</span><span style="color:#e6db74">We prioritize string with a language (which is probably a type or a
+</span><span style="color:#e6db74">function signature).&#34;</span>
+  (when contents
+    (cond
+     ((lsp-marked-string? contents) contents)
+     ((<span style="color:#a6e22e">vectorp</span> contents)
+      (seq-find (lambda (it) (and (lsp-marked-string? it)
+                                  (lsp-get-renderer (lsp:marked-string-language it))))
+                contents))
+     ((lsp-markup-content? contents) contents))))</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="after">After</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -218,101 +257,29 @@ blog.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun my-select-regex-at-point (pat <span style="color:#66d9ef">&amp;optional</span> literal)
-  (interactive (<span style="color:#a6e22e">list</span> (read-string-hist <span style="color:#e6db74">&#34;re: &#34;</span>)))
-
-  (deselect)
-
-  (let ((ogpat pat))
-    (if literal
-        (setq p (<span style="color:#a6e22e">regexp-quote</span> pat)))
-
-    (while (not (looking-at-p pat))
-      (<span style="color:#a6e22e">backward-char</span> <span style="color:#ae81ff">1</span>))
-    (while (looking-at-p pat)
-      (<span style="color:#a6e22e">backward-char</span> <span style="color:#ae81ff">1</span>))
-    (if (not (looking-at-p pat))
-        (<span style="color:#a6e22e">forward-char</span> <span style="color:#ae81ff">1</span>))
-
-    (set-mark (<span style="color:#a6e22e">point</span>))
-
-    (if literal
-        (<span style="color:#a6e22e">forward-char</span> (<span style="color:#a6e22e">length</span> ogpat))
-      (let ((boundedpat (setq pat (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;\\`&#34;</span> pat <span style="color:#e6db74">&#34;\\&#39;&#34;</span>))))
-        (while (not (<span style="color:#a6e22e">string-match</span> pat (<span style="color:#a6e22e">buffer-substring</span> (mark) (<span style="color:#a6e22e">point</span>))))
-          (<span style="color:#a6e22e">forward-char</span> <span style="color:#ae81ff">1</span>))
-        (while (<span style="color:#a6e22e">string-match</span> pat (<span style="color:#a6e22e">buffer-substring</span> (mark) (<span style="color:#a6e22e">point</span>)))
-          (<span style="color:#a6e22e">forward-char</span> <span style="color:#ae81ff">1</span>))
-        (if (not (<span style="color:#a6e22e">string-match</span> pat (<span style="color:#a6e22e">buffer-substring</span> (mark) (<span style="color:#a6e22e">point</span>))))
-            (<span style="color:#a6e22e">backward-char</span> <span style="color:#ae81ff">1</span>))))))
-
-(defun my-select-thing-at-point ()
-  (interactive)
-  (deselect)
-  (my-select-regex-at-point (my/thing-at-point) <span style="color:#66d9ef">t</span>))
-
-(<span style="color:#a6e22e">define-key</span> my-mode-map (kbd <span style="color:#e6db74">&#34;M-u&#34;</span>) <span style="color:#e6db74">&#39;my-select-thing-at-point</span>)</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun lsp-ui-sideline--extract-info (contents)
+  <span style="color:#e6db74">&#34;Extract the line to print from CONTENTS.
+</span><span style="color:#e6db74">CONTENTS can be differents type of values:
+</span><span style="color:#e6db74">MarkedString | MarkedString[] | MarkupContent (as defined in the LSP).
+</span><span style="color:#e6db74">We prioritize string with a language (which is probably a type or a
+</span><span style="color:#e6db74">function signature).&#34;</span>
+  (when contents
+    (cond
+     ((lsp-marked-string? contents)
+      (lsp:set-marked-string-value contents (mnm (lsp:marked-string-value contents)))
+      contents)
+     ((<span style="color:#a6e22e">vectorp</span> contents)
+      (seq-find (lambda (it) (and (lsp-marked-string? it)
+                                  (lsp-get-renderer (lsp:marked-string-language it))))
+                contents))
+     ((lsp-markup-content? contents)
+      <span style="color:#75715e">;; This successfully minimises haskell sideline strings</span>
+      (lsp:set-markup-content-value contents (mnm (lsp:markup-content-value contents)))
+      contents))))</code></pre></td></tr></table>
 </div>
 </div>
-<h2 id="what-can-it-do">What can it do?</h2>
-<p>Well, at the practical level (i.e. <code>my-select- thing-at-point</code>), it ignores subwords in
-snake-case when given <code>my/thing-at-point</code> as a
-spec for what to select and allows me to
-select what matters in only one step.</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun my/thing-at-point ()
-  (interactive)
-
-  (if (selected-p)
-      (selection)
-    (str
-     (or (thing-at-point <span style="color:#e6db74">&#39;symbol</span>)
-         (thing-at-point <span style="color:#e6db74">&#39;sexp</span>)
-         (let ((s (str (thing-at-point <span style="color:#e6db74">&#39;char</span>))))
-           (if (<span style="color:#a6e22e">string-equal</span> s <span style="color:#e6db74">&#34;\n&#34;</span>)
-               <span style="color:#e6db74">&#34;&#34;</span>
-             s))
-         <span style="color:#e6db74">&#34;&#34;</span>))))</code></pre></td></tr></table>
-</div>
-</div>
-<p>But <code>my-select-regex-at-point</code> will also allow
-me to select an arbitrary sequence of
-characters matching a regex below the cursor.</p>
-<h3 id="demo">Demo</h3>
-<p><a title="asciinema recording" href="https://asciinema.org/a/hniNywCOE9HhGwvRqBvIG3n8m" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/hniNywCOE9HhGwvRqBvIG3n8m.svg" /></a></p>
 
     </div>
     <div class="post-footer">
