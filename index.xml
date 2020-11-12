@@ -12,6 +12,17 @@
     
     
     <item>
+      <title>make-it-run, an expect script to automate fixing errors from running programs</title>
+      <link>https://mullikine.github.io/posts/make-it-run-an-expect-script-to-automate-fixing-errors-from-running-programs/</link>
+      <pubDate>Thu, 12 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/make-it-run-an-expect-script-to-automate-fixing-errors-from-running-programs/</guid>
+      <description>Demo 
+Code The invocation command 1  make-it-run pti38 &amp;#34;ModuleNotFoundError:.*&amp;#34; &amp;#34;sps pip-install-from-error&amp;#34;   shell make-it-run
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null # command c=&amp;#34;$1&amp;#34; # expect bad pattern e=&amp;#34;$2&amp;#34; # fix command fc=&amp;#34;$3&amp;#34; { test -z &amp;#34;$c&amp;#34; || test -z &amp;#34;$e&amp;#34; || test -z &amp;#34;$fc&amp;#34;; } &amp;amp;&amp;amp; exit 1 e=&amp;#34;$(p &amp;#34;$e&amp;#34; | sed &amp;#39;s/\([[`;$&amp;#34;]\)/\\\1/g&amp;#39;)&amp;#34; x -sh &amp;#34;$c&amp;#34; -w &amp;#34;expect {\n-re \&amp;#34;$e\&amp;#34; { set user_input \&amp;#34;\$expect_out(0,string)\&amp;#34;; set ret [exec $fc\&amp;#34;\$user_input\&amp;#34;]; exit 1; } default { interact; }; }&amp;#34;   pip-install-from-error</description>
+    </item>
+    
+    <item>
       <title>Automating a little bit of termshark and htop using tcl/expect</title>
       <link>https://mullikine.github.io/posts/automating-a-little-bit-of-termshark-and-htop/</link>
       <pubDate>Wed, 11 Nov 2020 00:00:00 +1300</pubDate>
