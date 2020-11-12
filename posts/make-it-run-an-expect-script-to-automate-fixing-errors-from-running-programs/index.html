@@ -12,12 +12,12 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="make-it-run, an expect script to automate fixing errors from running programs"/>
-<meta name="twitter:description" content="Demo 
+<meta name="twitter:description" content="Demo Run on a loop until the program works 1  while ! make-it-run pti38 &#34;ModuleNotFoundError:.*&#34; &#34;tm -w -te sps -args pip-install-from-error&#34;; do echo &#34;Retrying&#34;; done   
 Code The invocation command 1  make-it-run pti38 &#34;ModuleNotFoundError:.*&#34; &#34;sps pip-install-from-error&#34;   shell make-it-run
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null # command c=&#34;$1&#34; # expect bad pattern e=&#34;$2&#34; # fix command fc=&#34;$3&#34; { test -z &#34;$c&#34; || test -z &#34;$e&#34; || test -z &#34;$fc&#34;; } &amp;&amp; exit 1 e=&#34;$(p &#34;$e&#34; | sed &#39;s/\([[`;$&#34;]\)/\\\1/g&#39;)&#34; x -sh &#34;$c&#34; -w &#34;expect {\n-re \&#34;$e\&#34; { set user_input \&#34;\$expect_out(0,string)\&#34;; set ret [exec $fc\&#34;\$user_input\&#34;]; exit 1; } default { interact; }; }&#34;   pip-install-from-error"/>
 
     <meta property="og:title" content="make-it-run, an expect script to automate fixing errors from running programs" />
-<meta property="og:description" content="Demo 
+<meta property="og:description" content="Demo Run on a loop until the program works 1  while ! make-it-run pti38 &#34;ModuleNotFoundError:.*&#34; &#34;tm -w -te sps -args pip-install-from-error&#34;; do echo &#34;Retrying&#34;; done   
 Code The invocation command 1  make-it-run pti38 &#34;ModuleNotFoundError:.*&#34; &#34;sps pip-install-from-error&#34;   shell make-it-run
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null # command c=&#34;$1&#34; # expect bad pattern e=&#34;$2&#34; # fix command fc=&#34;$3&#34; { test -z &#34;$c&#34; || test -z &#34;$e&#34; || test -z &#34;$fc&#34;; } &amp;&amp; exit 1 e=&#34;$(p &#34;$e&#34; | sed &#39;s/\([[`;$&#34;]\)/\\\1/g&#39;)&#34; x -sh &#34;$c&#34; -w &#34;expect {\n-re \&#34;$e\&#34; { set user_input \&#34;\$expect_out(0,string)\&#34;; set ret [exec $fc\&#34;\$user_input\&#34;]; exit 1; } default { interact; }; }&#34;   pip-install-from-error" />
 <meta property="og:type" content="article" />
@@ -166,7 +166,7 @@ Code The invocation command 1  make-it-run pti38 &#34;ModuleNotFoundError:.*&#34
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          17 min read
+          18 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -185,7 +185,16 @@ Code The invocation command 1  make-it-run pti38 &#34;ModuleNotFoundError:.*&#34
 
     <div class="post-content">
       <h2 id="demo">Demo</h2>
-<p><a title="asciinema recording" href="https://asciinema.org/a/YB5FeAqSzPyZPAH0vEAS8tIAk" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/YB5FeAqSzPyZPAH0vEAS8tIAk.svg" /></a></p>
+<h3 id="run-on-a-loop-until-the-program-works">Run on a loop until the program works</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#66d9ef">while</span> ! make-it-run pti38 <span style="color:#e6db74">&#34;ModuleNotFoundError:.*&#34;</span> <span style="color:#e6db74">&#34;tm -w -te sps -args pip-install-from-error&#34;</span>; <span style="color:#66d9ef">do</span> echo <span style="color:#e6db74">&#34;Retrying&#34;</span>; <span style="color:#66d9ef">done</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a title="asciinema recording" href="https://asciinema.org/a/funrHWjUFxD2RPsN0BftFPd5O" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/funrHWjUFxD2RPsN0BftFPd5O.svg" /></a></p>
 <h2 id="code">Code</h2>
 <h3 id="the-invocation-command">The invocation command</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
