@@ -15,7 +15,7 @@
 <meta name="twitter:description" content="Synopsis I&rsquo;d like to use opensemanticsearch to index my own filesystem.
 I&rsquo;d like to use Apache Tika to create a text mirror of my file system in place of my own, makeshift text mirroring software.
 I&rsquo;d like to make use of opensemanticsearch&#39;s spacy-services module.
-A bug in starting docker-compose It appears that somebody else has also encountered this.
+A bug in starting the docker composure It appears that somebody else has also encountered this.
 https://github.com/opensemanticsearch/open-semantic-search/issues/329
 Error 1 2 3  x86_64-linux-gnu-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -D__LITTLE_ENDIAN__=1 -I/usr/include/python3."/>
 
@@ -23,7 +23,7 @@ Error 1 2 3  x86_64-linux-gnu-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -g -fst
 <meta property="og:description" content="Synopsis I&rsquo;d like to use opensemanticsearch to index my own filesystem.
 I&rsquo;d like to use Apache Tika to create a text mirror of my file system in place of my own, makeshift text mirroring software.
 I&rsquo;d like to make use of opensemanticsearch&#39;s spacy-services module.
-A bug in starting docker-compose It appears that somebody else has also encountered this.
+A bug in starting the docker composure It appears that somebody else has also encountered this.
 https://github.com/opensemanticsearch/open-semantic-search/issues/329
 Error 1 2 3  x86_64-linux-gnu-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -D__LITTLE_ENDIAN__=1 -I/usr/include/python3." />
 <meta property="og:type" content="article" />
@@ -198,7 +198,7 @@ mirror of my file system in place of my own,
 makeshift text mirroring software.</p>
 <p>I&rsquo;d like to make use of <code>opensemanticsearch</code>'s
 <code>spacy-services</code> module.</p>
-<h2 id="a-bug-in-starting-docker-compose">A bug in starting <code>docker-compose</code></h2>
+<h2 id="a-bug-in-starting-the-docker-composure">A bug in starting the docker composure</h2>
 <p>It appears that somebody else has also encountered this.</p>
 <p><a href="https://github.com/opensemanticsearch/open-semantic-search/issues/329">https://github.com/opensemanticsearch/open-semantic-search/issues/329</a></p>
 <h3 id="error">Error</h3>
@@ -227,6 +227,7 @@ x86_64-linux-gnu-gcc: error trying to exec &#39;cc1plus&#39;: execvp: No such fi
 error: command &#39;x86_64-linux-gnu-gcc&#39; failed with exit status 1</code></pre></td></tr></table>
 </div>
 </div>
+<p>And another missing <code>/usr/bin/x86_64-linux-gnu-g++</code>.</p>
 <h3 id="fixing-the-errors-manually">Fixing the errors manually</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -234,11 +235,13 @@ error: command &#39;x86_64-linux-gnu-gcc&#39; failed with exit status 1</code></
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apt install gcc-8
 apt install g++-8
 ln -sf /usr/bin/gcc-8 /usr/bin/x86_64-linux-gnu-gcc
+ln -sf /usr/bin/x86_64-linux-gnu-g++-8 /usr/bin/x86_64-linux-gnu-g++
 ln -sf /usr/lib/gcc/x86_64-linux-gnu/8/cc1plus /usr/bin/cc1plus</code></pre></td></tr></table>
 </div>
 </div>
@@ -258,6 +261,7 @@ ln -sf /usr/lib/gcc/x86_64-linux-gnu/8/cc1plus /usr/bin/cc1plus</code></pre></td
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">RUN</span> apt-get update <span style="color:#f92672">&amp;&amp;</span> apt-get install --no-install-recommends --yes <span style="color:#ae81ff">\
@@ -270,6 +274,7 @@ ln -sf /usr/lib/gcc/x86_64-linux-gnu/8/cc1plus /usr/bin/cc1plus</code></pre></td
 </span><span style="color:#ae81ff"></span>  <span style="color:#f92672">&amp;&amp;</span> apt-get clean -y<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> ln -sf /usr/bin/x86_64-linux-gnu-gcc-8 /usr/bin/x86_64-linux-gnu-gcc<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> ln -sf /usr/bin/x86_64-linux-gnu-g++-8 /usr/bin/x86_64-linux-gnu-g++<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> ln -sf /usr/lib/gcc/x86_64-linux-gnu/8/cc1plus /usr/bin/cc1plus</code></pre></td></tr></table>
 </div>
 </div>
