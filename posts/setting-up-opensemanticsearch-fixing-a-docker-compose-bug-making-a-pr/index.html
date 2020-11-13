@@ -173,7 +173,7 @@ Error 1 2 3  x86_64-linux-gnu-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -g -fst
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -214,15 +214,32 @@ unable to execute &#39;x86_64-linux-gnu-gcc&#39;: No such file or directory
 error: command &#39;x86_64-linux-gnu-gcc&#39; failed with exit status 1</code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="fixing-the-error-manually">Fixing the error manually</h3>
+<p>After fixing the above, I got the below.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">x86_64-linux-gnu-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -g -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -fPIC -I/usr/include/python3.7m -I/usr/include/python3.7m -c cymem/cymem.cpp -o build/temp.linux-x86_64-3.7/cymem/cymem.o -O3 -Wno-strict-prototypes -Wno-unused-function
+x86_64-linux-gnu-gcc: error trying to exec &#39;cc1plus&#39;: execvp: No such file or directory
+error: command &#39;x86_64-linux-gnu-gcc&#39; failed with exit status 1</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="fixing-the-errors-manually">Fixing the errors manually</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">apt install gcc-8
-ln -sf /usr/bin/gcc-8 /usr/bin/x86_64-linux-gnu-gcc</code></pre></td></tr></table>
+apt install g++-8
+ln -sf /usr/bin/gcc-8 /usr/bin/x86_64-linux-gnu-gcc
+ln -sf /usr/lib/gcc/x86_64-linux-gnu/8/cc1plus /usr/bin/cc1plus</code></pre></td></tr></table>
 </div>
 </div>
 <p><a title="asciinema recording" href="https://asciinema.org/a/vNXf1w4Mrc8hQG8NKlWRXaTrn" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/vNXf1w4Mrc8hQG8NKlWRXaTrn.svg" /></a></p>
@@ -230,26 +247,30 @@ ln -sf /usr/bin/gcc-8 /usr/bin/x86_64-linux-gnu-gcc</code></pre></td></tr></tabl
 <h3 id="add-to-dockerfile">Add to Dockerfile</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#66d9ef">RUN</span> apt-get update <span style="color:#f92672">&amp;&amp;</span> apt-get install --no-install-recommends --yes <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    python3-pip <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    python3-setuptools <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    python3-wheel <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    python3-dev <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    gcc-8 <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> apt-get clean -y<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#ae81ff"></span>  python3-pip <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  python3-setuptools <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  python3-wheel <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  python3-dev <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  gcc-8 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  g++-8 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  <span style="color:#f92672">&amp;&amp;</span> apt-get clean -y<span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> ln -sf /usr/bin/gcc-8 /usr/bin/x86_64-linux-gnu-gcc</code></pre></td></tr></table>
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> ln -sf /usr/bin/x86_64-linux-gnu-gcc-8 /usr/bin/x86_64-linux-gnu-gcc<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> ln -sf /usr/lib/gcc/x86_64-linux-gnu/8/cc1plus /usr/bin/cc1plus</code></pre></td></tr></table>
 </div>
 </div>
 <h3 id="creating-the-pull-request">Creating the pull request</h3>
