@@ -463,9 +463,6 @@ model <span style="color:#f92672">=</span> KeyBERT(<span style="color:#e6db74">&
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun get-keyphrases-for-buffer ()
@@ -474,10 +471,7 @@ model <span style="color:#f92672">=</span> KeyBERT(<span style="color:#e6db74">&
   (let ((s
          <span style="color:#75715e">;; (buffer-string)</span>
          (<span style="color:#a6e22e">buffer-substring</span> (glossary-window-start)
-                           (glossary-window-end))
-         <span style="color:#75715e">;; (buffer-substring (window-start)</span>
-         <span style="color:#75715e">;;                   (window-end))</span>
-         ))
+                           (glossary-window-end))))
     (str2lines (cl-sn <span style="color:#e6db74">&#34;extract-keyphrases-pytextrank&#34;</span> :stdin s :chomp <span style="color:#66d9ef">t</span>))))
 
 (defun recalculate-glossary-candidate-3tuples ()
