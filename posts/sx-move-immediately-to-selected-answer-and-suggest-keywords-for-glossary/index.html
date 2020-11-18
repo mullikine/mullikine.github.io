@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>elisp // Bodacious Blog</title>
+    <title>sx: Move immediately to selected answer and suggest keywords for glossary // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.71.0" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,21 +11,23 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="elisp"/>
-<meta name="twitter:description" content="My journey into biosemiotics 🌻, xenolingustics 👽 and emacs 🐄"/>
+<meta name="twitter:title" content="sx: Move immediately to selected answer and suggest keywords for glossary"/>
+<meta name="twitter:description" content="Demo 
+1 2 3 4 5 6 7 8 9 10 11 12 13  (defun sx-move-to-accepted-answer () (interactive) (if (string-match &#34;^Accepted Answer$&#34; (buffer-string)) (progn (re-search-forward &#34;^Accepted Answer$&#34;) (beginning-of-line)))) (defvar sx-question-mode--erase-and-print-question-after-hook &#39;()) (defun sx-question-mode--erase-and-print-question-after-advice (&amp;rest args) (run-hooks &#39;sx-question-mode--erase-and-print-question-after-hook)) (advice-add &#39;sx-question-mode--erase-and-print-question :after &#39;sx-question-mode--erase-and-print-question-after-advice) (add-hook &#39;sx-question-mode--erase-and-print-question-after-hook &#39;redraw-glossary-buttons-when-window-scrolls-or-file-is-opened) (add-hook &#39;sx-question-mode--erase-and-print-question-after-hook &#39;sx-move-to-accepted-answer)   "/>
 
-    <meta property="og:title" content="elisp" />
-<meta property="og:description" content="My journey into biosemiotics 🌻, xenolingustics 👽 and emacs 🐄" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://mullikine.github.io/tags/elisp/" />
-<meta property="og:updated_time" content="2020-11-18T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+    <meta property="og:title" content="sx: Move immediately to selected answer and suggest keywords for glossary" />
+<meta property="og:description" content="Demo 
+1 2 3 4 5 6 7 8 9 10 11 12 13  (defun sx-move-to-accepted-answer () (interactive) (if (string-match &#34;^Accepted Answer$&#34; (buffer-string)) (progn (re-search-forward &#34;^Accepted Answer$&#34;) (beginning-of-line)))) (defvar sx-question-mode--erase-and-print-question-after-hook &#39;()) (defun sx-question-mode--erase-and-print-question-after-advice (&amp;rest args) (run-hooks &#39;sx-question-mode--erase-and-print-question-after-hook)) (advice-add &#39;sx-question-mode--erase-and-print-question :after &#39;sx-question-mode--erase-and-print-question-after-advice) (add-hook &#39;sx-question-mode--erase-and-print-question-after-hook &#39;redraw-glossary-buttons-when-window-scrolls-or-file-is-opened) (add-hook &#39;sx-question-mode--erase-and-print-question-after-hook &#39;sx-move-to-accepted-answer)   " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/sx-move-immediately-to-selected-answer-and-suggest-keywords-for-glossary/" />
+<meta property="article:published_time" content="2020-11-18T00:00:00+13:00" />
+<meta property="article:modified_time" content="2020-11-18T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
 
 
   </head>
   <body>
     <header class="app-header">
 
-<link rel="alternate" type="application/rss+xml" href="https://mullikine.github.io/tags/elisp/index.xml" title="Bodacious Blog" />
 <a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
       <h1>Bodacious Blog</h1>
       
@@ -148,135 +150,93 @@
     </header>
     <main class="app-container">
       
-  <article>
-    <h1>elisp</h1>
-    <p>My journey into biosemiotics 🌻, xenolingustics 👽 and emacs 🐄</p>
-
-    
-
-    <center>
-    
-
-    
-    </center>
-
-    <ul class="posts-list">
-      
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="https://mullikine.github.io/posts/emacs-tetris-nice/">Best emacs tetris in emacs 26&#43;</a>
-          <span class="posts-list-item-description">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg> 3 min read -
-            Sep 20, 2019
-          </span>
-        </li>
-      
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="https://mullikine.github.io/posts/circumventing-paywalls-with-eww-browser/">Circumventing paywalls with eww browser</a>
-          <span class="posts-list-item-description">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg> 2 min read -
-            Sep 19, 2019
-          </span>
-        </li>
-      
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="https://mullikine.github.io/posts/macro-tutorial/">Didactic emacs-lisp macro example (ie. a tutorial)</a>
-          <span class="posts-list-item-description">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg> 10 min read -
-            Sep 18, 2019
-          </span>
-        </li>
-      
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="https://mullikine.github.io/posts/getting-arxiv-in-the-terminal/">Getting arxiv in the terminal</a>
-          <span class="posts-list-item-description">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg> 3 min read -
-            Sep 18, 2019
-          </span>
-        </li>
-      
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="https://mullikine.github.io/posts/ameliorating-list-processes/">Ameliorating list-processes</a>
-          <span class="posts-list-item-description">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg> 2 min read -
-            Sep 18, 2019
-          </span>
-        </li>
-      
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="https://mullikine.github.io/posts/uniqifying-emacs-apps/">Uniqifying emacs apps</a>
-          <span class="posts-list-item-description">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg> 1 min read -
-            Sep 18, 2019
-          </span>
-        </li>
-      
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="https://mullikine.github.io/posts/emacs-telco-commands/">Making emacs-lisp wrappers for telco commands</a>
-          <span class="posts-list-item-description">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg> 1 min read -
-            Aug 25, 2018
-          </span>
-        </li>
-      
-    </ul>
-    
-
-<ul class="pagination">
-  
-  <li class="page-item">
-    <a class="page-link" href="https://mullikine.github.io/tags/elisp/page/2/">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-arrow-left">
-  <title>arrow-left</title>
-  <line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline>
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">sx: Move immediately to selected answer and suggest keywords for glossary</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
 </svg>
-    </a>
-  </li>
-  
-  
-  <li class="page-item">
-    <a class="page-link" href="https://mullikine.github.io/tags/elisp/">
-      1
-    </a>
-  </li>
-  
-  <li class="page-item">
-    <a class="page-link" href="https://mullikine.github.io/tags/elisp/page/2/">
-      2
-    </a>
-  </li>
-  
-  <li class="page-item active">
-    <a class="page-link" href="https://mullikine.github.io/tags/elisp/page/3/">
-      3
-    </a>
-  </li>
-  
-  
-</ul>
+          Nov 18, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/elisp/">elisp</a><a class="tag" href="http://mullikine.github.io/tags/ir/">ir</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
 
 
+    <div class="post-content">
+      <h2 id="demo">Demo</h2>
+<p><a title="asciinema recording" href="https://asciinema.org/a/uA4nqqK5HFOF1I88rzIDQPZ97" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/uA4nqqK5HFOF1I88rzIDQPZ97.svg" /></a></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun sx-move-to-accepted-answer ()
+  (interactive)
+  (if (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34;^Accepted Answer$&#34;</span> (<span style="color:#a6e22e">buffer-string</span>))
+      (progn
+        (<span style="color:#a6e22e">re-search-forward</span> <span style="color:#e6db74">&#34;^Accepted Answer$&#34;</span>)
+        (<span style="color:#a6e22e">beginning-of-line</span>))))
 
+(defvar sx-question-mode--erase-and-print-question-after-hook <span style="color:#f92672">&#39;</span>())
+(defun sx-question-mode--erase-and-print-question-after-advice (<span style="color:#66d9ef">&amp;rest</span> args)
+  (<span style="color:#a6e22e">run-hooks</span> <span style="color:#e6db74">&#39;sx-question-mode--erase-and-print-question-after-hook</span>))
+(advice-add <span style="color:#e6db74">&#39;sx-question-mode--erase-and-print-question</span> :after <span style="color:#e6db74">&#39;sx-question-mode--erase-and-print-question-after-advice</span>)
+(add-hook <span style="color:#e6db74">&#39;sx-question-mode--erase-and-print-question-after-hook</span> <span style="color:#e6db74">&#39;redraw-glossary-buttons-when-window-scrolls-or-file-is-opened</span>)
+(add-hook <span style="color:#e6db74">&#39;sx-question-mode--erase-and-print-question-after-hook</span> <span style="color:#e6db74">&#39;sx-move-to-accepted-answer</span>)</code></pre></td></tr></table>
+</div>
+</div>
+
+    </div>
+    <div class="post-footer">
+        <p>
+        <a href="https://mullikine.github.io/about/">About this weblog</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://asciinema.org/~mullikine">Asciinema recordings</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/posts/blogs-and-vlogs/">Blogs and Vlogs</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/tags/">Site Map</a>
+        </p>
+    </div>
   </article>
 
     </main>
