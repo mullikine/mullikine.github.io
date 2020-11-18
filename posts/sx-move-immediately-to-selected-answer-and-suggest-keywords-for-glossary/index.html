@@ -12,11 +12,17 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="sx: Move immediately to selected answer and suggest keywords for glossary"/>
-<meta name="twitter:description" content="Demo 
+<meta name="twitter:description" content="Demo Quick search for command, copy and run.
+
+A longer demo:
+
 1 2 3 4 5 6 7 8 9 10 11 12 13  (defun sx-move-to-accepted-answer () (interactive) (if (string-match &#34;^Accepted Answer$&#34; (buffer-string)) (progn (re-search-forward &#34;^Accepted Answer$&#34;) (beginning-of-line)))) (defvar sx-question-mode--erase-and-print-question-after-hook &#39;()) (defun sx-question-mode--erase-and-print-question-after-advice (&amp;rest args) (run-hooks &#39;sx-question-mode--erase-and-print-question-after-hook)) (advice-add &#39;sx-question-mode--erase-and-print-question :after &#39;sx-question-mode--erase-and-print-question-after-advice) (add-hook &#39;sx-question-mode--erase-and-print-question-after-hook &#39;redraw-glossary-buttons-when-window-scrolls-or-file-is-opened) (add-hook &#39;sx-question-mode--erase-and-print-question-after-hook &#39;sx-move-to-accepted-answer)   "/>
 
     <meta property="og:title" content="sx: Move immediately to selected answer and suggest keywords for glossary" />
-<meta property="og:description" content="Demo 
+<meta property="og:description" content="Demo Quick search for command, copy and run.
+
+A longer demo:
+
 1 2 3 4 5 6 7 8 9 10 11 12 13  (defun sx-move-to-accepted-answer () (interactive) (if (string-match &#34;^Accepted Answer$&#34; (buffer-string)) (progn (re-search-forward &#34;^Accepted Answer$&#34;) (beginning-of-line)))) (defvar sx-question-mode--erase-and-print-question-after-hook &#39;()) (defun sx-question-mode--erase-and-print-question-after-advice (&amp;rest args) (run-hooks &#39;sx-question-mode--erase-and-print-question-after-hook)) (advice-add &#39;sx-question-mode--erase-and-print-question :after &#39;sx-question-mode--erase-and-print-question-after-advice) (add-hook &#39;sx-question-mode--erase-and-print-question-after-hook &#39;redraw-glossary-buttons-when-window-scrolls-or-file-is-opened) (add-hook &#39;sx-question-mode--erase-and-print-question-after-hook &#39;sx-move-to-accepted-answer)   " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/sx-move-immediately-to-selected-answer-and-suggest-keywords-for-glossary/" />
@@ -185,6 +191,9 @@
 
     <div class="post-content">
       <h2 id="demo">Demo</h2>
+<p>Quick search for command, copy and run.</p>
+<p><a title="asciinema recording" href="https://asciinema.org/a/v7QrurTiHiKqh5PJQ5wfz4j8e" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/v7QrurTiHiKqh5PJQ5wfz4j8e.svg" /></a></p>
+<p>A longer demo:</p>
 <p><a title="asciinema recording" href="https://asciinema.org/a/uA4nqqK5HFOF1I88rzIDQPZ97" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/uA4nqqK5HFOF1I88rzIDQPZ97.svg" /></a></p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
