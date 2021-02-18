@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>(WIP) Notes on &#34;The Illustrated GPT-2&#34; // Bodacious Blog</title>
+    <title>Creating a playground for GPT-3 in emacs // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.71.0" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,19 +11,17 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="(WIP) Notes on &#34;The Illustrated GPT-2&#34;"/>
-<meta name="twitter:description" content="Original article The Illustrated GPT-2 (Visualizing Transformer Language Models) Jay Alammar Visualizing machine learning one concept at a time  Prereading Overview of The Illustrated Transformer // Bodacious Blog
-Parameters When an article talks about the number of parameters, this is what it&rsquo;s referring to.
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21  Parameters Single Transformer block Conv1d attn/c_attn w 768 2304 1769472 b 2304 2304 attn/c_proj w 768 768 589824 b 768 768 mlp/c_fc w 768 3072 2359296 b 768 768 mlp/c_proj w 3072 3072 2359296 b 768 768 Norm ln_1 g 768 768 b 768 768 ln_2 g 768 768 b 768 768 total 7085568 per block X 12 blocks 85026816 In all blocks Embeddings 50257 768 38597376 Positional Embeddings 2024 768 786432 Grand Total 124410624   Goal Supplement The Illustrated Transformer with more visuals explaining the inner-workings of transformers, and how they’ve evolved since the original paper."/>
+<meta name="twitter:title" content="Creating a playground for GPT-3 in emacs"/>
+<meta name="twitter:description" content="prompt-engineer-mode (PEn) Prompt-Engineer Mode is a global minor mode for emacs that facilitates the creation, development, discovery and usage of prompts in your emacs.
+ Create elisp functions based on GPT-3 prompts Chain GPT-3 queries together using keyboard macros and functions Interactively query, generate and transfrom both prose and code Use GPT-3 as a search engine within emacs  Search the internet Search documents  https://beta.openai.com/docs/introduction/semantic-search https://gpttools.com/semanticsearch"/>
 
-    <meta property="og:title" content="(WIP) Notes on &#34;The Illustrated GPT-2&#34;" />
-<meta property="og:description" content="Original article The Illustrated GPT-2 (Visualizing Transformer Language Models) Jay Alammar Visualizing machine learning one concept at a time  Prereading Overview of The Illustrated Transformer // Bodacious Blog
-Parameters When an article talks about the number of parameters, this is what it&rsquo;s referring to.
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21  Parameters Single Transformer block Conv1d attn/c_attn w 768 2304 1769472 b 2304 2304 attn/c_proj w 768 768 589824 b 768 768 mlp/c_fc w 768 3072 2359296 b 768 768 mlp/c_proj w 3072 3072 2359296 b 768 768 Norm ln_1 g 768 768 b 768 768 ln_2 g 768 768 b 768 768 total 7085568 per block X 12 blocks 85026816 In all blocks Embeddings 50257 768 38597376 Positional Embeddings 2024 768 786432 Grand Total 124410624   Goal Supplement The Illustrated Transformer with more visuals explaining the inner-workings of transformers, and how they’ve evolved since the original paper." />
+    <meta property="og:title" content="Creating a playground for GPT-3 in emacs" />
+<meta property="og:description" content="prompt-engineer-mode (PEn) Prompt-Engineer Mode is a global minor mode for emacs that facilitates the creation, development, discovery and usage of prompts in your emacs.
+ Create elisp functions based on GPT-3 prompts Chain GPT-3 queries together using keyboard macros and functions Interactively query, generate and transfrom both prose and code Use GPT-3 as a search engine within emacs  Search the internet Search documents  https://beta.openai.com/docs/introduction/semantic-search https://gpttools.com/semanticsearch" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/notes-on-illustrated-gpt2/" />
-<meta property="article:published_time" content="2019-10-24T00:00:00+08:00" />
-<meta property="article:modified_time" content="2019-10-24T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:url" content="https://mullikine.github.io/posts/creating-a-playground-for-gpt-3-in-emacs/" />
+<meta property="article:published_time" content="2021-02-18T00:00:00+13:00" />
+<meta property="article:modified_time" content="2021-02-18T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
 
 
   </head>
@@ -154,27 +152,27 @@ Parameters When an article talks about the number of parameters, this is what it
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">(WIP) Notes on &#34;The Illustrated GPT-2&#34;</h1>
+      <h1 class ="post-title">Creating a playground for GPT-3 in emacs</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
   <title>calendar</title>
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
 </svg>
-          Oct 24, 2019
+          Feb 18, 2021
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/gpt/">gpt</a><a class="tag" href="http://mullikine.github.io/tags/review/">review</a><a class="tag" href="http://mullikine.github.io/tags/openai/">OpenAI</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/gpt-3/">GPT-3</a><a class="tag" href="http://mullikine.github.io/tags/codecraft/">codecraft</a><a class="tag" href="http://mullikine.github.io/tags/emacs/">emacs</a><a class="tag" href="http://mullikine.github.io/tags/openai/">OpenAI</a></div></div>
     </header>
     
 
@@ -186,14 +184,96 @@ Parameters When an article talks about the number of parameters, this is what it
 
 
     <div class="post-content">
-      <dl>
-<dt>Original article</dt>
-<dd><a href="https://jalammar.github.io/illustrated-gpt2/">The Illustrated GPT-2 (Visualizing Transformer Language Models)  Jay Alammar  Visualizing machine learning one concept at a time</a></dd>
-</dl>
-<h2 id="prereading">Prereading</h2>
-<p><a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">Overview of The Illustrated Transformer // Bodacious Blog</a></p>
-<h2 id="parameters">Parameters</h2>
-<p>When an article talks about the <span class="underline">number of parameters</span>, this is what it&rsquo;s referring to.</p>
+      <h2 id="prompt-engineer-mode--pen"><code>prompt-engineer-mode</code> (<code>PEn</code>)</h2>
+<p>Prompt-Engineer Mode is a global minor mode for emacs that facilitates the
+creation, development, discovery and usage of prompts in your emacs.</p>
+<ul>
+<li>Create elisp functions based on GPT-3 prompts</li>
+<li>Chain GPT-3 queries together using keyboard macros and functions</li>
+<li>Interactively query, generate and transfrom both prose and code</li>
+<li>Use GPT-3 as a search engine within emacs
+<ul>
+<li>Search the internet</li>
+<li>Search documents
+<ul>
+<li><a href="https://beta.openai.com/docs/introduction/semantic-search">https://beta.openai.com/docs/introduction/semantic-search</a></li>
+<li><a href="https://gpttools.com/semanticsearch">https://gpttools.com/semanticsearch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a title="asciinema recording" href="https://asciinema.org/a/TcXY3n2musmKPvRbr9sNnsrJc" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/TcXY3n2musmKPvRbr9sNnsrJc.svg" /></a></p>
+<h3 id="works-with">Works with</h3>
+<ul>
+<li>OpenAI API (GPT-3)
+<ul>
+<li><a href="https://beta.openai.com/">https://beta.openai.com/</a></li>
+</ul>
+</li>
+</ul>
+<h4 id="planned">Planned</h4>
+<ul>
+<li><code>openai-server</code> (GPT-2)
+<ul>
+<li><a href="https://github.com/shawwn/openai-server">https://github.com/shawwn/openai-server</a></li>
+<li>Requires tensorflow 1</li>
+</ul>
+</li>
+<li>DeepAI API
+<ul>
+<li><a href="https://deepai.org/">https://deepai.org/</a></li>
+</ul>
+</li>
+<li>OpenAI API (GPT-4)
+<ul>
+<li><a href="https://beta.openai.com/">https://beta.openai.com/</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="requirements">Requirements</h3>
+<h4 id="openai-pip-library-and-command"><code>openai</code> <code>pip</code> library and command</h4>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pip3 install openai</code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="openai-api-key"><code>openai</code> API key</h4>
+<h3 id="usage">Usage</h3>
+<h4 id="enable-prompt-engineerer-mode-globally--on-all-buffers">Enable <code>prompt-engineerer-mode</code> globally (on all buffers)</h4>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(prompt-engineer-mode <span style="color:#ae81ff">1</span>)
+
+<span style="color:#75715e">;; Alternatively</span>
+(pen-mode <span style="color:#ae81ff">1</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="default-key-bindings">Default Key Bindings</h3>
+<table>
+<thead>
+<tr>
+<th>key binding</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><kbd>SPC</kbd></td>
+<td><code>pen-generate</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="current-progress">Current progress</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -216,38 +296,67 @@ Parameters When an article talks about the number of parameters, this is what it
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">                                                                                      Parameters
-Single Transformer block     Conv1d      attn/c_attn     w       768     2304         1769472
-                                                         b               2304         2304
-                                         attn/c_proj     w       768     768          589824
-                                                         b               768          768
-                                         mlp/c_fc        w       768     3072         2359296
-                                                         b               768          768
-                                         mlp/c_proj      w       3072    3072         2359296
-                                                         b               768          768
-                             Norm        ln_1            g               768          768
-                                                         b               768          768
-                                         ln_2            g               768          768
-                                                         b               768          768
-                                                                         total        7085568     per block
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun pen-tweet-sentiment-classifier (input)
+  (interactive (<span style="color:#a6e22e">list</span> (my/selected-text)))
+  (let* ((prompt-fp (umn <span style="color:#e6db74">&#34;$MYGIT/mullikine/prompt-engineer-mode/prompts/tweet-sentiment-classifier.prompt&#34;</span>))
+         (output (if input (sor (chomp (sn (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;openai-complete &#34;</span> (q prompt-fp) <span style="color:#e6db74">&#34; &#34;</span> (q input))))))))
+    (if output
+        (if (interactive-p)
+            (<span style="color:#a6e22e">message</span> output)
+          output))))
 
-                                                                         X 12 blocks  85026816    In all blocks
+(defun pen-summarise-for-second-grader (input)
+  (interactive (<span style="color:#a6e22e">list</span> (my/selected-text)))
+  (let* ((prompt-fp (umn <span style="color:#e6db74">&#34;$MYGIT/mullikine/prompt-engineer-mode/prompts/summarize-for-2nd-grader.prompt&#34;</span>)))
+    (region-pipe (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;openai-complete &#34;</span> (q prompt-fp) <span style="color:#e6db74">&#34; &#34;</span> (q input) <span style="color:#e6db74">&#34; | chomp&#34;</span>))))
 
-                                         Embeddings              50257   768          38597376
-                                         Positional Embeddings   2024    768          786432
-
-                                                                         Grand Total  124410624</code></pre></td></tr></table>
+(defun pen-make-analogy (former latter)
+  (interactive (<span style="color:#a6e22e">list</span> (read-string-hist <span style="color:#e6db74">&#34;analogy participant: &#34;</span>)
+                     (read-string-hist <span style="color:#e6db74">&#34;analogy participant: &#34;</span>)))
+  (let* ((prompt-fp (umn <span style="color:#e6db74">&#34;$MYGIT/mullikine/prompt-engineer-mode/prompts/analogy.prompt&#34;</span>)))
+    (etv (sn (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;openai-complete &#34;</span> (q prompt-fp) <span style="color:#e6db74">&#34; &#34;</span> (q former) <span style="color:#e6db74">&#34; &#34;</span>
+                     (q latter) <span style="color:#e6db74">&#34; | chomp&#34;</span>)))))</code></pre></td></tr></table>
 </div>
 </div>
-<h2 id="goal">Goal</h2>
-<p>Supplement <code>The Illustrated Transformer</code> with
-more visuals explaining the inner-workings of
-transformers, and how they’ve evolved since
-the original paper.</p>
-<h2 id="contents">Contents</h2>
+<h3 id="appendix">Appendix</h3>
+<p><a href="https://www.google.com/search?q=prompt+engineering+gpt">Prompt Engineering</a></p>
+<h3 id="examples">Examples</h3>
+<h4 id="create-analogy">Create analogy</h4>
+<!--list-separator-->
+<ul>
+<li>
+<p>earth is like the universe</p>
+<p>they are both governed by the laws of physics.</p>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>vim is like emacs</p>
+<p>both are computer text editors.</p>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Cars are like trains</p>
+<p>both travel on tracks.</p>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>dolphins are like people</p>
+<p>They are both members of the class Mammalia.</p>
+</li>
+</ul>
+<h4 id="abstractive-summarization">abstractive summarization</h4>
+<!--list-separator-->
+<ul>
+<li>
+<p>computers</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -274,35 +383,76 @@ the original paper.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Part 1: GPT2 And Language Modeling
-    What is a Language Model
-    Transformers for Language Modeling
-    One Difference From BERT
-    The Evolution of The Transformer Block
-    Crash Course in Brain Surgery: Looking Inside GPT-2
-    A Deeper Look Inside
-    End of part #1: The GPT-2, Ladies and Gentlemen
-
-Part 2: The Illustrated Self-Attention
-    Self-Attention (without masking)
-    1- Create Query, Key, and Value Vectors
-    2- Score
-    3- Sum
-    The Illustrated Masked Self-Attention
-    GPT-2 Masked Self-Attention
-    Beyond Language modeling
-    You’ve Made it!
-
-Part 3: Beyond Language Modeling
-    Machine Translation
-    Summarization
-    Transfer Learning
-    Music Generation</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    Early computers were only conceived as
+    calculating devices. Since ancient times,
+    simple manual devices like the abacus aided
+    people in doing calculations. Early in the
+    Industrial Revolution, some mechanical devices
+    were built to automate long tedious tasks,
+    such as guiding patterns for looms. More
+    sophisticated electrical machines did
+    specialized analog calculations in the early
+    20th century. The first digital electronic
+    calculating machines were developed during
+    World War II. The first semiconductor
+    transistors in the late 1940s were followed by
+    the silicon-based MOSFET (MOS transistor) and
+    monolithic integrated circuit (IC) chip
+    technologies in the late 1950s, leading to the
+    microprocessor and the microcomputer
+    revolution in the 1970s. The speed, power and
+    versatility of computers have been increasing
+    dramatically ever since then, with transistor
+    counts increasing at a rapid pace (as
+    predicted by Moore&#39;s law), leading to the
+    Digital Revolution during the late 20th to
+    early 21st centuries.
+    </code></pre></td></tr></table>
 </div>
 </div>
-<h2 id="glossary">Glossary</h2>
+ <!--list-separator-->
+<ul>
+<li>
+<p>Simplification 1</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        Computers were invented to do math. Before
+        computers, people used a tool called a slide
+        rule to do math. Slide rules were hard to use,
+        so people invented a new tool called a
+        calculator. Calculators were hard to use, so
+        people invented a new tool called a computer.
+        Computers were hard to use, so people invented
+        a new tool called a computer with a screen.
+        Computers with screens were hard to use, so
+        people invented a new tool called a computer
+        you can touch
+        </code></pre></td></tr></table>
+</div>
+</div>
+</li>
+</ul>
+ <!--list-separator-->
+<ul>
+<li>
+<p>Simplification 2 &ndash; I like this one</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -312,58 +462,71 @@ Part 3: Beyond Language Modeling
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">WebText
-    [dataset]
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        Computers were invented to help people do math.
+        People have been using simple machines like the abacus to help them do math for a long time.
+        More complicated machines helped people do math faster.
+        Now people can do math faster with computers.
+        </code></pre></td></tr></table>
+</div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>jupiter</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    Jupiter is the fifth planet from the Sun and
+    the largest in the Solar System.
 
-    The OpenAI researchers crawled it from the
-    internet as part of research into GPT-2.</code></pre></td></tr></table>
+    It is a gas giant with a mass one-thousandth
+    that of the Sun, but two-and-a-half times that
+    of all the other planets in the Solar System
+    combined.
+
+    Jupiter is one of the brightest objects
+    visible to the naked eye in the night sky, and
+    has been known to ancient civilizations since
+    before recorded history.
+
+    It is named after the Roman god Jupiter.
+
+    When viewed from Earth, Jupiter can be bright
+    enough for its reflected light to cast visible
+    shadows, and is on average the third-brightest
+    natural object in the night sky after the Moon
+    and Venus.
+    </code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="model-variants">Model variants</h3>
-<p>Here, <code>M</code> means <span class="underline">millions</span>. Sometimes it can be used in this way to mean <span class="underline">thousands</span>.</p>
-<p><a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf">https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf</a></p>
-<table>
-<thead>
-<tr>
-<th>GPT-2 variant</th>
-<th>Parameters (M=Million)</th>
-<th>Layers</th>
-<th>\(\mathit{d}_\mathit{model}\) (Model dimension)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>SMALL</td>
-<td>117M</td>
-<td>12</td>
-<td>768</td>
-</tr>
-<tr>
-<td>MEDIUM</td>
-<td>345M</td>
-<td>24</td>
-<td>1024</td>
-</tr>
-<tr>
-<td>LARGE</td>
-<td>762M</td>
-<td>36</td>
-<td>1280</td>
-</tr>
-<tr>
-<td>EXTRA LARGE</td>
-<td>1542M</td>
-<td>48</td>
-<td>1600</td>
-</tr>
-</tbody>
-</table>
-<h2 id="factoids">Factoids</h2>
-<h3 id="gpt-2-was-trained-on-webtext">GPT-2 was trained on <code>WebText</code></h3>
-<p>The GPT-2 was trained on a massive 40GB
-dataset called WebText that the OpenAI
-researchers crawled from the internet as part
-of the research effort.</p>
+</li>
+</ul>
 
     </div>
     <div class="post-footer">
