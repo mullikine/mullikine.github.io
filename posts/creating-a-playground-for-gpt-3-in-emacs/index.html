@@ -12,12 +12,16 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Creating a playground for GPT-3 in emacs"/>
-<meta name="twitter:description" content="GitHub repo https://github.com/mullikine/prompt-engineer-mode  prompt-engineer-mode (PEn) Prompt-Engineer Mode is a global minor mode for emacs that facilitates the creation, development, discovery and usage of prompts in your emacs.
- Create elisp functions based on GPT-3 prompts Chain GPT-3 queries together using keyboard macros and functions Interactively query, generate and transfrom both prose and code Use GPT-3 as a search engine within emacs  Search the internet Search documents  https://beta."/>
+<meta name="twitter:description" content="GitHub repo https://github.com/mullikine/prompt-engineer-mode  Summary of talk I got a key for the OpenAI API just a couple of days before my birthday.
+After applying about 10 times in the last year I finally got my key.
+I decided since the hour is late I would work on productivity tools that anyone can use, to facilitate programming in the new paradigm.
+prompt-engineer-mode (PEn) Prompt-Engineer Mode is a global minor mode for emacs that facilitates the creation, development, discovery and usage of prompts in your emacs."/>
 
     <meta property="og:title" content="Creating a playground for GPT-3 in emacs" />
-<meta property="og:description" content="GitHub repo https://github.com/mullikine/prompt-engineer-mode  prompt-engineer-mode (PEn) Prompt-Engineer Mode is a global minor mode for emacs that facilitates the creation, development, discovery and usage of prompts in your emacs.
- Create elisp functions based on GPT-3 prompts Chain GPT-3 queries together using keyboard macros and functions Interactively query, generate and transfrom both prose and code Use GPT-3 as a search engine within emacs  Search the internet Search documents  https://beta." />
+<meta property="og:description" content="GitHub repo https://github.com/mullikine/prompt-engineer-mode  Summary of talk I got a key for the OpenAI API just a couple of days before my birthday.
+After applying about 10 times in the last year I finally got my key.
+I decided since the hour is late I would work on productivity tools that anyone can use, to facilitate programming in the new paradigm.
+prompt-engineer-mode (PEn) Prompt-Engineer Mode is a global minor mode for emacs that facilitates the creation, development, discovery and usage of prompts in your emacs." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/creating-a-playground-for-gpt-3-in-emacs/" />
 <meta property="article:published_time" content="2021-02-18T00:00:00+13:00" />
@@ -166,7 +170,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          6 min read
+          7 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -188,6 +192,14 @@
 <dt>GitHub repo</dt>
 <dd><a href="https://github.com/mullikine/prompt-engineer-mode">https://github.com/mullikine/prompt-engineer-mode</a></dd>
 </dl>
+<h2 id="summary-of-talk">Summary of talk</h2>
+<p>I got a key for the <code>OpenAI</code> API just a couple
+of days before my birthday.</p>
+<p>After applying about 10 times in the last year
+I finally got my key.</p>
+<p>I decided since the hour is late I would work
+on productivity tools that anyone can use, to
+facilitate programming in the new paradigm.</p>
 <h2 id="prompt-engineer-mode--pen"><code>prompt-engineer-mode</code> (<code>PEn</code>)</h2>
 <p>Prompt-Engineer Mode is a global minor mode for emacs that facilitates the
 creation, development, discovery and usage of prompts in your emacs.</p>
@@ -208,7 +220,7 @@ creation, development, discovery and usage of prompts in your emacs.</p>
 </li>
 </ul>
 <p><a title="asciinema recording" href="https://asciinema.org/a/TcXY3n2musmKPvRbr9sNnsrJc" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/TcXY3n2musmKPvRbr9sNnsrJc.svg" /></a></p>
-<h3 id="works-with">Works with</h3>
+<h2 id="works-with">Works with</h2>
 <ul>
 <li>OpenAI API (GPT-3)
 <ul>
@@ -216,7 +228,7 @@ creation, development, discovery and usage of prompts in your emacs.</p>
 </ul>
 </li>
 </ul>
-<h4 id="planned">Planned</h4>
+<h3 id="planned">Planned</h3>
 <ul>
 <li><code>openai-server</code> (GPT-2)
 <ul>
@@ -235,132 +247,25 @@ creation, development, discovery and usage of prompts in your emacs.</p>
 </ul>
 </li>
 </ul>
-<h3 id="requirements">Requirements</h3>
-<h4 id="openai-pip-library-and-command"><code>openai</code> <code>pip</code> library and command</h4>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pip3 install openai</code></pre></td></tr></table>
-</div>
-</div>
-<h4 id="openai-api-key"><code>openai</code> API key</h4>
-<h3 id="usage">Usage</h3>
-<h4 id="enable-prompt-engineerer-mode-globally--on-all-buffers">Enable <code>prompt-engineerer-mode</code> globally (on all buffers)</h4>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(prompt-engineer-mode <span style="color:#ae81ff">1</span>)
-
-<span style="color:#75715e">;; Alternatively</span>
-(pen-mode <span style="color:#ae81ff">1</span>)</code></pre></td></tr></table>
-</div>
-</div>
-<h3 id="default-key-bindings">Default Key Bindings</h3>
-<table>
-<thead>
-<tr>
-<th>key binding</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><kbd>SPC</kbd></td>
-<td><code>pen-generate</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="current-progress">Current progress</h3>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun pen-tweet-sentiment-classifier (input)
-  (interactive (<span style="color:#a6e22e">list</span> (my/selected-text)))
-  (let* ((prompt-fp (umn <span style="color:#e6db74">&#34;$MYGIT/mullikine/prompt-engineer-mode/prompts/tweet-sentiment-classifier.prompt&#34;</span>))
-         (output (if input (sor (chomp (sn (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;openai-complete &#34;</span> (q prompt-fp) <span style="color:#e6db74">&#34; &#34;</span> (q input))))))))
-    (if output
-        (if (interactive-p)
-            (<span style="color:#a6e22e">message</span> output)
-          output))))
-
-(defun pen-summarise-for-second-grader (input)
-  (interactive (<span style="color:#a6e22e">list</span> (my/selected-text)))
-  (let* ((prompt-fp (umn <span style="color:#e6db74">&#34;$MYGIT/mullikine/prompt-engineer-mode/prompts/summarize-for-2nd-grader.prompt&#34;</span>)))
-    (region-pipe (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;openai-complete &#34;</span> (q prompt-fp) <span style="color:#e6db74">&#34; &#34;</span> (q input) <span style="color:#e6db74">&#34; | chomp&#34;</span>))))
-
-(defun pen-make-analogy (former latter)
-  (interactive (<span style="color:#a6e22e">list</span> (read-string-hist <span style="color:#e6db74">&#34;analogy participant: &#34;</span>)
-                     (read-string-hist <span style="color:#e6db74">&#34;analogy participant: &#34;</span>)))
-  (let* ((prompt-fp (umn <span style="color:#e6db74">&#34;$MYGIT/mullikine/prompt-engineer-mode/prompts/analogy.prompt&#34;</span>)))
-    (etv (sn (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;openai-complete &#34;</span> (q prompt-fp) <span style="color:#e6db74">&#34; &#34;</span> (q former) <span style="color:#e6db74">&#34; &#34;</span>
-                     (q latter) <span style="color:#e6db74">&#34; | chomp&#34;</span>)))))</code></pre></td></tr></table>
-</div>
-</div>
-<h3 id="appendix">Appendix</h3>
-<p><a href="https://www.google.com/search?q=prompt+engineering+gpt">Prompt Engineering</a></p>
-<h3 id="examples">Examples</h3>
-<h4 id="create-analogy">Create analogy</h4>
-<!--list-separator-->
+<h2 id="usage-workflow">Usage / Workflow</h2>
 <ul>
-<li>
-<p>earth is like the universe</p>
-<p>they are both governed by the laws of physics.</p>
+<li>Enable <code>prompt-engineerer-mode</code> globally (on all buffers)</li>
+<li>Have your <code>.prompt</code> file open in one window</li>
+<li>Have the document open you want to apply prompt functions to
+<ul>
+<li>This could be source code, a chat window, or any kind of text document.</li>
+</ul>
+</li>
+<li>Apply functions to do all sorts of things
+<ul>
+<li>Summarization</li>
+<li>Generation of prose</li>
+<li>Generation of code</li>
+<li>Translation</li>
+</ul>
 </li>
 </ul>
-<!--list-separator-->
-<ul>
-<li>
-<p>vim is like emacs</p>
-<p>both are computer text editors.</p>
-</li>
-</ul>
-<!--list-separator-->
-<ul>
-<li>
-<p>Cars are like trains</p>
-<p>both travel on tracks.</p>
-</li>
-</ul>
-<!--list-separator-->
-<ul>
-<li>
-<p>dolphins are like people</p>
-<p>They are both members of the class Mammalia.</p>
-</li>
-</ul>
-<h4 id="abstractive-summarization">abstractive summarization</h4>
-<!--list-separator-->
-<ul>
-<li>
-<p>computers</p>
+<h2 id="defining-a-yaml-format">Defining a <code>YAML</code> format</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -388,99 +293,44 @@ creation, development, discovery and usage of prompts in your emacs.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    Early computers were only conceived as
-    calculating devices. Since ancient times,
-    simple manual devices like the abacus aided
-    people in doing calculations. Early in the
-    Industrial Revolution, some mechanical devices
-    were built to automate long tedious tasks,
-    such as guiding patterns for looms. More
-    sophisticated electrical machines did
-    specialized analog calculations in the early
-    20th century. The first digital electronic
-    calculating machines were developed during
-    World War II. The first semiconductor
-    transistors in the late 1940s were followed by
-    the silicon-based MOSFET (MOS transistor) and
-    monolithic integrated circuit (IC) chip
-    technologies in the late 1950s, leading to the
-    microprocessor and the microcomputer
-    revolution in the 1970s. The speed, power and
-    versatility of computers have been increasing
-    dramatically ever since then, with transistor
-    counts increasing at a rapid pace (as
-    predicted by Moore&#39;s law), leading to the
-    Digital Revolution during the late 20th to
-    early 21st centuries.
-    </code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">title</span>: <span style="color:#e6db74">&#34;complicated explanation of how to X&#34;</span>
+<span style="color:#66d9ef">prompt</span>: |<span style="color:#e6db74">+
+</span><span style="color:#e6db74">  The human asks the AI to make a simple description more complicated. The AI responds by writing a verbose response full of jargon to explain a simple concept.</span>
+
+  <span style="color:#66d9ef">Human</span>: explain how to use a drinking fountain.
+
+  <span style="color:#66d9ef">AI</span>: To activate the mechanized dihydrogen monoxide dispensary service station, use the flanges to provide a downward force to the simple circular activation console and continue to apply force until the pneumatic system begins operating as intended, which can be surmised at a time when the dihydrogen monoxide travels in a parabolic arc which at is greatest exceeds three inches from the rounded excess liquid receptacle. Once hydration is completed, cease applying force to the console and regard whether or not the dispensary has ceased expelling contents as expected.
+
+  <span style="color:#66d9ef">Human</span>: explain how to play with a dog
+
+  <span style="color:#66d9ef">AI</span>: Being a typical domesticated animal, having been genetically selected for controllability, trainability, and general anthropomorphic features and functions, the typical dog possesses highly specialized and developed feeding behavior. The typical feeding behavior involves routine sustenance intake which can be observed by monitoring changes in animal size. Routine sustenance intake involves active and passive feeding habits, and one can gauge animal health by observing the relative levels of hydration. During training, reward conditioned reinforcement is applied. This involves the practice of rewarding targeted behaviors through the application of reinforcers, with the provision that the targeted behavior is observed. Relevant to the discussion at hand is the typical active and passive behavior exhibited by a typical dog.
+
+  <span style="color:#66d9ef">Human</span>: explain how to &lt;<span style="color:#ae81ff">1</span><span style="color:#e6db74">&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">  AI:</span>
+<span style="color:#66d9ef">engine</span>: <span style="color:#e6db74">&#34;davinci&#34;</span>
+<span style="color:#66d9ef">temperature</span>: <span style="color:#ae81ff">0.8</span>
+<span style="color:#66d9ef">max-tokens</span>: <span style="color:#ae81ff">100</span>
+<span style="color:#66d9ef">top-p</span>: <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">frequency-penalty</span>: <span style="color:#ae81ff">0.2</span>
+<span style="color:#66d9ef">presence-penalty</span>: <span style="color:#ae81ff">0.4</span>
+<span style="color:#66d9ef">best-of</span>: <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">stop-sequences</span>:
+  - <span style="color:#e6db74">&#34;\n&#34;</span>
+<span style="color:#66d9ef">inject-start-text</span>: yes
+<span style="color:#66d9ef">inject-restart-text</span>: yes
+<span style="color:#66d9ef">show-probabilities</span>: off
+<span style="color:#66d9ef">vars</span>:
+  - <span style="color:#e6db74">&#34;passage&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
- <!--list-separator-->
-<ul>
-<li>
-<p>Simplification 1</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        Computers were invented to do math. Before
-        computers, people used a tool called a slide
-        rule to do math. Slide rules were hard to use,
-        so people invented a new tool called a
-        calculator. Calculators were hard to use, so
-        people invented a new tool called a computer.
-        Computers were hard to use, so people invented
-        a new tool called a computer with a screen.
-        Computers with screens were hard to use, so
-        people invented a new tool called a computer
-        you can touch
-        </code></pre></td></tr></table>
-</div>
-</div>
-</li>
-</ul>
- <!--list-separator-->
-<ul>
-<li>
-<p>Simplification 2 &ndash; I like this one</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        Computers were invented to help people do math.
-        People have been using simple machines like the abacus to help them do math for a long time.
-        More complicated machines helped people do math faster.
-        Now people can do math faster with computers.
-        </code></pre></td></tr></table>
-</div>
-</div>
-</li>
-</ul>
-</li>
-</ul>
-<!--list-separator-->
-<ul>
-<li>
-<p>jupiter</p>
+<h2 id="code-generation">Code generation</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -504,36 +354,191 @@ creation, development, discovery and usage of prompts in your emacs.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    Jupiter is the fifth planet from the Sun and
-    the largest in the Solar System.
-
-    It is a gas giant with a mass one-thousandth
-    that of the Sun, but two-and-a-half times that
-    of all the other planets in the Solar System
-    combined.
-
-    Jupiter is one of the brightest objects
-    visible to the naked eye in the night sky, and
-    has been known to ancient civilizations since
-    before recorded history.
-
-    It is named after the Roman god Jupiter.
-
-    When viewed from Earth, Jupiter can be bright
-    enough for its reflected light to cast visible
-    shadows, and is on average the third-brightest
-    natural object in the night sky after the Moon
-    and Venus.
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun pen-generate-prompt-functions ()
+  <span style="color:#e6db74">&#34;Generate prompt functions for the files in the prompts directory&#34;</span>
+  (interactive)
+  (let ((paths
+         (glob (<span style="color:#a6e22e">concat</span> pen-prompt-directory <span style="color:#e6db74">&#34;/*.prompt&#34;</span>))))
+    (cl-loop for path in paths do
+             <span style="color:#75715e">;; results in a hash table</span>
+             (let* ((yaml (yamlmod-read-file path))
+                    (title (ht-get yaml <span style="color:#e6db74">&#34;title&#34;</span>))
+                    (title-slug (slugify title))
+                    (vars (vector2list (ht-get yaml <span style="color:#e6db74">&#34;vars&#34;</span>)))
+                    (var-slugs (<span style="color:#a6e22e">mapcar</span> <span style="color:#e6db74">&#39;slugify</span> vars))
+                    (var-syms (<span style="color:#a6e22e">mapcar</span> <span style="color:#e6db74">&#39;str2sym</span> var-slugs))
+                    (func-name (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;pen-&#34;</span> title-slug))
+                    (iargs (let ((iteration <span style="color:#ae81ff">0</span>))
+                             (cl-loop for v in vars do
+                                      (progn
+                                        (setq iteration (<span style="color:#a6e22e">+</span> <span style="color:#ae81ff">1</span> iteration))
+                                        (<span style="color:#a6e22e">message</span> (str iteration)))
+                                      collect
+                                      (if (<span style="color:#a6e22e">equal</span> <span style="color:#ae81ff">1</span> iteration)
+                                          <span style="color:#75715e">;; The first argument may be captured through selection</span>
+                                          <span style="color:#f92672">`</span>(if (selectionp)
+                                               (my/selected-text)
+                                             (read-string-hist <span style="color:#f92672">,</span>(<span style="color:#a6e22e">concat</span> v <span style="color:#e6db74">&#34;: &#34;</span>)))
+                                        <span style="color:#f92672">`</span>(read-string-hist <span style="color:#f92672">,</span>(<span style="color:#a6e22e">concat</span> v <span style="color:#e6db74">&#34;: &#34;</span>)))))))
+               <span style="color:#75715e">;; var names will have to be slugged, too</span>
+               (<span style="color:#a6e22e">eval</span>
+                <span style="color:#f92672">`</span>(defun <span style="color:#f92672">,</span>(str2sym func-name) <span style="color:#f92672">,</span>var-syms
+                   (interactive <span style="color:#f92672">,</span>(<span style="color:#a6e22e">cons</span> <span style="color:#e6db74">&#39;list</span> iargs))
+                   (etv (chomp (sn <span style="color:#f92672">,</span>(flatten-once
+                                     (<span style="color:#a6e22e">list</span>
+                                      (<span style="color:#a6e22e">list</span> <span style="color:#e6db74">&#39;concat</span> <span style="color:#e6db74">&#34;openai-complete &#34;</span> (q path))
+                                      (flatten-once (cl-loop for vs in var-slugs collect
+                                                             (<span style="color:#a6e22e">list</span> <span style="color:#e6db74">&#34; &#34;</span>
+                                                                   (<span style="color:#a6e22e">list</span> <span style="color:#e6db74">&#39;q</span> (str2sym vs))))))))))))
+               (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;pen-mode: Loaded prompt function &#34;</span> func-name))))))</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="appendix">Appendix</h2>
+<p><a href="https://www.google.com/search?q=prompt+engineering+gpt">Prompt Engineering</a></p>
+<h2 id="examples">Examples</h2>
+<h3 id="create-analogy">Create analogy</h3>
+<h4 id="earth-is-like-the-universe">earth is like the universe</h4>
+<p>they are both governed by the laws of physics.</p>
+<h4 id="vim-is-like-emacs">vim is like emacs</h4>
+<p>both are computer text editors.</p>
+<h4 id="cars-are-like-trains">Cars are like trains</h4>
+<p>both travel on tracks.</p>
+<h4 id="dolphins-are-like-people">dolphins are like people</h4>
+<p>They are both members of the class Mammalia.</p>
+<h3 id="abstractive-summarization">abstractive summarization</h3>
+<h4 id="computers">computers</h4>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Early computers were only conceived as
+calculating devices. Since ancient times,
+simple manual devices like the abacus aided
+people in doing calculations. Early in the
+Industrial Revolution, some mechanical devices
+were built to automate long tedious tasks,
+such as guiding patterns for looms. More
+sophisticated electrical machines did
+specialized analog calculations in the early
+20th century. The first digital electronic
+calculating machines were developed during
+World War II. The first semiconductor
+transistors in the late 1940s were followed by
+the silicon-based MOSFET (MOS transistor) and
+monolithic integrated circuit (IC) chip
+technologies in the late 1950s, leading to the
+microprocessor and the microcomputer
+revolution in the 1970s. The speed, power and
+versatility of computers have been increasing
+dramatically ever since then, with transistor
+counts increasing at a rapid pace (as
+predicted by Moore&#39;s law), leading to the
+Digital Revolution during the late 20th to
+early 21st centuries.</code></pre></td></tr></table>
+</div>
+</div>
+<!--list-separator-->
+<ul>
+<li>
+<p>Simplification 1</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    Computers were invented to do math. Before
+    computers, people used a tool called a slide
+    rule to do math. Slide rules were hard to use,
+    so people invented a new tool called a
+    calculator. Calculators were hard to use, so
+    people invented a new tool called a computer.
+    Computers were hard to use, so people invented
+    a new tool called a computer with a screen.
+    Computers with screens were hard to use, so
+    people invented a new tool called a computer
+    you can touch
     </code></pre></td></tr></table>
 </div>
 </div>
 </li>
 </ul>
-<h3 id="implementation-code">Implementation Code</h3>
-<h4 id="emacs-lisp">emacs-lisp</h4>
-<h4 id="shell">shell</h4>
+<!--list-separator-->
+<ul>
+<li>
+<p>Simplification 2 &ndash; I like this one</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    Computers were invented to help people do math.
+    People have been using simple machines like the abacus to help them do math for a long time.
+    More complicated machines helped people do math faster.
+    Now people can do math faster with computers.
+    </code></pre></td></tr></table>
+</div>
+</div>
+</li>
+</ul>
+<h2 id="back-end">Back-end</h2>
+<h3 id="shell">shell</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -702,6 +707,15 @@ response_bytes<span style="color:#f92672">=</span><span style="color:#e6db74">&#
 tail -c +<span style="color:#66d9ef">$((</span>prompt_bytes <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#66d9ef">))</span> <span style="color:#e6db74">&#34;</span>$response_fp<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
+<h2 id="additional-reading">Additional reading</h2>
+<ul>
+<li><a href="https://www.overfit.ai/classroom-items/gpt-3-text-to-emoji">https://www.overfit.ai/classroom-items/gpt-3-text-to-emoji</a></li>
+<li><a href="https://www.gwern.net/GPT-3">https://www.gwern.net/GPT-3</a></li>
+<li><a href="https://matthewmcateer.me/blog/messing-with-gpt-3/">https://matthewmcateer.me/blog/messing-with-gpt-3/</a></li>
+<li><a href="https://youtu.be/fTvB5xMNfTY">#029 GPT-3, Prompt Engineering, Trading, AI Alignment, Intelligence - YouTube</a></li>
+<li><a href="https://github.com/mullikine/examplary">https://github.com/mullikine/examplary</a></li>
+<li><a href="https://github.com/mullikine/prompt-engineer-mode">https://github.com/mullikine/prompt-engineer-mode</a></li>
+</ul>
 
     </div>
     <div class="post-footer">
