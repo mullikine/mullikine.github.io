@@ -3,11 +3,11 @@
   <head>
     <title>Review of &#39;Overview of Docker Compose | Docker Documentation&#39; // Bodacious Blog</title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Shane Mulligan" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c93a97e54f16df99439e5c4acf79edb18fcb9e5384f1edc008a7a4639844b254.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.2bfe7cfe7fedef2035111ccbe161703821675a1c9b9c564aa3ebd4c4b065be3c.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -23,9 +23,10 @@ Use a YAML file to configure your application&rsquo;s services.
 Works in all environments: - production, - staging, - development, - testing, - CI
 3 steps: - Define your app&rsquo;s environment with a Dockerfile so it can be reproduced anywhere. - Define the services that make up your app in docker-compose.yml so they can be run together in an isolated environment." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/review-of-overview-of-docker-compose-docker-documentation/" />
-<meta property="article:published_time" content="2020-06-16T00:00:00+08:00" />
-<meta property="article:modified_time" content="2020-06-16T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:url" content="https://mullikine.github.io/posts/review-of-overview-of-docker-compose-docker-documentation/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-06-16T00:00:00&#43;08:00" />
+<meta property="article:modified_time" content="2020-06-16T00:00:00&#43;08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
 
 
   </head>
@@ -226,21 +227,21 @@ Works in all environments: - production, - staging, - development, - testing, - 
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">version</span>: <span style="color:#e6db74">&#39;2.0&#39;</span>
-<span style="color:#66d9ef">services</span>:
-  <span style="color:#66d9ef">web</span>:
-    <span style="color:#66d9ef">build</span>: .
-    <span style="color:#66d9ef">ports</span>:
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;2.0&#39;</span>
+<span style="color:#f92672">services</span>:
+  <span style="color:#f92672">web</span>:
+    <span style="color:#f92672">build</span>: <span style="color:#ae81ff">.</span>
+    <span style="color:#f92672">ports</span>:
     - <span style="color:#e6db74">&#34;5000:5000&#34;</span>
-    <span style="color:#66d9ef">volumes</span>:
-    - .:/code
-    - logvolume01:/var/log
-    <span style="color:#66d9ef">links</span>:
-    - redis
-  <span style="color:#66d9ef">redis</span>:
-    <span style="color:#66d9ef">image</span>: redis
-<span style="color:#66d9ef">volumes</span>:
-  <span style="color:#66d9ef">logvolume01</span>: {}</code></pre></td></tr></table>
+    <span style="color:#f92672">volumes</span>:
+    - <span style="color:#ae81ff">.:/code</span>
+    - <span style="color:#ae81ff">logvolume01:/var/log</span>
+    <span style="color:#f92672">links</span>:
+    - <span style="color:#ae81ff">redis</span>
+  <span style="color:#f92672">redis</span>:
+    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">redis</span>
+<span style="color:#f92672">volumes</span>:
+  <span style="color:#f92672">logvolume01</span>: {}</code></pre></td></tr></table>
 </div>
 </div>
 <ul>
@@ -287,8 +288,8 @@ changed.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">db</span>:
-  <span style="color:#66d9ef">image</span>: <span style="color:#e6db74">&#34;postgres:${POSTGRES_VERSION}&#34;</span></code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">db</span>:
+  <span style="color:#f92672">image</span>: <span style="color:#e6db74">&#34;postgres:${POSTGRES_VERSION}&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
 <h3 id="extends-field-keyword"><code>extends</code> field / keyword</h3>
@@ -313,10 +314,10 @@ service like this:</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">web</span>:
-  <span style="color:#66d9ef">extends</span>:
-    <span style="color:#66d9ef">file</span>: common-services.yml
-    <span style="color:#66d9ef">service</span>: webapp</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">web</span>:
+  <span style="color:#f92672">extends</span>:
+    <span style="color:#f92672">file</span>: <span style="color:#ae81ff">common-services.yml</span>
+    <span style="color:#f92672">service</span>: <span style="color:#ae81ff">webapp</span></code></pre></td></tr></table>
 </div>
 </div>
 <p><code>common-services.yml</code></p>
@@ -330,11 +331,11 @@ service like this:</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">webapp</span>:
-  <span style="color:#66d9ef">build</span>: .
-  <span style="color:#66d9ef">ports</span>:
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">webapp</span>:
+  <span style="color:#f92672">build</span>: <span style="color:#ae81ff">.</span>
+  <span style="color:#f92672">ports</span>:
     - <span style="color:#e6db74">&#34;8000:8000&#34;</span>
-  <span style="color:#66d9ef">volumes</span>:
+  <span style="color:#f92672">volumes</span>:
     - <span style="color:#e6db74">&#34;/data&#34;</span></code></pre></td></tr></table>
 </div>
 </div>

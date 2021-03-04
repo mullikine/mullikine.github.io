@@ -3,11 +3,11 @@
   <head>
     <title>Convert docker-compose to kubernetes // Bodacious Blog</title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Shane Mulligan" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c93a97e54f16df99439e5c4acf79edb18fcb9e5384f1edc008a7a4639844b254.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.2bfe7cfe7fedef2035111ccbe161703821675a1c9b9c564aa3ebd4c4b065be3c.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -23,9 +23,10 @@ kompose takes a Docker Compose file and translates it into k8s resources.
 kompose is a convenience tool to go from local Docker development to managing your application with k8s.
 Transformation of the Docker Compose format to k8s resources manifest may not be exact, but it helps tremendously when first deploying an application on k8s." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/convert-docker-compose-to-kubernetes/" />
-<meta property="article:published_time" content="2020-06-17T00:00:00+08:00" />
-<meta property="article:modified_time" content="2020-06-17T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:url" content="https://mullikine.github.io/posts/convert-docker-compose-to-kubernetes/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-06-17T00:00:00&#43;08:00" />
+<meta property="article:modified_time" content="2020-06-17T00:00:00&#43;08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
 
 
   </head>
@@ -318,20 +319,20 @@ is_tty<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: v1
-<span style="color:#66d9ef">kind</span>: PersistentVolumeClaim
-<span style="color:#66d9ef">metadata</span>:
-  <span style="color:#66d9ef">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
-  <span style="color:#66d9ef">labels</span>:
-    <span style="color:#66d9ef">io.kompose.service</span>: parsr-claim0
-  <span style="color:#66d9ef">name</span>: parsr-claim0
-<span style="color:#66d9ef">spec</span>:
-  <span style="color:#66d9ef">accessModes</span>:
-  - ReadWriteOnce
-  <span style="color:#66d9ef">resources</span>:
-    <span style="color:#66d9ef">requests</span>:
-      <span style="color:#66d9ef">storage</span>: 100Mi
-<span style="color:#66d9ef">status</span>: {}</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">PersistentVolumeClaim</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#f92672">labels</span>:
+    <span style="color:#f92672">io.kompose.service</span>: <span style="color:#ae81ff">parsr-claim0</span>
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">parsr-claim0</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">accessModes</span>:
+  - <span style="color:#ae81ff">ReadWriteOnce</span>
+  <span style="color:#f92672">resources</span>:
+    <span style="color:#f92672">requests</span>:
+      <span style="color:#f92672">storage</span>: <span style="color:#ae81ff">100Mi</span>
+<span style="color:#f92672">status</span>: {}</code></pre></td></tr></table>
 </div>
 </div>
 <p><span class="underline"><strong>parsr-deployment.yaml</strong></span></p>
@@ -382,49 +383,49 @@ is_tty<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: apps/v1
-<span style="color:#66d9ef">kind</span>: Deployment
-<span style="color:#66d9ef">metadata</span>:
-  <span style="color:#66d9ef">annotations</span>:
-    <span style="color:#66d9ef">kompose.cmd</span>: kompose convert -f docker-compose.yml
-    <span style="color:#66d9ef">kompose.version</span>: <span style="color:#ae81ff">1.21.0</span> (HEAD)
-  <span style="color:#66d9ef">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
-  <span style="color:#66d9ef">labels</span>:
-    <span style="color:#66d9ef">io.kompose.service</span>: parsr
-  <span style="color:#66d9ef">name</span>: parsr
-<span style="color:#66d9ef">spec</span>:
-  <span style="color:#66d9ef">replicas</span>: <span style="color:#ae81ff">1</span>
-  <span style="color:#66d9ef">selector</span>:
-    <span style="color:#66d9ef">matchLabels</span>:
-      <span style="color:#66d9ef">io.kompose.service</span>: parsr
-  <span style="color:#66d9ef">strategy</span>:
-    <span style="color:#66d9ef">type</span>: Recreate
-  <span style="color:#66d9ef">template</span>:
-    <span style="color:#66d9ef">metadata</span>:
-      <span style="color:#66d9ef">annotations</span>:
-        <span style="color:#66d9ef">kompose.cmd</span>: kompose convert -f docker-compose.yml
-        <span style="color:#66d9ef">kompose.version</span>: <span style="color:#ae81ff">1.21.0</span> (HEAD)
-      <span style="color:#66d9ef">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
-      <span style="color:#66d9ef">labels</span>:
-        <span style="color:#66d9ef">io.kompose.service</span>: parsr
-    <span style="color:#66d9ef">spec</span>:
-      <span style="color:#66d9ef">containers</span>:
-      - <span style="color:#66d9ef">image</span>: axarev/parsr
-        <span style="color:#66d9ef">imagePullPolicy</span>: <span style="color:#e6db74">&#34;&#34;</span>
-        <span style="color:#66d9ef">name</span>: parsr
-        <span style="color:#66d9ef">ports</span>:
-        - <span style="color:#66d9ef">containerPort</span>: <span style="color:#ae81ff">3001</span>
-        <span style="color:#66d9ef">resources</span>: {}
-        <span style="color:#66d9ef">volumeMounts</span>:
-        - <span style="color:#66d9ef">mountPath</span>: /opt/app-root/src/api/server/dist/output
-          <span style="color:#66d9ef">name</span>: parsr-claim0
-      <span style="color:#66d9ef">restartPolicy</span>: Always
-      <span style="color:#66d9ef">serviceAccountName</span>: <span style="color:#e6db74">&#34;&#34;</span>
-      <span style="color:#66d9ef">volumes</span>:
-      - <span style="color:#66d9ef">name</span>: parsr-claim0
-        <span style="color:#66d9ef">persistentVolumeClaim</span>:
-          <span style="color:#66d9ef">claimName</span>: parsr-claim0
-<span style="color:#66d9ef">status</span>: {}</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">apps/v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Deployment</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">annotations</span>:
+    <span style="color:#f92672">kompose.cmd</span>: <span style="color:#ae81ff">kompose convert -f docker-compose.yml</span>
+    <span style="color:#f92672">kompose.version</span>: <span style="color:#ae81ff">1.21.0</span> <span style="color:#ae81ff">(HEAD)</span>
+  <span style="color:#f92672">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#f92672">labels</span>:
+    <span style="color:#f92672">io.kompose.service</span>: <span style="color:#ae81ff">parsr</span>
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">parsr</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">1</span>
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">matchLabels</span>:
+      <span style="color:#f92672">io.kompose.service</span>: <span style="color:#ae81ff">parsr</span>
+  <span style="color:#f92672">strategy</span>:
+    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">Recreate</span>
+  <span style="color:#f92672">template</span>:
+    <span style="color:#f92672">metadata</span>:
+      <span style="color:#f92672">annotations</span>:
+        <span style="color:#f92672">kompose.cmd</span>: <span style="color:#ae81ff">kompose convert -f docker-compose.yml</span>
+        <span style="color:#f92672">kompose.version</span>: <span style="color:#ae81ff">1.21.0</span> <span style="color:#ae81ff">(HEAD)</span>
+      <span style="color:#f92672">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
+      <span style="color:#f92672">labels</span>:
+        <span style="color:#f92672">io.kompose.service</span>: <span style="color:#ae81ff">parsr</span>
+    <span style="color:#f92672">spec</span>:
+      <span style="color:#f92672">containers</span>:
+      - <span style="color:#f92672">image</span>: <span style="color:#ae81ff">axarev/parsr</span>
+        <span style="color:#f92672">imagePullPolicy</span>: <span style="color:#e6db74">&#34;&#34;</span>
+        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">parsr</span>
+        <span style="color:#f92672">ports</span>:
+        - <span style="color:#f92672">containerPort</span>: <span style="color:#ae81ff">3001</span>
+        <span style="color:#f92672">resources</span>: {}
+        <span style="color:#f92672">volumeMounts</span>:
+        - <span style="color:#f92672">mountPath</span>: <span style="color:#ae81ff">/opt/app-root/src/api/server/dist/output</span>
+          <span style="color:#f92672">name</span>: <span style="color:#ae81ff">parsr-claim0</span>
+      <span style="color:#f92672">restartPolicy</span>: <span style="color:#ae81ff">Always</span>
+      <span style="color:#f92672">serviceAccountName</span>: <span style="color:#e6db74">&#34;&#34;</span>
+      <span style="color:#f92672">volumes</span>:
+      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">parsr-claim0</span>
+        <span style="color:#f92672">persistentVolumeClaim</span>:
+          <span style="color:#f92672">claimName</span>: <span style="color:#ae81ff">parsr-claim0</span>
+<span style="color:#f92672">status</span>: {}</code></pre></td></tr></table>
 </div>
 </div>
 <p><span class="underline"><strong>parsr-service.yaml</strong></span></p>
@@ -451,25 +452,25 @@ is_tty<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">apiVersion</span>: v1
-<span style="color:#66d9ef">kind</span>: Service
-<span style="color:#66d9ef">metadata</span>:
-  <span style="color:#66d9ef">annotations</span>:
-    <span style="color:#66d9ef">kompose.cmd</span>: kompose convert -f docker-compose.yml
-    <span style="color:#66d9ef">kompose.version</span>: <span style="color:#ae81ff">1.21.0</span> (HEAD)
-  <span style="color:#66d9ef">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
-  <span style="color:#66d9ef">labels</span>:
-    <span style="color:#66d9ef">io.kompose.service</span>: parsr
-  <span style="color:#66d9ef">name</span>: parsr
-<span style="color:#66d9ef">spec</span>:
-  <span style="color:#66d9ef">ports</span>:
-  - <span style="color:#66d9ef">name</span>: <span style="color:#e6db74">&#34;3001&#34;</span>
-    <span style="color:#66d9ef">port</span>: <span style="color:#ae81ff">3001</span>
-    <span style="color:#66d9ef">targetPort</span>: <span style="color:#ae81ff">3001</span>
-  <span style="color:#66d9ef">selector</span>:
-    <span style="color:#66d9ef">io.kompose.service</span>: parsr
-<span style="color:#66d9ef">status</span>:
-  <span style="color:#66d9ef">loadBalancer</span>: {}</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+<span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+<span style="color:#f92672">metadata</span>:
+  <span style="color:#f92672">annotations</span>:
+    <span style="color:#f92672">kompose.cmd</span>: <span style="color:#ae81ff">kompose convert -f docker-compose.yml</span>
+    <span style="color:#f92672">kompose.version</span>: <span style="color:#ae81ff">1.21.0</span> <span style="color:#ae81ff">(HEAD)</span>
+  <span style="color:#f92672">creationTimestamp</span>: <span style="color:#66d9ef">null</span>
+  <span style="color:#f92672">labels</span>:
+    <span style="color:#f92672">io.kompose.service</span>: <span style="color:#ae81ff">parsr</span>
+  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">parsr</span>
+<span style="color:#f92672">spec</span>:
+  <span style="color:#f92672">ports</span>:
+  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;3001&#34;</span>
+    <span style="color:#f92672">port</span>: <span style="color:#ae81ff">3001</span>
+    <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">3001</span>
+  <span style="color:#f92672">selector</span>:
+    <span style="color:#f92672">io.kompose.service</span>: <span style="color:#ae81ff">parsr</span>
+<span style="color:#f92672">status</span>:
+  <span style="color:#f92672">loadBalancer</span>: {}</code></pre></td></tr></table>
 </div>
 </div>
 <p>etc.</p>

@@ -3,11 +3,11 @@
   <head>
     <title>Add stdin to babel src blocks. Pipe one block into the next // Bodacious Blog</title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Shane Mulligan" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c93a97e54f16df99439e5c4acf79edb18fcb9e5384f1edc008a7a4639844b254.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.2bfe7cfe7fedef2035111ccbe161703821675a1c9b9c564aa3ebd4c4b065be3c.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -17,9 +17,10 @@
     <meta property="og:title" content="Add stdin to babel src blocks. Pipe one block into the next" />
 <meta property="og:description" content="The plan:  Do some research into existing emacs lisp code  Figure out how to get the contents of a named block and use it as the stdin to a babel block.   Extend babel so that I can chain scripts of multiple languages together in babel  Here are some named blocks I&rsquo;ll use for testing 1  (org-babel-goto-named-src-block &#34;mycode&#34;)   1 2  (org-babel-goto-named-result) (org-babel-goto-named-src-block)    1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  (defun org-copy-thing-here () (interactive) (if (or (org-in-src-block-p) (org-in-block-p &#39;(&#34;src&#34; &#34;example&#34; &#34;verbatim&#34; &#34;clocktable&#34;))) (org-copy-src-block) (self-insert-command 1))) (defun org-copy-src-block () (interactive) (shut-up (my-copy org-get-src-block-here))) (defun org-get-src-block-here () (interactive) (org-edit-src-code) (mark-whole-buffer) (let ((contents (sh/chomp (selection)))) ;; (easy-kill 1) (org-edit-src-abort) contents))" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/add-stdin-to-babel-src-blocks-pipe-one-block-into-the-next/" />
-<meta property="article:published_time" content="2020-06-07T00:00:00+08:00" />
-<meta property="article:modified_time" content="2020-06-07T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:url" content="https://mullikine.github.io/posts/add-stdin-to-babel-src-blocks-pipe-one-block-into-the-next/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-06-07T00:00:00&#43;08:00" />
+<meta property="article:modified_time" content="2020-06-07T00:00:00&#43;08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
 
 
   </head>

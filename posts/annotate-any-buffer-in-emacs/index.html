@@ -3,11 +3,11 @@
   <head>
     <title>annotate any buffer in emacs // Bodacious Blog</title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Shane Mulligan" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c93a97e54f16df99439e5c4acf79edb18fcb9e5384f1edc008a7a4639844b254.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.2bfe7cfe7fedef2035111ccbe161703821675a1c9b9c564aa3ebd4c4b065be3c.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -23,9 +23,10 @@ I&rsquo;d like to make this work for any buffer.
 Demonstration &ndash; annotating dired 
 Firstly, override the annotate-actual-file-name function to handle more buffer types 1 2 3 4 5 6 7 8 9 10 11  (defun annotate-actual-file-name () &#34;Get the actual file name of the current buffer&#34; (substring-no-properties (or (annotate-info-actual-filename) (string-or (buffer-file-name)) (string-or (if (major-mode-p &#39;eww-mode) (concat &#34;**&#34; (get-path)))) (string-or (try (concat &#34;**&#34; (cond ((major-mode-p &#39;dired-mode) (slugify (concat (str (buffer-mode)) &#34;-&#34; (mnm (my/pwd)) &#34;-&#34; (buffer-name)))) (t (slugify (concat (str (buffer-mode)) &#34;-&#34; (buffer-name)))))) &#34;&#34;)) &#34;&#34;)))   Add to some hooks for buffer types I&rsquo;d like to annotate 1 2 3 4 5  (defset modes-for-annotate-mode &#39;(Info-mode-hook helpful-mode help-mode prog-mode conf-mode text-mode yaml-mode ssh-config-mode)) (cl-loop for m in modes-for-annotate-mode do ;; (message (str m)) (let ((h (str2sym (concat (sym2str m) &#34;-hook&#34;)))) (add-hook h &#39;enable-annotate t)))   dired-mode-hook happens too early, so I needed this 1 2 3 4 5  (defun dired-around-advice (proc &amp;rest args) (let ((res (apply proc args))) (enable-annotate) res)) (advice-add &#39;dired :around #&#39;dired-around-advice)   When annotate is loaded, it creates some overlays." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/annotate-any-buffer-in-emacs/" />
-<meta property="article:published_time" content="2020-09-07T00:00:00+12:00" />
-<meta property="article:modified_time" content="2020-09-07T00:00:00+12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:url" content="https://mullikine.github.io/posts/annotate-any-buffer-in-emacs/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-09-07T00:00:00&#43;12:00" />
+<meta property="article:modified_time" content="2020-09-07T00:00:00&#43;12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
 
 
   </head>

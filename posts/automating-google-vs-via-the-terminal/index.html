@@ -3,11 +3,11 @@
   <head>
     <title>Automating Google vs via the terminal // Bodacious Blog</title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Shane Mulligan" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c93a97e54f16df99439e5c4acf79edb18fcb9e5384f1edc008a7a4639844b254.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.2bfe7cfe7fedef2035111ccbe161703821675a1c9b9c564aa3ebd4c4b065be3c.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -17,9 +17,10 @@
     <meta property="og:title" content="Automating Google vs via the terminal" />
 <meta property="og:description" content="Original article https://medium.com/applied-data-science/the-google-vs-trick-618c8fd5359f   1 2 3 4 5 6 7 8 9 10 11  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null term=&#34;$@&#34; term=&#34;$(p &#34;$term&#34; | urlencode)&#34; curl &#34;http://suggestqueries.google.com/complete/search?&amp;output=toolbar&amp;gl=us&amp;hl=en&amp;q=$term%20vs&#34; | xml2json | jq -r &#39;.toplevel.CompleteSuggestion[].suggestion.data&#39; | sed &#34;s/^$termvs \?//&#34; | uniqnosort | sed &#34;/^$/d&#34; | pavs   1  google-vs apple | fzf --sync | xa google-vs | fzf --sync | xa google-vs | fzf --sync | xa google-vs | fzf --sync | xa google-vs   Demonstration: Finding alternatives" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/automating-google-vs-via-the-terminal/" />
-<meta property="article:published_time" content="2020-06-23T00:00:00+08:00" />
-<meta property="article:modified_time" content="2020-06-23T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:url" content="https://mullikine.github.io/posts/automating-google-vs-via-the-terminal/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-06-23T00:00:00&#43;08:00" />
+<meta property="article:modified_time" content="2020-06-23T00:00:00&#43;08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
 
 
   </head>

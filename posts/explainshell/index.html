@@ -3,11 +3,11 @@
   <head>
     <title>explainshell in zsh // Bodacious Blog</title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Shane Mulligan" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c93a97e54f16df99439e5c4acf79edb18fcb9e5384f1edc008a7a4639844b254.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.2bfe7cfe7fedef2035111ccbe161703821675a1c9b9c564aa3ebd4c4b065be3c.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -17,9 +17,10 @@
     <meta property="og:title" content="explainshell in zsh" />
 <meta property="og:description" content="Create the script 1 2 3 4 5 6 7 8 9 10 11 12 13  #!/bin/bash export TTY IFS= read -rd &#39;&#39; input &lt; &lt;(cat /dev/stdin) query=&#34;$(p &#34;$input&#34; | urlencode)&#34; url=&#34;https://explainshell.com/explain?cmd=$query&#34; # echo &#34;$url&#34; exec &lt;&amp;1 eww &#34;$url&#34;   Create the function 1 2 3 4 5 6 7 8 9  function zshexplainshell { tf_zle=&#34;$(mktemp ${TMPDIR}/tf_zleXXXXXX || echo /dev/null)&#34; print -R - &#34;$PREBUFFER$BUFFER&#34; &gt; $tf_zle exec &lt;&amp;1 print -R - &#34;$PREBUFFER$BUFFER&#34; | explainshell print -Rz - &#34;$(&lt;$tf_zle)&#34; zle send-break	# Force reload from the buffer stack }   Create the binding 1 2 3 4  # M-E autoload -z zshexplainshell zle -N zshexplainshell bindkey &#34;\eE&#34; zshexplainshell   Demonstration 1  x -sh &#34;zcd ." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/explainshell/" />
-<meta property="article:published_time" content="2019-12-15T00:00:00+13:00" />
-<meta property="article:modified_time" content="2019-12-15T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:url" content="https://mullikine.github.io/posts/explainshell/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-12-15T00:00:00&#43;13:00" />
+<meta property="article:modified_time" content="2019-12-15T00:00:00&#43;13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
 
 
   </head>

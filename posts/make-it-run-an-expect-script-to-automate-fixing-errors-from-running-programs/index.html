@@ -3,11 +3,11 @@
   <head>
     <title>make-it-run, an expect script to automate fixing errors from running programs // Bodacious Blog</title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Shane Mulligan" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c93a97e54f16df99439e5c4acf79edb18fcb9e5384f1edc008a7a4639844b254.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.2bfe7cfe7fedef2035111ccbe161703821675a1c9b9c564aa3ebd4c4b065be3c.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -21,9 +21,10 @@ Code The invocation command 1  make-it-run pti38 &#34;ModuleNotFoundError:.*&#34
 Code The invocation command 1  make-it-run pti38 &#34;ModuleNotFoundError:.*&#34; &#34;sps pip-install-from-error&#34;   shell make-it-run
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null # command c=&#34;$1&#34; # expect bad pattern e=&#34;$2&#34; # fix command fc=&#34;$3&#34; { test -z &#34;$c&#34; || test -z &#34;$e&#34; || test -z &#34;$fc&#34;; } &amp;&amp; exit 1 e=&#34;$(p &#34;$e&#34; | sed &#39;s/\([[`;$&#34;]\)/\\\1/g&#39;)&#34; x -sh &#34;$c&#34; -w &#34;expect {\n-re \&#34;$e\&#34; { set user_input \&#34;\$expect_out(0,string)\&#34;; set ret [exec $fc\&#34;\$user_input\&#34;]; exit 1; } default { interact; }; }&#34;   py-import-to-package Use Google to guess what the pypi package name is from its import." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/make-it-run-an-expect-script-to-automate-fixing-errors-from-running-programs/" />
-<meta property="article:published_time" content="2020-11-12T00:00:00+13:00" />
-<meta property="article:modified_time" content="2020-11-12T00:00:00+13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:url" content="https://mullikine.github.io/posts/make-it-run-an-expect-script-to-automate-fixing-errors-from-running-programs/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-11-12T00:00:00&#43;13:00" />
+<meta property="article:modified_time" content="2020-11-12T00:00:00&#43;13:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
 
 
   </head>

@@ -3,11 +3,11 @@
   <head>
     <title>Controlled Text Generation // Bodacious Blog</title>
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.71.0" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Shane Mulligan" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c93a97e54f16df99439e5c4acf79edb18fcb9e5384f1edc008a7a4639844b254.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.2bfe7cfe7fedef2035111ccbe161703821675a1c9b9c564aa3ebd4c4b065be3c.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -19,9 +19,10 @@ This controlled LG method consists of plugging in simple bag-of-words or one-lay
 <meta property="og:description" content="Original article https://eng.uber.com/pplm/ https://github.com/uber-research/PPLM https://github.com/huggingface/transformers/blob/master/examples/pplm/README.md Uber AI Plug and Play Language Model  Controlling Text Generation with Plug and Play Language Model (PPLM) PPLM builds on top of other large transformer- based generative models (like GPT-2), where it enables finer-grained control of attributes of the generated language (e.g. gradually switching topic 🐱 or sentiment 😃).
 This controlled LG method consists of plugging in simple bag-of-words or one-layer classifiers as attribute controllers, and making updates in the activation space, without changing any model parameters." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/controlled-text-generation/" />
-<meta property="article:published_time" content="2019-12-06T00:00:00+08:00" />
-<meta property="article:modified_time" content="2019-12-06T00:00:00+08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:url" content="https://mullikine.github.io/posts/controlled-text-generation/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-12-06T00:00:00&#43;08:00" />
+<meta property="article:modified_time" content="2019-12-06T00:00:00&#43;08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
 
 
   </head>
@@ -381,9 +382,9 @@ importance sampling
 <p>Such a process to generate a sentence about
 politics could loosely work like this:</p>
 <ul>
-<li><span class="underline">**Step 1:**</span> generate a sentence x from <code>p(x)</code></li>
-<li><span class="underline">**Step 2:**</span> give it to =p(a|x) =to see if it’s about politics</li>
-<li><span class="underline">**Step 3:**</span> if it’s not, go to (1).</li>
+<li><span class="underline"><strong>Step 1:</strong></span> generate a sentence x from <code>p(x)</code></li>
+<li><span class="underline"><strong>Step 2:</strong></span> give it to =p(a|x) =to see if it’s about politics</li>
+<li><span class="underline"><strong>Step 3:</strong></span> if it’s not, go to (1).</li>
 </ul>
 <p>Unfortunately, it may take exponentially long
 to randomly generate a sentence about
@@ -402,12 +403,12 @@ Networks (PPGN) model.</p>
 <p>In this vein, the PPLM algorithm entails three
 simple steps to generate a sample:</p>
 <ul>
-<li><span class="underline">**Step 1:**</span> Given a partially generated sentence,
+<li><span class="underline"><strong>Step 1:</strong></span> Given a partially generated sentence,
 compute <code>log(p(x))</code> and <code>log(p(a|x))</code> and the gradients of each with respect to the hidden representation of the underlying language model.
 These quantities are both available using an efficient forward and backward pass of both models.</li>
-<li><span class="underline">**Step 2:**</span> Use the gradients to move the hidden representation of the language model a small step in the
+<li><span class="underline"><strong>Step 2:</strong></span> Use the gradients to move the hidden representation of the language model a small step in the
 direction of increasing <code>log(p(a|x))</code> and increasing <code>log(p(x))</code>.</li>
-<li><span class="underline">**Step 3:**</span> Sample the next word.</li>
+<li><span class="underline"><strong>Step 3:</strong></span> Sample the next word.</li>
 </ul>
 <p>Intuitively, as a PPLM generates text one
 token at a time, it continuously steers its
