@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Review of The Case for Learned Index Structures // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.3b5673793d1ef3ca96a58641efdd8a85521a9f081ccdc33ae9f2cafb6fa9c758.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Review of The Case for Learned Index Structures"/>
+<meta name="twitter:description" content="Authors &ldquo;The Case for Learned Index Structures&rdquo;  Paper code arXiv:1712.0120l8v3 Date &lt;2018-04-30 Mon&gt; URL https://www.arxiv-vanity.com/papers/1712.01208/  Researchers    Tim Kraska MIT Cambridge, MA kraska@mit.edu     Alex Beutel Google, Inc. Mountain View, CA alexbeutel@google.com   Ed H. Chi Google, Inc. Mountain View, CA edchi@google.com   Jeffrey Dean Google, Inc. Mountain View, CA jeff@google.com   Neoklis Polyzotis Google, Inc. Mountain View, CA npolyzotis@google.com    Jeff  Lead of Google."/>
+
+    <meta property="og:title" content="Review of The Case for Learned Index Structures" />
+<meta property="og:description" content="Authors &ldquo;The Case for Learned Index Structures&rdquo;  Paper code arXiv:1712.0120l8v3 Date &lt;2018-04-30 Mon&gt; URL https://www.arxiv-vanity.com/papers/1712.01208/  Researchers    Tim Kraska MIT Cambridge, MA kraska@mit.edu     Alex Beutel Google, Inc. Mountain View, CA alexbeutel@google.com   Ed H. Chi Google, Inc. Mountain View, CA edchi@google.com   Jeffrey Dean Google, Inc. Mountain View, CA jeff@google.com   Neoklis Polyzotis Google, Inc. Mountain View, CA npolyzotis@google.com    Jeff  Lead of Google." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/review-of-the-case-for-learned-index-structures/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2018-04-30T00:00:00&#43;12:00" />
+<meta property="article:modified_time" content="2018-04-30T00:00:00&#43;12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+
+<a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a class="big" href="https://takaheai.github.io/">TakaheAI Blog</a>
+<br />
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/generating-hyperlinks-for-glossaries-and-other-parsers-in-emacs/">Hyperlink generation in emacs</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (298 topics)</a> <a href="https://github.com/mullikine/glossaries-gh">code</a>
+<br />
+<a href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">Automating Dwarf Fortress</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<a class="big" href="https://github.com/semiosis">Semiosis on Github</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/xenolinguistics/">xenolinguistics</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/gpt/">GPT (Generative Pre-trained Transformer)</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/shell/">shell</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/github/">GitHub</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsl/">DSL</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/diagrams/">diagrams</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/aws/">AWS</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a>
+<a class="tag" href="https://mullikine.github.io/tags/iac/">IaC</a>
+<a class="tag big" href="https://mullikine.github.io/tags/facebook/">Facebook</a>
+<a class="tag" href="https://mullikine.github.io/tags/wfh/">WFH</a>
+
+
+<a class="tag" href="https://mullikine.github.io/tags/babel/">babel</a>
+<a class="tag big" href="https://mullikine.github.io/tags/uber/">Uber</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/microsoft/">Microsoft</a>
+<a class="tag big" href="https://mullikine.github.io/tags/openai/">OpenAI</a>
+<a class="tag" href="https://mullikine.github.io/tags/rosie/">rosie</a>
+<a class="tag" href="https://mullikine.github.io/tags/terraform/">Terraform</a>
+<a class="tag" href="https://mullikine.github.io/tags/elasticsearch/">ELK</a>
+<a class="tag" href="https://mullikine.github.io/tags/semmle/">Semmle</a>
+<a class="tag" href="https://mullikine.github.io/tags/expect/">tcl/expect</a>
+<a class="tag" href="https://mullikine.github.io/tags/solr/">solr</a>
+</div>
+</div>
+
+
+
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Review of The Case for Learned Index Structures</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Apr 30, 2018
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          11 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/ir/">ir</a><a class="tag" href="http://mullikine.github.io/tags/google/">google</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      <h2 id="authors">Authors</h2>
+<h3 id="the-case-for-learned-index-structures">&ldquo;<em>The Case for Learned Index Structures</em>&rdquo;</h3>
+<dl>
+<dt>Paper code</dt>
+<dd>arXiv:1712.0120l8v3</dd>
+<dt>Date</dt>
+<dd><span class="timestamp-wrapper"><span class="timestamp">&lt;2018-04-30 Mon&gt;</span></span></dd>
+<dt>URL</dt>
+<dd><a href="https://www.arxiv-vanity.com/papers/1712.01208/">https://www.arxiv-vanity.com/papers/1712.01208/</a></dd>
+</dl>
+<h4 id="researchers">Researchers</h4>
+<table>
+<thead>
+<tr>
+<th>Tim Kraska</th>
+<th>MIT</th>
+<th>Cambridge, MA</th>
+<th><a href="mailto:kraska@mit.edu">kraska@mit.edu</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Alex Beutel</td>
+<td>Google, Inc.</td>
+<td>Mountain View, CA</td>
+<td><a href="mailto:alexbeutel@google.com">alexbeutel@google.com</a></td>
+</tr>
+<tr>
+<td>Ed H. Chi</td>
+<td>Google, Inc.</td>
+<td>Mountain View, CA</td>
+<td><a href="mailto:edchi@google.com">edchi@google.com</a></td>
+</tr>
+<tr>
+<td>Jeffrey Dean</td>
+<td>Google, Inc.</td>
+<td>Mountain View, CA</td>
+<td><a href="mailto:jeff@google.com">jeff@google.com</a></td>
+</tr>
+<tr>
+<td>Neoklis Polyzotis</td>
+<td>Google, Inc.</td>
+<td>Mountain View, CA</td>
+<td><a href="mailto:npolyzotis@google.com">npolyzotis@google.com</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="jeff">Jeff</h4>
+<ul>
+<li>Lead of Google.ai. Pretty cool guy.</li>
+<li>2017, &ldquo;Outrageously Large Neural Networks&rdquo;.</li>
+</ul>
+<h2 id="preliminaries">Preliminaries</h2>
+<h3 id="background-knowledge">Background Knowledge</h3>
+<dl>
+<dt>Deep learning models</dt>
+<dd>are function approximators.</dd>
+</dl>
+<h4 id="search-engine-vs-database">Search engine vs Database</h4>
+<ul>
+<li><span class="underline">Relational Databases</span> use a <span class="underline">B-Tree index</span>.</li>
+<li><strong>Search engines</strong> mostly use <strong>inverted index</strong>.q</li>
+<li><span class="underline">Relational Databases</span> give you what you <span class="underline">asked for</span>.</li>
+<li><strong>Search engines</strong> give you what you <strong>wanted</strong>.</li>
+</ul>
+<h4 id="terminology">Terminology</h4>
+<dl>
+<dt><span class="underline">Indices</span></dt>
+<dd>= indexes. Indexes just sounds wrong to me.</dd>
+<dt><span class="underline">Model</span></dt>
+<dd>The <strong>set of functions</strong> that describe the relations between variables.</dd>
+</dl>
+<blockquote>
+<p>&ldquo;Probabilistic and information theoretic methods are used to make results better anyway.
+Compromises are made anyway. Query reformulation, drift, etc.
+So it is just a natural progression to use NNs for some of these components? Am I right.&rdquo; &ndash; A quote from myself.</p>
+</blockquote>
+<h3 id="more-background-knowledge">More Background Knowledge</h3>
+<h4 id="the-research-works-under-the-premise-that">The research works under the premise that</h4>
+<ul>
+<li><strong>Indices are models</strong> (set of functions). For example,
+<ul>
+<li><strong>B-Tree-Index:</strong> \(f: key \mapsto pos\)
+<ul>
+<li>\(pos\) is the position of a record, within a <strong>sorted</strong> array</li>
+</ul>
+</li>
+<li><strong>Hash-Index:</strong> \(f: key \mapsto pos\)
+<ul>
+<li>\(pos\) is the position of a record, within an <strong>unsorted</strong> array</li>
+</ul>
+</li>
+<li><strong>BitMap-Index:</strong> indicates if a data record exists or not</li>
+</ul>
+</li>
+</ul>
+<h4 id="a-new-term-is-introduced">A new term is introduced!</h4>
+<dl>
+<dt><span class="underline"><strong>Learned Index</strong></span></dt>
+<dd>A deep-learning model with the function of an index structure.
+Auto-<em>magestically</em> synthesised.</dd>
+</dl>
+<h2 id="overview">Overview</h2>
+<h3 id="the-argument-of-the-paper">The Argument of the Paper</h3>
+<h4 id="the-researchers-dot-dot-dot">The researchers <span class="underline"><em>hypothesise</em></span>&hellip;</h4>
+<p>that <strong>All</strong> existing index structures <strong>can</strong> be replaced with learned indices.</p>
+<ul>
+<li>
+<p>Paper does not argue that you <strong>should</strong> necessarily.</p>
+<p>It&rsquo;s a novel approach to build indexes, complimenting existing work.</p>
+</li>
+<li>
+<p>Specifically, a model can</p>
+<ol>
+<li><strong>Learn</strong> the <span class="underline">sort order/structure</span> of <strong>keys</strong>,</li>
+<li>and use this to <strong>predict</strong> the <span class="underline">position/existence</span> of <strong>records</strong>.</li>
+</ol>
+</li>
+</ul>
+<h4 id="they-dot-dot-dot">They <span class="underline"><em>explore</em></span>&hellip;</h4>
+<ul>
+<li>The <strong>extent</strong> to which learned models (including NNs) can replace traditional index for <strong>efficient data access</strong>.</li>
+</ul>
+<h4 id="they-dot-dot-dot">They <span class="underline"><em>speculate</em></span>&hellip;</h4>
+<ul>
+<li>This could fundamentally change the way database systems are developed in the future.</li>
+</ul>
+<h3 id="investigations-case-studies">Investigations / Case studies</h3>
+<p>The studies performed in the paper are:</p>
+<ul>
+<li>About evaluating learned models on <strong>efficient data access</strong>, the role of traditional indices.</li>
+<li>Done on CPUs rather than G/TPUs for a fairer comparison with existing methods, despite new hardware being the biggest reason to use learned indices.</li>
+</ul>
+<h4 id="theme-1-can-learned-models-speed-up-indices">Theme 1: Can learned models speed up indices?</h4>
+<table>
+<thead>
+<tr>
+<th>tested for read-only analytical workloads</th>
+<th>(The majority of this paper)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tested for write-heavy workloads</td>
+<td>(Briefly covered)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="theme-2-can-replacing-individual-components-speed-up-indices">Theme 2: Can replacing individual components speed up indices?</h4>
+<table>
+<thead>
+<tr>
+<th>Study 1 / 3</th>
+<th>B-Tree</th>
+<th>(Evaluated)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Study 2 / 3</td>
+<td>Hash-index</td>
+<td>(Evaluated)</td>
+</tr>
+<tr>
+<td>Study 3 / 3</td>
+<td>Bloom-filter</td>
+<td>(Evaluated)</td>
+</tr>
+<tr>
+<td></td>
+<td>other components (sorting, joins)</td>
+<td>(Briefly covered)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="debunking-the-myths">Debunking the Myths</h3>
+<h4 id="or-soon-to-become-myths"><span class="underline">Myths</span> or soon to become myths</h4>
+<ol>
+<li>
+<p><del>Machine learning cannot provide the same semantic guarantees</del>.</p>
+<p><em>Traditional</em> indices largely <strong>are already</strong> <em>learned</em> indices.</p>
+<ul>
+<li>B-Trees <span class="underline"><strong>predict</strong></span> record position.</li>
+<li>Bloom filter is a binary <span class="underline"><strong>classifier</strong></span> (like our Delta Rule network).
+It&rsquo;s a space-efficient probabilistic data structure. See: BitFunnel.</li>
+</ul>
+</li>
+</ol>
+<!--listend-->
+<ol>
+<li><del>NNs thought of as being very expensive to evaluate</del>.
+<ul>
+<li>Huge <span class="underline"><strong>benefits</strong></span>, especially on the next generation of hardware.</li>
+</ul>
+</li>
+</ol>
+<h4 id=""><span class="underline">Trends</span></h4>
+<ul>
+<li>
+<p>GPUs and TPUs in phones</p>
+<p>The main reason to adopt learned indices (page 4).</p>
+</li>
+<li>
+<p>Scaling NN trivial. Cost = 0.</p>
+</li>
+</ul>
+<h4 id="for-databases"><span class="underline">Benefits</span> for databases</h4>
+<ul>
+<li>Remove the <del>branch-heavy index structures</del> and add <strong>Neural Networks</strong></li>
+</ul>
+<h3 id="results-and-conclusions-sneak-peak">Results and Conclusions sneak peak</h3>
+<h4 id="results">Results</h4>
+<ol>
+<li><strong>Learned</strong> indices <em>can</em> be 70% <strong>faster</strong> than cache-optimized B-Trees while <strong>saving</strong> an order-of-magnitude in <strong>memory</strong>.
+<ul>
+<li>Tested over several real-world datasets.</li>
+</ul>
+</li>
+</ol>
+<h4 id="conclusions">Conclusions</h4>
+<ol>
+<li><strong>Replacing components</strong> of a data management system with <em><strong>learned</strong></em> models has <strong>far-reaching</strong> implications.
+<ul>
+<li>This work only provides a <strong>glimpse</strong> of what might be possible&hellip;</li>
+</ul>
+</li>
+</ol>
+<h2 id="introduction">Introduction</h2>
+<h3 id="traditional-index-structures">&ldquo;Traditional&rdquo; Index Structures</h3>
+<h4 id="some-examples">Some examples</h4>
+<p><em>Covered in this paper by 3 separate studies:</em></p>
+<ol>
+<li>B-Trees
+<ul>
+<li>Great for <strong>range</strong> requests (retrieve all in a..b)</li>
+</ul>
+</li>
+<li>Hash-Maps
+<ul>
+<li><strong>key</strong>-based lookups</li>
+</ul>
+</li>
+<li>Bloom-filters
+<ul>
+<li>Set membership</li>
+<li>May give false positives, but no false negatives</li>
+</ul>
+</li>
+</ol>
+<h4 id="solidly-built">Solidly built</h4>
+<ul>
+<li>Highly Optimised
+<ul>
+<li>Memory</li>
+<li>Cache</li>
+<li>CPU</li>
+</ul>
+</li>
+<li>Assume worst case</li>
+</ul>
+<h4 id="it-works-because-dot-dot-dot">It works because&hellip;</h4>
+<ul>
+<li>
+<p><strong>Knowing</strong> the exact data distribution <strong>enables optimisation</strong> of the index.</p>
+<p>&hellip;But then we&hellip; <em>must</em> know. But we don&rsquo;t always.</p>
+</li>
+</ul>
+<h3 id="benefits-of-replacing-b-trees-with-learned-indices">Benefits of replacing B-Trees with Learned Indices</h3>
+<h4 id="benefits-of-replacing-b-trees-with-learned-indices">Benefits of replacing B-Trees with Learned Indices</h4>
+<ol>
+<li>B-Tree lookup \(O(\log_n) \Longrightarrow O(n)\) (if SLM)
+<ul>
+<li><strong>Simple Linear [Regression] Model:</strong> predictor,  1 mul, 1 add&hellip;</li>
+</ul>
+</li>
+</ol>
+<!--listend-->
+<ol>
+<li>ML accelerators (GPU/TPU)
+If the entire learned index can fit into GPU&rsquo;s memory, that&rsquo;s 1M NN ops every 30 cycles with current technology.</li>
+<li>Mixture of Models (builds upon Jeff&rsquo;s paper from last year)
+ReLU at top, learning a wide range of complex data distributions.
+SLRM at the bottom because they are inexpensive.
+Or use B-Trees at the bottom stage if the data is hard to learn.</li>
+</ol>
+<h2 id="case-studies">Case Studies</h2>
+<h3 id="study-1-of-3--rightarrow--learned-range-index-model">Study 1 of 3: <del>B-Tree</del> \(\Rightarrow\) Learned Range Index [Model]</h3>
+<p>Replacing a B-tree with a <strong>Learned</strong> <span class="underline">[Range] <strong>Index</strong></span> [Model].</p>
+<h4 id="theory">Theory</h4>
+<ul>
+<li>\(\therefore\) <strong>B-Tree</strong> \(\approx\) Regression Tree \(\approx\) CDF \(\equiv\) <strong>Learned Range Index</strong>.</li>
+</ul>
+<h4 id="plan">Plan</h4>
+<ul>
+<li>Experiment with a Naïve Learned Index
+&hellip; to see how bad it is.</li>
+<li>Experiment with a much better Learned Index, the <span class="underline">RM-Index</span>.</li>
+</ul>
+<h3 id="study-1-of-3--rightarrow--learned-range-index-model">Study 1 of 3: <del>B-Tree</del> \(\Rightarrow\) Learned Range Index [Model]</h3>
+<p>Why can we replace B-Trees with DL again?</p>
+<h4 id="b-tree-is-a-model">B-Tree <code>is-a</code> model</h4>
+<dl>
+<dt>B-Tree-Index</dt>
+<dd>\(f: key \mapsto pos\)
+<ul>
+<li>\(pos\) is the position of a record, within a <strong>sorted</strong> array</li>
+</ul>
+</dd>
+</dl>
+<h4 id="b-tree--approx--regression-tree">B-Tree \(\approx\) <em>Regression Tree</em></h4>
+<dl>
+<dt><span class="underline">Regression Tree</span></dt>
+<dd>A decision tree with \(\mathbb{R}\) targets.
+<ul>
+<li>Maps a key to a position with a min and max error.</li>
+</ul>
+</dd>
+</dl>
+<h4 id="range-index-model-is-a-cumulative-density-function--cdf">Range Index Model <code>is-a</code> Cumulative Density Function (CDF)</h4>
+<blockquote>
+<p>A model which predicts the position given a key inside a sorted array effectively approximates a CDF (page 5).</p>
+</blockquote>
+<ul>
+<li>\(\therefore\) <strong>B-Tree</strong> \(\approx\) Regression Tree \(\approx\) CDF \(\equiv\) <strong>Learned Range Index</strong>.</li>
+</ul>
+<h3 id="study-1-of-3--rightarrow--rt-rim--rightarrow--cdf--rightarrow--learned-r-dot-i-dot">Study 1 of 3: <del>B-Tree</del> \(\Rightarrow\) RT/RIM \(\Rightarrow\) CDF \(\Rightarrow\) Learned R.I.</h3>
+<h4 id="analogs">Analogs</h4>
+<ul>
+<li>Rebalanced vs Retrained</li>
+</ul>
+<p>\(\therefore\) min/max error guarantee only needed for training.</p>
+<h4 id="cumulative-density-function--cdf">Cumulative Density Function (CDF)</h4>
+<p>\(F_X(x) = P(X \leq x)\)</p>
+<p>A range index needs to be able to provide:</p>
+<ul>
+<li>point queries \(\checkmark\)</li>
+<li>range queries, sort order(records) \(\equiv\) sort order(sorted look-up keys)) \(\checkmark\)</li>
+<li>guarantees on min-/max error.</li>
+</ul>
+<p>CDF is good to go. It can be used as our Learned Range Index.</p>
+<h4 id="therefore">\(\therefore\)</h4>
+<p>Can replace index with other models including DL, so long as min and max error are similar to b-tree.</p>
+<h3 id="study-1-of-3--rightarrow--learned-range-index-model">Study 1 of 3: <del>B-Tree</del> \(\Rightarrow\) Learned Range Index [Model]</h3>
+<h4 id="experiment-1-dot-1-naïve-learned-index-with-tensorflow">Experiment 1.1 - Naïve Learned Index with TensorFlow</h4>
+<dl>
+<dt>Objective</dt>
+<dd>Evaluate to study the technical requirements to replace B-Trees.</dd>
+<dt>Architecture</dt>
+<dd><ul>
+<li>Two-layer fully conneted neural network (32:32).</li>
+<li>32 neurons/units per layer.</li>
+<li>ReLU activation function.</li>
+<li>The timestamps of messages from web server logs</li>
+<li>The positions of the messages (actual line number?)</li>
+<li>Is not <em>simply</em> error minimisation. Min-/max error</li>
+</ul>
+</dd>
+<dt>Purpose</dt>
+<dd>Build secondary index over timestamps. Test performance.</dd>
+</dl>
+<h3 id="study-1-of-3--rightarrow--learned-range-index-model">Study 1 of 3: <del>B-Tree</del> \(\Rightarrow\) Learned Range Index [Model]</h3>
+<h4 id="critique">Critique</h4>
+<p>This is a very naïve learned index, and that&rsquo;s how we want it. The researchers want to see how much faster a B-Tree is than a <strong>naïve</strong> neural network substitution. The answer is 300x faster.</p>
+<dl>
+<dt>ReLU activation function</dt>
+<dd>\(f(x) = max(0, x)\)</dd>
+</dl>
+<p>The ReLU activation function is <span class="underline">the new sigmoid</span> in that it&rsquo;s now the go-to activation function for deep learning.</p>
+<p>It&rsquo;s typically used for hidden layers as it avoids vanishing gradient problem, yet we don&rsquo;t have a hidden layer. It&rsquo;s just a line. It&rsquo;s so basic, it&rsquo;s perfect.</p>
+<p>Also, the researchers are after a sparse representation, matching one key to one position, so this property of the ReLU makes it an even better candidate.</p>
+<p>I assume that 32 neurons are used because that is the max string length of the timestamp / record position.</p>
+<h3 id="study-1-of-3--rightarrow--learned-range-index-model">Study 1 of 3: <del>B-Tree</del> \(\Rightarrow\) Learned Range Index [Model]</h3>
+<h4 id="experiment-1-dot-1-results">Experiment 1.1 - Results</h4>
+<p>The researchers came to these findings:</p>
+<ul>
+<li>B-Trees are 2 orders of magnitude faster. Tensorflow is designed for larger models. Lots of overhead with Python.</li>
+<li><span class="underline">A <strong>single</strong> neural network requires significantly more space and CPU time for the <strong>last mile</strong> of error minimisation</span>.</li>
+<li>B-Trees, or decision trees in general, are really good in overfitting the data (adding new data after balancing) with a <strong>few</strong> operations. They just divide up the space cheaply, using an if-statement.</li>
+<li>Other models can be significantly more efficient to approximate the general shape of a CDF.
+<ul>
+<li>So models like NNs might be more CPU and space efficient to narrow down the position for an item from the entire data set to a region of thousands.</li>
+<li>But usually requires significantly more space and CPU time for the last mile.</li>
+</ul>
+</li>
+</ul>
+<p>These ideas are taken into account when designing the next model, the <strong>RM-Index</strong>.</p>
+<h3 id="study-1-of-3-learned-range-index-model--approx--b-tree">Study 1 of 3: Learned Range Index [Model] \(\approx\) B-Tree</h3>
+<h4 id="challenges-to-replacing-b-trees">Challenges to replacing B-Trees</h4>
+<ol>
+<li>Main challenge: balance model <strong>complexity</strong> with <strong>accuracy</strong>.</li>
+</ol>
+<!--listend-->
+<ol>
+<li><strong>Bounded cost</strong> for inserts and lookups, taking advantage of the <strong>cache</strong>.</li>
+<li>Map keys to pages (<strong>memory or disk?</strong>)</li>
+<li>Last mile accuracy.
+This is the main reason why the Naïve Learned Model was so slow.
+Overcome by using the Recursive Model (RM) Index.</li>
+</ol>
+<!--list-separator-->
+<ul>
+<li>
+<p>New terms</p>
+<ul>
+<li>Last mile accuracy</li>
+</ul>
+</li>
+</ul>
+<h3 id="study-1-of-3-learned-range-index-model--approx--b-tree">Study 1 of 3: Learned Range Index [Model] \(\approx\) B-Tree</h3>
+<h4 id="recursive-model--rm--index">Recursive Model (RM) Index</h4>
+<p>Also known as the Recursive Regression Model.</p>
+<p>One of the key contributions of this research paper.</p>
+<p>A hierarchy of models.</p>
+<p>At each stage the model takes the key as an input and based on it picks another model, until the final stage predicts the position.</p>
+<p>Each prediction as you go down the hierarchy is picking an expert that has better knowledge about certain keys.</p>
+<p>Solves the &lsquo;Last mile accuracy&rsquo; problem.</p>
+<h3 id="study-1-of-3--rightarrow--learned-range-index-model">Study 1 of 3: <del>B-Tree</del> \(\Rightarrow\) Learned Range Index [Model]</h3>
+<h4 id="experiment-1-dot-2-hybrid-recursive-model-index">Experiment 1.2 - Hybrid Recursive Model Index</h4>
+<dl>
+<dt>Method</dt>
+<dd><ul>
+<li>n stages, n models per stage = hyperparameters</li>
+<li>Each net
+<ul>
+<li>0 to 2 fully conneted hidden-layers</li>
+<li>Up to 32 neurons/units per layer</li>
+</ul>
+</li>
+<li>ReLU activation functions</li>
+<li>B-Trees.</li>
+<li>The timestamps of messages from web server logs</li>
+<li>The positions of the messages (actual line number?)</li>
+<li>Blogs, Maps, web documents, lognormal (synthetic)</li>
+<li>Is not <em>simply</em> error minimisation.</li>
+<li>After training, the index is optimised by replacing NN models with B-Trees if absolute min-/max- error is above a predefined threshold value.</li>
+</ul>
+</dd>
+<dt>Conclusions</dt>
+<dd><ul>
+<li>Allow use to bound the worst case performance of learned indexes to the performance of B-Trees.</li>
+</ul>
+</dd>
+</dl>
+<h3 id="study-1-of-3--rightarrow--learned-range-index-model">Study 1 of 3: <del>B-Tree</del> \(\Rightarrow\) Learned Range Index [Model]</h3>
+<h4 id="results-of-experiment-1-dot-2">Results of Experiment 1.2</h4>
+<p>Was the data used obtained ethically? Who knows.</p>
+<h2 id="testing">Testing</h2>
+<ul>
+<li>They developed what they call the &lsquo;Leaning Index Framework&rsquo;, an index synthesis system.
+It accelerates the process of index synthesis and testing.</li>
+</ul>
+<h2 id="aim-of-review">Aim of review</h2>
+<h3 id="questions">Questions</h3>
+<ol>
+<li>
+<p>What is the specific problem or topic that this research addresses?</p>
+<ol>
+<li>Optimisation of an index requires <strong>knowledge</strong> of the data distribution. There is no guarantee of this. But it can be learned.</li>
+<li>Learned indices provide new ways to further optimise search engines.</li>
+</ol>
+</li>
+<li>
+<p>If the paper presents a new network, algorithm, or technique, how does it work?
+Is it suited to the task?</p>
+<ul>
+<li>
+<p>A new model architecture, the Recursive Regression Model</p>
+<p>Task: A substitute for a B-Tree.</p>
+<p>Inspired by work done in the paper &ldquo;Outrageously Large Neural Networks&rdquo;.</p>
+<p>Constitution:
+Build a hierarchy of models.
+At each stage the model takes the key as an input and based on it picks another model, until the final stage predicts the position.</p>
+<p>Each model makes a prediction with a certain error about the position for the key and that the prediction is used to select the next model.</p>
+<p>Recursive Model Indices are <strong>not trees</strong>.</p>
+<p>The architecture divides the space into smaller sub-ranges like a B-tree/decision tree to make it easier to achieve to required last-mile accuracy with a fewer number of operations.</p>
+</li>
+<li>
+<p>Is it suited to the task?
+The model divides the space into smaller sub-ranges like a B-Tree to make it easier to achieve the required &ldquo;last mile&rdquo; accuracy with fewer operations.
+This solves one of the aformentioned complications of replacing a B-Tree.</p>
+<p>The entire index can be represented as a sparse matrix-multiplication for a TPU/GPU.</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>Has it been well tested, and does it really work as claimed? What are the limitations?</p>
+<ol>
+<li>This could change the way database systems are developed.</li>
+</ol>
+<!--listend-->
+<ol>
+<li>
+<p>What are Innovations</p>
+</li>
+<li>
+<p><strong>Learned</strong> indices <em>can</em> be 70% <strong>faster</strong> than cache-optimized B-Trees while <strong>saving</strong> an order-of-magnitude in <strong>memory</strong>.</p>
+<ul>
+<li>Tested over several real-world datasets.</li>
+</ul>
+</li>
+<li>
+<p>Did they choose the architecture - why or why not?</p>
+</li>
+</ol>
+<p>Is it clearly described (all parameters, settings etc.)?
+What strengths and/or weaknesses of the NN approach does it illustrate?</p>
+<p>• Is the paper well structured and well written?</p>
+<h2 id="q-and-a">Q&amp;A</h2>
+<h3 id="evaluation">Evaluation</h3>
+<h4 id="was-the-paper-well-organised">Was the paper well organised?</h4>
+<p>It is well structured and well written.</p>
+<h4 id="problem-and-solution">Problem and solution</h4>
+<dl>
+<dt>problem</dt>
+<dd>Real world data does not perfectly follow known patterns. Specialised solutions expensive.</dd>
+<dt>solution</dt>
+<dd>ML. Learn the model -&gt; Synthesise specialised index. Low cost.</dd>
+</dl>
+<h4 id="strengths-and-or-weaknesses-of-the-nn-approach">Strengths and/or weaknesses of the NN approach</h4>
+<p>The paper illustrated that&hellip;</p>
+<h4 id="did-they-choose-the-right-architectures-why-or-why-not">Did they choose the right architectures? Why or why not?</h4>
+<p>Is it clearly described (all parameters, settings etc.)?</p>
+<h3 id="own-questions">Own Questions</h3>
+<h4 id="paper">Paper</h4>
+<h4 id="research-question-defined">Research question defined?</h4>
+<p>What is the research question?</p>
+<h4 id="generalization">Generalization</h4>
+<p>Does the study allow generalization?</p>
+<h4 id="consistency">Consistency</h4>
+<p>The discussion and conclusions should be consistent with the study’s results.</p>
+<p>Results
+in accordance with the researcher’s expectations
+not in accordance.</p>
+<p>Do the authors of the article you hold in hand do the same?</p>
+
+    </div>
+    <div class="post-footer">
+        <p>
+        <a href="https://mullikine.github.io/about/">About this weblog</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://asciinema.org/~mullikine">Asciinema recordings</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/posts/blogs-and-vlogs/">Blogs and Vlogs</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/tags/">Site Map</a>
+        </p>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
