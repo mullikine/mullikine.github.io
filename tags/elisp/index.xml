@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>elisp on Bodacious Blog</title>
+    <link>https://mullikine.github.io/tags/elisp/</link>
+    <description>Recent content in elisp on Bodacious Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 18 Nov 2020 00:00:00 +1300</lastBuildDate><atom:link href="https://mullikine.github.io/tags/elisp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Suggesting new words for the glossary with KeyBERT and pytextrank</title>
+      <link>https://mullikine.github.io/posts/suggesting-new-words-for-the-glossary-with-keybert-and-pytextrank/</link>
+      <pubDate>Wed, 18 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/suggesting-new-words-for-the-glossary-with-keybert-and-pytextrank/</guid>
+      <description>Demo: Adding to the glossary using suggested keyphrases 
+Fleshing out a glossary on microbiology 
+Adding words from Stackexchange 
+Code Python pytextrank turned out to be more fit for purpose than KeyBERT.
+The issue with KeyBERT is that it is more abstractive in creating keywords, suggesting keywords omitting stopwords, etc.. KeyBERT is good for finding topic keywords, but not great at finding extractive (as opposed to abstractive) keywords.</description>
+    </item>
+    
+    <item>
+      <title>sx: Move immediately to selected answer and suggest keywords for glossary</title>
+      <link>https://mullikine.github.io/posts/sx-move-immediately-to-selected-answer-and-suggest-keywords-for-glossary/</link>
+      <pubDate>Wed, 18 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/sx-move-immediately-to-selected-answer-and-suggest-keywords-for-glossary/</guid>
+      <description>Demo Quick search for command, copy and run.
+
+A longer demo:
+
+1 2 3 4 5 6 7 8 9 10 11 12 13  (defun sx-move-to-accepted-answer () (interactive) (if (string-match &amp;#34;^Accepted Answer$&amp;#34; (buffer-string)) (progn (re-search-forward &amp;#34;^Accepted Answer$&amp;#34;) (beginning-of-line)))) (defvar sx-question-mode--erase-and-print-question-after-hook &amp;#39;()) (defun sx-question-mode--erase-and-print-question-after-advice (&amp;amp;rest args) (run-hooks &amp;#39;sx-question-mode--erase-and-print-question-after-hook)) (advice-add &amp;#39;sx-question-mode--erase-and-print-question :after &amp;#39;sx-question-mode--erase-and-print-question-after-advice) (add-hook &amp;#39;sx-question-mode--erase-and-print-question-after-hook &amp;#39;redraw-glossary-buttons-when-window-scrolls-or-file-is-opened) (add-hook &amp;#39;sx-question-mode--erase-and-print-question-after-hook &amp;#39;sx-move-to-accepted-answer)   </description>
+    </item>
+    
+    <item>
+      <title>Automating cookiecutter in emacs</title>
+      <link>https://mullikine.github.io/posts/automating-cookiecutter-in-emacs/</link>
+      <pubDate>Tue, 10 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/automating-cookiecutter-in-emacs/</guid>
+      <description>Demo 
+Code  This does a few things.  It searches Google for a cookiecutter repo on GitHub It downloads the template and files it away nicely. It creates a new project directory. It creates a new project within the new project directory from the template and prompts interactively.     1 2 3 4 5 6 7  (defun my-github-search-and-clone-cookiecutter (query) (interactive (list (read-string-hist &amp;#34;cookiecutter query:&amp;#34;))) (let* ((url (fz (cl-sn (concat &amp;#34;upd glh cookiecutter &amp;#34; (q query) &amp;#34; | cat&amp;#34; ) :chomp t))) (dir (if url (gc url))) (name (if (and url dir) (read-string-hist &amp;#34;project name: &amp;#34; query)))) (if (and dir name) (term-sps (concat &amp;#34;CWD= zrepl cookiecutter &amp;#34; (q dir)) (new-project-dir name)))))   </description>
+    </item>
+    
+    <item>
+      <title>Creating a transient-mode for advanced Google search operators, and GitHub too</title>
+      <link>https://mullikine.github.io/posts/creating-a-transient-mode-for-advanced-google-search-operators/</link>
+      <pubDate>Sat, 07 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/creating-a-transient-mode-for-advanced-google-search-operators/</guid>
+      <description>Synopsis I want to be able to search Google easily using advanced operators, but not have to remember, nor type in, the syntax.
+I create a user interface to generate the google search query.
+Demonstration Looking for a PDF about the perigee moon, but without the word apogee 
+Searching for PDFs about transducers that are not to do with clojure 
+Code All it does is, given a list of google operaters, it constructs a little gui, which shells out to a script.</description>
+    </item>
+    
+    <item>
+      <title>Updates to the emacs glossary system</title>
+      <link>https://mullikine.github.io/posts/updates-to-the-emacs-glossary-system/</link>
+      <pubDate>Sat, 17 Oct 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/updates-to-the-emacs-glossary-system/</guid>
+      <description>Key bindings    kb f      L glossary-add-link Create a link for a term to a topic. From then on, that topic&amp;rsquo;s glossary is loaded when the term is seen.   A add-to-glossary-file-for-buffer Add a new term to one of the most relevant glossaries.    Creating / adding to the ansible glossary 
+Learning Lord of the Rings lore as I&amp;rsquo;m reading</description>
+    </item>
+    
+    <item>
+      <title>Easy, hyperlink wordclouds in emacs</title>
+      <link>https://mullikine.github.io/posts/easy-hyperlink-wordclouds-in-emacs/</link>
+      <pubDate>Wed, 16 Sep 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/easy-hyperlink-wordclouds-in-emacs/</guid>
+      <description>Word clouds 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26  (defface glossary-button-face &amp;#39;((t :foreground &amp;#34;#3fa75f&amp;#34; :background &amp;#34;#2e2e2e&amp;#34; :weight bold :underline t)) &amp;#34;Face for glossary buttons.&amp;#34;) (define-button-type &amp;#39;glossary-button &amp;#39;follow-link t &amp;#39;help-echo &amp;#34;Click to go to definition&amp;#34; &amp;#39;face &amp;#39;glossary-button-face) (defun create-buttoncloud (button-name-action-tuples-list) (with-output-to-temp-buffer &amp;#34;*button cloud*&amp;#34; (with-current-buffer &amp;#34;*button cloud*&amp;#34; (let ((consecutive)) (cl-loop for bt in button-name-action-tuples-list do (progn (if consecutive (insert &amp;#34; &amp;#34;)) (insert-button (car bt) &amp;#39;type &amp;#39;glossary-button &amp;#39;action (cdr bt)) (setq consecutive t))))))) (create-buttoncloud &amp;#39;((&amp;#34;yo&amp;#34; .</description>
+    </item>
+    
+    <item>
+      <title>Generating hyperlinks for glossaries and other parsers in emacs</title>
+      <link>https://mullikine.github.io/posts/generating-hyperlinks-for-glossaries-and-other-parsers-in-emacs/</link>
+      <pubDate>Wed, 09 Sep 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/generating-hyperlinks-for-glossaries-and-other-parsers-in-emacs/</guid>
+      <description>TL;DR: Build a wiki, but far more powerful  I would like to be reminded of things as I read, like a wiki, but better. I would like to see a glossary of the words I have learned. I would like to know at a moment&amp;rsquo;s glance what I have already read and understood. I would like to be reminded of important things as I&amp;rsquo;m having a conversation.  Great for  Reading books Keeping and navigating a glossary extremely easily Procedurally/generatively navigating text (the applications are endless)  Enter, emacs Demonstration</description>
+    </item>
+    
+    <item>
+      <title>annotate any buffer in emacs</title>
+      <link>https://mullikine.github.io/posts/annotate-any-buffer-in-emacs/</link>
+      <pubDate>Mon, 07 Sep 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/annotate-any-buffer-in-emacs/</guid>
+      <description>Synopsis Using annotate.el, it&amp;rsquo;s possible to annotate files and Info buffers, without modifying the file itself.
+I&amp;rsquo;d like to make this work for any buffer.
+Demonstration &amp;ndash; annotating dired 
+Firstly, override the annotate-actual-file-name function to handle more buffer types 1 2 3 4 5 6 7 8 9 10 11  (defun annotate-actual-file-name () &amp;#34;Get the actual file name of the current buffer&amp;#34; (substring-no-properties (or (annotate-info-actual-filename) (string-or (buffer-file-name)) (string-or (if (major-mode-p &amp;#39;eww-mode) (concat &amp;#34;**&amp;#34; (get-path)))) (string-or (try (concat &amp;#34;**&amp;#34; (cond ((major-mode-p &amp;#39;dired-mode) (slugify (concat (str (buffer-mode)) &amp;#34;-&amp;#34; (mnm (my/pwd)) &amp;#34;-&amp;#34; (buffer-name)))) (t (slugify (concat (str (buffer-mode)) &amp;#34;-&amp;#34; (buffer-name)))))) &amp;#34;&amp;#34;)) &amp;#34;&amp;#34;)))   Add to some hooks for buffer types I&amp;rsquo;d like to annotate 1 2 3 4 5  (defset modes-for-annotate-mode &amp;#39;(Info-mode-hook helpful-mode help-mode prog-mode conf-mode text-mode yaml-mode ssh-config-mode)) (cl-loop for m in modes-for-annotate-mode do ;; (message (str m)) (let ((h (str2sym (concat (sym2str m) &amp;#34;-hook&amp;#34;)))) (add-hook h &amp;#39;enable-annotate t)))   dired-mode-hook happens too early, so I needed this 1 2 3 4 5  (defun dired-around-advice (proc &amp;amp;rest args) (let ((res (apply proc args))) (enable-annotate) res)) (advice-add &amp;#39;dired :around #&amp;#39;dired-around-advice)   When annotate is loaded, it creates some overlays.</description>
+    </item>
+    
+    <item>
+      <title>Use selection as input to occur-mode</title>
+      <link>https://mullikine.github.io/posts/use-selection-as-input-to-occur-mode/</link>
+      <pubDate>Sat, 05 Sep 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/use-selection-as-input-to-occur-mode/</guid>
+      <description>This is the magic 1 2 3 4 5 6 7 8 9 10 11 12 13 14  ;; This allows me to select text and use that for the basis of occur (defun occur-around-advice (proc &amp;amp;rest args) (interactive (nconc (or (if (selection-p) (let ((sel (selection))) (deselect) (list (concat &amp;#34;\\b&amp;#34; sel &amp;#34;\\b&amp;#34;))) nil) (occur-read-primary-args)) (and (use-region-p) (list (region-bounds))))) (let ((res (if (use-region-p) (apply proc (list (selection))) (apply proc args)))) res)) (advice-add &amp;#39;occur :around #&amp;#39;occur-around-advice)   If you want to revert the behaviour then run this 1  (advice-remove &amp;#39;occur #&amp;#39;occur-around-advice)   Demonstration</description>
+    </item>
+    
+    <item>
+      <title>Stream editing code at macro time</title>
+      <link>https://mullikine.github.io/posts/stream-editing-code-at-macro-time/</link>
+      <pubDate>Fri, 04 Sep 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/stream-editing-code-at-macro-time/</guid>
+      <description>I have some minimise and unminimise shell scripts, which I&amp;rsquo;ve wrapped into emacs lisp functions 1 2 3 4 5 6 7  (defun mnm (input) &amp;#34;Minimise string.&amp;#34; (sh-notty &amp;#34;mnm&amp;#34; input)) (defun umn (input) &amp;#34;Unminimise string.&amp;#34; (sh-notty &amp;#34;umn&amp;#34; input nil nil nil t))   This is the minimise or mnm script It shortens strings that contain paths which are known environment variables.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63  #!</description>
+    </item>
+    
+    <item>
+      <title>calibredb inside emacs with text pdfs</title>
+      <link>https://mullikine.github.io/posts/calibredb-inside-emacs-with-text-pdfs/</link>
+      <pubDate>Thu, 27 Aug 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/calibredb-inside-emacs-with-text-pdfs/</guid>
+      <description>Summary I want to be able to read pdfs from within emacs and convert them to text, so I can read them within a terminal.
+I want this to work for dired, calibredb and org-mode, or anywhere else.
+Demonstration 
+Solution Ensure there are no openwith associations for pdfs 1  (remove-from-list &amp;#39;openwith-associations &amp;#39;(&amp;#34;\\.pdf\\&amp;#39;&amp;#34; &amp;#34;z&amp;#34; (file)))   Ensure there is no entry for pdfs in org-file=apps 1  (remove-from-list &amp;#39;org-file-apps &amp;#39;(&amp;#34;\\.</description>
+    </item>
+    
+    <item>
+      <title>easy elisp variable editing</title>
+      <link>https://mullikine.github.io/posts/easy-elisp-variable-editing/</link>
+      <pubDate>Thu, 27 Aug 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/easy-elisp-variable-editing/</guid>
+      <description>Summary It&amp;rsquo;s useful to be able to make quick edits to the contents elisp variables, such as rearranging elements in a hook.
+Demonstration 
+Here is the code 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26  (defun edit-var-elisp (variable &amp;amp;optional buffer frame) (interactive (let ((v (variable-at-point)) (enable-recursive-minibuffers t) (orig-buffer (current-buffer)) val) (setq val (completing-read (if (symbolp v) (format &amp;#34;Describe variable (default %s): &amp;#34; v) &amp;#34;Describe variable: &amp;#34;) #&amp;#39;help--symbol-completion-table (lambda (vv) ;; In case the variable only exists in the buffer ;; the command we switch back to that buffer before ;; we examine the variable.</description>
+    </item>
+    
+    <item>
+      <title>grep.app inside emacs</title>
+      <link>https://mullikine.github.io/posts/grep-app-inside-emacs/</link>
+      <pubDate>Sun, 23 Aug 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/grep-app-inside-emacs/</guid>
+      <description>Summary grep.app is a free web app that lets you perform full-text search on GitHub code, using regex to match content, file paths and repository names.
+The problem I&amp;rsquo;d like to make this more convenient by searching and obtaining example code all within emacs.
+ emacs&#39; eww-mode doesn&amp;rsquo;t support javascript. I&amp;rsquo;d like to present the website in a usable form &amp;ndash; code snippets cleaned up. I&amp;rsquo;d like to automate the process of searching so that it doesn&amp;rsquo;t require any typing.</description>
+    </item>
+    
+    <item>
+      <title>Generating elisp functions interactively to wrap shell commands</title>
+      <link>https://mullikine.github.io/posts/generating-elisp-functions-interactively-to-wrap-shell-commands/</link>
+      <pubDate>Tue, 14 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/generating-elisp-functions-interactively-to-wrap-shell-commands/</guid>
+      <description>Required functions This is needed to provide history and to allow you to enter the empty string to completing-read.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  (defun completing-read-hist (prompt &amp;amp;optional histvar initial-input) &amp;#34;read-string but with history.&amp;#34; (if (not histvar) (setq histvar (str2sym (concat &amp;#34;completing-read-hist-&amp;#34; (slugify prompt) (if initial-input (concat &amp;#34;-&amp;#34; initial-input) &amp;#34;&amp;#34;))))) (initvar histvar) (if (and (not initial-input) (listp histvar)) (setq initial-input (first histvar))) (eval `(progn ;; (str (completing-read ,prompt ,histvar nil nil initial-input &amp;#39;,histvar nil)) (let ((inhibit-quit t)) (or (with-local-quit (let ((completion-styles ;; &amp;#39;(basic partial-completion emacs22) &amp;#39;(basic))) (str (ivy-completing-read-with-empty-string-def ,prompt ,histvar nil nil initial-input &amp;#39;,histvar nil))) ;; (str (helm-comp-read ,prompt ,histvar :initial-input ,initial-input :must-match nil :history ,histvar :input-history &amp;#39;,histvar)) ) &amp;#34;&amp;#34;)))))   Generator code 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51  (defun join-args-for-command (args &amp;amp;optional forcequotes) (s-join &amp;#34; &amp;#34; (mapcar (if forcequotes &amp;#39;q &amp;#39;s/q) args))) (defun gen-command-from-shell-command (command &amp;amp;rest arguments-defaults) &amp;#34;Generates an interactive command from a list of argument names of an external command&amp;#34; (interactive (let* ((exe (fz (list-executables))) (args-defaults-string (read-string-hist (concat &amp;#34;gencom: &amp;#34; exe &amp;#34; &amp;#34;))) (args-defaults-list-string (str2list (cl-sn (concat &amp;#34;cmd2lines &amp;#34; args-defaults-string) :chomp t)))) `(,exe ,@args-defaults-list-string))) (let* ( ;; Construct/Reconstruct args-string (args-defaults-string (join-args-for-command arguments-defaults)) (args-defaults-list-tuples (mapcar (lambda (s) (let ((ss (s-split &amp;#34;=&amp;#34; s))) (cons (first ss) (second ss)))) arguments-defaults)) (args-list (mapcar &amp;#39;car args-defaults-list-tuples)) (defaults-list (mapcar &amp;#39;cdr args-defaults-list-tuples)) (slug-list (mapcar &amp;#39;slugify args-list)) (slug-defaults-tuples-list (mapcar* &amp;#39;cons slug-list defaults-list)) ;; These are defaults for an interactive invocation, not for a normal function invocation (defaults-list (cl-loop for s in slug-defaults-tuples-list collect (cons (car s) (or (cdr s) (read-string-hist (concat &amp;#34;gencom: &amp;#34; command &amp;#34;.</description>
+    </item>
+    
+    <item>
+      <title>Generate cl-defun from defun</title>
+      <link>https://mullikine.github.io/posts/generate-cl-defun-from-defun/</link>
+      <pubDate>Mon, 13 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/generate-cl-defun-from-defun/</guid>
+      <description>Premise We need to turn an arbitrary defun into a cl-defun because cl-defun has the &amp;amp;key parameter option which allows us to specify named arguments as opposed to positional arguments.
+Solution I made a macro to do this automatically.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21  (defmacro cl-genfuncwrapper (fun) (let* ( (newfun (intern (concat &amp;#34;cl-&amp;#34; (symbol-name fun)))) (optional nil) (sigbuilder (-flatten (cl-loop for e in (help-function-arglist fun) collect (progn (if (eq &amp;#39;&amp;amp;optional e) (progn (setq optional t) &amp;#39;()) (if optional (list &amp;#39;&amp;amp;key e) (list e))))))) (callbuilder (-flatten (cl-loop for e in (help-function-arglist fun) collect (progn (if (or (eq &amp;#39;&amp;amp;optional e) (eq &amp;#39;&amp;amp;key e)) &amp;#39;() (list e)))))) (sig sigbuilder) (iform (interactive-form fun))) `(cl-defun ,newfun ,sig ,iform (,fun ,@callbuilder))))   Example (use-case) I would like to create a function called cl-sh-notty which allows me to provide named arguments to the function rather than positional ones.</description>
+    </item>
+    
+    <item>
+      <title>Interactively run elisp commands using a stripped down-syntax</title>
+      <link>https://mullikine.github.io/posts/interactively-run-elisp-commands-using-a-stripped-down-syntax/</link>
+      <pubDate>Mon, 13 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/interactively-run-elisp-commands-using-a-stripped-down-syntax/</guid>
+      <description>Premise It takes too long to run emacs lisp functions with the usual syntax.
+Solution I create a new emacs REPL that enables me to run emacs commands in a far more efficient manner.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34  (defun call-command-or-function (funcsym &amp;amp;rest body) (if (and (function-p funcsym) (commandp funcsym)) (if body (eval `(funcall-interactively funcsym ,@body)) (call-interactively funcsym)) (eval `(call-function funcsym ,@body)))) (defun degloved-command-to-sexp (s) (let ((lisp-code (concat &amp;#34;&amp;#39;(&amp;#34; (sn (concat &amp;#34;cmd-cip \\=&amp;#34; s)) &amp;#34;)&amp;#34;))) (eval-string lisp-code))) (defun degloved-get-command () (interactive) (let* ((funname (str (car (find-function-read)))) (funsym (str2sym funname)) (arglist (help-function-arglist funsym)) (cmd-arglist (cons funsym arglist)) (cmd-arglist-string (str cmd-arglist)) (full-command (if arglist (read-string-hist (concat cmd-arglist-string &amp;#34;: &amp;#34;) nil (concat funname &amp;#34; &amp;#34;)) funname))) (if (called-interactively-p &amp;#39;interative) (new-buffer-from-string full-command) full-command))) (defun degloved-run (command) (interactive (list (degloved-get-command))) (let* ((lisp-code (degloved-command-to-sexp command)) (funcsym (car lisp-code)) (body (cdr lisp-code))) (eval `(call-command-or-function funcsym ,@body)))) (define-key global-map (kbd &amp;#34;M-X&amp;#34;) &amp;#39;degloved-run) (define-key global-map (kbd &amp;#34;H-d&amp;#34;) &amp;#39;degloved-run)   The follow script demonstrates how I quote tokens conditionally for elisp generation 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16  #!</description>
+    </item>
+    
+    <item>
+      <title>The best regex trick ever in different languages</title>
+      <link>https://mullikine.github.io/posts/the-best-regex-trick-ever-in-different-languages/</link>
+      <pubDate>Mon, 13 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/the-best-regex-trick-ever-in-different-languages/</guid>
+      <description> Original article https://www.rexegg.com/regex-best-trick.html  The trick is a way to match all except for &amp;hellip; For example, Match Tarzan but not &amp;ldquo;Tarzan&amp;rdquo;.
+emacs lisp 1 2 3 4 5 6  (let ((str1 &amp;#34;\&amp;#34;Tarzan\&amp;#34;&amp;#34;) (str2 &amp;#34;Tarzan&amp;#34;)) (when (string-match &amp;#34;\&amp;#34;Tarzan\&amp;#34;\\|\\(Tarzan\\)&amp;#34; str1) (message (concat &amp;#34;str1:&amp;#34; (match-string 1 str1)))) (when (string-match &amp;#34;\&amp;#34;Tarzan\&amp;#34;\\|\\(Tarzan\\)&amp;#34; str2) (message (concat &amp;#34;str2:&amp;#34; (match-string 1 str2)))))   &amp;#34;\&amp;#34;str2:Tarzan\&amp;#34;&amp;#34; </description>
+    </item>
+    
+    <item>
+      <title>Navigate buffers in emacs using arbitrary string filters and parsers</title>
+      <link>https://mullikine.github.io/posts/navigate-files-in-emacs-using-rosielang/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/navigate-files-in-emacs-using-rosielang/</guid>
+      <description>TL;DR The basic idea here is that we might want to navigate to the next and previous instances of a common pattern in a file.
+The common pattern might be an IP address, say or an email.
+I extend emacs to use output from the rosie parser to navigate a file.
+This will be useful in future because most likely I will want to use other parsers.
+Demonstration Select from lists of filters and navigate</description>
+    </item>
+    
+    <item>
+      <title>Efficiently getting emacs keyboard macros from string literals using expect/tmux</title>
+      <link>https://mullikine.github.io/posts/emacs-macros-from-string-literals-using-invisible-emacs/</link>
+      <pubDate>Tue, 31 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-macros-from-string-literals-using-invisible-emacs/</guid>
+      <description>{´◕ ◡ ◕｀} This requires both expect and tmux to be installed. They are only used in the background. You can use this function with GUI emacs fine. No other dependencies are required for this elisp function to work. The bash/tcl/expect script is embedded in elisp. Update The builtin edmacro-format-keys gives me the functionality I want without the rigmarole.  make-kbd-from-string is a function that takes a string literal and gives you a keyboard macro.</description>
+    </item>
+    
+    <item>
+      <title>Currying in emacs lisp</title>
+      <link>https://mullikine.github.io/posts/currying-in-emacs-lisp/</link>
+      <pubDate>Sat, 28 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/currying-in-emacs-lisp/</guid>
+      <description>This is what I want to be able to do:
+1 2 3 4  (defun add-3-things (a b c) (+ a b c)) (mapcar (add-3-things 5 10) &amp;#39;(1 2 3 4))   The reason why it&amp;rsquo;s not possible is because of variadic functions.
+https://paqmind.com/en/blog/currying-in-lisp
+In other words, the following wouldn&amp;rsquo;t work because variadic functions clash with currying.
+1 2 3 4 5 6 7 8 9 10 11 12  (defun add-at-least-one-thing (a &amp;amp;rest args) (eval `(+ a ,@args))) (add-at-least-one-thing 1 2 3) ;; 6 ;; This doesn&amp;#39;t make sense because since =add-at-least-one-thing= is ;; satisfied it returns 15 rather than a partially applied function and ;; 15 isn&amp;#39;t a function (mapcar (add-at-least-one-thing 5 10) &amp;#39;(1 2 3 4)) ;; Debugger entered--Lisp error: (invalid-function 15) ;; 15(1)   But surely it&amp;rsquo;s possible to hack what I want with a macro.</description>
+    </item>
+    
+    <item>
+      <title>Generate emacs functions from CLI commands</title>
+      <link>https://mullikine.github.io/posts/generate-emacs-functions-from-cli-commands/</link>
+      <pubDate>Wed, 20 Nov 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/generate-emacs-functions-from-cli-commands/</guid>
+      <description>Prerequisite reading Didactic emacs-lisp macro example (ie. a tutorial) // Bodacious Blog  Define the commands 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30  (defmacro defshellfilter (&amp;amp;rest body) &amp;#34;Define a new string filter function based on a shell command&amp;#34; (let* (;; (s (str2sym (concat &amp;#34;sh/&amp;#34; (sym2str (first body))))) (base (slugify (list2string body) t)) (sm (str2sym (concat &amp;#34;sh/m/&amp;#34; base))) (sf (str2sym (concat &amp;#34;sh/&amp;#34; base))) (sfptw (str2sym (concat &amp;#34;sh/ptw/&amp;#34; base)))) `(progn (defmacro ,sm (&amp;amp;rest body) `(bp ,@&amp;#39;,body ,@body)) (defun ,sf (&amp;amp;rest body) (eval `(bp ,@&amp;#39;,body ,@body))) ;; This last one is the thing the function returns.</description>
+    </item>
+    
+    <item>
+      <title>Lists in emacs lisp</title>
+      <link>https://mullikine.github.io/posts/lists-in-emacs-lisp/</link>
+      <pubDate>Thu, 31 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/lists-in-emacs-lisp/</guid>
+      <description>What is a list? A list in emacs is a list of cons cells. A cons cell has a car and a cdr. The car is a value. The cdr is a pointer.
+e.g. This allows you to set the nth item of a list 1  (setcar (nthcdr 2 list) &amp;#39;epsilon)   Useful pages https://www.emacswiki.org/emacs/ListModification#toc7
+functions  mod orig destructive to original variable     f/m mod orig macro dedup (slow) d     delete ✓   removes all matching elements from list   remove    same as &amp;lsquo;delete&amp;rsquo;   add-to-list ✓  ✓ push element to front   push ?</description>
+    </item>
+    
+    <item>
+      <title>elisp advice</title>
+      <link>https://mullikine.github.io/posts/emacs-lisp-advice/</link>
+      <pubDate>Wed, 30 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-lisp-advice/</guid>
+      <description>The only snippet you need # -*- mode: snippet -*- # name: around-advice # group: advice # key: ada # -- ;; nadvice - proc is the original function, passed in. do not modify (defun ${1:advised-function-name}-around-advice (proc &amp;amp;rest args) (message &amp;#34;$1 called with args %S&amp;#34; args) (let ((res (apply proc args))) (message &amp;#34;$1 returned %S&amp;#34; res) res)) (advice-add &amp;#39;$1 :around #&amp;#39;$1-around-advice) old advice This is the way it used to be done.</description>
+    </item>
+    
+    <item>
+      <title>Custom Org Links</title>
+      <link>https://mullikine.github.io/posts/custom-org-links/</link>
+      <pubDate>Thu, 24 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/custom-org-links/</guid>
+      <description>org links are useful for making your org-mode documents more terse.
+1 2 3 4  $EMACSD/config/org/org-google.el $EMACSD/config/org/org-man.el $EMACSD/config/org/org-rifle.el $EMACSD/config/org/org-youtube.el   org-google.el, for instance will allow you to write google searches into your org mode.
+org-google Example You can then type C-c C-o on the link to run the google search.
+1  [[google:emacs plugins]]   This is how it appears in org-mode.
+[google:emacs plugins](emacs plugins)
+org-google.el source 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50  ;;; org-man.</description>
+    </item>
+    
+    <item>
+      <title>Music playlists in emacs lisp</title>
+      <link>https://mullikine.github.io/posts/music-playlists-in-emacs-lisp/</link>
+      <pubDate>Thu, 17 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/music-playlists-in-emacs-lisp/</guid>
+      <description>Build the emacs-script command emacs-script is a script to treat emacs lisp as a normal scripting language for the command line.
+It loads some basic functionality so we can use emacs lisp for scripting.
+Yes, it downloads from youtube and caches the videos.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83  #!</description>
+    </item>
+    
+    <item>
+      <title>Taming term-mode</title>
+      <link>https://mullikine.github.io/posts/taming-term/</link>
+      <pubDate>Mon, 07 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/taming-term/</guid>
+      <description>First attempt You can skip this and scroll down to the solution or read it to see some of the problems I was having with term.el.
+Problems with term.el Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
+1 2 3 4 5 6 7 8  ;; Comment this out ;; (define-key my-mode-map (kbd &amp;#34;M-k&amp;#34;) &amp;#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &amp;#34;M-k&amp;#34;) nil) ;; Replace with this (define-key global-map (kbd &amp;#34;M-k&amp;#34;) &amp;#39;avy-goto-char)   gud-mode stole C-c C-a C-a is important in many programs for going to the start of the line.</description>
+    </item>
+    
+    <item>
+      <title>Sensible Splits: Extending shackle.el</title>
+      <link>https://mullikine.github.io/posts/making-shackle-split-sensibly/</link>
+      <pubDate>Mon, 07 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/making-shackle-split-sensibly/</guid>
+      <description>shackle.el provides a single interface for managing the way windows are displayed in emacs. This means you don&amp;rsquo;t have to dig into plugin code to provide ad-hoc advice to specific functions.
+Unfortunately, it doesn&amp;rsquo;t provide an option to split sensibly, allowing you only to specify exactly how you want windows to be displayed.
+For example, it will allow to you specify that all help buffers split to the right with the following rule.</description>
+    </item>
+    
+    <item>
+      <title>Conveniently learn emacs bindings</title>
+      <link>https://mullikine.github.io/posts/conveniently-learn-emacs-bindings/</link>
+      <pubDate>Thu, 03 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/conveniently-learn-emacs-bindings/</guid>
+      <description>Here&amp;rsquo;s the coolest thing I&amp;rsquo;ve made in the last few days.
+This will allow you to fuzzy find maps and pretty print them.
+ It&amp;rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in    Code (require &amp;#39;s) (defun my-new-buffer-frame (&amp;amp;optional contents bufname) &amp;#34;Create a new frame with a new empty buffer.</description>
+    </item>
+    
+    <item>
+      <title>Differentiate org-mode bold face</title>
+      <link>https://mullikine.github.io/posts/org-mode-bold/</link>
+      <pubDate>Sun, 22 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/org-mode-bold/</guid>
+      <description>The issue is that in a terminal, the generic bold face alone is not differentiable.
+org-mode uses the generic bold face for text within asterisks.
+Therefore we create a new face and give it a similar look but different colour to org-verbatim.
+(defface org-bold &amp;#39;((t :foreground &amp;#34;#d2268b&amp;#34; :background &amp;#34;#2e2e2e&amp;#34; :weight bold :underline t )) &amp;#34;Face for org-mode bold.&amp;#34; :group &amp;#39;org-faces ) (setq org-emphasis-alist &amp;#39;((&amp;#34;*&amp;#34; ;; (bold :foreground &amp;#34;Orange&amp;#34; ) org-bold) (&amp;#34;/&amp;#34; italic) (&amp;#34;_&amp;#34; underline) (&amp;#34;=&amp;#34; ;; (:background &amp;#34;maroon&amp;#34; :foreground &amp;#34;white&amp;#34;) org-verbatim verbatim) (&amp;#34;~&amp;#34; ;; (:background &amp;#34;deep sky blue&amp;#34; :foreground &amp;#34;MidnightBlue&amp;#34;) org-code verbatim) (&amp;#34;+&amp;#34; (:strike-through t)))) ;; Because spacemacs had different ideas about the verbatim background (set-face-background &amp;#39;org-bold &amp;#34;#2e2e2e&amp;#34;) (set-face-background &amp;#39;org-verbatim &amp;#34;#2e2e2e&amp;#34;) </description>
+    </item>
+    
+    <item>
+      <title>Convert hydra to regular bindings</title>
+      <link>https://mullikine.github.io/posts/convert-hydra-to-regular-bindings/</link>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/convert-hydra-to-regular-bindings/</guid>
+      <description>The problem: which-key doesn&amp;rsquo;t work with hydra I had made a bunch of hydras which I would simply use as basic menu systems
+This is a bit of an anti-pattern.
+Hydras should only be used for creating temporary modes.
+The solution: create a macro which converts the hydras into regular bindings Prerequisites 1 2 3 4 5 6 7  (defun sed (command stdin) &amp;#34;wrapper around sed&amp;#34; (interactive) (setq stdin (str stdin)) (setq command (concat &amp;#34;sed &amp;#39;&amp;#34; (str command) &amp;#34;&amp;#39;&amp;#34;)) (sh-notty command stdin) )   The aim Wrap a defhydra with the convert-hydra-to-sslk macro to turn it into regular keybindings.</description>
+    </item>
+    
+    <item>
+      <title>fzf vs helm, ivy and completing-read</title>
+      <link>https://mullikine.github.io/posts/helm-ivy-and-completing-read/</link>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/helm-ivy-and-completing-read/</guid>
+      <description>Helm, ivy and completing-read are 3 emacs-lisp alternatives to fzf.
+They are all a little different to hack on / configure though.
+helm Select from a list There are different ways to select from a list.
+1 2 3 4 5 6 7 8 9 10 11 12 13  (defun fz-must-match (list &amp;amp;optional prompt) (setq prompt (or prompt &amp;#34;:&amp;#34;)) (helm-comp-read prompt list :must-match t)) ;; This is very useful (defun fz-default-return-query (list &amp;amp;optional prompt) (setq prompt (or prompt &amp;#34;:&amp;#34;)) (helm-comp-read prompt list :must-match &amp;#39;confirm)) ;; But I don&amp;#39;t like confirm things (defun fz-default-return-query (list &amp;amp;optional prompt) (setq prompt (or prompt &amp;#34;:&amp;#34;)) (helm-comp-read prompt list :must-match &amp;#39;nil))   Getting the list of options in another window tv takes a string and opens a window with it.</description>
+    </item>
+    
+    <item>
+      <title>Interesting emacs packages (Sep 2019)</title>
+      <link>https://mullikine.github.io/posts/emacs-packages-21.09.19/</link>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-packages-21.09.19/</guid>
+      <description>Helpful.el GitHub - Wilfred/helpful: A better Emacs help buffer
+Helpful is a replacement for help buffers that provides much more contextual information
+Interesting features It can search all loaded elisp files for references to a symbol.
+(define-button-type &amp;#39;helpful-all-references-button &amp;#39;action #&amp;#39;helpful--all-references &amp;#39;symbol nil &amp;#39;callable-p nil &amp;#39;follow-link t &amp;#39;help-echo &amp;#34;Find all references to this symbol&amp;#34;) (defun helpful--all-references (button) &amp;#34;Find all the references to the symbol that this BUTTON represents.&amp;#34; (let ((sym (button-get button &amp;#39;symbol)) (callable-p (button-get button &amp;#39;callable-p))) (cond ((not callable-p) (elisp-refs-variable sym)) ((functionp sym) (elisp-refs-function sym)) ((macrop sym) (elisp-refs-macro sym))))) parsec.</description>
+    </item>
+    
+    <item>
+      <title>Best emacs tetris in emacs 26&#43;</title>
+      <link>https://mullikine.github.io/posts/emacs-tetris-nice/</link>
+      <pubDate>Fri, 20 Sep 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-tetris-nice/</guid>
+      <description>emacs 27 has an update to emacs&#39; tetris mode which makes the glyphs display larger on higher DPI screens.
+This script will download that update from git.savannah.gnu.org and display tetris in a distraction free environment for the ultimate productivity.
+Symlinks If you symlink this script to etetris-vt100 and run that instead, you will get the animated and striking black and white terminal version.
+1  ln -s etetris etetris-vt100   If you symlink this script to etetris-xterm and run that instead, you will get the vivid color terminal version.</description>
+    </item>
+    
+    <item>
+      <title>Circumventing paywalls with eww browser</title>
+      <link>https://mullikine.github.io/posts/circumventing-paywalls-with-eww-browser/</link>
+      <pubDate>Thu, 19 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/circumventing-paywalls-with-eww-browser/</guid>
+      <description>Use Google cache Often Google cache has a full copy of an article.
+Check for the existence of the cache for a given URL as some URLs may not be cached.
+I had originally used curl for this.
+Circumventing paywalls with eww browser and curl // Bodacious Blog
+This is not an accurate science. Sometimes the cache is needed and sometimes it is not, but the more information we bring in (such as if the cache exists), the better, as this leads to a more informed decision.</description>
+    </item>
+    
+    <item>
+      <title>Didactic emacs-lisp macro example (ie. a tutorial)</title>
+      <link>https://mullikine.github.io/posts/macro-tutorial/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/macro-tutorial/</guid>
+      <description>In this tutorial we build a function b which allows you to run shell code within elisp syntax (it looks like emacs lisp).
+This tutorial is useful for learning to write emacs-lisp macros but is also useful for understanding macros of any language.
+First some prerequisite functions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65  (defmacro shut-up-c (&amp;amp;rest body) &amp;#34;This works for c functions where shut-up does not.</description>
+    </item>
+    
+    <item>
+      <title>Getting arxiv in the terminal</title>
+      <link>https://mullikine.github.io/posts/getting-arxiv-in-the-terminal/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/getting-arxiv-in-the-terminal/</guid>
+      <description>It all starts with this emacs plugin 1  (require &amp;#39;biblio-arxiv)   We create a bash script We name it arxiv-summary.
+Cant name this &amp;lsquo;as&amp;rsquo; because it interferes with pip.
+Sometimes packages installed wtih pip need the assembler.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35  #!</description>
+    </item>
+    
+    <item>
+      <title>Ameliorating list-processes</title>
+      <link>https://mullikine.github.io/posts/ameliorating-list-processes/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/ameliorating-list-processes/</guid>
+      <description>What is list-processes? list-processes is an emacs-lisp function which displays daemons running as subprocesses under emacs.
+The trouble with list-processes  It doesn&amp;rsquo;t format the command string  Commands with multiline arguments are printed verbatim Arguments are not quoted    This means that commands may flow several lines (as many as it takes to print out the full command).
+Also, 90% of the time you can&amp;rsquo;t copy the command and paste in the terminal because individual parameters with spaces are split into separate arguments.</description>
+    </item>
+    
+    <item>
+      <title>Uniqifying emacs apps</title>
+      <link>https://mullikine.github.io/posts/uniqifying-emacs-apps/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/uniqifying-emacs-apps/</guid>
+      <description>The problem Many useful emacs apps can only have one instance running at a time due to working with a fixed buffer name.
+ Examples of useful apps which you can only run one of  eww Perl-REPL dictionary-search calculator    The fix: rename the buffer to tack on a hash after it is created Create the advice function (defun unique-buffer-generic-after-advice (&amp;amp;rest args) &amp;#34;Give the buffer a unique name&amp;#34; (ignore-errors (let* ((hash (short-hash (str (time-to-seconds)))) (new-buffer-name (pcre-replace-string &amp;#34;(\\*?</description>
+    </item>
+    
+    <item>
+      <title>Making emacs-lisp wrappers for telco commands</title>
+      <link>https://mullikine.github.io/posts/emacs-telco-commands/</link>
+      <pubDate>Sat, 25 Aug 2018 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-telco-commands/</guid>
+      <description>Emacs scripts for bash-related tasks which could benefit from search and autocompletion 1 2 3 4 5 6 7 8 9  (require &amp;#39;my-utils) (require &amp;#39;my-nix) ;; lsof -i :55555 ;; (port2pid 55555) (defun port2process (port) (sh-notty (concat &amp;#34;lsof -i:&amp;#34; (str port)))) (defalias &amp;#39;portgrep &amp;#39;port2process) (defalias &amp;#39;port2pid &amp;#39;port2process)   (port2pid 55555) </description>
+    </item>
+    
+  </channel>
+</rss>

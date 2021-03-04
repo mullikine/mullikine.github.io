@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Review of &#39;Search Benchmarking: RediSearch vs. Elasticsearch | Redis Labs&#39; // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.3b5673793d1ef3ca96a58641efdd8a85521a9f081ccdc33ae9f2cafb6fa9c758.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Review of &#39;Search Benchmarking: RediSearch vs. Elasticsearch | Redis Labs&#39;"/>
+<meta name="twitter:description" content="Original article Search Benchmarking: RediSearch vs. Elasticsearch | Redis Labs  Search Benchmarking: RediSearch vs. Elasticsearch by Keren Ouaknine
+Background RediSearch is a distributed full-text search and aggregation engine built as a module on top of Redis. It enables users to execute complex search queries on their Redis dataset in an extremely fast manner. The unique architecture of RediSearch, which was written in C and built from the ground up on optimized data structures, makes it a true alternative to other search engines in the market."/>
+
+    <meta property="og:title" content="Review of &#39;Search Benchmarking: RediSearch vs. Elasticsearch | Redis Labs&#39;" />
+<meta property="og:description" content="Original article Search Benchmarking: RediSearch vs. Elasticsearch | Redis Labs  Search Benchmarking: RediSearch vs. Elasticsearch by Keren Ouaknine
+Background RediSearch is a distributed full-text search and aggregation engine built as a module on top of Redis. It enables users to execute complex search queries on their Redis dataset in an extremely fast manner. The unique architecture of RediSearch, which was written in C and built from the ground up on optimized data structures, makes it a true alternative to other search engines in the market." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/review-of-search-benchmarking-redisearch-vs-elasticsearch-redis-labs/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-07-23T00:00:00&#43;12:00" />
+<meta property="article:modified_time" content="2020-07-23T00:00:00&#43;12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+
+<a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a class="big" href="https://takaheai.github.io/">TakaheAI Blog</a>
+<br />
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/generating-hyperlinks-for-glossaries-and-other-parsers-in-emacs/">Hyperlink generation in emacs</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (298 topics)</a> <a href="https://github.com/mullikine/glossaries-gh">code</a>
+<br />
+<a href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">Automating Dwarf Fortress</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<a class="big" href="https://github.com/semiosis">Semiosis on Github</a>
+<br />
+<div class="taglist">
+
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/xenolinguistics/">xenolinguistics</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/gpt/">GPT (Generative Pre-trained Transformer)</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/shell/">shell</a>
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/github/">GitHub</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsl/">DSL</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/diagrams/">diagrams</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/aws/">AWS</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a>
+<a class="tag" href="https://mullikine.github.io/tags/iac/">IaC</a>
+<a class="tag big" href="https://mullikine.github.io/tags/facebook/">Facebook</a>
+<a class="tag" href="https://mullikine.github.io/tags/wfh/">WFH</a>
+
+
+<a class="tag" href="https://mullikine.github.io/tags/babel/">babel</a>
+<a class="tag big" href="https://mullikine.github.io/tags/uber/">Uber</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/microsoft/">Microsoft</a>
+<a class="tag big" href="https://mullikine.github.io/tags/openai/">OpenAI</a>
+<a class="tag" href="https://mullikine.github.io/tags/rosie/">rosie</a>
+<a class="tag" href="https://mullikine.github.io/tags/terraform/">Terraform</a>
+<a class="tag" href="https://mullikine.github.io/tags/elasticsearch/">ELK</a>
+<a class="tag" href="https://mullikine.github.io/tags/semmle/">Semmle</a>
+<a class="tag" href="https://mullikine.github.io/tags/expect/">tcl/expect</a>
+<a class="tag" href="https://mullikine.github.io/tags/solr/">solr</a>
+</div>
+</div>
+
+
+
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Review of &#39;Search Benchmarking: RediSearch vs. Elasticsearch | Redis Labs&#39;</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jul 23, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/elasticsearch/">elasticsearch</a><a class="tag" href="http://mullikine.github.io/tags/ir/">ir</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      <dl>
+<dt>Original article</dt>
+<dd><a href="https://redislabs.com/blog/search-benchmarking-redisearch-vs-elasticsearch/">Search Benchmarking: RediSearch vs. Elasticsearch | Redis Labs</a></dd>
+</dl>
+<h2 id="search-benchmarking-redisearch-vs-dot-elasticsearch">Search Benchmarking: RediSearch vs. Elasticsearch</h2>
+<p>by <a href="https://mullikine.github.io/author/kerenredislabs-com">Keren Ouaknine</a></p>
+<h4 id="background">Background</h4>
+<p>RediSearch is a distributed full-text search
+and aggregation engine built as a module on
+top of Redis. It enables users to execute
+complex search queries on their Redis dataset
+in an extremely fast manner. The unique
+architecture of RediSearch, which was written
+in C and built from the ground up on optimized
+data structures, makes it a true alternative
+to other search engines in the market. It
+works great as a standalone search engine for
+indexing and for retrieval of searchable data.</p>
+<p>When we first launched RediSearch, we
+<a href="https://redislabs.com/docs/redisearch-a-%20high-performance-search-engine-as-a-redis-%20module/">benchmarked it</a> against popular
+search engines like Elasticsearch and Solr to
+test how powerful the engine is. This time, we
+decided to try a slightly different benchmark
+in order to (a) give you a clear, reproducible
+setup, with all search engines optimized to
+provide their best performance and (b)
+simulate multiple real life scenarios based on
+what we see from our RediSearch users.</p>
+<h4 id="the-benchmark">The Benchmark</h4>
+<p>In this Search benchmark, we compared RediSearch to Elasticsearch over
+two use cases:</p>
+<ol>
+<li>Index and query the wikipedia dataset</li>
+<li>Fast indexing in a multi-tenant environment</li>
+</ol>
+<h4 id="wikipedia-benchmark">Wikipedia benchmark</h4>
+<p>We first indexed 5.6 million docs (5.3GB) from Wikipedia and then
+performed two-word search queries over the indexed dataset.</p>
+<h4 id="indexing-results">Indexing results</h4>
+<p>As you can see in the figure below, RediSearch built its index in 221
+seconds versus 349 seconds for Elasticsearch, or 58% faster.</p>
+<h4 id="querying-results">Querying results</h4>
+<p>Once the dataset was indexed, we launched two-word search queries using
+32 clients running on a dedicated load-generator server. As you can see
+in the figure below, RediSearch throughput reached 12.5K ops/sec
+compared to 3.1K ops/sec with Elasticsearch, or <strong>x4 faster</strong>.
+Furthermore, RediSearch  latency was slightly better, at 8msec on
+average compared to 10msec with Elasticsearch.</p>
+<h4 id="multi-tenant-indexing-benchmark">Multi-tenant indexing benchmark</h4>
+<p>Here, we simulated a multi-tenant e-commerce application where each
+tenant represented a product category and maintained its own index. For
+this benchmark, we built 50K indices (or products), which each stored up
+to 500 documents (or items), for a total of 25 million docs. RediSearch
+built the indices in just 201 seconds, while running an average of 125K
+indices/sec. However, Elasticsearch crashed after 921 indices and
+clearly was not designed to cope with this load.</p>
+<h4 id="benchmark-setup">Benchmark setup</h4>
+<!--list-separator-->
+<ul>
+<li>Hardware
+<table>
+<thead>
+<tr>
+<th>Cloud Instance Type</th>
+<th>vCPU</th>
+<th>Mem (GiB)</th>
+<th>Network</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One AWS c4.8xlarge: One for the load-generator and one for the search engine</td>
+<td>36</td>
+<td>60</td>
+<td>10 Gigabit</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>Dataset source
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description and Source</th>
+<th>#docs</th>
+<th>size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://s3.amazonaws.com/uploads-files/wiki%5Fdump.gz">wikidump</a></td>
+<td>Date: Feb 7, 2019</td>
+<td>5.6M</td>
+<td>5.3 GB</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>RediSearch configuration
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number of shards</td>
+<td>-  5 for the Wikipedia benchmark</td>
+</tr>
+<tr>
+<td></td>
+<td>-  20 for the multi-tenant benchmark</td>
+</tr>
+<tr>
+<td>Doc table size</td>
+<td>10M</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>Elasticsearch configuration
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number of shards</td>
+<td>5</td>
+</tr>
+<tr>
+<td>JVM settings (Xms and Xmx)</td>
+<td>25GB</td>
+</tr>
+<tr>
+<td>index.refresh\_interval</td>
+<td>-1</td>
+</tr>
+<tr>
+<td>index.number\_of\_replicas</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Indices.queries.cache.size and index.queries.cache.enabled</td>
+<td>Like mentioned <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-cache.html">here</a></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>Versions
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RediSearch</td>
+<td>Version 1.4.3</td>
+</tr>
+<tr>
+<td>Elasticsearch</td>
+<td>Version 6.6.0 with Lucene version 7.6.0</td>
+</tr>
+<tr>
+<td>RediSearchBenchmark</td>
+<td><a href="https://github.com/RediSearch/RediSearchBenchmark/">Benchmark code here</a></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<h4 id="conclusion">Conclusion</h4>
+<p>We benchmarked RediSearch and Elasticsearch for the following use cases:</p>
+<ul>
+<li>A simple Wikipedia use case &ndash; We found RediSearch faster by 58% on
+indexing and x4 faster when performing two-word searches on the
+indexed dataset.</li>
+<li>A more advanced multi-tenant use case &ndash; RediSearch created 50k
+indices in just 201 seconds while Elasticsearch crashed after 921
+indices were created.</li>
+</ul>
+<p>Elasticsearch is a great feature-rich search product created by the
+great people at <a href="https://www.elastic.co/">Elastic.co</a>, but when it
+comes to performance, it has inherent architecture deficiencies, as
+summarized by the table below:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>RediSearch</th>
+<th>Elasticsearch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search engine</td>
+<td>Dedicated engine based on modern and optimized data-structures</td>
+<td>based on Lucene engine</td>
+</tr>
+<tr>
+<td>Programming language</td>
+<td>C-based, extremely optimized</td>
+<td>Java</td>
+</tr>
+<tr>
+<td>Memory technology</td>
+<td>Runs natively on DRAM and Persistent Memory</td>
+<td>Disk-based with a caching option</td>
+</tr>
+<tr>
+<td>Protocol</td>
+<td>The optimized <a href="https://redis.io/topics/protocol">RESP</a> (REdis Serialization Protocol)</td>
+<td>HTTP</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+    <div class="post-footer">
+        <p>
+        <a href="https://mullikine.github.io/about/">About this weblog</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://asciinema.org/~mullikine">Asciinema recordings</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/posts/blogs-and-vlogs/">Blogs and Vlogs</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/tags/">Site Map</a>
+        </p>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

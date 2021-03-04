@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>jq on Bodacious Blog</title>
+    <link>https://mullikine.github.io/tags/jq/</link>
+    <description>Recent content in jq on Bodacious Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 04 Jul 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://mullikine.github.io/tags/jq/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Install haskell missing libraries</title>
+      <link>https://mullikine.github.io/posts/install-haskell-missing-libraries/</link>
+      <pubDate>Sat, 04 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/install-haskell-missing-libraries/</guid>
+      <description>List installed resolvers stack-list-resolvers
+1 2 3 4 5 6 7 8 9 10 11 12 13 14  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null # stack ls snapshots --lts remote | cat # TODO Make a way to list local resolvers cd /media/external-hd$HOME/.stack/build-plan find . -maxdepth 1 -name &amp;#34;lts-*.yaml&amp;#34; | sed -e &amp;#39;s/^\.\///&amp;#39; -e &amp;#39;s/\.yaml$//&amp;#39; | awk1 | while IFS=$&amp;#39;\n&amp;#39; read -r line; do echo &amp;#34;$line&amp;#34; unbuffer oci yq -r &amp;#39;.</description>
+    </item>
+    
+    <item>
+      <title>Advanced jq</title>
+      <link>https://mullikine.github.io/posts/advanced-jq/</link>
+      <pubDate>Fri, 03 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/advanced-jq/</guid>
+      <description>Original article https://stedolan.github.io/jq/manual/#foreach/h3/code  options 1 2 3 4 5  · --compact-output / -c: By default, jq pretty-prints JSON output. Using this option will result in more compact output by instead putting each JSON object on a single line.   stream 1  jq -n &amp;#39;[{foo:&amp;#34;bar&amp;#34;},{foo:&amp;#34;baz&amp;#34;}]&amp;#39; | jq -cn --stream &amp;#39;fromstream(1|truncate_stream(inputs))&amp;#39;   {&amp;#34;foo&amp;#34;:&amp;#34;bar&amp;#34;} {&amp;#34;foo&amp;#34;:&amp;#34;baz&amp;#34;} generate some json 1  [{foo:&amp;#34;bar&amp;#34;},{foo:&amp;#34;baz&amp;#34;}]   
+[ { &amp;#34;foo&amp;#34;: &amp;#34;bar&amp;#34; }, { &amp;#34;foo&amp;#34;: &amp;#34;baz&amp;#34; } ] Convert the json to stream 1  fromstream(1|truncate_stream(inputs))   {&amp;#34;foo&amp;#34;:&amp;#34;bar&amp;#34;} {&amp;#34;foo&amp;#34;:&amp;#34;baz&amp;#34;} Explanation --stream turns the json into a list of the paths to the values.</description>
+    </item>
+    
+  </channel>
+</rss>

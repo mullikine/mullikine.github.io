@@ -1,0 +1,1388 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>emacs on Bodacious Blog</title>
+    <link>https://mullikine.github.io/tags/emacs/</link>
+    <description>Recent content in emacs on Bodacious Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Feb 2021 00:00:00 +1300</lastBuildDate><atom:link href="https://mullikine.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fine-tuning GPT-3</title>
+      <link>https://mullikine.github.io/posts/fine-tuning-gpt-3/</link>
+      <pubDate>Sun, 21 Feb 2021 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/fine-tuning-gpt-3/</guid>
+      <description>Notes on GPT-3 fine-tuning http://github.com/mullikine/fine-tuning-gpt-3  Fine-tuning GPT-3 to generate puns Aims Train GPT-3 to continue on sequences of puns Train GPT-3 to speak in puns Training Data    format     jsonl       Sources
+ https://github.com/taivop/joke-dataset       Naive approach
+1 2 3  [{&amp;#34;data&amp;#34; : &amp;#34;joke set 1&amp;#34;}, {&amp;#34;data&amp;#34;: &amp;#34;joke set 2&amp;#34;}         Better approach</description>
+    </item>
+    
+    <item>
+      <title>Creating a playground for GPT-3 in emacs</title>
+      <link>https://mullikine.github.io/posts/creating-a-playground-for-gpt-3-in-emacs/</link>
+      <pubDate>Thu, 18 Feb 2021 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/creating-a-playground-for-gpt-3-in-emacs/</guid>
+      <description>Code https://github.com/mullikine/pen.el Prompts https://github.com/mullikine/prompts meetup.com event https://www.meetup.com/Code-Craft-Dunedin/events/276407816/ Slides http://github.com/mullikine/presentation-prompt-engineering-in-emacs/blob/master/presentation.pdf  Demonstration 
+Prompt-Engineering Part 1: Building an environment Summary of talk I got a key for the OpenAI API just a couple of days before my birthday.
+After applying about 10 times in the last year I finally got my key.
+I decided since the hour is late I would work on productivity tools that anyone can use, to facilitate programming in the new paradigm.</description>
+    </item>
+    
+    <item>
+      <title>sx: Move immediately to selected answer and suggest keywords for glossary</title>
+      <link>https://mullikine.github.io/posts/sx-move-immediately-to-selected-answer-and-suggest-keywords-for-glossary/</link>
+      <pubDate>Wed, 18 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/sx-move-immediately-to-selected-answer-and-suggest-keywords-for-glossary/</guid>
+      <description>Demo Quick search for command, copy and run.
+
+A longer demo:
+
+1 2 3 4 5 6 7 8 9 10 11 12 13  (defun sx-move-to-accepted-answer () (interactive) (if (string-match &amp;#34;^Accepted Answer$&amp;#34; (buffer-string)) (progn (re-search-forward &amp;#34;^Accepted Answer$&amp;#34;) (beginning-of-line)))) (defvar sx-question-mode--erase-and-print-question-after-hook &amp;#39;()) (defun sx-question-mode--erase-and-print-question-after-advice (&amp;amp;rest args) (run-hooks &amp;#39;sx-question-mode--erase-and-print-question-after-hook)) (advice-add &amp;#39;sx-question-mode--erase-and-print-question :after &amp;#39;sx-question-mode--erase-and-print-question-after-advice) (add-hook &amp;#39;sx-question-mode--erase-and-print-question-after-hook &amp;#39;redraw-glossary-buttons-when-window-scrolls-or-file-is-opened) (add-hook &amp;#39;sx-question-mode--erase-and-print-question-after-hook &amp;#39;sx-move-to-accepted-answer)   </description>
+    </item>
+    
+    <item>
+      <title>Preview docker-compose.yml as an svg</title>
+      <link>https://mullikine.github.io/posts/view-docker-compose-yml-as-an-svg/</link>
+      <pubDate>Fri, 13 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/view-docker-compose-yml-as-an-svg/</guid>
+      <description>Demo 
+Code for managing plantuml scope.sh Preview a file as plain text.
+1 2 3 4 5 6 7 8  case &amp;#34;$bn&amp;#34; in docker-compose.yml) { cat &amp;#34;$rp&amp;#34; | docker-compose-plantuml --link-graph &amp;amp;&amp;amp; exit 4 } ;; *) esac   cr Compile and run a file.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27  docker-compose.</description>
+    </item>
+    
+    <item>
+      <title>Selecting the matching regex at point, greedily, in emacs</title>
+      <link>https://mullikine.github.io/posts/selecting-the-matching-regex-at-point-greedily-in-emacs/</link>
+      <pubDate>Thu, 12 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/selecting-the-matching-regex-at-point-greedily-in-emacs/</guid>
+      <description>Synopsis It&amp;rsquo;s quite frustrating, really, that there is no builtin command for this. However useful er/expand-region may be at selecting a semantic region monotonically increasingly beneath the cursor, it makes more sense to have a function of my own design that decides what is important beneath the cursor and to use that as the specification for what I want to select.
+Enter my-select-regex-at-point. I am using this as I speak to select the function my-select-regex-at-point as I enter it into my blog.</description>
+    </item>
+    
+    <item>
+      <title>Shorten long paths in lsp-mode sideline</title>
+      <link>https://mullikine.github.io/posts/shorten-long-paths-in-lsp-mode-sideline/</link>
+      <pubDate>Thu, 12 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/shorten-long-paths-in-lsp-mode-sideline/</guid>
+      <description>Premise As I was reading some haskell, I was bothered by the long lsp-ui-sideline strings, which were encroaching upon my code.
+Demo: Before and after 
+LSP string format There is a file in lsp-mode, lsp- protocol.el which contains code to generate functions for reading and writing to lsp formatted strings.
+https://github.com/emacs-lsp/lsp-mode/blob/master/lsp-protocol.el
+Code Before 1 2 3 4 5 6 7 8 9 10 11 12 13 14  (defun lsp-ui-sideline--extract-info (contents) &amp;#34;Extract the line to print from CONTENTS.</description>
+    </item>
+    
+    <item>
+      <title>Automating sx (stackexchange for emacs)</title>
+      <link>https://mullikine.github.io/posts/automating-sx-stackexchange-for-emacs/</link>
+      <pubDate>Wed, 11 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/automating-sx-stackexchange-for-emacs/</guid>
+      <description>Synopsis I want to bidirectionally open a question in sx after finding it in chrome or open a question in chrome after finding it in sx.
+Make a CLI tool to open stackexchange in emacs from the command line Get the question ID from the url 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  (defun sx-get-appropriate-site-and-id-from-url (url) (let* ((question (s-replace-regexp &amp;#34;.</description>
+    </item>
+    
+    <item>
+      <title>Creating a transient-mode for advanced Google search operators, and GitHub too</title>
+      <link>https://mullikine.github.io/posts/creating-a-transient-mode-for-advanced-google-search-operators/</link>
+      <pubDate>Sat, 07 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/creating-a-transient-mode-for-advanced-google-search-operators/</guid>
+      <description>Synopsis I want to be able to search Google easily using advanced operators, but not have to remember, nor type in, the syntax.
+I create a user interface to generate the google search query.
+Demonstration Looking for a PDF about the perigee moon, but without the word apogee 
+Searching for PDFs about transducers that are not to do with clojure 
+Code All it does is, given a list of google operaters, it constructs a little gui, which shells out to a script.</description>
+    </item>
+    
+    <item>
+      <title>Go directly to main - Navigating arbitrary repositories</title>
+      <link>https://mullikine.github.io/posts/open-main-function-in-emacs/</link>
+      <pubDate>Tue, 03 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/open-main-function-in-emacs/</guid>
+      <description>Premise I would like to quckly jump to the entrypoint of a repository I have just downloaded.
+Demonstration 
+Repositories with lots of languages 
+
+Code elisp 1 2 3 4 5 6 7 8 9 10 11 12 13  (defun open-main () (interactive) (let ((found (fz (sn &amp;#34;open-main&amp;#34;) nil nil nil nil t))) (if found ;; (find-file found) (let ((path (s-replace-regexp &amp;#34;^\\([^:]+\\).*&amp;#34; &amp;#34;\\1&amp;#34; found)) (pos (s-replace-regexp &amp;#34;^[^:]+:\\([0-9]+\\):.*&amp;#34; &amp;#34;\\1&amp;#34; found))) (with-current-buffer (find-file path) (goto-byte (string-to-int pos)))) ;; (etv found) ))) (define-key global-map (kbd &amp;#34;H-o&amp;#34;) &amp;#39;open-main)   shell open-main</description>
+    </item>
+    
+    <item>
+      <title>Search Stack Exchange within emacs using Google search</title>
+      <link>https://mullikine.github.io/posts/stackexchange-inside-emacs-with-google-search/</link>
+      <pubDate>Sun, 01 Nov 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/stackexchange-inside-emacs-with-google-search/</guid>
+      <description>Premise There is a great package for emacs, sx, which enables you to search stackexchange. I&amp;rsquo;d like to use google to search for problems across all the stackexchange sites. I&amp;rsquo;d also like to go immediately to the most relevant question.
+Demonstration 
+How to crack an egg with stackexchange   Code 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38  (require &amp;#39;my-lists) (defun sx-get-appropriate-site-and-query (query) (let* ((site (fz (or (-filter-not-empty-string (str2lines (sn (concat &amp;#34;gl &amp;#34; (q query) &amp;#34; | grep -P \&amp;#34;(stackoverflow|stackexchange|serverfault).</description>
+    </item>
+    
+    <item>
+      <title>A toggle-buttoncloud (a systemwide control panel) in emacs</title>
+      <link>https://mullikine.github.io/posts/a-toggle-buttoncloud-a-systemwide-control-panel-in-emacs/</link>
+      <pubDate>Sat, 24 Oct 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/a-toggle-buttoncloud-a-systemwide-control-panel-in-emacs/</guid>
+      <description>Demonstration 
+Code 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155  (defset toggle-scripts (glob &amp;#34;toggle-*&amp;#34; &amp;#34;$SCRIPTS&amp;#34;)) (defset toggle-myrc-keys (str2lines (cl-sn &amp;#34;cat $NOTES/myrc.</description>
+    </item>
+    
+    <item>
+      <title>Updates and demonstrations of the glossary system</title>
+      <link>https://mullikine.github.io/posts/updates-and-demonstrations-of-the-glossary-system/</link>
+      <pubDate>Sat, 24 Oct 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/updates-and-demonstrations-of-the-glossary-system/</guid>
+      <description>Demonstrations Learning clojure Here I demonstrate how easy it is to see and navigate glossary items highlighted across code, documentation and websites.
+
+Learning the language of Lord of the Rings 
+Learning archaic English from the KJV Bible</description>
+    </item>
+    
+    <item>
+      <title>Updates to the emacs glossary system</title>
+      <link>https://mullikine.github.io/posts/updates-to-the-emacs-glossary-system/</link>
+      <pubDate>Sat, 17 Oct 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/updates-to-the-emacs-glossary-system/</guid>
+      <description>Key bindings    kb f      L glossary-add-link Create a link for a term to a topic. From then on, that topic&amp;rsquo;s glossary is loaded when the term is seen.   A add-to-glossary-file-for-buffer Add a new term to one of the most relevant glossaries.    Creating / adding to the ansible glossary 
+Learning Lord of the Rings lore as I&amp;rsquo;m reading</description>
+    </item>
+    
+    <item>
+      <title>CodeCraft: Creating UIs for CLI programs with Docker and Emacs</title>
+      <link>https://mullikine.github.io/posts/codecraft-creating-uis-for-cli-programs-with-docker-and-emacs/</link>
+      <pubDate>Tue, 06 Oct 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/codecraft-creating-uis-for-cli-programs-with-docker-and-emacs/</guid>
+      <description>Speaker URL     Shane Mulligan (Myself) https://github.com/mullikine/     Similar presentation Conquering Kubernetes with Emacs - YouTube  Creating standalone UI applications for CLI tools using emacs and docker emacs (editor macros) Macros could be automated key input. This works for almost all CLI programs.
+tmux Years ago NickM, the creator of tmux gave a talk at St Davids lecture theatre. I didn&amp;rsquo;t go, but I was distraught when I found out I had missed the event.</description>
+    </item>
+    
+    <item>
+      <title>Easy, hyperlink wordclouds in emacs</title>
+      <link>https://mullikine.github.io/posts/easy-hyperlink-wordclouds-in-emacs/</link>
+      <pubDate>Wed, 16 Sep 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/easy-hyperlink-wordclouds-in-emacs/</guid>
+      <description>Word clouds 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26  (defface glossary-button-face &amp;#39;((t :foreground &amp;#34;#3fa75f&amp;#34; :background &amp;#34;#2e2e2e&amp;#34; :weight bold :underline t)) &amp;#34;Face for glossary buttons.&amp;#34;) (define-button-type &amp;#39;glossary-button &amp;#39;follow-link t &amp;#39;help-echo &amp;#34;Click to go to definition&amp;#34; &amp;#39;face &amp;#39;glossary-button-face) (defun create-buttoncloud (button-name-action-tuples-list) (with-output-to-temp-buffer &amp;#34;*button cloud*&amp;#34; (with-current-buffer &amp;#34;*button cloud*&amp;#34; (let ((consecutive)) (cl-loop for bt in button-name-action-tuples-list do (progn (if consecutive (insert &amp;#34; &amp;#34;)) (insert-button (car bt) &amp;#39;type &amp;#39;glossary-button &amp;#39;action (cdr bt)) (setq consecutive t))))))) (create-buttoncloud &amp;#39;((&amp;#34;yo&amp;#34; .</description>
+    </item>
+    
+    <item>
+      <title>Generating hyperlinks for glossaries and other parsers in emacs</title>
+      <link>https://mullikine.github.io/posts/generating-hyperlinks-for-glossaries-and-other-parsers-in-emacs/</link>
+      <pubDate>Wed, 09 Sep 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/generating-hyperlinks-for-glossaries-and-other-parsers-in-emacs/</guid>
+      <description>TL;DR: Build a wiki, but far more powerful  I would like to be reminded of things as I read, like a wiki, but better. I would like to see a glossary of the words I have learned. I would like to know at a moment&amp;rsquo;s glance what I have already read and understood. I would like to be reminded of important things as I&amp;rsquo;m having a conversation.  Great for  Reading books Keeping and navigating a glossary extremely easily Procedurally/generatively navigating text (the applications are endless)  Enter, emacs Demonstration</description>
+    </item>
+    
+    <item>
+      <title>annotate any buffer in emacs</title>
+      <link>https://mullikine.github.io/posts/annotate-any-buffer-in-emacs/</link>
+      <pubDate>Mon, 07 Sep 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/annotate-any-buffer-in-emacs/</guid>
+      <description>Synopsis Using annotate.el, it&amp;rsquo;s possible to annotate files and Info buffers, without modifying the file itself.
+I&amp;rsquo;d like to make this work for any buffer.
+Demonstration &amp;ndash; annotating dired 
+Firstly, override the annotate-actual-file-name function to handle more buffer types 1 2 3 4 5 6 7 8 9 10 11  (defun annotate-actual-file-name () &amp;#34;Get the actual file name of the current buffer&amp;#34; (substring-no-properties (or (annotate-info-actual-filename) (string-or (buffer-file-name)) (string-or (if (major-mode-p &amp;#39;eww-mode) (concat &amp;#34;**&amp;#34; (get-path)))) (string-or (try (concat &amp;#34;**&amp;#34; (cond ((major-mode-p &amp;#39;dired-mode) (slugify (concat (str (buffer-mode)) &amp;#34;-&amp;#34; (mnm (my/pwd)) &amp;#34;-&amp;#34; (buffer-name)))) (t (slugify (concat (str (buffer-mode)) &amp;#34;-&amp;#34; (buffer-name)))))) &amp;#34;&amp;#34;)) &amp;#34;&amp;#34;)))   Add to some hooks for buffer types I&amp;rsquo;d like to annotate 1 2 3 4 5  (defset modes-for-annotate-mode &amp;#39;(Info-mode-hook helpful-mode help-mode prog-mode conf-mode text-mode yaml-mode ssh-config-mode)) (cl-loop for m in modes-for-annotate-mode do ;; (message (str m)) (let ((h (str2sym (concat (sym2str m) &amp;#34;-hook&amp;#34;)))) (add-hook h &amp;#39;enable-annotate t)))   dired-mode-hook happens too early, so I needed this 1 2 3 4 5  (defun dired-around-advice (proc &amp;amp;rest args) (let ((res (apply proc args))) (enable-annotate) res)) (advice-add &amp;#39;dired :around #&amp;#39;dired-around-advice)   When annotate is loaded, it creates some overlays.</description>
+    </item>
+    
+    <item>
+      <title>Use selection as input to occur-mode</title>
+      <link>https://mullikine.github.io/posts/use-selection-as-input-to-occur-mode/</link>
+      <pubDate>Sat, 05 Sep 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/use-selection-as-input-to-occur-mode/</guid>
+      <description>This is the magic 1 2 3 4 5 6 7 8 9 10 11 12 13 14  ;; This allows me to select text and use that for the basis of occur (defun occur-around-advice (proc &amp;amp;rest args) (interactive (nconc (or (if (selection-p) (let ((sel (selection))) (deselect) (list (concat &amp;#34;\\b&amp;#34; sel &amp;#34;\\b&amp;#34;))) nil) (occur-read-primary-args)) (and (use-region-p) (list (region-bounds))))) (let ((res (if (use-region-p) (apply proc (list (selection))) (apply proc args)))) res)) (advice-add &amp;#39;occur :around #&amp;#39;occur-around-advice)   If you want to revert the behaviour then run this 1  (advice-remove &amp;#39;occur #&amp;#39;occur-around-advice)   Demonstration</description>
+    </item>
+    
+    <item>
+      <title>calibredb inside emacs with text pdfs</title>
+      <link>https://mullikine.github.io/posts/calibredb-inside-emacs-with-text-pdfs/</link>
+      <pubDate>Thu, 27 Aug 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/calibredb-inside-emacs-with-text-pdfs/</guid>
+      <description>Summary I want to be able to read pdfs from within emacs and convert them to text, so I can read them within a terminal.
+I want this to work for dired, calibredb and org-mode, or anywhere else.
+Demonstration 
+Solution Ensure there are no openwith associations for pdfs 1  (remove-from-list &amp;#39;openwith-associations &amp;#39;(&amp;#34;\\.pdf\\&amp;#39;&amp;#34; &amp;#34;z&amp;#34; (file)))   Ensure there is no entry for pdfs in org-file=apps 1  (remove-from-list &amp;#39;org-file-apps &amp;#39;(&amp;#34;\\.</description>
+    </item>
+    
+    <item>
+      <title>easy elisp variable editing</title>
+      <link>https://mullikine.github.io/posts/easy-elisp-variable-editing/</link>
+      <pubDate>Thu, 27 Aug 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/easy-elisp-variable-editing/</guid>
+      <description>Summary It&amp;rsquo;s useful to be able to make quick edits to the contents elisp variables, such as rearranging elements in a hook.
+Demonstration 
+Here is the code 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26  (defun edit-var-elisp (variable &amp;amp;optional buffer frame) (interactive (let ((v (variable-at-point)) (enable-recursive-minibuffers t) (orig-buffer (current-buffer)) val) (setq val (completing-read (if (symbolp v) (format &amp;#34;Describe variable (default %s): &amp;#34; v) &amp;#34;Describe variable: &amp;#34;) #&amp;#39;help--symbol-completion-table (lambda (vv) ;; In case the variable only exists in the buffer ;; the command we switch back to that buffer before ;; we examine the variable.</description>
+    </item>
+    
+    <item>
+      <title>searching for libraries in emacs with libraries.io</title>
+      <link>https://mullikine.github.io/posts/searching-for-libraries-in-emacs-with-libraries-io/</link>
+      <pubDate>Thu, 27 Aug 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/searching-for-libraries-in-emacs-with-libraries-io/</guid>
+      <description>Summary I&amp;rsquo;d like to search for libraries using libraries.io, but not have to leave emacs.
+Demonstration 
+Add to eww&amp;rsquo;s URL handling hook to download the actual code 
+Code Define an engine-mode engine 1 2 3  (defengine libraries &amp;#34;https://libraries.io/search?q=%s&amp;#34; :keybinding &amp;#34;/&amp;#34;)   Create the function to clean up the page after loading in eww 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31  (defun clean-up-libraries-io () (interactive) (beginning-of-buffer) (toggle-read-only) (cua-set-mark) (search-forward &amp;#34;------&amp;#34;) (forward-line) (forward-char) (delete-selected) (end-of-buffer) (cua-set-mark) (re-search-backward &amp;#34;^License&amp;#34;) (previous-line) (delete-selected) (beginning-of-buffer) (toggle-read-only)) (add-to-list &amp;#39;eww-patchup-url-alist &amp;#39;(&amp;#34;://libraries.</description>
+    </item>
+    
+    <item>
+      <title>grep.app inside emacs</title>
+      <link>https://mullikine.github.io/posts/grep-app-inside-emacs/</link>
+      <pubDate>Sun, 23 Aug 2020 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/grep-app-inside-emacs/</guid>
+      <description>Summary grep.app is a free web app that lets you perform full-text search on GitHub code, using regex to match content, file paths and repository names.
+The problem I&amp;rsquo;d like to make this more convenient by searching and obtaining example code all within emacs.
+ emacs&#39; eww-mode doesn&amp;rsquo;t support javascript. I&amp;rsquo;d like to present the website in a usable form &amp;ndash; code snippets cleaned up. I&amp;rsquo;d like to automate the process of searching so that it doesn&amp;rsquo;t require any typing.</description>
+    </item>
+    
+    <item>
+      <title>Using babel with Google translate</title>
+      <link>https://mullikine.github.io/posts/using-babel-with-google-translate/</link>
+      <pubDate>Mon, 13 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/using-babel-with-google-translate/</guid>
+      <description>Create wrapper script around soimort/translate-shell translate-shell 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null # translate-shell -s en -t fr &amp;#34;$@&amp;#34; stdin_exists() { ! [ -t 0 ] &amp;amp;&amp;amp; ! test &amp;#34;$(readlink /proc/$$/fd/0)&amp;#34; = /dev/null } if stdin_exists; then ins=&amp;#34;$(cat)&amp;#34; set -- &amp;#34;$@&amp;#34; &amp;#34;$ins&amp;#34; fi $MYGIT/soimort/translate-shell/translate -brief &amp;#34;$@&amp;#34;   Create the entries in org-template-gen 1 2 3 4 5 6 7 8 9 10 11 12 13  french) { echo &amp;#34;#+BEGIN_SRC text -n :f \&amp;#34;translate-shell -s fr -t en\&amp;#34; :async :results verbatim code&amp;#34; cat &amp;#34;$input_fp&amp;#34; | postprocess echo -n &amp;#34;#+END_SRC&amp;#34; } ;; english) { echo &amp;#34;#+BEGIN_SRC text -n :f \&amp;#34;translate-shell -s en -t fr\&amp;#34; :async :results verbatim code&amp;#34; cat &amp;#34;$input_fp&amp;#34; | postprocess echo -n &amp;#34;#+END_SRC&amp;#34; } ;;   Create the entries in hydra-org-template 1 2  (&amp;#34;E&amp;#34; (hot-expand &amp;#34;&amp;lt;s&amp;#34; &amp;#34;french&amp;#34;) &amp;#34;french&amp;#34;) (&amp;#34;F&amp;#34; (hot-expand &amp;#34;&amp;lt;s&amp;#34; &amp;#34;english&amp;#34;) &amp;#34;english&amp;#34;)   Demonstration</description>
+    </item>
+    
+    <item>
+      <title>Fixing LSP for Python in emacs</title>
+      <link>https://mullikine.github.io/posts/fixing-lsp-for-python-in-emacs/</link>
+      <pubDate>Sun, 05 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/fixing-lsp-for-python-in-emacs/</guid>
+      <description>TL;DR The documentation doesn&amp;rsquo;t appear in python mode.
+I was using anaconda-mode to display documentation to alleviate the problem.
+I found the problem in the way lsp-mode extracts documentation from the request.
+Now it works.
+I&amp;rsquo;ve also created a function my-lsp-get- hover-docs to create a new buffer from the documentation for the thing under the cursor.
+As a side-effect of all of this, I&amp;rsquo;ve learned to create my own overlays.</description>
+    </item>
+    
+    <item>
+      <title>Add super and hyper to terminal emacs</title>
+      <link>https://mullikine.github.io/posts/add-super-and-hyper-to-terminal-emacs/</link>
+      <pubDate>Sat, 04 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/add-super-and-hyper-to-terminal-emacs/</guid>
+      <description>Tapping these chords will add the modifier to the chord that follows.
+ Source material https://www.gnu.org/software/emacs/manual/html%5Fnode/elisp/Translation-Keymaps.html https://emacs.stackexchange.com/questions/18245/making-terminal-emacs-treat-apps-aka-menu-key-as-super-modifier  Now I have a means of typing any bindings that use the super or hyper keys.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29  (defun add-event-modifier (string e) (let ((symbol (if (symbolp e) e (car e)))) (setq symbol (intern (concat string (symbol-name symbol)))) (if (symbolp e) symbol (cons symbol (cdr e))))) (defun superify (prompt) (let ((e (read-event))) (vector (if (numberp e) (logior (lsh 1 23) e) (if (memq &amp;#39;super (event-modifiers e)) e (add-event-modifier &amp;#34;s-&amp;#34; e)))))) (defun hyperify (prompt) (let ((e (read-event))) (vector (if (numberp e) (logior (lsh 1 24) e) (if (memq &amp;#39;hyper (event-modifiers e)) e (add-event-modifier &amp;#34;H-&amp;#34; e)))))) (define-key global-map (kbd &amp;#34;C-M-6&amp;#34;) nil) ;For GUI (define-key function-key-map (kbd &amp;#34;C-M-6&amp;#34;) &amp;#39;superify) ;For GUI (define-key function-key-map (kbd &amp;#34;C-M-^&amp;#34;) &amp;#39;superify) (define-key global-map (kbd &amp;#34;C-M-\\&amp;#34;) nil) ;Ensure that this bindings isnt taken (define-key function-key-map (kbd &amp;#34;C-M-\\&amp;#34;) &amp;#39;hyperify)   </description>
+    </item>
+    
+    <item>
+      <title>Automate vim with emacs keyboard macros</title>
+      <link>https://mullikine.github.io/posts/automate-vim-with-emacs-keyboard-macros/</link>
+      <pubDate>Sat, 04 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/automate-vim-with-emacs-keyboard-macros/</guid>
+      <description>This will open the list of blog posts inside of vim.
+This outputs a shell command into vim and starts it within spacemacs via emacsclient.
+1  sp -shE &amp;#34;cd /home/shane/blog/posts; find . -name &amp;#39;*.org&amp;#39; | v&amp;#34;   I now want to go through the remaining blog posts listed in vim (which do not have margin=0.05in as the first line and add it.
+Not knowing if it&amp;rsquo;s possible to create a multi-file keyboard macro in vim, I will use emacs macros on vim via term-mode.</description>
+    </item>
+    
+    <item>
+      <title>Creating a portfolio PDF from my blog</title>
+      <link>https://mullikine.github.io/posts/creating-a-portfolio-pdf-from-my-blog/</link>
+      <pubDate>Sat, 04 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/creating-a-portfolio-pdf-from-my-blog/</guid>
+      <description>Firstly, touch up my blog articles to be suitable for PDF Do this by automating vim with emacs.
+Find blog articles without LATEX_HEADER 1  cd $HOME/blog/posts; find . -name &amp;#39;*.org&amp;#39; | eipct -x -E &amp;#34;! grep -q LATEX_HEADER&amp;#34; | eipct -x grep -q HUGO_BASE | head -n 5   ./aws-services.org ./rat.org ./music-playlists-in-emacs-lisp.org ./minor-mode-wrappers-for-shell-commands.org ./review-of-introduction-rust-by-example.org Automate vim with emacs keyboard macros I want to add the latex header to all the blog posts without one.</description>
+    </item>
+    
+    <item>
+      <title>Install haskell missing libraries</title>
+      <link>https://mullikine.github.io/posts/install-haskell-missing-libraries/</link>
+      <pubDate>Sat, 04 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/install-haskell-missing-libraries/</guid>
+      <description>List installed resolvers stack-list-resolvers
+1 2 3 4 5 6 7 8 9 10 11 12 13 14  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null # stack ls snapshots --lts remote | cat # TODO Make a way to list local resolvers cd /media/external-hd$HOME/.stack/build-plan find . -maxdepth 1 -name &amp;#34;lts-*.yaml&amp;#34; | sed -e &amp;#39;s/^\.\///&amp;#39; -e &amp;#39;s/\.yaml$//&amp;#39; | awk1 | while IFS=$&amp;#39;\n&amp;#39; read -r line; do echo &amp;#34;$line&amp;#34; unbuffer oci yq -r &amp;#39;.</description>
+    </item>
+    
+    <item>
+      <title>Navigate buffers in emacs using arbitrary string filters and parsers</title>
+      <link>https://mullikine.github.io/posts/navigate-files-in-emacs-using-rosielang/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/navigate-files-in-emacs-using-rosielang/</guid>
+      <description>TL;DR The basic idea here is that we might want to navigate to the next and previous instances of a common pattern in a file.
+The common pattern might be an IP address, say or an email.
+I extend emacs to use output from the rosie parser to navigate a file.
+This will be useful in future because most likely I will want to use other parsers.
+Demonstration Select from lists of filters and navigate</description>
+    </item>
+    
+    <item>
+      <title>Suggesting emacs functions depending on the context</title>
+      <link>https://mullikine.github.io/posts/suggesting-emacs-functions-depending-on-the-context/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/suggesting-emacs-functions-depending-on-the-context/</guid>
+      <description>TL;DR Implement in emacs lisp a way of suggesting functions to myself depending on a set of cues
+Demonstration 
+Designing the plugin Some predicate atoms 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20  (defun chomp (str) &amp;#34;Chomp leading and tailing whitespace from STR for each line.&amp;#34; (while (string-match &amp;#34;\\`\n+\\|^\\s-+\\|\\s-+$\\|\n+\\&amp;#39;&amp;#34; str) (setq str (replace-match &amp;#34;&amp;#34; t t str))) str) (defalias &amp;#39;q &amp;#39;shell-quote-argument) (defun rpl-at-line-p (rpl) (let* ((output (chomp (shell-command-to-string (concat &amp;#34;rosie grep -o subs &amp;#34; (q rpl)) (thing-at-point &amp;#39;line t)))) (matches (str2list output)) (n (length matches))) (and (not (string-empty-p output)) (&amp;gt; n 0)))) (defun rpl-at-point-p (rpl) (let* ((output (chomp (sn (concat &amp;#34;rosie grep -o subs &amp;#34; (q rpl)) (thing-at-point &amp;#39;sexp t)))) (matches (str2list output)) (n (length matches))) (and (not (string-empty-p output)) (&amp;gt; n 0))))   Some functions to debug the above predicate atoms 1 2 3 4 5 6 7 8 9  (defun rpl-at-line (rpl) (let* ((output (chomp (sn (concat &amp;#34;rosie grep -o subs &amp;#34; (q rpl)) (thing-at-point &amp;#39;line t)))) (matches (str2list output))) matches)) (defun rpl-at-point (rpl) (let* ((output (chomp (sn (concat &amp;#34;rosie grep -o subs &amp;#34; (q rpl)) (thing-at-point &amp;#39;sexp t)))) (matches (str2list output))) matches))   Some functions that we might want to suggest 1 2 3 4 5 6 7 8 9 10  (defun copy-ip-here () (interactive) (xc (first (rpl-at-point &amp;#34;net.</description>
+    </item>
+    
+    <item>
+      <title>Trying out python libraries in emacs</title>
+      <link>https://mullikine.github.io/posts/trying-out-python-libraries-in-emacs/</link>
+      <pubDate>Mon, 29 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/trying-out-python-libraries-in-emacs/</guid>
+      <description>Create a convenience script for creating temporary directories 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118  #!</description>
+    </item>
+    
+    <item>
+      <title>Use chrome puppeteer to provide a DOM for emacs eww</title>
+      <link>https://mullikine.github.io/posts/use-chrome-puppeteer-to-provide-a-dom-for-emacs-eww/</link>
+      <pubDate>Mon, 29 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/use-chrome-puppeteer-to-provide-a-dom-for-emacs-eww/</guid>
+      <description>Basically, a lot of websites these days generate the DOM using javascript.
+You can dump the DOM from chrome and inject it into eww just before it renders.
+Firstly, create a script for dumping the dom given a url dump-dom shell script.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30  #!</description>
+    </item>
+    
+    <item>
+      <title>Effective lisp string editing in emacs</title>
+      <link>https://mullikine.github.io/posts/effective-lisp-string-editing-in-emacs/</link>
+      <pubDate>Sun, 28 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/effective-lisp-string-editing-in-emacs/</guid>
+      <description>Premise I wanted to edit strings in a more isolated and optimised environment for editing strings.
+The best way to do so turned out to be a combination of buffer narrowing and switching to a new mode who&amp;rsquo;s sole purpose is to provide a generic mode for editing text and a key binding to widen the buffer again.
+Create the major mode and the &amp;lsquo;edit string&amp;rsquo; function 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25  (defvar lispy-string-edit-mode-map (let ((map (make-sparse-keymap)) (menu-map (make-sparse-keymap &amp;#34;lispy string&amp;#34;))) (define-key map (kbd &amp;#34;C-c &amp;#39;&amp;#34;) &amp;#39;lispy-edit-string) map)) (define-derived-mode lispy-string-edit-mode text-mode &amp;#34;lispy string&amp;#34; &amp;#34;Major mode for editing lisp strings&amp;#34;) (defun emacs-lisp-edit-string () (interactive) (if (and (lispy--buffer-narrowed-p) (major-mode-p &amp;#39;lispy-string-edit-mode)) (progn (cfilter &amp;#34;q -f&amp;#34;) (while (lispy--buffer-narrowed-p) (ignore-errors (call-interactively &amp;#39;recursive-widen))) (emacs-lisp-mode)) (if (lispy--in-string-p) (save-mark-and-excursion (progn (lispy-mark) (call-interactively &amp;#39;my/enter-edit-emacs) (lispy-string-edit-mode) (cfilter &amp;#34;uq&amp;#34;)))))) (defalias &amp;#39;lispy-edit-string &amp;#39;emacs-lisp-edit-string)   Demonstration Editing strings is so much easier now!</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch and emacs</title>
+      <link>https://mullikine.github.io/posts/elasticsearch-and-emacs/</link>
+      <pubDate>Sat, 27 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/elasticsearch-and-emacs/</guid>
+      <description>babel https://github.com/dakrone/es-mode
+The built-in babel interpreter for ES query DSL targets http://localhost:9200/.
+POST /_search?pretty { &amp;#34;query&amp;#34;: { &amp;#34;match_all&amp;#34;: {} } } { &amp;#34;took&amp;#34; : 0, &amp;#34;timed_out&amp;#34; : false, &amp;#34;_shards&amp;#34; : { &amp;#34;total&amp;#34; : 0, &amp;#34;successful&amp;#34; : 0, &amp;#34;skipped&amp;#34; : 0, &amp;#34;failed&amp;#34; : 0 }, &amp;#34;hits&amp;#34; : { &amp;#34;total&amp;#34; : 0, &amp;#34;max_score&amp;#34; : 0.0, &amp;#34;hits&amp;#34; : [ ] } } tablify POST /test/doc/_search { &amp;#34;aggs&amp;#34; : { &amp;#34;my_terms_agg&amp;#34; : { &amp;#34;terms&amp;#34; : { &amp;#34;field&amp;#34; : &amp;#34;type&amp;#34; } } }, &amp;#34;size&amp;#34;: 0 } </description>
+    </item>
+    
+    <item>
+      <title>Navigating code language-agnostically with ctags</title>
+      <link>https://mullikine.github.io/posts/navigating-code-language-agnostically-with-ctags/</link>
+      <pubDate>Sat, 27 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/navigating-code-language-agnostically-with-ctags/</guid>
+      <description>required tools  cscope pycscope cqmakedb ctags-exuberant tags2uml  supported languages Basically, as many as ctags supports.
+ I have utilised only the following:  python php java c++ go rust javascript typescript     1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20  find -L -O3 $CWD \  -true \  -and \  \( \  -name &amp;#39;*.</description>
+    </item>
+    
+    <item>
+      <title>Implementing operators from other languages in elisp</title>
+      <link>https://mullikine.github.io/posts/implementing-operators-from-other-languages-in-elisp/</link>
+      <pubDate>Sat, 20 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/implementing-operators-from-other-languages-in-elisp/</guid>
+      <description>Ruby https://en.wikibooks.org/wiki/Ruby%5FProgramming/Syntax/Operators
+||= (double pipe) http://www.rubyinside.com/what-rubys-double-pipe-or-equals-really-does-5488.html
+Useful for initializing with default values.
+   op explanation arity precedence association     \vert\vert\eq A \vert\vert\eq B assigns B to A iff A is nil or false Binary 15 Right    1 2 3 4 5 6 7 8  (defmacro ||= (sym value) &amp;#34;Idempotent assignment operator from Ruby&amp;#34; `(progn (if (not (variable-p &amp;#39;,sym)) (setq ,sym ,value)) ,sym)) (provide &amp;#39;my-operators)   &amp;amp;&amp;amp;\eq (double ampersand equals) http://www.</description>
+    </item>
+    
+    <item>
+      <title>Creating linter plugins for emacs with flycheck</title>
+      <link>https://mullikine.github.io/posts/creating-linter-plugins-for-emacs/</link>
+      <pubDate>Fri, 19 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/creating-linter-plugins-for-emacs/</guid>
+      <description>Options :standard-input t This instructs emacs to pipe the buffer into the linter command.
+variables These are used in the command definition.
+For syntax checkers that can’t read from standard input Flycheck provides the special source and source-inplace argument symbols for the :command property.
+These argument symbols create temporary files in the system temp directory or beneath the original file respectively and give pass them to the syntax checker upon invocation.</description>
+    </item>
+    
+    <item>
+      <title>GitHub Super-Linter and emacs</title>
+      <link>https://mullikine.github.io/posts/github-super-linter-and-emacs/</link>
+      <pubDate>Fri, 19 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/github-super-linter-and-emacs/</guid>
+      <description>Article https://github.blog/2020-06-18-introducing-github-super-linter-one-linter-to-rule-them-all/ Source Code https://github.com/github/super-linter TLDR I create a plugin for emacs to use GitHub super linter  Use Super linter locally  Instructions https://github.com/github/super-linter/blob/master/docs/run-linter-locally.md  Create a wrapper script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null if test &amp;#34;$#&amp;#34; -eq 0; then set -- .</description>
+    </item>
+    
+    <item>
+      <title>Common search functions in emacs</title>
+      <link>https://mullikine.github.io/posts/common-search-functions-in-emacs/</link>
+      <pubDate>Thu, 18 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/common-search-functions-in-emacs/</guid>
+      <description>The plan Create bindings to query natural language models for suggestions  Generate relevant natural language queries  guru99 project management 1 2 3 4  (defun my-egr-guru99 (query) (interactive (list (read-string &amp;#34;egr:&amp;#34; &amp;#34;guru99 &amp;#34;))) ;; (sps (concat &amp;#34;eww &amp;#34; (q (car (str2list (sn (concat &amp;#34;gl &amp;#34; (q query)))))))) (eww (car (str2list (sn (concat &amp;#34;gl &amp;#34; (q query)))))))   
+github repositories  Search google Download Browse</description>
+    </item>
+    
+    <item>
+      <title>Grep on results of grep from emacs</title>
+      <link>https://mullikine.github.io/posts/grep-on-results-of-grep-from-emacs/</link>
+      <pubDate>Wed, 17 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/grep-on-results-of-grep-from-emacs/</guid>
+      <description>1 2 3  (defun grep-ead-on-results (paths query) (interactive (list (selection-or-buffer-string) (read-string &amp;#34;ead:&amp;#34;))) (sps (concat &amp;#34;ead &amp;#34; query) &amp;#34;&amp;#34; (sn &amp;#34;sed -n &amp;#39;/:[0-9]/s/^\\([^:]*\\):.*/\\1/p&amp;#39; | uniqnosort&amp;#34; paths)))   1  (defset grep-mode-funcs (list &amp;#39;grep-ead-on-results))   Testing it out I want to find a docker container wrapper that has both --entrypoint and sets a variable called dn.
+This one was found.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26  #!</description>
+    </item>
+    
+    <item>
+      <title>Dired with glimpse and find</title>
+      <link>https://mullikine.github.io/posts/dired-with-glimpse-and-find/</link>
+      <pubDate>Sat, 13 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/dired-with-glimpse-and-find/</guid>
+      <description>Firstly, create the dired-cmd function 1 2 3 4 5  (defun dired-cmd (cmd dirname &amp;amp;optional switches) (interactive (cons (read-string &amp;#34;cmd:&amp;#34;) (dired-read-dir-and-switches &amp;#34;&amp;#34;))) (ignore-errors (kill-buffer dirname)) (let ((insert-directory-program cmd)) (dired dirname switches)))   Create the dired wrapper script This allows you to pipe a list of directories into emacs&#39; dired-mode.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74  #!</description>
+    </item>
+    
+    <item>
+      <title>Emacs Websockets</title>
+      <link>https://mullikine.github.io/posts/review-of-emacs-websockets/</link>
+      <pubDate>Thu, 11 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/review-of-emacs-websockets/</guid>
+      <description>Original article Emacs Websockets  https://developer.mozilla.org/en-US/docs/Web/API/WebSockets%5FAPI
+websocket echo test https://websocket.org/echo.html
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22  ;; load the websocket extension (require &amp;#39;websocket) ;; open a new websocket and name it my-websocket (setq my-websocket (websocket-open &amp;#34;wss://echo.websocket.org&amp;#34; ;; provide a function to call when we receive a message from the server :on-message (lambda ( _websocket ; We ignore this frame ; frame data from which we can extract text with websocket-frame-text ) (message &amp;#34;ws frame: %S&amp;#34; (websocket-frame-text frame))) ;; provide a function to call when the websocket is closed :on-close (lambda (_websocket) (message &amp;#34;websocket closed&amp;#34;)))) ;; send &amp;#34;hello from emacs&amp;#34; through the websocket (websocket-send-text my-websocket &amp;#34;hello from emacs&amp;#34;) ;; close the websocket (websocket-close my-websocket)   turn Emacs into a websocket server 1 2 3 4 5 6 7 8 9 10  (setq my-websocket-server (websocket-server 3000 :host &amp;#39;local :on-message (lambda (_websocket frame) (message &amp;#34;received message through websocket&amp;#34;)) :on-open (lambda (_websocket) (message &amp;#34;websocket opened&amp;#34;)) :on-close (lambda (_websocket) (message &amp;#34;websocket closed&amp;#34;))))    we start a websocket server and call it my-websocket-server the server is running on localhost port 3000 when the server receives a message, we print &amp;ldquo;received message through websocket&amp;rdquo; when a client connects to the server, we print &amp;ldquo;websocket opened&amp;rdquo; when a client closes the websocket, we print &amp;ldquo;websocket closed&amp;rdquo;  Now to test this code, we could use the sample from the earlier section, but instead let&amp;rsquo;s use some Javascript code that we will enhance later on.</description>
+    </item>
+    
+    <item>
+      <title>Scripting Haskell and creating projects with Stack</title>
+      <link>https://mullikine.github.io/posts/scripting-haskell-and-creating-projects-with-stack/</link>
+      <pubDate>Wed, 10 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/scripting-haskell-and-creating-projects-with-stack/</guid>
+      <description>How to script with stack How to Script with Stack How to create a stack project How to Build with Stack Write bitrot free code with Haskell Practical Haskell: Bitrot-free Scripts  Upgrading haskell 1 2 3 4 5 6 7 8 9  #!/bin/bash export TTY . $HOME/scripts/libraries/bash-library.sh export PATH=&amp;#34;$HOME/.local/bin:$(remove_from_path $SCRIPTS)&amp;#34; cabal install Cabal cabal-install cabal update sudo stack upgrade   Developing cabal packages https://cabal.readthedocs.io/en/latest/developing-packages.html
+ Given a directory of haskell (.</description>
+    </item>
+    
+    <item>
+      <title>Babel pipeline</title>
+      <link>https://mullikine.github.io/posts/babel-pipeline/</link>
+      <pubDate>Tue, 09 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/babel-pipeline/</guid>
+      <description>Work in progress
+Rapidly create scripts from emacs that use multiple programming languages.
+rash  1 2 3 4  cd / echo This is the root directory ls | head -n 5 ls -ld * | wc -l  
+This is the root directory bin boot boot-sav cdrom chroot 38  1 2  This is my standard input  
+ 1 2 3 4 5 6 7  cat echo _________ echo cd / echo This is the root directory ls | head -n 5 ls -ld * | wc -l</description>
+    </item>
+    
+    <item>
+      <title>Create binding to add arguments to org babel block</title>
+      <link>https://mullikine.github.io/posts/create-binding-to-add-arguments-to-org-babel-block/</link>
+      <pubDate>Mon, 08 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/create-binding-to-add-arguments-to-org-babel-block/</guid>
+      <description>Make a keybinding that adds CLI arguments 1 2 3 4 5 6 7 8 9 10  (defun org-babel-change-block-type () (interactive) (if (or (org-in-src-block-p) (org-in-block-p &amp;#39;(&amp;#34;src&amp;#34; &amp;#34;example&amp;#34; &amp;#34;verbatim&amp;#34; &amp;#34;clocktable&amp;#34;))) (progn (call-interactively &amp;#39;org-babel-raise) (call-interactively &amp;#39;hydra-org-template/body)) (self-insert-command 1))) (define-key org-mode-map (kbd &amp;#34;M-.&amp;#34;) &amp;#39;org-babel-change-block-type)   1  (org-babel-insert-header-arg &amp;#34;args&amp;#34; (read &amp;#34;arguments:&amp;#34;))   1 2 3 4 5 6  (defun org-babel-add-src-args () (interactive) (if (org-in-src-block-p) (org-babel-insert-header-arg &amp;#34;args&amp;#34; (read-string &amp;#34;arguments:&amp;#34;)))) (define-key org-mode-map (kbd &amp;#34;M-@&amp;#34;) &amp;#39;org-babel-add-src-args)</description>
+    </item>
+    
+    <item>
+      <title>Separate revert command for org blocks</title>
+      <link>https://mullikine.github.io/posts/separate-revert-command-for-org-blocks/</link>
+      <pubDate>Mon, 08 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/separate-revert-command-for-org-blocks/</guid>
+      <description>Background    kb f     M-l M-e my-revert    my-revert command 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44  (defun my-revert (arg) (interactive &amp;#34;P&amp;#34;) (let ((l (line-number-at-pos)) (c (current-column))) ;; Excursion doesn&amp;#39;t work for compressed files ;; Therefore we also use goto-line ;; (save-excursion) ;; I can query this to see if it&amp;#39;s a compressed file ;; jka-compr-really-do-compress ;; I&amp;#39;mquite happy with goto-line and move-to-column instead of save-excursion (if arg (progn (force-revert-buffer) (message &amp;#34;%s&amp;#34; &amp;#34;Reverted from disk&amp;#34;)) (progn (try (progn (if (string-match-p &amp;#34;\\*Org .</description>
+    </item>
+    
+    <item>
+      <title>Add stdin to babel src blocks. Pipe one block into the next</title>
+      <link>https://mullikine.github.io/posts/add-stdin-to-babel-src-blocks-pipe-one-block-into-the-next/</link>
+      <pubDate>Sun, 07 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/add-stdin-to-babel-src-blocks-pipe-one-block-into-the-next/</guid>
+      <description>The plan:  Do some research into existing emacs lisp code  Figure out how to get the contents of a named block and use it as the stdin to a babel block.   Extend babel so that I can chain scripts of multiple languages together in babel  Here are some named blocks I&amp;rsquo;ll use for testing 1  (org-babel-goto-named-src-block &amp;#34;mycode&amp;#34;)   1 2  (org-babel-goto-named-result) (org-babel-goto-named-src-block)    1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  (defun org-copy-thing-here () (interactive) (if (or (org-in-src-block-p) (org-in-block-p &amp;#39;(&amp;#34;src&amp;#34; &amp;#34;example&amp;#34; &amp;#34;verbatim&amp;#34; &amp;#34;clocktable&amp;#34;))) (org-copy-src-block) (self-insert-command 1))) (defun org-copy-src-block () (interactive) (shut-up (my-copy org-get-src-block-here))) (defun org-get-src-block-here () (interactive) (org-edit-src-code) (mark-whole-buffer) (let ((contents (sh/chomp (selection)))) ;; (easy-kill 1) (org-edit-src-abort) contents))</description>
+    </item>
+    
+    <item>
+      <title>Easily create term-mode wrappers for arbitrary TUI programs</title>
+      <link>https://mullikine.github.io/posts/easily-create-term-mode-wrappers-for-arbitrary-tui-programs/</link>
+      <pubDate>Sun, 07 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/easily-create-term-mode-wrappers-for-arbitrary-tui-programs/</guid>
+      <description>First, create some emacs lisp functions  Create the interactive command make-or-run-etui-cmd which will be run from the terminal Create make-etui-cmd which will create an interactive emacs-lisp command for invoking the program Create defcmdmode which will create a minor mode for the command, allowing me to attach key bindings Create emacs-tui-run script which starts emacs and invokes make-or-run-etui-cmd Create make-etui-wrapper script which allows me to interactively create emacs wrapper scripts for TUI programs   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40  (defun make-or-run-etui-cmd (cmd &amp;amp;rest args) (interactive (list (read-string &amp;#34;Command name:&amp;#34;))) (let* ((funname (concat &amp;#34;esh-&amp;#34; cmd)) ;; (fnsym (str2sym funname)) (fnsym ;; Force overwrite (make-etui-cmd cmd t) ;; (if (my/function-exists fnsym) ;; fnsym ;; (make-etui-cmd cmd)) )) (defcmdmode cmd) (eval `(,fnsym ,@args)))) (defun make-etui-cmd (cmd closeframe) &amp;#34;This function expects a one term command (binary name only) and it returns a new interactive function.</description>
+    </item>
+    
+    <item>
+      <title>Programmatically query term-mode</title>
+      <link>https://mullikine.github.io/posts/programmatically-query-term-mode/</link>
+      <pubDate>Sun, 07 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/programmatically-query-term-mode/</guid>
+      <description>I will create a means of querying the current term buffer.
+Then I will use it to add a key binding for my nano mode for taking the current URL from the current line of nano.
+Creating a new buffer with the contents of the current buffer 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  (defun term-get-line-at-point () (interactive) (let* ((row (+ (term-current-row) 1)) (col (term-current-column)) (buf (new-buffer-from-string (buffer-contents))) (height term-height) (linecontents (with-current-buffer buf (let ((nbackhistory (- (count-lines (point-min) (point-max)) height))) ;; term-height (goto-line (+ row nbackhistory)) (move-to-column col t) (thing-at-point &amp;#39;line))))) (kill-buffer buf) (my/copy (chomp linecontents) t) linecontents))   Can I do this with the existing term-mode buffer?</description>
+    </item>
+    
+    <item>
+      <title>systemd service mode based on chkservice</title>
+      <link>https://mullikine.github.io/posts/systemd-service-mode-with-chkservice/</link>
+      <pubDate>Sat, 06 Jun 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/systemd-service-mode-with-chkservice/</guid>
+      <description>Code for creating a chkservice mode and assigning a keybinding to it 1 2 3 4 5 6 7 8 9  (defun make-etui-cmd (cmd) &amp;#34;This function expects a one term command (binary name only) and it returns a new interactive function.&amp;#34; (let ((funname (concat &amp;#34;esh-&amp;#34; cmd))) (eval `(defun ,(str2sym funname) (&amp;amp;rest args) &amp;#34;This function expects a one term command (binary name only).&amp;#34; (interactive) (term-nsfa (mapconcat &amp;#39;q (cons ,cmd args) &amp;#34; &amp;#34;) nil ,cmd))))) (define-key my-mode-map (kbd &amp;#34;M-m a y&amp;#34;) (make-etui-cmd &amp;#34;chkservice&amp;#34;))   Also create an external script chkservice wrapper script for starting chkservice with enough privileges 1 2 3 4 5 6 7 8 9 10 11 12  #!</description>
+    </item>
+    
+    <item>
+      <title>Translating a chord to the help key in terminfo</title>
+      <link>https://mullikine.github.io/posts/translating-a-chord-to-the-help-key-in-terminfo/</link>
+      <pubDate>Mon, 30 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/translating-a-chord-to-the-help-key-in-terminfo/</guid>
+      <description>Original article man terminfo  tmux tmux is great for translating key bindings. I decided that I&amp;rsquo;d like M-C-] to be translated into the help key.
+However, tmux has no notion of the help key. It can&amp;rsquo;t be done in tmux.
+emacs Emacs can interpret the chord as the help key.
+1  (define-key key-translation-map (kbd &amp;#34;C-M-]&amp;#34;) (kbd &amp;#34;&amp;lt;help&amp;gt;&amp;#34;))   However, this only works in emacs. Other programs respond to the help key.</description>
+    </item>
+    
+    <item>
+      <title>docker-mode.el</title>
+      <link>https://mullikine.github.io/posts/docker-mode-el/</link>
+      <pubDate>Thu, 26 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/docker-mode-el/</guid>
+      <description>Source code https://github.com/Silex/docker.el  Docker mode allows you to manage docker images, containers and machines, using emacs.
+Given it&amp;rsquo;s emacs, you may customize and extend it to fit your needs. That&amp;rsquo;s what I&amp;rsquo;ll demonstrate.
+Example 1: I have extended docker-mode to allow you to get a shell to the docker machine. 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51  (defun docker-machine-ssh-one (name) &amp;#34;Start an ssh shell on machine.</description>
+    </item>
+    
+    <item>
+      <title>Review of &#39;Use Org-Mode Links for Absolutely Anything - Endless Parentheses&#39;</title>
+      <link>https://mullikine.github.io/posts/review-of-use-org-mode-links-for-absolutely-anything-endless-parentheses/</link>
+      <pubDate>Sun, 22 Mar 2020 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/review-of-use-org-mode-links-for-absolutely-anything-endless-parentheses/</guid>
+      <description>Original article Use Org-Mode Links for Absolutely Anything Endless Parentheses  Demonstration 
+This article explains how to add new link types to org mode Here is an example link from the web page 1 2 3 4 5  (org-add-link-type &amp;#34;grep&amp;#34; &amp;#39;endless/follow-grep-link) (defun endless/follow-grep-link (regexp) &amp;#34;Run `rgrep&amp;#39;with REGEXP as argument.&amp;#34; (grep-compute-defaults) (rgrep regexp &amp;#34;*&amp;#34; (expand-file-name &amp;#34;./&amp;#34;)))   I made a few of my own 1 2 3 4  (org-add-link-type &amp;#34;grep-app&amp;#34; &amp;#39;mullikine/follow-grep-app-link) (defun mullikine/follow-grep-app-link (regexp) &amp;#34;Run `grep-app&amp;#39;with REGEXP as argument.</description>
+    </item>
+    
+    <item>
+      <title>graph.el</title>
+      <link>https://mullikine.github.io/posts/graph-el/</link>
+      <pubDate>Sat, 25 Jan 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/graph-el/</guid>
+      <description>1 2  (graph-draw-tree &amp;#39;(((&amp;#34;parent with data&amp;#34; . datadatadata) (&amp;#34;plain child&amp;#34;) ((&amp;#34;child With data&amp;#34; . somedata)))))   &amp;#34;\&amp;#34; +------------+\\n | parent |\\n | with |\\n | data |\\n +------+-----+\\n |\\n +-------+------+\\n | |\\n+-----+------+ +-----+------+\\n| plain | | child |\\n| child | | With |\\n+------------+ | data |\\n +------------+\\n\&amp;#34;&amp;#34; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56  (graph-draw-tree &amp;#39;((&amp;#34;Eubacteria&amp;#34; (&amp;#34;Aquificae&amp;#34;) (&amp;#34;Nitrospira&amp;#34;) (&amp;#34;Proteobacteria&amp;#34;) (&amp;#34;Chlamydiae&amp;#34;) (&amp;#34;Actinobacteria&amp;#34;)) (&amp;#34;Eukaryotes&amp;#34; (&amp;#34;Archaeplastida&amp;#34; (&amp;#34;Green Plants&amp;#34; (&amp;#34;Prasinophytes&amp;#34;) (&amp;#34;Chlorophyceae&amp;#34;) (&amp;#34;Trebouxiophyceae&amp;#34;) (&amp;#34;Ulvophyceae&amp;#34;) (&amp;#34;Streptohyta&amp;#34; (&amp;#34;Zygnematales&amp;#34;) (&amp;#34;Charales&amp;#34;) (&amp;#34;Embryophytes (land plants)&amp;#34;))) (&amp;#34;Rhodophyta&amp;#34;) (&amp;#34;Glaucophytes&amp;#34;)) (&amp;#34;Unikots&amp;#34; (&amp;#34;Opisthokonts&amp;#34; (&amp;#34;Animals&amp;#34; (&amp;#34;Bilateria&amp;#34; (&amp;#34;Ecdysozoa&amp;#34; (&amp;#34;Nematoda&amp;#34;) (&amp;#34;Arthropoda&amp;#34;)) (&amp;#34;Lophotrochozoa&amp;#34;) (&amp;#34;Deuterostoma&amp;#34; (&amp;#34;Echinodermata&amp;#34;) (&amp;#34;Hemichordata&amp;#34;) (&amp;#34;Chordata&amp;#34; (&amp;#34;Urochordata&amp;#34;) (&amp;#34;Cephalochordata&amp;#34;) (&amp;#34;Yonnanozoon&amp;#34;) (&amp;#34;Craniata&amp;#34;)))) (&amp;#34;Cnidaria&amp;#34;) (&amp;#34;Porifera&amp;#34;)) (&amp;#34;Choanoflagellates&amp;#34;) (&amp;#34;Filasterea&amp;#34;) (&amp;#34;Ichthyosporea&amp;#34;) (&amp;#34;Fungi&amp;#34;) (&amp;#34;Nucleariidae&amp;#34;))) (&amp;#34;Chromalveolates&amp;#34; (&amp;#34;Rhizaria&amp;#34; (&amp;#34;Cercozoa&amp;#34;) (&amp;#34;Foraminifera&amp;#34;) (&amp;#34;Radiolaria&amp;#34;)) (&amp;#34;Alveolates&amp;#34;) (&amp;#34;Stramenopiles&amp;#34;) (&amp;#34;Hacrobia&amp;#34;)) (&amp;#34;Excavates&amp;#34; (&amp;#34;Malawimonads&amp;#34;) (&amp;#34;Discicristates&amp;#34; (&amp;#34;Euglenozoa&amp;#34;) (&amp;#34;Heterolobosea&amp;#34;)) (&amp;#34;Fornicata&amp;#34;)))))   &amp;#34;\&amp;#34; +------------+ +------------+\\n | Eubacteria | | Eukaryotes |\\n +-----+------+ +-----+------+\\n | |\\n +-------------+--------------+--------------+--------------+ +---------------------------------+----------------------------+-------------+-------------------------------------------------+\\n | | | | | | | | |\\n+-----+-----+ +-----+------+ +-----+------+ +-----+------+ +-----+------+ +-----+------+ +----+----+ +------+-----+ +-----+-----+\\n| Aquificae | | Nitrospira | | Proteobact | | Chlamydiae | | Actinobact | | Archaeplas | | Unikots | | Chromalveo | | Excavates |\\n+-----------+ +------------+ | eria | +------------+ | eria | | tida | +----+----+ | lates | +-----+-----+\\n +------------+ +------------+ +-----+------+ | +------+-----+ |\\n | + | +--------------+--------------+\\n +--------------+--------------+-------------+ | +-------------+-------+------+-------------+ | | |\\n | | | +------+-----+ | | | | +-----+------+ +-----+------+ +-----+-----+\\n +-----+------+ +-----+------+ +-----+------+ | Opisthokon | +----+-----+ +-----+------+ +-----+------+ +----+-----+ | Malawimona | | Discicrist | | Fornicata |\\n | Green | | Rhodophyta | | Glaucophyt | | ts | | Rhizaria | | Alveolates | | Stramenopi | | Hacrobia | | ds | | ates | +-----------+\\n | Plants | +------------+ | es | +------+-----+ +----+-----+ +------------+ | les | +----------+ +------------+ +-----+------+\\n +-----+------+ +------------+ | | +------------+ |\\n | | | ++-------------+\\n +--------------+--------------+--------------+--------------+ | +--------------------------+-------------+--------------+ | |\\n | | | | | | | | | +-----+------+ +-----+------+\\n+-----+------+ +-----+------+ +-----+------+ +-----+------+ +-----+------+ +------------+--------------+-----+--------+------------+-----------+ +----+-----+ +-----+------+ +-----+------+ | Euglenozoa | | Heterolobo |\\n| Prasinophy | | Chlorophyc | | Trebouxiop | | Ulvophycea | | Streptohyt | | | | | | | | Cercozoa | | Foraminife | | Radiolaria | +------------+ | sea |\\n| tes | | eae | | hyceae | | e | | a | +----+----+ +-----+------+ +-----+------+ +-----+------+ +---+---+ +-----+------+ +----------+ | ra | +------------+ +------------+\\n+------------+ +------------+ +------------+ +------------+ +-----+------+ | Animals | | Choanoflag | | Filasterea | | Ichthyospo | | Fungi | | Nucleariid | +------------+\\n | +----+----+ | ellates | +------------+ | rea | +-------+ | ae |\\n | | +------------+ +------------+ +------------+\\n | |\\n | +--------------+------------+------------+\\n | | | |\\n +-------------+-------------+ +-----+-----+ +----+-----+ +----+-----+\\n | | | | Bilateria | | Cnidaria | | Porifera |\\n +-----+------+ +----+-----+ +-----+------+ +-----+-----+ +----------+ +----------+\\n | Zygnematal | | Charales | | Embryophyt | |\\n | es | +----------+ | es (land | |\\n +------------+ | plants) | |\\n +------------+ |\\n |\\n +--------------+--------------+\\n | | |\\n +-----+-----+ +------+-----+ +------+-----+\\n | Ecdysozoa | | Lophotroch | | Deuterosto |\\n +-----+-----+ | ozoa | | ma |\\n | +------------+ +------+-----+\\n +------+------+ |\\n | | +-------+------+-------------+\\n +-----+----+ +------+-----+ | | |\\n | Nematoda | | Arthropoda | +------+-----+ +------+-----+ +-----+----+\\n +----------+ +------------+ | Echinoderm | | Hemichorda | | Chordata |\\n | ata | | ta | +-----+----+\\n +------------+ +------------+ |\\n |\\n +----------------------+--------------+-------------+\\n | | | |\\n +-----+------+ +------+-----+ +------+-----+ +-----+----+\\n | Urochordat | | Cephalocho | | Yonnanozoo | | Craniata |\\n | a | | rdata | | n | +----------+\\n +------------+ +------------+ +------------+\\n\&amp;#34;&amp;#34; 1 2 3 4 5 6 7 8  (graph-draw-tree &amp;#39;((north-america (usa (miami) (seattle) (idaho (boise)))) (europe (germany) (france (paris) (lyon) (cannes)))))   &amp;#34;\&amp;#34; +------------+ +--------+\\n | north | | europe |\\n | america | +----+---+\\n +------+-----+ |\\n | +---------+---------+\\n + | |\\n | +----+----+ +---+----+\\n +--+--+ | germany | | france |\\n | usa | +---------+ +---+----+\\n +--+--+ |\\n | +--------+---------+\\n +----------+----------+ | | |\\n | | | +---+---+ +--+---+ +---+----+\\n+---+---+ +----+----+ +---+---+ | paris | | lyon | | cannes |\\n| miami | | seattle | | idaho | +-------+ +------+ +--------+\\n+-------+ +---------+ +---+---+\\n |\\n +\\n |\\n +---+---+\\n | boise |\\n +-------+\\n\&amp;#34;&amp;#34; 1  (graph-draw-binary-tree &amp;#39;(1 (2 (3) (4)) (5)))   &amp;#34;\&amp;#34; +---+\\n | 1 |\\n +---+\\n / \\\\ \\n / \\\\ \\n +---+ +---+\\n | 2 | | 5 |\\n +---+ +---+\\n / \\\\ \\n / \\\\ \\n+---+ +---+\\n| 3 | | 4 |\\n+---+ +---+\\n\&amp;#34;&amp;#34; 1 2 3 4 5 6 7 8 9 10 11 12 13  (graph-draw-binary-tree &amp;#39;(organisms (prokaryotes (e-coli)) (eukaryotes (plants (seed-plants (carrot) (oak-tree)) (ferns)) (animalia (invertebrates (sponge) (worm)) (mammals (mouse) (apes (chimpanzee) (human)))))))   &amp;#34;\&amp;#34; +-----------+\\n | organisms |\\n +-----------+\\n / \\\\_________________________________________ \\n / \\\\ \\n +-------------+ +------------+\\n | prokaryotes | | eukaryotes |\\n +-------------+ +------------+\\n / / \\\\_______________________________ \\n / / \\\\ \\n+--------+ +--------+ +----------+\\n| e coli | | plants | | animalia |\\n+--------+ +--------+ +----------+\\n / \\\\_ / \\\\___________ \\n / \\\\ / \\\\ \\n +-------------+ +-------+ +---------------+ +---------+\\n | seed plants | | ferns | | invertebrates | | mammals |\\n +-------------+ +-------+ +---------------+ +---------+\\n / \\\\ / \\\\ / \\\\________________ \\n / \\\\ / \\\\ / \\\\ \\n +--------+ +----------+ +--------+ +------+ +-------+ +------+\\n | carrot | | oak tree | | sponge | | worm | | mouse | | apes |\\n +--------+ +----------+ +--------+ +------+ +-------+ +------+\\n / \\\\ \\n / \\\\ \\n +------------+ +-------+\\n | chimpanzee | | human |\\n +------------+ +-------+\\n\&amp;#34;&amp;#34; </description>
+    </item>
+    
+    <item>
+      <title>CodeQL by GitHub and Semmle</title>
+      <link>https://mullikine.github.io/posts/codeql-by-github-and-semmle/</link>
+      <pubDate>Tue, 07 Jan 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/codeql-by-github-and-semmle/</guid>
+      <description>Reference material Getting started with the CodeQL CLI - CodeQL QL packs - CodeQL Related articles CodeLingo vs Linters: TLDR // Bodacious Blog  Glossary 1 2 3  QL pack Contains important metadata that tells the CodeQL CLI how to process the query files.   Install the CLI Releases github/codeql-cli-binaries GitHub
+Obtain a local copy of the CodeQL queries Using my xsh script, which is like bash but works over interactive subshells.</description>
+    </item>
+    
+    <item>
+      <title>Getting the interpreter for babel</title>
+      <link>https://mullikine.github.io/posts/emacs-get-interpreter-for-babel/</link>
+      <pubDate>Mon, 06 Jan 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-get-interpreter-for-babel/</guid>
+      <description>Create the snippet 1 2 3 4 5  # -*- mode: snippet -*- # name: # # key: # # -- ${1:$$(get-interpreter-for-buffer)}   Create the function that the snippet calls 1 2 3 4 5 6 7  (defun get-interpreter-for-buffer () (let ((tf (or (if (and (not (eq major-mode &amp;#39;org-mode)) (string-match-p &amp;#34;\.org$&amp;#34; (get-path))) (concat &amp;#34;x\.&amp;#34; (get-ext-for-mode))) (get-path)))) (concat &amp;#34;#!&amp;#34; (e/chomp (bp xargs get-interpreter-for-file.sh tf)))))   Along with a function for getting the extension given the mode Do this by checking auto-mode-alist.</description>
+    </item>
+    
+    <item>
+      <title>Review of emacs distributions</title>
+      <link>https://mullikine.github.io/posts/emacs-distributions/</link>
+      <pubDate>Sat, 04 Jan 2020 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-distributions/</guid>
+      <description>All the distributions I use are overlaid with my own customisations to make them very similar to each other by making my own key bindings and hydras layer. They still retain their own peculiarities, but I have taken a decent portion of code from each distribution to form a common functionality layer.
+I have over 1300 emacs plugins which all distributions share.
+Spacemacs  Very good default keybindings. Great support for LSP.</description>
+    </item>
+    
+    <item>
+      <title>Efficiently getting emacs keyboard macros from string literals using expect/tmux</title>
+      <link>https://mullikine.github.io/posts/emacs-macros-from-string-literals-using-invisible-emacs/</link>
+      <pubDate>Tue, 31 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-macros-from-string-literals-using-invisible-emacs/</guid>
+      <description>{´◕ ◡ ◕｀} This requires both expect and tmux to be installed. They are only used in the background. You can use this function with GUI emacs fine. No other dependencies are required for this elisp function to work. The bash/tcl/expect script is embedded in elisp. Update The builtin edmacro-format-keys gives me the functionality I want without the rigmarole.  make-kbd-from-string is a function that takes a string literal and gives you a keyboard macro.</description>
+    </item>
+    
+    <item>
+      <title>Creating an emacs mode for asciinema.org</title>
+      <link>https://mullikine.github.io/posts/an-emacs-mode-for-asciinema-playback/</link>
+      <pubDate>Mon, 30 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/an-emacs-mode-for-asciinema-playback/</guid>
+      <description>Related articles Hacker News mode and minor modes for websites // Bodacious Blog  This blog is about creating a minor mode for browsing asciinema.org and extending eww-mode to handle the video links.
+I use tmux from emacs to spawn a new window that starts the playback when a link is clicked.
+Demonstration Here, I use the asciinema mode for browsing and opening asciinema recordings from my blog.</description>
+    </item>
+    
+    <item>
+      <title>★ semi-automated interactive stream editing: piping through expect and emacs ★</title>
+      <link>https://mullikine.github.io/posts/semi-automated-stream-editing-piping-through-expect-and-emacs/</link>
+      <pubDate>Sun, 29 Dec 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/semi-automated-stream-editing-piping-through-expect-and-emacs/</guid>
+      <description>Here, the eipe2 script wraps around emacsclient to enable myself to intercept the traffic of a bash pipeline and edit it mid-command. It&amp;rsquo;s modelled after vipe.
+But that is only half the trick. I then do the same for tcl/expect. On its own, expect can&amp;rsquo;t edit the stream, but by placing an eipe2 within the expect script I can complete the pipeline, automating emacs with expect.
+But that is not the most awesome part.</description>
+    </item>
+    
+    <item>
+      <title>emacs vipe with language detection</title>
+      <link>https://mullikine.github.io/posts/emacs-vipe-with-language-detection/</link>
+      <pubDate>Thu, 26 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-vipe-with-language-detection/</guid>
+      <description>Add the logic for buffers and frames 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29  (defun on-kill-buffer-write-and-close-frame (path) (write-to-file-on-buffer-exit path) (close-frame-on-buffer-exit)) (defun write-buffer-termfile () ;; (interactive) (if (and (variable-p &amp;#39;termfile-local) termfile-local) (write-string-to-file (buffer-string) termfile-local))) (defun write-to-file-on-buffer-exit (path) (interactive) (defset-local termfile-local path) (add-hook &amp;#39;kill-buffer-hook &amp;#39;write-buffer-termfile)) (defun close-local-termframe () ;; (interactive) (if (and (variable-p &amp;#39;termframe-local) termframe-local) (delete-frame termframe-local t))) (defun close-frame-on-buffer-exit () (interactive) (defset-local termframe-local termframe) (add-hook &amp;#39;kill-buffer-hook &amp;#39;close-local-termframe t)) (provide &amp;#39;my-frame)   Add the options and functionality to the emacsclient wrapper killing the frame upon killing the buffer 1 2 3 4 5  +wbdf) { CLOSE_AND_WRITE_BUTTER_TO_STDOUT=y shift } ;;   1 2 3 4  if test &amp;#34;$CLOSE_AND_WRITE_BUTTER_TO_STDOUT&amp;#34; = &amp;#34;y&amp;#34;; then tf_buffer_path=&amp;#34;$(odn ux tf path || echo /dev/null)&amp;#34; elisp+=&amp;#34;(on-kill-buffer-write-and-close-frame $(aqf &amp;#34;$tf_buffer_path&amp;#34;))&amp;#34; fi   1 2 3 4 5 6 7 8  exec 3&amp;gt;&amp;amp;1 exec 1&amp;gt;&amp;#34;$TTY&amp;#34; eval &amp;#34;e c $new_arg_string&amp;#34; exec 1&amp;gt;&amp;amp;3 if test -f &amp;#34;$tf_buffer_path&amp;#34;; then cat &amp;#34;$tf_buffer_path&amp;#34; fi   file type detect 1 2 3 4 5  -aft) { FT_DETECT=y shift } ;;   1 2 3  if test &amp;#34;$FT_DETECT&amp;#34; = &amp;#34;y&amp;#34;; then elisp+=&amp;#34;(detect-language-set-mode)&amp;#34; fi   Demonstration</description>
+    </item>
+    
+    <item>
+      <title>Hacker News mode and minor modes for websites</title>
+      <link>https://mullikine.github.io/posts/hacker-news-mode-and-minor-modes-for-websites/</link>
+      <pubDate>Thu, 26 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/hacker-news-mode-and-minor-modes-for-websites/</guid>
+      <description>The idea of this is that when you visit a website it should enable a minor mode for that website which may contain convenience keybindings for such things as navigation.
+Create some eww-mode hooks 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33  (defvar eww-browse-url-after-hook &amp;#39;()) (defun eww-browse-url-after-advice (&amp;amp;rest args) &amp;#34;Give the buffer a unique name and recenter to the top&amp;#34; ;; We may know the URL before it&amp;#39;s loaded (rename-eww-buffer-unique (car args)) (recenter-top) (run-hooks &amp;#39;eww-browse-url-after-hook)) (advice-add &amp;#39;eww-browse-url :after &amp;#39;eww-browse-url-after-advice) (defvar eww-follow-link-after-hook &amp;#39;()) (defun eww-follow-link-after-advice (&amp;amp;rest args) &amp;#34;Recenter to the top&amp;#34; (recenter-top) (run-hooks &amp;#39;eww-follow-link-after-hook)) (advice-add &amp;#39;eww-follow-link :after &amp;#39;eww-follow-link-after-advice) (defvar eww-reload-after-hook &amp;#39;()) (defun eww-reload-after-advice (&amp;amp;rest args) (run-hooks &amp;#39;eww-reload-after-hook)) (advice-add &amp;#39;eww-reload :after &amp;#39;eww-reload-after-advice) (add-hook &amp;#39;eww-reload-after-hook (lm (rename-eww-buffer-unique)) t) (defvar eww-restore-history-after-hook &amp;#39;()) (defun eww-restore-history-after-advice (&amp;amp;rest args) (run-hooks &amp;#39;eww-restore-history-after-hook)) (advice-add &amp;#39;eww-restore-history :after &amp;#39;eww-restore-history-after-advice) (add-hook &amp;#39;eww-restore-history-after-hook (lm (rename-eww-buffer-unique)) t)   Create the my-eww-modes.</description>
+    </item>
+    
+    <item>
+      <title>Generate yasnippet from vimsnippet</title>
+      <link>https://mullikine.github.io/posts/generate-yasnippets-from-vimshippets/</link>
+      <pubDate>Mon, 23 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/generate-yasnippets-from-vimshippets/</guid>
+      <description>write the script vimsnippet2yasnippet 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null while [ $# -gt 0 ]; do opt=&amp;#34;$1&amp;#34;; case &amp;#34;$opt&amp;#34; in &amp;#34;&amp;#34;) { shift; }; ;; -d) { dir=&amp;#34;$2&amp;#34; shift shift } ;; *) break; esac; done stdin_exists() { !</description>
+    </item>
+    
+    <item>
+      <title>Permalinks for substrings in various documents</title>
+      <link>https://mullikine.github.io/posts/getting-permalinks-for-substrings-in-man-pages-urls-and-other-files/</link>
+      <pubDate>Mon, 23 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/getting-permalinks-for-substrings-in-man-pages-urls-and-other-files/</guid>
+      <description>The idea is I select some text and press g y and emacs or vim will provide me with a command to go to that section of that file.
+example usage of results 1  emacshelp +/&amp;#34;Major modes specialize Emacs for editing or interacting with particular&amp;#34; &amp;#34;(elisp) Major Modes&amp;#34;   1  ewwlinks +/&amp;#34;\* When ~~ is pressed, the Expect interpreter runs interactively.\&amp;#34;&amp;#34; &amp;#34;https://wiki.tcl-lang.org/page/interact&amp;#34;   1  man +/&amp;#34;For example, here are some things Expect can do:&amp;#34; &amp;#34;expect(1)&amp;#34;   emacs functions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44  (defun get-path (&amp;amp;optional soft) (interactive) ;; (xc-m (s/rp (buffer-file-name))) (or (and (eq major-mode &amp;#39;Info-mode) (if soft (concat &amp;#34;(&amp;#34; (basename Info-current-file) &amp;#34;) &amp;#34; Info-current-node) (concat Info-current-file &amp;#34;.</description>
+    </item>
+    
+    <item>
+      <title>Reading 23.12.19</title>
+      <link>https://mullikine.github.io/posts/reading-23.12.19/</link>
+      <pubDate>Mon, 23 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/reading-23.12.19/</guid>
+      <description>AI NLP  Language Engineering; Harnessing the Power of Language Google AI Blog: ALBERT: A Lite BERT for Self-Supervised Learning of Language Representations  Computer Vision  ObjectNet  Automated testing  Cucumber | Tools &amp;amp; techniques that elevate teams to greatness Writing Features - Gherkin Language - Behat 2.5.3 documentation  Information Retrieval  Why databases use ordered indexes but programming uses hash tables (evanjones.ca)  Programming languages haskell parsers  An introduction to parsing text in Haskell with Parsec - Nick.</description>
+    </item>
+    
+    <item>
+      <title>Languages and build systems supported by my environment</title>
+      <link>https://mullikine.github.io/posts/emacs-languages-supported/</link>
+      <pubDate>Fri, 20 Dec 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-languages-supported/</guid>
+      <description>Related reading Setting up LSP with emacs (Go, Java, Python, Rust, C++, Haskell) // Bodacious Blog Build Systems support // Bodacious Blog  State of programming language support in my own environment Support I&amp;rsquo;m experienced at creating language server clients for emacs.
+https://github.com/mullikine/lsp-racket-el
+   Language LSP Working Fallback working Current user experience REPL / Playground DAP (debug) Working Static analysis Code Generation     Go ✓ ✓ Amazing ✓  ✓    Python ✓ ✓ Amazing ✓ ✓ ✓ ✓   Racket ✓ ✓ racket-mode Amazing ✓ ✓ ✓ ✓   Java ✓ ✓ eclim Good ✓ (default) ✓ ✓    Rust ✓ ✓ Good ✓  ✓    C++ ✓ ✓ clang Great ✓  ✓    Haskell ✓ ✓ intero Good ✓  ✓    PureScript  ✓ spago Good ✓      JavaScript ✓  Amazing ✓      TypeScript ✓  Amazing ✓      Ruby ✓  Good ✓  ✓    Lua ✗ ✓ Great ✓  ✓    Scala ✓  Good ✓      Bash   Great ✓  ✓    Erlang   Good ✓      Nix   Good ✓      awk   Good ✓      PHP   Good ✓      Racket ✓  Good ✓      zsh   Good ✓      tcl   Good ✓      Mathematica   Wanting ✓      LFE   Good ✓      Perl 5   Good ✓      hy   Good ✓   ✓   Common Lisp   Good ✓      Clojure   Good ✓      Hackett   Good ✓      OCaml   Good ✓      SmallTalk   Good ✓       Strengths Table 1: legend     key      OOP object-oriented   FP functional programming   Exp.</description>
+    </item>
+    
+    <item>
+      <title>TensorFlow Debugger (tfdb) and emacs</title>
+      <link>https://mullikine.github.io/posts/tensorflow-debugger-tfdb-and-emacs/</link>
+      <pubDate>Thu, 19 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/tensorflow-debugger-tfdb-and-emacs/</guid>
+      <description>Relevant source material TensorFlow Debugger Screencast - YouTube DebugTFBasics  I plan on building a mode for emacs that includes syntax highlighting and keyboard macros, but I&amp;rsquo;ll have to wait until tfdb is released for TF2.0.
+Wrapping TensorFlow Sessions With tfdbg Add the following lines of code to use tfdbg and then contain the Session object using a debugger wrapper.
+1  from tensorflow.python import debug as tf_debug    CLI should be called before and after Session.</description>
+    </item>
+    
+    <item>
+      <title>★ Complex Dwarf Fortress macros with tcl/expect, emacs and tmux ★</title>
+      <link>https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/</link>
+      <pubDate>Wed, 18 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/</guid>
+      <description>Related articles minor mode wrappers for shell commands // Bodacious Blog  Here I make an emacs mode for Dwarf Fortress and create some keybindings in emacs which runs a generated tcl/expect script over Dwarf Fortress using tmux to attach itself to the tty inside term- mode.
+Write the emacs lisp This macro creates minor modes from a list of shell command names.
+These shell commands may be arbitrary terminal programs.</description>
+    </item>
+    
+    <item>
+      <title>minor mode wrappers for shell commands</title>
+      <link>https://mullikine.github.io/posts/minor-mode-wrappers-for-shell-commands/</link>
+      <pubDate>Tue, 17 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/minor-mode-wrappers-for-shell-commands/</guid>
+      <description>Related article Taming term-mode // Bodacious Blog  Summary Basically, I am creating a program-agnostic method of rebinding keys.
+Given an arbitrary shell command, such as mc (midnight commander), I can create my own keybindings and macros for this program as if I was customising an emacs mode.
+It&amp;rsquo;s all part of trying to control everything from emacs.
+More specifically, this article is about creating buffer-local minor modes which are enabled only for specific commands started through term-mode.</description>
+    </item>
+    
+    <item>
+      <title>explainshell in zsh</title>
+      <link>https://mullikine.github.io/posts/explainshell/</link>
+      <pubDate>Sun, 15 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/explainshell/</guid>
+      <description>Create the script 1 2 3 4 5 6 7 8 9 10 11 12 13  #!/bin/bash export TTY IFS= read -rd &amp;#39;&amp;#39; input &amp;lt; &amp;lt;(cat /dev/stdin) query=&amp;#34;$(p &amp;#34;$input&amp;#34; | urlencode)&amp;#34; url=&amp;#34;https://explainshell.com/explain?cmd=$query&amp;#34; # echo &amp;#34;$url&amp;#34; exec &amp;lt;&amp;amp;1 eww &amp;#34;$url&amp;#34;   Create the function 1 2 3 4 5 6 7 8 9  function zshexplainshell { tf_zle=&amp;#34;$(mktemp ${TMPDIR}/tf_zleXXXXXX || echo /dev/null)&amp;#34; print -R - &amp;#34;$PREBUFFER$BUFFER&amp;#34; &amp;gt; $tf_zle exec &amp;lt;&amp;amp;1 print -R - &amp;#34;$PREBUFFER$BUFFER&amp;#34; | explainshell print -Rz - &amp;#34;$(&amp;lt;$tf_zle)&amp;#34; zle send-break	# Force reload from the buffer stack }   Create the binding 1 2 3 4  # M-E autoload -z zshexplainshell zle -N zshexplainshell bindkey &amp;#34;\eE&amp;#34; zshexplainshell   Demonstration 1  x -sh &amp;#34;zcd .</description>
+    </item>
+    
+    <item>
+      <title>Show immediate directory in mode line</title>
+      <link>https://mullikine.github.io/posts/emacs-show-immediate-directory-in-mode-line/</link>
+      <pubDate>Sat, 14 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-show-immediate-directory-in-mode-line/</guid>
+      <description>Finding the value to change in mode-line-format 1  (telephone-line-raw mode-line-buffer-identification t)   Changes 1 2 3 4 5 6 7 8 9 10  ;; This is the original value (setq mode-line-buffer-identification (propertized-buffer-identification &amp;#34;%12b&amp;#34;)) ;; This is the modification made (defun mode-line-buffer-file-parent-directory () (when buffer-file-name (concat &amp;#34;[&amp;#34; (file-name-nondirectory (directory-file-name (file-name-directory buffer-file-name))) &amp;#34;]&amp;#34;))) (setq-default mode-line-buffer-identification (cons (car mode-line-buffer-identification) &amp;#39;((:eval (mode-line-buffer-file-parent-directory)))))   spacemacs Spacemacs already had a mechanism for this so it is displayed twice on some files.</description>
+    </item>
+    
+    <item>
+      <title>Using comint for persistent history of shell commands</title>
+      <link>https://mullikine.github.io/posts/using-comint-for-persistent-history-of-shell-commands/</link>
+      <pubDate>Fri, 13 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/using-comint-for-persistent-history-of-shell-commands/</guid>
+      <description>Relevent article https://emacs.stackexchange.com/questions/9925/persistent-shell-command-history  Write the elisp 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38  (defun comint-quick (cmd) (interactive) (let* ((slug (slugify cmd)) (buf (make-comint slug (nsfa cmd)))) (with-current-buffer buf (switch-to-buffer buf) (turn-on-comint-history (concat &amp;#34;/home/shane/notes/programs/comint/history/&amp;#34; slug))))) (require &amp;#39;exec-path-from-shell) ;; comint persistent history ;; https://emacs.</description>
+    </item>
+    
+    <item>
+      <title>Browsing sqlite3 databases with edbi for emacs</title>
+      <link>https://mullikine.github.io/posts/browsing-databases-with-emacs-edbi/</link>
+      <pubDate>Wed, 11 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/browsing-databases-with-emacs-edbi/</guid>
+      <description>Set up edbi 1 2  # for emacs edbi cpan install DBD::SQLite   Create the scripts select-database 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null is_tty() { # If stout is a tty [[ -t 1 ]] } is_tty istty=$?</description>
+    </item>
+    
+    <item>
+      <title>Browsing git repos</title>
+      <link>https://mullikine.github.io/posts/browsing-git-repos/</link>
+      <pubDate>Tue, 10 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/browsing-git-repos/</guid>
+      <description>1  browse-git-repos</description>
+    </item>
+    
+    <item>
+      <title>DAP mode for emacs</title>
+      <link>https://mullikine.github.io/posts/dap-mode/</link>
+      <pubDate>Tue, 10 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/dap-mode/</guid>
+      <description>Related reading Setting up LSP with emacs (Go, Java, Python, Rust, C++, Haskell) // Bodacious Blog Official page for Debug Adapter Protocol Python environment // Bodacious Blog  DAP mode is like LSP for debugging.
+bindings 1 2 3  (define-key my-mode-map (kbd &amp;#34;M-m a b&amp;#34;) #&amp;#39;dap-hydra/body) (define-key my-mode-map (kbd &amp;#34;M-m a a&amp;#34;) #&amp;#39;dap-ui-breakpoints) (define-key prog-mode-map (kbd &amp;#34;M-\&amp;#34;&amp;#34;) &amp;#39;handle-debug)   State of languages with DAP in my own environment    Language DAP Working LSP Working Fallback working Current user experience     Python ✓ ✓ ✓ pdb Good   Java ✓ ✓ ✓ eclim Good    Java Here is an example of me creating a breakpoint with a condition and running the debugger.</description>
+    </item>
+    
+    <item>
+      <title>Controlled Text Generation</title>
+      <link>https://mullikine.github.io/posts/controlled-text-generation/</link>
+      <pubDate>Fri, 06 Dec 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/controlled-text-generation/</guid>
+      <description>Original article https://eng.uber.com/pplm/ https://github.com/uber-research/PPLM https://github.com/huggingface/transformers/blob/master/examples/pplm/README.md Uber AI Plug and Play Language Model  Controlling Text Generation with Plug and Play Language Model (PPLM) PPLM builds on top of other large transformer- based generative models (like GPT-2), where it enables finer-grained control of attributes of the generated language (e.g. gradually switching topic 🐱 or sentiment 😃).
+This controlled LG method consists of plugging in simple bag-of-words or one-layer classifiers as attribute controllers, and making updates in the activation space, without changing any model parameters.</description>
+    </item>
+    
+    <item>
+      <title>Setting up LSP with emacs (Go, Java, Python, Rust, C&#43;&#43;, Haskell, JS, TS, Ruby…)</title>
+      <link>https://mullikine.github.io/posts/setting-up-lsp-with-emacs-attempt-2/</link>
+      <pubDate>Thu, 05 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/setting-up-lsp-with-emacs-attempt-2/</guid>
+      <description>Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java  1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website    State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience TabNine enabled REPL / Playground DAP (debug) Working Static analysis Complaints Custom LSP improvements     Go ✓ ✓ Amazing ✓ ✓  ✓ Go toolchain changes too quickly    Python ✓ ✓ Amazing ✓ ✓ ✓ ✓     Racket ✓ ✓ racket-mode Amazing  ✓  ✓     Java ✓ ✓ eclim Good ✓ ✓ (default) ✓ ✓ A little slow.</description>
+    </item>
+    
+    <item>
+      <title>Make interactive functions with history</title>
+      <link>https://mullikine.github.io/posts/emacs-make-interactive-function-with-history-from-shell-script/</link>
+      <pubDate>Wed, 04 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-make-interactive-function-with-history-from-shell-script/</guid>
+      <description>Make a macro for creating interactive functions from shell commands Interactively read a string which is the parameter.
+Use the macro as a snippet.
+1 2 3 4 5 6 7 8 9 10  (defmacro defshellinteractive (&amp;amp;rest body) (let ((sf (str2sym (concat &amp;#34;sh/t/&amp;#34; (slugify (list2string body) t)))) (sfhist (str2sym (concat &amp;#34;sh/t/&amp;#34; (slugify (list2string body) t) &amp;#34;-history&amp;#34;))) (cmd (mapconcat &amp;#39;str body &amp;#34; &amp;#34;))) `(defun ,sf (args) (interactive (list (read-string &amp;#34;args:&amp;#34; &amp;#34;&amp;#34; &amp;#39;,sfhist))) ;; (eval `(term-nsfa (concat ,,cmd &amp;#34; &amp;#34; ,args))) (eval `(sph (concat ,,cmd &amp;#34; &amp;#34; ,args)))))) (defshellinteractive gist-search)   Demonstration</description>
+    </item>
+    
+    <item>
+      <title>Searching for gists</title>
+      <link>https://mullikine.github.io/posts/searching-for-gists/</link>
+      <pubDate>Wed, 04 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/searching-for-gists/</guid>
+      <description>Create a gist-search script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null is_tty() { # If stout is a tty [[ -t 1 ]] } gr gist &amp;#34;$@&amp;#34; | grep //gist.github.com/ | urldecode | scrape &amp;#34;.*gist.github.com/[^?/]+&amp;#34; | sort | uniq | scrape &amp;#34;[^/]+$&amp;#34; | { if is_tty; then fzf | xa gist-list else cat fi }   Demonstration</description>
+    </item>
+    
+    <item>
+      <title>Extending gist-list to copy the URL, browse and download gists</title>
+      <link>https://mullikine.github.io/posts/extending-gist-list/</link>
+      <pubDate>Tue, 03 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/extending-gist-list/</guid>
+      <description>Using gist-list 1  x -sh &amp;#34;gist-list erantapaa&amp;#34; -e &amp;#34;Id&amp;#34; -c s -s non-blocking -c m -a   1  + ebbcd56... 10/20/15 20:57 public non-blocking I/O examples in Haskell   
+Sometimes it doesn&amp;rsquo;t open  error After 0 kbd macro iterations: run-hooks: Cannot open load file: No such file or directory, drupal-mode  Extracting tabulated-list-id and forming a URL is the solution.
+ solution tabulated-list-id &amp;quot;16b1a208e2725e7d9487dbb648c65034&amp;quot; This is a text property.</description>
+    </item>
+    
+    <item>
+      <title>Finding similar haskell functions from emacs and downloading their packages: Hoogle, intero, fzf</title>
+      <link>https://mullikine.github.io/posts/hoogle-fuzzy-type-search-from-intero-emacs/</link>
+      <pubDate>Sun, 01 Dec 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/hoogle-fuzzy-type-search-from-intero-emacs/</guid>
+      <description>Demonstration 
+Make these functions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36  (defun my-intero-get-type () (interactive) (my-enable-intero) (let ((out (sh-notty &amp;#34;sed -z -e \&amp;#34;s/\\n/ /g\&amp;#34; -e \&amp;#34;s/ \\+/ /g\&amp;#34;&amp;#34; (sed &amp;#34;s/^[^:]\\+ :: //&amp;#34; (intero-get-type-at (beginning-of-thing &amp;#39;sexp) (end-of-thing &amp;#39;sexp)))))) (if (called-interactively-p &amp;#39;any) (my/copy out) out))) (defun hs-download-packages-with-function-type (type) (interactive (list (my-intero-get-type))) ;; (term-nsfa &amp;#34;hsqf pg&amp;#34;) ;; (e/sph-zsh &amp;#34;t new \&amp;#34;rtcmd hs-type-declarative-search-fzf String\&amp;#34;&amp;#34;) (sph (concat &amp;#34;t new &amp;#34; (q &amp;#34;hs-download-packages-with-function-type &amp;#34; (q type))))) (defun hs-tds-fzf (type) (interactive (list (my-intero-get-type))) ;; (term-nsfa &amp;#34;hsqf pg&amp;#34;) ;; (e/sph-zsh &amp;#34;t new \&amp;#34;rtcmd hs-type-declarative-search-fzf String\&amp;#34;&amp;#34;) (sph (concat &amp;#34;t new &amp;#34; (q &amp;#34;rtcmd hs-type-declarative-search-fzf &amp;#34; (q type))))) (defun my/type-search-thing-at-point (&amp;amp;optional immediate winfunc) &amp;#34;Show doc for thing under pointl.</description>
+    </item>
+    
+    <item>
+      <title>Real-time interactive documentation lookup for haskell type-declarative search</title>
+      <link>https://mullikine.github.io/posts/doc-lookup-for-haskell-type-declarative-search/</link>
+      <pubDate>Thu, 28 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/doc-lookup-for-haskell-type-declarative-search/</guid>
+      <description>I make a tool for real-time fuzzy documentation lookup for haskell type- declarative search.
+Demonstration; the final result 
+Create the script hs-type-declarative-search This uses stack.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65  #!</description>
+    </item>
+    
+    <item>
+      <title>Refactoring tools for emacs</title>
+      <link>https://mullikine.github.io/posts/refactoring-tools-emacs/</link>
+      <pubDate>Thu, 28 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/refactoring-tools-emacs/</guid>
+      <description>Attrap: Emacs mode to fix the flycheck error at point https://github.com/jyp/attrap
+1 2 3  (use-package attrap :ensure t :bind ((&amp;#34;C-x /&amp;#34; . attrap-attrap))) ;; use any binding of your choice   A bit too early for use I tried on a missing a main function type definition.
+It did not have the necessary fixers.
+1  progn: No fixers for flycheck-checker haskell-stack-ghc</description>
+    </item>
+    
+    <item>
+      <title>AI-assisted coding tools for emacs</title>
+      <link>https://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</link>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</guid>
+      <description>language-detection Emacs Lisp library that automatically detects the programming language in a buffer or string. Implemented as a random forest classifier, trained in scikit-learn and deployed to Emacs Lisp.
+https://github.com/andreasjansson/language-detection.el
+Example of usage 1 2 3 4 5 6 7 8 9  (defun new-buffer-from-selection-detect-language () &amp;#34;Creates a new buffer from the selection and tries to set the mode&amp;#34; (interactive) (if (selected-p) (let* ((b (new-buffer-from-string (selection)))) (with-current-buffer b (switch-to-buffer b) (guess-major-mode))))) (defalias &amp;#39;detect-language-set-mode &amp;#39;guess-major-mode)   1 2  ;; This works great (my/truly-selective-binding &amp;#34;Y&amp;#34; #&amp;#39;new-buffer-from-selection-detect-language)   expanded the macro</description>
+    </item>
+    
+    <item>
+      <title>Future of emacs</title>
+      <link>https://mullikine.github.io/posts/future-of-emacs/</link>
+      <pubDate>Wed, 27 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/future-of-emacs/</guid>
+      <description>This doesn&amp;rsquo;t actually represent my own view on the future of emacs.
+I do agree about the current extension language being a major shortcoming and I see emacs lisp as not being a declarative programming language as being the main existential threat.
+ References Emacs: The Editor for the Next Forty Years - Perry E. Metzger - EmacsConf 2019  Shortcomings of emacs  Extension language still mediocre. Implementation language is terrible.</description>
+    </item>
+    
+    <item>
+      <title>GHCi and Haskell code intermixed in babel</title>
+      <link>https://mullikine.github.io/posts/babel-ghci-and-haskell/</link>
+      <pubDate>Tue, 26 Nov 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/babel-ghci-and-haskell/</guid>
+      <description>Demonstration Running ghcih inside neovim inside emacs 
+Create the ghcih script 1 2 3 4 5 6  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null xs ghci -H &amp;#34;$@&amp;#34;   Create the ghci case in xs When -H is provided, it will split the input code by assuming that the initial part is a haskell module and anything from the first ghci : command and onwards is ghci code.</description>
+    </item>
+    
+    <item>
+      <title>latex, math and emacs</title>
+      <link>https://mullikine.github.io/posts/latex-math/</link>
+      <pubDate>Sat, 23 Nov 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/latex-math/</guid>
+      <description>n choose k \({n \choose k} = _{n}^{k}\textrm{C}= \frac{n!}{k!(n-k)!}\)
+https://byjus.com/n-choose-k-formula/
+\((x+y)^n = \sum_{k=0}^n %{n \choose k} x^{n - k} y^k\)
+\begin{equation} \label{eq:1} C = W\log_{2} (1+\mathrm{SNR}) \end{equation}
+binomial theorem In elementary algebra, the binomial theorem describes the algebraic expansion of powers of a binomial.
+\((a+b)^n=\sum_{k=0}^n{n\choose k}a^{n-k}b^k\)</description>
+    </item>
+    
+    <item>
+      <title>Coding faster with Deep TabNine</title>
+      <link>https://mullikine.github.io/posts/using-deep-tabnine/</link>
+      <pubDate>Thu, 14 Nov 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/using-deep-tabnine/</guid>
+      <description>Example of using Deep TabNine to write with example code</description>
+    </item>
+    
+    <item>
+      <title>Simulating mouse clicks in emacs</title>
+      <link>https://mullikine.github.io/posts/simulating-mouse-clicks-in-emacs/</link>
+      <pubDate>Tue, 12 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/simulating-mouse-clicks-in-emacs/</guid>
+      <description>Using tmux, emacs and vim, I create some bindings to allow you to send mouse clicks to the terminal programmatically.
+I had attempted to do this with emacs lisp but it was overly complicated and had I succeeded only emacs would be able to understand the mouse codes.
+Click at the cursor location Make the tmux bindings 1 2  bind -n C-M-x run -b &amp;#34;tm mousedown&amp;#34; bind -n C-M-z run -b &amp;#34;tm mouseup&amp;#34;   Make the tm script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51  mousedown|mouseup) { while [ $# -gt 0 ]; do opt=&amp;#34;$1&amp;#34;; case &amp;#34;$opt&amp;#34; in -t) { TMUX_PANE=&amp;#34;$2&amp;#34; shift shift } ;; *) break; esac; done [ -n &amp;#34;$1&amp;#34; ] &amp;amp;&amp;amp; x=&amp;#34;$1&amp;#34; &amp;amp;&amp;amp; shift [ -n &amp;#34;$1&amp;#34; ] &amp;amp;&amp;amp; y=&amp;#34;$1&amp;#34; &amp;amp;&amp;amp; shift : ${TMUX_PANE:=&amp;#34;$CALLER_PANE&amp;#34;} # tm cursor if test -z &amp;#34;$x&amp;#34;; then x=&amp;#34;$(tmux display -t &amp;#34;$TMUX_PANE&amp;#34; -p &amp;#34;#{cursor_x}&amp;#34;)&amp;#34; fi if test -z &amp;#34;$y&amp;#34;; then y=&amp;#34;$(tmux display -t &amp;#34;$TMUX_PANE&amp;#34; -p &amp;#34;#{cursor_y}&amp;#34;)&amp;#34; fi # ns &amp;#34;$f $TMUX_PANE $x $y&amp;#34; &amp;amp;&amp;gt;/dev/null if [ -n &amp;#34;$TMUX_PANE&amp;#34; ] &amp;amp;&amp;amp; [ -n &amp;#34;$x&amp;#34; ] &amp;amp;&amp;amp; [ -n &amp;#34;$y&amp;#34; ]; then case &amp;#34;$f&amp;#34; in mousedown) { tmux send-keys -t &amp;#34;$TMUX_PANE&amp;#34; -l &amp;#34;$(xterm-click -d $x $y)&amp;#34; } ;; mouseup) { tmux send-keys -t &amp;#34;$TMUX_PANE&amp;#34; -l &amp;#34;$(xterm-click -u $x $y)&amp;#34; } ;; click) { tmux send-keys -t &amp;#34;$TMUX_PANE&amp;#34; -l &amp;#34;$(xterm-click -d $x $y)&amp;#34; sleep 0.</description>
+    </item>
+    
+    <item>
+      <title>Python library wordcloud, emacs library wordcloud</title>
+      <link>https://mullikine.github.io/posts/python-library-wordcloud/</link>
+      <pubDate>Mon, 11 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/python-library-wordcloud/</guid>
+      <description>python wordcloud 
+  emacs wordcloud   1375 emacs packages &amp;lt;emacs-packages.txt&amp;gt;</description>
+    </item>
+    
+    <item>
+      <title>Org-mode</title>
+      <link>https://mullikine.github.io/posts/org-mode/</link>
+      <pubDate>Sat, 09 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/org-mode/</guid>
+      <description>I had been searching for a way to put newlines inside table cells This is the way to do it.
+1 2 3  # This works for table cells #+MACRO: NL @@html:&amp;lt;br/&amp;gt;@@ #+MACRO: NLL @@html:&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;@@   1 2 3 4 5  | header / source | capacity | used by | instances | |-----------------+-------------------------------------------------------------------------+------------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| | bst.h | *∞* | hash_table.h | one per hash table | | hash_table.</description>
+    </item>
+    
+    <item>
+      <title>Editing grep results with emacs</title>
+      <link>https://mullikine.github.io/posts/editing-grep-results-with-emacs/</link>
+      <pubDate>Mon, 04 Nov 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/editing-grep-results-with-emacs/</guid>
+      <description>Either require ivy or steal it&amp;rsquo;s function 1 2 3 4 5 6  (defun ivy-wgrep-change-to-wgrep-mode () &amp;#34;Forward to `wgrep-change-to-wgrep-mode&amp;#39;.&amp;#34; (interactive) (if (require &amp;#39;wgrep nil &amp;#39;noerror) (wgrep-change-to-wgrep-mode) (error &amp;#34;Package wgrep isn&amp;#39;t installed&amp;#34;)))   When grep-mode is started, wgrep-setup must run to prepare wgrep 1 2 3 4 5 6 7 8 9 10 11 12  (defun grep-mode-hook-run () ;; This saves the keymap so it can be restored (wgrep-setup) (define-key compilation-button-map (kbd &amp;#34;C-m&amp;#34;) &amp;#39;compile-goto-error) (define-key grep-mode-map (kbd &amp;#34;C-m&amp;#34;) &amp;#39;compile-goto-error) ;; (define-key grep-mode-map (kbd &amp;#34;C-c C-p&amp;#34;) #&amp;#39;wgrep-change-to-wgrep-mode) ) (add-hook &amp;#39;grep-mode-hook &amp;#39;grep-mode-hook-run t) ;; If =C-x C-q= is not available we can use this binding instead (define-key grep-mode-map (kbd &amp;#34;C-c C-p&amp;#34;) #&amp;#39;ivy-wgrep-change-to-wgrep-mode)   Set up grep-mode 1 2 3 4 5 6  ;; Unmap some keys so we can type in grep-mode (define-key grep-mode-map (kbd &amp;#34;h&amp;#34;) nil) (define-key grep-mode-map (kbd &amp;#34;g&amp;#34;) nil) ;; This connects grep-mode to wgrep (define-key grep-mode-map (kbd &amp;#34;C-x C-q&amp;#34;) #&amp;#39;ivy-wgrep-change-to-wgrep-mode)   Set up wgrep-mode 1 2  (setq wgrep-auto-save-buffer t) (define-key wgrep-mode-map (kbd &amp;#34;C-m&amp;#34;) #&amp;#39;compile-goto-error)   wgrep-auto-save-buffer is needed so that when grep results are edited, they save automatically.</description>
+    </item>
+    
+    <item>
+      <title>Graphviz and Hugo</title>
+      <link>https://mullikine.github.io/posts/graphviz/</link>
+      <pubDate>Thu, 31 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/graphviz/</guid>
+      <description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  #+BEGIN_SRC graphviz-dot-n :filter dot-digraph-ascii :async :results verbatim code  &amp;#34;low-priority&amp;#34; [shape=&amp;#34;doublecircle&amp;#34; color=&amp;#34;orange&amp;#34;]; &amp;#34;high-priority&amp;#34; [shape=&amp;#34;doublecircle&amp;#34; color=&amp;#34;orange&amp;#34;]; &amp;#34;s1&amp;#34; -&amp;gt; &amp;#34;low-priority&amp;#34;; &amp;#34;s2&amp;#34; -&amp;gt; &amp;#34;low-priority&amp;#34;; &amp;#34;s3&amp;#34; -&amp;gt; &amp;#34;low-priority&amp;#34;; &amp;#34;low-priority&amp;#34; -&amp;gt; &amp;#34;s4&amp;#34;; &amp;#34;low-priority&amp;#34; -&amp;gt; &amp;#34;s5&amp;#34;; &amp;#34;low-priority&amp;#34; -&amp;gt; &amp;#34;high-priority&amp;#34; [label=&amp;#34;wait-time exceeded&amp;#34;]; &amp;#34;high-priority&amp;#34; -&amp;gt; &amp;#34;s4&amp;#34;; &amp;#34;high-priority&amp;#34; -&amp;gt; &amp;#34;s5&amp;#34;; #+END_SRC   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21  ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ s1 ┃ ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ v ∘━━━━∘ #================================# ∘━━━━∘ ┃ s5 ┃ &amp;lt;━┄┄H low-priority H &amp;lt;━┄┄┃ s2 ┃ ∘━━━━∘ #================================# ∘━━━━∘ ^ ┃ ┃ ^ ┃ ┃ wait-time exceeded ┃ ┃ ┃ v ┃ ┃ ┃ #=====================# ┃ ∘━━━━∘ ∘━━━━━━┄┄H high-priority H ┃ ┃ s3 ┃ #=====================# ┃ ∘━━━━∘ ┃ ┃ ┃ ┃ v ┃ ∘━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ s4 ┃ &amp;lt;∘ ∘━━━━━━━━━━━━━━━━━━━━━∘   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  #+BEGIN_SRC graphviz-dot-n :filter dot-digraph priority :async :results raw drawer  &amp;#34;low-priority&amp;#34; [shape=&amp;#34;doublecircle&amp;#34; color=&amp;#34;orange&amp;#34;]; &amp;#34;high-priority&amp;#34; [shape=&amp;#34;doublecircle&amp;#34; color=&amp;#34;orange&amp;#34;]; &amp;#34;s1&amp;#34; -&amp;gt; &amp;#34;low-priority&amp;#34;; &amp;#34;s2&amp;#34; -&amp;gt; &amp;#34;low-priority&amp;#34;; &amp;#34;s3&amp;#34; -&amp;gt; &amp;#34;low-priority&amp;#34;; &amp;#34;low-priority&amp;#34; -&amp;gt; &amp;#34;s4&amp;#34;; &amp;#34;low-priority&amp;#34; -&amp;gt; &amp;#34;s5&amp;#34;; &amp;#34;low-priority&amp;#34; -&amp;gt; &amp;#34;high-priority&amp;#34; [label=&amp;#34;wait-time exceeded&amp;#34;]; &amp;#34;high-priority&amp;#34; -&amp;gt; &amp;#34;s4&amp;#34;; &amp;#34;high-priority&amp;#34; -&amp;gt; &amp;#34;s5&amp;#34;; #+END_SRC     1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  #+BEGIN_SRC graphviz-dot-n :filter dot-digraph-ascii-lr :async :results verbatim code  &amp;#34;low-priority&amp;#34; [shape=&amp;#34;doublecircle&amp;#34; color=&amp;#34;orange&amp;#34;]; &amp;#34;high-priority&amp;#34; [shape=&amp;#34;doublecircle&amp;#34; color=&amp;#34;orange&amp;#34;]; &amp;#34;s1&amp;#34; -&amp;gt; &amp;#34;low-priority&amp;#34;; &amp;#34;s2&amp;#34; -&amp;gt; &amp;#34;low-priority&amp;#34;; &amp;#34;s3&amp;#34; -&amp;gt; &amp;#34;low-priority&amp;#34;; &amp;#34;low-priority&amp;#34; -&amp;gt; &amp;#34;s4&amp;#34;; &amp;#34;low-priority&amp;#34; -&amp;gt; &amp;#34;s5&amp;#34;; &amp;#34;low-priority&amp;#34; -&amp;gt; &amp;#34;high-priority&amp;#34; [label=&amp;#34;wait-time exceeded&amp;#34;]; &amp;#34;high-priority&amp;#34; -&amp;gt; &amp;#34;s4&amp;#34;; &amp;#34;high-priority&amp;#34; -&amp;gt; &amp;#34;s5&amp;#34;; #+END_SRC   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  ∘━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ ┃ ┃ ∘━━━━∘ #==============# wait-time exceeded #===============# ∘━━━━∘ ┃ ┃ s1 ┃ ━━&amp;gt; H H ━━━━━━━━━━━━━━━━━━━━&amp;gt; H high-priority H ━━&amp;gt; ┃ s4 ┃ ┃ ∘━━━━∘ H H #===============# ∘━━━━∘ ┃ H H ^ ┃ H low-priority H ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━∘ ┃ H H ┃ ∘━━━━∘ H H ∘━━━━━━━━━━━━━━━∘ ┃ ┃ s2 ┃ ━━&amp;gt; H H &amp;lt;━━━━━━━━━━━━━━━━━━━┄┄┃ s3 ┃ ┃ ∘━━━━∘ #==============# ∘━━━━━━━━━━━━━━━∘ ┃ ┃ ┃ ┃ ┃ v ┃ ∘━━━━━━━━━━━━━━∘ ∘━━━━━━━━━━-&amp;gt; ┃ s5 ┃ ∘━━━━━━━━━━━━━━∘   1 2 3 4 5 6 7 8 9  &amp;#34;Back&amp;#34; [shape=&amp;#34;egg&amp;#34; color=&amp;#34;green&amp;#34; style=&amp;#34;filled&amp;#34; fillcolor=&amp;#34;yellow&amp;#34;]; &amp;#34;Forth&amp;#34; [shape=&amp;#34;house&amp;#34; color=&amp;#34;red&amp;#34;]; &amp;#34;Other&amp;#34; [shape=&amp;#34;invtriangle&amp;#34; color=&amp;#34;blue&amp;#34;]; &amp;#34;Back&amp;#34; -&amp;gt; &amp;#34;Forth&amp;#34; [color=&amp;#34;orange&amp;#34; label=&amp;#34;weee&amp;#34;]; &amp;#34;Forth&amp;#34; -&amp;gt; &amp;#34;Back&amp;#34; [color=&amp;#34;purple&amp;#34; label=&amp;#34;eeew&amp;#34;]; &amp;#34;Other&amp;#34; -&amp;gt; &amp;#34;Forth&amp;#34; &amp;#34;Other&amp;#34; -&amp;gt; &amp;#34;Back&amp;#34;     1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29  subgraph clusterEncoders { style = filled fillcolor = lightgrey node [style=filled,fillcolor=lightgrey,shape=circle]; label = &amp;#34;Set of encoders&amp;#34; subgraph clusterEncoder1 { fillcolor = white label = &amp;#34;Encoder 1&amp;#34;; f1[label=&amp;#34;FFNN&amp;#34;] a1[label=&amp;#34;Self-Attention layer&amp;#34;] a1 -&amp;gt; f1 } subgraph clusterEncoder2 { fillcolor = white label = &amp;#34;Encoder 2&amp;#34;; f2[label=&amp;#34;FFNN&amp;#34;] a2[label=&amp;#34;Self-Attention layer&amp;#34;] a2 -&amp;gt; f2 } subgraph clusterEncoderN { fillcolor = white label = &amp;#34;Encoder N&amp;#34;; etc [label=&amp;#34;.</description>
+    </item>
+    
+    <item>
+      <title>Deep TabNine and emacs</title>
+      <link>https://mullikine.github.io/posts/emacs-deep-tab-nine/</link>
+      <pubDate>Wed, 30 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-deep-tab-nine/</guid>
+      <description>Deep TabNine can supplement your autocompletion needs by providing you with example code.
+ plugin https://github.com/TommyX12/company-tabnine/  Objective Have two bindings; one for regular company complete and one for tabnine.
+   kb f     M-` company-complete   M-Tab company-tabnine    1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25  (require &amp;#39;company-tabnine) ;; TODO Fix ;; While browsing the completions list, if I press &amp;lt;space&amp;gt; then company aborts.</description>
+    </item>
+    
+    <item>
+      <title>Haskell modes for emacs</title>
+      <link>https://mullikine.github.io/posts/haskell-modes-for-emacs/</link>
+      <pubDate>Wed, 30 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/haskell-modes-for-emacs/</guid>
+      <description>This post is to help me keep track of all the garbage emacs modes floating around for Haskell.
+Tooling is a huge deficiency with haskell, not just for emacs.
+   mode pros cons     lsp-mode looks pretty keeps asking for project root. does not remember   flymake  leaves garbage files lying around in project directory   intero reliable, pretty type inference slow   haskell-mode reliable very basic; lacking    </description>
+    </item>
+    
+    <item>
+      <title>LaTeX in emacs</title>
+      <link>https://mullikine.github.io/posts/latex-in-emacs/</link>
+      <pubDate>Wed, 30 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/latex-in-emacs/</guid>
+      <description>Prereading Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog
+Setup Create the texalg2png script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19  #!/bin/bash export TTY read -r -d &amp;#39;&amp;#39; texcode &amp;lt;&amp;lt;HEREDOC \documentclass{standalone} \usepackage{varwidth} \usepackage{algorithm} %ctan.org\pkg\algorithms \usepackage{algpseudocode} \begin{document} \begin{varwidth}{\linewidth} \par\noindent \begin{algorithmic}[1] $(cat) \end{algorithmic} \end{varwidth} \end{document} HEREDOC printf -- &amp;#34;%s&amp;#34; &amp;#34;$texcode&amp;#34; | tex2png &amp;#34;$@&amp;#34;   Create the tex2png script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39  #!</description>
+    </item>
+    
+    <item>
+      <title>emacs for beginners - Editing MACroS</title>
+      <link>https://mullikine.github.io/posts/emacs-keyboard-macros/</link>
+      <pubDate>Sat, 26 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-keyboard-macros/</guid>
+      <description>emacs becomes more powerful when you use it in the way it was designed to be used.
+You should be using keyboard macros.
+ keyboard macros vs lisp macros Keyboard macros and lisp macros are entirely different things. The article you are reading is about using keyboard macros.
+If you want to read about lisp macros then read my other article.
+https://mullikine.github.io/posts/macro-tutorial/
+  Using keyboard macros to speed up processes An example: Using magit-diff; before and after Before    kb f     q exit diff.</description>
+    </item>
+    
+    <item>
+      <title>Searching awesome lists for curated web browsing</title>
+      <link>https://mullikine.github.io/posts/curated-surfing/</link>
+      <pubDate>Fri, 25 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/curated-surfing/</guid>
+      <description>Here I demonstrate searching through and reading lists of things from the command line.
+I ran into some issues with the googlesearch pip module It seems to have been taken down from pip.
+I changed my script to use emacs&#39; eww browser to scrape the results instead eww is pretty reliable.
+Demonstration Please be patient as I bypass the problem above.
+
+Some search results from the demonstration above 1 2 3 4 5 6 7 8  http://linear.</description>
+    </item>
+    
+    <item>
+      <title>emacs for scraping Google search results</title>
+      <link>https://mullikine.github.io/posts/use-emacs-to-scrape-google-search-results/</link>
+      <pubDate>Fri, 25 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/use-emacs-to-scrape-google-search-results/</guid>
+      <description>I have had issues with using python libraries for scraping Google search results.
+It appears that pip libraries keep going out of order.
+Therefore, I switched to scraping with emacs.
+I have developed a faith in the eww browser due to its reliability.
+Create the elisp function which uses xurls to scrape URLs from text 1 2 3 4 5  (defun google-scrape-after-loaded () ;; (new-buffer-from-string (sh/ptw/uniqnosort (sh/ptw/xurls (format &amp;#34;%S&amp;#34; (buffer-string)))) &amp;#34;*google-results*&amp;#34;) (let ((results (sh/ptw/uniqnosort (sh/ptw/xurls (format &amp;#34;%S&amp;#34; (buffer-string)))))) (write-string-to-file results &amp;#34;/tmp/eww-scrape-output.</description>
+    </item>
+    
+    <item>
+      <title>Custom Org Links</title>
+      <link>https://mullikine.github.io/posts/custom-org-links/</link>
+      <pubDate>Thu, 24 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/custom-org-links/</guid>
+      <description>org links are useful for making your org-mode documents more terse.
+1 2 3 4  $EMACSD/config/org/org-google.el $EMACSD/config/org/org-man.el $EMACSD/config/org/org-rifle.el $EMACSD/config/org/org-youtube.el   org-google.el, for instance will allow you to write google searches into your org mode.
+org-google Example You can then type C-c C-o on the link to run the google search.
+1  [[google:emacs plugins]]   This is how it appears in org-mode.
+[google:emacs plugins](emacs plugins)
+org-google.el source 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50  ;;; org-man.</description>
+    </item>
+    
+    <item>
+      <title>Extending Babel</title>
+      <link>https://mullikine.github.io/posts/extending-babel/</link>
+      <pubDate>Thu, 24 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/extending-babel/</guid>
+      <description>previous article Compounding Confoundment: arbitrary interpreters for Babel // Bodacious Blog  Automate the process of changing the babel block wrapper 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32  (defun org-babel-raise () &amp;#34;Move the interior of a babel to the outside: remove the babel block chrome and keep only the source code.</description>
+    </item>
+    
+    <item>
+      <title>Random emacs tips</title>
+      <link>https://mullikine.github.io/posts/emacs-tips/</link>
+      <pubDate>Thu, 24 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-tips/</guid>
+      <description>Just a glimpse into the kinds of things I am recording in my notes.
+Help key &amp;ndash; interpretted by emacs, not tmux This is because you would have to modify both terminfo and tmux c source to get the help key this way.
+It was simply easier to intercept the raw ansi in emacs and translate it.
+(define-key key-translation-map (kbd &amp;#34;C-M-]&amp;#34;) (kbd &amp;#34;&amp;lt;help&amp;gt;&amp;#34;))    kb tr     &amp;lt;C-M-]&amp;gt; &amp;lt;help&amp;gt;    Multiple actions as single undo entry https://www.</description>
+    </item>
+    
+    <item>
+      <title>Meta &amp; Inception</title>
+      <link>https://mullikine.github.io/posts/meta-inception/</link>
+      <pubDate>Wed, 23 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/meta-inception/</guid>
+      <description>This is a blog article about writing a blog article about recording myself recording myself playing tetris inside emacs inside tmux inside neovim inside spacemacs, inside the 5 nested tmux sessions seen at the bottom of the screen.
+DONE tetris inside of emacs 1  etetris-vt100   DONE tetris inside of neovim terminal inside of tmux 1  nvt etetris-vt100   DONE tetris inside of neovim terminal inside of tmux inside of spacemacs 1  sp -sh nvt etetris-vt100   DONE asciinema recording of an asciinema recording of tetris inside of neovim terminal inside of tmux inside of spacemacs Meta inception</description>
+    </item>
+    
+    <item>
+      <title>Muddled Monoliths: consolidating key bindings with handle.el</title>
+      <link>https://mullikine.github.io/posts/setting-up-handle-mode/</link>
+      <pubDate>Tue, 22 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/setting-up-handle-mode/</guid>
+      <description>The problem I have a few makeshift, monolithic functions for consolidating documentation and code navigation commands under a single function.
+They have become unwieldly as they grow to accommodate more languages and modes.
+Example of an unwieldly function (defun my/doc-thing-at-point (arg &amp;amp;optional immediate winfunc) &amp;#34;Show doc for thing under pointl. winfunc = &amp;#39;spv or &amp;#39;sph elisp function&amp;#34; (interactive &amp;#34;P&amp;#34;) (if (not winfunc) (setq winfunc &amp;#39;sph)) (cond ((string-equal (preceding-sexp-or-element) &amp;#34;#lang&amp;#34;) (progn ;; (racket--repl-command &amp;#34;doc %s&amp;#34; (concat &amp;#34;H:&amp;#34; (str (sexp-at-point)))) (str (racket--cmd/async `(doc ,(concat &amp;#34;H:&amp;#34; (str (sexp-at-point)))))) (sleep 1) (let ((url (cl/xc nil :notify t))) (if immediate (if (string-match-p &amp;#34;racket/search/index.</description>
+    </item>
+    
+    <item>
+      <title>Compounding Confoundment: arbitrary interpreters for Babel</title>
+      <link>https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/</link>
+      <pubDate>Sun, 20 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/</guid>
+      <description>Genesis 11:7 “&amp;hellip;Come, let us go down and confuse their language so they will not understand each other.” If supporting many languages in Babel was not confounding enough, lets support arbitrary interpreters too!  The need to specify a custom interpreter arose when I needed to provide my own interpreter for generating an ASCII graph from a dot script.
+Objective Specify an :interpreter and/or :filter command to override the execute behaviour.</description>
+    </item>
+    
+    <item>
+      <title>Using sqlite with postgres table browsing pager in emacs</title>
+      <link>https://mullikine.github.io/posts/sqlite-output-in-postgres-viewer-in-emacs/</link>
+      <pubDate>Sun, 20 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/sqlite-output-in-postgres-viewer-in-emacs/</guid>
+      <description>Create the edbi script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16  #!/bin/bash export TTY path=&amp;#34;$1&amp;#34; case &amp;#34;$path&amp;#34; in *.sqlite|*.db) { sp -e &amp;#34;(edbi-sqlite $(aqf &amp;#34;$path&amp;#34;))&amp;#34; } ;; *) { orspe -ci &amp;#34;edbi:open-db-viewer&amp;#34; } ;; esac   add the rules for ranger 1 2  ext sqlite = o-db &amp;#34;$@&amp;#34; ext db = o-db &amp;#34;$@&amp;#34;</description>
+    </item>
+    
+    <item>
+      <title>Blogs and Vlogs</title>
+      <link>https://mullikine.github.io/posts/blogs-and-vlogs/</link>
+      <pubDate>Mon, 14 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/blogs-and-vlogs/</guid>
+      <description>Blogs and vlogs These people have been influential to me.
+2019    source type url Topics     Math4IQB vlog Math4IQB - YouTube Information Theory   Gwern Bransen blog GPT-2 Neural Network Poetry Gwern.net Haskell, NLP, R   Fabian Dablander blog Fabian Dablander - PhD Student Methods Statistics Math, statistics, latex   John Kitchen blog The Kitchin Research Group Emacs   John D.</description>
+    </item>
+    
+    <item>
+      <title>Searching hacker news</title>
+      <link>https://mullikine.github.io/posts/searching-hacker-news/</link>
+      <pubDate>Thu, 10 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/searching-hacker-news/</guid>
+      <description>I create a script which can be used to search hacker news (or other sites) conveniently with title and contents queries.
+1 2 3 4 5 6 7  eww &amp;#34;http://news.ycombinator.com&amp;#34; # How to search hacker news egr emacs site:news.ycombinator.com intitle:&amp;#34;email client&amp;#34; # terms -- title terms hn emacs -- email   Create the script hn 1 2 3 4 5 6  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null SITE=news.</description>
+    </item>
+    
+    <item>
+      <title>Taming term-mode</title>
+      <link>https://mullikine.github.io/posts/taming-term/</link>
+      <pubDate>Mon, 07 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/taming-term/</guid>
+      <description>First attempt You can skip this and scroll down to the solution or read it to see some of the problems I was having with term.el.
+Problems with term.el Any minor mode which is enabled while term is running will override bindings Therefore, if you can, make any such bindings that may interfere with term into global mappings instead.
+1 2 3 4 5 6 7 8  ;; Comment this out ;; (define-key my-mode-map (kbd &amp;#34;M-k&amp;#34;) &amp;#39;avy-goto-char) ;; Unload binding (define-key my-mode-map (kbd &amp;#34;M-k&amp;#34;) nil) ;; Replace with this (define-key global-map (kbd &amp;#34;M-k&amp;#34;) &amp;#39;avy-goto-char)   gud-mode stole C-c C-a C-a is important in many programs for going to the start of the line.</description>
+    </item>
+    
+    <item>
+      <title>(WIP) Extending WordNut for generating blog titles</title>
+      <link>https://mullikine.github.io/posts/extending-wordnut-for-generating-blog-titles/</link>
+      <pubDate>Mon, 07 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/extending-wordnut-for-generating-blog-titles/</guid>
+      <description>Obtain an org-mode parser https://orgmode.org/worg/org-tools/index.html
+Parse wordnut output to scrape synonyms from the buffer Given 2 words, create a list of synonyms for each Look for one word from each list with the same starting letter </description>
+    </item>
+    
+    <item>
+      <title>Sensible Splits: Extending shackle.el</title>
+      <link>https://mullikine.github.io/posts/making-shackle-split-sensibly/</link>
+      <pubDate>Mon, 07 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/making-shackle-split-sensibly/</guid>
+      <description>shackle.el provides a single interface for managing the way windows are displayed in emacs. This means you don&amp;rsquo;t have to dig into plugin code to provide ad-hoc advice to specific functions.
+Unfortunately, it doesn&amp;rsquo;t provide an option to split sensibly, allowing you only to specify exactly how you want windows to be displayed.
+For example, it will allow to you specify that all help buffers split to the right with the following rule.</description>
+    </item>
+    
+    <item>
+      <title>awk-ward mode for emacs</title>
+      <link>https://mullikine.github.io/posts/awk-ward/</link>
+      <pubDate>Sun, 06 Oct 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/awk-ward/</guid>
+      <description>https://gitlab.com/kisaragi-hiu/awk-ward.el
+This is a neat plugin that lets you edit awk scripts with real time feedback, displaying both the output and any errors.
+Update awk-ward to enable updates on any buffer modification The problem as it has been designed to updates only when you are typing text in to the program.
+Patch Use post-command-hook instead of post-self-insert-hook (07a56482) Commits Shane Mulligan / awk-ward.el GitLab
+Demonstration of awk-ward with the patch working</description>
+    </item>
+    
+    <item>
+      <title>Review of CI tools for emacs</title>
+      <link>https://mullikine.github.io/posts/continuous-integration-emacs/</link>
+      <pubDate>Sun, 06 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/continuous-integration-emacs/</guid>
+      <description>Emacs plugins  plugin list  magit-circleci magit-gh-pulls magit-gitflow jenkins jenkins-watch travis org-link-travis magit-circleci    Demonstration of jenkins.el for emacs 
+TODO Review these jenkins plugins  plugin list  folders OWASP markup formatter build timeout crenditials binding timestamper workspace cleanup ant gradle pipeline github branch source pipeline: github groovy libraries pipeline: stage view git subversion ssh slaves matrix authorization strategy PAM authentication LDAP Email extension mailer    </description>
+    </item>
+    
+    <item>
+      <title>Extending magit with more convenient worktrees</title>
+      <link>https://mullikine.github.io/posts/extending-magit/</link>
+      <pubDate>Sat, 05 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/extending-magit/</guid>
+      <description>What is magit? It&amp;rsquo;s a really awesome git porcelain.
+Using git worktree with magit to browse different versions of a repository https://magit.vc/manual/magit/Worktree.html
+http://webcache.googleusercontent.com/search?q=cache:https://medium.com/@gaurav5430/git-using-git-worktree-to-run-2-versions-of-the-code-at-the-same-time-1b4586315a6c
+Basic git worktree bindings This is because git manages the set of worktrees.
+Magit makes use of this 1  % g (magit-worktree-status)   1  j magit-list-worktrees   1  find-function magit-list-worktrees    Example  1 2  cd &amp;#34;$MYGIT/kisaragi-hiu/awk-ward.el&amp;#34;; git worktree list --porcelain    This is where the info is stored: 1 2  cd &amp;#34;$MYGIT/kisaragi-hiu/awk-ward.</description>
+    </item>
+    
+    <item>
+      <title>emacs: demystifying emacs buttons</title>
+      <link>https://mullikine.github.io/posts/emacs-get-function-for-button/</link>
+      <pubDate>Fri, 04 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-get-function-for-button/</guid>
+      <description>Buttons in emacs are a little bit of a black box.
+This makes it difficult wish to extend or modify a mode that uses buttons: yasnippet, for example.
+Here is how to find out what the button does before you click on it.
+Get the function This is all you need for most cases.
+(defun get-button-action () &amp;#34;Get the action of the button at point&amp;#34; (interactive) (let ((b (button-at (point)))) (if b (button-get b &amp;#39;action)))) Special case: help-mode and yasnippet Applying (get-button-action) in yasnippet very unhelpfully provides this help-button-action.</description>
+    </item>
+    
+    <item>
+      <title>Conveniently learn emacs bindings</title>
+      <link>https://mullikine.github.io/posts/conveniently-learn-emacs-bindings/</link>
+      <pubDate>Thu, 03 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/conveniently-learn-emacs-bindings/</guid>
+      <description>Here&amp;rsquo;s the coolest thing I&amp;rsquo;ve made in the last few days.
+This will allow you to fuzzy find maps and pretty print them.
+ It&amp;rsquo;s useful for 2 reasons:  there are many modes which interfere with C-h k when you want to learn some bindings for a mode you are not in    Code (require &amp;#39;s) (defun my-new-buffer-frame (&amp;amp;optional contents bufname) &amp;#34;Create a new frame with a new empty buffer.</description>
+    </item>
+    
+    <item>
+      <title>Scrape URLs from eww region selection</title>
+      <link>https://mullikine.github.io/posts/scrape-urls-from-eww-region-selection/</link>
+      <pubDate>Thu, 03 Oct 2019 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/scrape-urls-from-eww-region-selection/</guid>
+      <description>The idea is you select a region of text on the screen and the text properties will be searched for URLs.
+A new buffer is created with all the list of URLs in the region you selected.
+This works on any emacs mode.
+This also works with w3m for emacs.
+If a browser is used through ansi-term or the like then emacs most likely wont be able to scrape these URLs from the text properties.</description>
+    </item>
+    
+    <item>
+      <title>Differentiate org-mode bold face</title>
+      <link>https://mullikine.github.io/posts/org-mode-bold/</link>
+      <pubDate>Sun, 22 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/org-mode-bold/</guid>
+      <description>The issue is that in a terminal, the generic bold face alone is not differentiable.
+org-mode uses the generic bold face for text within asterisks.
+Therefore we create a new face and give it a similar look but different colour to org-verbatim.
+(defface org-bold &amp;#39;((t :foreground &amp;#34;#d2268b&amp;#34; :background &amp;#34;#2e2e2e&amp;#34; :weight bold :underline t )) &amp;#34;Face for org-mode bold.&amp;#34; :group &amp;#39;org-faces ) (setq org-emphasis-alist &amp;#39;((&amp;#34;*&amp;#34; ;; (bold :foreground &amp;#34;Orange&amp;#34; ) org-bold) (&amp;#34;/&amp;#34; italic) (&amp;#34;_&amp;#34; underline) (&amp;#34;=&amp;#34; ;; (:background &amp;#34;maroon&amp;#34; :foreground &amp;#34;white&amp;#34;) org-verbatim verbatim) (&amp;#34;~&amp;#34; ;; (:background &amp;#34;deep sky blue&amp;#34; :foreground &amp;#34;MidnightBlue&amp;#34;) org-code verbatim) (&amp;#34;+&amp;#34; (:strike-through t)))) ;; Because spacemacs had different ideas about the verbatim background (set-face-background &amp;#39;org-bold &amp;#34;#2e2e2e&amp;#34;) (set-face-background &amp;#39;org-verbatim &amp;#34;#2e2e2e&amp;#34;) </description>
+    </item>
+    
+    <item>
+      <title>fzf vs helm, ivy and completing-read</title>
+      <link>https://mullikine.github.io/posts/helm-ivy-and-completing-read/</link>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/helm-ivy-and-completing-read/</guid>
+      <description>Helm, ivy and completing-read are 3 emacs-lisp alternatives to fzf.
+They are all a little different to hack on / configure though.
+helm Select from a list There are different ways to select from a list.
+1 2 3 4 5 6 7 8 9 10 11 12 13  (defun fz-must-match (list &amp;amp;optional prompt) (setq prompt (or prompt &amp;#34;:&amp;#34;)) (helm-comp-read prompt list :must-match t)) ;; This is very useful (defun fz-default-return-query (list &amp;amp;optional prompt) (setq prompt (or prompt &amp;#34;:&amp;#34;)) (helm-comp-read prompt list :must-match &amp;#39;confirm)) ;; But I don&amp;#39;t like confirm things (defun fz-default-return-query (list &amp;amp;optional prompt) (setq prompt (or prompt &amp;#34;:&amp;#34;)) (helm-comp-read prompt list :must-match &amp;#39;nil))   Getting the list of options in another window tv takes a string and opens a window with it.</description>
+    </item>
+    
+    <item>
+      <title>Interesting emacs packages (Sep 2019)</title>
+      <link>https://mullikine.github.io/posts/emacs-packages-21.09.19/</link>
+      <pubDate>Sat, 21 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-packages-21.09.19/</guid>
+      <description>Helpful.el GitHub - Wilfred/helpful: A better Emacs help buffer
+Helpful is a replacement for help buffers that provides much more contextual information
+Interesting features It can search all loaded elisp files for references to a symbol.
+(define-button-type &amp;#39;helpful-all-references-button &amp;#39;action #&amp;#39;helpful--all-references &amp;#39;symbol nil &amp;#39;callable-p nil &amp;#39;follow-link t &amp;#39;help-echo &amp;#34;Find all references to this symbol&amp;#34;) (defun helpful--all-references (button) &amp;#34;Find all the references to the symbol that this BUTTON represents.&amp;#34; (let ((sym (button-get button &amp;#39;symbol)) (callable-p (button-get button &amp;#39;callable-p))) (cond ((not callable-p) (elisp-refs-variable sym)) ((functionp sym) (elisp-refs-function sym)) ((macrop sym) (elisp-refs-macro sym))))) parsec.</description>
+    </item>
+    
+    <item>
+      <title>Best emacs tetris in emacs 26&#43;</title>
+      <link>https://mullikine.github.io/posts/emacs-tetris-nice/</link>
+      <pubDate>Fri, 20 Sep 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/emacs-tetris-nice/</guid>
+      <description>emacs 27 has an update to emacs&#39; tetris mode which makes the glyphs display larger on higher DPI screens.
+This script will download that update from git.savannah.gnu.org and display tetris in a distraction free environment for the ultimate productivity.
+Symlinks If you symlink this script to etetris-vt100 and run that instead, you will get the animated and striking black and white terminal version.
+1  ln -s etetris etetris-vt100   If you symlink this script to etetris-xterm and run that instead, you will get the vivid color terminal version.</description>
+    </item>
+    
+    <item>
+      <title>Circumventing paywalls with eww browser</title>
+      <link>https://mullikine.github.io/posts/circumventing-paywalls-with-eww-browser/</link>
+      <pubDate>Thu, 19 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/circumventing-paywalls-with-eww-browser/</guid>
+      <description>Use Google cache Often Google cache has a full copy of an article.
+Check for the existence of the cache for a given URL as some URLs may not be cached.
+I had originally used curl for this.
+Circumventing paywalls with eww browser and curl // Bodacious Blog
+This is not an accurate science. Sometimes the cache is needed and sometimes it is not, but the more information we bring in (such as if the cache exists), the better, as this leads to a more informed decision.</description>
+    </item>
+    
+    <item>
+      <title>Didactic emacs-lisp macro example (ie. a tutorial)</title>
+      <link>https://mullikine.github.io/posts/macro-tutorial/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/macro-tutorial/</guid>
+      <description>In this tutorial we build a function b which allows you to run shell code within elisp syntax (it looks like emacs lisp).
+This tutorial is useful for learning to write emacs-lisp macros but is also useful for understanding macros of any language.
+First some prerequisite functions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65  (defmacro shut-up-c (&amp;amp;rest body) &amp;#34;This works for c functions where shut-up does not.</description>
+    </item>
+    
+    <item>
+      <title>Adding new digraphs to vim and evil</title>
+      <link>https://mullikine.github.io/posts/adding-new-digraphs-to-vim-and-evil/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/adding-new-digraphs-to-vim-and-evil/</guid>
+      <description>I run this command to search for symbols but it often does not have the symbol I require vimhelp digraph-table ·	.M	0xb7	183	MIDDLE DOT ⇔	==	21D4	8660	LEFT RIGHT DOUBLE ARROW ∀	FA	2200	8704	FOR ALL ∂	dP	2202	8706	PARTIAL DIFFERENTIAL ∃	TE	2203	8707	THERE EXISTS ∅	/0	2205	8709	EMPTY SET ∆	DE	2206	8710	INCREMENT ∇	NB	2207	8711	NABLA ∈	(-	2208	8712	ELEMENT OF ∋	-)	220B	8715	CONTAINS AS MEMBER ∏	*P	220F	8719	N-ARY PRODUCT ` ∑	+Z	2211	8721	N-ARY SUMMATION ` ≤	=&amp;lt;	2264	8804	LESS-THAN OR EQUAL TO ≥	&amp;gt;=	2265	8805	GREATER-THAN OR EQUAL TO ≪	&amp;lt;*	226A	8810	MUCH LESS-THAN ≫	*&amp;gt;	226B	8811	MUCH GREATER-THAN I had to Google for these symbols as they were not in the list  List of symbols we wish to make into digraphs  ℕ - double-struck capital N ℤ - Zahlen - double-struck capital Z ℝ - double-struck capital R    Run the unicode program to find the decimal ID for each symbol we want unicode ℕ unicode ℤ unicode ℝ Add them to the vim digraph table Vim uses the decimal value of the symbol.</description>
+    </item>
+    
+    <item>
+      <title>Ameliorating list-processes</title>
+      <link>https://mullikine.github.io/posts/ameliorating-list-processes/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/ameliorating-list-processes/</guid>
+      <description>What is list-processes? list-processes is an emacs-lisp function which displays daemons running as subprocesses under emacs.
+The trouble with list-processes  It doesn&amp;rsquo;t format the command string  Commands with multiline arguments are printed verbatim Arguments are not quoted    This means that commands may flow several lines (as many as it takes to print out the full command).
+Also, 90% of the time you can&amp;rsquo;t copy the command and paste in the terminal because individual parameters with spaces are split into separate arguments.</description>
+    </item>
+    
+    <item>
+      <title>Circumventing paywalls with eww browser and curl</title>
+      <link>https://mullikine.github.io/posts/circumventing-paywalls-with-eww-browser-and-curl/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/circumventing-paywalls-with-eww-browser-and-curl/</guid>
+      <description>Use Google cache and curl Often Google cache has a full copy of an article.
+We use curl to check the existence of the cache for a given URL as some URLs may not be cached.
+This is not an accurate science. Sometimes the cache is needed and sometimes it is not, but the more information we bring in (such as if the cache exists), the better, as this leads to a more informed decision.</description>
+    </item>
+    
+    <item>
+      <title>Uniqifying emacs apps</title>
+      <link>https://mullikine.github.io/posts/uniqifying-emacs-apps/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/uniqifying-emacs-apps/</guid>
+      <description>The problem Many useful emacs apps can only have one instance running at a time due to working with a fixed buffer name.
+ Examples of useful apps which you can only run one of  eww Perl-REPL dictionary-search calculator    The fix: rename the buffer to tack on a hash after it is created Create the advice function (defun unique-buffer-generic-after-advice (&amp;amp;rest args) &amp;#34;Give the buffer a unique name&amp;#34; (ignore-errors (let* ((hash (short-hash (str (time-to-seconds)))) (new-buffer-name (pcre-replace-string &amp;#34;(\\*?</description>
+    </item>
+    
+    <item>
+      <title>haskellrank – hackerrank haskell</title>
+      <link>https://mullikine.github.io/posts/haskellrank/</link>
+      <pubDate>Fri, 04 May 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/haskellrank/</guid>
+      <description>Tsoding HackerRank in Haskell &amp;ndash; HaskellRank #01 - YouTube  Imperative style (wrong) Haskell is about declarative programming, not imperative.
+ 1 2  10 5  
+1 2 3 4 5 6 7 8  solveMeFirst a b = a + b main :: IO () main = do val1 &amp;lt;- readLn val2 &amp;lt;- readLn let sum = solveMeFirst val1 val2 print sum   15 interact function Takes a function that takes string and returns a string and applies a side-effect to the output (typically, printing to screen).</description>
+    </item>
+    
+  </channel>
+</rss>
