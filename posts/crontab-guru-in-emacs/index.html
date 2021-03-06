@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>Review of &#39;Runners autoscale configuration | GitLab&#39; // Bodacious Blog</title>
+    <title>crontab.guru in emacs // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.82.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,15 +11,19 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Review of &#39;Runners autoscale configuration | GitLab&#39;"/>
-<meta name="twitter:description" content=" Original article Runners autoscale configuration | GitLab  "/>
+<meta name="twitter:title" content="crontab.guru in emacs"/>
+<meta name="twitter:description" content="When lines in cron format appear in an emacs buffer, the crontab-guru function is suggested, allowing you to easily understand crontabs.
+1 2 3 4 5 6 7  (defun buffer-cron-lines () (sor (snc &#34;scrape \&#34;((?:[0-9]&#43;|\\\\*)\\\\s&#43;){4}(?:[0-9]&#43;|\\\\*)\&#34;&#34; (buffer-string)))) (defun chrontab-guru (tab) (interactive (list (fz (buffer-cron-lines)))) (let ((tab (sed &#34;s/\\s\\&#43;/_/g&#34; tab))) (chrome (concat &#34;https://crontab.guru/#&#34; tab))))   Demonstration 
+  "/>
 
-    <meta property="og:title" content="Review of &#39;Runners autoscale configuration | GitLab&#39;" />
-<meta property="og:description" content=" Original article Runners autoscale configuration | GitLab  " />
+    <meta property="og:title" content="crontab.guru in emacs" />
+<meta property="og:description" content="When lines in cron format appear in an emacs buffer, the crontab-guru function is suggested, allowing you to easily understand crontabs.
+1 2 3 4 5 6 7  (defun buffer-cron-lines () (sor (snc &#34;scrape \&#34;((?:[0-9]&#43;|\\\\*)\\\\s&#43;){4}(?:[0-9]&#43;|\\\\*)\&#34;&#34; (buffer-string)))) (defun chrontab-guru (tab) (interactive (list (fz (buffer-cron-lines)))) (let ((tab (sed &#34;s/\\s\\&#43;/_/g&#34; tab))) (chrome (concat &#34;https://crontab.guru/#&#34; tab))))   Demonstration 
+  " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://mullikine.github.io/posts/review-of-runners-autoscale-configuration-gitlab/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-04-14T00:00:00&#43;12:00" />
-<meta property="article:modified_time" content="2020-04-14T00:00:00&#43;12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="og:url" content="https://mullikine.github.io/posts/crontab-guru-in-emacs/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-06T00:00:00&#43;13:00" />
+<meta property="article:modified_time" content="2021-03-06T00:00:00&#43;13:00" /><meta property="og:site_name" content="Bodacious Blog" />
 
 
 
@@ -155,14 +159,14 @@
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Review of &#39;Runners autoscale configuration | GitLab&#39;</h1>
+      <h1 class ="post-title">crontab.guru in emacs</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
   <title>calendar</title>
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
 </svg>
-          Apr 14, 2020
+          Mar 6, 2021
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
@@ -175,7 +179,7 @@
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/gitlab/">gitlab</a><a class="tag" href="http://mullikine.github.io/tags/cloud-native/">cloud-native</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a></div></div>
     </header>
     
 
@@ -187,10 +191,36 @@
 
 
     <div class="post-content">
-      <dl>
-<dt>Original article</dt>
-<dd><a href="https://docs.gitlab.com/runner/configuration/autoscale.html">Runners autoscale configuration | GitLab</a></dd>
-</dl>
+      <p>When lines in cron format appear in an emacs
+buffer, the <code>crontab-guru</code> function is
+suggested, allowing you to easily understand
+crontabs.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun buffer-cron-lines ()
+  (sor (snc <span style="color:#e6db74">&#34;scrape \&#34;((?:[0-9]+|\\\\*)\\\\s+){4}(?:[0-9]+|\\\\*)\&#34;&#34;</span> (<span style="color:#a6e22e">buffer-string</span>))))
+
+(defun chrontab-guru (tab)
+  (interactive (<span style="color:#a6e22e">list</span> (fz (buffer-cron-lines))))
+  (let ((tab (sed <span style="color:#e6db74">&#34;s/\\s\\+/_/g&#34;</span> tab)))
+    (chrome (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;https://crontab.guru/#&#34;</span> tab))))</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="demonstration">Demonstration</h2>
+<p><a title="asciinema recording" href="https://asciinema.org/a/dKU8QGolIthb93F8P29NESdn6" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/dKU8QGolIthb93F8P29NESdn6.svg" /></a></p>
+<figure>
+    <img src="https://mullikine.github.io/ox-hugo/crontabguru.png"/> 
+</figure>
+
 
     </div>
     <div class="post-footer">

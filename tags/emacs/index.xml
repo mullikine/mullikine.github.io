@@ -6,7 +6,18 @@
     <description>Recent content in emacs on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 21 Feb 2021 00:00:00 +1300</lastBuildDate><atom:link href="https://mullikine.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Mar 2021 00:00:00 +1300</lastBuildDate><atom:link href="https://mullikine.github.io/tags/emacs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>crontab.guru in emacs</title>
+      <link>https://mullikine.github.io/posts/crontab-guru-in-emacs/</link>
+      <pubDate>Sat, 06 Mar 2021 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/crontab-guru-in-emacs/</guid>
+      <description>When lines in cron format appear in an emacs buffer, the crontab-guru function is suggested, allowing you to easily understand crontabs.
+1 2 3 4 5 6 7  (defun buffer-cron-lines () (sor (snc &amp;#34;scrape \&amp;#34;((?:[0-9]+|\\\\*)\\\\s+){4}(?:[0-9]+|\\\\*)\&amp;#34;&amp;#34; (buffer-string)))) (defun chrontab-guru (tab) (interactive (list (fz (buffer-cron-lines)))) (let ((tab (sed &amp;#34;s/\\s\\+/_/g&amp;#34; tab))) (chrome (concat &amp;#34;https://crontab.guru/#&amp;#34; tab))))   Demonstration 
+  </description>
+    </item>
+    
     <item>
       <title>Fine-tuning GPT-3</title>
       <link>https://mullikine.github.io/posts/fine-tuning-gpt-3/</link>
