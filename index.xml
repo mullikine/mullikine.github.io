@@ -8,14 +8,14 @@
     <language>en-us</language>
     <lastBuildDate>Sat, 06 Mar 2021 00:00:00 +1300</lastBuildDate><atom:link href="https://mullikine.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>crontab.guru in emacs to interpret prompts with GPT-3</title>
+      <title>crontab.guru in emacs and making a prompt with GPT-3 to copy it</title>
       <link>https://mullikine.github.io/posts/crontab-guru-in-emacs/</link>
       <pubDate>Sat, 06 Mar 2021 00:00:00 +1300</pubDate>
       
       <guid>https://mullikine.github.io/posts/crontab-guru-in-emacs/</guid>
-      <description>When lines in cron format appear in an emacs buffer, the crontab-guru function is suggested, allowing you to easily understand crontabs.
-1 2 3 4 5 6 7  (defun buffer-cron-lines () (sor (snc &amp;#34;scrape \&amp;#34;((?:[0-9-/]+|\\\\*)\\\\s+){4}(?:[0-9]+|\\\\*)\&amp;#34;&amp;#34; (buffer-string)))) (defun chrontab-guru (tab) (interactive (list (fz (buffer-cron-lines)))) (let ((tab (sed &amp;#34;s/\\s\\+/_/g&amp;#34; tab))) (chrome (concat &amp;#34;https://crontab.guru/#&amp;#34; tab))))   Demonstration 
-  Modify to display the explanation inside emacs  Dump the Google Chrome DOM for the website (since it requires javascript) Scrape the explanation from the website Create a new buffer in emacs with the explanation   1 2 3 4 5  (defun crontab-guru (tab) (interactive (list (fz (buffer-cron-lines) (if (selectionp) (my/thing-at-point))))) (let ((tab (sed &amp;#34;s/\\s\\+/_/g&amp;#34; tab))) ;; (chrome (concat &amp;#34;https://crontab.</description>
+      <description>Summary I build some functionality into emacs to use crontab.guru behind the scenes to interpret tab lines displaying inside of emacs, without using the web browser.
+I then build a GPT-3 prompt which does exactly the same thing without crontab.guru and provide the initial script I made to examplary (my GPT-3 DSL) as an example generator, to enhance the prompt if that is needed later.
+Initial steps When lines in cron format appear in an emacs buffer, the crontab-guru function is suggested, allowing you to easily understand crontabs.</description>
     </item>
     
     <item>

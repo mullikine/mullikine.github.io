@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>crontab.guru in emacs to interpret prompts with GPT-3 // Bodacious Blog</title>
+    <title>crontab.guru in emacs and making a prompt with GPT-3 to copy it // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.82.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,15 +11,15 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="crontab.guru in emacs to interpret prompts with GPT-3"/>
-<meta name="twitter:description" content="When lines in cron format appear in an emacs buffer, the crontab-guru function is suggested, allowing you to easily understand crontabs.
-1 2 3 4 5 6 7  (defun buffer-cron-lines () (sor (snc &#34;scrape \&#34;((?:[0-9-/]&#43;|\\\\*)\\\\s&#43;){4}(?:[0-9]&#43;|\\\\*)\&#34;&#34; (buffer-string)))) (defun chrontab-guru (tab) (interactive (list (fz (buffer-cron-lines)))) (let ((tab (sed &#34;s/\\s\\&#43;/_/g&#34; tab))) (chrome (concat &#34;https://crontab.guru/#&#34; tab))))   Demonstration 
-  Modify to display the explanation inside emacs  Dump the Google Chrome DOM for the website (since it requires javascript) Scrape the explanation from the website Create a new buffer in emacs with the explanation   1 2 3 4 5  (defun crontab-guru (tab) (interactive (list (fz (buffer-cron-lines) (if (selectionp) (my/thing-at-point))))) (let ((tab (sed &#34;s/\\s\\&#43;/_/g&#34; tab))) ;; (chrome (concat &#34;https://crontab."/>
+<meta name="twitter:title" content="crontab.guru in emacs and making a prompt with GPT-3 to copy it"/>
+<meta name="twitter:description" content="Summary I build some functionality into emacs to use crontab.guru behind the scenes to interpret tab lines displaying inside of emacs, without using the web browser.
+I then build a GPT-3 prompt which does exactly the same thing without crontab.guru and provide the initial script I made to examplary (my GPT-3 DSL) as an example generator, to enhance the prompt if that is needed later.
+Initial steps When lines in cron format appear in an emacs buffer, the crontab-guru function is suggested, allowing you to easily understand crontabs."/>
 
-    <meta property="og:title" content="crontab.guru in emacs to interpret prompts with GPT-3" />
-<meta property="og:description" content="When lines in cron format appear in an emacs buffer, the crontab-guru function is suggested, allowing you to easily understand crontabs.
-1 2 3 4 5 6 7  (defun buffer-cron-lines () (sor (snc &#34;scrape \&#34;((?:[0-9-/]&#43;|\\\\*)\\\\s&#43;){4}(?:[0-9]&#43;|\\\\*)\&#34;&#34; (buffer-string)))) (defun chrontab-guru (tab) (interactive (list (fz (buffer-cron-lines)))) (let ((tab (sed &#34;s/\\s\\&#43;/_/g&#34; tab))) (chrome (concat &#34;https://crontab.guru/#&#34; tab))))   Demonstration 
-  Modify to display the explanation inside emacs  Dump the Google Chrome DOM for the website (since it requires javascript) Scrape the explanation from the website Create a new buffer in emacs with the explanation   1 2 3 4 5  (defun crontab-guru (tab) (interactive (list (fz (buffer-cron-lines) (if (selectionp) (my/thing-at-point))))) (let ((tab (sed &#34;s/\\s\\&#43;/_/g&#34; tab))) ;; (chrome (concat &#34;https://crontab." />
+    <meta property="og:title" content="crontab.guru in emacs and making a prompt with GPT-3 to copy it" />
+<meta property="og:description" content="Summary I build some functionality into emacs to use crontab.guru behind the scenes to interpret tab lines displaying inside of emacs, without using the web browser.
+I then build a GPT-3 prompt which does exactly the same thing without crontab.guru and provide the initial script I made to examplary (my GPT-3 DSL) as an example generator, to enhance the prompt if that is needed later.
+Initial steps When lines in cron format appear in an emacs buffer, the crontab-guru function is suggested, allowing you to easily understand crontabs." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/crontab-guru-in-emacs/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-03-06T00:00:00&#43;13:00" />
@@ -159,7 +159,7 @@
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">crontab.guru in emacs to interpret prompts with GPT-3</h1>
+      <h1 class ="post-title">crontab.guru in emacs and making a prompt with GPT-3 to copy it</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -173,7 +173,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -191,7 +191,19 @@
 
 
     <div class="post-content">
-      <p>When lines in cron format appear in an emacs
+      <h2 id="summary">Summary</h2>
+<p>I build some functionality into emacs to use
+<code>crontab.guru</code> behind the scenes to interpret
+tab lines displaying inside of emacs, without
+using the web browser.</p>
+<p>I then build a GPT-3 prompt which does exactly
+the same thing without <code>crontab.guru</code> and
+provide the initial script I made to
+<code>examplary</code> (my GPT-3 DSL) as an example
+generator, to enhance the prompt if that is
+needed later.</p>
+<h2 id="initial-steps">Initial steps</h2>
+<p>When lines in cron format appear in an emacs
 buffer, the <code>crontab-guru</code> function is
 suggested, allowing you to easily understand
 crontabs.</p>
