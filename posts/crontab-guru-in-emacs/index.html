@@ -13,12 +13,12 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="crontab.guru in emacs"/>
 <meta name="twitter:description" content="When lines in cron format appear in an emacs buffer, the crontab-guru function is suggested, allowing you to easily understand crontabs.
-1 2 3 4 5 6 7  (defun buffer-cron-lines () (sor (snc &#34;scrape \&#34;((?:[0-9]&#43;|\\\\*)\\\\s&#43;){4}(?:[0-9]&#43;|\\\\*)\&#34;&#34; (buffer-string)))) (defun chrontab-guru (tab) (interactive (list (fz (buffer-cron-lines)))) (let ((tab (sed &#34;s/\\s\\&#43;/_/g&#34; tab))) (chrome (concat &#34;https://crontab.guru/#&#34; tab))))   Demonstration 
+1 2 3 4 5 6 7  (defun buffer-cron-lines () (sor (snc &#34;scrape \&#34;((?:[0-9-/]&#43;|\\\\*)\\\\s&#43;){4}(?:[0-9]&#43;|\\\\*)\&#34;&#34; (buffer-string)))) (defun chrontab-guru (tab) (interactive (list (fz (buffer-cron-lines)))) (let ((tab (sed &#34;s/\\s\\&#43;/_/g&#34; tab))) (chrome (concat &#34;https://crontab.guru/#&#34; tab))))   Demonstration 
   "/>
 
     <meta property="og:title" content="crontab.guru in emacs" />
 <meta property="og:description" content="When lines in cron format appear in an emacs buffer, the crontab-guru function is suggested, allowing you to easily understand crontabs.
-1 2 3 4 5 6 7  (defun buffer-cron-lines () (sor (snc &#34;scrape \&#34;((?:[0-9]&#43;|\\\\*)\\\\s&#43;){4}(?:[0-9]&#43;|\\\\*)\&#34;&#34; (buffer-string)))) (defun chrontab-guru (tab) (interactive (list (fz (buffer-cron-lines)))) (let ((tab (sed &#34;s/\\s\\&#43;/_/g&#34; tab))) (chrome (concat &#34;https://crontab.guru/#&#34; tab))))   Demonstration 
+1 2 3 4 5 6 7  (defun buffer-cron-lines () (sor (snc &#34;scrape \&#34;((?:[0-9-/]&#43;|\\\\*)\\\\s&#43;){4}(?:[0-9]&#43;|\\\\*)\&#34;&#34; (buffer-string)))) (defun chrontab-guru (tab) (interactive (list (fz (buffer-cron-lines)))) (let ((tab (sed &#34;s/\\s\\&#43;/_/g&#34; tab))) (chrome (concat &#34;https://crontab.guru/#&#34; tab))))   Demonstration 
   " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/crontab-guru-in-emacs/" /><meta property="article:section" content="posts" />
@@ -207,7 +207,7 @@ crontabs.</p>
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun buffer-cron-lines ()
-  (sor (snc <span style="color:#e6db74">&#34;scrape \&#34;((?:[0-9]+|\\\\*)\\\\s+){4}(?:[0-9]+|\\\\*)\&#34;&#34;</span> (<span style="color:#a6e22e">buffer-string</span>))))
+  (sor (snc <span style="color:#e6db74">&#34;scrape \&#34;((?:[0-9-/]+|\\\\*)\\\\s+){4}(?:[0-9]+|\\\\*)\&#34;&#34;</span> (<span style="color:#a6e22e">buffer-string</span>))))
 
 (defun chrontab-guru (tab)
   (interactive (<span style="color:#a6e22e">list</span> (fz (buffer-cron-lines))))
