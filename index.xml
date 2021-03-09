@@ -18,6 +18,19 @@
     </item>
     
     <item>
+      <title>Google ngrams in emacs</title>
+      <link>https://mullikine.github.io/posts/google-ngrams-in-emacs/</link>
+      <pubDate>Tue, 09 Mar 2021 00:00:00 +1300</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/google-ngrams-in-emacs/</guid>
+      <description>Summary I integrate the Google ngram viewer functionality into emacs for suggesting words in context.
+Demonstration I demonstrate selecting alternative middle word for the given context words.
+
+Code custom.el configuration
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21  (defcustom google-ngrams-corpus &amp;#34;&amp;#34; &amp;#34;Google ngrams corpus&amp;#34; :type &amp;#39;string :group &amp;#39;system-custom :initialize #&amp;#39;custom-initialize-default :options (list &amp;#34;15 # english 2012&amp;#34; &amp;#34;16 # english fiction&amp;#34; &amp;#34;26 # english 2019&amp;#34;) :set (lambda (_sym value) (myrc-set (tr &amp;#34;-&amp;#34; &amp;#34;_&amp;#34; (sym2str _sym)) value) (set _sym (sor value))) ;; The default :initialize is custom-initialize-reset ;; And uses the :set function ;; :initialize (lambda :get (lambda (_sym) (let* ((yaml (yamlmod-read-file &amp;#34;/home/shane/notes/myrc.</description>
+    </item>
+    
+    <item>
       <title>spaCy in emacs</title>
       <link>https://mullikine.github.io/posts/spacy-in-emacs/</link>
       <pubDate>Tue, 09 Mar 2021 00:00:00 +1300</pubDate>
