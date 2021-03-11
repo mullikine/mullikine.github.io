@@ -173,7 +173,7 @@ Code 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          5 min read
+          6 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -574,6 +574,151 @@ I&#39;ll take care of you, take care of you
 That&#39;s true</code></pre></td></tr></table>
 </div>
 </div>
+<h2 id="improvements">Improvements</h2>
+<h3 id="emacs-commands">emacs commands</h3>
+<p>These let me automatically search within both
+videos on my computer and on ones on youtube
+using CLIP.</p>
+<p><span class="underline"><strong>elisp</strong></span></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun find-in-video (path thing)
+  (interactive (<span style="color:#a6e22e">list</span> (fz (mnm (snc <span style="color:#e6db74">&#34;ler avi mp4 webm&#34;</span>))) (read-string-hist <span style="color:#e6db74">&#34;thing in video: &#34;</span>)))
+  <span style="color:#75715e">;; (zrepl (concat &#34;find-in-video &#34; (q query-or-url) &#34; &#34; (q thing)))</span>
+  (sps (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;find-in-video &#34;</span> (q path) <span style="color:#e6db74">&#34; &#34;</span> (q thing)) <span style="color:#e6db74">&#34;-pak&#34;</span>))
+
+(defun find-in-youtube (query-or-url thing)
+  (interactive (<span style="color:#a6e22e">list</span> (read-string-hist <span style="color:#e6db74">&#34;yt query or url: &#34;</span>) (read-string-hist <span style="color:#e6db74">&#34;thing in video: &#34;</span>)))
+  (setq query-or-url (ytsearch query-or-url))
+  <span style="color:#75715e">;; (zrepl (concat &#34;find-in-video &#34; (q query-or-url) &#34; &#34; (q thing)))</span>
+  (sps (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;find-in-video &#34;</span> (q query-or-url) <span style="color:#e6db74">&#34; &#34;</span> (q thing)) <span style="color:#e6db74">&#34;-pak&#34;</span>))
+
+(provide <span style="color:#e6db74">&#39;my-openai</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<p><span class="underline"><strong>find-in-video</strong></span></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#e6db74">&#34;&lt;==&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ps -o comm<span style="color:#f92672">=</span> $PPID<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> 0&lt;/dev/null <span style="color:#f92672">)</span> &amp;&gt;/dev/null
+
+vid_or_youtube_url<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+query<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+
+test -n <span style="color:#e6db74">&#34;</span>$vid_or_youtube_url<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">||</span> exit <span style="color:#ae81ff">1</span>
+test -n <span style="color:#e6db74">&#34;</span>$query<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">||</span> exit <span style="color:#ae81ff">1</span>
+
+$MYGIT/haltakov/natural-language-youtube-search/natural-language-youtube-search.py <span style="color:#e6db74">&#34;</span>$vid_or_youtube_url<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$query<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><span class="underline"><strong>Improvements to the python CLI interface</strong></span></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> os <span style="color:#f92672">import</span> path, link
+<span style="color:#f92672">import</span> sys
+
+video_url <span style="color:#f92672">=</span> (len(sys<span style="color:#f92672">.</span>argv) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>])
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> video_url:
+    exit(<span style="color:#ae81ff">1</span>)
+
+query <span style="color:#f92672">=</span> (len(sys<span style="color:#f92672">.</span>argv) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">and</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">2</span>])
+
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> query:
+    exit(<span style="color:#ae81ff">1</span>)
+
+<span style="color:#f92672">import</span> re
+
+<span style="color:#66d9ef">if</span> re<span style="color:#f92672">.</span>match(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#34;^https?.*&#34;</span>, video_url):
+    <span style="color:#f92672">from</span> pytube <span style="color:#f92672">import</span> YouTube
+
+    <span style="color:#75715e"># Choose a video stream with resolution of 360p</span>
+    streams <span style="color:#f92672">=</span> YouTube(video_url)<span style="color:#f92672">.</span>streams<span style="color:#f92672">.</span>filter(adaptive<span style="color:#f92672">=</span>True, subtype<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mp4&#34;</span>, resolution<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;360p&#34;</span>, only_video<span style="color:#f92672">=</span>True)
+
+    <span style="color:#75715e"># Check if there is a valid stream</span>
+    <span style="color:#66d9ef">if</span> len(streams) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+      <span style="color:#66d9ef">raise</span> <span style="color:#e6db74">&#34;No suitable stream found for this YouTube video!&#34;</span>
+
+    <span style="color:#75715e"># Download the video as video.mp4</span>
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Downloading...&#34;</span>)
+    streams[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>download(filename<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;video&#34;</span>)
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Download completed.&#34;</span>)
+    video_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;video.mp4&#34;</span>
+<span style="color:#66d9ef">elif</span> path<span style="color:#f92672">.</span>isfile(video_url):
+    video_path <span style="color:#f92672">=</span> video_url
+<span style="color:#75715e"># elif path.isfile(video_url) and re.match(r&#34;.*\.mp4$&#34;, video_url):</span>
+    <span style="color:#75715e"># link(video_url, &#39;video.mp4&#39;)</span>
+<span style="color:#66d9ef">else</span>:
+    exit(<span style="color:#ae81ff">1</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<p><a title="asciinema recording" href="https://asciinema.org/a/Uk0iSx51X48yTYvDIaPxvQGGZ" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/Uk0iSx51X48yTYvDIaPxvQGGZ.svg" /></a></p>
 
     </div>
     <div class="post-footer">
