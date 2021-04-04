@@ -274,8 +274,9 @@ I&#39;d like to trade hexes with you.</code></pre></td></tr></table>
 <!-- <a title="asciinema recording" href="https://asciinema.org/a/Fio4sczoyqk5dMttvd36Dn5h2" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/Fio4sczoyqk5dMttvd36Dn5h2.svg" /></a> -->
 <!-- Play on the blog -->
 <script src="https://asciinema.org/a/Fio4sczoyqk5dMttvd36Dn5h2.js" id="asciicast-Fio4sczoyqk5dMttvd36Dn5h2" async></script>
-<h2 id="pick-up-lines">Pick up lines</h2>
-<h3 id="harry-potter">Harry Potter</h3>
+<h2 id="original-batch-of-pick-up-lines">Original batch of pick up lines</h2>
+<p>These appeared to be more like questions.</p>
+<h3 id="topic-harry-potter">Topic: &ldquo;Harry Potter&rdquo;</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -294,7 +295,7 @@ Do you believe we have a chance at world peace?
 Are you OK with me using the Patronus charm to tell you I love you?</code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="dancing">dancing</h3>
+<h3 id="topic-dancing">Topic: &ldquo;dancing&rdquo;</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -313,7 +314,7 @@ Can you do the robot?
 If you could only dance to one song for the rest of your life, what song would it be?</code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="the-prompt">The prompt</h3>
+<h3 id="breakdown-of-the-original-prompt">Breakdown of the original prompt</h3>
 <ul>
 <li>Design patterns used:
 <ul>
@@ -661,153 +662,153 @@ I&rsquo;m keeping temperature 1.0. This is me in real life, actually.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">title: &#34;Very witty pick up lines for a topc&#34;
-# future-titles: &#34;&#34;
-# aims: |+
-# - More abstractive rewording
-doc: &#34;Given a topic, generate pick up lines, one at a time&#34;
-# aims: |+
-# - Successful
-prompt-version: 1
-prompt: |+
-    The following are witty openers for Tinder:
-    ###
-    TOPIC: CATS AND DRUGS
-    - Can I call you my catnip?
-    ###
-    TOPIC: CATS
-    - If I said you had a purrfect body, would you hold it against me?
-    ###
-    TOPIC: CATS AND HAPPINESS
-    - Do you want to be my cat? You&#39;ll get fed, I&#39;ll pet you, you&#39;ll stay warm, and we&#39;ll both be happy.
-    ###
-    TOPIC: CATS AND FOOD
-    - You look like you&#39;d taste good with a little milk.
-    ###
-    TOPIC: PIZZA
-    - You look like a slice of heaven.
-    ###
-    TOPIC: PIZZA INNUENDO
-    - If you were a pizza, you would be half cheese and half toppings.
-    ###
-    TOPIC: NACHOS INNUENDO
-    - Do you want to be my dipping sauce?
-    ###
-    TOPIC: FOOD ANALOGY
-    - You look like the salt to my pepper.
-    ###
-    TOPIC: SLEEP INNUENDO
-    - Are you a good pillow talker or a bad pillow talker?
-    ###
-    TOPIC: SLEEP ANALOGY
-    - You&#39;re like the sun in the morning.
-    ###
-    TOPIC: VIDEO GAMES
-    - Are people ever mean to you in games for being too cute?
-    ###
-    TOPIC: VIDEO GAMES
-    - You look like the type of girl I want to be a Pokemon trainer to.
-    ###
-    TOPIC: TRAVEL
-    - I want some of your culture.
-    ###
-    TOPIC: TRAVEL
-    - I want to explore every part of you.
-    ###
-    TOPIC: STARCRAFT
-    - I&#39;m glad I scouted you.
-    ###
-    TOPIC: TRAVEL
-    - I think your exotic.
-    ###
-    TOPIC: TRAVEL
-    - I&#39;m at the airport, looking at the plane schedule. Now all I need is you.
-    ###
-    TOPIC: TACOS AND INNUENDO
-    - You look like the type that would be good with a little hot sauce.
-    ###
-    TOPIC: ASTRONAUTS
-    - I think we should make space travel plans.
-    ###
-    TOPIC: ASTRONAUTS AND INNUENDO
-    - I&#39;d like to be your space shuttle.
-    ###
-    TOPIC: COFFEE
-    - Do you like coffee? Cuz I like you a latte.
-    ###
-    TOPIC: &lt;1&gt;
-    -
-# # Additional transformation of prompt after the template
-# prompt-filter: &#34;sed -z &#39;s/\s\+$//&#39;&#34;
-# # Trailing whitespace is always removed
-# prompt-remove-trailing-whitespace: on
-# myrc will select the completion engine using my config.
-# This may be openi-complete or something else
-engine: &#34;myrc&#34;
-# if nothing is selected in myrc and openapi-complete is used
-# by default, then openai should select this engine.
-preferred-openai-engine: &#34;davinci&#34;
-# 0.0 = /r/hadastroke
-# 1.0 = /r/iamveryrandom
-# Use 0.3-0.8
-temperature: 0.8
-max-tokens: 60
-top-p: 1.0
-# Not available yet: openai api completions.create --help
-frequency-penalty: 0.5
-# If I make presence-penalty 0 then it will get very terse
-presence-penalty: 0.0
-best-of: 1
-stop-sequences:
-# - &#34;\n&#34;
-# - &#34;\n\n&#34;
-- &#34;###&#34;
-inject-start-text: yes
-inject-restart-text: yes
-show-probabilities: off
-# Cache the function by default when running the prompt function
-cache: on
-vars:
-- &#34;topic&#34;
-examples:
-- &#34;tectonic plates&#34;
-# Completion is for generating a company-mode completion function
-# completion: on
-# # default values for pen -- evaled
-# # This is useful for completion commands.
-# pen-defaults:
-# - &#34;(detect-language)&#34;
-# - &#34;(pen-preceding-text)&#34;
-# These are elisp String-&gt;String functions and run from pen.el
-# It probably runs earlier than the preprocessors shell scripts
-pen-preprocessors:
-- &#34;tr &#39;[:lower:]&#39; &#39;[:upper:]&#39;&#34;
-# # A preprocessor filters the var at that position
-# the current implementation of preprocessors is kinda slow and will add ~100ml per variable
-# # This may be useful to distinguish a block of text, for example
-# preprocessors:
-# - &#34;sed &#39;s/^/- /&#34;
-# - &#34;cat&#34;
-chomp-start: on
-chomp-end: off
-prefer-external: on
-external: &#34;&#34;
-# Enable running conversation
-conversation-mode: no
-# Replace selected text
-filter: no
-# Keep stitching together until reaching this limit
-# This allows a full response for answers which may need n*max-tokens to reach the stop-sequence.
-stitch-max: 0
-needs-work: no
-n-test-runs: 5
-# Prompt function aliases
-# aliases:
-# - &#34;asktutor&#34;
-# postprocessor: &#34;sed &#39;s/- //&#39; | uniqnosort&#34;
-# Run it n times and combine the output
-n-collate: 10
-postprocessor: &#34;awk 1&#34;</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">title</span>: <span style="color:#e6db74">&#34;Very witty pick up lines for a topc&#34;</span>
+<span style="color:#75715e"># future-titles: &#34;&#34;</span>
+<span style="color:#75715e"># aims: |+</span>
+<span style="color:#75715e"># - More abstractive rewording</span>
+<span style="color:#f92672">doc</span>: <span style="color:#e6db74">&#34;Given a topic, generate pick up lines, one at a time&#34;</span>
+<span style="color:#75715e"># aims: |+</span>
+<span style="color:#75715e"># - Successful</span>
+<span style="color:#f92672">prompt-version</span>: <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">prompt</span>: |+<span style="color:#e6db74">
+</span><span style="color:#e6db74">    The following are witty openers for Tinder:
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: CATS AND DRUGS
+</span><span style="color:#e6db74">    - Can I call you my catnip?
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: CATS
+</span><span style="color:#e6db74">    - If I said you had a purrfect body, would you hold it against me?
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: CATS AND HAPPINESS
+</span><span style="color:#e6db74">    - Do you want to be my cat? You&#39;ll get fed, I&#39;ll pet you, you&#39;ll stay warm, and we&#39;ll both be happy.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: CATS AND FOOD
+</span><span style="color:#e6db74">    - You look like you&#39;d taste good with a little milk.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: PIZZA
+</span><span style="color:#e6db74">    - You look like a slice of heaven.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: PIZZA INNUENDO
+</span><span style="color:#e6db74">    - If you were a pizza, you would be half cheese and half toppings.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: NACHOS INNUENDO
+</span><span style="color:#e6db74">    - Do you want to be my dipping sauce?
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: FOOD ANALOGY
+</span><span style="color:#e6db74">    - You look like the salt to my pepper.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: SLEEP INNUENDO
+</span><span style="color:#e6db74">    - Are you a good pillow talker or a bad pillow talker?
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: SLEEP ANALOGY
+</span><span style="color:#e6db74">    - You&#39;re like the sun in the morning.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: VIDEO GAMES
+</span><span style="color:#e6db74">    - Are people ever mean to you in games for being too cute?
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: VIDEO GAMES
+</span><span style="color:#e6db74">    - You look like the type of girl I want to be a Pokemon trainer to.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: TRAVEL
+</span><span style="color:#e6db74">    - I want some of your culture.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: TRAVEL
+</span><span style="color:#e6db74">    - I want to explore every part of you.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: STARCRAFT
+</span><span style="color:#e6db74">    - I&#39;m glad I scouted you.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: TRAVEL
+</span><span style="color:#e6db74">    - I think your exotic.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: TRAVEL
+</span><span style="color:#e6db74">    - I&#39;m at the airport, looking at the plane schedule. Now all I need is you.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: TACOS AND INNUENDO
+</span><span style="color:#e6db74">    - You look like the type that would be good with a little hot sauce.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: ASTRONAUTS
+</span><span style="color:#e6db74">    - I think we should make space travel plans.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: ASTRONAUTS AND INNUENDO
+</span><span style="color:#e6db74">    - I&#39;d like to be your space shuttle.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: COFFEE
+</span><span style="color:#e6db74">    - Do you like coffee? Cuz I like you a latte.
+</span><span style="color:#e6db74">    ###
+</span><span style="color:#e6db74">    TOPIC: &lt;1&gt;
+</span><span style="color:#e6db74">    -</span>    
+<span style="color:#75715e"># # Additional transformation of prompt after the template</span>
+<span style="color:#75715e"># prompt-filter: &#34;sed -z &#39;s/\s\+$//&#39;&#34;</span>
+<span style="color:#75715e"># # Trailing whitespace is always removed</span>
+<span style="color:#75715e"># prompt-remove-trailing-whitespace: on</span>
+<span style="color:#75715e"># myrc will select the completion engine using my config.</span>
+<span style="color:#75715e"># This may be openi-complete or something else</span>
+<span style="color:#f92672">engine</span>: <span style="color:#e6db74">&#34;myrc&#34;</span>
+<span style="color:#75715e"># if nothing is selected in myrc and openapi-complete is used</span>
+<span style="color:#75715e"># by default, then openai should select this engine.</span>
+<span style="color:#f92672">preferred-openai-engine</span>: <span style="color:#e6db74">&#34;davinci&#34;</span>
+<span style="color:#75715e"># 0.0 = /r/hadastroke</span>
+<span style="color:#75715e"># 1.0 = /r/iamveryrandom</span>
+<span style="color:#75715e"># Use 0.3-0.8</span>
+<span style="color:#f92672">temperature</span>: <span style="color:#ae81ff">0.8</span>
+<span style="color:#f92672">max-tokens</span>: <span style="color:#ae81ff">60</span>
+<span style="color:#f92672">top-p</span>: <span style="color:#ae81ff">1.0</span>
+<span style="color:#75715e"># Not available yet: openai api completions.create --help</span>
+<span style="color:#f92672">frequency-penalty</span>: <span style="color:#ae81ff">0.5</span>
+<span style="color:#75715e"># If I make presence-penalty 0 then it will get very terse</span>
+<span style="color:#f92672">presence-penalty</span>: <span style="color:#ae81ff">0.0</span>
+<span style="color:#f92672">best-of</span>: <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">stop-sequences</span>:
+<span style="color:#75715e"># - &#34;\n&#34;</span>
+<span style="color:#75715e"># - &#34;\n\n&#34;</span>
+- <span style="color:#e6db74">&#34;###&#34;</span>
+<span style="color:#f92672">inject-start-text</span>: <span style="color:#66d9ef">yes</span>
+<span style="color:#f92672">inject-restart-text</span>: <span style="color:#66d9ef">yes</span>
+<span style="color:#f92672">show-probabilities</span>: <span style="color:#66d9ef">off</span>
+<span style="color:#75715e"># Cache the function by default when running the prompt function</span>
+<span style="color:#f92672">cache</span>: <span style="color:#66d9ef">on</span>
+<span style="color:#f92672">vars</span>:
+- <span style="color:#e6db74">&#34;topic&#34;</span>
+<span style="color:#f92672">examples</span>:
+- <span style="color:#e6db74">&#34;tectonic plates&#34;</span>
+<span style="color:#75715e"># Completion is for generating a company-mode completion function</span>
+<span style="color:#75715e"># completion: on</span>
+<span style="color:#75715e"># # default values for pen -- evaled</span>
+<span style="color:#75715e"># # This is useful for completion commands.</span>
+<span style="color:#75715e"># pen-defaults:</span>
+<span style="color:#75715e"># - &#34;(detect-language)&#34;</span>
+<span style="color:#75715e"># - &#34;(pen-preceding-text)&#34;</span>
+<span style="color:#75715e"># These are elisp String-&gt;String functions and run from pen.el</span>
+<span style="color:#75715e"># It probably runs earlier than the preprocessors shell scripts</span>
+<span style="color:#f92672">pen-preprocessors</span>:
+- <span style="color:#e6db74">&#34;tr &#39;[:lower:]&#39; &#39;[:upper:]&#39;&#34;</span>
+<span style="color:#75715e"># # A preprocessor filters the var at that position</span>
+<span style="color:#75715e"># the current implementation of preprocessors is kinda slow and will add ~100ml per variable</span>
+<span style="color:#75715e"># # This may be useful to distinguish a block of text, for example</span>
+<span style="color:#75715e"># preprocessors:</span>
+<span style="color:#75715e"># - &#34;sed &#39;s/^/- /&#34;</span>
+<span style="color:#75715e"># - &#34;cat&#34;</span>
+<span style="color:#f92672">chomp-start</span>: <span style="color:#66d9ef">on</span>
+<span style="color:#f92672">chomp-end</span>: <span style="color:#66d9ef">off</span>
+<span style="color:#f92672">prefer-external</span>: <span style="color:#66d9ef">on</span>
+<span style="color:#f92672">external</span>: <span style="color:#e6db74">&#34;&#34;</span>
+<span style="color:#75715e"># Enable running conversation</span>
+<span style="color:#f92672">conversation-mode</span>: <span style="color:#66d9ef">no</span>
+<span style="color:#75715e"># Replace selected text</span>
+<span style="color:#f92672">filter</span>: <span style="color:#66d9ef">no</span>
+<span style="color:#75715e"># Keep stitching together until reaching this limit</span>
+<span style="color:#75715e"># This allows a full response for answers which may need n*max-tokens to reach the stop-sequence.</span>
+<span style="color:#f92672">stitch-max</span>: <span style="color:#ae81ff">0</span>
+<span style="color:#f92672">needs-work</span>: <span style="color:#66d9ef">no</span>
+<span style="color:#f92672">n-test-runs</span>: <span style="color:#ae81ff">5</span>
+<span style="color:#75715e"># Prompt function aliases</span>
+<span style="color:#75715e"># aliases:</span>
+<span style="color:#75715e"># - &#34;asktutor&#34;</span>
+<span style="color:#75715e"># postprocessor: &#34;sed &#39;s/- //&#39; | uniqnosort&#34;</span>
+<span style="color:#75715e"># Run it n times and combine the output</span>
+<span style="color:#f92672">n-collate</span>: <span style="color:#ae81ff">10</span>
+<span style="color:#f92672">postprocessor</span>: <span style="color:#e6db74">&#34;awk 1&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
 <h3 id="pick-up-lines-with-the-topic-tectonic-plate">Pick up lines with the topic &ldquo;tectonic plate&rdquo;</h3>
