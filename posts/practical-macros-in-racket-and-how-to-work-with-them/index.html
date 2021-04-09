@@ -26,8 +26,8 @@ An example of define-syntax-parser: Generating C with racket // Bodacious Blog
   Practical macros in Racket and how to work with them A macro is central in any Lisp and must be mastered in order to master the language." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2017-11-17T00:00:00&#43;08:00" />
-<meta property="article:modified_time" content="2017-11-17T00:00:00&#43;08:00" /><meta property="og:site_name" content="Bodacious Blog" />
+<meta property="article:published_time" content="2017-11-17T00:00:00&#43;13:00" />
+<meta property="article:modified_time" content="2017-11-17T00:00:00&#43;13:00" /><meta property="og:site_name" content="Bodacious Blog" />
 
 
 
@@ -209,7 +209,7 @@ An example of define-syntax-parser: Generating C with racket // Bodacious Blog
 <dd>You can ignore everything except <code>define-syntax-parser</code> if you&rsquo;re new.
 <p>In essence it&rsquo;s a way to define macros in
 a clean manner.</p>
-<p>Explanation of syntax: <span class="underline"><a href="#org78b4943">define-syntax-parser</a></span></p>
+<p>Explanation of syntax: <span class="underline"><a href="#org6171fa4">define-syntax-parser</a></span></p>
 <p>An example of <code>define-syntax-parser</code>: <span class="underline"><a href="https://mullikine.github.io/posts/generating-c-with-racket/">Generating C with racket // Bodacious Blog</a></span></p>
 </dd>
 </dl>
@@ -224,7 +224,7 @@ complete picture.</p>
 <p>I&rsquo;ve looked through the racket documentation and connected most of the
 syntax transformers there. Here are the biggest ones and some utility
 functions.</p>
-<p><a id="org3d3a3de"></a></p>
+<p><a id="orgf8b736c"></a></p>
 <figure>
     <img src="https://mullikine.github.io/ox-hugo/macro-graph.png"/> 
 </figure>
@@ -355,10 +355,11 @@ error reporting</span> for <code>syntax-parse</code>.</p>
 (<span style="color:#66d9ef">require</span> syntax/parse/define)</code></pre></td></tr></table>
 </div>
 </div>
+<!--list-separator-->
 <ul>
-<li><code>#:with</code></li>
-</ul>
-<pre><code>&lt;a id=&quot;code-snippet--with&quot;&gt;&lt;/a&gt;
+<li>
+<p><code>#:with</code></p>
+<p><a id="code-snippet--with"></a>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -380,14 +381,15 @@ error reporting</span> for <code>syntax-parse</code>.</p>
     <span style="color:#75715e">; &#39;(zero one two three)</span>
     </code></pre></td></tr></table>
 </div>
-</div>
-
-But what is this doing?&amp;nbsp;[^fn:1]
-</code></pre>
-<ul>
-<li><code>with-syntax</code></li>
+</div></p>
+<p>But what is this doing? <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+</li>
 </ul>
-<pre><code>&lt;a id=&quot;code-snippet--with-syntax&quot;&gt;&lt;/a&gt;
+<!--list-separator-->
+<ul>
+<li>
+<p><code>with-syntax</code></p>
+<p><a id="code-snippet--with-syntax"></a>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -409,26 +411,30 @@ But what is this doing?&amp;nbsp;[^fn:1]
     <span style="color:#75715e">; &#39;(zero one two three)</span>
     </code></pre></td></tr></table>
 </div>
-</div>
-</code></pre>
-<ul>
-<li><code>#:with</code> vs <code>with-syntax</code></li>
+</div></p>
+</li>
 </ul>
-<pre><code>-   `with-syntax` uses more parentheses.
--   `#:with` specifies type `:id` for `b`
-
-&lt;div class=&quot;org-src-container&quot;&gt;
-    &lt;pre class=&quot;src&quot;&gt;
- (define-syntax-parser with-example
-   [(_ a)
-&lt;/span&gt;&lt;span class=&quot;magit-diff-removed&quot;&gt;-   &lt;/span&gt;&lt;span class=&quot;magit-diff-removed&quot;&gt;&lt;span class=&quot;diff-refine-removed&quot;&gt;#:&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;magit-diff-removed&quot;&gt;with (b&lt;/span&gt;&lt;span class=&quot;magit-diff-removed&quot;&gt;&lt;span class=&quot;diff-refine-removed&quot;&gt;:id&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;magit-diff-removed&quot;&gt; ...) #'(one two three)
--   #'(list a 'b ...)])
-&lt;/span&gt;&lt;span class=&quot;magit-diff-added&quot;&gt;+   &lt;/span&gt;&lt;span class=&quot;magit-diff-added&quot;&gt;&lt;span class=&quot;diff-refine-added&quot;&gt;(&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;magit-diff-added&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;magit-diff-added&quot;&gt;&lt;span class=&quot;diff-refine-added&quot;&gt;-syntax&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;magit-diff-added&quot;&gt; (&lt;/span&gt;&lt;span class=&quot;magit-diff-added&quot;&gt;&lt;span class=&quot;diff-refine-added&quot;&gt;[(&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;magit-diff-added&quot;&gt;b ...) #'(one two three)&lt;/span&gt;&lt;span class=&quot;magit-diff-added&quot;&gt;&lt;span class=&quot;diff-refine-added&quot;&gt;])&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;magit-diff-added&quot;&gt;
-+     #'(list a 'b ...&lt;/span&gt;&lt;span class=&quot;magit-diff-added&quot;&gt;&lt;span class=&quot;diff-refine-added&quot;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;magit-diff-added&quot;&gt;)])
-&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-</code></pre>
+<!--list-separator-->
+<ul>
+<li>
+<p><code>#:with</code> vs <code>with-syntax</code></p>
+<ul>
+<li><code>with-syntax</code> uses more parentheses.</li>
+<li><code>#:with</code> specifies type <code>:id</code> for <code>b</code></li>
+</ul>
+ <div class="org-src-container">
+     <pre class="src">
+  (define-syntax-parser with-example
+    [(_ a)
+ </span><span class="magit-diff-removed">-   </span><span class="magit-diff-removed"><span class="diff-refine-removed">#:</span></span><span class="magit-diff-removed">with (b</span><span class="magit-diff-removed"><span class="diff-refine-removed">:id</span></span><span class="magit-diff-removed"> ...) #'(one two three)
+ -   #'(list a 'b ...)])
+ </span><span class="magit-diff-added">+   </span><span class="magit-diff-added"><span class="diff-refine-added">(</span></span><span class="magit-diff-added">with</span><span class="magit-diff-added"><span class="diff-refine-added">-syntax</span></span><span class="magit-diff-added"> (</span><span class="magit-diff-added"><span class="diff-refine-added">[(</span></span><span class="magit-diff-added">b ...) #'(one two three)</span><span class="magit-diff-added"><span class="diff-refine-added">])</span></span><span class="magit-diff-added">
+ +     #'(list a 'b ...</span><span class="magit-diff-added"><span class="diff-refine-added">)</span></span><span class="magit-diff-added">)])
+ </span>
+ </pre>
+ </div>
+</li>
+</ul>
 <h2 id="learn-to-use-the-syntax-parse-family"><span class="org-todo todo TODO">TODO</span> Learn to use the <code>syntax-parse</code> family</h2>
 <p><code>syntax-parse</code> is the primitive of the most advanced syntax transformer in
 racket (as far as I know).</p>
@@ -453,7 +459,7 @@ racket (as far as I know).</p>
 <h3 id="example-a--most-concise--dot-uses-define-syntax-parser">Example A: (most concise). Uses <code>define-syntax-parser</code></h3>
 <p>Most of the time we want to use <code>define-syntax-parser</code> because it saves us the effort of typing <code>syntax-parse</code> and <code>stx</code>, as in the examples that follow.</p>
 <hr>
-<p><a id="org78b4943"></a>
+<p><a id="org6171fa4"></a>
 <code>define-syntax-parser</code> = <code>define-syntax</code> ∘ <code>syntax-parser</code></p>
 <hr>
 <p>It uses the <code>syntax-parser</code> function (not <code>syntax-parse</code>), which is why it doesn&rsquo;t need the <code>stx</code>.</p>
@@ -1107,7 +1113,7 @@ scratch his head.</p>
 <span style="color:#75715e">;; t))))) (if t (displayln it) (void)))</span></code></pre></td></tr></table>
 </div>
 </div>
-<p><a id="orge4037e2"></a></p>
+<p><a id="org62ef93f"></a></p>
 <h2 id="i-don-t-get-it-how-does-syntax-parse-work">I don&rsquo;t get it, how does <code>syntax-parse</code> work?</h2>
 <p><code>syntax-parse</code> works by <strong>replacing</strong> <span class="underline">all syntax objects after the pattern
 match</span> with the results from the pattern match:</p>
@@ -1257,6 +1263,14 @@ match</span> with the results from the pattern match:</p>
 </tr>
 </tbody>
 </table>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p><a href="https://docs.racket-lang.org/syntax-parse-example/index.html">Syntax Parse Examples - A syntax-parse Crash Course</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
 
     </div>
     <div class="post-footer">
