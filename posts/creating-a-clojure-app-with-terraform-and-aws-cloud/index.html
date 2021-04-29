@@ -1,0 +1,1323 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Creating a clojure app with terraform and AWS Cloud // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.3b5673793d1ef3ca96a58641efdd8a85521a9f081ccdc33ae9f2cafb6fa9c758.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Creating a clojure app with terraform and AWS Cloud"/>
+<meta name="twitter:description" content="Summary These are the steps I have taken to automate the process of building a Web Application in Clojure and deploying said application to an AWS cluster defined by a Terraform module.
+This is a work in progress.
+Original article https://dzone.com/articles/deploy-a-clojure-web-application-to-aws-using-terr
+I have taken steps and copied code from this article.
+Design I have chosen Clojure as the language to implement the blob uploader for the following reasons:
+ It is very reliable It is easy to understand REPL workflow  Live updates   One language for both the back-end and front-end It&rsquo;s the language I&rsquo;m growing into for most of my work It has very good support for concurrency Access to all of Java&rsquo;s libraries Access to all of Python&rsquo;s libraries via clj-python/libpython-clj  I was initially working with Terraform 0."/>
+
+    <meta property="og:title" content="Creating a clojure app with terraform and AWS Cloud" />
+<meta property="og:description" content="Summary These are the steps I have taken to automate the process of building a Web Application in Clojure and deploying said application to an AWS cluster defined by a Terraform module.
+This is a work in progress.
+Original article https://dzone.com/articles/deploy-a-clojure-web-application-to-aws-using-terr
+I have taken steps and copied code from this article.
+Design I have chosen Clojure as the language to implement the blob uploader for the following reasons:
+ It is very reliable It is easy to understand REPL workflow  Live updates   One language for both the back-end and front-end It&rsquo;s the language I&rsquo;m growing into for most of my work It has very good support for concurrency Access to all of Java&rsquo;s libraries Access to all of Python&rsquo;s libraries via clj-python/libpython-clj  I was initially working with Terraform 0." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/creating-a-clojure-app-with-terraform-and-aws-cloud/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-04-27T00:00:00&#43;12:00" />
+<meta property="article:modified_time" content="2021-04-27T00:00:00&#43;12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+
+<a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/generating-hyperlinks-for-glossaries-and-other-parsers-in-emacs/">Hyperlink generation in emacs</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-case-for-learned-index-structures/">Case for Learned Index Structures</a>
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (298 topics)</a> <a href="https://github.com/mullikine/glossaries-gh">code</a>
+<br />
+<a href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">Automating Dwarf Fortress</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<a class="big" href="https://infogetics.github.io/">Infogetics on GitHub</a>
+<br />
+<a class="big" href="https://github.com/semiosis">Semiosis on GitHub</a>
+<br />
+<a class="big" href="https://takaheai.github.io/">TakaheAI on GitHub</a>
+<br />
+<div class="taglist">
+
+  <a class="tag" href="https://mullikine.github.io/tags/gpt/">GPT (Generative Pre-trained Transformer)</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/xenolinguistics/">xenolinguistics</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/shell/">shell</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a>
+<a class="tag" href="https://mullikine.github.io/tags/iac/">IaC</a>
+<a class="tag big" href="https://mullikine.github.io/tags/facebook/">Facebook</a>
+<a class="tag" href="https://mullikine.github.io/tags/wfh/">WFH</a>
+
+
+<a class="tag" href="https://mullikine.github.io/tags/babel/">babel</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/github/">GitHub</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsl/">DSL</a>
+<a class="tag" href="https://mullikine.github.io/tags/music/">music</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/diagrams/">diagrams</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/neural-engineering/">neural-engineering</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/aws/">AWS</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag big" href="https://mullikine.github.io/tags/uber/">Uber</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/microsoft/">Microsoft</a>
+<a class="tag big" href="https://mullikine.github.io/tags/neuralink/">Neuralink</a>
+<a class="tag big" href="https://mullikine.github.io/tags/openai/">OpenAI</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/rosie/">rosie</a>
+<a class="tag" href="https://mullikine.github.io/tags/terraform/">Terraform</a>
+<a class="tag" href="https://mullikine.github.io/tags/elasticsearch/">ELK</a>
+<a class="tag" href="https://mullikine.github.io/tags/semmle/">Semmle</a>
+<a class="tag" href="https://mullikine.github.io/tags/expect/">tcl/expect</a>
+<a class="tag" href="https://mullikine.github.io/tags/solr/">solr</a>
+</div>
+</div>
+
+
+
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Creating a clojure app with terraform and AWS Cloud</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Apr 27, 2021
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          12 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/aws/">aws</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      <h2 id="summary">Summary</h2>
+<p>These are the steps I have taken to automate
+the process of building a Web Application in
+Clojure and deploying said application to an
+AWS cluster defined by a Terraform module.</p>
+<p>This is a work in progress.</p>
+<h2 id="original-article">Original article</h2>
+<p><a href="https://dzone.com/articles/deploy-a-clojure-web-application-to-aws-using-terr">https://dzone.com/articles/deploy-a-clojure-web-application-to-aws-using-terr</a></p>
+<p>I have taken steps and copied code from this article.</p>
+<h2 id="design">Design</h2>
+<p>I have chosen Clojure as the language to
+implement the blob uploader for the following reasons:</p>
+<ul>
+<li>It is very reliable</li>
+<li>It is easy to understand</li>
+<li>REPL workflow
+<ul>
+<li>Live updates</li>
+</ul>
+</li>
+<li>One language for both the back-end and front-end</li>
+<li>It&rsquo;s the language I&rsquo;m growing into for most of my work</li>
+<li>It has very good support for concurrency</li>
+<li>Access to all of Java&rsquo;s libraries</li>
+<li>Access to all of Python&rsquo;s libraries via <code>clj-python/libpython-clj</code></li>
+</ul>
+<p>I was initially working with <code>Terraform 0.15</code> on <code>Ubuntu 20.04</code>,
+but I regressed to <code>Terraform v0.14.0-dev</code> and <code>Ubuntu 16.04</code> due to my computer breaking down.</p>
+<h2 id="project-code">Project Code</h2>
+<ul>
+<li><a href="http://github.com/mullikine/blob-uploader-terraform">http://github.com/mullikine/blob-uploader-terraform</a></li>
+<li><a href="http://github.com/mullikine/blob-uploader">http://github.com/mullikine/blob-uploader</a></li>
+<li>Notes:
+<ul>
+<li><a href="https://github.com/mullikine/code-org-tidbits">https://github.com/mullikine/code-org-tidbits</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="current-state">Current state</h2>
+<h3 id="what-s-working">What&rsquo;s working</h3>
+<ul>
+<li>Cluster is successfully created using <code>terraform apply</code>.</li>
+<li>Deployment of the web app to the cluster is working.</li>
+</ul>
+<h3 id="things-i-fixed-from-the-original-code">Things I fixed from the original code</h3>
+<ul>
+<li><code>UserData</code> and installing <code>amazon-efs-utils</code> on the Ubuntu instances.
+<ul>
+<li>The original code used the Amazon ECS image.</li>
+</ul>
+</li>
+</ul>
+<h3 id="what-s-not-working-yet">What&rsquo;s not working yet</h3>
+<ul>
+<li>So far no communication with the web app on port 3000.</li>
+</ul>
+<h2 id="problems-so-far">Problems so far</h2>
+<ul>
+<li>The computer I was using died one day into starting this project, so I&rsquo;ve had to continue
+on an older computer, but it has a much older environment and is lacking many conveniences.</li>
+</ul>
+<h2 id="things-i-have-automated-for-the-purpose-of-this-project">Things I have automated for the purpose of this project</h2>
+<ul>
+<li>Terraform editor
+<ul>
+<li>Parsing terraform files with <code>json2hcl</code>.
+<a href="https://asciinema.org/a/1lqm2POncL3NmuqmYIynRurMH">https://asciinema.org/a/1lqm2POncL3NmuqmYIynRurMH</a></li>
+</ul>
+</li>
+<li>Diagram editing with <code>plantuml</code> for AWS infrastructure diagrams</li>
+<li>Cluster creation
+<ul>
+<li>Ubuntu 20.04</li>
+</ul>
+</li>
+<li>Deployment to the cluster</li>
+<li>aws cli command completion</li>
+<li>aws iam users and policies management in emacs
+<ul>
+<li>Add and remove policies from users</li>
+</ul>
+</li>
+<li>ec2 instance management in emacs
+<ul>
+<li>inspect ec2 instances</li>
+<li>display <code>UserData</code></li>
+<li>log into instances</li>
+<li>start and stop instances</li>
+</ul>
+</li>
+<li>Clojure editing
+<ul>
+<li>Parsing <code>project.clj</code> with babashka to automate dependency imports.</li>
+</ul>
+</li>
+</ul>
+<h2 id="automations">Automations</h2>
+<h3 id="parsing-project-dot-clj-with-babashka-to-automate-dependency-imports">Parsing <code>project.clj</code> with babashka to automate dependency imports</h3>
+<p><code>clojure-list-deps</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+lf <span style="color:#e6db74">&#34;project.clj&#34;</span> | umn | awk1 | <span style="color:#66d9ef">while</span> IFS<span style="color:#f92672">=</span><span style="color:#e6db74">$&#39;\n&#39;</span> read -r line; <span style="color:#66d9ef">do</span>
+    <span style="color:#f92672">(</span>
+    exec 0&lt;/dev/null
+    cat <span style="color:#e6db74">&#34;</span>$line<span style="color:#e6db74">&#34;</span> | bb -i <span style="color:#e6db74">&#34;(doseq [l (map str (-&gt;&gt; (read-string (clojure.string/join \&#34; \&#34; *input*)) (drop-while (complement #{:dependencies})) next first))] (println l))&#34;</span> -o 2&gt;/dev/null | cat
+    <span style="color:#f92672">)</span>
+<span style="color:#66d9ef">done</span> | uniqnosort</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun clojure-select-copy-dependency ()
+  (interactive)
+  (my/copy (fz (snc <span style="color:#e6db74">&#34;cd $NOTES; oci clojure-list-deps&#34;</span>))))</code></pre></td></tr></table>
+</div>
+</div>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/WT5T7OVcNYk9CENb8gVAH0DHa" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/WT5T7OVcNYk9CENb8gVAH0DHa.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/WT5T7OVcNYk9CENb8gVAH0DHa.js" id="asciicast-WT5T7OVcNYk9CENb8gVAH0DHa" async></script>
+<h3 id="direnv"><code>direnv</code></h3>
+<p>I have stored the actual passwords for <code>tf</code> in my
+private password store, but direnv can still
+retrieve them.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -sfL https://direnv.net/install.sh | bash</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export TF_VAR_aws_access_key_id<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>myrc .tf_aws_access_key_id<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+export TF_VAR_aws_secret_access_key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>myrc .tf_aws_secret_access_key<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="automate-terraform-editor">Automate terraform editor</h3>
+<p>While I am editing <code>terraform</code> or any type of document, I may
+click on things that have been automatically
+highlighted according to rules I specify.</p>
+<p>This runs commands based on the text I selected.</p>
+<p>I&rsquo;ve automated the following:</p>
+<ul>
+<li>Describing any <code>ami</code> used in terraform.</li>
+<li>Selecting different types of instances.</li>
+<li>Selecting different regions.</li>
+<li>Selecting an <code>ami</code> from an owner such as Canonical.</li>
+<li>Displaying terraform documention for <code>resources</code> and other things inside <code>tf</code> files.</li>
+<li>migrating terraform files</li>
+</ul>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/fneAXIjLJhseQhikfTRw546kQ" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/fneAXIjLJhseQhikfTRw546kQ.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/fneAXIjLJhseQhikfTRw546kQ.js" id="asciicast-fneAXIjLJhseQhikfTRw546kQ" async></script>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">128
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">129
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">130
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">131
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">132
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">133
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">134
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">141
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">142
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">143
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">144
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">145
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">146
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">149
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">150
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">151
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">152
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">153
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">154
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">155
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">156
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">157
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">158
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">159
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">160
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">161
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">162
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; Given an external filter script, which finds substrings of a file,</span>
+<span style="color:#75715e">;; buttonize those strings within in the buffer. Clicking on one of</span>
+<span style="color:#75715e">;; these buttons should do something useful</span>
+
+(defsetface filter-cmd-button-face
+  <span style="color:#f92672">&#39;</span>((<span style="color:#66d9ef">t</span> :foreground <span style="color:#e6db74">&#34;#66cc00&#34;</span>
+       <span style="color:#75715e">;; It&#39;s better for the glossary buttons to have no background, so normal syntax things, such as LSP highlighting can still be visible</span>
+       <span style="color:#75715e">;; underline is enough</span>
+       <span style="color:#75715e">;; :background &#34;#2e2e2e&#34;</span>
+       :background <span style="color:#66d9ef">nil</span>
+       :weight bold
+       :underline <span style="color:#66d9ef">t</span>))
+  <span style="color:#e6db74">&#34;Face for filter-cmd buttons.&#34;</span>)
+
+(define-button-type <span style="color:#e6db74">&#39;filter-cmd-button</span> <span style="color:#e6db74">&#39;follow-link</span> <span style="color:#66d9ef">t</span> <span style="color:#e6db74">&#39;help-echo</span> <span style="color:#e6db74">&#34;Click to run command&#34;</span> <span style="color:#e6db74">&#39;face</span> <span style="color:#e6db74">&#39;filter-cmd-button-face</span>)
+
+(defset filter-cmd-buttonize-2-tuples
+  <span style="color:#75715e">;; Replace %q with a quoted argument</span>
+  <span style="color:#f92672">&#39;</span>((<span style="color:#e6db74">&#34;scrape \&#34;\\bami-[a-z0-9]+\\b\&#34;&#34;</span> <span style="color:#e6db74">&#34;sps zrepl -cm pavit aws ec2 describe-images --image-ids %q&#34;</span>)
+    <span style="color:#75715e">;; (&#34;sed -n &#39;s/.*instance_type\\s*=\\s*\&#34;\\([^\&#34;]*\\)\&#34;.*/\\1/p&#39;&#34; &#34;sps zrepl -cm pavit aws ec2 describe-instance-types --instance-types&#34;)</span>
+    (<span style="color:#e6db74">&#34;sed -n &#39;s/.*instance_type\\s*=\\s*\&#34;\\([^\&#34;]*\\)\&#34;.*/\\1/p&#39;&#34;</span> <span style="color:#e6db74">&#34;sps aws-list-instance-types&#34;</span>)
+    (<span style="color:#e6db74">&#34;sed -n &#39;s/\\bregion\\s*=\\s*\&#34;\\([^\&#34;]*\\)\&#34;.*/\\1/p&#39;&#34;</span> <span style="color:#e6db74">&#34;sps aws-list-regions&#34;</span>)
+    <span style="color:#75715e">;; (&#34;sed -n &#39;s/.*\\bowners\\s*=\\s*\\[\&#34;\\([^\&#34;]*\\)\&#34;\\].*/\\1/p&#39;&#34; &#34;sps aws-list-image-names-from-owner&#34;)</span>
+    (<span style="color:#e6db74">&#34;json2hcl -reverse | jq -r &#39;.data[].aws_ami[][][].owners[]&#39;&#34;</span> <span style="color:#e6db74">&#34;sps aws-list-image-names-from-owner&#34;</span>)
+    <span style="color:#75715e">;; (&#34;sed -n &#39;s/^resource \\s*\&#34;\\([^\\\&#34;]*\\)\&#34; \&#34;[^\\\&#34;]*\&#34; *{$/\\1/p&#39;&#34; &#34;go-to-terraform-resource %q&#34;)</span>
+    (<span style="color:#e6db74">&#34;scrape-terraform-resource&#34;</span> <span style="color:#e6db74">&#34;go-to-terraform-resource %q&#34;</span>)))
+
+
+(add-hook <span style="color:#e6db74">&#39;terraform-mode-hook</span> <span style="color:#e6db74">&#39;make-buttons-for-all-filter-cmds</span>)
+
+
+(defun remove-filter-cmd-buttons-over-region (beg end)
+  (interactive <span style="color:#e6db74">&#34;r&#34;</span>)
+  (remove-overlays beg end <span style="color:#e6db74">&#39;face</span> <span style="color:#e6db74">&#39;filter-cmd-button-face</span>))
+
+(defun remove-all-filter-cmd-buttons (beg end)
+  (interactive <span style="color:#e6db74">&#34;r&#34;</span>)
+  (remove-filter-cmd-buttons-over-region (<span style="color:#a6e22e">point-min</span>) (<span style="color:#a6e22e">point-max</span>)))
+(defalias <span style="color:#e6db74">&#39;clear-filter-cmd-buttons</span> <span style="color:#e6db74">&#39;remove-all-filter-cmd-buttons</span>)
+
+(defun get-filter-cmd-button-data-at (p)
+  (interactive (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">point</span>)))
+  (-filter
+   (l (tp)
+     (<span style="color:#a6e22e">apply</span> <span style="color:#e6db74">&#39;gnus-and</span> tp))
+   (cl-loop
+    for
+    o
+    in
+    (<span style="color:#a6e22e">overlays-at</span> p)
+    collect
+    (<span style="color:#a6e22e">list</span>
+     (button-get o <span style="color:#e6db74">&#39;term</span>)
+     (button-get o <span style="color:#e6db74">&#39;runfunc</span>)
+     (button-get o <span style="color:#e6db74">&#39;filtercmd</span>)))))
+
+(defun filter-cmd-button-pressed (button)
+  <span style="color:#e6db74">&#34;When I press a filtercmd button, it should run the button&#39;s function&#34;</span>
+  (let* (
+         <span style="color:#75715e">;; (term (button-get-text button))</span>
+         (term (button-get button <span style="color:#e6db74">&#39;term</span>))
+         (runfunc (button-get button <span style="color:#e6db74">&#39;runfunc</span>))
+         (start (button-start button))
+         (filtercmd (button-get button <span style="color:#e6db74">&#39;filtercmd</span>))
+         (buttons-data-here (get-filter-cmd-button-data-at start)))
+
+    (if (<span style="color:#a6e22e">&lt;</span> <span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">length</span> buttons-data-here))
+        (let* ((button-line (umn (fz (mnm (pp-map-line buttons-data-here)))))
+               (button-tuple (if button-line
+                                 (my-eval-string (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;&#39;&#34;</span> button-line))))
+               (selected-button (if button-tuple
+                                    (<span style="color:#a6e22e">car</span> (-filter (l (li) (and (<span style="color:#a6e22e">equal</span> (first button-tuple) (button-get li <span style="color:#e6db74">&#39;term</span>))
+                                                               (<span style="color:#a6e22e">equal</span> (second button-tuple) (button-get li <span style="color:#e6db74">&#39;runfunc</span>))
+                                                               (<span style="color:#a6e22e">equal</span> (third button-tuple) (button-get li <span style="color:#e6db74">&#39;filtercmd</span>))))
+                                                  (<span style="color:#a6e22e">overlays-at</span> start))))))
+          (if selected-button
+              (progn
+                (setq button selected-button)
+                <span style="color:#75715e">;; (setq term (button-get-text button))</span>
+                (setq term (button-get button <span style="color:#e6db74">&#39;term</span>))
+                (setq runfunc (button-get button <span style="color:#e6db74">&#39;runfunc</span>))
+                (setq start (button-start button))
+                <span style="color:#75715e">;; filtercmd isnt used here</span>
+                (setq filtercmd (button-get button <span style="color:#e6db74">&#39;filtercmd</span>))
+                (setq buttons-data-here (get-filter-cmd-button-data-at start)))
+            (<span style="color:#a6e22e">backward-char</span>))))
+    (cond
+     ((<span style="color:#a6e22e">equal</span> current-prefix-arg (<span style="color:#a6e22e">list</span> <span style="color:#ae81ff">4</span>)) (setq current-prefix-arg <span style="color:#66d9ef">nil</span>))
+     ((not current-prefix-arg) (setq current-prefix-arg (<span style="color:#a6e22e">list</span> <span style="color:#ae81ff">4</span>))))
+
+    (<span style="color:#a6e22e">funcall</span> runfunc term)))
+
+(defun create-buttons-for-filtrate (term beg end filtercmd runfunc buttontype)
+  <span style="color:#e6db74">&#34;&#34;</span>
+  (if (not buttontype)
+      (setq buttontype <span style="color:#e6db74">&#39;filter-cmd-button</span>))
+
+  (<span style="color:#a6e22e">goto-char</span> beg)
+  (let ((pat
+         (<span style="color:#a6e22e">concat</span>
+          <span style="color:#e6db74">&#34;\\(\\b\\|[. &#39;]\\|^\\)&#34;</span>
+          (<span style="color:#a6e22e">regexp-quote</span> term)
+          <span style="color:#e6db74">&#34;s?\\(\\b\\|[. &#39;]\\|$\\)&#34;</span>)))
+    (while (<span style="color:#a6e22e">re-search-forward</span> pat end <span style="color:#66d9ef">t</span>)
+      (progn
+        <span style="color:#75715e">;; (message &#34;%s&#34; (concat &#34;searching forward &#34; (str (point))))</span>
+        (let ((contents (match-string <span style="color:#ae81ff">0</span>))
+              (beg (<span style="color:#a6e22e">match-beginning</span> <span style="color:#ae81ff">0</span>))
+              (end (<span style="color:#a6e22e">match-end</span> <span style="color:#ae81ff">0</span>)))
+          (make-button
+           (if (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34;^[ &#39;.].*&#34;</span> contents)
+               (<span style="color:#a6e22e">+</span> beg <span style="color:#ae81ff">1</span>)
+             beg)
+           (if (<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34;.*[&#39; .]$&#34;</span> contents)
+               (<span style="color:#a6e22e">-</span> end <span style="color:#ae81ff">1</span>)
+             end)
+           <span style="color:#e6db74">&#39;term</span> term
+           <span style="color:#e6db74">&#39;runfunc</span> runfunc
+           <span style="color:#e6db74">&#39;filtercmd</span> filtercmd
+           <span style="color:#e6db74">&#39;action</span> <span style="color:#e6db74">&#39;filter-cmd-button-pressed</span>
+           <span style="color:#e6db74">&#39;type</span> buttontype))))))
+
+
+(defun make-buttons-for-filter-cmd (beg end filtercmd runcmd <span style="color:#66d9ef">&amp;optional</span> clear-first)
+  <span style="color:#e6db74">&#34;Makes buttons for terms found by filter-cmd in this buffer.&#34;</span>
+  (interactive (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">point-min</span>)
+                     (<span style="color:#a6e22e">point-max</span>)
+                     (read-string-hist <span style="color:#e6db74">&#34;filter-cmd: &#34;</span>)
+                     (read-string-hist <span style="color:#e6db74">&#34;runcmd %s: &#34;</span>)))
+
+  (if clear-first (remove-all-filter-cmd-buttons))
+
+  (let* ((terms (-filter <span style="color:#e6db74">&#39;sor</span> (-uniq (str2list (snc filtercmd (region2string beg end))))))
+         (runfunc (<span style="color:#a6e22e">eval</span> <span style="color:#f92672">`</span>(lambda (term) (sn
+                                         (if (re-match-p <span style="color:#e6db74">&#34;%q&#34;</span> <span style="color:#f92672">,</span>runcmd)
+                                             (s-replace-regexp <span style="color:#e6db74">&#34;%q&#34;</span> (q term) <span style="color:#f92672">,</span>runcmd)
+                                           (<span style="color:#a6e22e">concat</span> <span style="color:#f92672">,</span>runcmd <span style="color:#e6db74">&#34; &#34;</span> (q term))))))))
+    (if (not (or (major-mode-p <span style="color:#e6db74">&#39;org-modmfse</span>)
+                 (major-mode-p <span style="color:#e6db74">&#39;outline-mode</span>)
+                 (<span style="color:#a6e22e">string-equal</span> (<span style="color:#a6e22e">buffer-name</span>) <span style="color:#e6db74">&#34;*glossary cloud*&#34;</span>)))
+        (save-excursion
+          (cl-loop for term in terms do
+                   (progn
+                     (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;creating for %s&#34;</span> term)
+                     (create-buttons-for-filtrate
+                      term
+                      beg end
+                      <span style="color:#75715e">;; This is just to make it easy to introspect</span>
+                      filtercmd
+                      runfunc
+                      <span style="color:#e6db74">&#39;filter-cmd-button</span>)))))))
+
+(defun make-buttons-for-all-filter-cmds (<span style="color:#66d9ef">&amp;optional</span> clear-first)
+  (interactive)
+  (cl-loop for tp in filter-cmd-buttonize-2-tuples do
+           (make-buttons-for-filter-cmd
+            (<span style="color:#a6e22e">point-min</span>) (<span style="color:#a6e22e">point-max</span>)
+            (<span style="color:#a6e22e">car</span> tp)
+            (second tp)
+            clear-first)))
+
+(provide <span style="color:#e6db74">&#39;my-filter-cmd-buttonize</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="key-management">Key management</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">aws ec2 describe-key-pairs</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;KeyPairs&#34;</span>: <span style="color:#f92672">[</span>
+        <span style="color:#f92672">{</span>
+            <span style="color:#e6db74">&#34;KeyPairId&#34;</span>: <span style="color:#e6db74">&#34;key-09fb6b77288849f3b&#34;</span>,
+            <span style="color:#e6db74">&#34;KeyFingerprint&#34;</span>: <span style="color:#e6db74">&#34;f2:77:ec:1f:8c:3d:65:23:12:1a:65:70:5a:0b:6f:c6:fc:46:d4:cd&#34;</span>,
+            <span style="color:#e6db74">&#34;KeyName&#34;</span>: <span style="color:#e6db74">&#34;blob_uploader_key_pair&#34;</span>,
+            <span style="color:#e6db74">&#34;Tags&#34;</span>: <span style="color:#f92672">[]</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">]</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>Because the private key isn&rsquo;t stored in AWS and can
+be retrieved only when it&rsquo;s created, you can&rsquo;t
+recover it later.</p>
+<p>When I create the key pair, I should also
+download and save the json.</p>
+<h3 id="create-key">Create key</h3>
+<dl>
+<dt>A caveat</dt>
+<dd>There is no way yet to specify a region for the cli subcommand, so this step must be done manually via the AWS console
+<a href="https://docs.aws.amazon.com/cli/latest/reference/ec2/create-key-pair.html">https://docs.aws.amazon.com/cli/latest/reference/ec2/create-key-pair.html</a></dd>
+</dl>
+<!--listend-->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># The would-be way to create the key</span>
+aws ec2 create-key-pair --key-name blob_uploader_key_pair</code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>Steps automated:
+<ul>
+<li>Download key to ssh file when it&rsquo;s created</li>
+</ul>
+</li>
+</ul>
+<!--listend-->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">jq -r .KeyMaterial &gt; ~/.ssh/ids/AdminKey.pem</code></pre></td></tr></table>
+</div>
+</div>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/yIZ9z3L36dOVmr1Br90Rvm9dN" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/yIZ9z3L36dOVmr1Br90Rvm9dN.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/yIZ9z3L36dOVmr1Br90Rvm9dN.js" id="asciicast-yIZ9z3L36dOVmr1Br90Rvm9dN" async></script>
+<h3 id="set-up-aws-user-accounts">Set up <code>aws</code> user accounts</h3>
+<p><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started%5Fcreate-admin-group.html">https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started%5Fcreate-admin-group.html</a></p>
+<p>I have chosen to automate the process with the <code>aws</code> <code>cli</code>.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">oci aws iam create-user --user-name Administrator
+<span style="color:#75715e"># Enable console login</span>
+oci aws iam create-login-profile --user-name Administrator --password <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwgen <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">1</span> | tee -a $NOTES/personal/passwords/aws-administrator.txt<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#75715e"># Change the pasword</span>
+oci aws iam update-login-profile --user-name Administrator --password <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwgen <span style="color:#ae81ff">30</span> <span style="color:#ae81ff">1</span> | tee -a $NOTES/personal/passwords/aws-administrator.txt<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#75715e"># Enable programmatic access</span>
+oci aws iam create-access-key --user-name Administrator &gt;&gt; $NOTES/personal/passwords/aws-administrator-programmatic.json</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">oci aws iam create-user --user-name Administrator</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;User&#34;</span>: <span style="color:#f92672">{</span>
+        <span style="color:#e6db74">&#34;Path&#34;</span>: <span style="color:#e6db74">&#34;/&#34;</span>,
+        <span style="color:#e6db74">&#34;UserName&#34;</span>: <span style="color:#e6db74">&#34;Administrator&#34;</span>,
+        <span style="color:#e6db74">&#34;UserId&#34;</span>: <span style="color:#e6db74">&#34;AIDAR55HCH7KNSLMHLBLO&#34;</span>,
+        <span style="color:#e6db74">&#34;Arn&#34;</span>: <span style="color:#e6db74">&#34;arn:aws:iam::132957487060:user/Administrator&#34;</span>,
+        <span style="color:#e6db74">&#34;CreateDate&#34;</span>: <span style="color:#e6db74">&#34;2021-04-26T00:07:09Z&#34;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">AdministratorAccess</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="select-the-administratoraccess-policy-and-add-to-administrator">Select the <code>AdministratorAccess</code> policy and add to <code>Administrator</code></h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">oci aws iam list-policies | jq -r <span style="color:#e6db74">&#34;.Policies[] | [ .PolicyName, .Arn ] | @csv&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#e6db74">&#34;AdministratorAccess&#34;</span>,<span style="color:#e6db74">&#34;arn:aws:iam::aws:policy/AdministratorAccess&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<dl>
+<dt>Automated user and policies management with <code>tabulated-list-mode</code></dt>
+<dd>Using emacs, tablist and this tool (<a href="http://harelba.github.io/q/">http://harelba.github.io/q/</a>), create tabulated list modes for managing aws.</dd>
+</dl>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/g6Cc64u1p5lF9geoSmCKgwmd7" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/g6Cc64u1p5lF9geoSmCKgwmd7.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/g6Cc64u1p5lF9geoSmCKgwmd7.js" id="asciicast-g6Cc64u1p5lF9geoSmCKgwmd7" async></script>
+<p>The above is a demonstration of adding the <code>AdministratorAccess</code> policy to a user account.</p>
+<p><code>aws-policy-tablist</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+create-tablist list-aws-iam-policies-csv aws-policies t <span style="color:#e6db74">&#34;30 80&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>list-aws-iam-policies-csv</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#f92672">{</span>
+echo name,arn
+unbuffer oci aws iam list-policies | jq -r <span style="color:#e6db74">&#34;.Policies[] | [ .PolicyName, .Arn ] | @csv&#34;</span>
+<span style="color:#f92672">}</span> | mnm | pavs</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#e6db74">&#34;AdministratorAccess&#34;</span>,<span style="color:#e6db74">&#34;arn:aws:iam::aws:policy/AdministratorAccess&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">oci aws iam attach-user-policy --user-name Administrator --policy-arn <span style="color:#e6db74">&#34;arn:aws:iam::aws:policy/AdministratorAccess&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="create-a-diagram-of-the-cluster">Create a diagram of the cluster</h2>
+<p>Automate the process of building infra diagrams with plantuml.</p>
+<p><code>:$SCRIPTS/plantuml-list-sprites</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+IFS<span style="color:#f92672">=</span> read -r -d <span style="color:#e6db74">&#39;&#39;</span> puml <span style="color:#e6db74">&lt;&lt;HEREDOC
+</span><span style="color:#e6db74">!include &lt;awslib/AWSCommon&gt;
+</span><span style="color:#e6db74">!include &lt;awslib/Compute/all.puml&gt;
+</span><span style="color:#e6db74">!include &lt;awslib/mobile/all.puml&gt;
+</span><span style="color:#e6db74">!include &lt;awslib/general/all.puml&gt;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">listsprites
+</span><span style="color:#e6db74">HEREDOC</span>
+
+printf -- <span style="color:#e6db74">&#34;%s\n&#34;</span> <span style="color:#e6db74">&#34;</span>$puml<span style="color:#e6db74">&#34;</span> | plantuml | sed <span style="color:#e6db74">&#39;s/\s\+/\n/g&#39;</span> | sed <span style="color:#e6db74">&#39;/^$/d&#39;</span> | pavs</code></pre></td></tr></table>
+</div>
+</div>
+<p>The above script lists the available <code>aws</code> sprites.</p>
+<p>It&rsquo;s a standard lib (code: <a href="https://github.com/plantuml/plantuml-stdlib/tree/master/awslib">https://github.com/plantuml/plantuml-stdlib/tree/master/awslib</a>).</p>
+<p>This markdown file contains a more comprehensive list of sprites.</p>
+<p><a href="https://github.com/awslabs/aws-icons-for-plantuml/blob/main/AWSSymbols.md">https://github.com/awslabs/aws-icons-for-plantuml/blob/main/AWSSymbols.md</a></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&#39;!include &lt;tupadr3/common&gt;
+&#39;!include &lt;office/Servers/application_server&gt;
+
+!include &lt;awslib/AWSCommon&gt;
+!include &lt;awslib/AWSSimplified.puml&gt;
+!include &lt;awslib/Compute/all.puml&gt;
+!include &lt;awslib/mobile/all.puml&gt;
+!include &lt;awslib/general/all.puml&gt;
+!include &lt;awslib/GroupIcons/all.puml&gt;
+!include &lt;awslib/NetworkingAndContentDelivery/all.puml&gt;
+
+skinparam linetype polyline
+
+&#39; EC2()
+ELBApplicationLoadBalancer(ALBLoadBalancer, &#34;ALB (Application Load Balancer)&#34;, &#34; &#34;)
+ELBNetworkLoadBalancer(NLBLoadBalancer, &#34;NLB (Network Load Balancer)&#34;, &#34; &#34;)
+EC2AutoScaling(AutoscalingGroup, &#34;Autoscaling Group&#34;, &#34; &#34;)
+EC2InstancewithCloudWatch(InstanceCW, &#34;Instance with CloudWatch&#34;, &#34; &#34;)
+General(App1, &#34;App&#34;, &#34; &#34;)
+&#39;OFF_APPLICATION_SERVER(App1, &#34;App&#34;)
+General(App2, &#34;App&#34;, &#34; &#34;)
+GenericDatabase(DB, &#34;Database&#34;, &#34; &#34;)
+
+&#39; ELBApplicationLoadBalancer
+&#39; ELBNetworkLoadBalancer
+ALBLoadBalancer -down-&gt; InstanceCW: Port 3000
+NLBLoadBalancer -down-&gt; InstanceCW: Port 5432
+AutoscalingGroup -right-&gt; InstanceCW
+InstanceCW -down-&gt; App1: Port 3000
+InstanceCW -down-&gt; App2: Port 3000
+InstanceCW -down-&gt; DB: Port 5432</code></pre></td></tr></table>
+</div>
+</div>
+<figure>
+    <img src="terraformclojure.svg"/> 
+</figure>
+
+<h2 id="set-up-more-tools">Set up more tools</h2>
+<h3 id="set-up-saws">Set up <code>saws</code></h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">x -sh saws -z <span style="color:#e6db74">&#34;saws&gt;&#34;</span> -s <span style="color:#e6db74">&#34;aws &#34;</span> -i</code></pre></td></tr></table>
+</div>
+</div>
+<p>I used this to query the <code>aws</code> <code>cli</code> for arguments and options.</p>
+<p>I have automated the initial entry and copying back from the REPL.</p>
+<p><a href="https://asciinema.org/a/3IZcJYMYcC1q0Z8fSBrCCMO3K">https://asciinema.org/a/3IZcJYMYcC1q0Z8fSBrCCMO3K</a></p>
+<h3 id="aws-fuzzy-finder"><code>aws-fuzzy-finder</code></h3>
+<p>Instead of setting up the following tool, I extended emacs' <code>aws-instances</code> plugin.</p>
+<p><a href="https://github.com/pmazurek/aws-fuzzy-finder">https://github.com/pmazurek/aws-fuzzy-finder</a></p>
+<h2 id="cluster-successfully-created-with-terraform">Cluster successfully created with terraform</h2>
+<ul>
+<li>Ubuntu 20.04</li>
+<li><code>t2.micro</code> (free tier)</li>
+</ul>
+<h3 id="first-attempt-at-terraform-apply--creating-the-cluster--failed">First attempt at <code>terraform apply</code> (creating the cluster) failed</h3>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/Jiq2phUugU6LnPMFcYQXxl8Tc" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/Jiq2phUugU6LnPMFcYQXxl8Tc.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/Jiq2phUugU6LnPMFcYQXxl8Tc.js" id="asciicast-Jiq2phUugU6LnPMFcYQXxl8Tc" async></script>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Error: Error creating launch configuration: ValidationError: The key pair &#39;blob_uploader_key_pair&#39; does not exist
+        status code: 400, request id: 42206521-5721-44ce-9a11-7bc24d1b440c
+
+  on launch-configuration.tf line 1, in resource &#34;aws_launch_configuration&#34; &#34;ecs-launch-configuration&#34;:
+   1: resource &#34;aws_launch_configuration&#34; &#34;ecs-launch-configuration&#34; {</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="successful-terraform-apply-dot-cluster-created-dot">Successful <code>terraform apply</code>. Cluster created.</h3>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/zrCqjoxfv1h0n6PshGRCjrBDx" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/zrCqjoxfv1h0n6PshGRCjrBDx.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/zrCqjoxfv1h0n6PshGRCjrBDx.js" id="asciicast-zrCqjoxfv1h0n6PshGRCjrBDx" async></script>
+<h2 id="automate-adding-my-public-key-to-an-instance-and-ssh-into-the-box">Automate adding my public key to an instance and ssh into the box</h2>
+<ul>
+<li>Inspect from emacs <code>aws-instances</code></li>
+<li>Get region and availability zone</li>
+</ul>
+<p><a href="https://aws.amazon.com/blogs/compute/new-using-amazon-ec2-instance-connect-for-ssh-access-to-your-ec2-instances/">https://aws.amazon.com/blogs/compute/new-using-amazon-ec2-instance-connect-for-ssh-access-to-your-ec2-instances/</a></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">aws ec2-instance-connect send-ssh-public-key --region us-west-1 --availability-zone us-west-1a --instance-id i-034950c831ac772a5 --instance-os-user ubuntu --ssh-public-key file://$HOME/.ssh/pub/id_rsa.pub</code></pre></td></tr></table>
+</div>
+</div>
+<p>After running above command, for the next 60 seconds I can ssh in to the box.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ssh -oBatchMode<span style="color:#f92672">=</span>no -vvv -i $HOME/.ssh/ids/default.pem ubuntu@ec2-3-101-73-201.us-west-1.compute.amazonaws.com</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="i-had-to-make-some-modifications-to-the-userdata-of-launch-configuration-dot-tf">I had to make some modifications to the <code>UserData</code> of <code>launch-configuration.tf</code></h3>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/zaKN40J2LyMjxnR1qIetAikvQ" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/zaKN40J2LyMjxnR1qIetAikvQ.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/zaKN40J2LyMjxnR1qIetAikvQ.js" id="asciicast-zaKN40J2LyMjxnR1qIetAikvQ" async></script>
+<ul>
+<li>Destroy the cluster and reapply terraform to see if it works now/sticks.</li>
+<li>This fixed the problem.</li>
+<li>I also needed to unindent the HEREDOC for <code>user_data</code>.</li>
+</ul>
+<!--listend-->
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>sudo mkdir -m <span style="color:#ae81ff">777</span> -p /etc/ecs; sudo chown $USER:$USER /etc/ecs
+<span style="color:#75715e"># echo ECS_CLUSTER=${var.ecs_cluster} &gt;&gt; /etc/ecs/ecs.config</span>
+echo ECS_CLUSTER<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>var.ecs_cluster<span style="color:#e6db74">}</span> &gt;&gt; /etc/ecs/ecs.config
+sudo mkdir -p /mnt/efs/postgres; sudo chown $USER:$USER /mnt/efs/postgres
+cd /mnt
+<span style="color:#75715e"># sudo yum install -y amazon-efs-utils</span>
+<span style="color:#f92672">(</span>
+sudo apt-get update
+sudo apt-get -y install git binutils
+sudo chmod <span style="color:#ae81ff">777</span> /mnt
+git clone https://github.com/aws/efs-utils
+cd efs-utils
+./build-deb.sh
+sudo sh -c <span style="color:#e6db74">&#39;apt-get update &amp;&amp; apt-get install stunnel4&#39;</span>
+sudo apt-get -y install ./build/amazon-efs-utils*deb
+<span style="color:#f92672">)</span>
+
+<span style="color:#75715e"># I have confirmed this command works</span>
+sudo mount -t efs <span style="color:#e6db74">${</span>aws_efs_mount_target.blobdbefs-mnt.0.dns_name<span style="color:#e6db74">}</span>:/ efs
+<span style="color:#75715e"># sudo mount -t efs fs-3d3ad725.efs.us-west-1.amazonaws.com:/ efs</span></code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="reapply-to-see-if-it-worked">Reapply to see if it worked</h4>
+<p>It takes significant time to shut down.</p>
+<h3 id="automated-showing-the-userdata-of-an-instance-in-emacs">Automated showing the <code>userData</code> of an instance in emacs</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; Make an ssh into box script</span>
+
+(defun aws-ssh-into-box (id)
+  (interactive (<span style="color:#a6e22e">list</span> (tabulated-list-get-id)))
+
+  (if (major-mode-p <span style="color:#e6db74">&#39;aws-instances-mode</span>)
+      (sps (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;aws-ssh-into-box &#34;</span> id))))
+
+(defun aws-show-user-data (id)
+  (interactive (<span style="color:#a6e22e">list</span> (tabulated-list-get-id)))
+
+  (if (major-mode-p <span style="color:#e6db74">&#39;aws-instances-mode</span>)
+      <span style="color:#75715e">;; https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html</span>
+      (etv (snc (<span style="color:#a6e22e">concat</span>
+                 <span style="color:#e6db74">&#34;aws ec2 describe-instance-attribute --instance-id &#34;</span>
+                 id
+                 <span style="color:#e6db74">&#34; --attribute userData --output text --query \&#34;UserData.Value\&#34; | base64 --decode&#34;</span>)))
+    <span style="color:#75715e">;;</span>
+    <span style="color:#75715e">;; (sps (concat &#34;aws-ssh-into-box &#34; id))</span>
+    ))
+
+(<span style="color:#a6e22e">define-key</span> aws-instances-mode-map (kbd <span style="color:#e6db74">&#34;;&#34;</span>) <span style="color:#e6db74">&#39;aws-ssh-into-box</span>)
+(<span style="color:#a6e22e">define-key</span> aws-instances-mode-map (kbd <span style="color:#e6db74">&#34;D&#34;</span>) <span style="color:#e6db74">&#39;aws-show-user-data</span>)
+
+(provide <span style="color:#e6db74">&#39;my-aws</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="automate-collection-of-terraform-apply-output">Automate collection of <code>terraform apply output</code></h3>
+<ul>
+<li>Specifically variables
+<ul>
+<li>Then I can collect database of cluster states</li>
+</ul>
+</li>
+<li>Partially done
+<ul>
+<li>All outputs of the <code>aws</code> and <code>terraform</code> commands are stored in a database.</li>
+</ul>
+</li>
+</ul>
+<h2 id="automate-terraform-file-migration">automate terraform file migration</h2>
+<p>Terraform has auto-upgrade tooling e.g.
+<code>terraform 0.12upgrade</code> but they only work
+from version to consecutive version. I was
+migrating older <code>tf</code> files so I made my own
+migration script.</p>
+<p><code>migrate-terraform</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#75715e"># Terraform has auto-upgrade tooling</span>
+<span style="color:#75715e"># terraform 0.12upgrade</span>
+
+<span style="color:#66d9ef">while</span> <span style="color:#f92672">[</span> $# -gt <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">do</span> opt<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>; <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$opt<span style="color:#e6db74">&#34;</span> in
+    <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span> shift; <span style="color:#f92672">}</span>; ;;
+    -f<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        force<span style="color:#f92672">=</span>y
+        shift
+    <span style="color:#f92672">}</span>
+    ;;
+
+    *<span style="color:#f92672">)</span> break;
+<span style="color:#66d9ef">esac</span>; <span style="color:#66d9ef">done</span>
+
+stdin_exists<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    ! <span style="color:#f92672">[</span> -t <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> ! test <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>readlink /proc/$$/fd/0<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> /dev/null
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e"># Interestingly, heredocs should not be &#39;uninterpolated&#39;</span>
+<span style="color:#75715e"># sp +/&#34;container_definitions = &lt;&lt;DEFINITION&#34; &#34;$MYGIT/chrishowejones/film-ratings-terraform/film-ratings-db-task-definition.tf&#34;</span>
+
+<span style="color:#66d9ef">if</span> stdin_exists; <span style="color:#66d9ef">then</span>
+    <span style="color:#75715e"># sed &#39;/&#34;\${/{s/&#34;\${\([^}]*\)}&#34;/\1/g;s/\\&#34;/&#34;/g;s/\bvar\.//}&#39;</span>
+    sed <span style="color:#e6db74">&#39;/&#34;\${/{s/&#34;\${\([^}]*\)}&#34;/\1/g;s/\\&#34;/&#34;/g;}&#39;</span> |
+        sed <span style="color:#e6db74">&#39;/ \[ *&#34;[^&#34;]\+\.[^&#34;]\+&#34; *\]/{s/\[ *&#34;\([^&#34;]\+\.[^&#34;]\+\)&#34; *\]/[ \1 ]/g}&#39;</span>
+<span style="color:#66d9ef">elif</span> test <span style="color:#e6db74">&#34;</span>$force<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> y <span style="color:#f92672">||</span> yn <span style="color:#e6db74">&#34;Recursively migrate?&#34;</span>; <span style="color:#66d9ef">then</span>
+    find . -type f -name <span style="color:#e6db74">&#39;*.tf&#39;</span> | awk1 | <span style="color:#66d9ef">while</span> IFS<span style="color:#f92672">=</span><span style="color:#e6db74">$&#39;\n&#39;</span> read -r line; <span style="color:#66d9ef">do</span>
+        <span style="color:#f92672">(</span>
+        exec 0&lt;/dev/null
+        cat <span style="color:#e6db74">&#34;</span>$line<span style="color:#e6db74">&#34;</span> | migrate-terraform | sponge <span style="color:#e6db74">&#34;</span>$line<span style="color:#e6db74">&#34;</span>
+        <span style="color:#f92672">)</span>
+    <span style="color:#66d9ef">done</span>
+<span style="color:#66d9ef">fi</span></code></pre></td></tr></table>
+</div>
+</div>
+
+    </div>
+    <div class="post-footer">
+        <p>
+        <a href="https://mullikine.github.io/about/">About this weblog</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://asciinema.org/~mullikine">Asciinema recordings</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/posts/blogs-and-vlogs/">Blogs and Vlogs</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/tags/">Site Map</a>
+        </p>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
