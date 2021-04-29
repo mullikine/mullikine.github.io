@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>universal file parser in emacs // Bodacious Blog</title>
+    <title>Universal file parser in emacs // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.82.0" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,17 +11,17 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="universal file parser in emacs"/>
-<meta name="twitter:description" content="Summary I make a way to get a more abstract representation of any buffer in emacs utilising parsers, antlr4 in particular.
-Demonstration Going from edn to json to json schema All I need to do is press M-&amp; 2 times to do this.
-The idea is that every time you press M-&amp;, it takes you to a more abstract representation of what you are looking at.
- --  Using the universal antlr parser  Steps Set up antlr Follow the setup instructions."/>
+<meta name="twitter:title" content="Universal file parser in emacs"/>
+<meta name="twitter:description" content="Summary I make a way to get a more abstract representation of any type of file or buffer in emacs utilising parsers, antlr4 in particular.
+I also want to be able to query the contents of the source code.
+I also want to be able to query prose programmatically.
+Motivation In the past I have used ctags to get simple lists of source code components such as functions and classes. I would like to have much finer control over queries to source code."/>
 
-    <meta property="og:title" content="universal file parser in emacs" />
-<meta property="og:description" content="Summary I make a way to get a more abstract representation of any buffer in emacs utilising parsers, antlr4 in particular.
-Demonstration Going from edn to json to json schema All I need to do is press M-&amp; 2 times to do this.
-The idea is that every time you press M-&amp;, it takes you to a more abstract representation of what you are looking at.
- --  Using the universal antlr parser  Steps Set up antlr Follow the setup instructions." />
+    <meta property="og:title" content="Universal file parser in emacs" />
+<meta property="og:description" content="Summary I make a way to get a more abstract representation of any type of file or buffer in emacs utilising parsers, antlr4 in particular.
+I also want to be able to query the contents of the source code.
+I also want to be able to query prose programmatically.
+Motivation In the past I have used ctags to get simple lists of source code components such as functions and classes. I would like to have much finer control over queries to source code." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/universal-file-parser-in-emacs/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-04-29T00:00:00&#43;12:00" />
@@ -168,7 +168,7 @@ The idea is that every time you press M-&amp;, it takes you to a more abstract r
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">universal file parser in emacs</h1>
+      <h1 class ="post-title">Universal file parser in emacs</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -182,7 +182,7 @@ The idea is that every time you press M-&amp;, it takes you to a more abstract r
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -202,8 +202,21 @@ The idea is that every time you press M-&amp;, it takes you to a more abstract r
     <div class="post-content">
       <h2 id="summary">Summary</h2>
 <p>I make a way to get a more abstract
-representation of any buffer in emacs
+representation of any type of file or buffer in emacs
 utilising parsers, <code>antlr4</code> in particular.</p>
+<p>I also want to be able to query the contents
+of the source code.</p>
+<p>I also want to be able to query prose programmatically.</p>
+<h3 id="motivation">Motivation</h3>
+<p>In the past I have used <code>ctags</code> to get simple
+lists of source code components such as
+functions and classes. I would like to have
+much finer control over queries to source
+code.</p>
+<p>The reason I want an automated way of parsing
+and then querying source code and prose is so
+I can build tooling which automates it and be
+programming at a higher abstraction level.</p>
 <h2 id="demonstration">Demonstration</h2>
 <h3 id="going-from-edn-to-json-to-json-schema">Going from <code>edn</code> to <code>json</code> to <code>json schema</code></h3>
 <p>All I need to do is press <code>M-&amp;</code> 2 times to do this.</p>
