@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>productivity on Bodacious Blog</title>
-    <link>https://mullikine.github.io/tags/productivity/</link>
+    <link>http://mullikine.github.io/tags/productivity/</link>
     <description>Recent content in productivity on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://mullikine.github.io/tags/productivity/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0800</lastBuildDate><atom:link href="http://mullikine.github.io/tags/productivity/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Suggesting emacs functions depending on the context</title>
-      <link>https://mullikine.github.io/posts/suggesting-emacs-functions-depending-on-the-context/</link>
+      <link>http://mullikine.github.io/posts/suggesting-emacs-functions-depending-on-the-context/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0800</pubDate>
       
-      <guid>https://mullikine.github.io/posts/suggesting-emacs-functions-depending-on-the-context/</guid>
+      <guid>http://mullikine.github.io/posts/suggesting-emacs-functions-depending-on-the-context/</guid>
       <description>TL;DR Implement in emacs lisp a way of suggesting functions to myself depending on a set of cues
 Demonstration 
 Designing the plugin Some predicate atoms 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20  (defun chomp (str) &amp;#34;Chomp leading and tailing whitespace from STR for each line.&amp;#34; (while (string-match &amp;#34;\\`\n+\\|^\\s-+\\|\\s-+$\\|\n+\\&amp;#39;&amp;#34; str) (setq str (replace-match &amp;#34;&amp;#34; t t str))) str) (defalias &amp;#39;q &amp;#39;shell-quote-argument) (defun rpl-at-line-p (rpl) (let* ((output (chomp (shell-command-to-string (concat &amp;#34;rosie grep -o subs &amp;#34; (q rpl)) (thing-at-point &amp;#39;line t)))) (matches (str2list output)) (n (length matches))) (and (not (string-empty-p output)) (&amp;gt; n 0)))) (defun rpl-at-point-p (rpl) (let* ((output (chomp (sn (concat &amp;#34;rosie grep -o subs &amp;#34; (q rpl)) (thing-at-point &amp;#39;sexp t)))) (matches (str2list output)) (n (length matches))) (and (not (string-empty-p output)) (&amp;gt; n 0))))   Some functions to debug the above predicate atoms 1 2 3 4 5 6 7 8 9  (defun rpl-at-line (rpl) (let* ((output (chomp (sn (concat &amp;#34;rosie grep -o subs &amp;#34; (q rpl)) (thing-at-point &amp;#39;line t)))) (matches (str2list output))) matches)) (defun rpl-at-point (rpl) (let* ((output (chomp (sn (concat &amp;#34;rosie grep -o subs &amp;#34; (q rpl)) (thing-at-point &amp;#39;sexp t)))) (matches (str2list output))) matches))   Some functions that we might want to suggest 1 2 3 4 5 6 7 8 9 10  (defun copy-ip-here () (interactive) (xc (first (rpl-at-point &amp;#34;net.</description>
@@ -20,10 +20,10 @@ Designing the plugin Some predicate atoms 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
     
     <item>
       <title>OpenAI API for NLP</title>
-      <link>https://mullikine.github.io/posts/openai-api-for-nlp/</link>
+      <link>http://mullikine.github.io/posts/openai-api-for-nlp/</link>
       <pubDate>Fri, 12 Jun 2020 00:00:00 +1200</pubDate>
       
-      <guid>https://mullikine.github.io/posts/openai-api-for-nlp/</guid>
+      <guid>http://mullikine.github.io/posts/openai-api-for-nlp/</guid>
       <description>OpenAI API https://beta.openai.com/  Related articles I&amp;rsquo;d like to add some OpenAI support to emacs.
   Context menus based on GPT-3 // Bodacious Blog
   crontab.guru in emacs and making a prompt with GPT-3 to copy it // Bodacious Blog
@@ -34,20 +34,20 @@ Designing the plugin Some predicate atoms 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16
     
     <item>
       <title>★ Automating rat, a powerful productivity tool ★</title>
-      <link>https://mullikine.github.io/posts/rat/</link>
+      <link>http://mullikine.github.io/posts/rat/</link>
       <pubDate>Sat, 25 Jan 2020 00:00:00 +1300</pubDate>
       
-      <guid>https://mullikine.github.io/posts/rat/</guid>
+      <guid>http://mullikine.github.io/posts/rat/</guid>
       <description>Source https://github.com/ericfreese/rat Tweaks https://github.com/mullikine/rat/commits/shane See also Creating a rat mode for docker // Splunky Splog Coincidence The moment I finished writing this up, the fireworks for Chinese New Year began. It&amp;rsquo;s the year of the rat! I love it! I had no idea!  I remember seeing this a few years ago but at the time I was too much of a noob.
 Just recently I was playing around with docker commands when I realised it would be perfectly suited for rapidly putting together a TUI.</description>
     </item>
     
     <item>
       <title>AI-assisted coding tools for emacs</title>
-      <link>https://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</link>
+      <link>http://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</link>
       <pubDate>Wed, 27 Nov 2019 00:00:00 +0800</pubDate>
       
-      <guid>https://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</guid>
+      <guid>http://mullikine.github.io/posts/ai-assisted-coding-tools-emacs/</guid>
       <description>language-detection Emacs Lisp library that automatically detects the programming language in a buffer or string. Implemented as a random forest classifier, trained in scikit-learn and deployed to Emacs Lisp.
 https://github.com/andreasjansson/language-detection.el
 Example of usage 1 2 3 4 5 6 7 8 9  (defun new-buffer-from-selection-detect-language () &amp;#34;Creates a new buffer from the selection and tries to set the mode&amp;#34; (interactive) (if (selected-p) (let* ((b (new-buffer-from-string (selection)))) (with-current-buffer b (switch-to-buffer b) (guess-major-mode))))) (defalias &amp;#39;detect-language-set-mode &amp;#39;guess-major-mode)   1 2  ;; This works great (my/truly-selective-binding &amp;#34;Y&amp;#34; #&amp;#39;new-buffer-from-selection-detect-language)   expanded the macro</description>

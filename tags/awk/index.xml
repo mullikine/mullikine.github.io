@@ -2,54 +2,54 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>awk on Bodacious Blog</title>
-    <link>https://mullikine.github.io/tags/awk/</link>
+    <link>http://mullikine.github.io/tags/awk/</link>
     <description>Recent content in awk on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 28 May 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://mullikine.github.io/tags/awk/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 May 2020 00:00:00 +0800</lastBuildDate><atom:link href="http://mullikine.github.io/tags/awk/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Test estimation</title>
-      <link>https://mullikine.github.io/posts/test-estimation/</link>
+      <link>http://mullikine.github.io/posts/test-estimation/</link>
       <pubDate>Thu, 28 May 2020 00:00:00 +0800</pubDate>
       
-      <guid>https://mullikine.github.io/posts/test-estimation/</guid>
+      <guid>http://mullikine.github.io/posts/test-estimation/</guid>
       <description>Links Software Test Estimation Techniques: Step By Step Guide  Firstly summarise this article 1 2 3 4 5 6  * Resources: Resources are required to carry out any project tasks. They can be people, equipment, facilities, funding, or anything else capable of definition required for the completion of a project activity. * Times : Time is the most valuable resource in a project. Every project has a deadline to delivery.</description>
     </item>
     
     <item>
       <title>Generate yasnippet from vimsnippet</title>
-      <link>https://mullikine.github.io/posts/generate-yasnippets-from-vimshippets/</link>
+      <link>http://mullikine.github.io/posts/generate-yasnippets-from-vimshippets/</link>
       <pubDate>Mon, 23 Dec 2019 00:00:00 +1300</pubDate>
       
-      <guid>https://mullikine.github.io/posts/generate-yasnippets-from-vimshippets/</guid>
+      <guid>http://mullikine.github.io/posts/generate-yasnippets-from-vimshippets/</guid>
       <description>write the script vimsnippet2yasnippet 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null while [ $# -gt 0 ]; do opt=&amp;#34;$1&amp;#34;; case &amp;#34;$opt&amp;#34; in &amp;#34;&amp;#34;) { shift; }; ;; -d) { dir=&amp;#34;$2&amp;#34; shift shift } ;; *) break; esac; done stdin_exists() { !</description>
     </item>
     
     <item>
       <title>A makeshift template processor in bash</title>
-      <link>https://mullikine.github.io/posts/makeshift-template-processor/</link>
+      <link>http://mullikine.github.io/posts/makeshift-template-processor/</link>
       <pubDate>Thu, 28 Nov 2019 00:00:00 +0800</pubDate>
       
-      <guid>https://mullikine.github.io/posts/makeshift-template-processor/</guid>
+      <guid>http://mullikine.github.io/posts/makeshift-template-processor/</guid>
       <description>1  echo -n &amp;#34;Hi &amp;lt;name&amp;gt;. How are you?&amp;#34; | tl -name Shane   This is similar to python f-strings 1 2 3  name = &amp;#34;Eric&amp;#34; age = 74 print(f&amp;#34;Hello, {name}. You are {age}.&amp;#34;)   Hello, Eric. You are 74. In fact, I should make an f-strings-based utility.
 Build the replace-substring script 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35  #!</description>
     </item>
     
     <item>
       <title>Filtering text streams</title>
-      <link>https://mullikine.github.io/posts/filter-regex-in-perlre/</link>
+      <link>http://mullikine.github.io/posts/filter-regex-in-perlre/</link>
       <pubDate>Mon, 28 Oct 2019 00:00:00 +1300</pubDate>
       
-      <guid>https://mullikine.github.io/posts/filter-regex-in-perlre/</guid>
+      <guid>http://mullikine.github.io/posts/filter-regex-in-perlre/</guid>
       <description>The script awk-apply-to-record awk awk-apply-to-record.awk 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32  { # print NR if (r == &amp;#34;&amp;#34; || NR == r) { if (NR == 1) { printf &amp;#34;%s&amp;#34;, $0 |&amp;amp; cmd; } else { if (irs == &amp;#34;y&amp;#34;) { printf &amp;#34;%s&amp;#34;, RS printf &amp;#34;%s&amp;#34;, $0 |&amp;amp; cmd; } else { printf &amp;#34;%s%s&amp;#34;, RS, $0 |&amp;amp; cmd; } } close(cmd, &amp;#34;to&amp;#34;); # This is needed because getline will not overwrite if nothing is read $0 = &amp;#34;&amp;#34;; cmd |&amp;amp; getline $0; fflush(cmd); close(cmd); } else { if (NR &amp;gt; 1) { print RS } } print; system(&amp;#34;&amp;#34;); }   awk-apply-to-record 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52  #!</description>
     </item>
     
     <item>
       <title>awk-ward mode for emacs</title>
-      <link>https://mullikine.github.io/posts/awk-ward/</link>
+      <link>http://mullikine.github.io/posts/awk-ward/</link>
       <pubDate>Sun, 06 Oct 2019 00:00:00 +0800</pubDate>
       
-      <guid>https://mullikine.github.io/posts/awk-ward/</guid>
+      <guid>http://mullikine.github.io/posts/awk-ward/</guid>
       <description>https://gitlab.com/kisaragi-hiu/awk-ward.el
 This is a neat plugin that lets you edit awk scripts with real time feedback, displaying both the output and any errors.
 Update awk-ward to enable updates on any buffer modification The problem as it has been designed to updates only when you are typing text in to the program.
