@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>world-languages on Bodacious Blog</title>
-    <link>http://mullikine.github.io/tags/world-languages/</link>
+    <link>https://mullikine.github.io/tags/world-languages/</link>
     <description>Recent content in world-languages on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Jul 2020 00:00:00 +0800</lastBuildDate><atom:link href="http://mullikine.github.io/tags/world-languages/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Jul 2020 00:00:00 +0800</lastBuildDate><atom:link href="https://mullikine.github.io/tags/world-languages/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using babel with Google translate</title>
-      <link>http://mullikine.github.io/posts/using-babel-with-google-translate/</link>
+      <link>https://mullikine.github.io/posts/using-babel-with-google-translate/</link>
       <pubDate>Mon, 13 Jul 2020 00:00:00 +0800</pubDate>
       
-      <guid>http://mullikine.github.io/posts/using-babel-with-google-translate/</guid>
+      <guid>https://mullikine.github.io/posts/using-babel-with-google-translate/</guid>
       <description>Create wrapper script around soimort/translate-shell translate-shell 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null # translate-shell -s en -t fr &amp;#34;$@&amp;#34; stdin_exists() { ! [ -t 0 ] &amp;amp;&amp;amp; ! test &amp;#34;$(readlink /proc/$$/fd/0)&amp;#34; = /dev/null } if stdin_exists; then ins=&amp;#34;$(cat)&amp;#34; set -- &amp;#34;$@&amp;#34; &amp;#34;$ins&amp;#34; fi $MYGIT/soimort/translate-shell/translate -brief &amp;#34;$@&amp;#34;   Create the entries in org-template-gen 1 2 3 4 5 6 7 8 9 10 11 12 13  french) { echo &amp;#34;#+BEGIN_SRC text -n :f \&amp;#34;translate-shell -s fr -t en\&amp;#34; :async :results verbatim code&amp;#34; cat &amp;#34;$input_fp&amp;#34; | postprocess echo -n &amp;#34;#+END_SRC&amp;#34; } ;; english) { echo &amp;#34;#+BEGIN_SRC text -n :f \&amp;#34;translate-shell -s en -t fr\&amp;#34; :async :results verbatim code&amp;#34; cat &amp;#34;$input_fp&amp;#34; | postprocess echo -n &amp;#34;#+END_SRC&amp;#34; } ;;   Create the entries in hydra-org-template 1 2  (&amp;#34;E&amp;#34; (hot-expand &amp;#34;&amp;lt;s&amp;#34; &amp;#34;french&amp;#34;) &amp;#34;french&amp;#34;) (&amp;#34;F&amp;#34; (hot-expand &amp;#34;&amp;lt;s&amp;#34; &amp;#34;english&amp;#34;) &amp;#34;english&amp;#34;)   Demonstration</description>
     </item>
     
