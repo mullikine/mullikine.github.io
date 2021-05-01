@@ -6,7 +6,19 @@
     <description>Recent content in tooling on Bodacious Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Mar 2021 00:00:00 +1300</lastBuildDate><atom:link href="https://mullikine.github.io/tags/tooling/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 May 2021 00:00:00 +1200</lastBuildDate><atom:link href="https://mullikine.github.io/tags/tooling/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>tmux-integrated GPT-3, stack-exchange and google code help</title>
+      <link>https://mullikine.github.io/posts/tmux-integrated-gpt-3-stack-exchange-and-google-code-help/</link>
+      <pubDate>Sat, 01 May 2021 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/tmux-integrated-gpt-3-stack-exchange-and-google-code-help/</guid>
+      <description>Summary When I have a question about code, I don&amp;rsquo;t want to forget about the multiple avenues for looking for help.
+I just make a convenience script to look for help.
+Demo  --  Make scripts tcq
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null lang=&amp;#34;$1&amp;#34; question=&amp;#34;$@&amp;#34; slug=&amp;#34;$(printf -- &amp;#34;%s\n&amp;#34; &amp;#34;$@&amp;#34; | tr &amp;#39;\n&amp;#39; &amp;#39; &amp;#39; | sed &amp;#39;s/ $//&amp;#39; | slugify | cut -c -20)&amp;#34; session_id=&amp;#34;$(tm ss -n zsh -s cq -c ~ | cut -d : -f 1)&amp;#34; pcq=&amp;#34;$(tm -d -te nw -P -n &amp;#34;cq-$slug&amp;#34; -d -t &amp;#34;$session_id&amp;#34; -args cq &amp;#34;$@&amp;#34;)&amp;#34; tm -d -te nw -n &amp;#34;egr-$slug&amp;#34; -d -t &amp;#34;$session_id&amp;#34; -args egr &amp;#34;$@&amp;#34; ( sleep 5 psx=&amp;#34;$(tm -d -te nw -P -n &amp;#34;sx-$slug&amp;#34; -d -t &amp;#34;$session_id&amp;#34; -args sx &amp;#34;$@&amp;#34;)&amp;#34; tmux select-window -t &amp;#34;$psx&amp;#34; ) &amp;amp; tmux select-window -t &amp;#34;$pcq&amp;#34; TMUX= tmux attach -t &amp;#34;$session_id&amp;#34;   cq</description>
+    </item>
+    
     <item>
       <title>Generate tabulated-list modes from CSV files and bind keys</title>
       <link>https://mullikine.github.io/posts/generate-tabulated-list-modes-from-csv-files-and-bind-keys/</link>
