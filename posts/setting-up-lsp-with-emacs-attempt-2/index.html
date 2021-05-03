@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Setting up LSP with emacs (Go, Java, Python, Rust, C&#43;&#43;, Haskell, JS, TS, Ruby…)"/>
-<meta name="twitter:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java  1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website    State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience TabNine enabled REPL / Playground DAP (debug) Working Static analysis Complaints Custom LSP improvements     Go ✓ ✓ Amazing ✓ ✓  ✓ Go toolchain changes too quickly    Python ✓ ✓ Amazing ✓ ✓ ✓ ✓     Racket ✓ ✓ racket-mode Amazing  ✓  ✓     Java ✓ ✓ eclim Good ✓ ✓ (default) ✓ ✓ A little slow."/>
+<meta name="twitter:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java   1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website    State of languages with LSP in my own environment  Also, I&rsquo;m using GPT-3 for:  code generation comment generation       Language LSP Working Fallback working Current user experience TabNine enabled REPL / Playground DAP (debug) Working Static analysis Complaints Custom LSP improvements     Go ✓ ✓ Amazing ✓ ✓  ✓ Go toolchain changes too quickly    Python ✓ ✓ Amazing ✓ ✓ ✓ ✓     Racket ✓ ✓ racket-mode Amazing  ✓  ✓     Java ✓ ✓ eclim Good ✓ ✓ (default) ✓ ✓ A little slow."/>
 
     <meta property="og:title" content="Setting up LSP with emacs (Go, Java, Python, Rust, C&#43;&#43;, Haskell, JS, TS, Ruby…)" />
-<meta property="og:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java  1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website    State of languages with LSP in my own environment    Language LSP Working Fallback working Current user experience TabNine enabled REPL / Playground DAP (debug) Working Static analysis Complaints Custom LSP improvements     Go ✓ ✓ Amazing ✓ ✓  ✓ Go toolchain changes too quickly    Python ✓ ✓ Amazing ✓ ✓ ✓ ✓     Racket ✓ ✓ racket-mode Amazing  ✓  ✓     Java ✓ ✓ eclim Good ✓ ✓ (default) ✓ ✓ A little slow." />
+<meta property="og:description" content="Guides used https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/ https://github.com/emacs-lsp/lsp-java   1 2 3 4 5  Debug Adaptor Protocol DAP The LSP of debugging. https://code.visualstudio.com/blogs/2018/08/07/debug-adapter-protocol-website    State of languages with LSP in my own environment  Also, I&rsquo;m using GPT-3 for:  code generation comment generation       Language LSP Working Fallback working Current user experience TabNine enabled REPL / Playground DAP (debug) Working Static analysis Complaints Custom LSP improvements     Go ✓ ✓ Amazing ✓ ✓  ✓ Go toolchain changes too quickly    Python ✓ ✓ Amazing ✓ ✓ ✓ ✓     Racket ✓ ✓ racket-mode Amazing  ✓  ✓     Java ✓ ✓ eclim Good ✓ ✓ (default) ✓ ✓ A little slow." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/setting-up-lsp-with-emacs-attempt-2/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-12-05T00:00:00&#43;13:00" />
@@ -192,7 +192,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          5 min read
+          26 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -215,6 +215,7 @@
 <dd><a href="https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/">https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/</a> <br />
 <a href="https://github.com/emacs-lsp/lsp-java">https://github.com/emacs-lsp/lsp-java</a></dd>
 </dl>
+<!--listend-->
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -233,6 +234,14 @@ DAP
 </div>
 <hr>
 <h2 id="state-of-languages-with-lsp-in-my-own-environment">State of languages with LSP in my own environment</h2>
+<ul>
+<li>Also, I&rsquo;m using GPT-3 for:
+<ul>
+<li>code generation</li>
+<li>comment generation</li>
+</ul>
+</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -393,8 +402,88 @@ DAP
 <td></td>
 <td></td>
 </tr>
+<tr>
+<td>Clojure</td>
+<td>✓</td>
+<td>✓ cider</td>
+<td>Amazing</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Prolog</td>
+<td>✓</td>
+<td>✓ prolog-mode</td>
+<td>Amazing</td>
+<td>✓</td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td></td>
+</tr>
 </tbody>
 </table>
+<h3 id="prolog">Prolog</h3>
+<p>Install prolog.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt-add-repository ppa:swi-prolog/stable
+sudo apt-get update
+sudo apt-get install swi-prolog</code></pre></td></tr></table>
+</div>
+</div>
+<p>Install the <code>lsp_server</code> package.</p>
+<ul>
+<li>Start <code>swipl</code></li>
+<li>Wait for the prompt (<code>?-</code>)</li>
+<li>Enter <code>pack_install(lsp_server)</code></li>
+<li>Press <code>Y</code></li>
+<li>Wait for the prompt (<code>?-</code>)</li>
+<li>Press <code>C-d</code></li>
+</ul>
+<p><code>prolog-pack-install</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bnf" data-lang="bnf">pkg=&#34;$1&#34;
+test -n &#34;$pkg&#34; || exit 1
+
+x -sh swipl -e &#34;?- &#34; -s &#34;pack_install($pkg).&#34; -c m -e &#34;Y/n&#34; -s Y -e &#34;Create directory&#34; -c m -e &#34;?- &#34; -c d -i</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">prolog-pack-install lsp_server</code></pre></td></tr></table>
+</div>
+</div>
+<p>Command to start the prolog server:</p>
+<p><code>prolog-lsp</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">swipl -g use_module<span style="color:#f92672">(</span>library<span style="color:#f92672">(</span>lsp_server<span style="color:#f92672">))</span>. -g lsp_server:main -t halt -- stdio</code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="racket">Racket</h3>
 <p>I made the emacs plugin myself!</p>
 <p><a href="https://github.com/mullikine/lsp-racket-el">https://github.com/mullikine/lsp-racket-el</a></p>
@@ -420,7 +509,7 @@ ui doc.</p>
 </div>
 </div>
 <p><a title="asciinema recording" href="https://asciinema.org/a/0jXz47NyBa7TdmVVe9kb9oPIL" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/0jXz47NyBa7TdmVVe9kb9oPIL.svg" /></a></p>
-<h3 id="c">C++</h3>
+<h3 id="c-plus-plus">C++</h3>
 <p>LSP for C++ works quite well.</p>
 <p><a title="asciinema recording" href="https://asciinema.org/a/ALx6GoyRapW0MrHZbvU9M8z95" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/ALx6GoyRapW0MrHZbvU9M8z95.svg" /></a></p>
 <h4 id="i-need-to-figure-out-how-to-get-auto-completion-after">I need to figure out how to get auto-completion after <code>-&gt;</code></h4>
@@ -445,7 +534,7 @@ nice.</p>
 <p><a title="asciinema recording" href="https://asciinema.org/a/WKUsKTPwUjQvByaytrb3dox4M" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/WKUsKTPwUjQvByaytrb3dox4M.svg" /></a></p>
 <h3 id="ruby">Ruby</h3>
 <p><a title="asciinema recording" href="https://asciinema.org/a/WkFmVTqUu5gn2T07VT6Qo8w9m" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/WkFmVTqUu5gn2T07VT6Qo8w9m.svg" /></a></p>
-<h3 id="c-and-clang"><code>c++</code> and <code>clang</code></h3>
+<h3 id="c-plus-plus-and-clang"><code>c++</code> and <code>clang</code></h3>
 <h4 id="do-not-use-cquery-dot-apparently-clangd-is-better">Do not use <code>cquery</code>. Apparently, <code>clangd</code> is better</h4>
 <p><a href="https://github.com/cquery-project/cquery">https://github.com/cquery-project/cquery</a></p>
 <h4 id="clangd"><code>clangd</code></h4>
@@ -756,6 +845,2068 @@ an automatically generated <code>custom-set- variables</code> somewhere, this co
 <h2 id="common-lisp">Common lisp</h2>
 <p>LSP is insufficient to support SLIME-like
 levels of interaction.</p>
+<h2 id="latest-config--2021">Latest config (<code>2021</code>)</h2>
+<p>Pick out what you want.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">   1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">   2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">   3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">   4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">   5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">   6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">   7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">   8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">   9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 111
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 112
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 113
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 114
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 115
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 116
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 117
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 118
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 119
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 120
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 121
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 122
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 123
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 124
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 125
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 126
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 127
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 128
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 129
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 130
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 131
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 132
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 133
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 134
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 135
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 136
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 137
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 138
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 139
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 140
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 141
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 142
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 143
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 144
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 145
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 146
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 147
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 148
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 149
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 150
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 151
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 152
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 153
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 154
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 155
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 156
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 157
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 158
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 159
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 160
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 161
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 162
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 163
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 164
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 165
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 166
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 167
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 168
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 169
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 170
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 171
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 172
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 173
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 174
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 175
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 176
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 177
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 178
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 179
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 180
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 181
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 182
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 183
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 184
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 185
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 186
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 187
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 188
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 189
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 190
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 191
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 192
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 193
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 194
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 195
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 196
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 197
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 198
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 199
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 200
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 201
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 202
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 203
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 204
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 205
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 206
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 207
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 208
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 209
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 210
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 211
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 212
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 213
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 214
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 215
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 216
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 217
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 218
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 219
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 220
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 221
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 222
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 223
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 224
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 225
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 226
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 227
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 228
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 229
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 230
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 231
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 232
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 233
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 234
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 235
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 236
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 237
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 238
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 239
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 240
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 241
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 242
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 243
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 244
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 245
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 246
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 247
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 248
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 249
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 250
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 251
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 252
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 253
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 254
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 255
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 256
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 257
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 258
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 259
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 260
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 261
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 262
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 263
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 264
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 265
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 266
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 267
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 268
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 269
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 270
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 271
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 272
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 273
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 274
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 275
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 276
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 277
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 278
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 279
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 280
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 281
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 282
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 283
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 284
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 285
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 286
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 287
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 288
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 289
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 290
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 291
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 292
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 293
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 294
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 295
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 296
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 297
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 298
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 299
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 300
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 301
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 302
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 303
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 304
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 305
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 306
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 307
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 308
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 309
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 310
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 311
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 312
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 313
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 314
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 315
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 316
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 317
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 318
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 319
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 320
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 321
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 322
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 323
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 324
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 325
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 326
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 327
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 328
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 329
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 330
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 331
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 332
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 333
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 334
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 335
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 336
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 337
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 338
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 339
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 340
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 341
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 342
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 343
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 344
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 345
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 346
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 347
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 348
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 349
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 350
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 351
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 352
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 353
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 354
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 355
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 356
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 357
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 358
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 359
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 360
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 361
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 362
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 363
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 364
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 365
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 366
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 367
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 368
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 369
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 370
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 371
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 372
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 373
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 374
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 375
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 376
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 377
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 378
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 379
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 380
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 381
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 382
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 383
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 384
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 385
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 386
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 387
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 388
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 389
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 390
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 391
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 392
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 393
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 394
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 395
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 396
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 397
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 398
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 399
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 400
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 401
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 402
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 403
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 404
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 405
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 406
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 407
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 408
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 409
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 410
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 411
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 412
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 413
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 414
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 415
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 416
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 417
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 418
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 419
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 420
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 421
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 422
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 423
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 424
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 425
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 426
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 427
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 428
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 429
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 430
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 431
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 432
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 433
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 434
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 435
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 436
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 437
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 438
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 439
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 440
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 441
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 442
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 443
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 444
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 445
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 446
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 447
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 448
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 449
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 450
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 451
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 452
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 453
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 454
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 455
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 456
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 457
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 458
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 459
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 460
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 461
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 462
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 463
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 464
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 465
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 466
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 467
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 468
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 469
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 470
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 471
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 472
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 473
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 474
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 475
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 476
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 477
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 478
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 479
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 480
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 481
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 482
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 483
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 484
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 485
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 486
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 487
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 488
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 489
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 490
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 491
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 492
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 493
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 494
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 495
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 496
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 497
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 498
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 499
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 500
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 501
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 502
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 503
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 504
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 505
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 506
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 507
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 508
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 509
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 510
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 511
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 512
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 513
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 514
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 515
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 516
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 517
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 518
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 519
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 520
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 521
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 522
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 523
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 524
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 525
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 526
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 527
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 528
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 529
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 530
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 531
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 532
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 533
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 534
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 535
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 536
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 537
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 538
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 539
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 540
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 541
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 542
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 543
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 544
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 545
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 546
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 547
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 548
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 549
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 550
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 551
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 552
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 553
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 554
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 555
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 556
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 557
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 558
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 559
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 560
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 561
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 562
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 563
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 564
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 565
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 566
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 567
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 568
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 569
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 570
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 571
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 572
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 573
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 574
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 575
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 576
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 577
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 578
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 579
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 580
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 581
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 582
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 583
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 584
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 585
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 586
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 587
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 588
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 589
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 590
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 591
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 592
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 593
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 594
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 595
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 596
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 597
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 598
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 599
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 600
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 601
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 602
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 603
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 604
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 605
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 606
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 607
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 608
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 609
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 610
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 611
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 612
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 613
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 614
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 615
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 616
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 617
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 618
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 619
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 620
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 621
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 622
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 623
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 624
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 625
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 626
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 627
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 628
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 629
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 630
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 631
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 632
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 633
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 634
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 635
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 636
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 637
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 638
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 639
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 640
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 641
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 642
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 643
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 644
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 645
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 646
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 647
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 648
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 649
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 650
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 651
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 652
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 653
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 654
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 655
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 656
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 657
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 658
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 659
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 660
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 661
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 662
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 663
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 664
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 665
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 666
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 667
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 668
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 669
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 670
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 671
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 672
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 673
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 674
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 675
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 676
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 677
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 678
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 679
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 680
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 681
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 682
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 683
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 684
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 685
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 686
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 687
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 688
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 689
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 690
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 691
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 692
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 693
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 694
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 695
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 696
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 697
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 698
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 699
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 700
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 701
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 702
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 703
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 704
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 705
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 706
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 707
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 708
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 709
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 710
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 711
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 712
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 713
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 714
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 715
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 716
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 717
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 718
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 719
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 720
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 721
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 722
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 723
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 724
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 725
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 726
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 727
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 728
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 729
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 730
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 731
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 732
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 733
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 734
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 735
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 736
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 737
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 738
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 739
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 740
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 741
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 742
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 743
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 744
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 745
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 746
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 747
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 748
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 749
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 750
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 751
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 752
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 753
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 754
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 755
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 756
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 757
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 758
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 759
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 760
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 761
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 762
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 763
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 764
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 765
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 766
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 767
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 768
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 769
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 770
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 771
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 772
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 773
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 774
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 775
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 776
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 777
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 778
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 779
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 780
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 781
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 782
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 783
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 784
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 785
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 786
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 787
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 788
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 789
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 790
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 791
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 792
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 793
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 794
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 795
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 796
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 797
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 798
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 799
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 800
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 801
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 802
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 803
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 804
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 805
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 806
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 807
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 808
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 809
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 810
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 811
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 812
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 813
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 814
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 815
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 816
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 817
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 818
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 819
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 820
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 821
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 822
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 823
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 824
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 825
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 826
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 827
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 828
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 829
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 830
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 831
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 832
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 833
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 834
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 835
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 836
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 837
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 838
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 839
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 840
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 841
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 842
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 843
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 844
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 845
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 846
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 847
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 848
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 849
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 850
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 851
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 852
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 853
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 854
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 855
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 856
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 857
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 858
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 859
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 860
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 861
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 862
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 863
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 864
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 865
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 866
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 867
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 868
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 869
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 870
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 871
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 872
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 873
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 874
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 875
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 876
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 877
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 878
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 879
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 880
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 881
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 882
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 883
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 884
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 885
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 886
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 887
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 888
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 889
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 890
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 891
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 892
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 893
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 894
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 895
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 896
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 897
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 898
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 899
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 900
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 901
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 902
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 903
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 904
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 905
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 906
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 907
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 908
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 909
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 910
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 911
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 912
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 913
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 914
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 915
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 916
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 917
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 918
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 919
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 920
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 921
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 922
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 923
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 924
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 925
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 926
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 927
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 928
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 929
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 930
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 931
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 932
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 933
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 934
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 935
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 936
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 937
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 938
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 939
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 940
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 941
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 942
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 943
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 944
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 945
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 946
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 947
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 948
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 949
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 950
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 951
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 952
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 953
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 954
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 955
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 956
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 957
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 958
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 959
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 960
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 961
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 962
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 963
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 964
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 965
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 966
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 967
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 968
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 969
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 970
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 971
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 972
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 973
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 974
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 975
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 976
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 977
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 978
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 979
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 980
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 981
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 982
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 983
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 984
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 985
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 986
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 987
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 988
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 989
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 990
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 991
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 992
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 993
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 994
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 995
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 996
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 997
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 998
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 999
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1000
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1001
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1002
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1003
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1004
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1005
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1006
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1007
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1008
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1009
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1010
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1011
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1012
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1013
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1014
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1015
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1016
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1017
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1018
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1019
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1020
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1021
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1022
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1023
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1024
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1025
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1026
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1027
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">; https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/</span>
+
+<span style="color:#75715e">;; ;; This really helps with lsp-mode</span>
+<span style="color:#75715e">;; ;; But I have enabled it only for certain modes</span>
+<span style="color:#75715e">;; (electric-pair-mode 1)</span>
+
+<span style="color:#75715e">;; gopls is the official go language server</span>
+
+<span style="color:#75715e">;; (defvar my-disable-lsp nil)</span>
+
+(custom-set-variables
+ <span style="color:#75715e">;; debug</span>
+ <span style="color:#f92672">&#39;</span>(lsp-print-io <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-trace <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-print-performance <span style="color:#66d9ef">t</span>)
+
+ <span style="color:#75715e">;; general</span>
+ <span style="color:#f92672">&#39;</span>(lsp-auto-guess-root <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-document-sync-method <span style="color:#e6db74">&#39;incremental</span>) <span style="color:#75715e">;; none, full, incremental, or nil</span>
+ <span style="color:#f92672">&#39;</span>(lsp-response-timeout <span style="color:#ae81ff">10</span>)
+
+ <span style="color:#75715e">;; (lsp-prefer-flymake t)</span>
+ <span style="color:#f92672">&#39;</span>(lsp-prefer-flymake <span style="color:#66d9ef">nil</span>) <span style="color:#75715e">;; t(flymake), nil(lsp-ui), or :none</span>
+ <span style="color:#75715e">;; flymake is shit. do not use it</span>
+
+ <span style="color:#75715e">;; go-client</span>
+ <span style="color:#75715e">;; &#39;(lsp-clients-go-server-args &#39;(&#34;--cache-style=always&#34; &#34;--diagnostics-style=onsave&#34; &#34;--format-style=goimports&#34;))</span>
+
+ <span style="color:#f92672">&#39;</span>(company-lsp-cache-candidates <span style="color:#66d9ef">t</span>) <span style="color:#75715e">;; auto, t(always using a cache), or nil</span>
+ <span style="color:#f92672">&#39;</span>(company-lsp-async <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(company-lsp-enable-recompletion <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(company-lsp-enable-snippet <span style="color:#66d9ef">t</span>)
+ <span style="color:#75715e">;; &#39;(lsp-clients-go-server-args &#39;(&#34;--cache-style=always&#34; &#34;--diagnostics-style=onsave&#34; &#34;--format-style=goimports&#34;))</span>
+ <span style="color:#f92672">&#39;</span>(lsp-document-sync-method (quote incremental))
+
+                                        <span style="color:#75715e">;top right docs</span>
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-enable <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-header <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-include-signature <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-max-height <span style="color:#ae81ff">30</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-max-width <span style="color:#ae81ff">120</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-position (quote at-point))
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-use-childframe <span style="color:#66d9ef">t</span>)
+
+ <span style="color:#75715e">;; If this is true then you can&#39;t see the docs in terminal</span>
+ <span style="color:#f92672">&#39;</span>(lsp-ui-doc-use-webkit <span style="color:#66d9ef">nil</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-flycheck-enable <span style="color:#66d9ef">t</span>)
+
+ <span style="color:#f92672">&#39;</span>(lsp-ui-imenu-enable <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-imenu-kind-position (quote top))
+ <span style="color:#f92672">&#39;</span>(lsp-ui-peek-enable <span style="color:#66d9ef">t</span>)
+
+ <span style="color:#f92672">&#39;</span>(lsp-ui-peek-fontify <span style="color:#e6db74">&#39;on-demand</span>) <span style="color:#75715e">;; never, on-demand, or always</span>
+ <span style="color:#f92672">&#39;</span>(lsp-ui-peek-list-width <span style="color:#ae81ff">50</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-peek-peek-height <span style="color:#ae81ff">20</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-sideline-code-actions-prefix <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">t</span>)
+
+                                        <span style="color:#75715e">;inline right flush docs</span>
+ <span style="color:#f92672">&#39;</span>(lsp-ui-sideline-enable <span style="color:#66d9ef">t</span>)
+
+ <span style="color:#f92672">&#39;</span>(lsp-ui-sideline-ignore-duplicate <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-sideline-show-code-actions <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-sideline-show-diagnostics <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-sideline-show-hover <span style="color:#66d9ef">t</span>)
+ <span style="color:#f92672">&#39;</span>(lsp-ui-sideline-show-symbol <span style="color:#66d9ef">t</span>))
+
+
+
+(require <span style="color:#e6db74">&#39;lsp-mode</span>)
+(require <span style="color:#e6db74">&#39;my-lsp-clients</span>)
+
+
+
+(require <span style="color:#e6db74">&#39;el-patch</span>)
+(el-patch-feature lsp-mode)
+(el-patch-defun lsp (<span style="color:#66d9ef">&amp;optional</span> arg)
+  <span style="color:#e6db74">&#34;Entry point for the server startup.
+</span><span style="color:#e6db74">When ARG is t the lsp mode will start new language server even if
+</span><span style="color:#e6db74">there is language server which can handle current language. When
+</span><span style="color:#e6db74">ARG is nil current file will be opened in multi folder language
+</span><span style="color:#e6db74">server if there is such. When </span><span style="color:#e6db74">`lsp&#39;</span><span style="color:#e6db74"> is called with prefix
+</span><span style="color:#e6db74">argument ask the user to select which language server to start.&#34;</span>
+  (interactive <span style="color:#e6db74">&#34;P&#34;</span>)
+
+  (lsp--require-packages)
+
+  (when (<span style="color:#a6e22e">buffer-file-name</span>)
+    (let (clients
+          (matching-clients (lsp--filter-clients
+                             (-andfn <span style="color:#a6e22e">#&#39;</span>lsp--matching-clients?
+                                     <span style="color:#a6e22e">#&#39;</span>lsp--server-binary-present?))))
+      (cond
+       (matching-clients
+        (when (setq lsp--buffer-workspaces
+                    (or (and
+                         <span style="color:#75715e">;; Don&#39;t open as library file if file is part of a project.</span>
+                         (not (lsp-find-session-folder (lsp-session) (<span style="color:#a6e22e">buffer-file-name</span>)))
+                         (lsp--try-open-in-library-workspace))
+                        (lsp--try-project-root-workspaces (<span style="color:#a6e22e">equal</span> arg <span style="color:#f92672">&#39;</span>(<span style="color:#ae81ff">4</span>))
+                                                          (and arg (not (<span style="color:#a6e22e">equal</span> arg <span style="color:#ae81ff">1</span>))))))
+          (lsp-mode <span style="color:#ae81ff">1</span>)
+          (when lsp-auto-configure (lsp--auto-configure))
+          (setq lsp-buffer-uri (lsp--buffer-uri))
+          (lsp--info <span style="color:#e6db74">&#34;Connected to %s.&#34;</span>
+                     (<span style="color:#a6e22e">apply</span> <span style="color:#e6db74">&#39;concat</span> (--map (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;[%s]&#34;</span> (lsp--workspace-print it))
+                                           lsp--buffer-workspaces)))))
+       <span style="color:#75715e">;; look for servers which are currently being downloaded.</span>
+       ((setq clients (lsp--filter-clients (-andfn <span style="color:#a6e22e">#&#39;</span>lsp--matching-clients?
+                                                   <span style="color:#a6e22e">#&#39;</span>lsp--client-download-in-progress?)))
+        (lsp--info <span style="color:#e6db74">&#34;There are language server(%s) installation in progress.
+</span><span style="color:#e6db74">The server(s) will be started in the buffer when it has finished.&#34;</span>
+                   (-map <span style="color:#a6e22e">#&#39;</span>lsp--client-server-id clients))
+        (seq-do (lambda (client)
+                  (cl-pushnew (<span style="color:#a6e22e">current-buffer</span>) (lsp--client-buffers client)))
+                clients))
+       <span style="color:#75715e">;; look for servers to install</span>
+       ((setq clients (lsp--filter-clients (-andfn <span style="color:#a6e22e">#&#39;</span>lsp--matching-clients?
+                                                   <span style="color:#a6e22e">#&#39;</span>lsp--client-download-server-fn
+                                                   (-not <span style="color:#a6e22e">#&#39;</span>lsp--client-download-in-progress?))))
+        (let ((client (lsp--completing-read
+                       (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;Unable to find installed server supporting this file. &#34;</span>
+                               <span style="color:#e6db74">&#34;The following servers could be installed automatically: &#34;</span>)
+                       clients
+                       (-compose <span style="color:#a6e22e">#&#39;symbol-name</span> <span style="color:#a6e22e">#&#39;</span>lsp--client-server-id)
+                       <span style="color:#66d9ef">nil</span>
+                       <span style="color:#66d9ef">t</span>)))
+          (cl-pushnew (<span style="color:#a6e22e">current-buffer</span>) (lsp--client-buffers client))
+          (lsp--install-server-internal client)))
+       <span style="color:#75715e">;; no clients present</span>
+       ((setq clients (unless matching-clients
+                        (lsp--filter-clients (-andfn <span style="color:#a6e22e">#&#39;</span>lsp--matching-clients?
+                                                     (-not <span style="color:#a6e22e">#&#39;</span>lsp--server-binary-present?)))))
+        (lsp--warn <span style="color:#e6db74">&#34;The following servers support current file but do not have automatic installation configuration: %s
+</span><span style="color:#e6db74">You may find the installation instructions at https://emacs-lsp.github.io/lsp-mode/page/languages.
+</span><span style="color:#e6db74">(If you have already installed the server check *lsp-log*).&#34;</span>
+                   (<span style="color:#a6e22e">mapconcat</span> (lambda (client)
+                                (<span style="color:#a6e22e">symbol-name</span> (lsp--client-server-id client)))
+                              clients
+                              <span style="color:#e6db74">&#34; &#34;</span>)))
+       <span style="color:#75715e">;; no matches</span>
+       ((-&gt; <span style="color:#a6e22e">#&#39;</span>lsp--matching-clients? lsp--filter-clients not)
+        (lsp--error
+         (el-patch-swap
+           <span style="color:#e6db74">&#34;There are no language servers supporting current mode </span><span style="color:#e6db74">`%s&#39;</span><span style="color:#e6db74"> registered with </span><span style="color:#e6db74">`lsp-mode&#39;</span><span style="color:#e6db74">.
+</span><span style="color:#e6db74">This issue might be caused by:
+</span><span style="color:#e6db74">1. The language you are trying to use does not have built-in support in </span><span style="color:#e6db74">`lsp-mode&#39;</span><span style="color:#e6db74">. You must install the required support manually. Examples of this are </span><span style="color:#e6db74">`lsp-java&#39;</span><span style="color:#e6db74"> or </span><span style="color:#e6db74">`lsp-metals&#39;</span><span style="color:#e6db74">.
+</span><span style="color:#e6db74">2. The language server that you expect to run is not configured to run for major mode </span><span style="color:#e6db74">`%s&#39;</span><span style="color:#e6db74">. You may check that by checking the `:major-modes&#39; that are passed to </span><span style="color:#e6db74">`lsp-register-client&#39;</span><span style="color:#e6db74">.
+</span><span style="color:#e6db74">3. </span><span style="color:#e6db74">`lsp-mode&#39;</span><span style="color:#e6db74"> doesn&#39;t have any integration for the language behind </span><span style="color:#e6db74">`%s&#39;</span><span style="color:#e6db74">. Refer to https://emacs-lsp.github.io/lsp-mode/page/languages and https://langserver.org/ .&#34;</span>
+           <span style="color:#e6db74">&#34;No LSP server for current mode&#34;</span>)
+         major-mode major-mode major-mode))))))
+
+
+
+(defun maybe-lsp ()
+  (interactive)
+  (cond
+   ((and org-src-mode (major-mode-p <span style="color:#e6db74">&#39;haskell-mode</span>))
+    (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;Disabled lsp because i want haskell babel blocks to be fast&#34;</span>))
+   <span style="color:#75715e">;; ((and org-src-mode (major-mode-p &#39;c-mode))</span>
+   <span style="color:#75715e">;;  (message &#34;Disabled lsp because I need to set up ccls again&#34;))</span>
+   ((<span style="color:#a6e22e">string-match</span> <span style="color:#e6db74">&#34;/emacs-mirror/.*\\.c$&#34;</span> (or (get-path-nocreate) <span style="color:#e6db74">&#34;&#34;</span>))
+    (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;Disabled lsp because i haven&#39;t got it going for emacs source C code yet&#34;</span>))
+   (<span style="color:#66d9ef">t</span> (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;lsp</span>))))
+
+(use-package lsp-mode
+  :ensure <span style="color:#66d9ef">t</span>
+  :commands lsp-register-client
+  :init (setq lsp-gopls-server-args <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">&#34;--debug=localhost:6060&#34;</span>))
+  :config
+  (setq lsp-prefer-flymake :none)
+  (lsp-register-custom-settings
+   <span style="color:#f92672">&#39;</span>((<span style="color:#e6db74">&#34;gopls.completeUnimported&#34;</span> <span style="color:#66d9ef">t</span> <span style="color:#66d9ef">t</span>))))
+
+                                        <span style="color:#75715e">;(use-package lsp-mode</span>
+                                        <span style="color:#75715e">; has to not fail when emacs 24</span>
+(my/with <span style="color:#e6db74">&#39;lsp-mode</span>
+         <span style="color:#75715e">;; Definitely do not want this -- it&#39;s very outdated</span>
+         <span style="color:#75715e">;; I blacklisted it</span>
+         <span style="color:#75715e">;; /home/shane/var/smulliga/source/git/config/emacs/config/my-package-blacklist.el</span>
+         <span style="color:#75715e">;; lsp-mode now provides lsp-go so I can&#39;t blacklist it like this</span>
+         <span style="color:#75715e">;; anymore.</span>
+         <span style="color:#75715e">;; (require &#39;lsp-go)</span>
+
+         (setq lsp-gopls-staticcheck <span style="color:#66d9ef">t</span>)
+         (setq lsp-eldoc-render-all <span style="color:#66d9ef">t</span>)
+         (setq lsp-gopls-complete-unimported <span style="color:#66d9ef">t</span>)
+
+         <span style="color:#75715e">;; (setq lsp-gopls-staticcheck t)</span>
+
+         <span style="color:#75715e">;; Make this nil so I don&#39;t get duplication on the ui-doc</span>
+         <span style="color:#75715e">;; This was a problem especially in python</span>
+         <span style="color:#75715e">;; (setq lsp-eldoc-render-all nil)</span>
+
+         <span style="color:#75715e">;; (setq lsp-gopls-complete-unimported t)</span>
+
+         (use-package lsp-ui
+           :ensure <span style="color:#66d9ef">t</span>
+           <span style="color:#75715e">;; :demand t</span>
+           :config
+           (setq lsp-ui-sideline-ignore-duplicate <span style="color:#66d9ef">t</span>)
+           (add-hook <span style="color:#e6db74">&#39;lsp-mode-hook</span> <span style="color:#e6db74">&#39;lsp-ui-mode</span>)
+           (require <span style="color:#e6db74">&#39;lsp-ui-imenu</span>))
+
+         (add-hook <span style="color:#e6db74">&#39;lsp-after-open-hook</span> <span style="color:#e6db74">&#39;lsp-enable-imenu</span>)
+         <span style="color:#75715e">;; get lsp-python-enable defined</span>
+         <span style="color:#75715e">;; NB: use either projectile-project-root or ffip-get-project-root-directory</span>
+         <span style="color:#75715e">;;     or any other function that can be used to find the root directory of a project</span>
+
+         <span style="color:#75715e">;; deprecated</span>
+         <span style="color:#75715e">;; (lsp-define-stdio-client lsp-python &#34;python&#34;</span>
+         <span style="color:#75715e">;;                          #&#39;projectile-project-root</span>
+         <span style="color:#75715e">;;                          &#39;(&#34;pyls&#34;))</span>
+         <span style="color:#75715e">;; this is the new way. but it&#39;s automatic now</span>
+         <span style="color:#75715e">;;(lsp-register-client</span>
+         <span style="color:#75715e">;; (make-lsp-client :new-connection (lsp-stdio-connection &#34;pyls&#34;)</span>
+         <span style="color:#75715e">;;                  :major-modes &#39;(python-mode)</span>
+         <span style="color:#75715e">;;                  :server-id &#39;pyls))</span>
+
+         <span style="color:#75715e">;; make sure this is activated when python-mode is activated</span>
+         <span style="color:#75715e">;; lsp-python-enable is created by macro above</span>
+
+         <span style="color:#75715e">;; ;; Is it built-in now?</span>
+         <span style="color:#75715e">;; (add-hook &#39;python-mode-hook</span>
+         <span style="color:#75715e">;;           (lambda ()</span>
+         <span style="color:#75715e">;;             (lsp-python-enable)))</span>
+
+         (use-package lsp-mode
+           :ensure <span style="color:#66d9ef">t</span>
+           :commands (lsp lsp-deferred)
+           :hook (go-mode <span style="color:#f92672">.</span> lsp-deferred))
+
+
+         (remove-hook <span style="color:#e6db74">&#39;before-save-hook</span> <span style="color:#e6db74">&#39;gofmt-before-save</span>)
+         (defun lsp-go-install-save-hooks ()
+           (add-hook <span style="color:#e6db74">&#39;before-save-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp-format-buffer <span style="color:#66d9ef">t</span> <span style="color:#66d9ef">t</span>)
+           (add-hook <span style="color:#e6db74">&#39;before-save-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp-organize-imports <span style="color:#66d9ef">t</span> <span style="color:#66d9ef">t</span>))
+         (add-hook <span style="color:#e6db74">&#39;go-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp-go-install-save-hooks)
+
+         (require <span style="color:#e6db74">&#39;lsp-haskell</span>)
+
+
+                                        <span style="color:#75715e">; (setq lsp-haskell-process-path-hie &#34;hie-wrapper&#34;)</span>
+
+         (use-package lsp-haskell
+           :ensure <span style="color:#66d9ef">t</span>
+           :config
+           (setq lsp-haskell-process-path-hie <span style="color:#e6db74">&#34;haskell-language-server-wrapper&#34;</span>)
+           <span style="color:#75715e">;; Comment/uncomment this line to see interactions between lsp client/server.</span>
+           <span style="color:#75715e">;;(setq lsp-log-io t)</span>
+           )
+
+
+         (progn
+           (require <span style="color:#e6db74">&#39;julia-mode</span>)
+           <span style="color:#75715e">;; (push &#34;/path/to/lsp-julia&#34; load-path)</span>
+           (require <span style="color:#e6db74">&#39;lsp-julia</span>)
+           (require <span style="color:#e6db74">&#39;lsp-mode</span>)
+           <span style="color:#75715e">;; Configure lsp + julia</span>
+           (add-hook <span style="color:#e6db74">&#39;julia-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp-mode)
+           (add-hook <span style="color:#e6db74">&#39;julia-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp))
+
+
+
+         (require <span style="color:#e6db74">&#39;lsp-racket</span>)
+         <span style="color:#75715e">;; (add-hook &#39;racket-mode-hook #&#39;lsp-racket-enable)</span>
+
+
+         (use-package lsp-mode
+           <span style="color:#75715e">;; :demand t</span>
+           :config
+           (add-hook <span style="color:#e6db74">&#39;c++-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           <span style="color:#75715e">;; I can&#39;t keep it on because when projects dont work, its super annoying</span>
+           <span style="color:#75715e">;; (remove-hook &#39;c++-mode-hook #&#39;lsp)</span>
+
+           <span style="color:#75715e">;; ccls is uninstallable on ubuntu16</span>
+           <span style="color:#75715e">;; https://repology.org/project/ccls/versions</span>
+           <span style="color:#75715e">;; I have tried. I need ubuntu20</span>
+           <span style="color:#75715e">;; (remove-hook &#39;c-mode-hook #&#39;lsp)</span>
+           <span style="color:#75715e">;; I did it</span>
+           <span style="color:#75715e">;; (add-hook &#39;c-mode-hook #&#39;lsp)</span>
+           (add-hook <span style="color:#e6db74">&#39;c-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>maybe-lsp)
+           (add-hook <span style="color:#e6db74">&#39;python-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           <span style="color:#75715e">;; Just install this manually and then it will work</span>
+           <span style="color:#75715e">;; https://github.com/richterger/Perl-LanguageServer</span>
+           (add-hook <span style="color:#e6db74">&#39;perl-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;dockerfile-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;java-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;kotlin-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;yaml-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;sql-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;php-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;clojure-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           <span style="color:#75715e">;; (remove-hook &#39;clojure-mode-hook #&#39;lsp)</span>
+           (add-hook <span style="color:#e6db74">&#39;julia-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;ess-julia-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;go-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;cmake-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;ruby-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;gitlab-ci-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+
+           <span style="color:#75715e">;; this seems to be broken</span>
+           <span style="color:#75715e">;; (add-hook &#39;dockerfile-mode-hook #&#39;lsp)</span>
+
+           (add-hook <span style="color:#e6db74">&#39;sh-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;rust-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;vimrc-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;racket-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           <span style="color:#75715e">;; (remove-hook &#39;racket-mode-hook #&#39;lsp)</span>
+           (add-hook <span style="color:#e6db74">&#39;rustic-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;nix-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+<span style="color:#75715e">;;;  prolog-pack-install lsp_server</span>
+           <span style="color:#75715e">;; build-swi-ls</span>
+           (add-hook <span style="color:#e6db74">&#39;prolog-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;js-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           (add-hook <span style="color:#e6db74">&#39;typescript-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           <span style="color:#75715e">;; (add-hook &#39;haskell-mode-hook #&#39;lsp)</span>
+           (add-hook <span style="color:#e6db74">&#39;haskell-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>maybe-lsp)
+           <span style="color:#75715e">;; (remove-hook &#39;haskell-mode-hook #&#39;lsp)</span>
+           (add-hook <span style="color:#e6db74">&#39;purescript-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp)
+           <span style="color:#75715e">;; (remove-hook &#39;haskell-mode-hook #&#39;lsp)</span>
+           )
+
+         <span style="color:#75715e">;; (use-package lsp-mode</span>
+         <span style="color:#75715e">;;   :ensure t</span>
+         <span style="color:#75715e">;;   :hook ((clojure-mode . lsp)</span>
+         <span style="color:#75715e">;;          (clojurec-mode . lsp)</span>
+         <span style="color:#75715e">;;          (clojurescript-mode . lsp))</span>
+         <span style="color:#75715e">;;   :config</span>
+         <span style="color:#75715e">;;   ;; add paths to your local installation of project mgmt tools, like lein</span>
+         <span style="color:#75715e">;;   (setenv &#34;PATH&#34; (concat</span>
+         <span style="color:#75715e">;;                   &#34;/usr/local/bin&#34; path-separator</span>
+         <span style="color:#75715e">;;                   (getenv &#34;PATH&#34;)))</span>
+         <span style="color:#75715e">;;   (dolist (m &#39;(clojure-mode</span>
+         <span style="color:#75715e">;;                clojurec-mode</span>
+         <span style="color:#75715e">;;                clojurescript-mode</span>
+         <span style="color:#75715e">;;                clojurex-mode))</span>
+         <span style="color:#75715e">;;     (add-to-list &#39;lsp-language-id-configuration `(,m . &#34;clojure&#34;)))</span>
+         <span style="color:#75715e">;;   (setq lsp-enable-indentation nil</span>
+         <span style="color:#75715e">;;         lsp-clojure-server-command &#39;(&#34;bash&#34; &#34;-c&#34; &#34;clojure-lsp&#34;)))</span>
+
+
+         <span style="color:#75715e">;; These modes are &#34;clojure&#34;</span>
+         (dolist (m <span style="color:#f92672">&#39;</span>(clojure-mode
+                      clojurec-mode
+                      clojurescript-mode
+                      clojurex-mode))
+           (add-to-list <span style="color:#e6db74">&#39;lsp-language-id-configuration</span> <span style="color:#f92672">`</span>(<span style="color:#f92672">,</span>m <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34;clojure&#34;</span>)))
+
+         (require <span style="color:#e6db74">&#39;lsp-clojure</span>)
+         (setq lsp-enable-indentation <span style="color:#66d9ef">nil</span>
+               lsp-clojure-server-command <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">&#34;bash&#34;</span> <span style="color:#e6db74">&#34;-c&#34;</span> <span style="color:#e6db74">&#34;clojure-lsp&#34;</span>))
+
+         (require <span style="color:#e6db74">&#39;ccls</span>)
+         <span style="color:#75715e">;; (setq ccls-executable &#34;/usr/local/bin/ccls&#34;)</span>
+         (setq ccls-executable <span style="color:#e6db74">&#34;/home/shane/scripts/ccls&#34;</span>)
+
+
+
+         <span style="color:#75715e">;; This might be outdated now</span>
+         <span style="color:#75715e">;; (use-package company-lsp</span>
+         <span style="color:#75715e">;;   :config</span>
+         <span style="color:#75715e">;;   (push &#39;company-lsp company-backends))</span>
+
+
+         (use-package lsp-ui-peek
+           :config)
+
+         <span style="color:#75715e">;; NB: only required if you prefer flake8 instead of the default</span>
+         <span style="color:#75715e">;; send pyls config via lsp-after-initialize-hook -- harmless for</span>
+         <span style="color:#75715e">;; other servers due to pyls key, but would prefer only sending this</span>
+         <span style="color:#75715e">;; when pyls gets initialised (:initialize function in</span>
+         <span style="color:#75715e">;; lsp-define-stdio-client is invoked too early (before server</span>
+         <span style="color:#75715e">;; start)) -- cpbotha</span>
+         (defun lsp-set-cfg ()
+           (let ((lsp-cfg <span style="color:#f92672">`</span>(:pyls (:configurationSources (<span style="color:#e6db74">&#34;flake8&#34;</span>)))))
+             <span style="color:#75715e">;; TODO: check lsp--cur-workspace here to decide per server / project</span>
+             (lsp--set-configuration lsp-cfg)))
+
+         <span style="color:#75715e">;; (add-hook &#39;lsp-after-initialize-hook &#39;lsp-set-cfg)</span>
+         <span style="color:#75715e">;; (remove-hook &#39;lsp-after-initialize-hook &#39;lsp-set-cfg)</span>
+
+
+         <span style="color:#75715e">;; https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/</span>
+         (use-package lsp-mode
+           :config
+           <span style="color:#75715e">;; `-background-index&#39; requires clangd v8+!</span>
+           (setq lsp-clients-clangd-args <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">&#34;-j=4&#34;</span> <span style="color:#e6db74">&#34;-background-index&#34;</span> <span style="color:#e6db74">&#34;-log=error&#34;</span>))
+
+           <span style="color:#75715e">;; ..</span>
+           )
+
+         <span style="color:#75715e">;; (defun lsp-ui-doc--callback (hover bounds buffer)</span>
+         <span style="color:#75715e">;;            &#34;Process the received documentation.</span>
+         <span style="color:#75715e">;; HOVER is the doc returned by the LS.</span>
+         <span style="color:#75715e">;; BOUNDS are points of the symbol that have been requested.</span>
+         <span style="color:#75715e">;; BUFFER is the buffer where the request has been made.&#34;)</span>
+         )
+
+<span style="color:#75715e">;; rust</span>
+<span style="color:#75715e">;; This solved all rust lsp problems</span>
+(progn
+
+  (require <span style="color:#e6db74">&#39;lsp-mode</span>) <span style="color:#75715e">;; language server protocol</span>
+  (with-eval-after-load <span style="color:#e6db74">&#39;lsp-mode</span>
+    (add-hook <span style="color:#e6db74">&#39;rust-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>lsp))
+  <span style="color:#75715e">;; (add-hook &#39;rust-mode-hook #&#39;flycheck-mode))</span>
+
+  <span style="color:#75715e">;; excessive UI feedback for light reading between coding</span>
+  (require <span style="color:#e6db74">&#39;lsp-ui</span>)
+  (with-eval-after-load <span style="color:#e6db74">&#39;lsp-ui</span>
+    (add-hook <span style="color:#e6db74">&#39;lsp-mode-hook</span> <span style="color:#e6db74">&#39;lsp-ui-mode</span>))
+
+  <span style="color:#75715e">;; autocompletions for lsp (available with melpa enabled)</span>
+  <span style="color:#75715e">;; (require &#39;company-lsp)</span>
+  <span style="color:#75715e">;; (push &#39;company-lsp company-backends)</span>
+
+  <span style="color:#75715e">;; tell company to complete on tabs instead of sitting there like a moron</span>
+  (require <span style="color:#e6db74">&#39;rust-mode</span>)
+  (<span style="color:#a6e22e">define-key</span> rust-mode-map (kbd <span style="color:#e6db74">&#34;TAB&#34;</span>) <span style="color:#a6e22e">#&#39;</span>company-indent-or-complete-common))
+
+  (use-package lsp-mode
+    :hook
+    ((go-mode c-mode c++-mode) <span style="color:#f92672">.</span> lsp)
+    :bind
+    (:map lsp-mode-map
+          (<span style="color:#e6db74">&#34;C-c r&#34;</span> <span style="color:#f92672">.</span> lsp-rename))
+    :config
+
+    <span style="color:#75715e">;; (require &#39;lsp-clients)</span>
+
+    <span style="color:#75715e">;; LSP UI tools</span>
+    (use-package lsp-ui
+      :preface
+      (defun ladicle/toggle-lsp-ui-doc ()
+        (interactive)
+        (if lsp-ui-doc-mode
+            (progn
+              (lsp-ui-doc-mode <span style="color:#ae81ff">-1</span>)
+              (lsp-ui-doc--hide-frame))
+          (lsp-ui-doc-mode <span style="color:#ae81ff">1</span>)))
+      :bind
+      (:map lsp-mode-map
+            (<span style="color:#e6db74">&#34;C-c C-r&#34;</span> <span style="color:#f92672">.</span> lsp-ui-peek-find-references)
+            (<span style="color:#e6db74">&#34;C-c C-j&#34;</span> <span style="color:#f92672">.</span> lsp-ui-peek-find-definitions)
+            (<span style="color:#e6db74">&#34;C-c i&#34;</span> <span style="color:#f92672">.</span> lsp-ui-peek-find-implementation)
+            (<span style="color:#e6db74">&#34;C-c m&#34;</span> <span style="color:#f92672">.</span> lsp-ui-imenu)
+            (<span style="color:#e6db74">&#34;C-c s&#34;</span> <span style="color:#f92672">.</span> lsp-ui-sideline-mode)
+            (<span style="color:#e6db74">&#34;C-c d&#34;</span> <span style="color:#f92672">.</span> ladicle/toggle-lsp-ui-doc))
+      :hook
+      (lsp-mode <span style="color:#f92672">.</span> lsp-ui-mode))
+
+    <span style="color:#75715e">;; (lsp-register-client</span>
+    <span style="color:#75715e">;;  (make-lsp-client :new-connection (lsp-stdio-connection</span>
+    <span style="color:#75715e">;;                                    (lambda () (cons &#34;bingo&#34;</span>
+    <span style="color:#75715e">;;                                                     lsp-clients-go-server-args)))</span>
+    <span style="color:#75715e">;;                   :major-modes &#39;(go-mode)</span>
+    <span style="color:#75715e">;;                   :priority 2</span>
+    <span style="color:#75715e">;;                   :initialization-options &#39;lsp-clients-go--make-init-options</span>
+    <span style="color:#75715e">;;                   :server-id &#39;go-bingo</span>
+    <span style="color:#75715e">;;                   :library-folders-fn (lambda (_workspace)</span>
+    <span style="color:#75715e">;;                                         lsp-clients-go-library-directories)))</span>
+
+    <span style="color:#75715e">;; DAP</span>
+    (use-package dap-mode
+      :custom
+      (dap-go-debug-program <span style="color:#f92672">`</span>(<span style="color:#e6db74">&#34;node&#34;</span> <span style="color:#e6db74">&#34;~/.extensions/go/out/src/debugAdapter/goDebug.js&#34;</span>))
+      :config
+      (dap-mode <span style="color:#ae81ff">1</span>)
+      (require <span style="color:#e6db74">&#39;dap-hydra</span>)
+      (require <span style="color:#e6db74">&#39;dap-gdb-lldb</span>) <span style="color:#75715e">; download and expand lldb-vscode to the =~/.extensions/webfreak.debug=</span>
+      (require <span style="color:#e6db74">&#39;dap-go</span>) <span style="color:#75715e">; download and expand vscode-go-extenstion to the =~/.extensions/go=</span>
+      (use-package dap-ui
+        :ensure <span style="color:#66d9ef">nil</span>
+        :config
+        (dap-ui-mode <span style="color:#ae81ff">1</span>)))
+
+    <span style="color:#75715e">;; Lsp completion</span>
+    <span style="color:#75715e">;; (use-package company-lsp)</span>
+    )
+
+  <span style="color:#75715e">;; FAQ -- [[https://github.com/emacs-lsp/lsp-java][GitHub - emacs-lsp/lsp-java]]</span>
+  <span style="color:#75715e">;; LSP Java is showing to many debug messages, how to stop that? Add the</span>
+  <span style="color:#75715e">;; following configuration.</span>
+  (setq lsp-inhibit-message <span style="color:#66d9ef">t</span>)
+
+
+  <span style="color:#75715e">;; (lsp--on-self-insert t)</span>
+
+(defun my-lsp--managed-mode-hook-body ()
+  (interactive)
+  (remove-hook <span style="color:#e6db74">&#39;post-self-insert-hook</span> <span style="color:#e6db74">&#39;lsp--on-self-insert</span> <span style="color:#66d9ef">t</span>)
+  (setq-local indent-region-function (function handle-formatters)))
+
+
+<span style="color:#75715e">;; But how do I remove it for all lsp buffers?</span>
+<span style="color:#75715e">;; (remove-hook &#39;post-self-insert-hook &#39;lsp--on-self-insert)</span>
+<span style="color:#75715e">;; (remove-hook &#39;post-self-insert-hook &#39;lsp--on-self-insert t)</span>
+(add-hook <span style="color:#e6db74">&#39;lsp--managed-mode-hook</span> <span style="color:#a6e22e">#&#39;</span>my-lsp--managed-mode-hook-body)
+
+  <span style="color:#75715e">;; (remove-hook &#39;lsp--managed-mode-hook (lm (remove-hook &#39;post-self-insert-hook &#39;lsp--on-self-insert t)))</span>
+
+
+(defun lsp-ui-flycheck-list ()
+  <span style="color:#e6db74">&#34;List all the diagnostics in the whole workspace.&#34;</span>
+  (interactive)
+  (let ((buffer (<span style="color:#a6e22e">get-buffer-create</span> <span style="color:#e6db74">&#34;*lsp-diagnostics*&#34;</span>))
+        (workspace lsp--cur-workspace)
+        (window (<span style="color:#a6e22e">selected-window</span>)))
+    (with-current-buffer buffer
+      (lsp-ui-flycheck-list--update window workspace))
+    (add-hook <span style="color:#e6db74">&#39;lsp-after-diagnostics-hook</span> <span style="color:#e6db74">&#39;lsp-ui-flycheck-list--refresh</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>)
+    (setq lsp-ui-flycheck-list--buffer buffer)
+    (display-buffer
+     buffer)))
+
+
+
+(<span style="color:#a6e22e">define-key</span> lsp-ui-imenu-mode-map (kbd <span style="color:#e6db74">&#34;&lt;return&gt;&#34;</span>) <span style="color:#e6db74">&#39;lsp-ui-imenu--view</span>)
+(<span style="color:#a6e22e">define-key</span> lsp-ui-imenu-mode-map (kbd <span style="color:#e6db74">&#34;RET&#34;</span>) <span style="color:#e6db74">&#39;lsp-ui-imenu--view</span>)
+
+
+(<span style="color:#a6e22e">define-key</span> lsp-ui-flycheck-list-mode-map (kbd <span style="color:#e6db74">&#34;&lt;M-RET&gt;&#34;</span>) <span style="color:#e6db74">&#39;lsp-ui-flycheck-list--visit</span>)
+(<span style="color:#a6e22e">define-key</span> lsp-ui-flycheck-list-mode-map (kbd <span style="color:#e6db74">&#34;RET&#34;</span>) <span style="color:#e6db74">&#39;lsp-ui-flycheck-list--view</span>)
+
+
+(<span style="color:#a6e22e">define-key</span> lsp-ui-peek-mode-map (kbd <span style="color:#e6db74">&#34;&lt;prior&gt;&#34;</span>) <span style="color:#a6e22e">#&#39;</span>lsp-ui-peek--select-prev-file)
+(<span style="color:#a6e22e">define-key</span> lsp-ui-peek-mode-map (kbd <span style="color:#e6db74">&#34;&lt;next&gt;&#34;</span>) <span style="color:#a6e22e">#&#39;</span>lsp-ui-peek--select-next-file)
+
+(require <span style="color:#e6db74">&#39;helm-lsp</span>)
+
+
+<span style="color:#75715e">;; This is extremely slow.</span>
+<span style="color:#75715e">;; It may be quite nice, but it&#39;s not nice enough. I can&#39;t do any programming with it</span>
+<span style="color:#75715e">;; I have broken python-language-server (pyls) now, so I have to use this</span>
+<span style="color:#75715e">;; pyls wasnt even broken. lsp-mode is broken, i think</span>
+
+<span style="color:#75715e">;; the microsoft server a) doesn&#39;t free resources</span>
+<span style="color:#75715e">;; b)  breaks after reopening a file&#39;</span>
+<span style="color:#75715e">;; (use-package lsp-python-ms</span>
+<span style="color:#75715e">;;   :ensure t</span>
+<span style="color:#75715e">;;   :init (progn (setq lsp-python-ms-auto-install-server t)</span>
+<span style="color:#75715e">;;                (setq lsp-python-ms-executable</span>
+<span style="color:#75715e">;;                      &#34;/home/shane/scripts/ms-pyls&#34;))</span>
+<span style="color:#75715e">;;   :hook (python-mode . (lambda ()</span>
+<span style="color:#75715e">;;                          (require &#39;lsp-python-ms)</span>
+<span style="color:#75715e">;;                          (lsp))))</span>
+                                        <span style="color:#75715e">; or lsp-deferred</span>
+
+
+
+
+
+<span style="color:#75715e">;; For some reason this variable doesnt change when I set it</span>
+<span style="color:#75715e">;; It only updates when i redefine =dap-python-debug-and-hydra=</span>
+(setq dap-python-executable <span style="color:#e6db74">&#34;python-for-lsp&#34;</span>)
+
+
+<span style="color:#75715e">;; This must be out of date</span>
+(defun dap-python-debug-and-hydra (<span style="color:#66d9ef">&amp;optional</span> cmd pyver)
+  (interactive)
+  (if cmd
+      (progn
+        (if pyver
+            (sh-notty (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;cd /home/shane/scripts; ln -sf `which &#34;</span> pyver <span style="color:#e6db74">&#34;` python-for-lsp-sym&#34;</span>)))
+
+        (let* ((cmdwords (s-split <span style="color:#e6db74">&#34; &#34;</span> cmd))
+               (scriptname (<span style="color:#a6e22e">car</span> cmdwords))
+               (args (umn (s-join <span style="color:#e6db74">&#34; &#34;</span> (<span style="color:#a6e22e">cdr</span> cmdwords)))))
+          (with-current-buffer (find-file (umn scriptname))
+            (save-excursion
+              (dap-debug <span style="color:#f92672">`</span>(:type <span style="color:#e6db74">&#34;python&#34;</span> :args <span style="color:#f92672">,</span>args :cwd OBnil :target-module <span style="color:#66d9ef">nil</span> :request <span style="color:#e6db74">&#34;launch&#34;</span> :name <span style="color:#e6db74">&#34;Python :: Run Configuration&#34;</span>)))
+            (find-file (umn scriptname)))))
+    (progn
+      (let ((cbuf (<span style="color:#a6e22e">current-buffer</span>)))
+        <span style="color:#75715e">;; (message &#34;hi&#34;)</span>
+        (dap-debug <span style="color:#f92672">`</span>(:type <span style="color:#e6db74">&#34;python&#34;</span> :args <span style="color:#e6db74">&#34;&#34;</span> :cwd <span style="color:#66d9ef">nil</span> :target-module <span style="color:#66d9ef">nil</span> :request <span style="color:#e6db74">&#34;launch&#34;</span> :name <span style="color:#e6db74">&#34;Python :: Run Configuration&#34;</span>))
+        (switch-to-buffer cbuf)))))
+
+
+(<span style="color:#a6e22e">define-key</span> lsp-ui-peek-mode-map <span style="color:#e6db74">&#34;j&#34;</span> (kbd <span style="color:#e6db74">&#34;&lt;down&gt;&#34;</span>))
+(<span style="color:#a6e22e">define-key</span> lsp-ui-peek-mode-map <span style="color:#e6db74">&#34;k&#34;</span> (kbd <span style="color:#e6db74">&#34;&lt;up&gt;&#34;</span>))
+
+(<span style="color:#a6e22e">define-key</span> lsp-ui-peek-mode-map <span style="color:#e6db74">&#34;h&#34;</span> (kbd <span style="color:#e6db74">&#34;&lt;left&gt;&#34;</span>))
+(<span style="color:#a6e22e">define-key</span> lsp-ui-peek-mode-map <span style="color:#e6db74">&#34;l&#34;</span> (kbd <span style="color:#e6db74">&#34;&lt;right&gt;&#34;</span>))
+
+<span style="color:#75715e">;; my-mode-map overrides this</span>
+(<span style="color:#a6e22e">define-key</span> lsp-ui-peek-mode-map (kbd <span style="color:#e6db74">&#34;M-p&#34;</span>) (kbd <span style="color:#e6db74">&#34;&lt;left&gt;&#34;</span>))
+(<span style="color:#a6e22e">define-key</span> lsp-ui-peek-mode-map (kbd <span style="color:#e6db74">&#34;M-n&#34;</span>) (kbd <span style="color:#e6db74">&#34;&lt;right&gt;&#34;</span>))
+
+<span style="color:#75715e">;; (defun lsp:marked-string-value</span>
+<span style="color:#75715e">;;       (object)</span>
+<span style="color:#75715e">;;     (when</span>
+<span style="color:#75715e">;;         (ht\? object)</span>
+<span style="color:#75715e">;;       (gethash &#34;value&#34; object)))</span>
+<span style="color:#75715e">;; (defun lsp:set-marked-string-value</span>
+<span style="color:#75715e">;;     (object value)</span>
+<span style="color:#75715e">;;   (puthash &#34;value&#34; value object)</span>
+<span style="color:#75715e">;;   object)</span>
+
+
+
+<span style="color:#75715e">;; This minimises the doc string</span>
+(defun lsp-ui-doc--extract-marked-string (marked-string <span style="color:#66d9ef">&amp;optional</span> language)
+  <span style="color:#e6db74">&#34;Render the MARKED-STRING with LANGUAGE.&#34;</span>
+  (string-trim-right
+   (let* ((<span style="color:#a6e22e">string</span> (if (<span style="color:#a6e22e">stringp</span> marked-string)
+                      (mnm marked-string)
+                    (lsp:markup-content-value marked-string)))
+          (with-lang (lsp-marked-string? marked-string))
+          (language (or (and with-lang
+                             (or (lsp:marked-string-language marked-string)
+                                 (lsp:markup-content-kind marked-string)))
+                        language))
+          (markdown-hr-display-char <span style="color:#66d9ef">nil</span>))
+     (cond
+      (lsp-ui-doc-use-webkit
+       (if (and language (not (string= <span style="color:#e6db74">&#34;text&#34;</span> language)))
+           (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;```%s\n%s\n```&#34;</span> language <span style="color:#a6e22e">string</span>)
+         <span style="color:#a6e22e">string</span>))
+      (<span style="color:#66d9ef">t</span> (lsp--render-element (lsp-ui-doc--inline-formatted-string <span style="color:#a6e22e">string</span>)))))))
+
+
+<span style="color:#75715e">;; This minimises the sideline strings</span>
+(defun lsp-ui-sideline--extract-info (contents)
+  <span style="color:#e6db74">&#34;Extract the line to print from CONTENTS.
+</span><span style="color:#e6db74">CONTENTS can be differents type of values:
+</span><span style="color:#e6db74">MarkedString | MarkedString[] | MarkupContent (as defined in the LSP).
+</span><span style="color:#e6db74">We prioritize string with a language (which is probably a type or a
+</span><span style="color:#e6db74">function signature).&#34;</span>
+  (when contents
+    (cond
+     ((lsp-marked-string? contents)
+      (lsp:set-marked-string-value contents (mnm (lsp:marked-string-value contents)))
+      contents)
+     ((<span style="color:#a6e22e">vectorp</span> contents)
+      (seq-find (lambda (it) (and (lsp-marked-string? it)
+                                  (lsp-get-renderer (lsp:marked-string-language it))))
+                contents))
+     ((lsp-markup-content? contents)
+      <span style="color:#75715e">;; This successfully minimises haskell sideline strings</span>
+      (lsp:set-markup-content-value contents (mnm (lsp:markup-content-value contents)))
+      contents))))
+
+
+<span style="color:#75715e">;; nadvice - proc is the original function, passed in. do not modify</span>
+<span style="color:#75715e">;; (defun lsp-ui-peek-find-references-around-advice (proc &amp;rest args)</span>
+<span style="color:#75715e">;;   (let ((res (apply proc args)</span>
+<span style="color:#75715e">;;              (tvipe &#34;hi&#34;)))</span>
+<span style="color:#75715e">;;     res)</span>
+
+<span style="color:#75715e">;;   ;; (cl-letf (((symbol-function &#39;sexp-at-point) #&#39;my/thing-at-point))</span>
+<span style="color:#75715e">;;   ;;   (let ((res (apply proc args)))</span>
+<span style="color:#75715e">;;   ;;     res))</span>
+<span style="color:#75715e">;;   )</span>
+<span style="color:#75715e">;; (advice-add &#39;lsp-ui-peek-find-references :around #&#39;lsp-ui-peek-find-references-around-advice)</span>
+<span style="color:#75715e">;; (advice-remove &#39;lsp-ui-peek-find-references #&#39;lsp-ui-peek-find-references-around-advice)</span>
+
+(advice-remove-all-from <span style="color:#e6db74">&#39;lsp-ui-peek-find-references</span>)
+
+
+(defun lsp-ui-peek--find-xrefs (input method param)
+  <span style="color:#e6db74">&#34;Find INPUT references.
+</span><span style="color:#e6db74">METHOD is ‘references’, ‘definitions’, `implementation` or a custom kind.
+</span><span style="color:#e6db74">PARAM is the request params.&#34;</span>
+  (setq lsp-ui-peek--method method)
+  (let ((xrefs (lsp-ui-peek--get-references method param)))
+    (unless xrefs
+      (<span style="color:#a6e22e">user-error</span> <span style="color:#e6db74">&#34;Not found for: %s&#34;</span>  input))
+    (xref-push-marker-stack)
+    (when (featurep <span style="color:#e6db74">&#39;evil-jumps</span>)
+      (lsp-ui-peek--with-evil-jumps (evil-set-jump)))
+    (if (and (not lsp-ui-peek-always-show)
+             (not (<span style="color:#a6e22e">cdr</span> xrefs))
+             (<span style="color:#a6e22e">=</span> (<span style="color:#a6e22e">length</span> (<span style="color:#a6e22e">plist-get</span> (<span style="color:#a6e22e">car</span> xrefs) :xrefs)) <span style="color:#ae81ff">1</span>))
+        (<span style="color:#a6e22e">error</span> <span style="color:#e6db74">&#34;Here is the only instance.&#34;</span>)
+        <span style="color:#75715e">;; (let ((x (car (plist-get (car xrefs) :xrefs))))</span>
+        <span style="color:#75715e">;;   (-if-let (uri (lsp:location-uri x))</span>
+        <span style="color:#75715e">;;       (-let (((&amp;Range :start (&amp;Position :line :character)) (lsp:location-range x)))</span>
+        <span style="color:#75715e">;;         (lsp-ui-peek--goto-xref `(:file ,(lsp--uri-to-path uri) :line ,line :column ,character)))</span>
+        <span style="color:#75715e">;;     (-let (((&amp;Range :start (&amp;Position :line :character)) (or (lsp:location-link-target-selection-range x)</span>
+        <span style="color:#75715e">;;                                                              (lsp:location-link-target-range x))))</span>
+        <span style="color:#75715e">;;       (lsp-ui-peek--goto-xref `(:file ,(lsp--uri-to-path (lsp:location-link-target-uri x)) :line ,line :column ,character)))))</span>
+        (lsp-ui-peek-mode)
+        (lsp-ui-peek--show xrefs))))
+
+
+<span style="color:#75715e">;; The threshold didn&#39;t work, so I&#39;ve disabled them</span>
+(setq lsp-enable-file-watchers <span style="color:#66d9ef">nil</span>)
+(setq lsp-file-watch-threshold <span style="color:#ae81ff">10</span>)
+
+
+(lsp-defun lsp-ui-doc--callback ((hover &amp;as &amp;Hover? :contents) bounds buffer)
+  <span style="color:#e6db74">&#34;Process the received documentation.
+</span><span style="color:#e6db74">HOVER is the doc returned by the LS.
+</span><span style="color:#e6db74">BOUNDS are points of the symbol that have been requested.
+</span><span style="color:#e6db74">BUFFER is the buffer where the request has been made.&#34;</span>
+  (if
+      (not (and
+            hover
+            (<span style="color:#a6e22e">&gt;=</span> (<span style="color:#a6e22e">point</span>) (<span style="color:#a6e22e">car</span> bounds)) (<span style="color:#a6e22e">&lt;=</span> (<span style="color:#a6e22e">point</span>) (<span style="color:#a6e22e">cdr</span> bounds))
+            (<span style="color:#a6e22e">eq</span> buffer (<span style="color:#a6e22e">current-buffer</span>))))
+      (setq contents <span style="color:#e6db74">&#34;-&#34;</span>)
+    (setq contents (or (-some-&gt;&gt;
+                        <span style="color:#75715e">;; &#34;shane&#34;</span>
+                        contents
+                        lsp-ui-doc--extract
+                        (replace-regexp-in-string <span style="color:#e6db74">&#34;\r&#34;</span> <span style="color:#e6db74">&#34;&#34;</span>))
+                       <span style="color:#75715e">;; (replace-regexp-in-string &#34;\r&#34; &#34;&#34; (lsp-ui-doc--extract contents))</span>
+                       <span style="color:#e6db74">&#34;Cant extract or docs are empty&#34;</span>)))
+
+  (progn
+    (setq lsp-ui-doc--bounds bounds)
+    (lsp-ui-doc--display
+     (thing-at-point <span style="color:#e6db74">&#39;symbol</span> <span style="color:#66d9ef">t</span>)
+     contents))
+  <span style="color:#75715e">;; (lsp-ui-doc--hide-frame)</span>
+  )
+
+
+(defun lsp-ui-doc--extract (contents)
+  <span style="color:#e6db74">&#34;Extract the documentation from CONTENTS.
+</span><span style="color:#e6db74">CONTENTS can be differents type of values:
+</span><span style="color:#e6db74">MarkedString | MarkedString[] | MarkupContent (as defined in the LSP).
+</span><span style="color:#e6db74">We don&#39;t extract the string that </span><span style="color:#e6db74">`lps-line&#39;</span><span style="color:#e6db74"> is already displaying.&#34;</span>
+  <span style="color:#75715e">;; (tvipe contents)</span>
+  (cond
+   ((<span style="color:#a6e22e">vectorp</span> contents) <span style="color:#75715e">;; MarkedString[]</span>
+    (<span style="color:#a6e22e">mapconcat</span> <span style="color:#e6db74">&#39;lsp-ui-doc--extract-marked-string</span>
+               (lsp-ui-doc--filter-marked-string (seq-filter <span style="color:#a6e22e">#&#39;identity</span> contents))
+               <span style="color:#e6db74">&#34;\n\n&#34;</span>
+               <span style="color:#75715e">;; (propertize &#34;\n\n&#34; &#39;face &#39;(:height 0.4))</span>
+               ))
+   <span style="color:#75715e">;; when we get markdown contents, render using emacs gfm-view-mode / markdown-mode</span>
+   ((and (lsp-marked-string? contents)
+         (lsp:marked-string-language contents))
+    (lsp-ui-doc--extract-marked-string (lsp:marked-string-value contents)
+                                       (lsp:marked-string-language contents)))
+   ((lsp-marked-string? contents) (lsp-ui-doc--extract-marked-string contents))
+   ((and (lsp-markup-content? contents)
+         (string= (lsp:markup-content-kind contents) lsp/markup-kind-markdown))
+    (lsp-ui-doc--extract-marked-string (lsp:markup-content-value contents) lsp/markup-kind-markdown))
+   ((and (lsp-markup-content? contents)
+         (string= (lsp:markup-content-kind contents) lsp/markup-kind-plain-text))
+    (lsp:markup-content-value contents))
+   (<span style="color:#66d9ef">t</span>
+    <span style="color:#75715e">;; This makes python work</span>
+    contents)))
+
+
+<span style="color:#75715e">;; lsp-ui-doc--extract</span>
+<span style="color:#75715e">;; TODO Keep markdown</span>
+(defun my-lsp-get-hover-docs ()
+  (interactive)
+  (let* ((ht (lsp-request <span style="color:#e6db74">&#34;textDocument/hover&#34;</span> (lsp--text-document-position-params)))
+         (docs
+          (if (<span style="color:#a6e22e">hash-table-p</span> ht)
+              (lsp-ui-doc--extract (<span style="color:#a6e22e">gethash</span> <span style="color:#e6db74">&#34;contents&#34;</span> ht))
+            <span style="color:#e6db74">&#34;&#34;</span>)))
+    (if (and docs (not (string-empty-p docs))) (if (called-interactively-p <span style="color:#e6db74">&#39;interactive</span>)
+                                                   <span style="color:#75715e">;; (tvd docs)</span>
+                                                   (new-buffer-from-string docs)
+                                                 docs)
+      (<span style="color:#a6e22e">error</span> <span style="color:#e6db74">&#34;No docs&#34;</span>))))
+
+(<span style="color:#a6e22e">define-key</span> lsp-mode-map (kbd <span style="color:#e6db74">&#34;s-l 9&#34;</span>) <span style="color:#e6db74">&#39;my-lsp-get-hover-docs</span>)
+(<span style="color:#a6e22e">define-key</span> lsp-mode-map (kbd <span style="color:#e6db74">&#34;s-9&#34;</span>) <span style="color:#e6db74">&#39;my-lsp-get-hover-docs</span>)
+(<span style="color:#a6e22e">define-key</span> global-map (kbd <span style="color:#e6db74">&#34;s-i&#34;</span>) <span style="color:#e6db74">&#39;lsp-install-server</span>)
+
+
+(setq lsp-enable-on-type-formatting <span style="color:#66d9ef">nil</span>)
+
+
+<span style="color:#75715e">;; (define-key lsp-ui-imenu-mode-map (kbd &#34;M-n&#34;) (kbd &#34;&lt;down&gt;&#34;))</span>
+
+(advice-add <span style="color:#e6db74">&#39;lsp--document-highlight</span> :around <span style="color:#a6e22e">#&#39;</span>ignore-errors-around-advice)
+
+<span style="color:#75715e">;; (advice-add &#39;lsp--build-workspace-configuration-response :around #&#39;ignore-errors-around-advice)</span>
+<span style="color:#75715e">;; (advice-remove &#39;lsp--build-workspace-configuration-response #&#39;ignore-errors-around-advice)</span>
+
+
+(defun lsp-list-all-servers ()
+  (<span style="color:#a6e22e">mapcar</span> <span style="color:#e6db74">&#39;car</span> (--map (<span style="color:#a6e22e">cons</span> (<span style="color:#a6e22e">funcall</span>
+                             (-compose <span style="color:#a6e22e">#&#39;symbol-name</span> <span style="color:#a6e22e">#&#39;</span>lsp--client-server-id) it) it)
+                      (or (-&gt;&gt; lsp-clients
+                               (ht-values)
+                               (-filter (-andfn
+                                         (-orfn (-not <span style="color:#a6e22e">#&#39;</span>lsp--server-binary-present?)
+                                                (-const <span style="color:#66d9ef">t</span>))
+                                         (-not <span style="color:#a6e22e">#&#39;</span>lsp--client-download-in-progress?)
+                                         <span style="color:#a6e22e">#&#39;</span>lsp--client-download-server-fn)))
+                          (<span style="color:#a6e22e">user-error</span> <span style="color:#e6db74">&#34;There are no servers with automatic installation&#34;</span>)))))
+
+
+(defun lsp-get-server-for-install (name)
+  (interactive (<span style="color:#a6e22e">list</span> (fz (lsp-list-all-servers))))
+  (<span style="color:#a6e22e">cdr</span> (<span style="color:#a6e22e">car</span> (-filter (lambda (sv) (<span style="color:#a6e22e">string-equal</span> (<span style="color:#a6e22e">car</span> sv) name))
+                     (--map (<span style="color:#a6e22e">cons</span> (<span style="color:#a6e22e">funcall</span>
+                                   (-compose <span style="color:#a6e22e">#&#39;symbol-name</span> <span style="color:#a6e22e">#&#39;</span>lsp--client-server-id) it) it)
+                            (or (-&gt;&gt; lsp-clients
+                                     (ht-values)
+                                     (-filter (-andfn
+                                               (-orfn (-not <span style="color:#a6e22e">#&#39;</span>lsp--server-binary-present?)
+                                                      (-const <span style="color:#66d9ef">t</span>))
+                                               (-not <span style="color:#a6e22e">#&#39;</span>lsp--client-download-in-progress?)
+                                               <span style="color:#a6e22e">#&#39;</span>lsp--client-download-server-fn)))
+                                (<span style="color:#a6e22e">user-error</span> <span style="color:#e6db74">&#34;There are no servers with automatic installation&#34;</span>)))))))
+
+(defun lsp-install-server-by-name (name)
+  (interactive (<span style="color:#a6e22e">list</span> (fz (lsp-list-all-servers))))
+  (lsp--install-server-internal (lsp-get-server-for-install name)))
+
+
+(defun lsp--sort-completions (completions)
+  (lsp-completion--sort-completions completions))
+
+(defun lsp--annotate (item)
+  (lsp-completion--annotate item))
+
+(defun lsp--resolve-completion (item)
+  (lsp-completion--resolve item))
+
+(defun lsp-install-server-update-advice (proc update)
+  (cond
+   (update (setq update <span style="color:#66d9ef">nil</span>))
+   ((not update) (setq update <span style="color:#66d9ef">t</span>)))
+  (let ((res (<span style="color:#a6e22e">apply</span> proc (<span style="color:#a6e22e">list</span> update))))
+    res))
+(advice-add <span style="color:#e6db74">&#39;lsp-install-server</span> :around <span style="color:#a6e22e">#&#39;</span>lsp-install-server-update-advice)
+<span style="color:#75715e">;; (advice-remove &#39;lsp-install-server #&#39;lsp-install-server-update-advice)</span>
+
+<span style="color:#75715e">;; (advice-add &#39;lsp-install-server :around #&#39;invert-prefix-advice)</span>
+<span style="color:#75715e">;; (advice-remove &#39;lsp-install-server #&#39;invert-prefix-advice)</span>
+
+
+<span style="color:#75715e">;; These commands should only be run when lsp is running</span>
+<span style="color:#75715e">;; But I may want them here just to look them up</span>
+(<span style="color:#a6e22e">define-key</span> global-map (kbd lsp-keymap-prefix) lsp-command-map)
+
+
+
+
+<span style="color:#75715e">;; one of these breaks</span>
+(setq lsp-completion-no-cache <span style="color:#66d9ef">t</span>)
+(setq lsp-display-inline-image <span style="color:#66d9ef">nil</span>)
+<span style="color:#75715e">;; (setq lsp-document-sync-method &#39;incremental)</span>
+(setq lsp-document-sync-method <span style="color:#66d9ef">nil</span>)
+<span style="color:#75715e">;; (setq lsp-document-sync-method &#39;full)</span>
+<span style="color:#75715e">;; This makes bash look bad with an entire</span>
+(setq lsp-eldoc-render-all <span style="color:#66d9ef">nil</span>)
+<span style="color:#75715e">;; (setq lsp-eldoc-render-all nil)</span>
+(setq lsp-enable-dap-auto-configure <span style="color:#66d9ef">t</span>)
+<span style="color:#75715e">;; (setq lsp-enable-file-watchers t)</span>
+(setq lsp-enable-file-watchers <span style="color:#66d9ef">nil</span>)
+(setq lsp-enable-folding <span style="color:#66d9ef">t</span>)
+(setq lsp-enable-imenu <span style="color:#66d9ef">t</span>)
+<span style="color:#75715e">;; (setq lsp-enable-indentation nil)</span>
+(setq lsp-enable-indentation <span style="color:#66d9ef">t</span>)
+(setq lsp-enable-links <span style="color:#66d9ef">t</span>)
+<span style="color:#75715e">;; (setq lsp-enable-on-type-formatting nil)</span>
+(setq lsp-enable-on-type-formatting <span style="color:#66d9ef">t</span>)
+<span style="color:#75715e">;; (setq lsp-enable-semantic-highlighting nil)</span>
+(setq lsp-enable-semantic-highlighting <span style="color:#66d9ef">t</span>)
+(setq lsp-enable-snippet <span style="color:#66d9ef">t</span>)
+(setq lsp-enable-symbol-highlighting <span style="color:#66d9ef">t</span>)
+(setq lsp-enable-text-document-color <span style="color:#66d9ef">t</span>)
+(setq lsp-enable-xref <span style="color:#66d9ef">t</span>)
+(setq lsp-folding-line-folding-only <span style="color:#66d9ef">t</span>)
+<span style="color:#75715e">;; nil no limit</span>
+(setq lsp-lens-debounce-interval <span style="color:#ae81ff">0.2</span>)
+(setq lsp-folding-range-limit <span style="color:#66d9ef">nil</span>)
+<span style="color:#75715e">;; (setq lsp-lens-enable nil)</span>
+(setq lsp-lens-enable <span style="color:#66d9ef">t</span>)
+<span style="color:#75715e">;; (setq lsp-log-io t)</span>
+(setq lsp-log-io <span style="color:#66d9ef">nil</span>)
+<span style="color:#75715e">;; (setq lsp-server-trace t)</span>
+(setq lsp-server-trace <span style="color:#66d9ef">nil</span>)
+<span style="color:#75715e">;; (setq lsp-print-performance t)</span>
+(setq lsp-print-performance <span style="color:#66d9ef">nil</span>)
+
+(setq lsp-modeline-code-actions-enable <span style="color:#66d9ef">t</span>)
+
+(setq lsp-modeline-code-actions-segments <span style="color:#f92672">&#39;</span>(count name))
+(setq lsp-headerline-breadcrumb-enable <span style="color:#66d9ef">t</span>)
+(setq lsp-headerline-breadcrumb-segments <span style="color:#f92672">&#39;</span>(path-up-to-project file))
+
+
+(defun lsp-on-change-around-advice (proc <span style="color:#66d9ef">&amp;rest</span> args)
+  (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;lsp-on-change called with args %S&#34;</span> args)
+  (let ((res (<span style="color:#a6e22e">apply</span> proc args)))
+    (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;lsp-on-change returned %S&#34;</span> res)
+    res))
+<span style="color:#75715e">;; (advice-add &#39;lsp-on-change :around #&#39;lsp-on-change-around-advice)</span>
+(advice-remove <span style="color:#e6db74">&#39;lsp-on-change</span> <span style="color:#a6e22e">#&#39;</span>lsp-on-change-around-advice)
+
+
+(require <span style="color:#e6db74">&#39;lsp-headerline</span>)
+(defun lsp-headerline--arrow-icon ()
+  <span style="color:#e6db74">&#34;Build the arrow icon for headerline breadcrumb.&#34;</span>
+  <span style="color:#75715e">;; (if (require &#39;all-the-icons nil t)</span>
+  <span style="color:#75715e">;;     (all-the-icons-material &#34;chevron_right&#34;</span>
+  <span style="color:#75715e">;;                             :face &#39;lsp-headerline-breadcrumb-separator-face)</span>
+  <span style="color:#75715e">;;   (propertize &#34;›&#34; &#39;face &#39;lsp-headerline-breadcrumb-separator-face))</span>
+  (<span style="color:#a6e22e">propertize</span> <span style="color:#e6db74">&#34;›&#34;</span> <span style="color:#e6db74">&#39;face</span> <span style="color:#e6db74">&#39;lsp-headerline-breadcrumb-separator-face</span>))
+
+<span style="color:#75715e">;; I&#39;m not sure why, but it wont overload normally, so do this</span>
+<span style="color:#75715e">;; (defun ... (defun does actually work</span>
+<span style="color:#75715e">;; (add-hook &#39;lsp-mode-hook &#39;define-my-lsp-overridden)</span>
+
+
+(defun dired-lsp-binaries ()
+  (interactive)
+  (dired lsp-server-install-dir))
+
+
+(defun lsp-ui-peek-find-references (<span style="color:#66d9ef">&amp;optional</span> include-declaration extra)
+  <span style="color:#e6db74">&#34;Find references to the IDENTIFIER at point.&#34;</span>
+  (interactive)
+
+  <span style="color:#75715e">;; (try-deselected-and-maybe-reselect</span>
+  <span style="color:#75715e">;;  (let ((thing (str2sym (my/thing-at-point))</span>
+  <span style="color:#75715e">;;               ;; (symbol-at-point)</span>
+  <span style="color:#75715e">;;               ))</span>
+  <span style="color:#75715e">;;    (lsp-ui-peek--find-xrefs thing</span>
+  <span style="color:#75715e">;;                             &#34;textDocument/references&#34;</span>
+  <span style="color:#75715e">;;                             (append extra (lsp--make-reference-params nil include-declaration)))))</span>
+
+  (let ((thing (str2sym (my/thing-at-point)))
+        (p (<span style="color:#a6e22e">point</span>))
+        (m (mark))
+        (s (selected-p)))
+    (deselect)
+    (<span style="color:#a6e22e">eval</span>
+     <span style="color:#f92672">`</span>(try
+       <span style="color:#75715e">;; Try this, otherwise, reselect</span>
+       (lsp-ui-peek--find-xrefs <span style="color:#e6db74">&#39;,thing</span>
+                                <span style="color:#e6db74">&#34;textDocument/references&#34;</span>
+                                (<span style="color:#a6e22e">append</span> <span style="color:#f92672">,</span>extra (lsp--make-reference-params <span style="color:#66d9ef">nil</span> <span style="color:#f92672">,</span>include-declaration)))
+       (progn
+         (set-mark <span style="color:#f92672">,</span>m)
+         (<span style="color:#a6e22e">goto-char</span> <span style="color:#f92672">,</span>p)
+         <span style="color:#f92672">,</span>(if s
+              <span style="color:#f92672">&#39;</span>(progn
+                 (activate-mark))
+            <span style="color:#f92672">&#39;</span>(progn
+               (deactivate-mark)))
+         (<span style="color:#a6e22e">error</span> <span style="color:#e6db74">&#34;lsp-ui-peek-find-references failed&#34;</span>))))))
+
+
+
+<span style="color:#75715e">;; (defcustom lsp-racket-langserver-command &#39;(&#34;racket&#34; &#34;--lib&#34; &#34;racket-langserver&#34;)</span>
+<span style="color:#75715e">;;   &#34;Command to start the server.&#34;</span>
+<span style="color:#75715e">;;   :type &#39;string</span>
+<span style="color:#75715e">;;   :package-version &#39;(lsp-mode . &#34;7.1&#34;))</span>
+(defcustom lsp-racket-langserver-command <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">&#34;racket-langserver&#34;</span>)
+  <span style="color:#e6db74">&#34;Command to start the server.&#34;</span>
+  :type <span style="color:#e6db74">&#39;string</span>
+  :package-version <span style="color:#f92672">&#39;</span>(lsp-mode <span style="color:#f92672">.</span> <span style="color:#e6db74">&#34;7.1&#34;</span>))
+(setq lsp-racket-langserver-command <span style="color:#e6db74">&#34;racket-langserver&#34;</span>)
+
+
+
+<span style="color:#75715e">;; This didn&#39;t work</span>
+<span style="color:#75715e">;; These modes are yaml</span>
+<span style="color:#75715e">;; (dolist (m &#39;(yaml-mode</span>
+<span style="color:#75715e">;;              gitlab-ci-mode))</span>
+<span style="color:#75715e">;;   (add-to-list &#39;lsp-language-id-configuration `(,m . &#34;yaml&#34;)))</span>
+
+
+<span style="color:#75715e">;; I needed this</span>
+<span style="color:#75715e">;; Yaml</span>
+<span style="color:#75715e">;; vim +/&#34;(lsp-register-client&#34; &#34;$EMACSD/packages26/lsp-mode-20200925.18/lsp-yaml.el&#34;</span>
+<span style="color:#75715e">;; Added gitlab-ci-mode</span>
+(lsp-register-client
+ (make-lsp-client :new-connection (lsp-stdio-connection
+                                   (lambda ()
+                                     <span style="color:#f92672">`</span>(<span style="color:#f92672">,</span>(or (executable-find (cl-first lsp-yaml-server-command))
+                                            (lsp-package-path <span style="color:#e6db74">&#39;yaml-language-server</span>))
+                                       <span style="color:#f92672">,@</span>(cl-rest lsp-yaml-server-command))))
+                  :major-modes <span style="color:#f92672">&#39;</span>(yaml-mode
+                                 gitlab-ci-mode)
+                  :priority <span style="color:#ae81ff">0</span>
+                  :server-id <span style="color:#e6db74">&#39;yamlls</span>
+                  :initialized-fn (lambda (workspace)
+                                    (with-lsp-workspace workspace
+                                      (lsp--set-configuration
+                                       (lsp-configuration-section <span style="color:#e6db74">&#34;yaml&#34;</span>))))
+                  :download-server-fn (lambda (_client callback error-callback _update?)
+                                        (lsp-package-ensure <span style="color:#e6db74">&#39;yaml-language-server</span>
+                                                            callback error-callback))))
+
+
+
+(defun lsp--create-default-error-handler-around-advice (proc <span style="color:#66d9ef">&amp;rest</span> args)
+  (lambda (e) <span style="color:#66d9ef">nil</span>)
+  <span style="color:#75715e">;; (let ((res (apply proc args)))</span>
+  <span style="color:#75715e">;;   res)</span>
+  )
+(advice-add <span style="color:#e6db74">&#39;lsp--create-default-error-handler</span> :around <span style="color:#a6e22e">#&#39;</span>lsp--create-default-error-handler-around-advice)
+
+
+(defun lsp--error-string-around-advice (proc <span style="color:#66d9ef">&amp;rest</span> args)
+  <span style="color:#66d9ef">nil</span>
+  <span style="color:#75715e">;; (let ((res (apply proc args)))</span>
+  <span style="color:#75715e">;;   (if res</span>
+  <span style="color:#75715e">;;       (progn</span>
+  <span style="color:#75715e">;;         ;; (message res)</span>
+  <span style="color:#75715e">;;         &#34;error&#34;))</span>
+  <span style="color:#75715e">;;   ;; res</span>
+  <span style="color:#75715e">;;   )</span>
+  )
+(advice-add <span style="color:#e6db74">&#39;lsp--error-string</span> :around <span style="color:#a6e22e">#&#39;</span>lsp--error-string-around-advice)
+
+
+(defun lsp-around-advice (proc <span style="color:#66d9ef">&amp;rest</span> args)
+  (if (myrc-test <span style="color:#e6db74">&#34;lsp&#34;</span> <span style="color:#75715e">;; my-disable-lsp</span>
+                 )
+      (let ((res (<span style="color:#a6e22e">apply</span> proc args)))
+        res)))
+(advice-add <span style="color:#e6db74">&#39;lsp</span> :around <span style="color:#a6e22e">#&#39;</span>lsp-around-advice)
+
+(defun lsp-lens-refresh-around-advice (proc <span style="color:#66d9ef">&amp;rest</span> args)
+  (if (myrc-test <span style="color:#e6db74">&#34;lsp_lens&#34;</span>)
+      (let ((res (<span style="color:#a6e22e">apply</span> proc args)))
+        res)))
+(advice-add <span style="color:#e6db74">&#39;lsp-lens-refresh</span> :around <span style="color:#a6e22e">#&#39;</span>lsp-lens-refresh-around-advice)
+
+(provide <span style="color:#e6db74">&#39;my-lsp</span>)</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
