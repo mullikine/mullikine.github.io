@@ -12,11 +12,11 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="DAP mode for emacs"/>
-<meta name="twitter:description" content="Related reading Setting up LSP with emacs (Go, Java, Python, Rust, C&#43;&#43;, Haskell) // Bodacious Blog Official page for Debug Adapter Protocol Python environment // Bodacious Blog  DAP mode is like LSP for debugging.
+<meta name="twitter:description" content="Related reading Setting up LSP with emacs (Go, Java, Python, Rust, C&#43;&#43;, Haskell) // Bodacious Blog Official page for Debug Adapter Protocol Python environment // Bodacious Blog dap-mode project code https://github.com/emacs-lsp/dap-mode  DAP mode is like LSP for debugging.
 bindings 1 2 3  (define-key my-mode-map (kbd &#34;M-m a b&#34;) #&#39;dap-hydra/body) (define-key my-mode-map (kbd &#34;M-m a a&#34;) #&#39;dap-ui-breakpoints) (define-key prog-mode-map (kbd &#34;M-\&#34;&#34;) &#39;handle-debug)   State of languages with DAP in my own environment    Language DAP Working LSP Working Fallback working Current user experience     Python ✓ ✓ ✓ pdb Good   Java ✓ ✓ ✓ eclim Good    Java Here is an example of me creating a breakpoint with a condition and running the debugger."/>
 
     <meta property="og:title" content="DAP mode for emacs" />
-<meta property="og:description" content="Related reading Setting up LSP with emacs (Go, Java, Python, Rust, C&#43;&#43;, Haskell) // Bodacious Blog Official page for Debug Adapter Protocol Python environment // Bodacious Blog  DAP mode is like LSP for debugging.
+<meta property="og:description" content="Related reading Setting up LSP with emacs (Go, Java, Python, Rust, C&#43;&#43;, Haskell) // Bodacious Blog Official page for Debug Adapter Protocol Python environment // Bodacious Blog dap-mode project code https://github.com/emacs-lsp/dap-mode  DAP mode is like LSP for debugging.
 bindings 1 2 3  (define-key my-mode-map (kbd &#34;M-m a b&#34;) #&#39;dap-hydra/body) (define-key my-mode-map (kbd &#34;M-m a a&#34;) #&#39;dap-ui-breakpoints) (define-key prog-mode-map (kbd &#34;M-\&#34;&#34;) &#39;handle-debug)   State of languages with DAP in my own environment    Language DAP Working LSP Working Fallback working Current user experience     Python ✓ ✓ ✓ pdb Good   Java ✓ ✓ ✓ eclim Good    Java Here is an example of me creating a breakpoint with a condition and running the debugger." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/dap-mode/" /><meta property="article:section" content="posts" />
@@ -194,7 +194,7 @@ bindings 1 2 3  (define-key my-mode-map (kbd &#34;M-m a b&#34;) #&#39;dap-hydra/
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -217,6 +217,8 @@ bindings 1 2 3  (define-key my-mode-map (kbd &#34;M-m a b&#34;) #&#39;dap-hydra/
 <dd><a href="https://mullikine.github.io/posts/setting-up-lsp-with-emacs-attempt-2/">Setting up LSP with emacs (Go, Java, Python, Rust, C++, Haskell) // Bodacious Blog</a> <br />
 <a href="https://microsoft.github.io/debug-adapter-protocol/">Official page for Debug Adapter Protocol</a> <br />
 <a href="https://mullikine.github.io/posts/python-environment/">Python environment // Bodacious Blog</a></dd>
+<dt><code>dap-mode</code> project code</dt>
+<dd><a href="https://github.com/emacs-lsp/dap-mode">https://github.com/emacs-lsp/dap-mode</a></dd>
 </dl>
 <p>DAP mode is like LSP for debugging.</p>
 <h2 id="bindings">bindings</h2>
@@ -266,6 +268,235 @@ with a condition and running the debugger.</p>
 <p><a title="asciinema recording" href="https://asciinema.org/a/9n08KTmkhigIkbjmXf6jtdri1" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/9n08KTmkhigIkbjmXf6jtdri1.svg" /></a></p>
 <h3 id="python">Python</h3>
 <p><a title="asciinema recording" href="https://asciinema.org/a/cG1AEDesnFTPk0wumQQGMHzTV" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/cG1AEDesnFTPk0wumQQGMHzTV.svg" /></a></p>
+<h2 id="dap-config">DAP Config</h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(use-package dap-mode
+  :ensure <span style="color:#66d9ef">t</span> :after lsp-mode
+  :config
+  (dap-mode <span style="color:#66d9ef">t</span>)
+  (dap-ui-mode <span style="color:#66d9ef">t</span>))
+
+(require <span style="color:#e6db74">&#39;my-lsp-java</span>)
+
+(dap-tooltip-mode <span style="color:#ae81ff">1</span>)
+<span style="color:#75715e">;; use tooltips for mouse hover</span>
+<span style="color:#75715e">;; if it is not enabled `dap-mode&#39; will use the minibuffer.</span>
+(tooltip-mode <span style="color:#ae81ff">1</span>)
+
+(defun dap-debug-and-hydra ()
+  (interactive)
+  (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;dap-debug</span>)
+  (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;dap-hydra/body</span>))
+
+(defun dap-java-debug-and-hydra ()
+  (interactive)
+  (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;dap-java-debug</span>)
+  (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;dap-hydra/body</span>))
+
+(require <span style="color:#e6db74">&#39;dap-python</span>)
+
+<span style="color:#75715e">;; This must be installed for python</span>
+<span style="color:#75715e">;; py i &#34;ptvsd&gt;=4.2&#34;</span>
+
+(advice-add <span style="color:#e6db74">&#39;dap-ui--clear-breakpoint-overlays</span> :around <span style="color:#a6e22e">#&#39;</span>ignore-errors-around-advice)
+
+
+<span style="color:#75715e">;; (setq dap-python-terminal &#34;xt&#34;)</span>
+(setq dap-python-terminal <span style="color:#e6db74">&#34;&#34;</span>)
+
+
+(defun dap-python--populate-start-file-args (conf)
+  <span style="color:#e6db74">&#34;Populate CONF with the required arguments.&#34;</span>
+  (let* ((python-executable (dap-python--pyenv-executable-find dap-python-executable))
+         (python-args (<span style="color:#a6e22e">plist-get</span> conf :args))
+         (program (or (<span style="color:#a6e22e">plist-get</span> conf :target-module)
+                      (<span style="color:#a6e22e">plist-get</span> conf :program)
+                      (<span style="color:#a6e22e">buffer-file-name</span>)))
+         (module (<span style="color:#a6e22e">plist-get</span> conf :module))
+         (debugger (<span style="color:#a6e22e">plist-get</span> conf :debugger)))
+    <span style="color:#75715e">;; These are `dap-python&#39;-specific and always ignored.</span>
+    (cl-remf conf :debugger)
+    (cl-remf conf :target-module)
+
+    <span style="color:#75715e">;; Ignored by ptsvd and set explicitly for debugpy.</span>
+    (cl-remf conf :program)
+    (pcase (or debugger dap-python-debugger)
+      ((or <span style="color:#e6db74">&#39;ptvsd</span> <span style="color:#e6db74">&#34;ptvsd&#34;</span>)
+       (let ((host <span style="color:#e6db74">&#34;localhost&#34;</span>)
+             (debug-port (dap--find-available-port)))
+         <span style="color:#75715e">;; support :args [&#34;foo&#34; &#34;bar&#34;]; NOTE: :args can be nil; however, nil is</span>
+         <span style="color:#75715e">;; a list, so it will be mapconcat&#39;ed, yielding the empty string.</span>
+         (when (<span style="color:#a6e22e">sequencep</span> python-args)
+           (setq python-args (<span style="color:#a6e22e">mapconcat</span> <span style="color:#a6e22e">#&#39;</span>shell-quote-argument python-args <span style="color:#e6db74">&#34; &#34;</span>)))
+         <span style="color:#75715e">;; ignored by ptsvd anyway</span>
+         (cl-remf conf :module)
+         (cl-remf conf :args)
+         (<span style="color:#a6e22e">plist-put</span> conf :program-to-start
+                    (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%s %s -m ptvsd --wait --host %s --port %s%s %s%s&#34;</span>
+                            (or dap-python-terminal <span style="color:#e6db74">&#34;&#34;</span>)
+                            (shell-quote-argument python-executable)
+                            host
+                            debug-port
+                            (if module (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34; -m &#34;</span> (shell-quote-argument module)) <span style="color:#e6db74">&#34;&#34;</span>)
+                            (if program (shell-quote-argument program) <span style="color:#e6db74">&#34;&#34;</span>)
+                            (if (not (string-empty-p python-args)) (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34; &#34;</span> python-args) <span style="color:#e6db74">&#34;&#34;</span>)))
+         (<span style="color:#a6e22e">plist-put</span> conf :debugServer debug-port)
+         (<span style="color:#a6e22e">plist-put</span> conf :port debug-port)
+         (<span style="color:#a6e22e">plist-put</span> conf :hostName host)
+         (<span style="color:#a6e22e">plist-put</span> conf :host host)))
+      ((or <span style="color:#e6db74">&#39;debugpy</span> <span style="color:#e6db74">&#34;debugpy&#34;</span>)
+       (cond ((<span style="color:#a6e22e">stringp</span> python-args)
+              (cl-callf split-string-and-unquote python-args))
+             <span style="color:#75715e">;; If both :module and :program are specified, we&#39;ll need to push</span>
+             <span style="color:#75715e">;; :program to PYTHON-ARGS instead, to behave like ptvsd. This is</span>
+             <span style="color:#75715e">;; needed for the debug-test-at-point functionality.</span>
+             ((and (<span style="color:#a6e22e">vectorp</span> python-args) module program)
+              (cl-callf cl-coerce python-args <span style="color:#e6db74">&#39;list</span>)))
+
+       <span style="color:#75715e">;; If certain properties are nil, issues will arise, as debugpy expects</span>
+       <span style="color:#75715e">;; them to unspecified instead. Some templates in this file set such</span>
+       <span style="color:#75715e">;; properties (e.g. :module) to nil instead of leaving them undefined. To</span>
+       <span style="color:#75715e">;; support them, sanitize CONF before passing it on.</span>
+       (when program
+         (if module
+             (push program python-args)
+           (<span style="color:#a6e22e">plist-put</span> conf :program program)))
+
+       (cl-remf conf :args)
+       (<span style="color:#a6e22e">plist-put</span> conf :args (or python-args []))
+
+       (unless module
+         (cl-remf conf :module))
+
+       (unless (<span style="color:#a6e22e">plist-get</span> conf :cwd)
+         (cl-remf conf :cwd))
+
+       (<span style="color:#a6e22e">plist-put</span> conf :dap-server-path
+                  (<span style="color:#a6e22e">list</span> python-executable <span style="color:#e6db74">&#34;-m&#34;</span> <span style="color:#e6db74">&#34;debugpy.adapter&#34;</span>)))
+      (_ (<span style="color:#a6e22e">error</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">`dap-python&#39;</span><span style="color:#e6db74">: unknown :debugger type %S&#34;</span> debugger)))
+    conf))
+
+<span style="color:#75715e">;; automatically trigger the hydra when the program hits a breakpoint by using the following code.</span>
+(add-hook <span style="color:#e6db74">&#39;dap-stopped-hook</span>
+          (lambda (arg) (<span style="color:#a6e22e">call-interactively</span> <span style="color:#a6e22e">#&#39;</span>dap-hydra)))
+
+(provide <span style="color:#e6db74">&#39;my-dap</span>)</code></pre></td></tr></table>
+</div>
+</div>
 
     </div>
     <div class="post-footer">
