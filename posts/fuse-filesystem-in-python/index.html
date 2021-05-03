@@ -12,30 +12,24 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Creating FUSE filesystems in Python"/>
-<meta name="twitter:description" content="Options Python2 Python 2 is obsolete, so no.
-https://gist.github.com/wettenhj/7019100
-python-fuse $MYGIT/libfuse/python-fuse
-fusepy Python3&#43; pyfilesystem2 &#43; fusefs pyfilesystem2 does NOT create a virtual filesystem on its own.
+<meta name="twitter:description" content="Python3&#43; Option 1: pyfilesystem2 &#43; fusefs pyfilesystem2 does NOT create a virtual filesystem on its own.
 You need fusefs to mount a pyfilesystem2 extension.
   https://pypi.org/project/fusefs/
   https://github.com/mirekys/fusefs
   https://pypi.org/project/fs/2.4.11/
   https://github.com/PyFilesystem/pyfilesystem2
-  pyfuse https://github.com/nrclark/pyfuse
-Install pyfilesystem2 and fusefs 1 2  py i fs py i fusefs   Using fusefs 1  fusefs &lt;url&gt; &lt;mountpoint&gt;   url is the pyFilesystem2 resource to be mounted, and may contain placeholders for such values as username, host, password, etc."/>
+   1  sudo pip install fs fusefs   url is the pyFilesystem2 resource to be mounted, and may contain placeholders for such values as username, host, password, etc.
+ This is how to extend pyfilesystem2  https://github."/>
 
     <meta property="og:title" content="Creating FUSE filesystems in Python" />
-<meta property="og:description" content="Options Python2 Python 2 is obsolete, so no.
-https://gist.github.com/wettenhj/7019100
-python-fuse $MYGIT/libfuse/python-fuse
-fusepy Python3&#43; pyfilesystem2 &#43; fusefs pyfilesystem2 does NOT create a virtual filesystem on its own.
+<meta property="og:description" content="Python3&#43; Option 1: pyfilesystem2 &#43; fusefs pyfilesystem2 does NOT create a virtual filesystem on its own.
 You need fusefs to mount a pyfilesystem2 extension.
   https://pypi.org/project/fusefs/
   https://github.com/mirekys/fusefs
   https://pypi.org/project/fs/2.4.11/
   https://github.com/PyFilesystem/pyfilesystem2
-  pyfuse https://github.com/nrclark/pyfuse
-Install pyfilesystem2 and fusefs 1 2  py i fs py i fusefs   Using fusefs 1  fusefs &lt;url&gt; &lt;mountpoint&gt;   url is the pyFilesystem2 resource to be mounted, and may contain placeholders for such values as username, host, password, etc." />
+   1  sudo pip install fs fusefs   url is the pyFilesystem2 resource to be mounted, and may contain placeholders for such values as username, host, password, etc.
+ This is how to extend pyfilesystem2  https://github." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/fuse-filesystem-in-python/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-12-14T00:00:00&#43;13:00" />
@@ -230,15 +224,8 @@ Install pyfilesystem2 and fusefs 1 2  py i fs py i fusefs   Using fusefs 1  fuse
 
 
     <div class="post-content">
-      <h2 id="options">Options</h2>
-<h3 id="python2">Python2</h3>
-<p>Python 2 is obsolete, so no.</p>
-<p><a href="https://gist.github.com/wettenhj/7019100">https://gist.github.com/wettenhj/7019100</a></p>
-<h4 id="python-fuse"><code>python-fuse</code></h4>
-<p>$MYGIT/libfuse/python-fuse</p>
-<h4 id="fusepy"><code>fusepy</code></h4>
-<h3 id="python3">Python3+</h3>
-<h4 id="pyfilesystem2-fusefs"><code>pyfilesystem2</code> + <code>fusefs</code></h4>
+      <h2 id="python3-plus">Python3+</h2>
+<h3 id="option-1-pyfilesystem2-plus-fusefs">Option 1: <code>pyfilesystem2</code> + <code>fusefs</code></h3>
 <p><code>pyfilesystem2</code> does NOT create a virtual
 filesystem on its own.</p>
 <p>You need <code>fusefs</code> to mount a <code>pyfilesystem2</code>
@@ -257,52 +244,42 @@ extension.</p>
 <p><a href="https://github.com/PyFilesystem/pyfilesystem2">https://github.com/PyFilesystem/pyfilesystem2</a></p>
 </li>
 </ul>
-<h4 id="pyfuse"><code>pyfuse</code></h4>
-<p><a href="https://github.com/nrclark/pyfuse">https://github.com/nrclark/pyfuse</a></p>
-<h2 id="install-pyfilesystem2-and-fusefs">Install <code>pyfilesystem2</code> and <code>fusefs</code></h2>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">py i fs
-py i fusefs</code></pre></td></tr></table>
-</div>
-</div>
-<h2 id="using-fusefs">Using <code>fusefs</code></h2>
+<!--listend-->
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">fusefs &lt;url&gt; &lt;mountpoint&gt;</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo pip install fs fusefs</code></pre></td></tr></table>
 </div>
 </div>
 <p><code>url</code> is the <code>pyFilesystem2</code> resource to be
 mounted, and may contain placeholders for such
 values as username, host, password, etc.</p>
-<h3 id="this-is-how-to-extend-pyfilesystem2">This is how to extend <code>pyfilesystem2</code></h3>
+<ul>
+<li>This is how to extend <code>pyfilesystem2</code>
 <ul>
 <li><a href="https://github.com/PyFilesystem/pyfilesystem2/blob/master/docs/source/extension.rst">https://github.com/PyFilesystem/pyfilesystem2/blob/master/docs/source/extension.rst</a></li>
 <li>$MYGIT/PyFilesystem/pyfilesystem2/docs/source/extension.rst.org</li>
 </ul>
-<h3 id="examples">Examples</h3>
+</li>
+</ul>
+<h4 id="examples">Examples</h4>
 <ul>
 <li><a href="https://gist.github.com/HarryR/1093543">https://gist.github.com/HarryR/1093543</a></li>
 <li><a href="https://github.com/PyFilesystem/fs.dropboxfs">https://github.com/PyFilesystem/fs.dropboxfs</a></li>
 </ul>
-<h3 id="dropbox">Dropbox</h3>
-<h4 id="first-install-the-dropbox-package-dot">First, install the <code>dropbox</code> package.</h4>
+<p><span class="underline"><strong>Dropbox</strong></span>
+First, install the <code>dropbox</code> package.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">py i dropbox</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo pip install dropbox</code></pre></td></tr></table>
 </div>
 </div>
-<h4 id="run-the-nosetests-dot">Run the nosetests.</h4>
+<p>Run the nosetests.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -319,33 +296,34 @@ values as username, host, password, etc.</p>
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd <span style="color:#e6db74">&#34;</span>$MYGIT<span style="color:#e6db74">/PyFilesystem/fs.dropboxfs&#34;</span>; nosetests</code></pre></td></tr></table>
 </div>
 </div>
-<h2 id="golang">golang</h2>
-<h3 id="go-fuse"><code>go-fuse</code></h3>
-<p>I had originally considered go.</p>
+<h3 id="option-2-pyfuse">Option 2:  <code>pyfuse</code></h3>
+<p><a href="https://github.com/nrclark/pyfuse">https://github.com/nrclark/pyfuse</a></p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$MYGIT/hanwen/go-fuse/example/autounionfs
-$MYGIT/hanwen/go-fuse/example/benchmark-read-throughput
-$MYGIT/hanwen/go-fuse/example/hello
-$MYGIT/hanwen/go-fuse/example/loopback
-$MYGIT/hanwen/go-fuse/example/memfs
-$MYGIT/hanwen/go-fuse/example/multizip
-$MYGIT/hanwen/go-fuse/example/statfs
-$MYGIT/hanwen/go-fuse/example/unionfs
-$MYGIT/hanwen/go-fuse/example/zipfs</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">fusefs &lt;url&gt; &lt;mountpoint&gt;</code></pre></td></tr></table>
 </div>
 </div>
+<h2 id="i-also-looked-into-python2-and-go">I also looked into Python2 and Go</h2>
+<h3 id="python2">Python2</h3>
+<p>Python 2 is obsolete, so no.</p>
+<p><a href="https://gist.github.com/wettenhj/7019100">https://gist.github.com/wettenhj/7019100</a></p>
+<ul>
+<li><code>python-fuse</code>
+<a href="https://github.com/libfuse/python-fuse">https://github.com/libfuse/python-fuse</a></li>
+<li><code>fusepy</code></li>
+</ul>
+<h3 id="golang">golang</h3>
+<ul>
+<li><code>go-fuse</code>
+<ul>
+<li><a href="https://github.com/hanwen/go-fuse">https://github.com/hanwen/go-fuse</a></li>
+<li><a href="https://github.com/hanwen/go-fuse/blob/master/example/autounionfs/main.go">https://github.com/hanwen/go-fuse/blob/master/example/autounionfs/main.go</a></li>
+</ul>
+</li>
+</ul>
 
     </div>
     <div class="post-footer">
