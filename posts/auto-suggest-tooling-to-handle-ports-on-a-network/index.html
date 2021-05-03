@@ -16,14 +16,16 @@
 Summary Given a server (default localhost), suggest tooling to handle said ports.
 For example, if you are running a postgres server, suggest pgcli (a TUI) to allow you to connect to it.
 Be more intelligent than this, though.
-Tools to accommodate  https://github.com/dbcli/mycli https://github.com/dbcli/pgcli  elisp Detect ports 1 2 3 4  (defset server-command-tuples &#39;((sql-mysql 3306) (sql-postgres 5432))) (provide &#39;my-server-suggest)   Handle ports 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34  (require &#39;sql) ;; Like format but quotes string arguments ;; This would be nice."/>
+Tools to accommodate  https://github.com/dbcli/mycli https://github.com/dbcli/pgcli  elisp Detect ports shell n-list-open-ports
+1 2 3 4 5 6 7 8 9 10 11 12  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null hn=&#34;$1&#34; : &#34;${hn:=&#34;localhost&#34;}&#34; { echo &#34;Port State Service&#34; sudo nmap -sT -O &#34;$hn&#34; | sed &#34;0,/^PORT /{d}&#34; | sed &#34;/^[^0-9]\\&#43;/,\$d&#34; } | sed &#34;s/ \\&#43;/,/g&#34; | pavs   ports-tablist This generates a CSV."/>
 
     <meta property="og:title" content="Auto-suggest tooling to handle ports on a network" />
 <meta property="og:description" content="Work in progress
 Summary Given a server (default localhost), suggest tooling to handle said ports.
 For example, if you are running a postgres server, suggest pgcli (a TUI) to allow you to connect to it.
 Be more intelligent than this, though.
-Tools to accommodate  https://github.com/dbcli/mycli https://github.com/dbcli/pgcli  elisp Detect ports 1 2 3 4  (defset server-command-tuples &#39;((sql-mysql 3306) (sql-postgres 5432))) (provide &#39;my-server-suggest)   Handle ports 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34  (require &#39;sql) ;; Like format but quotes string arguments ;; This would be nice." />
+Tools to accommodate  https://github.com/dbcli/mycli https://github.com/dbcli/pgcli  elisp Detect ports shell n-list-open-ports
+1 2 3 4 5 6 7 8 9 10 11 12  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null hn=&#34;$1&#34; : &#34;${hn:=&#34;localhost&#34;}&#34; { echo &#34;Port State Service&#34; sudo nmap -sT -O &#34;$hn&#34; | sed &#34;0,/^PORT /{d}&#34; | sed &#34;/^[^0-9]\\&#43;/,\$d&#34; } | sed &#34;s/ \\&#43;/,/g&#34; | pavs   ports-tablist This generates a CSV." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/auto-suggest-tooling-to-handle-ports-on-a-network/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-04-30T00:00:00&#43;12:00" />
@@ -184,7 +186,7 @@ Tools to accommodate  https://github.com/dbcli/mycli https://github.com/dbcli/pg
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -216,6 +218,88 @@ to connect to it.</p>
 </ul>
 <h2 id="elisp">elisp</h2>
 <h3 id="detect-ports">Detect ports</h3>
+<p><span class="underline"><strong>shell</strong></span>
+<code>n-list-open-ports</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#e6db74">&#34;&lt;==&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ps -o comm<span style="color:#f92672">=</span> $PPID<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> 0&lt;/dev/null <span style="color:#f92672">)</span> &amp;&gt;/dev/null
+
+hn<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+: <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>hn:=<span style="color:#e6db74">&#34;localhost&#34;</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+
+<span style="color:#f92672">{</span>
+echo <span style="color:#e6db74">&#34;Port State Service&#34;</span>
+sudo nmap -sT -O <span style="color:#e6db74">&#34;</span>$hn<span style="color:#e6db74">&#34;</span> | sed <span style="color:#e6db74">&#34;0,/^PORT /{d}&#34;</span> | sed <span style="color:#e6db74">&#34;/^[^0-9]\\+/,\$d&#34;</span>
+<span style="color:#f92672">}</span> | sed <span style="color:#e6db74">&#34;s/ \\+/,/g&#34;</span> | pavs</code></pre></td></tr></table>
+</div>
+</div>
+<p><code>ports-tablist</code>
+This generates a CSV.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+hn<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+: <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>hn:=<span style="color:#e6db74">&#34;&#34;</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+
+create-tablist n-list-open-ports ports t</code></pre></td></tr></table>
+</div>
+</div>
+<p>Add to the tablist mode list.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defset my-tablist-modes-cmds-or-paths
+  <span style="color:#f92672">&#39;</span>(
+    <span style="color:#75715e">;; &#34;arp -a | spaces2tabs | tsv2csv&#34;</span>
+    <span style="color:#e6db74">&#34;arp&#34;</span>
+    <span style="color:#e6db74">&#34;prompts&#34;</span>
+    <span style="color:#e6db74">&#34;ports&#34;</span>
+    <span style="color:#e6db74">&#34;aws-policies&#34;</span>
+    <span style="color:#e6db74">&#34;aws-users&#34;</span>
+    <span style="color:#e6db74">&#34;mygit&#34;</span>)
+  <span style="color:#e6db74">&#34;A list of commands or csv paths to create tablist minor modes for&#34;</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<p>Create handlers in <code>my-server-suggest.el</code>.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1

@@ -62,7 +62,8 @@ Demo  --  Make scripts tcq
 Summary Given a server (default localhost), suggest tooling to handle said ports.
 For example, if you are running a postgres server, suggest pgcli (a TUI) to allow you to connect to it.
 Be more intelligent than this, though.
-Tools to accommodate  https://github.com/dbcli/mycli https://github.com/dbcli/pgcli  elisp Detect ports 1 2 3 4  (defset server-command-tuples &amp;#39;((sql-mysql 3306) (sql-postgres 5432))) (provide &amp;#39;my-server-suggest)   Handle ports 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34  (require &amp;#39;sql) ;; Like format but quotes string arguments ;; This would be nice.</description>
+Tools to accommodate  https://github.com/dbcli/mycli https://github.com/dbcli/pgcli  elisp Detect ports shell n-list-open-ports
+1 2 3 4 5 6 7 8 9 10 11 12  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null hn=&amp;#34;$1&amp;#34; : &amp;#34;${hn:=&amp;#34;localhost&amp;#34;}&amp;#34; { echo &amp;#34;Port State Service&amp;#34; sudo nmap -sT -O &amp;#34;$hn&amp;#34; | sed &amp;#34;0,/^PORT /{d}&amp;#34; | sed &amp;#34;/^[^0-9]\\+/,\$d&amp;#34; } | sed &amp;#34;s/ \\+/,/g&amp;#34; | pavs   ports-tablist This generates a CSV.</description>
     </item>
     
     <item>
