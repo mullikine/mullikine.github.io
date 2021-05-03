@@ -18,8 +18,7 @@ You need fusefs to mount a pyfilesystem2 extension.
   https://github.com/mirekys/fusefs
   https://pypi.org/project/fs/2.4.11/
   https://github.com/PyFilesystem/pyfilesystem2
-   1  sudo pip install fs fusefs   url is the pyFilesystem2 resource to be mounted, and may contain placeholders for such values as username, host, password, etc.
- This is how to extend pyfilesystem2  https://github."/>
+   1  sudo pip install fs fusefs   1 2  # Usage fusefs &lt;url&gt; &lt;mountpoint&gt;   url is the pyFilesystem2 resource to be mounted, and may contain placeholders for such values as username, host, password, etc."/>
 
     <meta property="og:title" content="Creating FUSE filesystems in Python" />
 <meta property="og:description" content="Python3&#43; Option 1: pyfilesystem2 &#43; fusefs pyfilesystem2 does NOT create a virtual filesystem on its own.
@@ -28,8 +27,7 @@ You need fusefs to mount a pyfilesystem2 extension.
   https://github.com/mirekys/fusefs
   https://pypi.org/project/fs/2.4.11/
   https://github.com/PyFilesystem/pyfilesystem2
-   1  sudo pip install fs fusefs   url is the pyFilesystem2 resource to be mounted, and may contain placeholders for such values as username, host, password, etc.
- This is how to extend pyfilesystem2  https://github." />
+   1  sudo pip install fs fusefs   1 2  # Usage fusefs &lt;url&gt; &lt;mountpoint&gt;   url is the pyFilesystem2 resource to be mounted, and may contain placeholders for such values as username, host, password, etc." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/fuse-filesystem-in-python/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-12-14T00:00:00&#43;13:00" />
@@ -253,6 +251,16 @@ extension.</p>
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo pip install fs fusefs</code></pre></td></tr></table>
 </div>
 </div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># Usage</span>
+fusefs &lt;url&gt; &lt;mountpoint&gt;</code></pre></td></tr></table>
+</div>
+</div>
 <p><code>url</code> is the <code>pyFilesystem2</code> resource to be
 mounted, and may contain placeholders for such
 values as username, host, password, etc.</p>
@@ -297,14 +305,6 @@ First, install the <code>dropbox</code> package.</p>
 </div>
 <h3 id="option-2-pyfuse">Option 2:  <code>pyfuse</code></h3>
 <p><a href="https://github.com/nrclark/pyfuse">https://github.com/nrclark/pyfuse</a></p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">fusefs &lt;url&gt; &lt;mountpoint&gt;</code></pre></td></tr></table>
-</div>
-</div>
 <h2 id="i-also-looked-into-python2-and-go">I also looked into Python2 and Go</h2>
 <h3 id="python2">Python2</h3>
 <p>Python 2 is obsolete, so no.</p>
