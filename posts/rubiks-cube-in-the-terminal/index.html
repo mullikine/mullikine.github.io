@@ -213,6 +213,9 @@ I was stunned to see such an amazing project already existed.</p>
 </ul>
 <h3 id="learn-to-solve-rubik-s-cubes">Learn to solve Rubik&rsquo;s cubes</h3>
 <p><a href="https://www.wired.com/story/how-to-solve-a-rubiks-cube-step-by-step/">https://www.wired.com/story/how-to-solve-a-rubiks-cube-step-by-step/</a></p>
+<ul>
+<li>Encode the <span class="underline"><strong>trigger move</strong></span> algorithms as emacs/expect macros.</li>
+</ul>
 <h2 id="demo">Demo</h2>
 <!-- Play on asciinema.com -->
 <!-- <a title="asciinema recording" href="https://asciinema.org/a/HXyXRX7fnSSxrnzTvZjHIwWFp" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/HXyXRX7fnSSxrnzTvZjHIwWFp.svg" /></a> -->
@@ -383,28 +386,42 @@ encode into emacs key bindings.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun rubiks-randomize ()
-  (interactive)
-  (sh
-   (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;x -tma &#34;</span> (q (tm-get-window))
-           <span style="color:#e6db74">&#34; -s m&#34;</span>
-           <span style="color:#e6db74">&#34; -sl 0.5&#34;</span>
-           <span style="color:#e6db74">&#34; -e Resume&#34;</span>
-           <span style="color:#75715e">;; &#34; -s \&#34;&lt;down&gt;\&#34;&#34;</span>
-           <span style="color:#e6db74">&#34; -down&#34;</span>
-           <span style="color:#e6db74">&#34; -c m&#34;</span>
-           <span style="color:#e6db74">&#34; -e Enter&#34;</span>
-           <span style="color:#e6db74">&#34; -s &#34;</span> (q (<span style="color:#a6e22e">random</span> <span style="color:#ae81ff">50</span>))
-           <span style="color:#e6db74">&#34; -c m&#34;</span>)))
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a6e22e">define-key</span> rubiks-cube-term-mode-map (kbd <span style="color:#e6db74">&#34;w&#34;</span>) (lm (ekm (s-join <span style="color:#e6db74">&#34; &#34;</span> (-repeat <span style="color:#ae81ff">8</span> <span style="color:#e6db74">&#34;&lt;up&gt;&#34;</span>)))))
+(<span style="color:#a6e22e">define-key</span> rubiks-cube-term-mode-map (kbd <span style="color:#e6db74">&#34;s&#34;</span>) (lm (ekm (s-join <span style="color:#e6db74">&#34; &#34;</span> (-repeat <span style="color:#ae81ff">8</span> <span style="color:#e6db74">&#34;&lt;down&gt;&#34;</span>)))))
+(<span style="color:#a6e22e">define-key</span> rubiks-cube-term-mode-map (kbd <span style="color:#e6db74">&#34;a&#34;</span>) (lm (ekm (s-join <span style="color:#e6db74">&#34; &#34;</span> (-repeat <span style="color:#ae81ff">8</span> <span style="color:#e6db74">&#34;&lt;left&gt;&#34;</span>)))))
+(<span style="color:#a6e22e">define-key</span> rubiks-cube-term-mode-map (kbd <span style="color:#e6db74">&#34;d&#34;</span>) (lm (ekm (s-join <span style="color:#e6db74">&#34; &#34;</span> (-repeat <span style="color:#ae81ff">8</span> <span style="color:#e6db74">&#34;&lt;right&gt;&#34;</span>)))))
 
-<span style="color:#75715e">;; Don&#39;t use vim nav, use ijkl</span>
-(<span style="color:#a6e22e">define-key</span> rubiks-cube-term-mode-map (kbd <span style="color:#e6db74">&#34;i&#34;</span>) (lm (ekm (s-join <span style="color:#e6db74">&#34; &#34;</span> (-repeat <span style="color:#ae81ff">8</span> <span style="color:#e6db74">&#34;&lt;up&gt;&#34;</span>)))))
-(<span style="color:#a6e22e">define-key</span> rubiks-cube-term-mode-map (kbd <span style="color:#e6db74">&#34;k&#34;</span>) (lm (ekm (s-join <span style="color:#e6db74">&#34; &#34;</span> (-repeat <span style="color:#ae81ff">8</span> <span style="color:#e6db74">&#34;&lt;down&gt;&#34;</span>)))))
-(<span style="color:#a6e22e">define-key</span> rubiks-cube-term-mode-map (kbd <span style="color:#e6db74">&#34;j&#34;</span>) (lm (ekm (s-join <span style="color:#e6db74">&#34; &#34;</span> (-repeat <span style="color:#ae81ff">8</span> <span style="color:#e6db74">&#34;&lt;left&gt;&#34;</span>)))))
-(<span style="color:#a6e22e">define-key</span> rubiks-cube-term-mode-map (kbd <span style="color:#e6db74">&#34;l&#34;</span>) (lm (ekm (s-join <span style="color:#e6db74">&#34; &#34;</span> (-repeat <span style="color:#ae81ff">8</span> <span style="color:#e6db74">&#34;&lt;right&gt;&#34;</span>)))))
-(<span style="color:#a6e22e">define-key</span> rubiks-cube-term-mode-map (kbd <span style="color:#e6db74">&#34;r&#34;</span>) <span style="color:#e6db74">&#39;rubiks-randomize</span>)</code></pre></td></tr></table>
+(defun tsrs (st)
+  (let* ((l (s-split <span style="color:#e6db74">&#34;&#34;</span> st <span style="color:#66d9ef">t</span>))
+         (i <span style="color:#ae81ff">0</span>)
+         (g (<span style="color:#a6e22e">length</span> l)))
+    (cl-loop for s in l
+             do
+             (setq i (<span style="color:#a6e22e">+</span> <span style="color:#ae81ff">1</span> i))
+             (if (not (<span style="color:#a6e22e">equal</span> <span style="color:#ae81ff">1</span> i))
+                 (sleep <span style="color:#ae81ff">0.5</span>))
+             (term-send-raw-string s))))
+
+(defun rubiks-left-trigger ()
+  (interactive)
+  (tsrs <span style="color:#e6db74">&#34;ruR&#34;</span>))
+
+(defun rubiks-right-trigger ()
+  (interactive)
+  (tsrs <span style="color:#e6db74">&#34;LUl&#34;</span>))
+
+(<span style="color:#a6e22e">define-key</span> rubiks-cube-term-mode-map (kbd <span style="color:#e6db74">&#34;q&#34;</span>) <span style="color:#e6db74">&#39;rubiks-left-trigger</span>)
+(<span style="color:#a6e22e">define-key</span> rubiks-cube-term-mode-map (kbd <span style="color:#e6db74">&#34;e&#34;</span>) <span style="color:#e6db74">&#39;rubiks-right-trigger</span>)
+(<span style="color:#a6e22e">define-key</span> rubiks-cube-term-mode-map (kbd <span style="color:#e6db74">&#34;z&#34;</span>) <span style="color:#e6db74">&#39;rubiks-randomize</span>)</code></pre></td></tr></table>
 </div>
 </div>
 <h3 id="demo-of-using-these-bindings">Demo of using these bindings</h3>
@@ -418,27 +435,27 @@ encode into emacs key bindings.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>i</code></td>
+<td><code>w</code></td>
 <td><code>(lambda nil (interactive) (ekm (s-join   (-repeat 8 &lt;up&gt;))))</code></td>
 <td><code>rubiks-cube-term-mode-map</code></td>
 </tr>
 <tr>
-<td><code>k</code></td>
+<td><code>s</code></td>
 <td><code>(lambda nil (interactive) (ekm (s-join   (-repeat 8 &lt;down&gt;))))</code></td>
 <td><code>rubiks-cube-term-mode-map</code></td>
 </tr>
 <tr>
-<td><code>j</code></td>
+<td><code>a</code></td>
 <td><code>(lambda nil (interactive) (ekm (s-join   (-repeat 8 &lt;left&gt;))))</code></td>
 <td><code>rubiks-cube-term-mode-map</code></td>
 </tr>
 <tr>
-<td><code>l</code></td>
+<td><code>d</code></td>
 <td><code>(lambda nil (interactive) (ekm (s-join   (-repeat 8 &lt;right&gt;))))</code></td>
 <td><code>rubiks-cube-term-mode-map</code></td>
 </tr>
 <tr>
-<td><code>r</code></td>
+<td><code>z</code></td>
 <td><code>rubiks-randomize</code></td>
 <td><code>rubiks-cube-term-mode-map</code></td>
 </tr>
@@ -456,6 +473,54 @@ and then enter a seed number.</p>
 <!-- <a title="asciinema recording" href="https://asciinema.org/a/79rTFmaV4yvAGvmS1uROdpXI0" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/79rTFmaV4yvAGvmS1uROdpXI0.svg" /></a> -->
 <!-- Play on the blog -->
 <script src="https://asciinema.org/a/79rTFmaV4yvAGvmS1uROdpXI0.js" id="asciicast-79rTFmaV4yvAGvmS1uROdpXI0" async></script>
+<h2 id="create-trigger-bindings">Create trigger bindings</h2>
+<p>The following “trigger moves” are the most
+basic of the bunch:</p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>sequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Right Trigger</td>
+<td>R U R’</td>
+</tr>
+<tr>
+<td>Left Trigger</td>
+<td>L’ U’ L</td>
+</tr>
+</tbody>
+</table>
+<p>I bind them to keys. Code above.</p>
+<table>
+<thead>
+<tr>
+<th>kb</th>
+<th>f</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>q</code></td>
+<td><code>rubiks-left-trigger</code></td>
+<td><code>rubiks-cube-term-mode-map</code></td>
+</tr>
+<tr>
+<td><code>e</code></td>
+<td><code>rubiks-right-trigger</code></td>
+<td><code>rubiks-cube-term-mode-map</code></td>
+</tr>
+</tbody>
+</table>
+<p><span class="underline"><strong>Demo of using the trigger algorithms</strong></span></p>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/PHGEerTagt2RBNKJiKgtGnW4j" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/PHGEerTagt2RBNKJiKgtGnW4j.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/PHGEerTagt2RBNKJiKgtGnW4j.js" id="asciicast-PHGEerTagt2RBNKJiKgtGnW4j" async></script>
     </div>
     <div class="post-footer">
         <p>
