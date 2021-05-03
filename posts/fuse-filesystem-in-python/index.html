@@ -12,10 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Creating FUSE filesystems in Python"/>
-<meta name="twitter:description" content="Summary I wanted to find a simple way to create FUSE filesystems in Python3. I found that support in Python2 was good, as in this gist (https://gist.github.com/wettenhj/7019100), but it appears that direct bindings in Python3 no longer exist and the way these days is to build a pyfilesystem2 extension and then mount it with fusefs. I don&rsquo;t like this, so I may choose to use another language or go back to python2 for this one application."/>
+<meta name="twitter:description" content="Summary I wanted to find a simple way to create FUSE filesystems in Python3. I found that support in Python2 was good and there is a good example, as in this gist (https://gist.github.com/wettenhj/7019100), but it appears that direct bindings in Python3 now exist in the form of a different library pyfuse (see option 2), but the most popular way these days is to build a pyfilesystem2 extension and then mount it with fusefs."/>
 
     <meta property="og:title" content="Creating FUSE filesystems in Python" />
-<meta property="og:description" content="Summary I wanted to find a simple way to create FUSE filesystems in Python3. I found that support in Python2 was good, as in this gist (https://gist.github.com/wettenhj/7019100), but it appears that direct bindings in Python3 no longer exist and the way these days is to build a pyfilesystem2 extension and then mount it with fusefs. I don&rsquo;t like this, so I may choose to use another language or go back to python2 for this one application." />
+<meta property="og:description" content="Summary I wanted to find a simple way to create FUSE filesystems in Python3. I found that support in Python2 was good and there is a good example, as in this gist (https://gist.github.com/wettenhj/7019100), but it appears that direct bindings in Python3 now exist in the form of a different library pyfuse (see option 2), but the most popular way these days is to build a pyfilesystem2 extension and then mount it with fusefs." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/fuse-filesystem-in-python/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-12-14T00:00:00&#43;13:00" />
@@ -192,7 +192,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -213,15 +213,17 @@
       <h2 id="summary">Summary</h2>
 <p>I wanted to find a simple way to create FUSE
 filesystems in Python3. I found that support in
-Python2 was good, as in this
+Python2 was good and there is a good example, as in this
 gist
 (<a href="https://gist.github.com/wettenhj/7019100">https://gist.github.com/wettenhj/7019100</a>),
-but it appears that direct bindings in Python3 no longer exist
-and the way these days is to build a
-<code>pyfilesystem2</code> extension and then mount it
-with <code>fusefs</code>. I don&rsquo;t like this, so I may
-choose to use another language or go back to
-python2 for this one application.</p>
+but it appears that direct bindings in Python3
+now exist in the form of a different library
+<code>pyfuse</code> (see option 2), but the most popular
+way these days is to build a <code>pyfilesystem2</code>
+extension and then mount it with <code>fusefs</code>. I
+don&rsquo;t like this, so I may choose to use
+another language or go back to python2 for
+this one application.</p>
 <h2 id="python3-plus-methods">Python3+ methods</h2>
 <h3 id="option-1-pyfilesystem2-plus-fusefs">Option 1: <code>pyfilesystem2</code> + <code>fusefs</code></h3>
 <p><code>pyfilesystem2</code> does NOT create a virtual
@@ -305,6 +307,10 @@ First, install the <code>dropbox</code> package.</p>
 </div>
 <h3 id="option-2-pyfuse">Option 2:  <code>pyfuse</code></h3>
 <p><a href="https://github.com/nrclark/pyfuse">https://github.com/nrclark/pyfuse</a></p>
+<dl>
+<dt>Example</dt>
+<dd><a href="https://github.com/nrclark/pyfuse/blob/master/hello.py">https://github.com/nrclark/pyfuse/blob/master/hello.py</a></dd>
+</dl>
 <h2 id="i-also-looked-into-python2-and-go">I also looked into Python2 and Go</h2>
 <h2 id="python2-methods">Python2 methods</h2>
 <p>Python 2 is obsolete, so no.</p>
