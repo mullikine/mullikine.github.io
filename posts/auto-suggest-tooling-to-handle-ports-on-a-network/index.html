@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Shane Mulligan" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.c1d841e1ca10711068e54dd90fcd8dbf42b9f3bb7bbd12d56eba7c7ebfdf4cbc.css" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.f15c6881ea0d2b7fc119650f36efb4b960453d5c234a585be33fa8879746c4b8.css" />
 
     
     <meta name="twitter:card" content="summary"/>
@@ -16,16 +16,16 @@
 Summary Given a server (default localhost), suggest tooling to handle said ports.
 For example, if you are running a postgres server, suggest pgcli (a TUI) to allow you to connect to it.
 Be more intelligent than this, though.
-Tools to accommodate  https://github.com/dbcli/mycli https://github.com/dbcli/pgcli  elisp Detect ports shell n-list-open-ports
-1 2 3 4 5 6 7 8 9 10 11 12  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null hn=&#34;$1&#34; : &#34;${hn:=&#34;localhost&#34;}&#34; { echo &#34;Port State Service&#34; sudo nmap -sT -O &#34;$hn&#34; | sed &#34;0,/^PORT /{d}&#34; | sed &#34;/^[^0-9]\\&#43;/,\$d&#34; } | sed &#34;s/ \\&#43;/,/g&#34; | pavs   ports-tablist This generates a CSV."/>
+Tools to accommodate  https://github.com/dbcli/mycli https://github.com/dbcli/pgcli  Files too somehow?  https://github.com/dbcli/litecli  elisp Detect ports shell n-list-open-ports
+1 2 3 4 5 6 7 8 9 10 11 12  #!"/>
 
     <meta property="og:title" content="Auto-suggest tooling to handle ports on a network" />
 <meta property="og:description" content="Work in progress
 Summary Given a server (default localhost), suggest tooling to handle said ports.
 For example, if you are running a postgres server, suggest pgcli (a TUI) to allow you to connect to it.
 Be more intelligent than this, though.
-Tools to accommodate  https://github.com/dbcli/mycli https://github.com/dbcli/pgcli  elisp Detect ports shell n-list-open-ports
-1 2 3 4 5 6 7 8 9 10 11 12  #!/bin/bash export TTY ( hs &#34;$(basename &#34;$0&#34;)&#34; &#34;$@&#34; &#34;#&#34; &#34;&lt;==&#34; &#34;$(ps -o comm= $PPID)&#34; 0&lt;/dev/null ) &amp;&gt;/dev/null hn=&#34;$1&#34; : &#34;${hn:=&#34;localhost&#34;}&#34; { echo &#34;Port State Service&#34; sudo nmap -sT -O &#34;$hn&#34; | sed &#34;0,/^PORT /{d}&#34; | sed &#34;/^[^0-9]\\&#43;/,\$d&#34; } | sed &#34;s/ \\&#43;/,/g&#34; | pavs   ports-tablist This generates a CSV." />
+Tools to accommodate  https://github.com/dbcli/mycli https://github.com/dbcli/pgcli  Files too somehow?  https://github.com/dbcli/litecli  elisp Detect ports shell n-list-open-ports
+1 2 3 4 5 6 7 8 9 10 11 12  #!" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/auto-suggest-tooling-to-handle-ports-on-a-network/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-04-30T00:00:00&#43;12:00" />
@@ -231,6 +231,10 @@ to connect to it.</p>
 <ul>
 <li><a href="https://github.com/dbcli/mycli">https://github.com/dbcli/mycli</a></li>
 <li><a href="https://github.com/dbcli/pgcli">https://github.com/dbcli/pgcli</a></li>
+</ul>
+<h3 id="files-too-somehow">Files too somehow?</h3>
+<ul>
+<li><a href="https://github.com/dbcli/litecli">https://github.com/dbcli/litecli</a></li>
 </ul>
 <h2 id="elisp">elisp</h2>
 <h3 id="detect-ports">Detect ports</h3>
@@ -469,6 +473,8 @@ create-tablist n-list-open-ports ports t</code></pre></td></tr></table>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker <span style="color:#ae81ff">\
@@ -476,6 +482,8 @@ create-tablist n-list-open-ports ports t</code></pre></td></tr></table>
 </span><span style="color:#ae81ff"></span>    --rm <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    -p 5432:5432 <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    -e POSTGRES_PASSWORD<span style="color:#f92672">=</span>admin <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -e POSTGRES_USER<span style="color:#f92672">=</span>admin <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    -e POSTGRES_DB<span style="color:#f92672">=</span>main <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    -v <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span><span style="color:#e6db74">:/</span><span style="color:#66d9ef">$(</span>pwd | slugify<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    -w <span style="color:#e6db74">&#34;/</span><span style="color:#66d9ef">$(</span>pwd | slugify<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
 </span><span style="color:#ae81ff"></span>    -ti <span style="color:#ae81ff">\
