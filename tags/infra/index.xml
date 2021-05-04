@@ -13,12 +13,11 @@
       <pubDate>Fri, 30 Apr 2021 00:00:00 +1200</pubDate>
       
       <guid>https://mullikine.github.io/posts/auto-suggest-tooling-to-handle-ports-on-a-network/</guid>
-      <description>Work in progress
-Summary Given a server (default localhost), suggest tooling to handle said ports.
+      <description>Summary Given a server (default localhost), suggest tooling to handle said ports.
 For example, if you are running a postgres server, suggest pgcli (a TUI) to allow you to connect to it.
 Be more intelligent than this, though.
 Tools to accommodate  https://github.com/dbcli/mycli https://github.com/dbcli/pgcli  Files too somehow?  https://github.com/dbcli/litecli  elisp Detect ports shell n-list-open-ports
-1 2 3 4 5 6 7 8 9 10 11 12  #!</description>
+1 2 3 4 5 6 7 8 9 10 11 12  #!/bin/bash export TTY ( hs &amp;#34;$(basename &amp;#34;$0&amp;#34;)&amp;#34; &amp;#34;$@&amp;#34; &amp;#34;#&amp;#34; &amp;#34;&amp;lt;==&amp;#34; &amp;#34;$(ps -o comm= $PPID)&amp;#34; 0&amp;lt;/dev/null ) &amp;amp;&amp;gt;/dev/null hn=&amp;#34;$1&amp;#34; : &amp;#34;${hn:=&amp;#34;localhost&amp;#34;}&amp;#34; { echo &amp;#34;Port State Service&amp;#34; sudo nmap -sT -O &amp;#34;$hn&amp;#34; | sed &amp;#34;0,/^PORT /{d}&amp;#34; | sed &amp;#34;/^[^0-9]\\+/,\$d&amp;#34; } | sed &amp;#34;s/ \\+/,/g&amp;#34; | pavs   ports-tablist This generates a CSV.</description>
     </item>
     
   </channel>
