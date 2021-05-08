@@ -12,16 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Graphviz and Hugo"/>
-<meta name="twitter:description" content="Related articles Generate graphviz and prolog from org-brain // Bodacious Blog
-org-babel https://orgmode.org/worg/org-contrib/babel/
-Babel allows you to embed code blocks into your org files and then run that code and see the results also embedded in the org file.
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  #&#43;BEGIN_SRC graphviz-dot -n :filter dot-digraph-ascii :async :results verbatim code &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;s1&#34; -&gt; &#34;low-priority&#34;; &#34;s2&#34; -&gt; &#34;low-priority&#34;; &#34;s3&#34; -&gt; &#34;low-priority&#34;; &#34;low-priority&#34; -&gt; &#34;s4&#34;; &#34;low-priority&#34; -&gt; &#34;s5&#34;; &#34;low-priority&#34; -&gt; &#34;high-priority&#34; [label=&#34;wait-time exceeded&#34;]; &#34;high-priority&#34; -&gt; &#34;s4&#34;; &#34;high-priority&#34; -&gt; &#34;s5&#34;; #&#43;END_SRC   &#43;------------------------------------------------------&#43; | | | &#43;----&#43; #==============# wait-time exceeded #===============# &#43;----&#43; | | s1 | --&gt; H H --------------------&gt; H high-priority H --&gt; | s4 | | &#43;----&#43; H H #===============# &#43;----&#43; | H H ^ | H low-priority H ----------------------------------------------&#43; | H H | &#43;----&#43; H H &#43;---------------&#43; | | s2 | --&gt; H H &lt;-------------------- | s3 | | &#43;----&#43; #==============# &#43;---------------&#43; | | | | | v | &#43;--------------&#43; &#43;-----------&gt; | s5 | &#43;--------------&#43; dot-digraph-ascii"/>
+<meta name="twitter:description" content="See also:  The worlds fastest framework for building websites | Hugo Generate graphviz and prolog from org-brain // Bodacious Blog Babel: active code in Org-mode    Summary This is just a demonstration of how I put graphs in my blog. I am using Hugo, the static site builder, org-mode, a file format for writing notes in emacs and org-babel, the builtin extension for org-mode for embedding code blocks in org files."/>
 
     <meta property="og:title" content="Graphviz and Hugo" />
-<meta property="og:description" content="Related articles Generate graphviz and prolog from org-brain // Bodacious Blog
-org-babel https://orgmode.org/worg/org-contrib/babel/
-Babel allows you to embed code blocks into your org files and then run that code and see the results also embedded in the org file.
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  #&#43;BEGIN_SRC graphviz-dot -n :filter dot-digraph-ascii :async :results verbatim code &#34;low-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;high-priority&#34; [shape=&#34;doublecircle&#34; color=&#34;orange&#34;]; &#34;s1&#34; -&gt; &#34;low-priority&#34;; &#34;s2&#34; -&gt; &#34;low-priority&#34;; &#34;s3&#34; -&gt; &#34;low-priority&#34;; &#34;low-priority&#34; -&gt; &#34;s4&#34;; &#34;low-priority&#34; -&gt; &#34;s5&#34;; &#34;low-priority&#34; -&gt; &#34;high-priority&#34; [label=&#34;wait-time exceeded&#34;]; &#34;high-priority&#34; -&gt; &#34;s4&#34;; &#34;high-priority&#34; -&gt; &#34;s5&#34;; #&#43;END_SRC   &#43;------------------------------------------------------&#43; | | | &#43;----&#43; #==============# wait-time exceeded #===============# &#43;----&#43; | | s1 | --&gt; H H --------------------&gt; H high-priority H --&gt; | s4 | | &#43;----&#43; H H #===============# &#43;----&#43; | H H ^ | H low-priority H ----------------------------------------------&#43; | H H | &#43;----&#43; H H &#43;---------------&#43; | | s2 | --&gt; H H &lt;-------------------- | s3 | | &#43;----&#43; #==============# &#43;---------------&#43; | | | | | v | &#43;--------------&#43; &#43;-----------&gt; | s5 | &#43;--------------&#43; dot-digraph-ascii" />
+<meta property="og:description" content="See also:  The worlds fastest framework for building websites | Hugo Generate graphviz and prolog from org-brain // Bodacious Blog Babel: active code in Org-mode    Summary This is just a demonstration of how I put graphs in my blog. I am using Hugo, the static site builder, org-mode, a file format for writing notes in emacs and org-babel, the builtin extension for org-mode for embedding code blocks in org files." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/graphviz/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-10-31T00:00:00&#43;13:00" />
@@ -216,10 +210,30 @@ Babel allows you to embed code blocks into your org files and then run that code
 
 
     <div class="post-content">
-      <h2 id="related-articles">Related articles</h2>
-<p><a href="https://mullikine.github.io/posts/generate-graphviz-and-prolog-from-org-brain/">Generate graphviz and prolog from org-brain // Bodacious Blog</a></p>
+      <ul>
+<li>See also:
+<ul>
+<li><a href="https://gohugo.io/">The worlds fastest framework for building websites | Hugo</a></li>
+<li><a href="https://mullikine.github.io/posts/generate-graphviz-and-prolog-from-org-brain/">Generate graphviz and prolog from org-brain // Bodacious Blog</a></li>
+<li><a href="https://orgmode.org/worg/org-contrib/babel/">Babel: active code in Org-mode</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="summary">Summary</h2>
+<p>This is just a demonstration of how I put
+graphs in my blog. I am using <code>Hugo</code>, the
+static site builder, <code>org-mode</code>, a file format
+for writing notes in emacs and <code>org-babel</code>,
+the builtin extension for <code>org-mode</code> for
+embedding code blocks in org files.</p>
+<p>There is an emacs plugin called <code>ox-hugo</code>
+which allows you to export from <code>org</code> to
+markdown for <code>hugo</code>.</p>
+<p><code>graphviz</code> is the file format and tooling for designing graphs.</p>
+<p>I am also using <code>Graph::Easy</code>, a perl module
+which renders graphs in ascii from the
+graphviz <code>dot</code> format.</p>
 <h2 id="org-babel"><code>org-babel</code></h2>
-<p><a href="https://orgmode.org/worg/org-contrib/babel/">https://orgmode.org/worg/org-contrib/babel/</a></p>
 <p>Babel allows you to embed code blocks into
 your <code>org</code> files and then run that code and
 see the results also embedded in the <code>org</code>
