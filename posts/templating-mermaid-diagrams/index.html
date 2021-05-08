@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en-us">
   <head>
-    <title>Templating mermaid diagrams // Bodacious Blog</title>
+    <title>Templating mermaid diagrams and other files // Bodacious Blog</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.82.0-DEV" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,15 +11,15 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Templating mermaid diagrams"/>
+<meta name="twitter:title" content="Templating mermaid diagrams and other files"/>
 <meta name="twitter:description" content="Related mustache templating processor // Bodacious Blog  Summary I would like to place lengthy strings into mermaid diagram nodes, but I don&rsquo;t want to worry about escaping characters or formatting the text.
-I design a simple templating pipeline for automatically escaping text and inserting it into mermaid diagrams and also for working with mermaid graphs within emacs&#39; babel.
-I have made it trivial for me to develop large flowcharts with large amounts of text and special characters."/>
+The problem I&rsquo;m trying to solve is that a simple string substitution is not enough for many formats, including mermaid files.
+There may be some additional transformation that needs to be applied to the string before it goes into the file."/>
 
-    <meta property="og:title" content="Templating mermaid diagrams" />
+    <meta property="og:title" content="Templating mermaid diagrams and other files" />
 <meta property="og:description" content="Related mustache templating processor // Bodacious Blog  Summary I would like to place lengthy strings into mermaid diagram nodes, but I don&rsquo;t want to worry about escaping characters or formatting the text.
-I design a simple templating pipeline for automatically escaping text and inserting it into mermaid diagrams and also for working with mermaid graphs within emacs&#39; babel.
-I have made it trivial for me to develop large flowcharts with large amounts of text and special characters." />
+The problem I&rsquo;m trying to solve is that a simple string substitution is not enough for many formats, including mermaid files.
+There may be some additional transformation that needs to be applied to the string before it goes into the file." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/templating-mermaid-diagrams/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-03-11T00:00:00&#43;13:00" />
@@ -182,7 +182,7 @@ I have made it trivial for me to develop large flowcharts with large amounts of 
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Templating mermaid diagrams</h1>
+      <h1 class ="post-title">Templating mermaid diagrams and other files</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -196,7 +196,7 @@ I have made it trivial for me to develop large flowcharts with large amounts of 
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          3 min read
+          5 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -223,6 +223,8 @@ I have made it trivial for me to develop large flowcharts with large amounts of 
 mermaid diagram nodes, but I don&rsquo;t want to
 worry about escaping characters or formatting
 the text.</p>
+<p>The <span class="underline">problem</span> I&rsquo;m trying to solve is that a simple string substitution is not enough for many formats, including <code>mermaid</code> files.</p>
+<p>There may be some additional transformation that needs to be applied to the string before it goes into the file.</p>
 <p>I design a simple templating pipeline for
 automatically escaping text and inserting it
 into mermaid diagrams and also for working
@@ -236,11 +238,10 @@ other file formats.</p>
 <p><code>YAML</code> turns out to be an excellent format for
 in storing configuration data and program
 input due to its heredoc syntax.</p>
-<h3 id="problem-i-m-trying-to-solve">Problem I&rsquo;m trying to solve</h3>
-<p>The mermaid diagram syntax.</p>
 <h2 id="code">Code</h2>
 <h3 id="template"><code>template</code></h3>
-<p>This script is a makeshift template preprocessor, which i use to do the substitution.</p>
+<p>This script is a makeshift template preprocessor, which I use to do the substitution initially.</p>
+<p>I did it this way first just to get an idea of how I was going to approach the task. But the final code will use <code>mustache</code>, a much more robust templating tool.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -320,14 +321,39 @@ cat <span style="color:#e6db74">&#34;</span>$fp<span style="color:#e6db74">&#34;
 <p>This mermaid diagram template needs <code>&lt;parsemetadata&gt;</code> to be replaced by a string which is syntactically correct.</p>
 <p>The string must be a single lined double quoted string and where newlines are to appear, the html tag <code>&lt;br /&gt;</code> must appear.</p>
 <p>I don&rsquo;t want to remember those rules. I just want to automate that templating process.</p>
-<p><a id="code-snippet--mermaidgraph"></a></p>
+<p><a id="code-snippet--label"></a>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Parse metadata.csv and for each row, extract
+the title, abstract, date published etc.
+(contained directly in the csv) and bodytext of
+the article (from the article json file)</code></pre></td></tr></table>
+</div>
+</div></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sed -z <span style="color:#e6db74">&#39;s=\n=&lt;br /&gt;=g&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Parse metadata.csv and <span style="color:#66d9ef">for</span> each row, extract&lt;br /&gt;the title, abstract, date published etc.&lt;br /&gt;<span style="color:#f92672">(</span>contained directly in the csv<span style="color:#f92672">)</span> and bodytext of&lt;br /&gt;the article <span style="color:#f92672">(</span>from the article json file<span style="color:#f92672">)</span>
+</code></pre></div><p><a id="code-snippet--mermaidgraph"></a></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">graph TD
     A[&lt;parsemetadata&gt;] --&gt; B{Is it?};
     B -- Yes --&gt; C[OK];
     C --&gt; D[Rethink];
     D --&gt; B;
     B -- No ----&gt; E[End];
-</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+</code></pre></div><p><code>aqf-nice</code> just double quotes the string.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
@@ -335,7 +361,13 @@ cat <span style="color:#e6db74">&#34;</span>$fp<span style="color:#e6db74">&#34;
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">template -parsemetadata <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>aqf-nice <span style="color:#e6db74">&#34;Parse metadata.csv and for each row, extract&lt;br /&gt;the title, abstract, date published etc.&lt;br /&gt;(contained directly in the csv) and bodytext of&lt;br /&gt;the article (from the article json file)&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">graph TD
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">graph TD
+    A<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Parse metadata.csv and for each row, extract&lt;br /&gt;the title, abstract, date published etc.&lt;br /&gt;(contained directly in the csv) and bodytext of&lt;br /&gt;the article (from the article json file)&#34;</span><span style="color:#f92672">]</span> --&gt; B<span style="color:#f92672">{</span>Is it?<span style="color:#f92672">}</span>;
+    B -- Yes --&gt; C<span style="color:#f92672">[</span>OK<span style="color:#f92672">]</span>;
+    C --&gt; D<span style="color:#f92672">[</span>Rethink<span style="color:#f92672">]</span>;
+    D --&gt; B;
+    B -- No ----&gt; E<span style="color:#f92672">[</span>End<span style="color:#f92672">]</span>;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">graph TD
   A[&#34;Parse metadata.csv and for each row, extract&lt;br /&gt;the title, abstract, date published etc.&lt;br /&gt;(contained directly in the csv) and bodytext of&lt;br /&gt;the article (from the article json file)&#34;] --&gt; B{Is it?};
   B -- Yes --&gt; C[OK];
   C --&gt; D[Rethink];
@@ -373,16 +405,14 @@ cat <span style="color:#e6db74">&#34;</span>$fp<span style="color:#e6db74">&#34;
 </div>
 </div></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">mermaiddata-raw.yaml</span>
-</code></pre></div><p>TODO List all the keys, for each key pipe through associated filter.
-Reconstruct the yaml.</p>
-<p><a id="code-snippet--mermaidtemplate"></a></p>
+</code></pre></div><p><a id="code-snippet--mermaidtemplate"></a></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">graph TD
     A[{{parsemetadata}}] --&gt; B{Is it?};
     B[{{applytextprocessing}}] -- Yes --&gt; C[OK];
     C --&gt; D[Rethink];
     D --&gt; B;
     B -- No ----&gt; E[End];
-</code></pre></div><p>&lt;irparse.mermaid &gt;</p>
+</code></pre></div><p>&lt;irparse.mermaid&gt;</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -391,15 +421,44 @@ Reconstruct the yaml.</p>
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mustache mermaiddata.yaml irparse.mermaid</code></pre></td></tr></table>
 </div>
 </div>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">graph TD
-    A<span style="color:#f92672">[</span>Parse metadata.csv and <span style="color:#66d9ef">for</span> each row, extract
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">graph TD
+  A[Parse metadata.csv and for each row, extract
 the title, abstract, date published etc.
-<span style="color:#f92672">(</span>contained directly in the csv<span style="color:#f92672">)</span> and bodytext of
-the article <span style="color:#f92672">(</span>from the article json file<span style="color:#f92672">)]</span> --&gt; B<span style="color:#f92672">{</span>Is it?<span style="color:#f92672">}</span>;
-    B -- Yes --&gt; C<span style="color:#f92672">[</span>OK<span style="color:#f92672">]</span>;
-    C --&gt; D<span style="color:#f92672">[</span>Rethink<span style="color:#f92672">]</span>;
-    D --&gt; B;
-    B -- No ----&gt; E<span style="color:#f92672">[</span>End<span style="color:#f92672">]</span>;
+(contained directly in the csv) and bodytext of
+the article (from the article json file)] --&gt; B{Is it?};
+  B -- Yes --&gt; C[OK];
+  C --&gt; D[Rethink];
+  D --&gt; B;
+  B -- No ----&gt; E[End];
+</code></pre></div><p>But how can I then include the <code>sed</code> command in the pipeline?</p>
+<p>I need something new. I need to define a new format. This should go alongside the data file, but specify the transformations.</p>
+<p>List all the keys, for each key pipe through associated filter.
+Reconstruct the yaml.</p>
+<p><a id="code-snippet--mermaiddata"></a>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">parsemetadata</span>: |-<span style="color:#e6db74">
+</span><span style="color:#e6db74">  </span>  <span style="color:#ae81ff">sed -z &#39;s=\n=&lt;br /&gt;=g&#39;</span>
+<span style="color:#f92672">applytextprocessing</span>: |-<span style="color:#e6db74">
+</span><span style="color:#e6db74">  </span>  <span style="color:#ae81ff">sed -z &#39;s=\n=&lt;br /&gt;=g&#39;</span></code></pre></td></tr></table>
+</div>
+</div></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat mermaiddata-raw.yaml | yq -r <span style="color:#e6db74">&#34;. | keys[]&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">applytextprocessing
+parsemetadata
 </code></pre></div>
     </div>
     <div class="post-footer">
