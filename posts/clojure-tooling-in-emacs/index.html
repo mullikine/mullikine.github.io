@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Clojure tooling in emacs // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.d72d030ad187ab0ad50539f121fd90261512369e55b6fd1041b05b88fc02834f.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Clojure tooling in emacs"/>
+<meta name="twitter:description" content="Summary This is just an overview of some Clojure tooling with a focus on emacs and the CLI. I also show a few extensions I&rsquo;ve made.
+ References https://practicalli.github.io/clojure/clojure-tools/data-browsers/     Tooling Tooling type     cider-inspector Data browser   rebel REPL   lein repl REPL   lein project management   cljfmt code formatter    lein I have made some improvements to my lein tooling."/>
+
+    <meta property="og:title" content="Clojure tooling in emacs" />
+<meta property="og:description" content="Summary This is just an overview of some Clojure tooling with a focus on emacs and the CLI. I also show a few extensions I&rsquo;ve made.
+ References https://practicalli.github.io/clojure/clojure-tools/data-browsers/     Tooling Tooling type     cider-inspector Data browser   rebel REPL   lein repl REPL   lein project management   cljfmt code formatter    lein I have made some improvements to my lein tooling." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/clojure-tooling-in-emacs/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-11T00:00:00&#43;12:00" />
+<meta property="article:modified_time" content="2021-05-11T00:00:00&#43;12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+
+    
+    <script type="text/javascript">
+      var _paq = window._paq = window._paq || [];
+       
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="https://mullikine.matomo.cloud/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.src='//cdn.matomo.cloud/mullikine.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    
+
+  </head>
+  <body>
+    <header class="app-header">
+
+<a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/generating-hyperlinks-for-glossaries-and-other-parsers-in-emacs/">Hyperlink generation in emacs</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-case-for-learned-index-structures/">Case for Learned Index Structures</a>
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (298 topics)</a> <a href="https://github.com/mullikine/glossaries-gh">code</a>
+<br />
+<a href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">Automating Dwarf Fortress</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<a class="big" href="https://infogetics.github.io/">Infogetics on GitHub</a>
+<br />
+<a class="big" href="https://github.com/semiosis">Semiosis on GitHub</a>
+<br />
+<a class="big" href="https://takaheai.github.io/">TakaheAI on GitHub</a>
+<br />
+<div class="taglist">
+
+  <a class="tag" href="https://mullikine.github.io/tags/gpt/">GPT (Generative Pre-trained Transformer)</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/xenolinguistics/">xenolinguistics</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/shell/">shell</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a>
+<a class="tag" href="https://mullikine.github.io/tags/iac/">IaC</a>
+<a class="tag big" href="https://mullikine.github.io/tags/facebook/">Facebook</a>
+<a class="tag" href="https://mullikine.github.io/tags/wfh/">WFH</a>
+
+
+<a class="tag" href="https://mullikine.github.io/tags/babel/">babel</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/github/">GitHub</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsl/">DSL</a>
+<a class="tag" href="https://mullikine.github.io/tags/music/">music</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/diagrams/">diagrams</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/neural-engineering/">neural-engineering</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/aws/">AWS</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag big" href="https://mullikine.github.io/tags/uber/">Uber</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/microsoft/">Microsoft</a>
+<a class="tag big" href="https://mullikine.github.io/tags/neuralink/">Neuralink</a>
+<a class="tag big" href="https://mullikine.github.io/tags/openai/">OpenAI</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/rosie/">rosie</a>
+<a class="tag" href="https://mullikine.github.io/tags/terraform/">Terraform</a>
+<a class="tag" href="https://mullikine.github.io/tags/elasticsearch/">ELK</a>
+<a class="tag" href="https://mullikine.github.io/tags/semmle/">Semmle</a>
+<a class="tag" href="https://mullikine.github.io/tags/expect/">tcl/expect</a>
+<a class="tag" href="https://mullikine.github.io/tags/solr/">solr</a>
+</div>
+</div>
+
+
+
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Clojure tooling in emacs</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          May 11, 2021
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/clojure/">clojure</a><a class="tag" href="http://mullikine.github.io/tags/emacs/">emacs</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      <h3 id="summary">Summary</h3>
+<p>This is just an overview of some Clojure tooling
+with a focus on emacs and the CLI. I also show
+a few extensions I&rsquo;ve made.</p>
+<dl>
+<dt>References</dt>
+<dd><a href="https://practicalli.github.io/clojure/clojure-tools/data-browsers/">https://practicalli.github.io/clojure/clojure-tools/data-browsers/</a></dd>
+</dl>
+<table>
+<thead>
+<tr>
+<th>Tooling</th>
+<th>Tooling type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cider-inspector</code></td>
+<td>Data browser</td>
+</tr>
+<tr>
+<td><code>rebel</code></td>
+<td>REPL</td>
+</tr>
+<tr>
+<td><code>lein repl</code></td>
+<td>REPL</td>
+</tr>
+<tr>
+<td><code>lein</code></td>
+<td>project management</td>
+</tr>
+<tr>
+<td><code>cljfmt</code></td>
+<td>code formatter</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lein"><code>lein</code></h3>
+<p>I have made some improvements to my <code>lein</code> tooling.</p>
+<h4 id="fuzzy-doc-lookup">fuzzy doc lookup</h4>
+<p>This will enable you to fuzzy search for
+functions/macros that are <strong>not</strong> under the
+cursor and display their documentation.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(<span style="color:#a6e22e">define-key</span> cider-repl-mode-map (kbd <span style="color:#e6db74">&#34;C-c h f&#34;</span>) <span style="color:#e6db74">&#39;my/cider-docfun</span>)
+
+(defun my/cider-docfun (symbol-string)
+  (interactive (<span style="color:#a6e22e">list</span> (let ((s (symbol-at-point)))
+                       (if s
+                           (s-replace-regexp <span style="color:#e6db74">&#34;^[a-z]+/&#34;</span> <span style="color:#e6db74">&#34;&#34;</span> (sym2str s))
+                         <span style="color:#e6db74">&#34;&#34;</span>))))
+  <span style="color:#75715e">;; special-form</span>
+  <span style="color:#75715e">;; macro</span>
+  <span style="color:#75715e">;; function</span>
+
+  (let* ((cs (cider-complete <span style="color:#e6db74">&#34;&#34;</span>))
+         (prompt
+          (cond
+           ((<span style="color:#a6e22e">&gt;=</span> (<span style="color:#a6e22e">prefix-numeric-value</span> current-prefix-arg) (<span style="color:#a6e22e">expt</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">4</span>))
+            <span style="color:#e6db74">&#34;function: &#34;</span>)
+           ((<span style="color:#a6e22e">&gt;=</span> (<span style="color:#a6e22e">prefix-numeric-value</span> current-prefix-arg) (<span style="color:#a6e22e">expt</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">3</span>))
+            <span style="color:#e6db74">&#34;special form: &#34;</span>)
+           ((<span style="color:#a6e22e">&gt;=</span> (<span style="color:#a6e22e">prefix-numeric-value</span> current-prefix-arg) (<span style="color:#a6e22e">expt</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">2</span>))
+            <span style="color:#e6db74">&#34;macro: &#34;</span>)
+           (<span style="color:#66d9ef">t</span>
+            <span style="color:#e6db74">&#34;func/macro/special: &#34;</span>)))
+
+         <span style="color:#75715e">;; (type (get-text-property 0 &#39;type csa))</span>
+         )
+    <span style="color:#75715e">;; (tv (str cs))</span>
+    <span style="color:#75715e">;; (tv symtype)</span>
+    (if (<span style="color:#a6e22e">=</span> (<span style="color:#a6e22e">prefix-numeric-value</span> current-prefix-arg) <span style="color:#ae81ff">4</span>)
+        (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;helpful-function</span>)
+      (let ((r (fz
+                (-filter
+                 (cond
+                  ((<span style="color:#a6e22e">&gt;=</span> (<span style="color:#a6e22e">prefix-numeric-value</span> current-prefix-arg) (<span style="color:#a6e22e">expt</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">4</span>))
+                   (lambda (e)
+                     (<span style="color:#a6e22e">string-equal</span> <span style="color:#e6db74">&#34;function&#34;</span> (<span style="color:#a6e22e">get-text-property</span> <span style="color:#ae81ff">0</span> <span style="color:#e6db74">&#39;type</span> e))))
+                  ((<span style="color:#a6e22e">&gt;=</span> (<span style="color:#a6e22e">prefix-numeric-value</span> current-prefix-arg) (<span style="color:#a6e22e">expt</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">3</span>))
+                   (lambda (e)
+                     (<span style="color:#a6e22e">string-equal</span> <span style="color:#e6db74">&#34;special-form&#34;</span> (<span style="color:#a6e22e">get-text-property</span> <span style="color:#ae81ff">0</span> <span style="color:#e6db74">&#39;type</span> e))))
+                  ((<span style="color:#a6e22e">&gt;=</span> (<span style="color:#a6e22e">prefix-numeric-value</span> current-prefix-arg) (<span style="color:#a6e22e">expt</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">2</span>))
+                   (lambda (e)
+                     (<span style="color:#a6e22e">string-equal</span> <span style="color:#e6db74">&#34;macro&#34;</span> (<span style="color:#a6e22e">get-text-property</span> <span style="color:#ae81ff">0</span> <span style="color:#e6db74">&#39;type</span> e))))
+                  (<span style="color:#66d9ef">t</span>
+                   (lambda (e)
+                     (or (<span style="color:#a6e22e">string-equal</span> <span style="color:#e6db74">&#34;function&#34;</span> (<span style="color:#a6e22e">get-text-property</span> <span style="color:#ae81ff">0</span> <span style="color:#e6db74">&#39;type</span> e))
+                         (<span style="color:#a6e22e">string-equal</span> <span style="color:#e6db74">&#34;macro&#34;</span> (<span style="color:#a6e22e">get-text-property</span> <span style="color:#ae81ff">0</span> <span style="color:#e6db74">&#39;type</span> e))
+                         (<span style="color:#a6e22e">string-equal</span> <span style="color:#e6db74">&#34;special-form&#34;</span> (<span style="color:#a6e22e">get-text-property</span> <span style="color:#ae81ff">0</span> <span style="color:#e6db74">&#39;type</span> e))))))
+
+                 cs)
+                symbol-string
+                <span style="color:#66d9ef">nil</span>
+                prompt)))
+        <span style="color:#75715e">;; (tv (type r))</span>
+        (if (sor r)
+            (try (cider-doc-lookup r)
+                 (egr (cmd <span style="color:#e6db74">&#34;clojure&#34;</span> symbol-string))
+                 <span style="color:#75715e">;; (message &#34;not resolved&#34;)</span>
+                 )))))
+  <span style="color:#75715e">;; (mapcar (lambda (e)) (cider-company-unfiltered-candidates &#34;&#34;))</span>
+  <span style="color:#75715e">;; (tv (cider-company-unfiltered-candidates &#34;&#34;))</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>demo</code></p>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/eax3OvFIadNLqi6UCKoYR3GG9" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/eax3OvFIadNLqi6UCKoYR3GG9.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/eax3OvFIadNLqi6UCKoYR3GG9.js" id="asciicast-eax3OvFIadNLqi6UCKoYR3GG9" async></script>
+<h3 id="lein-repl"><code>lein repl</code></h3>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/LGfF7li1mGAikFrMbHOOx3nT2" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/LGfF7li1mGAikFrMbHOOx3nT2.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/LGfF7li1mGAikFrMbHOOx3nT2.js" id="asciicast-LGfF7li1mGAikFrMbHOOx3nT2" async></script>
+<p>This is how to give yourself an rc file for the lein repl.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">{<span style="color:#e6db74">:user</span>  {...
+         <span style="color:#e6db74">:injections</span> [(load-file <span style="color:#e6db74">&#34;/home/shane/.clojurerc&#34;</span>)]}}</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="rebel"><code>rebel</code></h3>
+<p>I have yet to find a way to inject code into the rebel REPL.</p>
+<h4 id="change-keybindings">Change keybindings</h4>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure"><span style="color:#75715e">;; vi bindings</span>
+{
+<span style="color:#e6db74">:key-bindings</span> { <span style="color:#e6db74">:emacs</span> [[<span style="color:#e6db74">&#34;^Q&#34;</span> <span style="color:#e6db74">:clojure-doc-at-point</span>]]
+                <span style="color:#e6db74">:viins</span> [[<span style="color:#e6db74">&#34;^J&#34;</span> <span style="color:#e6db74">:clojure-force-accept-line</span>]] }
+}
+<span style="color:#75715e">;; {:key-map :viins}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>clojure-doc-at-point</code> is quite nice so I automated it a bit.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun clj-rebel-doc (func)
+  (interactive (<span style="color:#a6e22e">list</span> (read-string-hist <span style="color:#e6db74">&#34;clj-rebel-doc: &#34;</span> (my/thing-at-point))))
+  (sps (cmd <span style="color:#e6db74">&#34;clj-rebel-doc&#34;</span> func)))</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#e6db74">&#34;&lt;==&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ps -o comm<span style="color:#f92672">=</span> $PPID<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> 0&lt;/dev/null <span style="color:#f92672">)</span> &amp;&gt;/dev/null
+
+func<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+test -n <span style="color:#e6db74">&#34;</span>$func<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">||</span> exit <span style="color:#ae81ff">1</span>
+
+x -sh clj-rebel -e <span style="color:#e6db74">&#34;=&gt;&#34;</span> -s <span style="color:#e6db74">&#34;(</span>$func<span style="color:#e6db74">&#34;</span> -c q -i</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="cider-inspector"><code>cider-inspector</code></h3>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/pGSF0979jVD14IClZTeSdCQIQ" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/pGSF0979jVD14IClZTeSdCQIQ.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/pGSF0979jVD14IClZTeSdCQIQ.js" id="asciicast-pGSF0979jVD14IClZTeSdCQIQ" async></script>
+<table>
+<thead>
+<tr>
+<th>kb</th>
+<th>f</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>C-M-@ d v</code></td>
+<td><code>cider-inspect</code></td>
+<td><code>spacemacs-cider-repl-mode-map-root-map</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="cljfmt"><code>cljfmt</code></h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#e6db74">&#34;&lt;==&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ps -o comm<span style="color:#f92672">=</span> $PPID<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> 0&lt;/dev/null <span style="color:#f92672">)</span> &amp;&gt;/dev/null
+
+<span style="color:#75715e"># clojure -Sdeps &#39;{:deps {cljfmt {:mvn/version &#34;0.6.4&#34;}}}&#39; \</span>
+<span style="color:#75715e">#   -m cljfmt.main fix</span>
+
+stdin_exists<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+    ! <span style="color:#f92672">[</span> -t <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span> <span style="color:#f92672">&amp;&amp;</span> ! test <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>readlink /proc/$$/fd/0<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">=</span> /dev/null
+<span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">if</span> stdin_exists; <span style="color:#66d9ef">then</span>
+    fp<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>tf clj<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#66d9ef">fi</span>
+
+: <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>fp:=<span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+
+test -f <span style="color:#e6db74">&#34;</span>$fp<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">||</span> exit <span style="color:#ae81ff">1</span>
+
+clojure -Sdeps <span style="color:#e6db74">&#39;{:deps {cljfmt {:mvn/version &#34;0.6.4&#34;}}}&#39;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  -m cljfmt.main fix <span style="color:#e6db74">&#34;</span>$fp<span style="color:#e6db74">&#34;</span> &amp;&gt;/dev/null
+
+cat <span style="color:#e6db74">&#34;</span>$fp<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun format-sexp-at-point (formatter)
+  <span style="color:#e6db74">&#34;Formats sexp code, if selected or on a starting parenthesis.&#34;</span>
+  (interactive)
+  (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;Formatting sexp&#34;</span>)
+  (cond ((and (lispy-left-p) (not (selected-p)))
+         (save-excursion
+           (ekm <span style="color:#e6db74">&#34;m&#34;</span>)
+           (region-pipe formatter)))
+        ((selected-p)
+         (save-mark-and-excursion
+           (region-pipe formatter))
+         <span style="color:#75715e">;; (reselect-last-region)</span>
+         )
+        (<span style="color:#66d9ef">t</span>
+         (sh-notty (<span style="color:#a6e22e">concat</span> formatter <span style="color:#e6db74">&#34; &#34;</span> (e/q <span style="color:#a6e22e">buffer-file-name</span>))))))
+
+(defun format-clojure-at-point ()
+  <span style="color:#e6db74">&#34;Formats clojure code, if selected or on a starting parenthesis.&#34;</span>
+  (interactive)
+  (format-sexp-at-point <span style="color:#e6db74">&#34;cljfmt&#34;</span>))</code></pre></td></tr></table>
+</div>
+</div>
+
+    </div>
+    <div class="post-footer">
+        <p>
+        <a href="https://mullikine.github.io/about/">About this weblog</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://asciinema.org/~mullikine">Asciinema recordings</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/posts/blogs-and-vlogs/">Blogs and Vlogs</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/tags/">Site Map</a>
+        </p>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
