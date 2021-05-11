@@ -12,10 +12,22 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Clojure tooling in emacs"/>
-<meta name="twitter:description" content="Summary  I investigate the following repositories: https://github.com/clojure-lsp/clojure-lsp https://github.com/clojure-emacs/cider https://github.com/clojure-emacs/clj-refactor.el https://github.com/clojure-emacs/clomacs https://github.com/clojure-emacs/orchard https://github.com/clojure-emacs/parseclj https://github.com/clojure-emacs/parseedn https://github.com/clojure-emacs/cider-hydra https://github.com/clojure-emacs/cider-eval-sexp-fu https://github.com/clojure-emacs/helm-cider  clojure-lsp  Provides:  documentation completion code lens (I disabled this as it was distracting)    cider  Provides a REPL.  Supports both lein and clojure-cli   Also provides:  documentation, completion    cider is more important to have than clojure-lsp, but it&rsquo;s possible to use both of the in tandem."/>
+<meta name="twitter:description" content="Summary   I investigate the following repositories:
+  https://github.com/clojure-lsp/clojure-lsp
+  https://github.com/clojure-emacs/cider
+  https://github.com/clojure-emacs/clj-refactor.el Provides refactoring support for Clojure projects. It complements the refactoring functionality you&rsquo;d find in `clojure-mode` and CIDER.
+  https://github.com/clojure-emacs/clomacs Simplifies call Clojure code from Emacs lisp and vice versa.
+  https://github.com/clojure-emacs/orchard A Clojure library designed to provide common functionality for Clojure development tools (e.g. Clojure editor plugins and IDEs).
+  https://github."/>
 
     <meta property="og:title" content="Clojure tooling in emacs" />
-<meta property="og:description" content="Summary  I investigate the following repositories: https://github.com/clojure-lsp/clojure-lsp https://github.com/clojure-emacs/cider https://github.com/clojure-emacs/clj-refactor.el https://github.com/clojure-emacs/clomacs https://github.com/clojure-emacs/orchard https://github.com/clojure-emacs/parseclj https://github.com/clojure-emacs/parseedn https://github.com/clojure-emacs/cider-hydra https://github.com/clojure-emacs/cider-eval-sexp-fu https://github.com/clojure-emacs/helm-cider  clojure-lsp  Provides:  documentation completion code lens (I disabled this as it was distracting)    cider  Provides a REPL.  Supports both lein and clojure-cli   Also provides:  documentation, completion    cider is more important to have than clojure-lsp, but it&rsquo;s possible to use both of the in tandem." />
+<meta property="og:description" content="Summary   I investigate the following repositories:
+  https://github.com/clojure-lsp/clojure-lsp
+  https://github.com/clojure-emacs/cider
+  https://github.com/clojure-emacs/clj-refactor.el Provides refactoring support for Clojure projects. It complements the refactoring functionality you&rsquo;d find in `clojure-mode` and CIDER.
+  https://github.com/clojure-emacs/clomacs Simplifies call Clojure code from Emacs lisp and vice versa.
+  https://github.com/clojure-emacs/orchard A Clojure library designed to provide common functionality for Clojure development tools (e.g. Clojure editor plugins and IDEs).
+  https://github." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/clojure-tooling-in-emacs/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-05-11T00:00:00&#43;12:00" />
@@ -192,7 +204,7 @@
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          4 min read
+          5 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -212,17 +224,83 @@
     <div class="post-content">
       <h3 id="summary">Summary</h3>
 <ul>
-<li>I investigate the following repositories:</li>
-<li><a href="https://github.com/clojure-lsp/clojure-lsp">https://github.com/clojure-lsp/clojure-lsp</a></li>
-<li><a href="https://github.com/clojure-emacs/cider">https://github.com/clojure-emacs/cider</a></li>
-<li><a href="https://github.com/clojure-emacs/clj-refactor.el">https://github.com/clojure-emacs/clj-refactor.el</a></li>
-<li><a href="https://github.com/clojure-emacs/clomacs">https://github.com/clojure-emacs/clomacs</a></li>
-<li><a href="https://github.com/clojure-emacs/orchard">https://github.com/clojure-emacs/orchard</a></li>
-<li><a href="https://github.com/clojure-emacs/parseclj">https://github.com/clojure-emacs/parseclj</a></li>
-<li><a href="https://github.com/clojure-emacs/parseedn">https://github.com/clojure-emacs/parseedn</a></li>
-<li><a href="https://github.com/clojure-emacs/cider-hydra">https://github.com/clojure-emacs/cider-hydra</a></li>
-<li><a href="https://github.com/clojure-emacs/cider-eval-sexp-fu">https://github.com/clojure-emacs/cider-eval-sexp-fu</a></li>
-<li><a href="https://github.com/clojure-emacs/helm-cider">https://github.com/clojure-emacs/helm-cider</a></li>
+<li>
+<p>I investigate the following repositories:</p>
+</li>
+<li>
+<p><a href="https://github.com/clojure-lsp/clojure-lsp">https://github.com/clojure-lsp/clojure-lsp</a></p>
+</li>
+<li>
+<p><a href="https://github.com/clojure-emacs/cider">https://github.com/clojure-emacs/cider</a></p>
+</li>
+<li>
+<p><a href="https://github.com/clojure-emacs/clj-refactor.el">https://github.com/clojure-emacs/clj-refactor.el</a>
+Provides refactoring support for Clojure
+projects. It complements the refactoring
+functionality you&rsquo;d find in `clojure-mode`
+and CIDER.</p>
+</li>
+<li>
+<p><a href="https://github.com/clojure-emacs/clomacs">https://github.com/clojure-emacs/clomacs</a>
+Simplifies call Clojure code from Emacs lisp and vice versa.</p>
+</li>
+<li>
+<p><a href="https://github.com/clojure-emacs/orchard">https://github.com/clojure-emacs/orchard</a>
+A Clojure library designed to provide common
+functionality for Clojure development tools
+(e.g. Clojure editor plugins and IDEs).</p>
+</li>
+<li>
+<p><a href="https://github.com/clojure-emacs/parseclj">https://github.com/clojure-emacs/parseclj</a>
+Clojure parser for Emacs Lisp</p>
+</li>
+<li>
+<p><a href="https://github.com/clojure-emacs/parseedn">https://github.com/clojure-emacs/parseedn</a>
+An Emacs Lisp library for parsing EDN. Uses <code>parseclj</code>.</p>
+</li>
+<li>
+<p><a href="https://github.com/clojure-emacs/cider-hydra">https://github.com/clojure-emacs/cider-hydra</a>
+Defines some hydras (pop-up menus of
+commands with common prefixes) for CIDER.
+Hydras serve several important purposes:
+discovery, memorization, and organization.</p>
+</li>
+<li>
+<p><a href="https://github.com/clojure-emacs/cider-eval-sexp-fu">https://github.com/clojure-emacs/cider-eval-sexp-fu</a>
+Provides tiny improvements to expression
+evaluation - e.g. the expression you&rsquo;ve just
+evaluated would briefly flash and so on.</p>
+</li>
+<li>
+<p><a href="https://github.com/clojure-emacs/helm-cider">https://github.com/clojure-emacs/helm-cider</a>
+This would be an essential for looking up function definitions, specs, etc.
+I have noticed though that it has some problems, which I need to sort out.</p>
+<p>Such as timeouts.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    [2021-05-12T00:33:11.480910] condition-case:
+    Sync nREPL request timed out (op apropos ns
+    mustache-transform.core query exclude-regexps
+    (^cider.nrepl ^refactor-nrepl ^nrepl))
+    </code></pre></td></tr></table>
+</div>
+</div>
+<p>Also, the cheatsheet appears to be a simple
+documentation lookup function.</p>
+<p>I have my own function to fill this gap, though. See &ldquo;fuzzy doc lookup&rdquo;.</p>
+<p><code>demo</code> of <code>helm-cider</code>, with timeouts.</p>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/Mmi1niX76Llg6JigBGFg518LV" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/Mmi1niX76Llg6JigBGFg518LV.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/Mmi1niX76Llg6JigBGFg518LV.js" id="asciicast-Mmi1niX76Llg6JigBGFg518LV" async></script>
+</li>
 </ul>
 <h4 id="clojure-lsp"><code>clojure-lsp</code></h4>
 <ul>
