@@ -12,12 +12,12 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Templating mermaid diagrams and other files"/>
-<meta name="twitter:description" content="Related mustache templating processor // Bodacious Blog  Summary I would like to place lengthy strings into mermaid diagram nodes, but I don&rsquo;t want to worry about escaping characters or formatting the text.
+<meta name="twitter:description" content="Related mustache templating processor // Bodacious Blog Code for mustache-transform http://github.com/mullikine/mustache-transform  Summary I would like to place lengthy strings into mermaid diagram nodes, but I don&rsquo;t want to worry about escaping characters or formatting the text.
 The problem I&rsquo;m trying to solve is that a simple string substitution is not enough for many formats, including mermaid files.
 There may be some additional transformation that needs to be applied to the string before it goes into the file."/>
 
     <meta property="og:title" content="Templating mermaid diagrams and other files" />
-<meta property="og:description" content="Related mustache templating processor // Bodacious Blog  Summary I would like to place lengthy strings into mermaid diagram nodes, but I don&rsquo;t want to worry about escaping characters or formatting the text.
+<meta property="og:description" content="Related mustache templating processor // Bodacious Blog Code for mustache-transform http://github.com/mullikine/mustache-transform  Summary I would like to place lengthy strings into mermaid diagram nodes, but I don&rsquo;t want to worry about escaping characters or formatting the text.
 The problem I&rsquo;m trying to solve is that a simple string substitution is not enough for many formats, including mermaid files.
 There may be some additional transformation that needs to be applied to the string before it goes into the file." />
 <meta property="og:type" content="article" />
@@ -196,7 +196,7 @@ There may be some additional transformation that needs to be applied to the stri
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          5 min read
+          7 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -217,6 +217,8 @@ There may be some additional transformation that needs to be applied to the stri
       <dl>
 <dt>Related</dt>
 <dd><a href="https://mullikine.github.io/posts/mustache-templating-processor/">mustache templating processor // Bodacious Blog</a></dd>
+<dt>Code for <code>mustache-transform</code></dt>
+<dd><a href="http://github.com/mullikine/mustache-transform">http://github.com/mullikine/mustache-transform</a></dd>
 </dl>
 <h2 id="summary">Summary</h2>
 <p>I would like to place lengthy strings into
@@ -405,10 +407,12 @@ the article (from the article json file)</code></pre></td></tr></table>
 </div>
 </div></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">mermaiddata-raw.yaml</span>
-</code></pre></div><p><a id="code-snippet--mermaidtemplate"></a></p>
+</code></pre></div><p><code>{{{</code> in mustache means that the variable text will not be transformed into html entities.</p>
+<p>If I use <code>{{</code> then text such as <code>&lt;br /</code> will come out as entities instead.</p>
+<p><a id="code-snippet--mermaidtemplate"></a></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">graph TD
-    A[{{parsemetadata}}] --&gt; B{Is it?};
-    B[{{applytextprocessing}}] -- Yes --&gt; C[OK];
+    A[{{{parsemetadata}}}] --&gt; B{Is it?};
+    B[{{{applytextprocessing}}}] -- Yes --&gt; C[OK];
     C --&gt; D[Rethink];
     D --&gt; B;
     B -- No ----&gt; E[End];
@@ -434,7 +438,7 @@ the article (from the article json file)] --&gt; B{Is it?};
 <p>I need something new. I need to define a new format. This should go alongside the data file, but specify the transformations.</p>
 <p>List all the keys, for each key pipe through associated filter.
 Reconstruct the yaml.</p>
-<p><a id="code-snippet--mermaiddata"></a>
+<p><a id="code-snippet--mermaidtransforms"></a>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -444,12 +448,13 @@ Reconstruct the yaml.</p>
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">parsemetadata</span>: |-<span style="color:#e6db74">
-</span><span style="color:#e6db74">  </span>  <span style="color:#ae81ff">sed -z &#39;s=\n=&lt;br /&gt;=g&#39;</span>
+</span><span style="color:#e6db74">  </span>  <span style="color:#ae81ff">sed -z &#39;s=\n=&lt;br /&gt;=g&#39; | q -f</span>
 <span style="color:#f92672">applytextprocessing</span>: |-<span style="color:#e6db74">
-</span><span style="color:#e6db74">  </span>  <span style="color:#ae81ff">sed -z &#39;s=\n=&lt;br /&gt;=g&#39;</span></code></pre></td></tr></table>
+</span><span style="color:#e6db74">  </span>  <span style="color:#ae81ff">sed -z &#39;s=\n=&lt;br /&gt;=g&#39; | q -f</span></code></pre></td></tr></table>
 </div>
 </div></p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">transformations.yaml</span>
+</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
@@ -459,7 +464,147 @@ Reconstruct the yaml.</p>
 </div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">applytextprocessing
 parsemetadata
-</code></pre></div>
+</code></pre></div><h2 id="mustache-transform"><code>mustache-transform</code></h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#e6db74">&#34;&lt;==&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ps -o comm<span style="color:#f92672">=</span> $PPID<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> 0&lt;/dev/null <span style="color:#f92672">)</span> &amp;&gt;/dev/null
+
+data<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+test -f <span style="color:#e6db74">&#34;</span>$data<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">||</span> exit <span style="color:#ae81ff">1</span>
+trans<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span>
+test -f <span style="color:#e6db74">&#34;</span>$trans<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">||</span> exit <span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e"># lein uberjar</span>
+java -jar $MYGIT/mullikine/mustache-transform/target/uberjar/mustache-transform-0.1.0-SNAPSHOT-standalone.jar <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> | yq . | pavs</code></pre></td></tr></table>
+</div>
+</div>
+<p><code>mullikine/mustache-transform</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#66d9ef">ns </span>mustache-transform.core
+  (<span style="color:#e6db74">:gen-class</span>)
+  (<span style="color:#e6db74">:require</span> [clj-yaml.core <span style="color:#e6db74">:as</span> yaml]
+            [clojure.pprint <span style="color:#e6db74">:as</span> pp]
+            [clojure.set <span style="color:#e6db74">:as</span> set]))
+
+(<span style="color:#a6e22e">use</span> <span style="color:#f92672">&#39;</span>[clojure.java.shell <span style="color:#e6db74">:only</span> [sh]])
+
+(<span style="color:#66d9ef">defn </span>transform-map [m fm]
+  (into {}
+        (<span style="color:#a6e22e">map</span>
+         (<span style="color:#66d9ef">fn </span>[[k v]]
+           [k (<span style="color:#e6db74">:out</span> (<span style="color:#a6e22e">sh</span> <span style="color:#e6db74">&#34;sh&#34;</span> <span style="color:#e6db74">&#34;-c&#34;</span> v <span style="color:#e6db74">:in</span> (<span style="color:#a6e22e">k</span> m)))])
+         fm)))
+
+(<span style="color:#66d9ef">defn </span>-main
+  <span style="color:#e6db74">&#34;I don&#39;t do a whole lot ... yet.&#34;</span>
+  ([data-fp transform-fp <span style="color:#f92672">&amp;</span> args]
+   (<span style="color:#66d9ef">let </span>[data (<span style="color:#a6e22e">yaml/parse-string</span> (slurp data-fp))
+         transform (<span style="color:#a6e22e">yaml/parse-string</span> (slurp transform-fp))]
+
+     <span style="color:#75715e">;; running from uberjar appears to need println, not print</span>
+     (println (<span style="color:#a6e22e">yaml/generate-string</span> newdata  <span style="color:#e6db74">:dumper-options</span> {<span style="color:#e6db74">:flow-style</span> <span style="color:#e6db74">:block</span>}))
+     (<span style="color:#a6e22e">shutdown-agents</span>))))</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mustache-transform mermaiddata-raw.yaml transformations.yaml</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">parsemetadata: Parse metadata.csv and <span style="color:#66d9ef">for</span> each row, extract&lt;br /&gt;the title, abstract, date published etc.&lt;br /&gt;<span style="color:#f92672">(</span>contained directly in the csv<span style="color:#f92672">)</span> and bodytext of&lt;br /&gt;the article <span style="color:#f92672">(</span>from the article json file<span style="color:#f92672">)</span>
+applytextprocessing: Apply text processing <span style="color:#f92672">(</span>see Text Processing&lt;br /&gt;for details<span style="color:#f92672">)</span> and split text block into&lt;br /&gt;sentences using nltk tokenizer
+
+</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mustache mermaiddata-raw.yaml irparse.mermaid</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">graph TD
+    A<span style="color:#f92672">[</span>Parse metadata.csv and <span style="color:#66d9ef">for</span> each row, extract
+the title, abstract, date published etc.
+<span style="color:#f92672">(</span>contained directly in the csv<span style="color:#f92672">)</span> and bodytext of
+the article <span style="color:#f92672">(</span>from the article json file<span style="color:#f92672">)]</span> --&gt; B<span style="color:#f92672">{</span>Is it?<span style="color:#f92672">}</span>;
+    B<span style="color:#f92672">[</span>Apply text processing <span style="color:#f92672">(</span>see Text Processing
+<span style="color:#66d9ef">for</span> details<span style="color:#f92672">)</span> and split text block into
+sentences using nltk tokenizer<span style="color:#f92672">]</span> -- Yes --&gt; C<span style="color:#f92672">[</span>OK<span style="color:#f92672">]</span>;
+    C --&gt; D<span style="color:#f92672">[</span>Rethink<span style="color:#f92672">]</span>;
+    D --&gt; B;
+    B -- No ----&gt; E<span style="color:#f92672">[</span>End<span style="color:#f92672">]</span>;
+</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mustache <span style="color:#f92672">=(</span>mustache-transform mermaiddata-raw.yaml transformations.yaml<span style="color:#f92672">)</span> irparse.mermaid</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">graph TD
+    A<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Parse metadata.csv and for each row, extract&lt;br /&gt;the title, abstract, date published etc.&lt;br /&gt;(contained directly in the csv) and bodytext of&lt;br /&gt;the article (from the article json file)&#34;</span><span style="color:#f92672">]</span> --&gt; B<span style="color:#f92672">{</span>Is it?<span style="color:#f92672">}</span>;
+    B<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;Apply text processing (see Text Processing&lt;br /&gt;for details) and split text block into&lt;br /&gt;sentences using nltk tokenizer&#34;</span><span style="color:#f92672">]</span> -- Yes --&gt; C<span style="color:#f92672">[</span>OK<span style="color:#f92672">]</span>;
+    C --&gt; D<span style="color:#f92672">[</span>Rethink<span style="color:#f92672">]</span>;
+    D --&gt; B;
+    B -- No ----&gt; E<span style="color:#f92672">[</span>End<span style="color:#f92672">]</span>;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">graph TD
+    A[&#34;Parse metadata.csv and for each row, extract&lt;br /&gt;the title, abstract, date published etc.&lt;br /&gt;(contained directly in the csv) and bodytext of&lt;br /&gt;the article (from the article json file)&#34;] --&gt; B{Is it?};
+    B[&#34;Apply text processing (see Text Processing&lt;br /&gt;for details) and split text block into&lt;br /&gt;sentences using nltk tokenizer&#34;] -- Yes --&gt; C[OK];
+    C --&gt; D[Rethink];
+    D --&gt; B;
+    B -- No ----&gt; E[End];
+</code></pre></div><figure>
+    <img src="https://mullikine.github.io/ox-hugo/mermaid-template-new.png"/> 
+</figure>
+
+
     </div>
     <div class="post-footer">
         <p>
