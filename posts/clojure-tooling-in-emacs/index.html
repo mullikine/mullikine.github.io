@@ -12,12 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Clojure tooling in emacs"/>
-<meta name="twitter:description" content="Summary This is just an overview of some Clojure tooling with a focus on emacs and the CLI. I also show a few extensions I&rsquo;ve made.
- References https://practicalli.github.io/clojure/clojure-tools/data-browsers/     Tooling Tooling type     cider-inspector Data browser   rebel REPL   lein repl REPL   lein project management   cljfmt code formatter    lein I have made some improvements to my lein tooling."/>
+<meta name="twitter:description" content="Summary  I investigate the following repositories: https://github.com/clojure-lsp/clojure-lsp https://github.com/clojure-emacs/cider https://github.com/clojure-emacs/clj-refactor.el https://github.com/clojure-emacs/clomacs https://github.com/clojure-emacs/orchard https://github.com/clojure-emacs/parseclj https://github.com/clojure-emacs/parseedn https://github.com/clojure-emacs/cider-hydra https://github.com/clojure-emacs/cider-eval-sexp-fu https://github.com/clojure-emacs/helm-cider  clojure-lsp  Provides:  documentation completion code lens (I disabled this as it was distracting)    cider  Provides a REPL.  Supports both lein and clojure-cli   Also provides:  documentation, completion    cider is more important to have than clojure-lsp, but it&rsquo;s possible to use both of the in tandem."/>
 
     <meta property="og:title" content="Clojure tooling in emacs" />
-<meta property="og:description" content="Summary This is just an overview of some Clojure tooling with a focus on emacs and the CLI. I also show a few extensions I&rsquo;ve made.
- References https://practicalli.github.io/clojure/clojure-tools/data-browsers/     Tooling Tooling type     cider-inspector Data browser   rebel REPL   lein repl REPL   lein project management   cljfmt code formatter    lein I have made some improvements to my lein tooling." />
+<meta property="og:description" content="Summary  I investigate the following repositories: https://github.com/clojure-lsp/clojure-lsp https://github.com/clojure-emacs/cider https://github.com/clojure-emacs/clj-refactor.el https://github.com/clojure-emacs/clomacs https://github.com/clojure-emacs/orchard https://github.com/clojure-emacs/parseclj https://github.com/clojure-emacs/parseedn https://github.com/clojure-emacs/cider-hydra https://github.com/clojure-emacs/cider-eval-sexp-fu https://github.com/clojure-emacs/helm-cider  clojure-lsp  Provides:  documentation completion code lens (I disabled this as it was distracting)    cider  Provides a REPL.  Supports both lein and clojure-cli   Also provides:  documentation, completion    cider is more important to have than clojure-lsp, but it&rsquo;s possible to use both of the in tandem." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/clojure-tooling-in-emacs/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-05-11T00:00:00&#43;12:00" />
@@ -213,6 +211,71 @@
 
     <div class="post-content">
       <h3 id="summary">Summary</h3>
+<ul>
+<li>I investigate the following repositories:</li>
+<li><a href="https://github.com/clojure-lsp/clojure-lsp">https://github.com/clojure-lsp/clojure-lsp</a></li>
+<li><a href="https://github.com/clojure-emacs/cider">https://github.com/clojure-emacs/cider</a></li>
+<li><a href="https://github.com/clojure-emacs/clj-refactor.el">https://github.com/clojure-emacs/clj-refactor.el</a></li>
+<li><a href="https://github.com/clojure-emacs/clomacs">https://github.com/clojure-emacs/clomacs</a></li>
+<li><a href="https://github.com/clojure-emacs/orchard">https://github.com/clojure-emacs/orchard</a></li>
+<li><a href="https://github.com/clojure-emacs/parseclj">https://github.com/clojure-emacs/parseclj</a></li>
+<li><a href="https://github.com/clojure-emacs/parseedn">https://github.com/clojure-emacs/parseedn</a></li>
+<li><a href="https://github.com/clojure-emacs/cider-hydra">https://github.com/clojure-emacs/cider-hydra</a></li>
+<li><a href="https://github.com/clojure-emacs/cider-eval-sexp-fu">https://github.com/clojure-emacs/cider-eval-sexp-fu</a></li>
+<li><a href="https://github.com/clojure-emacs/helm-cider">https://github.com/clojure-emacs/helm-cider</a></li>
+</ul>
+<h4 id="clojure-lsp"><code>clojure-lsp</code></h4>
+<ul>
+<li>Provides:
+<ul>
+<li>documentation</li>
+<li>completion</li>
+<li>code lens (I disabled this as it was distracting)</li>
+</ul>
+</li>
+</ul>
+<h4 id="cider"><code>cider</code></h4>
+<ul>
+<li>Provides a REPL.
+<ul>
+<li>Supports both lein and clojure-cli</li>
+</ul>
+</li>
+<li>Also provides:
+<ul>
+<li>documentation,</li>
+<li>completion</li>
+</ul>
+</li>
+</ul>
+<p><code>cider</code> is more important to have than <code>clojure-lsp</code>, but it&rsquo;s possible to use both of the in tandem.</p>
+<p>One thing to be aware of, though, is that they
+both load the program into memory. If you have
+objects in the global scope, they will be
+loaded twice (once by lsp and once by cider,
+if you are using them together).</p>
+<p>Huggingface models can be quite large when loaded.</p>
+<h4 id="clj-refactor-dot-el"><code>clj-refactor.el</code></h4>
+<ul>
+<li>Provides:
+<ul>
+<li>Ability to make changes to your dependencies and imports.</li>
+</ul>
+</li>
+<li>Lacking:
+<ul>
+<li>An intelligent way to require/import packages after they are added as dependencies. I remedied this somewhat.</li>
+</ul>
+</li>
+</ul>
+<h4 id="clomacs"><code>clomacs</code></h4>
+<h4 id="orchard"><code>orchard</code></h4>
+<h4 id="parseclj"><code>parseclj</code></h4>
+<h4 id="parseedn"><code>parseedn</code></h4>
+<h4 id="cider-hydra"><code>cider-hydra</code></h4>
+<h4 id="cider-eval-sexp-fu"><code>cider-eval-sexp-fu</code></h4>
+<h4 id="helm-cider"><code>helm-cider</code></h4>
+<h3 id="customizations">Customizations</h3>
 <p>This is just an overview of some Clojure tooling
 with a focus on emacs and the CLI. I also show
 a few extensions I&rsquo;ve made.</p>
