@@ -287,6 +287,66 @@ if you are using them together).</p>
 </li>
 </ul>
 <h4 id="clomacs"><code>clomacs</code></h4>
+<ul>
+<li>Provides:
+<ul>
+<li>Bi-directional RPC to and from emacs and clojure.</li>
+</ul>
+</li>
+</ul>
+<p>It was fairly straight-forward to set up.</p>
+<p><span class="underline"><strong>emacs lisp</strong></span></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp"><span style="color:#75715e">;; Clomacs isn&#39;t a very close interop, but it works fairly wellish</span>
+<span style="color:#75715e">;; RPC over an http server</span>
+(require <span style="color:#e6db74">&#39;clomacs</span>)
+(setq clomacs-httpd-default-port <span style="color:#ae81ff">8680</span>)
+(clomacs-httpd-start)</code></pre></td></tr></table>
+</div>
+</div>
+<p><span class="underline"><strong>clojure</strong></span>
+<a href="http://github.com/mullikine/clomacs-test">http://github.com/mullikine/clomacs-test</a></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#66d9ef">ns </span>clomacs-test.core
+  (<span style="color:#e6db74">:gen-class</span>))
+
+(<span style="color:#a6e22e">use</span> <span style="color:#e6db74">&#39;clomacs</span>)
+
+(<span style="color:#a6e22e">clomacs-defn</span> emacs-version emacs-version)
+
+(<span style="color:#66d9ef">defn </span>-main
+  <span style="color:#e6db74">&#34;I don&#39;t do a whole lot ... yet.&#34;</span>
+  [<span style="color:#f92672">&amp;</span> args]
+  (<span style="color:#a6e22e">emacs-version</span>))</code></pre></td></tr></table>
+</div>
+</div>
+<p>I start emacs <code>tetris</code> from a <code>clojure</code> REPL.</p>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/7KnGKZaDc15K3mwJVNg7T7nuD" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/7KnGKZaDc15K3mwJVNg7T7nuD.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/7KnGKZaDc15K3mwJVNg7T7nuD.js" id="asciicast-7KnGKZaDc15K3mwJVNg7T7nuD" async></script>
 <h4 id="orchard"><code>orchard</code></h4>
 <h4 id="parseclj"><code>parseclj</code></h4>
 <h4 id="parseedn"><code>parseedn</code></h4>
