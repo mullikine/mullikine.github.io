@@ -227,8 +227,7 @@ function, and <code>C-u</code> to be used for everything else.</p>
 <p>The following source code will enable an
 extra prefix argument I call the &ldquo;global&rdquo;
 prefix (as opposed to the &ldquo;universal&rdquo; prefix).</p>
-<p>The global prefix has a binding <code>H-u</code> which
-can be followed by a single digit number.</p>
+<p>The global prefix has a binding <code>H-u</code> which may take a number or be multiplied consecutively by 4 every time you press <code>H-u</code>. It has the same behaviour as <code>C-u</code>.</p>
 <p>You may combine <code>C-u</code> with <code>H-u</code> but under the
 current implementation the <code>H-u</code> must follow
 the <code>C-u</code>.</p>
@@ -700,7 +699,7 @@ the <code>C-u</code>.</p>
   <span style="color:#75715e">;; A subsequent H-u means to multiply the factor by 4 if we&#39;ve typed</span>
   <span style="color:#75715e">;; nothing but H-u&#39;s; otherwise it means to terminate the prefix arg.</span>
   (interactive <span style="color:#e6db74">&#34;P&#34;</span>)
-  (let ((arg))
+  (let ((arg current-global-prefix-arg))
     (global-prefix-command-preserve-state)
     (setq global-prefix-arg (if (<span style="color:#a6e22e">consp</span> arg)
                                 (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">*</span> <span style="color:#ae81ff">4</span> (<span style="color:#a6e22e">car</span> arg)))
@@ -713,7 +712,7 @@ the <code>C-u</code>.</p>
   <span style="color:#e6db74">&#34;Begin a negative numeric argument for the next command.
 </span><span style="color:#e6db74">\\[global-argument] following digits or minus sign ends the argument.&#34;</span>
   (interactive <span style="color:#e6db74">&#34;P&#34;</span>)
-  (let ((arg <span style="color:#66d9ef">nil</span>))
+  (let ((arg current-global-prefix-arg))
     (global-prefix-command-preserve-state)
     (setq global-prefix-arg (cond ((<span style="color:#a6e22e">integerp</span> arg) (<span style="color:#a6e22e">-</span> arg))
                                   ((<span style="color:#a6e22e">eq</span> arg <span style="color:#e6db74">&#39;-</span>) <span style="color:#66d9ef">nil</span>)
@@ -724,7 +723,7 @@ the <code>C-u</code>.</p>
   <span style="color:#e6db74">&#34;Part of the numeric argument for the next command.
 </span><span style="color:#e6db74">\\[global-argument] following digits or minus sign ends the argument.&#34;</span>
   (interactive <span style="color:#e6db74">&#34;P&#34;</span>)
-  (let ((arg <span style="color:#66d9ef">nil</span>))
+  (let ((arg current-global-prefix-arg))
     (global-prefix-command-preserve-state)
     (let* ((char (if (<span style="color:#a6e22e">integerp</span> last-command-event)
                      last-command-event
