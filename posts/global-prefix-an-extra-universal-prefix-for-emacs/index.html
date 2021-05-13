@@ -227,7 +227,17 @@ function, and <code>C-u</code> to be used for everything else.</p>
 <p>The following source code will enable an
 extra prefix argument I call the &ldquo;global&rdquo;
 prefix (as opposed to the &ldquo;universal&rdquo; prefix).</p>
-<p>The global prefix has a binding <code>H-u</code> which may take a number or be multiplied consecutively by 4 every time you press <code>H-u</code>. It has the same behaviour as <code>C-u</code>.</p>
+<p>The global prefix has a binding <code>H-u</code> which
+may take a number or be multiplied
+consecutively by 4 every time you press <code>H-u</code>.
+It has the same behaviour as <code>C-u</code>.</p>
+<p>There is one caveat, it doesn&rsquo;t propagate the
+value from function to function. So a nested
+function will lose the value, unless you capture it, say in a <code>let</code>. For <code>C-u</code> the propagation of the value is
+done via the &lsquo;arg&rsquo; variable of <code>(interactive &quot;P&quot;)</code>. You must do this manually. The first
+function to be called with the global prefix
+will not need any special treatment. It should
+just work, as there is no propagation.</p>
 <p>You may combine <code>C-u</code> with <code>H-u</code> but under the
 current implementation the <code>H-u</code> must follow
 the <code>C-u</code>.</p>
