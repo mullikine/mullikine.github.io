@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>global-prefix: An extra universal prefix for emacs // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.d72d030ad187ab0ad50539f121fd90261512369e55b6fd1041b05b88fc02834f.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="global-prefix: An extra universal prefix for emacs"/>
+<meta name="twitter:description" content="Summary I have been using C-u a lot within my emacs lisp to bypass (update) caches and memoisation, but since I use it quite a lot, I think it should be given its own universal prefix, rather than using C-u. I want H-u to mean update the cache when running a function, and C-u to be used for everything else.
+The following source code will enable and extra prefix argument I call the &ldquo;global&rdquo; prefix (as opposed to the &ldquo;universal&rdquo; prefix)."/>
+
+    <meta property="og:title" content="global-prefix: An extra universal prefix for emacs" />
+<meta property="og:description" content="Summary I have been using C-u a lot within my emacs lisp to bypass (update) caches and memoisation, but since I use it quite a lot, I think it should be given its own universal prefix, rather than using C-u. I want H-u to mean update the cache when running a function, and C-u to be used for everything else.
+The following source code will enable and extra prefix argument I call the &ldquo;global&rdquo; prefix (as opposed to the &ldquo;universal&rdquo; prefix)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/global-prefix-an-extra-universal-prefix-for-emacs/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-13T00:00:00&#43;12:00" />
+<meta property="article:modified_time" content="2021-05-13T00:00:00&#43;12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+
+    
+    <script type="text/javascript">
+      var _paq = window._paq = window._paq || [];
+       
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="https://mullikine.matomo.cloud/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.src='//cdn.matomo.cloud/mullikine.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    
+
+  </head>
+  <body>
+    <header class="app-header">
+
+<a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/generating-hyperlinks-for-glossaries-and-other-parsers-in-emacs/">Hyperlink generation in emacs</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-case-for-learned-index-structures/">Case for Learned Index Structures</a>
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (298 topics)</a> <a href="https://github.com/mullikine/glossaries-gh">code</a>
+<br />
+<a href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">Automating Dwarf Fortress</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<a class="big" href="https://infogetics.github.io/">Infogetics on GitHub</a>
+<br />
+<a class="big" href="https://github.com/semiosis">Semiosis on GitHub</a>
+<br />
+<a class="big" href="https://takaheai.github.io/">TakaheAI on GitHub</a>
+<br />
+<div class="taglist">
+
+  <a class="tag" href="https://mullikine.github.io/tags/gpt/">GPT (Generative Pre-trained Transformer)</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/xenolinguistics/">xenolinguistics</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/shell/">shell</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a>
+<a class="tag" href="https://mullikine.github.io/tags/iac/">IaC</a>
+<a class="tag big" href="https://mullikine.github.io/tags/facebook/">Facebook</a>
+<a class="tag" href="https://mullikine.github.io/tags/wfh/">WFH</a>
+
+
+<a class="tag" href="https://mullikine.github.io/tags/babel/">babel</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/github/">GitHub</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsl/">DSL</a>
+<a class="tag" href="https://mullikine.github.io/tags/music/">music</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/diagrams/">diagrams</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/neural-engineering/">neural-engineering</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/aws/">AWS</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag big" href="https://mullikine.github.io/tags/uber/">Uber</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/microsoft/">Microsoft</a>
+<a class="tag big" href="https://mullikine.github.io/tags/neuralink/">Neuralink</a>
+<a class="tag big" href="https://mullikine.github.io/tags/openai/">OpenAI</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/rosie/">rosie</a>
+<a class="tag" href="https://mullikine.github.io/tags/terraform/">Terraform</a>
+<a class="tag" href="https://mullikine.github.io/tags/elasticsearch/">ELK</a>
+<a class="tag" href="https://mullikine.github.io/tags/semmle/">Semmle</a>
+<a class="tag" href="https://mullikine.github.io/tags/expect/">tcl/expect</a>
+<a class="tag" href="https://mullikine.github.io/tags/solr/">solr</a>
+</div>
+</div>
+
+
+
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">global-prefix: An extra universal prefix for emacs</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          May 13, 2021
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          7 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      <h2 id="summary">Summary</h2>
+<p>I have been using <code>C-u</code> a lot within my emacs
+lisp to bypass (update) caches and
+memoisation, but since I use it quite a lot, I
+think it should be given its own universal
+prefix, rather than using <code>C-u</code>. I want <code>H-u</code>
+to mean update the cache when running a
+function, and <code>C-u</code> to be used for everything else.</p>
+<p>The following source code will enable and
+extra prefix argument I call the &ldquo;global&rdquo;
+prefix (as opposed to the &ldquo;universal&rdquo; prefix).</p>
+<p>The global prefix has a binding <code>H-u</code> which
+can be followed by a single digit number.</p>
+<p>You may combine <code>C-u</code> with <code>H-u</code> but under the
+current implementation the <code>H-u</code> must follow
+the <code>C-u</code>.</p>
+<h2 id="demo">Demo</h2>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/iVsfFAV6pKxbzLJLw8y2040Hc" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/iVsfFAV6pKxbzLJLw8y2040Hc.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/iVsfFAV6pKxbzLJLw8y2040Hc.js" id="asciicast-iVsfFAV6pKxbzLJLw8y2040Hc" async></script>
+<h2 id="source">Source</h2>
+<h3 id="emacs-lisp">emacs lisp</h3>
+<p><code>my-global-argument.el</code></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">128
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">129
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">130
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">131
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">132
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">133
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">134
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">141
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">142
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">143
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">144
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">145
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">146
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">149
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">150
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">151
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">152
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">153
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">154
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">155
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">156
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">157
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">158
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">159
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">160
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">161
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">162
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">163
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">164
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">165
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">166
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">167
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">168
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">169
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">170
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">171
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">172
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">173
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">174
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">175
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">176
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">177
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">178
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">179
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">180
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">181
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">182
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">183
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">184
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">185
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">186
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">187
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">188
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">189
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">190
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">191
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">192
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">193
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">194
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">195
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">196
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">197
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">198
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">199
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">200
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">201
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">202
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">203
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">204
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">205
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">206
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">207
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">208
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">209
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">210
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">211
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">212
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">213
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">214
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">215
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">216
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">217
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">218
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">219
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">220
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">221
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">222
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">223
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">224
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">225
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">226
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">227
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">228
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">229
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">230
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">231
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">232
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">233
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">234
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">235
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">236
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">237
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">238
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">239
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">240
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">241
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">242
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">243
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">244
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">245
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">246
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">247
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">248
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">249
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">250
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">251
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defset global-prefix-command--needs-update <span style="color:#66d9ef">nil</span>)
+(defset global-prefix-command--last-echo <span style="color:#66d9ef">nil</span>)
+
+<span style="color:#75715e">;; This is OK I think. I need to make it so both prefixes can be used at the same time</span>
+(defun internal-echo-keystrokes-prefix ()
+  <span style="color:#75715e">;; BEWARE: Called directly from C code.</span>
+  <span style="color:#75715e">;; If the return value is non-nil, it means we are in the middle of</span>
+  <span style="color:#75715e">;; a command with prefix, such as a command invoked with prefix-arg.</span>
+  (sor
+   (s-join
+    <span style="color:#e6db74">&#34; &#34;</span>
+    (-filter
+     <span style="color:#e6db74">&#39;identity</span>
+     (<span style="color:#a6e22e">list</span>
+      (if (not prefix-command--needs-update)
+          prefix-command--last-echo
+        (setq prefix-command--last-echo
+              (let ((strs <span style="color:#66d9ef">nil</span>))
+                (<span style="color:#a6e22e">run-hook-wrapped</span> <span style="color:#e6db74">&#39;prefix-command-echo-keystrokes-functions</span>
+                                  (lambda (fun) (push (<span style="color:#a6e22e">funcall</span> fun) strs)))
+                (setq strs (<span style="color:#a6e22e">delq</span> <span style="color:#66d9ef">nil</span> strs))
+                (when strs (<span style="color:#a6e22e">mapconcat</span> <span style="color:#a6e22e">#&#39;identity</span> strs <span style="color:#e6db74">&#34; &#34;</span>)))))
+      (if (not global-prefix-command--needs-update)
+          global-prefix-command--last-echo
+        (setq global-prefix-command--last-echo
+              (let ((strs <span style="color:#66d9ef">nil</span>))
+                (<span style="color:#a6e22e">run-hook-wrapped</span> <span style="color:#e6db74">&#39;global-prefix-command-echo-keystrokes-functions</span>
+                                  (lambda (fun) (push (<span style="color:#a6e22e">funcall</span> fun) strs)))
+                (setq strs (<span style="color:#a6e22e">delq</span> <span style="color:#66d9ef">nil</span> strs))
+                (when strs (<span style="color:#a6e22e">mapconcat</span> <span style="color:#a6e22e">#&#39;identity</span> strs <span style="color:#e6db74">&#34; &#34;</span>))))))))))
+
+(defset global-prefix-command-echo-keystrokes-functions <span style="color:#66d9ef">nil</span>
+  <span style="color:#e6db74">&#34;Abnormal hook that constructs the description of the current prefix state.
+</span><span style="color:#e6db74">Each function is called with no argument, should return a string or nil.&#34;</span>)
+
+(defun global-prefix-command-update ()
+  <span style="color:#e6db74">&#34;Update state of prefix commands.
+</span><span style="color:#e6db74">Call it whenever you change the \&#34;prefix command state\&#34;.&#34;</span>
+  (setq global-prefix-command--needs-update <span style="color:#66d9ef">t</span>))
+
+(defset global-prefix-command-preserve-state-hook <span style="color:#66d9ef">nil</span>
+  <span style="color:#e6db74">&#34;Normal hook run when a command needs to preserve the prefix.&#34;</span>)
+
+(defun global-prefix-command-preserve-state ()
+  <span style="color:#e6db74">&#34;Pass the current prefix command state to the next command.
+</span><span style="color:#e6db74">Should be called by all prefix commands.
+</span><span style="color:#e6db74">Runs </span><span style="color:#e6db74">`global-prefix-command-preserve-state-hook&#39;</span><span style="color:#e6db74">.&#34;</span>
+  (prefix-command-preserve-state)
+  (<span style="color:#a6e22e">run-hooks</span> <span style="color:#e6db74">&#39;global-prefix-command-preserve-state-hook</span>)
+  <span style="color:#75715e">;; If the current command is a prefix command, we don&#39;t want the next (real)</span>
+  <span style="color:#75715e">;; command to have `last-command&#39; set to, say, `global-argument&#39;.</span>
+  (setq this-command last-command)
+  (setq real-this-command real-last-command)
+  (global-prefix-command-update))
+
+<span style="color:#75715e">;;;;; The main prefix command.</span>
+
+<span style="color:#75715e">;; FIXME: Declaration of `global-prefix-arg&#39; should be moved here!?</span>
+
+(defset global-prefix-arg <span style="color:#66d9ef">nil</span>)
+(defset current-global-prefix-arg <span style="color:#66d9ef">nil</span>)
+
+(add-hook <span style="color:#e6db74">&#39;global-prefix-command-echo-keystrokes-functions</span>
+          <span style="color:#a6e22e">#&#39;</span>global-argument--description)
+(defun global-argument--description ()
+  (when global-prefix-arg
+    (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;H-u&#34;</span>
+            (pcase global-prefix-arg
+              (<span style="color:#f92672">&#39;</span>(<span style="color:#a6e22e">-</span>) <span style="color:#e6db74">&#34; -&#34;</span>)
+              (<span style="color:#f92672">`</span>(<span style="color:#f92672">,</span>(and (pred <span style="color:#a6e22e">integerp</span>) n))
+               (let ((str <span style="color:#e6db74">&#34;&#34;</span>))
+                 (while (and (<span style="color:#a6e22e">&gt;</span> n <span style="color:#ae81ff">4</span>) (<span style="color:#a6e22e">=</span> (<span style="color:#a6e22e">mod</span> n <span style="color:#ae81ff">4</span>) <span style="color:#ae81ff">0</span>))
+                   (setq str (<span style="color:#a6e22e">concat</span> str <span style="color:#e6db74">&#34; H-u&#34;</span>))
+                   (setq n (<span style="color:#a6e22e">/</span> n <span style="color:#ae81ff">4</span>)))
+                 (if (<span style="color:#a6e22e">=</span> n <span style="color:#ae81ff">4</span>) str (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34; %s&#34;</span> global-prefix-arg))))
+              (_ (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34; %s&#34;</span> global-prefix-arg))))))
+
+(add-hook <span style="color:#e6db74">&#39;global-prefix-command-preserve-state-hook</span>
+          <span style="color:#a6e22e">#&#39;</span>global-argument--preserve)
+(defun global-argument--preserve ()
+  (setq global-prefix-arg current-global-prefix-arg))
+
+(defset global-argument-map
+  (let ((map (<span style="color:#a6e22e">make-sparse-keymap</span>))
+        (global-argument-minus
+         <span style="color:#75715e">;; For backward compatibility, minus with no modifiers is an ordinary</span>
+         <span style="color:#75715e">;; command if digits have already been entered.</span>
+         <span style="color:#f92672">`</span>(menu-item <span style="color:#e6db74">&#34;&#34;</span> global-negative-argument
+                     :filter <span style="color:#f92672">,</span>(lambda (cmd)
+                                (if (<span style="color:#a6e22e">integerp</span> global-prefix-arg) <span style="color:#66d9ef">nil</span> cmd)))))
+    (<span style="color:#a6e22e">define-key</span> map [switch-frame]
+      (lambda (e) (interactive <span style="color:#e6db74">&#34;e&#34;</span>)
+        (<span style="color:#a6e22e">handle-switch-frame</span> e) (global-argument--mode)))
+    (<span style="color:#a6e22e">define-key</span> map [<span style="color:#e6db74">?\H</span>-u] <span style="color:#e6db74">&#39;global-argument-more</span>)
+    (<span style="color:#a6e22e">define-key</span> map [<span style="color:#e6db74">?-</span>] global-argument-minus)
+    (<span style="color:#a6e22e">define-key</span> map [<span style="color:#e6db74">?0</span>] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [<span style="color:#e6db74">?1</span>] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [<span style="color:#e6db74">?2</span>] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [<span style="color:#e6db74">?3</span>] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [<span style="color:#e6db74">?4</span>] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [<span style="color:#e6db74">?5</span>] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [<span style="color:#e6db74">?6</span>] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [<span style="color:#e6db74">?7</span>] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [<span style="color:#e6db74">?8</span>] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [<span style="color:#e6db74">?9</span>] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [kp-0] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [kp-1] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [kp-2] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [kp-3] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [kp-4] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [kp-5] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [kp-6] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [kp-7] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [kp-8] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [kp-9] <span style="color:#e6db74">&#39;global-digit-argument</span>)
+    (<span style="color:#a6e22e">define-key</span> map [kp-subtract] global-argument-minus)
+    map)
+  <span style="color:#e6db74">&#34;Keymap used while processing \\[global-argument].&#34;</span>)
+
+(defun global-argument--mode ()
+  (global-prefix-command-update)
+  (set-transient-map global-argument-map <span style="color:#66d9ef">nil</span>))
+
+(defun global-argument ()
+  <span style="color:#e6db74">&#34;Begin a numeric argument for the following command.
+</span><span style="color:#e6db74">Digits or minus sign following \\[global-argument] make up the numeric argument.
+</span><span style="color:#e6db74">\\[global-argument] following the digits or minus sign ends the argument.
+</span><span style="color:#e6db74">\\[global-argument] without digits or minus sign provides 4 as argument.
+</span><span style="color:#e6db74">Repeating \\[global-argument] without digits or minus sign
+</span><span style="color:#e6db74"> multiplies the argument by 4 each time.
+</span><span style="color:#e6db74">For some commands, just \\[global-argument] by itself serves as a flag
+</span><span style="color:#e6db74">that is different in effect from any particular numeric argument.
+</span><span style="color:#e6db74">These commands include \\[set-mark-command] and \\[start-kbd-macro].&#34;</span>
+  (interactive)
+  <span style="color:#75715e">;; (setq last-command-event nil)</span>
+  (global-prefix-command-preserve-state)
+  (setq global-prefix-arg (<span style="color:#a6e22e">list</span> <span style="color:#ae81ff">4</span>))
+  (global-argument--mode))
+
+(defun global-argument-more (arg)
+  <span style="color:#75715e">;; A subsequent H-u means to multiply the factor by 4 if we&#39;ve typed</span>
+  <span style="color:#75715e">;; nothing but H-u&#39;s; otherwise it means to terminate the prefix arg.</span>
+  (interactive <span style="color:#e6db74">&#34;P&#34;</span>)
+  (let ((arg))
+    (global-prefix-command-preserve-state)
+    (setq global-prefix-arg (if (<span style="color:#a6e22e">consp</span> arg)
+                                (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">*</span> <span style="color:#ae81ff">4</span> (<span style="color:#a6e22e">car</span> arg)))
+                              (if (<span style="color:#a6e22e">eq</span> arg <span style="color:#e6db74">&#39;-</span>)
+                                  (<span style="color:#a6e22e">list</span> <span style="color:#ae81ff">-4</span>)
+                                arg))))
+  (when (<span style="color:#a6e22e">consp</span> global-prefix-arg) (global-argument--mode)))
+
+(defun global-negative-argument (arg)
+  <span style="color:#e6db74">&#34;Begin a negative numeric argument for the next command.
+</span><span style="color:#e6db74">\\[global-argument] following digits or minus sign ends the argument.&#34;</span>
+  (interactive <span style="color:#e6db74">&#34;P&#34;</span>)
+  (let ((arg <span style="color:#66d9ef">nil</span>))
+    (global-prefix-command-preserve-state)
+    (setq global-prefix-arg (cond ((<span style="color:#a6e22e">integerp</span> arg) (<span style="color:#a6e22e">-</span> arg))
+                                  ((<span style="color:#a6e22e">eq</span> arg <span style="color:#e6db74">&#39;-</span>) <span style="color:#66d9ef">nil</span>)
+                                  (<span style="color:#66d9ef">t</span> <span style="color:#e6db74">&#39;-</span>))))
+  (global-argument--mode))
+
+(defun global-digit-argument (arg)
+  <span style="color:#e6db74">&#34;Part of the numeric argument for the next command.
+</span><span style="color:#e6db74">\\[global-argument] following digits or minus sign ends the argument.&#34;</span>
+  (interactive <span style="color:#e6db74">&#34;P&#34;</span>)
+  (let ((arg <span style="color:#66d9ef">nil</span>))
+    (global-prefix-command-preserve-state)
+    (let* ((char (if (<span style="color:#a6e22e">integerp</span> last-command-event)
+                     last-command-event
+                   (<span style="color:#a6e22e">get</span> last-command-event <span style="color:#e6db74">&#39;ascii-character</span>)))
+           (digit (<span style="color:#a6e22e">-</span> (<span style="color:#a6e22e">logand</span> char <span style="color:#e6db74">?\1</span><span style="color:#ae81ff">77</span>) <span style="color:#e6db74">?0</span>)))
+      (setq global-prefix-arg (cond ((<span style="color:#a6e22e">integerp</span> arg)
+                                     (<span style="color:#a6e22e">+</span> (<span style="color:#a6e22e">*</span> arg <span style="color:#ae81ff">10</span>)
+                                        (if (<span style="color:#a6e22e">&lt;</span> arg <span style="color:#ae81ff">0</span>) (<span style="color:#a6e22e">-</span> digit) digit)))
+                                    ((<span style="color:#a6e22e">eq</span> arg <span style="color:#e6db74">&#39;-</span>)
+                                     <span style="color:#75715e">;; Treat -0 as just -, so that -01 will work.</span>
+                                     (if (zerop digit) <span style="color:#e6db74">&#39;-</span> (<span style="color:#a6e22e">-</span> digit)))
+                                    (<span style="color:#66d9ef">t</span>
+                                     digit)))))
+  (global-argument--mode))
+
+(<span style="color:#a6e22e">define-key</span> global-map (kbd <span style="color:#e6db74">&#34;H-u&#34;</span>) <span style="color:#e6db74">&#39;global-argument</span>)
+
+
+(defun command-execute (cmd <span style="color:#66d9ef">&amp;optional</span> record-flag keys special)
+  <span style="color:#75715e">;; BEWARE: Called directly from the C code.</span>
+  <span style="color:#e6db74">&#34;Execute CMD as an editor command.
+</span><span style="color:#e6db74">CMD must be a symbol that satisfies the </span><span style="color:#e6db74">`commandp&#39;</span><span style="color:#e6db74"> predicate.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">Optional second arg RECORD-FLAG non-nil means unconditionally put
+</span><span style="color:#e6db74">this command in the variable </span><span style="color:#e6db74">`command-history&#39;</span><span style="color:#e6db74">.  Otherwise, that
+</span><span style="color:#e6db74">is done only if an arg is read using the minibuffer.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">The argument KEYS specifies the value to use instead of the
+</span><span style="color:#e6db74">return value of the </span><span style="color:#e6db74">`this-command-keys&#39;</span><span style="color:#e6db74"> function when reading the
+</span><span style="color:#e6db74">arguments; if it is nil, </span><span style="color:#e6db74">`this-command-keys&#39;</span><span style="color:#e6db74"> is used.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">The argument SPECIAL, if non-nil, means that this command is
+</span><span style="color:#e6db74">executing a special event, so ignore the prefix argument and
+</span><span style="color:#e6db74">don&#39;t clear it.&#34;</span>
+  (setq debug-on-next-call <span style="color:#66d9ef">nil</span>)
+  (let ((prefixarg
+         (unless special
+           <span style="color:#75715e">;; FIXME: This should probably be done around</span>
+           <span style="color:#75715e">;; pre-command-hook rather than here!</span>
+           (prog1 prefix-arg
+             (setq current-prefix-arg prefix-arg)
+             (setq prefix-arg <span style="color:#66d9ef">nil</span>)
+             (when current-prefix-arg
+               (prefix-command-update)))))
+        (globalprefixarg
+         (unless special
+           <span style="color:#75715e">;; FIXME: This should probably be done around</span>
+           <span style="color:#75715e">;; pre-command-hook rather than here!</span>
+           (prog1 global-prefix-arg
+             (setq current-global-prefix-arg global-prefix-arg)
+             (setq global-prefix-arg <span style="color:#66d9ef">nil</span>)
+             (when current-global-prefix-arg
+               (global-prefix-command-update))))))
+    (if (and (<span style="color:#a6e22e">symbolp</span> cmd)
+             (<span style="color:#a6e22e">get</span> cmd <span style="color:#e6db74">&#39;disabled</span>)
+             disabled-command-function)
+        <span style="color:#75715e">;; FIXME: Weird calling convention!</span>
+        (<span style="color:#a6e22e">run-hooks</span> <span style="color:#e6db74">&#39;disabled-command-function</span>)
+      (let ((final cmd))
+        (while
+            (progn
+              (setq final (<span style="color:#a6e22e">indirect-function</span> final))
+              (if (autoloadp final)
+                  (setq final (<span style="color:#a6e22e">autoload-do-load</span> final cmd)))))
+        (cond
+         ((<span style="color:#a6e22e">arrayp</span> final)
+          <span style="color:#75715e">;; If requested, place the macro in the command history.  For</span>
+          <span style="color:#75715e">;; other sorts of commands, call-interactively takes care of this.</span>
+          (when record-flag
+            (add-to-history
+             <span style="color:#e6db74">&#39;command-history</span> <span style="color:#f92672">`</span>(<span style="color:#a6e22e">execute-kbd-macro</span> <span style="color:#f92672">,</span>final <span style="color:#f92672">,</span>prefixarg) <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>))
+          (<span style="color:#a6e22e">execute-kbd-macro</span> final prefixarg))
+         (<span style="color:#66d9ef">t</span>
+          <span style="color:#75715e">;; Pass `cmd&#39; rather than `final&#39;, for the backtrace&#39;s sake.</span>
+          (prog1 (<span style="color:#a6e22e">call-interactively</span> cmd record-flag keys)
+            (when (and (<span style="color:#a6e22e">symbolp</span> cmd)
+                       (<span style="color:#a6e22e">get</span> cmd <span style="color:#e6db74">&#39;byte-obsolete-info</span>)
+                       (not (<span style="color:#a6e22e">get</span> cmd <span style="color:#e6db74">&#39;command-execute-obsolete-warned</span>)))
+              (<span style="color:#a6e22e">put</span> cmd <span style="color:#e6db74">&#39;command-execute-obsolete-warned</span> <span style="color:#66d9ef">t</span>)
+              (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;%s&#34;</span> (macroexp--obsolete-warning
+                             cmd (<span style="color:#a6e22e">get</span> cmd <span style="color:#e6db74">&#39;byte-obsolete-info</span>) <span style="color:#e6db74">&#34;command&#34;</span>))))))))))
+
+(provide <span style="color:#e6db74">&#39;my-global-argument</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<p>Test code:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun test-global-prefix ()
+  (interactive)
+  (<span style="color:#a6e22e">message</span> (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;prefix: &#34;</span> (sor (str current-prefix-arg) <span style="color:#e6db74">&#34;-&#34;</span>)
+                   <span style="color:#e6db74">&#34;, &#34;</span>
+                   <span style="color:#e6db74">&#34;global prefix: &#34;</span> (sor (str current-global-prefix-arg) <span style="color:#e6db74">&#34;-&#34;</span>)))
+  <span style="color:#75715e">;; (if (&gt;= (prefix-numeric-value current-global-prefix-arg) 4)</span>
+  <span style="color:#75715e">;;     (message (concat &#34;global prefix: &#34; (str current-global-prefix-arg)))</span>
+  <span style="color:#75715e">;;   (message &#34;no global prefix&#34;))</span>
+  )
+
+(<span style="color:#a6e22e">define-key</span> global-map (kbd <span style="color:#e6db74">&#34;H-$&#34;</span>) <span style="color:#e6db74">&#39;test-global-prefix</span>)</code></pre></td></tr></table>
+</div>
+</div>
+
+    </div>
+    <div class="post-footer">
+        <p>
+        <a href="https://mullikine.github.io/about/">About this weblog</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://asciinema.org/~mullikine">Asciinema recordings</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/posts/blogs-and-vlogs/">Blogs and Vlogs</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/tags/">Site Map</a>
+        </p>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
