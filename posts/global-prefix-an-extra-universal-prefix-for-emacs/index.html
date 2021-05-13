@@ -237,7 +237,12 @@ function will lose the value, unless you capture it, say in a <code>let</code>. 
 done via the &lsquo;arg&rsquo; variable of <code>(interactive &quot;P&quot;)</code>. You must do this manually. The first
 function to be called with the global prefix
 will not need any special treatment. It should
-just work, as there is no propagation.</p>
+just work, as there is no propagation. But a
+better thing to do would be to check the
+current value of <code>current-global-prefix-arg</code>
+on the function that receives the prefix and
+set a different variable, which will not be
+overwritten.</p>
 <p>You may combine <code>C-u</code> with <code>H-u</code> but under the
 current implementation the <code>H-u</code> must follow
 the <code>C-u</code>.</p>
@@ -878,6 +883,35 @@ the <code>C-u</code>.</p>
             )))
     (let ((current-global-prefix-arg gp))
       (<span style="color:#a6e22e">apply</span> <span style="color:#e6db74">&#39;create-tablist</span> args))))
+(<span style="color:#a6e22e">define-key</span> my-mode-map (kbd <span style="color:#e6db74">&#34;H-\\&#34;</span>) <span style="color:#e6db74">&#39;my-start-tablist</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<p>Since <code>current-global-prefix-arg</code> updates quite frequently, it&rsquo;s better to use a different variable. In this case, <code>sh-update</code>.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun my-start-tablist ()
+  (interactive)
+  (let* ((sh-update (<span style="color:#a6e22e">&gt;=</span> (<span style="color:#a6e22e">prefix-numeric-value</span> current-global-prefix-arg) <span style="color:#ae81ff">16</span>))
+         (tlname (fz (<span style="color:#a6e22e">mapcar</span> <span style="color:#e6db74">&#39;car</span> my-tablist-mode-tuples) <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">nil</span> <span style="color:#e6db74">&#34;start tablist: &#34;</span>))
+         (args
+          (if (sor tlname)
+              (<span style="color:#a6e22e">assoc</span> tlname my-tablist-mode-tuples)
+            <span style="color:#75715e">;; (cdr (assoc tlname my-tablist-mode-tuples))</span>
+            )))
+    (<span style="color:#a6e22e">apply</span> <span style="color:#e6db74">&#39;create-tablist</span> args)))
 (<span style="color:#a6e22e">define-key</span> my-mode-map (kbd <span style="color:#e6db74">&#34;H-\\&#34;</span>) <span style="color:#e6db74">&#39;my-start-tablist</span>)</code></pre></td></tr></table>
 </div>
 </div>
