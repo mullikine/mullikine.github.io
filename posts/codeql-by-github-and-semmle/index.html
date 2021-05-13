@@ -12,12 +12,12 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="CodeQL by GitHub and Semmle"/>
-<meta name="twitter:description" content="Reference material Getting started with the CodeQL CLI - CodeQL QL packs - CodeQL Related articles CodeLingo vs Linters: TLDR // Bodacious Blog  Glossary 1 2 3  QL pack Contains important metadata that tells the CodeQL CLI how to process the query files.   Install the CLI Releases github/codeql-cli-binaries GitHub
-Obtain a local copy of the CodeQL queries Using my xsh script, which is like bash but works over interactive subshells."/>
+<meta name="twitter:description" content="Reference material Getting started with the CodeQL CLI - CodeQL QL packs - CodeQL Related articles CodeLingo vs Linters: TLDR // Bodacious Blog  Glossary 1 2 3  QL pack Contains important metadata that tells the CodeQL CLI how to process the query files.   Step 1) Install the CLI Releases github/codeql-cli-binaries GitHub
+Step 2) Obtain a local copy of the CodeQL queries 1 2 3 4 5 6 7  # Download the following repositories git clone https://github."/>
 
     <meta property="og:title" content="CodeQL by GitHub and Semmle" />
-<meta property="og:description" content="Reference material Getting started with the CodeQL CLI - CodeQL QL packs - CodeQL Related articles CodeLingo vs Linters: TLDR // Bodacious Blog  Glossary 1 2 3  QL pack Contains important metadata that tells the CodeQL CLI how to process the query files.   Install the CLI Releases github/codeql-cli-binaries GitHub
-Obtain a local copy of the CodeQL queries Using my xsh script, which is like bash but works over interactive subshells." />
+<meta property="og:description" content="Reference material Getting started with the CodeQL CLI - CodeQL QL packs - CodeQL Related articles CodeLingo vs Linters: TLDR // Bodacious Blog  Glossary 1 2 3  QL pack Contains important metadata that tells the CodeQL CLI how to process the query files.   Step 1) Install the CLI Releases github/codeql-cli-binaries GitHub
+Step 2) Obtain a local copy of the CodeQL queries 1 2 3 4 5 6 7  # Download the following repositories git clone https://github." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/codeql-by-github-and-semmle/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-01-07T00:00:00&#43;13:00" />
@@ -232,11 +232,9 @@ Obtain a local copy of the CodeQL queries Using my xsh script, which is like bas
     CodeQL CLI how to process the query files.</code></pre></td></tr></table>
 </div>
 </div>
-<h2 id="install-the-cli">Install the CLI</h2>
+<h2 id="step-1-install-the-cli">Step 1) Install the CLI</h2>
 <p><a href="https://github.com/github/codeql-cli-binaries/releases">Releases github/codeql-cli-binaries  GitHub</a></p>
-<h2 id="obtain-a-local-copy-of-the-codeql-queries">Obtain a local copy of the CodeQL queries</h2>
-<p>Using my <code>xsh</code> script, which is like bash but
-works over interactive subshells.</p>
+<h2 id="step-2-obtain-a-local-copy-of-the-codeql-queries">Step 2) Obtain a local copy of the CodeQL queries</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -248,16 +246,16 @@ works over interactive subshells.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># This stores in $MYGIT</span>
-o https://github.com/Semmle/ql
-o https://github.com/github/codeql-go
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Download the following repositories</span>
+git clone https://github.com/Semmle/ql
+git clone https://github.com/github/codeql-go
 
 mcd $HOME/programs/codeql-home
 ln -s $MYGIT/Semmle/ql codeql-repo
 ln -s $MYGIT/github/codeql-go codeql-go-repo</code></pre></td></tr></table>
 </div>
 </div>
-<h2 id="set-up-emacs">Set up emacs</h2>
+<h2 id="step-3-set-up-emacs">Step 3) Set up emacs</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -276,7 +274,7 @@ ln -s $MYGIT/github/codeql-go codeql-go-repo</code></pre></td></tr></table>
 (<span style="color:#a6e22e">load</span> (<span style="color:#a6e22e">concat</span> emacsdir <span style="color:#e6db74">&#34;/manual-packages/semmle/ql-mode-base.el&#34;</span>))</code></pre></td></tr></table>
 </div>
 </div>
-<h2 id="set-up-ranger">Set up ranger</h2>
+<h2 id="step-4-set-up-ranger">Step 4) Set up ranger</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -303,6 +301,7 @@ database from LGTM.com.</p>
 <p>You can then run any of the queries contained
 in this repository either on the command line
 or using the VS Code extension.</p>
+<h3 id="codeql"><code>codeql</code></h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -334,7 +333,8 @@ Commands:
   resolve   <span style="color:#f92672">[</span>Deep plumbing<span style="color:#f92672">]</span> Helper commands to resolve disk locations etc.
   execute   <span style="color:#f92672">[</span>Deep plumbing<span style="color:#f92672">]</span> Low-level commands that need special JVM options.
   version   Show the version of the CodeQL toolchain.
-</code></pre></div><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+</code></pre></div><h3 id="codeql-database-create"><code>codeql database create</code></h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span></code></pre></td>
@@ -425,7 +425,7 @@ Common options:
   -q, --quiet                Incrementally decrease the number of progress
                                messages printed.
 Some advanced options have been hidden; try --help -v <span style="color:#66d9ef">for</span> a fuller view.
-</code></pre></div><h2 id="database-creation-command">Database creation command</h2>
+</code></pre></div><h2 id="step-5-database-creation-command">Step 5) Database creation command</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -438,6 +438,7 @@ Some advanced options have been hidden; try --help -v <span style="color:#66d9ef
 <p>Database creation completed successfully.</p>
 <p><a title="asciinema recording" href="https://asciinema.org/a/aic65kSbjkiA28eWNQSLPT8n7" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/aic65kSbjkiA28eWNQSLPT8n7.svg" /></a></p>
 <h2 id="querying-the-database">Querying the database</h2>
+<h3 id="codeql-query"><code>codeql query</code></h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -580,6 +581,10 @@ select use, def, &#34;V&#34;</code></pre></td></tr></table>
 <p><a title="asciinema recording" href="https://asciinema.org/a/9gcB4pVOhMjq3UyXm2ybvojFT" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/9gcB4pVOhMjq3UyXm2ybvojFT.svg" /></a></p>
 <h2 id="honest-opinion-codelingo-query-language-beats-this">Honest opinion: CodeLingo Query Language beats this</h2>
 <p>I&rsquo;ll give it more time, though.</p>
+<dl>
+<dt>Update</dt>
+<dd>CodeLingo and CLQL are dead. Long live Semmle.</dd>
+</dl>
 
     </div>
     <div class="post-footer">
