@@ -196,7 +196,7 @@ I also make a convenience function for switching to the mitmproxy tmux pane." />
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -386,6 +386,242 @@ test -f <span style="color:#e6db74">&#34;/home/shane/.local/bin/mitmproxy&#34;</
 
     mypython <span style="color:#e6db74">&#34;</span>$bin<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span>
 <span style="color:#66d9ef">fi</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="tls">TLS</h2>
+<p>This makes it so mitmproxy doesn&rsquo;t impede emacs from using https.
+It will automatically accept.
+Use at your own risk.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun nsm-query-user (<span style="color:#a6e22e">message</span> status)
+  (let ((buffer (<span style="color:#a6e22e">get-buffer-create</span> <span style="color:#e6db74">&#34;*Network Security Manager*&#34;</span>))
+        (cert-buffer (<span style="color:#a6e22e">get-buffer-create</span> <span style="color:#e6db74">&#34;*Certificate Details*&#34;</span>))
+        (certs (<span style="color:#a6e22e">plist-get</span> status :certificates))
+        (accept-choices
+         <span style="color:#f92672">&#39;</span>((<span style="color:#e6db74">?a</span> <span style="color:#e6db74">&#34;always&#34;</span> <span style="color:#e6db74">&#34;Accept this certificate this session and for all future sessions.&#34;</span>)
+           (<span style="color:#e6db74">?s</span> <span style="color:#e6db74">&#34;session only&#34;</span> <span style="color:#e6db74">&#34;Accept this certificate this session only.&#34;</span>)
+           (<span style="color:#e6db74">?n</span> <span style="color:#e6db74">&#34;no&#34;</span> <span style="color:#e6db74">&#34;Refuse to use this certificate, and close the connection.&#34;</span>)
+           (<span style="color:#e6db74">?d</span> <span style="color:#e6db74">&#34;details&#34;</span> <span style="color:#e6db74">&#34;See certificate details&#34;</span>)))
+        (details-choices
+         <span style="color:#f92672">&#39;</span>((<span style="color:#e6db74">?b</span> <span style="color:#e6db74">&#34;backward page&#34;</span> <span style="color:#e6db74">&#34;See previous page&#34;</span>)
+           (<span style="color:#e6db74">?f</span> <span style="color:#e6db74">&#34;forward page&#34;</span> <span style="color:#e6db74">&#34;See next page&#34;</span>)
+           (<span style="color:#e6db74">?n</span> <span style="color:#e6db74">&#34;next&#34;</span> <span style="color:#e6db74">&#34;Next certificate&#34;</span>)
+           (<span style="color:#e6db74">?p</span> <span style="color:#e6db74">&#34;previous&#34;</span> <span style="color:#e6db74">&#34;Previous certificate&#34;</span>)
+           (<span style="color:#e6db74">?q</span> <span style="color:#e6db74">&#34;quit&#34;</span> <span style="color:#e6db74">&#34;Quit details view&#34;</span>)))
+        (done <span style="color:#66d9ef">nil</span>))
+    (save-window-excursion
+      <span style="color:#75715e">;; First format the certificate and warnings.</span>
+      (pop-to-buffer buffer)
+      (<span style="color:#a6e22e">erase-buffer</span>)
+      (let ((inhibit-read-only <span style="color:#66d9ef">t</span>))
+        (when status
+          (<span style="color:#a6e22e">insert</span> (nsm-format-certificate status)))
+        (<span style="color:#a6e22e">insert</span> <span style="color:#a6e22e">message</span>)
+        (<span style="color:#a6e22e">goto-char</span> (<span style="color:#a6e22e">point-min</span>))
+        <span style="color:#75715e">;; Fill the first line of the message, which usually</span>
+        <span style="color:#75715e">;; contains lots of explanatory text.</span>
+        (fill-region (<span style="color:#a6e22e">point</span>) (<span style="color:#a6e22e">line-end-position</span>))
+        <span style="color:#75715e">;; If the window is too small, add navigation options.</span>
+        (when (<span style="color:#a6e22e">&gt;</span> (line-number-at-pos (<span style="color:#a6e22e">point-max</span>)) (window-height))
+          (setq accept-choices
+                (<span style="color:#a6e22e">append</span> accept-choices
+                        <span style="color:#f92672">&#39;</span>((<span style="color:#e6db74">?b</span> <span style="color:#e6db74">&#34;backward page&#34;</span> <span style="color:#e6db74">&#34;See previous page&#34;</span>)
+                          (<span style="color:#e6db74">?f</span> <span style="color:#e6db74">&#34;forward page&#34;</span> <span style="color:#e6db74">&#34;See next page&#34;</span>))))))
+      <span style="color:#75715e">;; Then ask the user what to do about it.</span>
+      (unwind-protect
+          (let* ((pems (cl-loop for cert in certs
+                                collect (gnutls-format-certificate
+                                         (<span style="color:#a6e22e">plist-get</span> cert :pem))))
+                 (cert-index <span style="color:#ae81ff">0</span>)
+                 show-details answer buf)
+            (while (not done)
+              (setq answer
+                    <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">?a</span> <span style="color:#e6db74">&#34;always&#34;</span> <span style="color:#e6db74">&#34;Accept this certificate this session and for all future sessions.&#34;</span>)
+                    <span style="color:#75715e">;; (if show-details</span>
+                    <span style="color:#75715e">;;     (read-multiple-choice &#34;Viewing certificate:&#34;</span>
+                    <span style="color:#75715e">;;                           details-choices)</span>
+                    <span style="color:#75715e">;;   (read-multiple-choice &#34;Continue connecting?&#34;</span>
+                    <span style="color:#75715e">;;                         accept-choices))</span>
+                    )
+              (setq buf (if show-details cert-buffer buffer))
+
+              (cl-case (<span style="color:#a6e22e">car</span> answer)
+                (<span style="color:#e6db74">?q</span>
+                 <span style="color:#75715e">;; Exit the details window.</span>
+                 (<span style="color:#a6e22e">set-window-buffer</span> (<span style="color:#a6e22e">get-buffer-window</span> cert-buffer) buffer)
+                 (setq show-details <span style="color:#66d9ef">nil</span>))
+
+                (<span style="color:#e6db74">?d</span>
+                 <span style="color:#75715e">;; Enter the details window.</span>
+                 (<span style="color:#a6e22e">set-window-buffer</span> (<span style="color:#a6e22e">get-buffer-window</span> buffer) cert-buffer)
+                 (with-current-buffer cert-buffer
+                   (read-only-mode <span style="color:#ae81ff">-1</span>)
+                   (<span style="color:#a6e22e">insert</span> (<span style="color:#a6e22e">nth</span> cert-index pems))
+                   (<span style="color:#a6e22e">goto-char</span> (<span style="color:#a6e22e">point-min</span>))
+                   (read-only-mode))
+                 (setq show-details <span style="color:#66d9ef">t</span>))
+
+                (<span style="color:#e6db74">?b</span>
+                 <span style="color:#75715e">;; Scroll down.</span>
+                 (with-selected-window (<span style="color:#a6e22e">get-buffer-window</span> buf)
+                   (with-current-buffer buf
+                     (ignore-errors (<span style="color:#a6e22e">scroll-down</span>)))))
+
+                (<span style="color:#e6db74">?f</span>
+                 <span style="color:#75715e">;; Scroll up.</span>
+                 (with-selected-window (<span style="color:#a6e22e">get-buffer-window</span> buf)
+                   (with-current-buffer buf
+                     (ignore-errors (<span style="color:#a6e22e">scroll-up</span>)))))
+
+                (<span style="color:#e6db74">?n</span>
+                 <span style="color:#75715e">;; &#34;No&#34; or &#34;next certificate&#34;.</span>
+                 (if show-details
+                     (with-current-buffer cert-buffer
+                       (read-only-mode <span style="color:#ae81ff">-1</span>)
+                       (<span style="color:#a6e22e">erase-buffer</span>)
+                       (setq cert-index (<span style="color:#a6e22e">mod</span> (<span style="color:#a6e22e">1+</span> cert-index) (<span style="color:#a6e22e">length</span> pems)))
+                       (<span style="color:#a6e22e">insert</span> (<span style="color:#a6e22e">nth</span> cert-index pems))
+                       (<span style="color:#a6e22e">goto-char</span> (<span style="color:#a6e22e">point-min</span>))
+                       (read-only-mode))
+                   (setq done <span style="color:#66d9ef">t</span>)))
+
+                (<span style="color:#e6db74">?a</span>
+                 <span style="color:#75715e">;; &#34;Always&#34;</span>
+                 (setq done <span style="color:#66d9ef">t</span>))
+
+                (<span style="color:#e6db74">?s</span>
+                 <span style="color:#75715e">;; &#34;Session only&#34;</span>
+                 (setq done <span style="color:#66d9ef">t</span>))
+
+                (<span style="color:#e6db74">?p</span>
+                 <span style="color:#75715e">;; Previous certificate.</span>
+                 (with-current-buffer cert-buffer
+                   (read-only-mode <span style="color:#ae81ff">-1</span>)
+                   (<span style="color:#a6e22e">erase-buffer</span>)
+                   (setq cert-index (<span style="color:#a6e22e">mod</span> (<span style="color:#a6e22e">1-</span> cert-index) (<span style="color:#a6e22e">length</span> pems)))
+                   (<span style="color:#a6e22e">insert</span> (<span style="color:#a6e22e">nth</span> cert-index pems))
+                   (<span style="color:#a6e22e">goto-char</span> (<span style="color:#a6e22e">point-min</span>))
+                   (read-only-mode)))))
+            <span style="color:#75715e">;; Return the answer.</span>
+            (cadr answer))
+        (<span style="color:#a6e22e">kill-buffer</span> cert-buffer)
+        (<span style="color:#a6e22e">kill-buffer</span> buffer)))))</code></pre></td></tr></table>
 </div>
 </div>
 
