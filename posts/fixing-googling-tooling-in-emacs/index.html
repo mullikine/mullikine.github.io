@@ -1,0 +1,1081 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Fixing helm in terminal emacs, and the Google search workflow // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.d72d030ad187ab0ad50539f121fd90261512369e55b6fd1041b05b88fc02834f.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Fixing helm in terminal emacs, and the Google search workflow"/>
+<meta name="twitter:description" content="The initial Google search This all started as I was trying to use helm-dash to search for documentation, only to find that it was completely unusable in terminal emacs.
+The only clue was the string &ldquo;Waiting for process to die&rdquo;, which was appearing in the minibuffer as typing was being blocked.
+Emacs would hang for several seconds continually and not return any results.
+helm-system-packages I did a google for the string and found this thread."/>
+
+    <meta property="og:title" content="Fixing helm in terminal emacs, and the Google search workflow" />
+<meta property="og:description" content="The initial Google search This all started as I was trying to use helm-dash to search for documentation, only to find that it was completely unusable in terminal emacs.
+The only clue was the string &ldquo;Waiting for process to die&rdquo;, which was appearing in the minibuffer as typing was being blocked.
+Emacs would hang for several seconds continually and not return any results.
+helm-system-packages I did a google for the string and found this thread." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/fixing-googling-tooling-in-emacs/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-19T00:00:00&#43;12:00" />
+<meta property="article:modified_time" content="2021-05-19T00:00:00&#43;12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+
+    
+    <script type="text/javascript">
+      var _paq = window._paq = window._paq || [];
+       
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="https://mullikine.matomo.cloud/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.src='//cdn.matomo.cloud/mullikine.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    
+
+  </head>
+  <body>
+    <header class="app-header">
+
+<a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/generating-hyperlinks-for-glossaries-and-other-parsers-in-emacs/">Hyperlink generation in emacs</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-case-for-learned-index-structures/">Case for Learned Index Structures</a>
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (298 topics)</a> <a href="https://github.com/mullikine/glossaries-gh">code</a>
+<br />
+<a href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">Automating Dwarf Fortress</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<a class="big" href="https://infogetics.github.io/">Infogetics on GitHub</a>
+<br />
+<a class="big" href="https://github.com/semiosis">Semiosis on GitHub</a>
+<br />
+<a class="big" href="https://takaheai.github.io/">TakaheAI on GitHub</a>
+<br />
+<div class="taglist">
+
+  <a class="tag" href="https://mullikine.github.io/tags/gpt/">GPT (Generative Pre-trained Transformer)</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/xenolinguistics/">xenolinguistics</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/shell/">shell</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a>
+<a class="tag" href="https://mullikine.github.io/tags/iac/">IaC</a>
+<a class="tag big" href="https://mullikine.github.io/tags/facebook/">Facebook</a>
+<a class="tag" href="https://mullikine.github.io/tags/wfh/">WFH</a>
+
+
+<a class="tag" href="https://mullikine.github.io/tags/babel/">babel</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/github/">GitHub</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsl/">DSL</a>
+<a class="tag" href="https://mullikine.github.io/tags/music/">music</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/diagrams/">diagrams</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/neural-engineering/">neural-engineering</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/aws/">AWS</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag big" href="https://mullikine.github.io/tags/uber/">Uber</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/microsoft/">Microsoft</a>
+<a class="tag big" href="https://mullikine.github.io/tags/neuralink/">Neuralink</a>
+<a class="tag big" href="https://mullikine.github.io/tags/openai/">OpenAI</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/rosie/">rosie</a>
+<a class="tag" href="https://mullikine.github.io/tags/terraform/">Terraform</a>
+<a class="tag" href="https://mullikine.github.io/tags/elasticsearch/">ELK</a>
+<a class="tag" href="https://mullikine.github.io/tags/semmle/">Semmle</a>
+<a class="tag" href="https://mullikine.github.io/tags/expect/">tcl/expect</a>
+<a class="tag" href="https://mullikine.github.io/tags/solr/">solr</a>
+</div>
+</div>
+
+
+
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Fixing helm in terminal emacs, and the Google search workflow</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          May 19, 2021
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          12 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      <h2 id="the-initial-google-search">The initial Google search</h2>
+<p>This all started as I was trying to use <code>helm-dash</code> to search for documentation, only to
+find that it was completely unusable in
+terminal emacs.</p>
+<p>The only clue was the string &ldquo;Waiting for
+process to die&rdquo;, which was appearing in the
+minibuffer as typing was being blocked.</p>
+<p>Emacs would hang for several seconds
+continually and not return any results.</p>
+<h3 id="helm-system-packages"><code>helm-system-packages</code></h3>
+<p>I did a google for the string and found this
+thread. It appeared to be affecting other
+packages.</p>
+<p><a href="https://github.com/emacs-helm/helm-system-packages/issues/23">https://github.com/emacs-helm/helm-system-packages/issues/23</a></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">I have investigated it. Happy to understand
+the problem a little better now. In the
+function helm-get-candidates, inhibit-quit is
+set to non-nil if the source is an external
+process. But I&#39;m guessing that some helm
+packages will hide this from helm and so to
+helm it must look like a regular function. The
+c function call-process will die if it gets
+the bell. I&#39;m guessing that typing too quickly
+triggers the terminal bell, which is C-g. The
+real issue is figuring out how that bell is
+triggered and how to stop it from happening,
+but my guess is that it might not be so easy.
+I&#39;ve just set inhibit-quit to t permanently in
+helm-get-candidates and I don&#39;t see the issue
+anymore.</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="emacs-helm"><code>emacs-helm</code></h2>
+<p>I raised an issue in <code>emacs-helm</code>.</p>
+<p><a href="https://github.com/emacs-helm/helm/issues/2417">https://github.com/emacs-helm/helm/issues/2417</a></p>
+<p>A 9 year old bug in <code>emacs-helm</code> had been breaking <code>helm</code>
+for terminal users on many packages. The
+reason why it must&rsquo;ve survived so long is that
+it gave no indication of why. No messages,
+just an unexpected disappearing of helm while typing.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">So I&#39;d just like to reiterate, this is two
+separate problems, both related to terminal
+emacs. 1) Pending keyboard input is
+interrupting accept-process-output and can be
+avoided with helm-while-no-input. 2) bell
+(C-g) generated from terminal is interrupting
+call-process when typing quickly and can be
+avoided with inhibit-quit.</code></pre></td></tr></table>
+</div>
+</div>
+<p>Admittedly, the issue affected many packages
+which were not written correctly, but also
+many packages that were correct.</p>
+<p><code>thierryvolpiatto</code> reverted the
+change made 9 years ago that caused helm to close unexpectedly.</p>
+<figure>
+    <img src="https://mullikine.github.io/ox-hugo/helm-quittable-revert.png"/> 
+</figure>
+
+<p>But the <code>quit</code> signal which helm was
+intercepting was still being generated. Now it
+began appearing while typing. It was also the
+cause of some lag in typing and some keyboard
+input disappearing.</p>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/tOJreP91sLT2Eam1efxBWiJfo" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/tOJreP91sLT2Eam1efxBWiJfo.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/tOJreP91sLT2Eam1efxBWiJfo.js" id="asciicast-tOJreP91sLT2Eam1efxBWiJfo" async></script>
+<h2 id="url-dot-el"><code>url.el</code></h2>
+<p>I wanted to find the true source of the <code>quit</code> signal.</p>
+<p>I did some debugging of <code>url.el</code>.</p>
+<p><span class="underline"><code>url-retrieve-synchronously</code> with debug statements</span></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">128
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">129
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">130
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">131
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">132
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">133
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">134
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">141
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">142
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">143
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">144
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">145
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">146
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">149
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">150
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">151
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">152
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">153
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">154
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">155
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">156
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">157
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">158
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">159
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">160
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">161
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">162
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">163
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">164
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">165
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">166
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">167
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">168
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">169
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun my-url-log (m)
+  <span style="color:#75715e">;; (append-to-file (concat (format-time-string &#34;%S&#34;) m &#34;\n&#34;) &#34;/tmp/emacsurl.txt&#34;)</span>
+  )
+
+(write-to-file <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#e6db74">&#34;/tmp/emacsurl.txt&#34;</span>)
+
+(defun url-retrieve-synchronously (url <span style="color:#66d9ef">&amp;optional</span> silent inhibit-cookies timeout)
+  <span style="color:#e6db74">&#34;Retrieve URL synchronously.
+</span><span style="color:#e6db74">Return the buffer containing the data, or nil if there are no data
+</span><span style="color:#e6db74">associated with it (the case for dired, info, or mailto URLs that need
+</span><span style="color:#e6db74">no further processing).  URL is either a string or a parsed URL.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">If SILENT is non-nil, don&#39;t do any messaging while retrieving.
+</span><span style="color:#e6db74">If INHIBIT-COOKIES is non-nil, refuse to store cookies.  If
+</span><span style="color:#e6db74">TIMEOUT is passed, it should be a number that says (in seconds)
+</span><span style="color:#e6db74">how long to wait for a response before giving up.&#34;</span>
+  (url-do-setup)
+  <span style="color:#75715e">;; (message (concat &#34;url-retrieve-synchronously: &#34; url))</span>
+
+  (let (
+        (inhibit-quit <span style="color:#66d9ef">t</span>)
+        (retrieval-done <span style="color:#66d9ef">nil</span>)
+        (start-time (<span style="color:#a6e22e">current-time</span>))
+        (url-asynchronous <span style="color:#66d9ef">nil</span>)
+        (asynch-buffer <span style="color:#66d9ef">nil</span>)
+        (timed-out <span style="color:#66d9ef">nil</span>)
+        <span style="color:#75715e">;; (quit-flag nil)</span>
+        )
+    (setq asynch-buffer
+          (url-retrieve url (lambda (<span style="color:#66d9ef">&amp;rest</span> ignored)
+                              (let ((inhibit-quit <span style="color:#66d9ef">t</span>))
+                                (url-debug <span style="color:#e6db74">&#39;retrieval</span> <span style="color:#e6db74">&#34;Synchronous fetching done (%S)&#34;</span> (<span style="color:#a6e22e">current-buffer</span>))
+                                (setq retrieval-done <span style="color:#66d9ef">t</span>
+                                      asynch-buffer (<span style="color:#a6e22e">current-buffer</span>))))
+                        <span style="color:#66d9ef">nil</span> silent inhibit-cookies))
+    (if (<span style="color:#a6e22e">null</span> asynch-buffer)
+        <span style="color:#75715e">;; We do not need to do anything, it was a mailto or something</span>
+        <span style="color:#75715e">;; similar that takes processing completely outside of the URL</span>
+        <span style="color:#75715e">;; package.</span>
+        (progn
+          <span style="color:#75715e">;; (message &#34;donothing&#34;)</span>
+          <span style="color:#66d9ef">nil</span>)
+      (let ((proc (<span style="color:#a6e22e">get-buffer-process</span> asynch-buffer))
+            (counter <span style="color:#ae81ff">0</span>))
+        <span style="color:#75715e">;; If the access method was synchronous, `retrieval-done&#39; should</span>
+        <span style="color:#75715e">;; hopefully already be set to t.  If it is nil, and `proc&#39; is also</span>
+        <span style="color:#75715e">;; nil, it implies that the async process is not running in</span>
+        <span style="color:#75715e">;; asynch-buffer.  This happens e.g. for FTP files.  In such a case</span>
+        <span style="color:#75715e">;; url-file.el should probably set something like a `url-process&#39;</span>
+        <span style="color:#75715e">;; buffer-local variable so we can find the exact process that we</span>
+        <span style="color:#75715e">;; should be waiting for.  In the mean time, we&#39;ll just wait for any</span>
+        <span style="color:#75715e">;; process output.</span>
+        (while (and (not retrieval-done)
+                    <span style="color:#75715e">;; (not (input-pending-p))</span>
+                    (or (not timeout)
+                        (not (setq timed-out
+                                   (<span style="color:#a6e22e">time-less-p</span> timeout
+                                                (time-since start-time))))))
+          (url-debug <span style="color:#e6db74">&#39;retrieval</span>
+                     <span style="color:#e6db74">&#34;Spinning in url-retrieve-synchronously: %S (%S)&#34;</span>
+                     retrieval-done asynch-buffer)
+          (if (<span style="color:#a6e22e">buffer-local-value</span> <span style="color:#e6db74">&#39;url-redirect-buffer</span> asynch-buffer)
+              (setq proc (<span style="color:#a6e22e">get-buffer-process</span>
+                          (setq asynch-buffer
+                                (<span style="color:#a6e22e">buffer-local-value</span> <span style="color:#e6db74">&#39;url-redirect-buffer</span>
+                                                    asynch-buffer))))
+            (if (and proc (<span style="color:#a6e22e">memq</span> (<span style="color:#a6e22e">process-status</span> proc)
+                                <span style="color:#f92672">&#39;</span>(closed exit <span style="color:#a6e22e">signal</span> failed))
+                     <span style="color:#75715e">;; Make sure another process hasn&#39;t been started.</span>
+                     (<span style="color:#a6e22e">eq</span> proc (or (<span style="color:#a6e22e">get-buffer-process</span> asynch-buffer) proc)))
+                <span style="color:#75715e">;; FIXME: It&#39;s not clear whether url-retrieve&#39;s callback is</span>
+                <span style="color:#75715e">;; guaranteed to be called or not.  It seems that url-http</span>
+                <span style="color:#75715e">;; decides sometimes consciously not to call it, so it&#39;s not</span>
+                <span style="color:#75715e">;; clear that it&#39;s a bug, but even then we need to decide how</span>
+                <span style="color:#75715e">;; url-http can then warn us that the download has completed.</span>
+                <span style="color:#75715e">;; In the mean time, we use this here workaround.</span>
+                <span style="color:#75715e">;; XXX: The callback must always be called.  Any</span>
+                <span style="color:#75715e">;; exception is a bug that should be fixed, not worked</span>
+                <span style="color:#75715e">;; around.</span>
+                (progn <span style="color:#75715e">;; Call delete-process so we run any sentinel now.</span>
+                  (<span style="color:#a6e22e">delete-process</span> proc)
+                  (setq retrieval-done <span style="color:#66d9ef">t</span>)))
+            <span style="color:#75715e">;; We used to use `sit-for&#39; here, but in some cases it wouldn&#39;t</span>
+            <span style="color:#75715e">;; work because apparently pending keyboard input would always</span>
+            <span style="color:#75715e">;; interrupt it before it got a chance to handle process input.</span>
+            <span style="color:#75715e">;; `sleep-for&#39; was tried but it lead to other forms of</span>
+            <span style="color:#75715e">;; hanging.  --Stef</span>
+            <span style="color:#75715e">;; (message (concat &#34;later: &#34; url))</span>
+            <span style="color:#75715e">;; (ignore-errors (discard-input))</span>
+
+            <span style="color:#75715e">;; input-pending-p is wrong quite often</span>
+            <span style="color:#75715e">;; That is why I can&#39;t always read like this.</span>
+            (with-local-quit
+              (if (<span style="color:#a6e22e">input-pending-p</span>)
+                  (progn
+                    (setq counter (<span style="color:#a6e22e">1+</span> counter))
+                    <span style="color:#75715e">;; (append-to-file (concat (char-to-string (read-key)) &#34;\n&#34;))</span>
+                    (my-url-log (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;&gt;input pending&#34;</span> (str counter)))
+                    (if (<span style="color:#a6e22e">&gt;</span> counter <span style="color:#ae81ff">20</span>)
+                        (progn
+                          <span style="color:#75715e">;; (my-url-log (concat &#34;QUIT&#34; (str counter)))</span>
+                          (keyboard-quit))
+                      <span style="color:#75715e">;; This discards the input</span>
+                      <span style="color:#75715e">;; (read-key-sequence-vector nil nil t)</span>
+                      <span style="color:#75715e">;; (never</span>
+                      <span style="color:#75715e">;;  (let ((k (read-key)))</span>
+                      <span style="color:#75715e">;;    (my-url-log (concat &#34;discarding: &#34; (char-to-string k)))))</span>
+                      ))))
+            (unless (or
+                     <span style="color:#75715e">;; (with-local-quit</span>
+                     <span style="color:#75715e">;;   (accept-process-output proc 1))</span>
+
+                     <span style="color:#75715e">;; (if (input-pending-p)</span>
+                     <span style="color:#75715e">;;     (setq quit-flag t)</span>
+                     <span style="color:#75715e">;;   (while-no-input</span>
+                     <span style="color:#75715e">;;     (with-local-quit</span>
+                     <span style="color:#75715e">;;       (accept-process-output proc 1))))</span>
+
+                     <span style="color:#75715e">;; (while-no-input</span>
+                     <span style="color:#75715e">;;   (with-local-quit</span>
+                     <span style="color:#75715e">;;     (accept-process-output proc 1 nil t)))</span>
+
+                     (while-no-input
+                       (with-local-quit
+                         <span style="color:#75715e">;; (my-url-log &#34;working&#34;)</span>
+                         (<span style="color:#a6e22e">accept-process-output</span> proc <span style="color:#ae81ff">2</span>)
+                         <span style="color:#75715e">;; (accept-process-output proc 1)</span>
+                         ))
+                     <span style="color:#75715e">;; (accept-process-outputq proc 1)</span>
+                     (<span style="color:#a6e22e">null</span> proc))
+              <span style="color:#75715e">;; accept-process-output returned nil, maybe because the process</span>
+              <span style="color:#75715e">;; exited (and may have been replaced with another).  If we got</span>
+              <span style="color:#75715e">;; a quit, just stop.</span>
+              <span style="color:#75715e">;; (message &#34;deleting proces&#34;)</span>
+              (my-url-log url)
+              (if (<span style="color:#a6e22e">input-pending-p</span>)
+                  (progn
+                    <span style="color:#75715e">;; (append-to-file (concat (char-to-string (read-key)) &#34;\n&#34;))</span>
+                    (my-url-log <span style="color:#e6db74">&#34;&lt;input pending&#34;</span>)))
+              (when quit-flag
+                (progn
+                  (my-url-log <span style="color:#e6db74">&#34;deleting process&#34;</span>)
+                  (<span style="color:#a6e22e">delete-process</span> proc))
+                (my-url-log <span style="color:#e6db74">&#34;not deleting process&#34;</span>))
+              (progn
+                (try
+                 (setq proc (and (not quit-flag)
+                                 (<span style="color:#a6e22e">get-buffer-process</span> asynch-buffer)))
+                 <span style="color:#75715e">;; (message &#34;proc error&#34;)</span>
+                 )
+                proc)
+              <span style="color:#75715e">;; (setq proc (get-buffer-process asynch-buffer))</span>
+              )
+            <span style="color:#75715e">;; (message (concat &#34;very late: &#34; url))</span>
+            ))
+        <span style="color:#75715e">;; On timeouts, make sure we kill any pending processes.</span>
+        <span style="color:#75715e">;; There may be more than one if we had a redirect.</span>
+        (when timed-out
+          <span style="color:#75715e">;; (message &#34;timed out&#34;)</span>
+          (when (process-live-p proc)
+            (<span style="color:#a6e22e">delete-process</span> proc))
+          (when-let ((aproc (<span style="color:#a6e22e">get-buffer-process</span> asynch-buffer)))
+            (when (process-live-p aproc)
+              (<span style="color:#a6e22e">delete-process</span> aproc))))))
+    (my-url-log <span style="color:#e6db74">&#34;done&#34;</span>)
+    (my-url-log (buffer-to-string asynch-buffer))
+    (my-url-log url)
+    <span style="color:#75715e">;; (redraw-display)</span>
+    asynch-buffer))</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="final-changes-to-url-dot-el">Final changes to <code>url.el</code></h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun url-retrieve-synchronously (url <span style="color:#66d9ef">&amp;optional</span> silent inhibit-cookies timeout)
+  <span style="color:#e6db74">&#34;Retrieve URL synchronously.
+</span><span style="color:#e6db74">Return the buffer containing the data, or nil if there are no data
+</span><span style="color:#e6db74">associated with it (the case for dired, info, or mailto URLs that need
+</span><span style="color:#e6db74">no further processing).  URL is either a string or a parsed URL.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">If SILENT is non-nil, don&#39;t do any messaging while retrieving.
+</span><span style="color:#e6db74">If INHIBIT-COOKIES is non-nil, refuse to store cookies.  If
+</span><span style="color:#e6db74">TIMEOUT is passed, it should be a number that says (in seconds)
+</span><span style="color:#e6db74">how long to wait for a response before giving up.&#34;</span>
+  (url-do-setup)
+  (let ((retrieval-done <span style="color:#66d9ef">nil</span>)
+        (start-time (<span style="color:#a6e22e">current-time</span>))
+        (url-asynchronous <span style="color:#66d9ef">nil</span>)
+        (asynch-buffer <span style="color:#66d9ef">nil</span>)
+        (timed-out <span style="color:#66d9ef">nil</span>))
+    (setq asynch-buffer
+          (url-retrieve url (lambda (<span style="color:#66d9ef">&amp;rest</span> ignored)
+                              (let ((inhibit-quit <span style="color:#66d9ef">t</span>))
+                                (url-debug <span style="color:#e6db74">&#39;retrieval</span> <span style="color:#e6db74">&#34;Synchronous fetching done (%S)&#34;</span> (<span style="color:#a6e22e">current-buffer</span>))
+                                (setq retrieval-done <span style="color:#66d9ef">t</span>
+                                      asynch-buffer (<span style="color:#a6e22e">current-buffer</span>))))
+                        <span style="color:#66d9ef">nil</span> silent inhibit-cookies))
+    (if (<span style="color:#a6e22e">null</span> asynch-buffer)
+        <span style="color:#75715e">;; We do not need to do anything, it was a mailto or something</span>
+        <span style="color:#75715e">;; similar that takes processing completely outside of the URL</span>
+        <span style="color:#75715e">;; package.</span>
+        <span style="color:#66d9ef">nil</span>
+      (let ((proc (<span style="color:#a6e22e">get-buffer-process</span> asynch-buffer))
+            (counter <span style="color:#ae81ff">0</span>))
+        <span style="color:#75715e">;; If the access method was synchronous, `retrieval-done&#39; should</span>
+        <span style="color:#75715e">;; hopefully already be set to t.  If it is nil, and `proc&#39; is also</span>
+        <span style="color:#75715e">;; nil, it implies that the async process is not running in</span>
+        <span style="color:#75715e">;; asynch-buffer.  This happens e.g. for FTP files.  In such a case</span>
+        <span style="color:#75715e">;; url-file.el should probably set something like a `url-process&#39;</span>
+        <span style="color:#75715e">;; buffer-local variable so we can find the exact process that we</span>
+        <span style="color:#75715e">;; should be waiting for.  In the mean time, we&#39;ll just wait for any</span>
+        <span style="color:#75715e">;; process output.</span>
+        (while (and (not retrieval-done)
+                    (or (not timeout)
+                        (not (setq timed-out
+                                   (<span style="color:#a6e22e">time-less-p</span> timeout
+                                                (time-since start-time))))))
+          (url-debug <span style="color:#e6db74">&#39;retrieval</span>
+                     <span style="color:#e6db74">&#34;Spinning in url-retrieve-synchronously: %S (%S)&#34;</span>
+                     retrieval-done asynch-buffer)
+          (if (<span style="color:#a6e22e">buffer-local-value</span> <span style="color:#e6db74">&#39;url-redirect-buffer</span> asynch-buffer)
+              (setq proc (<span style="color:#a6e22e">get-buffer-process</span>
+                          (setq asynch-buffer
+                                (<span style="color:#a6e22e">buffer-local-value</span> <span style="color:#e6db74">&#39;url-redirect-buffer</span>
+                                                    asynch-buffer))))
+            (if (and proc (<span style="color:#a6e22e">memq</span> (<span style="color:#a6e22e">process-status</span> proc)
+                                <span style="color:#f92672">&#39;</span>(closed exit <span style="color:#a6e22e">signal</span> failed))
+                     <span style="color:#75715e">;; Make sure another process hasn&#39;t been started.</span>
+                     (<span style="color:#a6e22e">eq</span> proc (or (<span style="color:#a6e22e">get-buffer-process</span> asynch-buffer) proc)))
+                <span style="color:#75715e">;; FIXME: It&#39;s not clear whether url-retrieve&#39;s callback is</span>
+                <span style="color:#75715e">;; guaranteed to be called or not.  It seems that url-http</span>
+                <span style="color:#75715e">;; decides sometimes consciously not to call it, so it&#39;s not</span>
+                <span style="color:#75715e">;; clear that it&#39;s a bug, but even then we need to decide how</span>
+                <span style="color:#75715e">;; url-http can then warn us that the download has completed.</span>
+                <span style="color:#75715e">;; In the mean time, we use this here workaround.</span>
+                <span style="color:#75715e">;; XXX: The callback must always be called.  Any</span>
+                <span style="color:#75715e">;; exception is a bug that should be fixed, not worked</span>
+                <span style="color:#75715e">;; around.</span>
+                (progn <span style="color:#75715e">;; Call delete-process so we run any sentinel now.</span>
+                  (<span style="color:#a6e22e">delete-process</span> proc)
+                  (setq retrieval-done <span style="color:#66d9ef">t</span>)))
+            <span style="color:#75715e">;; We used to use `sit-for&#39; here, but in some cases it wouldn&#39;t</span>
+            <span style="color:#75715e">;; work because apparently pending keyboard input would always</span>
+            <span style="color:#75715e">;; interrupt it before it got a chance to handle process input.</span>
+            <span style="color:#75715e">;; `sleep-for&#39; was tried but it lead to other forms of</span>
+            <span style="color:#75715e">;; hanging.  --Stef</span>
+            (with-local-quit
+              (if (<span style="color:#a6e22e">input-pending-p</span>)
+                  (progn
+                    (setq counter (<span style="color:#a6e22e">1+</span> counter))
+                    (if (<span style="color:#a6e22e">&gt;</span> counter <span style="color:#ae81ff">20</span>)
+                        (keyboard-quit)
+                      <span style="color:#75715e">;; The original idea was to read the key and discard it here</span>
+                      ))))
+            (unless (or
+                     (with-local-quit
+                       (<span style="color:#a6e22e">accept-process-output</span> proc))
+                     (<span style="color:#a6e22e">null</span> proc))
+              <span style="color:#75715e">;; accept-process-output returned nil, maybe because the process</span>
+              <span style="color:#75715e">;; exited (and may have been replaced with another).  If we got</span>
+              <span style="color:#75715e">;; a quit, just stop.</span>
+              (when quit-flag
+                (<span style="color:#a6e22e">delete-process</span> proc))
+              (progn
+                (try
+                 (setq proc (and (not quit-flag)
+                                 (<span style="color:#a6e22e">get-buffer-process</span> asynch-buffer))))
+                proc))))
+        <span style="color:#75715e">;; On timeouts, make sure we kill any pending processes.</span>
+        <span style="color:#75715e">;; There may be more than one if we had a redirect.</span>
+        (when timed-out
+          (when (process-live-p proc)
+            (<span style="color:#a6e22e">delete-process</span> proc))
+          (when-let ((aproc (<span style="color:#a6e22e">get-buffer-process</span> asynch-buffer)))
+            (when (process-live-p aproc)
+              (<span style="color:#a6e22e">delete-process</span> aproc))))))
+    asynch-buffer))</code></pre></td></tr></table>
+</div>
+</div>
+<p>I may have resolved this issue with the
+following patch to <code>url-retrieve-synchronously</code>.
+What this achieves is to trigger a `quit` in a controlled environment
+rather than allowing it to occur when <code>accept-process-output</code> is run. It&rsquo;s not always wanted
+to trigger a quit when <code>(input-pending-p)</code> is
+<code>t</code>. But I noticed from placing <code>while-no-input</code> around <code>accept-process-output</code> to avoid
+the <code>quit</code> that <code>url-retrieve-synchronously</code>
+would then hang but with the controlled <code>quit</code>
+happening beforehand, <code>accept-process-output</code>
+no longer needs <code>while-no-input</code> around it.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff">29c29,30
+&lt;       (let ((proc (get-buffer-process asynch-buffer)))
+<span style="color:#f92672">---
+</span><span style="color:#f92672"></span>&gt;       (let ((proc (get-buffer-process asynch-buffer))
+&gt;             (counter 0))
+71a73,78
+&gt;             (with-local-quit
+&gt;               (if (input-pending-p)
+&gt;                   (progn
+&gt;                     (setq counter (1+ counter))
+&gt;                     (if (&gt; counter 20)
+&gt;                         (keyboard-quit)))))
+</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="mitmproxy-helped-when-debugging-url-dot-el"><code>mitmproxy</code> helped when debugging <code>url.el</code></h3>
+<dl>
+<dt>Related article</dt>
+<dd><a href="https://mullikine.github.io/posts/mitmproxy-for-debugging-emacs/">https://mullikine.github.io/posts/mitmproxy-for-debugging-emacs/</a></dd>
+</dl>
+<p>The end result is buttery smooth helm with no
+accidental <code>quit</code> from typing too fast when
+working with helms that make http requests
+synchronously. This must have have resulted in
+GUI helm faster too.</p>
+<h2 id="helm-google-suggest"><code>helm-google-suggest</code></h2>
+<p>I added a default delay to <code>helm-google-suggest</code>.</p>
+<p>This prevents from spamming Google and also
+means that there is 0 chance for results to
+return in the wrong order, as when typing
+quickly, the results for a request that came
+later may actually arrive earlier.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun helm-other-buffer (sources buffer <span style="color:#66d9ef">&amp;optional</span> delay)
+  <span style="color:#e6db74">&#34;Simplified Helm interface with other </span><span style="color:#e6db74">`helm-buffer&#39;</span><span style="color:#e6db74">.
+</span><span style="color:#e6db74">Call </span><span style="color:#e6db74">`helm&#39;</span><span style="color:#e6db74"> only with SOURCES and BUFFER as args.&#34;</span>
+  (if (not delay)
+      (setq delay <span style="color:#ae81ff">0.2</span>))
+  (helm :sources sources :buffer buffer
+        :input-idle-delay delay))
+
+(defun helm-google-suggest ()
+  <span style="color:#e6db74">&#34;Preconfigured </span><span style="color:#e6db74">`helm&#39;</span><span style="color:#e6db74"> for Google search with Google suggest.&#34;</span>
+  (interactive)
+  (helm-other-buffer <span style="color:#e6db74">&#39;helm-source-google-suggest</span> <span style="color:#e6db74">&#34;*helm google*&#34;</span> <span style="color:#ae81ff">0.5</span>))</code></pre></td></tr></table>
+</div>
+</div>
+<p>I modified <code>helm-google-suggest-set-candidates</code> to always provide the <code>helm-input</code> as a suggestion.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun helm-google-suggest-set-candidates (<span style="color:#66d9ef">&amp;optional</span> request-prefix)
+  <span style="color:#e6db74">&#34;Set candidates with result and number of Google results found.&#34;</span>
+  (let ((suggestions (helm-google-suggest-fetch
+                      (or (and request-prefix
+                               (<span style="color:#a6e22e">concat</span> request-prefix
+                                       <span style="color:#e6db74">&#34; &#34;</span> helm-pattern))
+                          helm-pattern))))
+    (if suggestions
+        (if (<span style="color:#a6e22e">member</span> helm-pattern suggestions)
+            suggestions
+          (<span style="color:#a6e22e">append</span> suggestions (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">cons</span> helm-input helm-input))))
+      (<span style="color:#a6e22e">append</span>
+       suggestions
+       (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">cons</span> (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;No completions. Search for &#39;%s&#39; on Google&#34;</span> helm-input)
+                   helm-input))))))</code></pre></td></tr></table>
+</div>
+</div>
+<p>Something to be aware of is that if there is no suggestion exactly matching the input then helm will filter those out and you wont see them.</p>
+<p>Because of this I will prepend the search string to the list.</p>
+<h2 id="helm-google"><code>helm-google</code></h2>
+<p>I also submitted a PR to <code>helm-google</code> to fix the google parser there.</p>
+<p><a href="https://framagit.org/steckerhalter/helm-google/-/merge%5Frequests/21">https://framagit.org/steckerhalter/helm-google/-/merge%5Frequests/21</a></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(require <span style="color:#e6db74">&#39;helm-google</span>)
+(defun helm-google--parse-google (buf)
+  <span style="color:#e6db74">&#34;Parse the html response from Google.&#34;</span>
+  (helm-google--with-buffer buf
+      (let (results result)
+        (while (<span style="color:#a6e22e">re-search-forward</span> <span style="color:#e6db74">&#34;class=\&#34;kCrYT\&#34;&gt;&lt;a href=\&#34;/url\\?q=\\(.*?\\)&amp;amp;sa&#34;</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>)
+          (setq result (<span style="color:#a6e22e">plist-put</span> result :url (match-string-no-properties <span style="color:#ae81ff">1</span>)))
+          (<span style="color:#a6e22e">re-search-forward</span> <span style="color:#e6db74">&#34;BNeawe vvjwJb AP7Wnd\&#34;&gt;\\(.*?\\)&lt;/div&gt;&#34;</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>)
+          (setq result (<span style="color:#a6e22e">plist-put</span> result :title (helm-google--process-html (match-string-no-properties <span style="color:#ae81ff">1</span>))))
+          <span style="color:#75715e">;; This check is necessary because of featured results</span>
+          (if (<span style="color:#a6e22e">looking-at</span> <span style="color:#e6db74">&#34;&lt;/h3&gt;&#34;</span>)
+              (progn
+                (<span style="color:#a6e22e">re-search-forward</span> <span style="color:#e6db74">&#34;BNeawe s3v9rd&#34;</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>)
+                (<span style="color:#a6e22e">re-search-forward</span> <span style="color:#e6db74">&#34;BNeawe s3v9rd&#34;</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>)
+                (<span style="color:#a6e22e">re-search-forward</span> <span style="color:#e6db74">&#34;\&#34;&gt;\\(.*?\\)&lt;/div&gt;&#34;</span> <span style="color:#66d9ef">nil</span> <span style="color:#66d9ef">t</span>)
+                (setq result (<span style="color:#a6e22e">plist-put</span> result :content (helm-google--process-html (match-string-no-properties <span style="color:#ae81ff">1</span>))))))
+          (add-to-list <span style="color:#e6db74">&#39;results</span> result <span style="color:#66d9ef">t</span>)
+          (setq result <span style="color:#66d9ef">nil</span>))
+        results)))</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="buttery-smooth-helm-googling-now-d">Buttery smooth helm googling now :D</h2>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/VAn7LrFeJbVzNTWM2Pkc90BRD" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/VAn7LrFeJbVzNTWM2Pkc90BRD.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/VAn7LrFeJbVzNTWM2Pkc90BRD.js" id="asciicast-VAn7LrFeJbVzNTWM2Pkc90BRD" async></script>
+    </div>
+    <div class="post-footer">
+        <p>
+        <a href="https://mullikine.github.io/about/">About this weblog</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://asciinema.org/~mullikine">Asciinema recordings</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/posts/blogs-and-vlogs/">Blogs and Vlogs</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/tags/">Site Map</a>
+        </p>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
