@@ -12,11 +12,11 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Fixing helm in terminal emacs, and the Google search workflow"/>
-<meta name="twitter:description" content="Packages attended to  emacs-helm/helm  emacs-helm/helm-net  emacs-google-suggest     emacs-helm/helm-system-packages emacs-dash emacs-google emacs  url.el    The initial Google search This all started as I was trying to use helm-dash to search for documentation, only to find that it was completely unusable in terminal emacs.
+<meta name="twitter:description" content="Packages attended to  emacs-helm/helm  emacs-helm/helm-net  helm-google-suggest     emacs-helm/helm-system-packages helm-dash helm-google emacs  url.el    The initial Google search This all started as I was trying to use helm-dash to search for documentation, only to find that it was completely unusable in terminal emacs.
 The only clue was the string &ldquo;Waiting for process to die&rdquo;, which was appearing in the minibuffer as typing was being blocked."/>
 
     <meta property="og:title" content="Fixing helm in terminal emacs, and the Google search workflow" />
-<meta property="og:description" content="Packages attended to  emacs-helm/helm  emacs-helm/helm-net  emacs-google-suggest     emacs-helm/helm-system-packages emacs-dash emacs-google emacs  url.el    The initial Google search This all started as I was trying to use helm-dash to search for documentation, only to find that it was completely unusable in terminal emacs.
+<meta property="og:description" content="Packages attended to  emacs-helm/helm  emacs-helm/helm-net  helm-google-suggest     emacs-helm/helm-system-packages helm-dash helm-google emacs  url.el    The initial Google search This all started as I was trying to use helm-dash to search for documentation, only to find that it was completely unusable in terminal emacs.
 The only clue was the string &ldquo;Waiting for process to die&rdquo;, which was appearing in the minibuffer as typing was being blocked." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/fixing-googling-tooling-in-emacs/" /><meta property="article:section" content="posts" />
@@ -194,7 +194,7 @@ The only clue was the string &ldquo;Waiting for process to die&rdquo;, which was
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          14 min read
+          12 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -218,14 +218,14 @@ The only clue was the string &ldquo;Waiting for process to die&rdquo;, which was
 <ul>
 <li><code>emacs-helm/helm-net</code>
 <ul>
-<li><code>emacs-google-suggest</code></li>
+<li><code>helm-google-suggest</code></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><code>emacs-helm/helm-system-packages</code></li>
-<li><code>emacs-dash</code></li>
-<li><code>emacs-google</code></li>
+<li><code>helm-dash</code></li>
+<li><code>helm-google</code></li>
 <li><code>emacs</code>
 <ul>
 <li><code>url.el</code></li>
@@ -364,24 +364,30 @@ it gave no indication of why. No messages,
 just an unexpected disappearing of helm while typing.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">So I&#39;d just like to reiterate, this is two
 separate problems, both related to terminal
-emacs. 1) Pending keyboard input is
-interrupting accept-process-output and can be
-avoided with helm-while-no-input. 2) bell
-(C-g) generated from terminal is interrupting
-call-process when typing quickly and can be
-avoided with inhibit-quit.</code></pre></td></tr></table>
+emacs.
+
+1) Pending keyboard input is interrupting
+accept-process-output and can be avoided with
+helm-while-no-input.
+
+2) bell (C-g) generated from terminal is
+interrupting call-process when typing quickly
+and can be avoided with inhibit-quit.</code></pre></td></tr></table>
 </div>
 </div>
 <p>Admittedly, the issue affected many packages
@@ -549,34 +555,6 @@ input disappearing.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">141
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">142
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">143
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">144
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">145
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">146
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">147
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">148
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">149
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">150
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">151
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">152
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">153
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">154
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">155
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">156
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">157
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">158
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">159
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">160
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">161
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">162
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">163
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">164
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">165
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">166
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">167
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">168
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">169
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun my-url-log (m)
@@ -615,22 +593,11 @@ input disappearing.</p>
                                       asynch-buffer (<span style="color:#a6e22e">current-buffer</span>))))
                         <span style="color:#66d9ef">nil</span> silent inhibit-cookies))
     (if (<span style="color:#a6e22e">null</span> asynch-buffer)
-        <span style="color:#75715e">;; We do not need to do anything, it was a mailto or something</span>
-        <span style="color:#75715e">;; similar that takes processing completely outside of the URL</span>
-        <span style="color:#75715e">;; package.</span>
         (progn
           <span style="color:#75715e">;; (message &#34;donothing&#34;)</span>
           <span style="color:#66d9ef">nil</span>)
       (let ((proc (<span style="color:#a6e22e">get-buffer-process</span> asynch-buffer))
             (counter <span style="color:#ae81ff">0</span>))
-        <span style="color:#75715e">;; If the access method was synchronous, `retrieval-done&#39; should</span>
-        <span style="color:#75715e">;; hopefully already be set to t.  If it is nil, and `proc&#39; is also</span>
-        <span style="color:#75715e">;; nil, it implies that the async process is not running in</span>
-        <span style="color:#75715e">;; asynch-buffer.  This happens e.g. for FTP files.  In such a case</span>
-        <span style="color:#75715e">;; url-file.el should probably set something like a `url-process&#39;</span>
-        <span style="color:#75715e">;; buffer-local variable so we can find the exact process that we</span>
-        <span style="color:#75715e">;; should be waiting for.  In the mean time, we&#39;ll just wait for any</span>
-        <span style="color:#75715e">;; process output.</span>
         (while (and (not retrieval-done)
                     <span style="color:#75715e">;; (not (input-pending-p))</span>
                     (or (not timeout)
@@ -647,17 +614,7 @@ input disappearing.</p>
                                                     asynch-buffer))))
             (if (and proc (<span style="color:#a6e22e">memq</span> (<span style="color:#a6e22e">process-status</span> proc)
                                 <span style="color:#f92672">&#39;</span>(closed exit <span style="color:#a6e22e">signal</span> failed))
-                     <span style="color:#75715e">;; Make sure another process hasn&#39;t been started.</span>
                      (<span style="color:#a6e22e">eq</span> proc (or (<span style="color:#a6e22e">get-buffer-process</span> asynch-buffer) proc)))
-                <span style="color:#75715e">;; FIXME: It&#39;s not clear whether url-retrieve&#39;s callback is</span>
-                <span style="color:#75715e">;; guaranteed to be called or not.  It seems that url-http</span>
-                <span style="color:#75715e">;; decides sometimes consciously not to call it, so it&#39;s not</span>
-                <span style="color:#75715e">;; clear that it&#39;s a bug, but even then we need to decide how</span>
-                <span style="color:#75715e">;; url-http can then warn us that the download has completed.</span>
-                <span style="color:#75715e">;; In the mean time, we use this here workaround.</span>
-                <span style="color:#75715e">;; XXX: The callback must always be called.  Any</span>
-                <span style="color:#75715e">;; exception is a bug that should be fixed, not worked</span>
-                <span style="color:#75715e">;; around.</span>
                 (progn <span style="color:#75715e">;; Call delete-process so we run any sentinel now.</span>
                   (<span style="color:#a6e22e">delete-process</span> proc)
                   (setq retrieval-done <span style="color:#66d9ef">t</span>)))
@@ -709,10 +666,6 @@ input disappearing.</p>
                          ))
                      <span style="color:#75715e">;; (accept-process-outputq proc 1)</span>
                      (<span style="color:#a6e22e">null</span> proc))
-              <span style="color:#75715e">;; accept-process-output returned nil, maybe because the process</span>
-              <span style="color:#75715e">;; exited (and may have been replaced with another).  If we got</span>
-              <span style="color:#75715e">;; a quit, just stop.</span>
-              <span style="color:#75715e">;; (message &#34;deleting proces&#34;)</span>
               (my-url-log url)
               (if (<span style="color:#a6e22e">input-pending-p</span>)
                   (progn
@@ -730,12 +683,9 @@ input disappearing.</p>
                  <span style="color:#75715e">;; (message &#34;proc error&#34;)</span>
                  )
                 proc)
-              <span style="color:#75715e">;; (setq proc (get-buffer-process asynch-buffer))</span>
               )
             <span style="color:#75715e">;; (message (concat &#34;very late: &#34; url))</span>
             ))
-        <span style="color:#75715e">;; On timeouts, make sure we kill any pending processes.</span>
-        <span style="color:#75715e">;; There may be more than one if we had a redirect.</span>
         (when timed-out
           <span style="color:#75715e">;; (message &#34;timed out&#34;)</span>
           (when (process-live-p proc)
@@ -750,6 +700,16 @@ input disappearing.</p>
     asynch-buffer))</code></pre></td></tr></table>
 </div>
 </div>
+<h3 id="mitmproxy-helped-when-debugging-url-dot-el"><code>mitmproxy</code> helped when debugging <code>url.el</code></h3>
+<dl>
+<dt>Related article</dt>
+<dd><a href="https://mullikine.github.io/posts/mitmproxy-for-debugging-emacs/">https://mullikine.github.io/posts/mitmproxy-for-debugging-emacs/</a></dd>
+</dl>
+<p>The end result is buttery smooth helm with no
+accidental <code>quit</code> from typing too fast when
+working with helms that make http requests
+synchronously. This must have have resulted in
+GUI helm faster too.</p>
 <h3 id="final-changes-to-url-dot-el">Final changes to <code>url.el</code></h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -964,13 +924,16 @@ input disappearing.</p>
 </div>
 </div>
 <p>I may have resolved this issue with the
-following patch to <code>url-retrieve-synchronously</code>.
-What this achieves is to trigger a `quit` in a controlled environment
-rather than allowing it to occur when <code>accept-process-output</code> is run. It&rsquo;s not always wanted
-to trigger a quit when <code>(input-pending-p)</code> is
-<code>t</code>. But I noticed from placing <code>while-no-input</code> around <code>accept-process-output</code> to avoid
-the <code>quit</code> that <code>url-retrieve-synchronously</code>
-would then hang but with the controlled <code>quit</code>
+following patch to <code>url-retrieve- synchronously</code>.</p>
+<p>What this achieves is to trigger a `quit` in a
+controlled environment rather than allowing it
+to occur when <code>accept-process-output</code> is run.</p>
+<p>It&rsquo;s not always wanted to trigger a quit when
+<code>(input-pending-p)</code> is <code>t</code>.</p>
+<p>But I noticed from placing <code>while-no-input</code>
+around <code>accept-process-output</code> to avoid the
+<code>quit</code> that <code>url-retrieve-synchronously</code> would
+then hang but with the controlled <code>quit</code>
 happening beforehand, <code>accept-process-output</code>
 no longer needs <code>while-no-input</code> around it.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -1004,16 +967,6 @@ no longer needs <code>while-no-input</code> around it.</p>
 </code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="mitmproxy-helped-when-debugging-url-dot-el"><code>mitmproxy</code> helped when debugging <code>url.el</code></h3>
-<dl>
-<dt>Related article</dt>
-<dd><a href="https://mullikine.github.io/posts/mitmproxy-for-debugging-emacs/">https://mullikine.github.io/posts/mitmproxy-for-debugging-emacs/</a></dd>
-</dl>
-<p>The end result is buttery smooth helm with no
-accidental <code>quit</code> from typing too fast when
-working with helms that make http requests
-synchronously. This must have have resulted in
-GUI helm faster too.</p>
 <h2 id="helm-google-suggest"><code>helm-google-suggest</code></h2>
 <p>I added a default delay to <code>helm-google-suggest</code>.</p>
 <p>This prevents from spamming Google and also
@@ -1088,7 +1041,10 @@ later may actually arrive earlier.</p>
                    helm-input))))))</code></pre></td></tr></table>
 </div>
 </div>
-<p>Something to be aware of is that if there is no suggestion exactly matching the input then helm will filter those out and you wont see them.</p>
+<p>Something to be aware of is that if there is
+no suggestion exactly matching the input then
+helm will filter those out and you wont see
+them.</p>
 <p>Because of this I will prepend the search string to the list.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -1107,23 +1063,27 @@ later may actually arrive earlier.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun helm-google-suggest-set-candidates (<span style="color:#66d9ef">&amp;optional</span> request-prefix)
   <span style="color:#e6db74">&#34;Set candidates with result and number of Google results found.&#34;</span>
-  (let ((suggestions (helm-google-suggest-fetch
-                      (or (and request-prefix
-                               (<span style="color:#a6e22e">concat</span> request-prefix
-                                       <span style="color:#e6db74">&#34; &#34;</span> helm-pattern))
-                          helm-pattern))))
-    (if suggestions
-        (if (<span style="color:#a6e22e">member</span> helm-pattern suggestions)
-            suggestions
-          (<span style="color:#a6e22e">append</span> suggestions (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">cons</span> helm-input helm-input))))
-      (<span style="color:#a6e22e">append</span>
-       suggestions
-       (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">cons</span> (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;No completions. Search for &#39;%s&#39; on Google&#34;</span> helm-input)
-                   helm-input))))))</code></pre></td></tr></table>
+  (let* ((suggestions (helm-google-suggest-fetch
+                       (or (and request-prefix
+                                (<span style="color:#a6e22e">concat</span> request-prefix
+                                        <span style="color:#e6db74">&#34; &#34;</span> helm-pattern))
+                           helm-pattern)))
+         (completions
+          (if suggestions
+              (if (<span style="color:#a6e22e">member</span> helm-pattern suggestions)
+                  suggestions
+                (<span style="color:#a6e22e">append</span> suggestions (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">cons</span> helm-input helm-input))))
+            (<span style="color:#a6e22e">append</span>
+             suggestions
+             (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">cons</span> (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;No completions. Search for &#39;%s&#39; on Google&#34;</span> helm-input)
+                         helm-input))))))
+    completions))</code></pre></td></tr></table>
 </div>
 </div>
 <h2 id="helm-google"><code>helm-google</code></h2>
