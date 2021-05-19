@@ -194,7 +194,7 @@ The only clue was the string &ldquo;Waiting for process to die&rdquo;, which was
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          13 min read
+          14 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -264,21 +264,43 @@ packages.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">I have investigated it. Happy to understand
-the problem a little better now. In the
-function helm-get-candidates, inhibit-quit is
-set to non-nil if the source is an external
-process. But I&#39;m guessing that some helm
-packages will hide this from helm and so to
-helm it must look like a regular function. The
-c function call-process will die if it gets
-the bell. I&#39;m guessing that typing too quickly
-triggers the terminal bell, which is C-g. The
-real issue is figuring out how that bell is
-triggered and how to stop it from happening,
-but my guess is that it might not be so easy.
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">I have investigated it.
+
+Happy to understand the problem a little
+better now.
+
+In the function helm-get-candidates, inhibit-
+quit is set to non-nil if the source is an
+external process.
+
+But I&#39;m guessing that some helm packages will
+hide this from helm and so to helm it must
+look like a regular function.
+
+The c function call-process will die if it
+gets the bell.
+
+I&#39;m guessing that typing too quickly triggers
+the terminal bell, which is C-g.
+
+The real issue is figuring out how that bell
+is triggered and how to stop it from
+happening, but my guess is that it might not
+be so easy.
+
 I&#39;ve just set inhibit-quit to t permanently in
 helm-get-candidates and I don&#39;t see the issue
 anymore.</code></pre></td></tr></table>
@@ -1068,6 +1090,42 @@ later may actually arrive earlier.</p>
 </div>
 <p>Something to be aware of is that if there is no suggestion exactly matching the input then helm will filter those out and you wont see them.</p>
 <p>Because of this I will prepend the search string to the list.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun helm-google-suggest-set-candidates (<span style="color:#66d9ef">&amp;optional</span> request-prefix)
+  <span style="color:#e6db74">&#34;Set candidates with result and number of Google results found.&#34;</span>
+  (let ((suggestions (helm-google-suggest-fetch
+                      (or (and request-prefix
+                               (<span style="color:#a6e22e">concat</span> request-prefix
+                                       <span style="color:#e6db74">&#34; &#34;</span> helm-pattern))
+                          helm-pattern))))
+    (if suggestions
+        (if (<span style="color:#a6e22e">member</span> helm-pattern suggestions)
+            suggestions
+          (<span style="color:#a6e22e">append</span> suggestions (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">cons</span> helm-input helm-input))))
+      (<span style="color:#a6e22e">append</span>
+       suggestions
+       (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">cons</span> (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;No completions. Search for &#39;%s&#39; on Google&#34;</span> helm-input)
+                   helm-input))))))</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="helm-google"><code>helm-google</code></h2>
 <p>I also submitted a PR to <code>helm-google</code> to fix the google parser there.</p>
 <p><a href="https://framagit.org/steckerhalter/helm-google/-/merge%5Frequests/21">https://framagit.org/steckerhalter/helm-google/-/merge%5Frequests/21</a></p>
