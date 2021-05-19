@@ -377,11 +377,13 @@ able to do that should be acceptable.</p>
 a mistake could easily be made by other
 packages.</p>
 <p><a href="https://github.com/emacs-helm/helm/issues/2417">https://github.com/emacs-helm/helm/issues/2417</a></p>
-<p>A 9 year old bug in <code>emacs-helm</code> had been breaking <code>helm</code>
-for terminal users on many packages. The
-reason why it must&rsquo;ve survived so long is that
-it gave no indication of why. No messages,
-just an unexpected disappearing of helm while typing.</p>
+<p>A 9 year old bug in <code>emacs-helm</code> had been
+breaking <code>helm</code> for terminal users on many
+packages.</p>
+<p>The reason why it must&rsquo;ve survived so long is
+that it gave no indication of why.</p>
+<p>No messages, just an unexpected disappearing
+of helm while typing.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -420,10 +422,10 @@ change made 9 years ago that caused helm to close unexpectedly.</p>
 </figure>
 
 <p>But the <code>quit</code> signal which helm was
-intercepting was still being generated. Now it
-began appearing while typing. It was also the
-cause of some lag in typing and some keyboard
-input disappearing.</p>
+intercepting was still being generated.</p>
+<p>Now it began appearing while typing.</p>
+<p>It was also the cause of some lag in typing
+and some keyboard input disappearing.</p>
 <!-- Play on asciinema.com -->
 <!-- <a title="asciinema recording" href="https://asciinema.org/a/tOJreP91sLT2Eam1efxBWiJfo" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/tOJreP91sLT2Eam1efxBWiJfo.svg" /></a> -->
 <!-- Play on the blog -->
@@ -728,8 +730,8 @@ input disappearing.</p>
 <p>The end result is buttery smooth helm with no
 accidental <code>quit</code> from typing too fast when
 working with helms that make http requests
-synchronously. This must have have resulted in
-GUI helm faster too.</p>
+synchronously.</p>
+<p>This issue also affects GUI emacs because the bell doesn&rsquo;t original from the terminal this time.</p>
 <h3 id="final-changes-to-url-dot-el">Final changes to <code>url.el</code></h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
