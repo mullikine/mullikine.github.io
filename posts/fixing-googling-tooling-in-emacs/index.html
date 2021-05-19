@@ -1045,7 +1045,8 @@ later may actually arrive earlier.</p>
 no suggestion exactly matching the input then
 helm will filter those out and you wont see
 them.</p>
-<p>Because of this I will prepend the search string to the list.</p>
+<p>Because of this I will prepend the search string to each candidate in the list.</p>
+<p>This way, all search suggestions are now visible in helm.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -1065,6 +1066,11 @@ them.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun helm-google-suggest-set-candidates (<span style="color:#66d9ef">&amp;optional</span> request-prefix)
@@ -1078,12 +1084,17 @@ them.</p>
           (if suggestions
               (if (<span style="color:#a6e22e">member</span> helm-pattern suggestions)
                   suggestions
-                (<span style="color:#a6e22e">append</span> suggestions (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">cons</span> helm-input helm-input))))
+                (<span style="color:#a6e22e">cons</span> helm-input suggestions))
             (<span style="color:#a6e22e">append</span>
              suggestions
              (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">cons</span> (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;No completions. Search for &#39;%s&#39; on Google&#34;</span> helm-input)
                          helm-input))))))
-    completions))</code></pre></td></tr></table>
+    (<span style="color:#a6e22e">mapcar</span> (lambda (e) (if (<span style="color:#a6e22e">stringp</span> e)
+                            (if (re-match-p (unregexify helm-input) e)
+                                e
+                              (<span style="color:#a6e22e">concat</span> helm-input <span style="color:#e6db74">&#34; &#34;</span> e))
+                          e))
+            completions)))</code></pre></td></tr></table>
 </div>
 </div>
 <h2 id="helm-google"><code>helm-google</code></h2>
