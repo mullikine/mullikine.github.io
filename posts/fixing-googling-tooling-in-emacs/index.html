@@ -949,17 +949,15 @@ time.</p>
 </div>
 <p>I may have resolved this issue with the
 following patch to <code>url-retrieve- synchronously</code>.</p>
-<p>What this achieves is to trigger a `quit` in a
-controlled environment rather than allowing it
-to occur when <code>accept-process-output</code> is run.</p>
-<p>It&rsquo;s not always wanted to trigger a quit when
-<code>(input-pending-p)</code> is <code>t</code>.</p>
-<p>But I noticed from placing <code>while-no-input</code>
-around <code>accept-process-output</code> to avoid the
-<code>quit</code> that <code>url-retrieve-synchronously</code> would
-then hang but with the controlled <code>quit</code>
-happening beforehand, <code>accept-process-output</code>
-no longer needs <code>while-no-input</code> around it.</p>
+<p>What this achieves is to avoid a situation
+where there is a <code>quit</code> generated from
+<code>accept-process-output</code>. There is a
+complication. If I avoid the <code>quit</code> by placing
+<code>while-no-input</code> around <code>accept-process- output</code> then <code>url-retrieve-synchronously</code>
+would hang so I also abort if it hangs.
+This is OK because helm can always try again
+and there is no inconvenience to the <code>helm</code>
+user.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
