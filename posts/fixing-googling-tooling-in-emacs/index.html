@@ -12,11 +12,11 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Fixing helm in terminal emacs, and the Google search workflow"/>
-<meta name="twitter:description" content="Packages attended to  emacs-helm/helm  emacs-helm/helm-net  helm-google-suggest     emacs-helm/helm-system-packages helm-dash helm-google emacs  url.el    The initial Google search This all started as I was trying to use helm-dash to search for documentation, only to find that it was completely unusable in terminal emacs.
+<meta name="twitter:description" content="Packages attended to  emacs-helm/helm  emacs-helm/helm-net  helm-google-suggest     emacs-helm/helm-system-packages helm-dash helm-google emacs  url.el   counsel-search  The initial Google search This all started as I was trying to use helm-dash to search for documentation, only to find that it was completely unusable in terminal emacs.
 The only clue was the string &ldquo;Waiting for process to die&rdquo;, which was appearing in the minibuffer as typing was being blocked."/>
 
     <meta property="og:title" content="Fixing helm in terminal emacs, and the Google search workflow" />
-<meta property="og:description" content="Packages attended to  emacs-helm/helm  emacs-helm/helm-net  helm-google-suggest     emacs-helm/helm-system-packages helm-dash helm-google emacs  url.el    The initial Google search This all started as I was trying to use helm-dash to search for documentation, only to find that it was completely unusable in terminal emacs.
+<meta property="og:description" content="Packages attended to  emacs-helm/helm  emacs-helm/helm-net  helm-google-suggest     emacs-helm/helm-system-packages helm-dash helm-google emacs  url.el   counsel-search  The initial Google search This all started as I was trying to use helm-dash to search for documentation, only to find that it was completely unusable in terminal emacs.
 The only clue was the string &ldquo;Waiting for process to die&rdquo;, which was appearing in the minibuffer as typing was being blocked." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/fixing-googling-tooling-in-emacs/" /><meta property="article:section" content="posts" />
@@ -240,6 +240,7 @@ The only clue was the string &ldquo;Waiting for process to die&rdquo;, which was
 <li><code>url.el</code></li>
 </ul>
 </li>
+<li><code>counsel-search</code></li>
 </ul>
 <h2 id="the-initial-google-search">The initial Google search</h2>
 <p>This all started as I was trying to use <code>helm-dash</code> to search for documentation, only to
@@ -1224,8 +1225,55 @@ them.</p>
 <!-- <a title="asciinema recording" href="https://asciinema.org/a/VAn7LrFeJbVzNTWM2Pkc90BRD" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/VAn7LrFeJbVzNTWM2Pkc90BRD.svg" /></a> -->
 <!-- Play on the blog -->
 <script src="https://asciinema.org/a/VAn7LrFeJbVzNTWM2Pkc90BRD.js" id="asciicast-VAn7LrFeJbVzNTWM2Pkc90BRD" async></script>
+<h2 id="counsel-google"><code>counsel-google</code></h2>
+<p><code>helm-google-suggest</code> was good and all but <code>counsel-search</code> is a lot faster so I decided to go with that instead for the suggestions.</p>
+<p>But when I select which suggestion, I&rsquo;d like it to use <code>helm-google</code> to browse the results.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun counsel-search-action (x)
+  <span style="color:#e6db74">&#34;Search for X.&#34;</span>
+  (helm-google <span style="color:#e6db74">&#39;google</span> x)
+  <span style="color:#75715e">;; (browse-url</span>
+  <span style="color:#75715e">;;  (concat</span>
+  <span style="color:#75715e">;;   (nth 2 (assoc counsel-search-engine counsel-search-engines-alist))</span>
+  <span style="color:#75715e">;;   (url-hexify-string x)))</span>
+  )
+
+(defun counsel-search ()
+  <span style="color:#e6db74">&#34;Ivy interface for dynamically querying a search engine.&#34;</span>
+  (interactive)
+  (require <span style="color:#e6db74">&#39;request</span>)
+  (require <span style="color:#e6db74">&#39;json</span>)
+  (ivy-read <span style="color:#e6db74">&#34;search: &#34;</span> <span style="color:#a6e22e">#&#39;</span>counsel-search-function
+            <span style="color:#75715e">;; helm-google-suggest-actions</span>
+            :action <span style="color:#a6e22e">#&#39;</span>counsel-search-action
+            :dynamic-collection <span style="color:#66d9ef">t</span>
+            :caller <span style="color:#e6db74">&#39;counsel-search</span>))</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="help-testing">Help testing</h2>
-<p>If you would like to help me test this, please state your findings here.</p>
+<p>If you would like to help me test <code>url.el</code>, please state your findings here.</p>
 <p><a href="https://www.reddit.com/r/emacs/comments/ng051d/help%5Ffixing%5Fbuggy%5Fhelm%5Fgoogling%5Ffast%5Ftyping%5Fon/">https://www.reddit.com/r/emacs/comments/ng051d/help%5Ffixing%5Fbuggy%5Fhelm%5Fgoogling%5Ffast%5Ftyping%5Fon/</a></p>
 <p>Thank you!</p>
 
