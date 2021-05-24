@@ -12,18 +12,20 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="TensorFlow Debugger (tfdb) and emacs"/>
-<meta name="twitter:description" content="TensorFlow Debugger V2  Relevant source material https://www.tensorflow.org/tensorboard/debugger%5Fv2  The tfdbg CLI is now available for TensorFlow 2.0.
+<meta name="twitter:description" content="TensorFlow Debugger V2  Official documentation https://www.tensorflow.org/tensorboard/debugger%5Fv2  The tfdbg CLI is now available for TensorFlow 2.0.
 It&rsquo;s no longer a TUI/curses-like interface, but rather a CLI which you connect to TensorBoard, which serves as its GUI.
-https://www.tensorflow.org/tensorboard/debugger%5Fv2
-How to use https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/debug/examples/v2/examples%5Fv2%5Ftest.sh
-CLI args 1  python3.8 -m tensorflow.python.debug.examples.v2.debug_mnist_v2 --helpfull   Demo of the tfdbg curses CLI: Locating the source of bad numerical values with TF v2. This demo contains a classical example of a neural network for the mnist dataset, but modifications are made so that problematic numerical values (infs and nans) appear in nodes of the graph during training."/>
+How to use This shell script is an example of how to interact with the debugger.
+https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/debug/examples/v2/examples%5Fv2%5Ftest.sh
+The above script shows the usage of the --dump_dir flag.
+You may then view in tensorboard. Below is an example."/>
 
     <meta property="og:title" content="TensorFlow Debugger (tfdb) and emacs" />
-<meta property="og:description" content="TensorFlow Debugger V2  Relevant source material https://www.tensorflow.org/tensorboard/debugger%5Fv2  The tfdbg CLI is now available for TensorFlow 2.0.
+<meta property="og:description" content="TensorFlow Debugger V2  Official documentation https://www.tensorflow.org/tensorboard/debugger%5Fv2  The tfdbg CLI is now available for TensorFlow 2.0.
 It&rsquo;s no longer a TUI/curses-like interface, but rather a CLI which you connect to TensorBoard, which serves as its GUI.
-https://www.tensorflow.org/tensorboard/debugger%5Fv2
-How to use https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/debug/examples/v2/examples%5Fv2%5Ftest.sh
-CLI args 1  python3.8 -m tensorflow.python.debug.examples.v2.debug_mnist_v2 --helpfull   Demo of the tfdbg curses CLI: Locating the source of bad numerical values with TF v2. This demo contains a classical example of a neural network for the mnist dataset, but modifications are made so that problematic numerical values (infs and nans) appear in nodes of the graph during training." />
+How to use This shell script is an example of how to interact with the debugger.
+https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/debug/examples/v2/examples%5Fv2%5Ftest.sh
+The above script shows the usage of the --dump_dir flag.
+You may then view in tensorboard. Below is an example." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/tensorflow-debugger-tfdb-and-emacs/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-12-19T00:00:00&#43;13:00" />
@@ -229,16 +231,36 @@ CLI args 1  python3.8 -m tensorflow.python.debug.examples.v2.debug_mnist_v2 --he
     <div class="post-content">
       <h2 id="tensorflow-debugger-v2"><code>TensorFlow Debugger V2</code></h2>
 <dl>
-<dt>Relevant source material</dt>
+<dt>Official documentation</dt>
 <dd><a href="https://www.tensorflow.org/tensorboard/debugger%5Fv2">https://www.tensorflow.org/tensorboard/debugger%5Fv2</a></dd>
 </dl>
 <p>The <code>tfdbg</code> CLI is now available for TensorFlow 2.0.</p>
 <p>It&rsquo;s no longer a TUI/curses-like interface,
 but rather a CLI which you connect to
 TensorBoard, which serves as its GUI.</p>
-<p><a href="https://www.tensorflow.org/tensorboard/debugger%5Fv2">https://www.tensorflow.org/tensorboard/debugger%5Fv2</a></p>
 <h3 id="how-to-use">How to use</h3>
+<p>This shell script is an example of how to interact with the debugger.</p>
 <p><a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/debug/examples/v2/examples%5Fv2%5Ftest.sh">https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/debug/examples/v2/examples%5Fv2%5Ftest.sh</a></p>
+<p>The above script shows the usage of the <code>--dump_dir</code> flag.</p>
+<p>You may then view in tensorboard. Below is an example.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python -m tensorflow.python.debug.examples.v2.debug_mnist_v2 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --dump_dir /tmp/tfdbg2_logdir --dump_tensor_debug_mode FULL_HEALTH</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">tensorboard --logdir /tmp/tfdbg2_logdir</code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="cli-args">CLI args</h3>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -346,8 +368,7 @@ absl.logging:
 </span><span style="color:#e6db74">    IMPORTANT: flags in this list that have arguments MUST use the --flag=value
 </span><span style="color:#e6db74">    format.
 </span><span style="color:#e6db74">    (default: &#39;</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#f92672">)</span>
-</code></pre></div><p>python3.8 -m tensorflow.python.debug.examples.v2.debug_mnist_v2 &ndash;helpfull</p>
-<h2 id="tensorflow-debugger-v1"><code>TensorFlow Debugger V1</code></h2>
+</code></pre></div><h2 id="tensorflow-debugger-v1"><code>TensorFlow Debugger V1</code></h2>
 <dl>
 <dt>Relevant source material</dt>
 <dd><a href="https://www.youtube.com/watch?v=CA7fjRfduOI">TensorFlow Debugger Screencast - YouTube</a> <br />
