@@ -15,15 +15,13 @@
 <meta name="twitter:description" content="Summary Generating the Cartesian Product of multiple lists is very useful for iteration and exhausting their combinations.
 One might use the Cartesian Product when constructing a test matrix, or when generating code.
 I will generate the Cartesian Product in as many languages as I can.
-I&rsquo;ll keep adding to this.
-emacs lisp / common lisp 1 2 3 4 5 6 7 8 9 10 11 12  (defun cartesian-product-2 (l1 l2) (loop for x in l1 nconc (loop for y in l2 collect (list x y)))) (defun cartesian-product (&amp;rest ls) (if (equal 1 (length ls)) ls (mapcar &#39;-flatten (-reduce &#39;cartesian-product-2 ls)))) (defalias &#39;-cartesian-product &#39;cartesian-product)   1  (cartesian-product &#39;(a b) &#39;(1 2) &#39;(&#34;h&#34; &#34;i&#34;))   &#34;((a 1 \&#34;h\&#34;) (a 1 \&#34;i\&#34;) (a 2 \&#34;h\&#34;) (a 2 \&#34;i\&#34;) (b 1 \&#34;h\&#34;) (b 1 \&#34;i\&#34;) (b 2 \&#34;h\&#34;) (b 2 \&#34;i\&#34;)) &#34; python 1 2 3 4 5  a = [[&#34;I&#34;],[&#34;went&#34;,&#34;will go&#34;],[&#34;to&#34;],[&#34;the airport&#34;,&#34;the car&#34;,&#34;Jamaica&#34;]] from itertools import product for t in product(*a): print(&#34; &#34;."/>
+Plan  Add implementations for more languages Make it recursive  Implement nested lists (not just multi-list) for each language Treat a non-list as a list of length 1   Implement 2D table generator for org-mode  emacs lisp / common lisp 1 2 3 4 5 6 7 8 9 10 11 12  (defun cartesian-product-2 (l1 l2) (loop for x in l1 nconc (loop for y in l2 collect (list x y)))) (defun cartesian-product (&amp;rest ls) (if (equal 1 (length ls)) ls (mapcar &#39;-flatten (-reduce &#39;cartesian-product-2 ls)))) (defalias &#39;-cartesian-product &#39;cartesian-product)   1  (cartesian-product &#39;(a b) &#39;(1 2) &#39;(&#34;h&#34; &#34;i&#34;))   &#34;((a 1 \&#34;h\&#34;) (a 1 \&#34;i\&#34;) (a 2 \&#34;h\&#34;) (a 2 \&#34;i\&#34;) (b 1 \&#34;h\&#34;) (b 1 \&#34;i\&#34;) (b 2 \&#34;h\&#34;) (b 2 \&#34;i\&#34;)) &#34; python 1 2 3 4 5  a = [[&#34;I&#34;],[&#34;went&#34;,&#34;will go&#34;],[&#34;to&#34;],[&#34;the airport&#34;,&#34;the car&#34;,&#34;Jamaica&#34;]] from itertools import product for t in product(*a): print(&#34; &#34;."/>
 
     <meta property="og:title" content="Cartesian Product" />
 <meta property="og:description" content="Summary Generating the Cartesian Product of multiple lists is very useful for iteration and exhausting their combinations.
 One might use the Cartesian Product when constructing a test matrix, or when generating code.
 I will generate the Cartesian Product in as many languages as I can.
-I&rsquo;ll keep adding to this.
-emacs lisp / common lisp 1 2 3 4 5 6 7 8 9 10 11 12  (defun cartesian-product-2 (l1 l2) (loop for x in l1 nconc (loop for y in l2 collect (list x y)))) (defun cartesian-product (&amp;rest ls) (if (equal 1 (length ls)) ls (mapcar &#39;-flatten (-reduce &#39;cartesian-product-2 ls)))) (defalias &#39;-cartesian-product &#39;cartesian-product)   1  (cartesian-product &#39;(a b) &#39;(1 2) &#39;(&#34;h&#34; &#34;i&#34;))   &#34;((a 1 \&#34;h\&#34;) (a 1 \&#34;i\&#34;) (a 2 \&#34;h\&#34;) (a 2 \&#34;i\&#34;) (b 1 \&#34;h\&#34;) (b 1 \&#34;i\&#34;) (b 2 \&#34;h\&#34;) (b 2 \&#34;i\&#34;)) &#34; python 1 2 3 4 5  a = [[&#34;I&#34;],[&#34;went&#34;,&#34;will go&#34;],[&#34;to&#34;],[&#34;the airport&#34;,&#34;the car&#34;,&#34;Jamaica&#34;]] from itertools import product for t in product(*a): print(&#34; &#34;." />
+Plan  Add implementations for more languages Make it recursive  Implement nested lists (not just multi-list) for each language Treat a non-list as a list of length 1   Implement 2D table generator for org-mode  emacs lisp / common lisp 1 2 3 4 5 6 7 8 9 10 11 12  (defun cartesian-product-2 (l1 l2) (loop for x in l1 nconc (loop for y in l2 collect (list x y)))) (defun cartesian-product (&amp;rest ls) (if (equal 1 (length ls)) ls (mapcar &#39;-flatten (-reduce &#39;cartesian-product-2 ls)))) (defalias &#39;-cartesian-product &#39;cartesian-product)   1  (cartesian-product &#39;(a b) &#39;(1 2) &#39;(&#34;h&#34; &#34;i&#34;))   &#34;((a 1 \&#34;h\&#34;) (a 1 \&#34;i\&#34;) (a 2 \&#34;h\&#34;) (a 2 \&#34;i\&#34;) (b 1 \&#34;h\&#34;) (b 1 \&#34;i\&#34;) (b 2 \&#34;h\&#34;) (b 2 \&#34;i\&#34;)) &#34; python 1 2 3 4 5  a = [[&#34;I&#34;],[&#34;went&#34;,&#34;will go&#34;],[&#34;to&#34;],[&#34;the airport&#34;,&#34;the car&#34;,&#34;Jamaica&#34;]] from itertools import product for t in product(*a): print(&#34; &#34;." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/cartesian-product/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-06-01T00:00:00&#43;12:00" />
@@ -231,7 +229,17 @@ emacs lisp / common lisp 1 2 3 4 5 6 7 8 9 10 11 12  (defun cartesian-product-2 
 <p>Generating the Cartesian Product of multiple lists is very useful for iteration and exhausting their combinations.</p>
 <p>One might use the Cartesian Product when constructing a test matrix, or when generating code.</p>
 <p>I will generate the Cartesian Product in as many languages as I can.</p>
-<p>I&rsquo;ll keep adding to this.</p>
+<h2 id="plan">Plan</h2>
+<ul>
+<li>Add implementations for more languages</li>
+<li>Make it recursive
+<ul>
+<li>Implement nested lists (not just multi-list) for each language</li>
+<li>Treat a non-list as a list of length 1</li>
+</ul>
+</li>
+<li>Implement 2D table generator for org-mode</li>
+</ul>
 <h2 id="emacs-lisp-common-lisp"><code>emacs lisp</code> / <code>common lisp</code></h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
