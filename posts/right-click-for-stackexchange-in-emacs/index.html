@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Right click for stackexchange in emacs // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.74b7ce8969da573c135a6e8e56284812583cc4a84e83b075f17ca5a7f84a7d40.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Right click for stackexchange in emacs"/>
+<meta name="twitter:description" content="Summary I fix the mouse for right-clicking regions and provide a context menu option for searching stack-exchange.
+elisp fix the mouse for right-clicking regions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33  (defun my-mouse-set-point (event &amp;optional promote-to-region) &#34;Move point to the position clicked on with the mouse."/>
+
+    <meta property="og:title" content="Right click for stackexchange in emacs" />
+<meta property="og:description" content="Summary I fix the mouse for right-clicking regions and provide a context menu option for searching stack-exchange.
+elisp fix the mouse for right-clicking regions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33  (defun my-mouse-set-point (event &amp;optional promote-to-region) &#34;Move point to the position clicked on with the mouse." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/right-click-for-stackexchange-in-emacs/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-02T00:00:00&#43;12:00" />
+<meta property="article:modified_time" content="2021-06-02T00:00:00&#43;12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+
+    
+    <script type="text/javascript">
+      var _paq = window._paq = window._paq || [];
+       
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="https://mullikine.matomo.cloud/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.src='//cdn.matomo.cloud/mullikine.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    
+
+  </head>
+  <body>
+    <header class="app-header">
+
+<a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/generating-hyperlinks-for-glossaries-and-other-parsers-in-emacs/">Hyperlink generation in emacs</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-case-for-learned-index-structures/">Case for Learned Index Structures</a>
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (298 topics)</a> <a href="https://github.com/mullikine/glossaries-gh">code</a>
+<br />
+<a href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">Automating Dwarf Fortress</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<a class="big" href="https://infogetics.github.io/">Infogetics on GitHub</a>
+<br />
+<a class="big" href="https://github.com/semiosis">Semiosis on GitHub</a>
+<br />
+<a class="big" href="https://takaheai.github.io/">TakaheAI on GitHub</a>
+<br />
+<div class="taglist">
+
+  <a class="tag" href="https://mullikine.github.io/tags/gpt/">GPT (Generative Pre-trained Transformer)</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/xenolinguistics/">xenolinguistics</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/shell/">shell</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a>
+<a class="tag" href="https://mullikine.github.io/tags/iac/">IaC</a>
+<a class="tag big" href="https://mullikine.github.io/tags/facebook/">Facebook</a>
+<a class="tag" href="https://mullikine.github.io/tags/wfh/">WFH</a>
+
+
+<a class="tag" href="https://mullikine.github.io/tags/babel/">babel</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/github/">GitHub</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsl/">DSL</a>
+<a class="tag" href="https://mullikine.github.io/tags/music/">music</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/diagrams/">diagrams</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/neural-engineering/">neural-engineering</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/aws/">AWS</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag big" href="https://mullikine.github.io/tags/uber/">Uber</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/microsoft/">Microsoft</a>
+<a class="tag big" href="https://mullikine.github.io/tags/neuralink/">Neuralink</a>
+<a class="tag big" href="https://mullikine.github.io/tags/openai/">OpenAI</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/rosie/">rosie</a>
+<a class="tag" href="https://mullikine.github.io/tags/terraform/">Terraform</a>
+<a class="tag" href="https://mullikine.github.io/tags/elasticsearch/">ELK</a>
+<a class="tag" href="https://mullikine.github.io/tags/semmle/">Semmle</a>
+<a class="tag" href="https://mullikine.github.io/tags/expect/">tcl/expect</a>
+<a class="tag" href="https://mullikine.github.io/tags/solr/">solr</a>
+</div>
+</div>
+
+
+
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <div class="post-footer phone">
+      <p>
+        <a href="https://mullikine.github.io/">Latest articles</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/tags/">Site Map</a>
+      </p>
+    </div>
+    <header class="post-header">
+      <h1 class ="post-title">Right click for stackexchange in emacs</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jun 2, 2021
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/emacs/">emacs</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      <h2 id="summary">Summary</h2>
+<p>I fix the mouse for right-clicking regions and
+provide a context menu option for searching
+stack-exchange.</p>
+<h2 id="elisp">elisp</h2>
+<h3 id="fix-the-mouse-for-right-clicking-regions">fix the mouse for right-clicking regions</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun my-mouse-set-point (event <span style="color:#66d9ef">&amp;optional</span> promote-to-region)
+  <span style="color:#e6db74">&#34;Move point to the position clicked on with the mouse.
+</span><span style="color:#e6db74">This should be bound to a mouse click event type.
+</span><span style="color:#e6db74">If PROMOTE-TO-REGION is non-nil and event is a multiple-click, select
+</span><span style="color:#e6db74">the corresponding element around point, with the resulting position of
+</span><span style="color:#e6db74">point determined by </span><span style="color:#e6db74">`mouse-select-region-move-to-beginning&#39;</span><span style="color:#e6db74">.&#34;</span>
+  (interactive <span style="color:#e6db74">&#34;e\np&#34;</span>)
+  (mouse-minibuffer-check event)
+  (if (and promote-to-region (<span style="color:#a6e22e">&gt;</span> (event-click-count event) <span style="color:#ae81ff">1</span>))
+      (progn
+        (mouse-set-region event)
+        (when mouse-select-region-move-to-beginning
+          (when (<span style="color:#a6e22e">&gt;</span> (posn-point (event-start event)) (<span style="color:#a6e22e">region-beginning</span>))
+            (exchange-point-and-mark))))
+    <span style="color:#75715e">;; Use event-end in case called from mouse-drag-region.</span>
+    <span style="color:#75715e">;; If EVENT is a click, event-end and event-start give same value.</span>
+    (posn-set-point (event-end event))))
+
+<span style="color:#75715e">;; This is to disable right-click from changing the position when mark is active</span>
+(defun mouse-set-point (event <span style="color:#66d9ef">&amp;optional</span> promote-to-region)
+  (interactive <span style="color:#e6db74">&#34;e\np&#34;</span>)
+  (if (or (<span style="color:#a6e22e">eq</span> (<span style="color:#a6e22e">car</span> event)
+              <span style="color:#e6db74">&#39;mouse-1</span>)
+          (<span style="color:#a6e22e">eq</span> (<span style="color:#a6e22e">car</span> event)
+              <span style="color:#e6db74">&#39;down-mouse-1</span>)
+          (<span style="color:#a6e22e">eq</span> (<span style="color:#a6e22e">car</span> event)
+              <span style="color:#e6db74">&#39;double-mouse-1</span>)
+          (<span style="color:#a6e22e">eq</span> (<span style="color:#a6e22e">car</span> event)
+              <span style="color:#e6db74">&#39;double-down-mouse-1</span>)
+          (not mark-active))
+      (my-mouse-set-point event promote-to-region)
+    <span style="color:#75715e">;; (message (pps event))</span>
+    ))</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="context-menu-option-for-searching-stack-exchange">context menu option for searching stack-exchange</h3>
+<p>The important bit here is <code>sx</code>, but feel
+inspired with these other context functions.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(setq right-click-context-global-menu-tree
+      <span style="color:#f92672">&#39;</span>((<span style="color:#e6db74">&#34;Cancel&#34;</span> :call <span style="color:#a6e22e">identity</span>)
+        (<span style="color:#e6db74">&#34;Edit menu&#34;</span> :call (j <span style="color:#e6db74">&#39;right-click-context-global-menu-tree-placeholder</span>))
+        (<span style="color:#e6db74">&#34;find-in-video&#34;</span> :call find-in-video :if (and (major-mode-p <span style="color:#e6db74">&#39;dired-mode</span>)
+                                                      (let ((p (sor (<span style="color:#a6e22e">car</span> (dired-get-marked-files)))))
+                                                        (and p
+                                                             (f-file-p p)
+                                                             (or (<span style="color:#a6e22e">string-equal</span> (file-name-extension p) <span style="color:#e6db74">&#34;mkv&#34;</span>)
+                                                                 (<span style="color:#a6e22e">string-equal</span> (file-name-extension p) <span style="color:#e6db74">&#34;mp4&#34;</span>)
+                                                                 (<span style="color:#a6e22e">string-equal</span> (file-name-extension p) <span style="color:#e6db74">&#34;avi&#34;</span>))))))
+        <span style="color:#75715e">;; (&#34;GPT-3&#34;</span>
+        <span style="color:#75715e">;;  (&#34;GPT-3: Convert Haskell to Clojure&#34; :call pen-pf-translate-haskell-to-clojure :if (gpt-test-haskell)))</span>
+        (<span style="color:#e6db74">&#34;GPT-3: Convert Haskell to Clojure&#34;</span> :call pen-pf-translate-haskell-to-clojure :if (gpt-test-haskell))
+        (<span style="color:#e6db74">&#34;NLP&#34;</span>
+         (<span style="color:#e6db74">&#34;Summarize&#34;</span> :call (progn
+                              (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;pen-pf-eli5-explain-like-i-m-five</span>)
+                              (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;fi-text-to-paras</span>)) :if (selected-p))
+         (<span style="color:#e6db74">&#34;Vexate&#34;</span> :call (progn
+                           (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;pen-pf-complicated-explanation-of-how-to-x</span>)
+                           (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;fi-text-to-paras</span>)) :if (selected-p))
+         (<span style="color:#e6db74">&#34;Fast Paras&#34;</span> :call (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;fi-text-to-paras-nosegregate</span>) :if (selected-p))
+         (<span style="color:#e6db74">&#34;Paras&#34;</span> :call (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;fi-text-to-paras</span>) :if (selected-p))
+         (<span style="color:#e6db74">&#34;spaCy&#34;</span> :call (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;sps-play-spacy</span>) :if (selected-p))
+         (<span style="color:#e6db74">&#34;ngram query replace&#34;</span> :call (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;ngram-query-replace</span>)))
+        (<span style="color:#e6db74">&#34;save, git all below, push&#34;</span> :call (progn
+                                             (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;Saving&#34;</span>)
+                                             (save-buffer)
+                                             (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;Adding&#34;</span>)
+                                             (sh/git-add-all-below)
+                                             (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;Pushing&#34;</span>)
+                                             (sn <span style="color:#e6db74">&#34;vc p&#34;</span>)
+                                             (<span style="color:#a6e22e">message</span> <span style="color:#e6db74">&#34;Done&#34;</span>)))
+        (<span style="color:#e6db74">&#34;Open in VSCode&#34;</span> :call open-in-vscode :if (<span style="color:#a6e22e">buffer-file-name</span>))
+        (<span style="color:#e6db74">&#34;windows&#34;</span>
+         (<span style="color:#e6db74">&#34;only&#34;</span> :call delete-other-windows))
+        (<span style="color:#e6db74">&#34;buffer&#34;</span>
+         (<span style="color:#e6db74">&#34;Kill buffer&#34;</span> :call kill-buffer-immediately)
+         (<span style="color:#e6db74">&#34;Reopen buffer&#34;</span> :call kill-buffer-and-reopen)
+         (<span style="color:#e6db74">&#34;Previous&#34;</span> :call switch-to-previous-buffer))
+        (<span style="color:#e6db74">&#34;git&#34;</span>
+         (<span style="color:#e6db74">&#34;Add all below&#34;</span> :call sh/git-add-all-below))
+        (<span style="color:#e6db74">&#34;Copy&#34;</span> :call (kill-ring-save (<span style="color:#a6e22e">region-beginning</span>) (<span style="color:#a6e22e">region-end</span>))
+         :if (use-region-p))
+        (<span style="color:#e6db74">&#34;Cut&#34;</span> :call (kill-region (<span style="color:#a6e22e">region-beginning</span>) (<span style="color:#a6e22e">region-end</span>))
+         :if (and (use-region-p) (not buffer-read-only)))
+        (<span style="color:#e6db74">&#34;Paste&#34;</span> :call (yank) :if (not buffer-read-only))
+        (<span style="color:#e6db74">&#34;Undo&#34;</span> :call (undo-tree-undo))
+        (<span style="color:#e6db74">&#34;Scrape&#34;</span>
+         (<span style="color:#e6db74">&#34;URLS&#34;</span> :call etv-urls-in-region))
+        (<span style="color:#e6db74">&#34;sx&#34;</span> :call sx-search-immediately-lang
+         :if mark-active)
+        (<span style="color:#e6db74">&#34;Select&#34;</span>
+         (<span style="color:#e6db74">&#34;Thing&#34;</span> :call my-select-thing-at-point)
+         (<span style="color:#e6db74">&#34;Paragraph&#34;</span> :call mark-paragraph)
+         (<span style="color:#e6db74">&#34;All&#34;</span> :call mark-whole-buffer))
+        (<span style="color:#e6db74">&#34;Babel enter&#34;</span> :call org-edit-special :if (org-in-src-block-p))
+        (<span style="color:#e6db74">&#34;Babel exit&#34;</span> :call org-edit-src-exit :if (org-src-edit-buffer-p))
+        (<span style="color:#e6db74">&#34;Glossary&#34;</span>
+         <span style="color:#75715e">;; (&#34;All&#34;  :call (add-to-glossary-file-for-buffer) :if (use-region-p))</span>
+         (<span style="color:#e6db74">&#34;Add&#34;</span> :call (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;add-to-glossary-file-for-buffer</span>))
+         (<span style="color:#e6db74">&#34;Link&#34;</span> :call (<span style="color:#a6e22e">call-interactively</span> <span style="color:#e6db74">&#39;glossary-add-link</span>)))
+        (<span style="color:#e6db74">&#34;Describe Character&#34;</span> :call (describe-char (<span style="color:#a6e22e">point</span>)) :if (not (use-region-p)))
+        (<span style="color:#e6db74">&#34;Button cloud&#34;</span> :call toggle-buttoncloud)))</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="demo">Demo</h2>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/PhYibx5po1TI1S4UVQi3guUW1" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/PhYibx5po1TI1S4UVQi3guUW1.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/PhYibx5po1TI1S4UVQi3guUW1.js" id="asciicast-PhYibx5po1TI1S4UVQi3guUW1" async></script>
+    </div>
+    <div class="post-footer">
+        <p>
+        <a href="https://mullikine.github.io/">Latest articles</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/about/">About this weblog</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://asciinema.org/~mullikine">Asciinema recordings</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/posts/blogs-and-vlogs/">Blogs and Vlogs</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/cv/">CV</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/tags/">Site Map</a>
+        </p>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
