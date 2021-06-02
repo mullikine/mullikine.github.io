@@ -13,13 +13,13 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Useful POSIX shell functions: cmd and myeval"/>
 <meta name="twitter:description" content="Summary I talk about two shell scripts I frequently use to simplify the handling of arguments, quotations, spaces and escape codes within shell scripts.
-They are POSIX-compliant and are so useful I think they should be a builtins.
+They are POSIX-compliant and are so useful I think they should be builtins.
  See also https://mullikine.github.io/posts/string-quoting-utility/  The string-quoting utility is used to make a script that handles double quotes. That is out of scope of this article.
 Demo cmd 1  cmd echo &#34;hello &#39;&#39;&#39;&#39;\&#34;simon&#34; thanks for lunch   &#39;echo&#39; &#39;hello &#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;&#34;simon&#39; &#39;thanks&#39; &#39;for&#39; &#39;lunch&#39; myeval has the inverse action to cmd 1  myeval cmd cmd &#34;hello &#39;&#39;&#39;&#39;\&#34;simon&#34; thanks for lunch   &#39;cmd&#39; &#39;hello &#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;&#34;simon&#39; &#39;thanks&#39; &#39;for&#39; &#39;lunch&#39; On the first round, the double quotes are converted to single quotes."/>
 
     <meta property="og:title" content="Useful POSIX shell functions: cmd and myeval" />
 <meta property="og:description" content="Summary I talk about two shell scripts I frequently use to simplify the handling of arguments, quotations, spaces and escape codes within shell scripts.
-They are POSIX-compliant and are so useful I think they should be a builtins.
+They are POSIX-compliant and are so useful I think they should be builtins.
  See also https://mullikine.github.io/posts/string-quoting-utility/  The string-quoting utility is used to make a script that handles double quotes. That is out of scope of this article.
 Demo cmd 1  cmd echo &#34;hello &#39;&#39;&#39;&#39;\&#34;simon&#34; thanks for lunch   &#39;echo&#39; &#39;hello &#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;&#34;simon&#39; &#39;thanks&#39; &#39;for&#39; &#39;lunch&#39; myeval has the inverse action to cmd 1  myeval cmd cmd &#34;hello &#39;&#39;&#39;&#39;\&#34;simon&#34; thanks for lunch   &#39;cmd&#39; &#39;hello &#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;&#34;simon&#39; &#39;thanks&#39; &#39;for&#39; &#39;lunch&#39; On the first round, the double quotes are converted to single quotes." />
 <meta property="og:type" content="article" />
@@ -207,7 +207,7 @@ Demo cmd 1  cmd echo &#34;hello &#39;&#39;&#39;&#39;\&#34;simon&#34; thanks for 
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          3 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -231,7 +231,7 @@ use to simplify the handling of arguments,
 quotations, spaces and escape codes within
 shell scripts.</p>
 <p>They are POSIX-compliant and are so useful I
-think they should be a builtins.</p>
+think they should be builtins.</p>
 <dl>
 <dt>See also</dt>
 <dd><a href="https://mullikine.github.io/posts/string-quoting-utility/">https://mullikine.github.io/posts/string-quoting-utility/</a></dd>
@@ -260,8 +260,15 @@ of scope of this article.</p>
 </div>
 </div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#e6db74">&#39;cmd&#39;</span> <span style="color:#e6db74">&#39;hello &#39;</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">&#39;&#39;</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">&#39;&#39;</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">&#39;&#39;</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">&#39;&#34;simon&#39;</span> <span style="color:#e6db74">&#39;thanks&#39;</span> <span style="color:#e6db74">&#39;for&#39;</span> <span style="color:#e6db74">&#39;lunch&#39;</span>
-</code></pre></div><p>On the first round, the double quotes are converted to single quotes.</p>
-<p>Also, the first <code>cmd</code> has disappeared. That&rsquo;s because it was evaluated. The entire command was evaluated.</p>
+</code></pre></div><p>On the first round, the double quotes are
+converted to single quotes. This is because
+the <code>cmd</code> function has no idea if you double-quoted them or single-quoted them.
+Its job is to reconstruct what it thinks you probably typed into the command-line.</p>
+<p>Also, the first <code>cmd</code> has disappeared. That&rsquo;s
+because the entire thing was evaluated by
+<code>myeval</code> and when <code>cmd</code> is evaluated, it
+encodes its arguments into a string
+representation of those arguments.</p>
 <p>Without <code>myeval</code>, you&rsquo;d need to use the
 builtin <code>eval</code>. But <code>eval</code> takes the entire
 command as a single string.</p>
