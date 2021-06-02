@@ -8,6 +8,17 @@
     <language>en-us</language>
     <lastBuildDate>Wed, 02 Jun 2021 00:00:00 +1200</lastBuildDate><atom:link href="https://mullikine.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Finding anagrams in emacs</title>
+      <link>https://mullikine.github.io/posts/finding-anagrams-in-emacs/</link>
+      <pubDate>Wed, 02 Jun 2021 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/finding-anagrams-in-emacs/</guid>
+      <description>Summary I want to be able to quickly look up anagrams from emacs.
+I scrape https://anagram-solver.net and make a simple UI for it in emacs.
+shell elinks-dump 1 2 3 4 5 6 7  #!/bin/bash export TTY word=&amp;#34;$1&amp;#34; test -n &amp;#34;$word&amp;#34; || exit 1 elinks-dump &amp;#34;https://anagram-solver.net/$word&amp;#34; | sed -n &amp;#34;/is an anagram of:/,/Click here/p&amp;#34; | sed -e &amp;#34;1,2d&amp;#34; -e &amp;#39;/^$/,$d&amp;#39;   elisp message-no-echo I want to be able to add something to the Messages buffer without displaying it in the echo area.</description>
+    </item>
+    
+    <item>
       <title>Right click for stackexchange in emacs</title>
       <link>https://mullikine.github.io/posts/right-click-for-stackexchange-in-emacs/</link>
       <pubDate>Wed, 02 Jun 2021 00:00:00 +1200</pubDate>
