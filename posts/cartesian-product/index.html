@@ -15,13 +15,13 @@
 <meta name="twitter:description" content="Summary Generating the Cartesian Product of multiple lists is very useful for iteration and exhausting their combinations.
 One might use the Cartesian Product when constructing a test matrix, or when generating code.
 I will generate the Cartesian Product in as many languages as I can.
-Plan  Add implementations for more languages Make it recursive  Implement nested lists (not just multi-list) for each language Treat a non-list as a list of length 1   Implement 2D table generator for org-mode  emacs lisp / common lisp 1 2 3 4 5 6 7 8 9 10 11 12  (defun cartesian-product-2 (l1 l2) (loop for x in l1 nconc (loop for y in l2 collect (list x y)))) (defun cartesian-product (&amp;rest ls) (if (equal 1 (length ls)) ls (mapcar &#39;-flatten (-reduce &#39;cartesian-product-2 ls)))) (defalias &#39;-cartesian-product &#39;cartesian-product)   1  (cartesian-product &#39;(a b) &#39;(1 2) &#39;(&#34;h&#34; &#34;i&#34;))   &#34;((a 1 \&#34;h\&#34;) (a 1 \&#34;i\&#34;) (a 2 \&#34;h\&#34;) (a 2 \&#34;i\&#34;) (b 1 \&#34;h\&#34;) (b 1 \&#34;i\&#34;) (b 2 \&#34;h\&#34;) (b 2 \&#34;i\&#34;)) &#34; python 1 2 3 4 5  a = [[&#34;I&#34;],[&#34;went&#34;,&#34;will go&#34;],[&#34;to&#34;],[&#34;the airport&#34;,&#34;the car&#34;,&#34;Jamaica&#34;]] from itertools import product for t in product(*a): print(&#34; &#34;."/>
+Plan  Add implementations for more languages Make it optionally recursive  Implement nested lists (not just multi-list) for each language Treat a non-list as a list of length 1 Sometimes you don&rsquo;t want the Cartesian Product to be recursive because you may want to deal in lists rather than merely strings or ints."/>
 
     <meta property="og:title" content="Cartesian Product" />
 <meta property="og:description" content="Summary Generating the Cartesian Product of multiple lists is very useful for iteration and exhausting their combinations.
 One might use the Cartesian Product when constructing a test matrix, or when generating code.
 I will generate the Cartesian Product in as many languages as I can.
-Plan  Add implementations for more languages Make it recursive  Implement nested lists (not just multi-list) for each language Treat a non-list as a list of length 1   Implement 2D table generator for org-mode  emacs lisp / common lisp 1 2 3 4 5 6 7 8 9 10 11 12  (defun cartesian-product-2 (l1 l2) (loop for x in l1 nconc (loop for y in l2 collect (list x y)))) (defun cartesian-product (&amp;rest ls) (if (equal 1 (length ls)) ls (mapcar &#39;-flatten (-reduce &#39;cartesian-product-2 ls)))) (defalias &#39;-cartesian-product &#39;cartesian-product)   1  (cartesian-product &#39;(a b) &#39;(1 2) &#39;(&#34;h&#34; &#34;i&#34;))   &#34;((a 1 \&#34;h\&#34;) (a 1 \&#34;i\&#34;) (a 2 \&#34;h\&#34;) (a 2 \&#34;i\&#34;) (b 1 \&#34;h\&#34;) (b 1 \&#34;i\&#34;) (b 2 \&#34;h\&#34;) (b 2 \&#34;i\&#34;)) &#34; python 1 2 3 4 5  a = [[&#34;I&#34;],[&#34;went&#34;,&#34;will go&#34;],[&#34;to&#34;],[&#34;the airport&#34;,&#34;the car&#34;,&#34;Jamaica&#34;]] from itertools import product for t in product(*a): print(&#34; &#34;." />
+Plan  Add implementations for more languages Make it optionally recursive  Implement nested lists (not just multi-list) for each language Treat a non-list as a list of length 1 Sometimes you don&rsquo;t want the Cartesian Product to be recursive because you may want to deal in lists rather than merely strings or ints." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/cartesian-product/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-06-01T00:00:00&#43;12:00" />
@@ -207,7 +207,7 @@ Plan  Add implementations for more languages Make it recursive  Implement nested
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -232,10 +232,18 @@ Plan  Add implementations for more languages Make it recursive  Implement nested
 <h2 id="plan">Plan</h2>
 <ul>
 <li>Add implementations for more languages</li>
-<li>Make it recursive
+<li>Make it optionally recursive
 <ul>
 <li>Implement nested lists (not just multi-list) for each language</li>
 <li>Treat a non-list as a list of length 1</li>
+<li>Sometimes you don&rsquo;t want the Cartesian
+Product to be recursive because you may
+want to deal in lists rather than merely
+strings or ints.
+i.e. You want the products of the
+Cartesian Product to be lists; Lists that
+were not used in the operation but merely
+passed around.</li>
 </ul>
 </li>
 <li>Implement 2D table generator for org-mode</li>
@@ -255,6 +263,7 @@ Plan  Add implementations for more languages Make it recursive  Implement nested
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun cartesian-product-2 (l1 l2)
@@ -268,7 +277,8 @@ Plan  Add implementations for more languages Make it recursive  Implement nested
       ls
     (<span style="color:#a6e22e">mapcar</span> <span style="color:#e6db74">&#39;-flatten</span> (-reduce <span style="color:#e6db74">&#39;cartesian-product-2</span> ls))))
 
-(defalias <span style="color:#e6db74">&#39;-cartesian-product</span> <span style="color:#e6db74">&#39;cartesian-product</span>)</code></pre></td></tr></table>
+(defalias <span style="color:#e6db74">&#39;-cartesian-product</span> <span style="color:#e6db74">&#39;cartesian-product</span>)
+(defalias <span style="color:#e6db74">&#39;-cx</span> <span style="color:#e6db74">&#39;cartesian-product</span>)</code></pre></td></tr></table>
 </div>
 </div>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
@@ -288,7 +298,178 @@ Plan  Add implementations for more languages Make it recursive  Implement nested
 </span><span style="color:#e6db74"> (b 2 \&#34;h\&#34;)
 </span><span style="color:#e6db74"> (b 2 \&#34;i\&#34;))
 </span><span style="color:#e6db74">&#34;</span>
-</code></pre></div><h2 id="python"><code>python</code></h2>
+</code></pre></div><h3 id="improvements">Improvements</h3>
+<p>I want to flatten more intelligently.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun uncdr (l)
+  <span style="color:#e6db74">&#34;Return car with cdr appended&#34;</span>
+  (<span style="color:#a6e22e">append</span> (<span style="color:#a6e22e">car</span> l) (<span style="color:#a6e22e">list</span> (<span style="color:#a6e22e">cdr</span> l))))
+
+(defun unsnd (l <span style="color:#66d9ef">&amp;optional</span> depth)
+  <span style="color:#e6db74">&#34;Return car with cdr appended&#34;</span>
+
+  (if (or (not depth)
+          (<span style="color:#a6e22e">&lt;</span> depth <span style="color:#ae81ff">1</span>))
+      (setq depth <span style="color:#ae81ff">1</span>))
+
+  (cond
+   ((<span style="color:#a6e22e">&lt;</span> <span style="color:#ae81ff">1</span> depth) (<span style="color:#a6e22e">append</span> (unsnd (<span style="color:#a6e22e">car</span> l) (<span style="color:#a6e22e">-</span> depth <span style="color:#ae81ff">1</span>)) (<span style="color:#a6e22e">list</span> (second l))))
+   (<span style="color:#66d9ef">t</span> (<span style="color:#a6e22e">append</span> (<span style="color:#a6e22e">car</span> l) (<span style="color:#a6e22e">list</span> (second l))))))</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun cartesian-product (<span style="color:#66d9ef">&amp;rest</span> ls)
+  (let* ((len (<span style="color:#a6e22e">length</span> ls))
+         (result (cond
+                  ((not ls) <span style="color:#66d9ef">nil</span>)
+                  ((<span style="color:#a6e22e">equal</span> <span style="color:#ae81ff">1</span> len) ls)
+                  (<span style="color:#66d9ef">t</span>
+                   (-reduce <span style="color:#e6db74">&#39;cartesian-product-2</span> ls)
+                   ))))
+    (if (<span style="color:#a6e22e">&lt;</span> <span style="color:#ae81ff">2</span> len)
+        (<span style="color:#a6e22e">mapcar</span> (lambda (l) (unsnd l (<span style="color:#a6e22e">-</span> len <span style="color:#ae81ff">2</span>)))
+                result)
+      result)))</code></pre></td></tr></table>
+</div>
+</div>
+<p>For example, I may be wanted to find the cartesian products of lists that may contain lists.
+I don&rsquo;t want those sublists to take part in the cartesian product algorithm though.
+I want them to be treated the same as other data types.
+For that reason, I can&rsquo;t use <code>-flatten</code> as it doesn&rsquo;t discriminate between such lists and the lists we are targetting.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(-cx <span style="color:#f92672">&#39;</span>((<span style="color:#e6db74">&#34;;&#34;</span> <span style="color:#e6db74">&#39;ansi-zsh</span>)
+       (<span style="color:#e6db74">&#34;&#39;&#34;</span> <span style="color:#e6db74">&#39;eshell</span>)
+       (<span style="color:#e6db74">&#34;\&#34;&#34;</span> <span style="color:#e6db74">&#39;nw-term</span>)
+       (<span style="color:#e6db74">&#34;s&#34;</span> <span style="color:#e6db74">&#39;eshell-sph</span>)
+       (<span style="color:#e6db74">&#34;S&#34;</span> <span style="color:#e6db74">&#39;eshell-spv</span>)
+       (<span style="color:#e6db74">&#34;g&#34;</span> <span style="color:#e6db74">&#39;split-window-below</span>)
+       (<span style="color:#e6db74">&#34;G&#34;</span> <span style="color:#e6db74">&#39;split-window-right</span>))
+     <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">&#34;w&#34;</span>
+       <span style="color:#e6db74">&#34;C-w&#34;</span>))
+
+(-cx <span style="color:#f92672">&#39;</span>((<span style="color:#e6db74">&#34;;&#34;</span> <span style="color:#e6db74">&#39;ansi-zsh</span>)
+       (<span style="color:#e6db74">&#34;&#39;&#34;</span> <span style="color:#e6db74">&#39;eshell</span>)
+       (<span style="color:#e6db74">&#34;\&#34;&#34;</span> <span style="color:#e6db74">&#39;nw-term</span>)
+       (<span style="color:#e6db74">&#34;s&#34;</span> <span style="color:#e6db74">&#39;eshell-sph</span>)
+       (<span style="color:#e6db74">&#34;S&#34;</span> <span style="color:#e6db74">&#39;eshell-spv</span>)
+       (<span style="color:#e6db74">&#34;g&#34;</span> <span style="color:#e6db74">&#39;split-window-below</span>)
+       (<span style="color:#e6db74">&#34;G&#34;</span> <span style="color:#e6db74">&#39;split-window-right</span>))
+     <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">&#34;w&#34;</span>
+       <span style="color:#e6db74">&#34;C-w&#34;</span>)
+     <span style="color:#f92672">&#39;</span>(my-mode-map
+       global-map))
+
+(-cx <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">&#34;w&#34;</span>
+       <span style="color:#e6db74">&#34;C-w&#34;</span>)
+     <span style="color:#f92672">&#39;</span>(my-mode-map
+       global-map))</code></pre></td></tr></table>
+</div>
+</div>
+<p>Defining keys using the Cartesian Product to generate code.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(loop for d in
+      (<span style="color:#a6e22e">mapcar</span>
+       (lambda (l)
+         <span style="color:#f92672">`</span>(<span style="color:#a6e22e">define-key</span> <span style="color:#f92672">,</span>(third l) (kbd <span style="color:#f92672">,</span>(<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;M-m &#34;</span> (second l) <span style="color:#e6db74">&#34; &#34;</span> (<span style="color:#a6e22e">car</span> (<span style="color:#a6e22e">car</span> l)))) <span style="color:#f92672">,</span>(second (<span style="color:#a6e22e">car</span> l))))
+       (-cx <span style="color:#f92672">&#39;</span>((<span style="color:#e6db74">&#34;;&#34;</span> <span style="color:#e6db74">&#39;ansi-zsh</span>)
+              (<span style="color:#e6db74">&#34;&#39;&#34;</span> <span style="color:#e6db74">&#39;eshell</span>)
+              (<span style="color:#e6db74">&#34;\&#34;&#34;</span> <span style="color:#e6db74">&#39;nw-term</span>)
+              (<span style="color:#e6db74">&#34;s&#34;</span> <span style="color:#e6db74">&#39;eshell-sph</span>)
+              (<span style="color:#e6db74">&#34;S&#34;</span> <span style="color:#e6db74">&#39;eshell-spv</span>)
+              (<span style="color:#e6db74">&#34;g&#34;</span> <span style="color:#e6db74">&#39;split-window-below</span>)
+              (<span style="color:#e6db74">&#34;G&#34;</span> <span style="color:#e6db74">&#39;split-window-right</span>))
+            <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">&#34;w&#34;</span>
+              <span style="color:#e6db74">&#34;C-w&#34;</span>)
+            <span style="color:#f92672">&#39;</span>(my-mode-map
+              global-map)))
+      do
+      (ignore-errors
+        (<span style="color:#a6e22e">eval</span> d)))</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="python"><code>python</code></h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -296,16 +477,21 @@ Plan  Add implementations for more languages Make it recursive  Implement nested
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">a <span style="color:#f92672">=</span> [[<span style="color:#e6db74">&#34;I&#34;</span>],[<span style="color:#e6db74">&#34;went&#34;</span>,<span style="color:#e6db74">&#34;will go&#34;</span>],[<span style="color:#e6db74">&#34;to&#34;</span>],[<span style="color:#e6db74">&#34;the airport&#34;</span>,<span style="color:#e6db74">&#34;the car&#34;</span>,<span style="color:#e6db74">&#34;Jamaica&#34;</span>]]
 <span style="color:#f92672">from</span> itertools <span style="color:#f92672">import</span> product
 
+<span style="color:#66d9ef">print</span>([e <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> product(<span style="color:#f92672">*</span>a)])
+
 <span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> product(<span style="color:#f92672">*</span>a):
      <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">.</span>join(t))</code></pre></td></tr></table>
 </div>
 </div>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">I went to the airport
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">[(<span style="color:#e6db74">&#39;I&#39;</span>, <span style="color:#e6db74">&#39;went&#39;</span>, <span style="color:#e6db74">&#39;to&#39;</span>, <span style="color:#e6db74">&#39;the airport&#39;</span>), (<span style="color:#e6db74">&#39;I&#39;</span>, <span style="color:#e6db74">&#39;went&#39;</span>, <span style="color:#e6db74">&#39;to&#39;</span>, <span style="color:#e6db74">&#39;the car&#39;</span>), (<span style="color:#e6db74">&#39;I&#39;</span>, <span style="color:#e6db74">&#39;went&#39;</span>, <span style="color:#e6db74">&#39;to&#39;</span>, <span style="color:#e6db74">&#39;Jamaica&#39;</span>), (<span style="color:#e6db74">&#39;I&#39;</span>, <span style="color:#e6db74">&#39;will go&#39;</span>, <span style="color:#e6db74">&#39;to&#39;</span>, <span style="color:#e6db74">&#39;the airport&#39;</span>), (<span style="color:#e6db74">&#39;I&#39;</span>, <span style="color:#e6db74">&#39;will go&#39;</span>, <span style="color:#e6db74">&#39;to&#39;</span>, <span style="color:#e6db74">&#39;the car&#39;</span>), (<span style="color:#e6db74">&#39;I&#39;</span>, <span style="color:#e6db74">&#39;will go&#39;</span>, <span style="color:#e6db74">&#39;to&#39;</span>, <span style="color:#e6db74">&#39;Jamaica&#39;</span>)]
+I went to the airport
 I went to the car
 I went to Jamaica
 I will go to the airport

@@ -29,6 +29,18 @@ elisp fix the mouse for right-clicking regions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 
     </item>
     
     <item>
+      <title>Useful POSIX shell functions: cmd and myeval</title>
+      <link>https://mullikine.github.io/posts/missing-posix-shell-functions-cmd-and-myeval/</link>
+      <pubDate>Wed, 02 Jun 2021 00:00:00 +1200</pubDate>
+      
+      <guid>https://mullikine.github.io/posts/missing-posix-shell-functions-cmd-and-myeval/</guid>
+      <description>Summary I talk about two shell scripts I frequently use to simplify the handling of arguments, quotations, spaces and escape codes within shell scripts.
+They are POSIX-compliant. They are so useful I think they should be builtins.
+ See also https://mullikine.github.io/posts/string-quoting-utility/  The string-quoting utility is used to make a script that handles double quotes. That is out of scope of this article.
+Demo cmd 1  cmd echo &amp;#34;hello &amp;#39;&amp;#39;&amp;#39;&amp;#39;\&amp;#34;simon&amp;#34; thanks for lunch   &amp;#39;echo&amp;#39; &amp;#39;hello &amp;#39;\&amp;#39;&amp;#39;&amp;#39;\&amp;#39;&amp;#39;&amp;#39;\&amp;#39;&amp;#39;&amp;#39;\&amp;#39;&amp;#39;&amp;#34;simon&amp;#39; &amp;#39;thanks&amp;#39; &amp;#39;for&amp;#39; &amp;#39;lunch&amp;#39; myeval has the inverse action to cmd 1  myeval &amp;#39;echo&amp;#39; &amp;#39;hello &amp;#39;\&amp;#39;&amp;#39;&amp;#39;\&amp;#39;&amp;#39;&amp;#39;\&amp;#39;&amp;#39;&amp;#39;\&amp;#39;&amp;#39;&amp;#34;simon&amp;#39; &amp;#39;thanks&amp;#39; &amp;#39;for&amp;#39; &amp;#39;lunch&amp;#39;   hello &amp;#39;&amp;#39;&amp;#39;&amp;#39;&amp;#34;simon thanks for lunch cmd 1 2 3 4 5 6 7 8 9 10 11 12 13  #!</description>
+    </item>
+    
+    <item>
       <title>Cartesian Product</title>
       <link>https://mullikine.github.io/posts/cartesian-product/</link>
       <pubDate>Tue, 01 Jun 2021 00:00:00 +1200</pubDate>
@@ -37,7 +49,7 @@ elisp fix the mouse for right-clicking regions 1 2 3 4 5 6 7 8 9 10 11 12 13 14 
       <description>Summary Generating the Cartesian Product of multiple lists is very useful for iteration and exhausting their combinations.
 One might use the Cartesian Product when constructing a test matrix, or when generating code.
 I will generate the Cartesian Product in as many languages as I can.
-Plan  Add implementations for more languages Make it recursive  Implement nested lists (not just multi-list) for each language Treat a non-list as a list of length 1   Implement 2D table generator for org-mode  emacs lisp / common lisp 1 2 3 4 5 6 7 8 9 10 11 12  (defun cartesian-product-2 (l1 l2) (loop for x in l1 nconc (loop for y in l2 collect (list x y)))) (defun cartesian-product (&amp;amp;rest ls) (if (equal 1 (length ls)) ls (mapcar &amp;#39;-flatten (-reduce &amp;#39;cartesian-product-2 ls)))) (defalias &amp;#39;-cartesian-product &amp;#39;cartesian-product)   1  (cartesian-product &amp;#39;(a b) &amp;#39;(1 2) &amp;#39;(&amp;#34;h&amp;#34; &amp;#34;i&amp;#34;))   &amp;#34;((a 1 \&amp;#34;h\&amp;#34;) (a 1 \&amp;#34;i\&amp;#34;) (a 2 \&amp;#34;h\&amp;#34;) (a 2 \&amp;#34;i\&amp;#34;) (b 1 \&amp;#34;h\&amp;#34;) (b 1 \&amp;#34;i\&amp;#34;) (b 2 \&amp;#34;h\&amp;#34;) (b 2 \&amp;#34;i\&amp;#34;)) &amp;#34; python 1 2 3 4 5  a = [[&amp;#34;I&amp;#34;],[&amp;#34;went&amp;#34;,&amp;#34;will go&amp;#34;],[&amp;#34;to&amp;#34;],[&amp;#34;the airport&amp;#34;,&amp;#34;the car&amp;#34;,&amp;#34;Jamaica&amp;#34;]] from itertools import product for t in product(*a): print(&amp;#34; &amp;#34;.</description>
+Plan  Add implementations for more languages Make it optionally recursive  Implement nested lists (not just multi-list) for each language Treat a non-list as a list of length 1 Sometimes you don&amp;rsquo;t want the Cartesian Product to be recursive because you may want to deal in lists rather than merely strings or ints.</description>
     </item>
     
     <item>
