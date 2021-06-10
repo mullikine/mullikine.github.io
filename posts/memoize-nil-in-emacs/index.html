@@ -209,7 +209,7 @@ This way, if emacs dies and comes back, the functions are still memoized." />
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          4 min read
+          5 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -538,6 +538,105 @@ functions are still memoized.</p>
 <!-- <a title="asciinema recording" href="https://asciinema.org/a/QexNNUrrXIe00ph7fZvzTmMK4" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/QexNNUrrXIe00ph7fZvzTmMK4.svg" /></a> -->
 <!-- Play on the blog -->
 <script src="https://asciinema.org/a/QexNNUrrXIe00ph7fZvzTmMK4.js" id="asciicast-QexNNUrrXIe00ph7fZvzTmMK4" async></script>
+<h2 id="final-touchups">Final touchups</h2>
+<p>The <code>memoize--wrap</code> function was lexically
+linked to it&rsquo;s sibling function, <code>memoize</code> in
+the package. I have un-lexicalised it so I can store it in my config files.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun memoize--wrap (func timeout)
+  <span style="color:#e6db74">&#34;Return the memoized version of FUNC.
+</span><span style="color:#e6db74">TIMEOUT specifies how long the values last from last access. A
+</span><span style="color:#e6db74">nil timeout will cause the values to never expire, which will
+</span><span style="color:#e6db74">cause a memory leak as memoize is use, so use the nil value with
+</span><span style="color:#e6db74">care.&#34;</span>
+  (let* (<span style="color:#75715e">;;This also works for lambdas</span>
+         (funcslug (slugify (s-join <span style="color:#e6db74">&#34;-&#34;</span> (str2list (pps func)))))
+         (tablename (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;table-&#34;</span> funcslug))
+         (timeoutsname (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;timeouts-&#34;</span> funcslug))
+         <span style="color:#75715e">;; (table (eval `(make-or-load-hash-table ,tablename :test &#39;equal)))</span>
+         <span style="color:#75715e">;; (timeouts (eval `(make-or-load-hash-table ,timeoutsname :test &#39;equal)))</span>
+         (table (make-or-load-hash-table tablename <span style="color:#f92672">&#39;</span>(:test <span style="color:#a6e22e">equal</span>)))
+         (timeouts (make-or-load-hash-table timeoutsname <span style="color:#f92672">&#39;</span>(:test <span style="color:#a6e22e">equal</span>))))
+    (<span style="color:#a6e22e">eval</span>
+     <span style="color:#f92672">`</span>(lambda (<span style="color:#66d9ef">&amp;rest</span> args)
+        (let ((value (<span style="color:#a6e22e">gethash</span> args <span style="color:#f92672">,</span>table)))
+          (unwind-protect
+              <span style="color:#75715e">;; (or value (puthash args (apply ,func args) ,table))</span>
+              (let ((ret (or value
+                             <span style="color:#75715e">;; Add to the hash table and save the hash table</span>
+                             (let ((newret (<span style="color:#a6e22e">puthash</span> args
+                                                    (or (<span style="color:#a6e22e">apply</span> <span style="color:#f92672">,</span>func args)
+                                                        <span style="color:#e6db74">&#39;MEMOIZE_NIL</span>)
+                                                    <span style="color:#f92672">,</span>table)))
+                               (if (featurep <span style="color:#e6db74">&#39;hashtable-print-readable</span>)
+                                   (my-ht-cache <span style="color:#f92672">,</span>tablename <span style="color:#f92672">,</span>table))
+                               newret))))
+                (if (<span style="color:#a6e22e">equal</span> ret <span style="color:#e6db74">&#39;MEMOIZE_NIL</span>)
+                    (setq ret <span style="color:#66d9ef">nil</span>))
+                ret)
+            (let ((existing-timer (<span style="color:#a6e22e">gethash</span> args <span style="color:#f92672">,</span>timeouts))
+                  (timeout-to-use (or
+                                   <span style="color:#75715e">;; timeout comes from the calling &#39;memoize&#39; function</span>
+                                   (and (variable-p <span style="color:#e6db74">&#39;timeout</span>)
+                                        timeout)
+                                   memoize-default-timeout)))
+              (when existing-timer
+                (cancel-timer existing-timer))
+              (when timeout-to-use
+                (<span style="color:#a6e22e">puthash</span> args
+                         (run-at-time timeout-to-use <span style="color:#66d9ef">nil</span>
+                                      (lambda ()
+                                        (<span style="color:#a6e22e">remhash</span> args <span style="color:#f92672">,</span>table))) <span style="color:#f92672">,</span>timeouts)))))))))</code></pre></td></tr></table>
+</div>
+</div>
+
     </div>
     <div class="post-footer">
         <p>
