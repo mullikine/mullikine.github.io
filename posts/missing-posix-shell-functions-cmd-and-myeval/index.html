@@ -207,7 +207,7 @@ Demo cmd 1  cmd echo &#34;hello &#39;&#39;&#39;&#39;\&#34;simon&#34; thanks for 
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          4 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -347,8 +347,7 @@ cmd<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
 cmd <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
-<h2 id="myeval-and-cmd-eval"><code>myeval</code> and <code>cmd-eval</code></h2>
-<h3 id="myeval"><code>myeval</code></h3>
+<h2 id="myeval"><code>myeval</code></h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -368,68 +367,7 @@ cmd <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;<
 
 <span style="color:#75715e"># myeval cmd &#34;hi there&#34;</span>
 
-eval <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd-eval <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
-</div>
-</div>
-<h3 id="cmd-eval"><code>cmd-eval</code></h3>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span>export TTY
-
-printf -- <span style="color:#e6db74">&#34;%s&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>
-<span style="color:#66d9ef">for</span> <span style="color:#f92672">((</span> i <span style="color:#f92672">=</span> 1; i &lt; $#; i++ <span style="color:#66d9ef">)</span><span style="color:#e6db74">); do
-</span><span style="color:#e6db74">    eval ARG=\${</span>$i<span style="color:#e6db74">}
-</span><span style="color:#e6db74">    if test -z &#34;</span>$ARG<span style="color:#e6db74">&#34;; then
-</span><span style="color:#e6db74">        printf &#39;&#34;&#34;&#39;
-</span><span style="color:#e6db74">    else
-</span><span style="color:#e6db74">        # q-eval
-</span><span style="color:#e6db74">        # ARG=&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$ARG<span style="color:#e6db74">&#34;</span> | bs <span style="color:#e6db74">&#34;&#39;&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;
-</span><span style="color:#e6db74">        ARG=&#34;</span><span style="color:#66d9ef">$(</span>printf -- <span style="color:#e6db74">&#34;%s&#34;</span> <span style="color:#e6db74">&#34;</span>$ARG<span style="color:#e6db74">&#34;</span> | sed <span style="color:#e6db74">&#34;s/&#39;/&#39;\\\&#39;&#39;/g&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;
-</span><span style="color:#e6db74">        echo -n -e &#34;</span><span style="color:#e6db74">&#39;$ARG&#39;</span> <span style="color:#e6db74">&#34;
-</span><span style="color:#e6db74">    fi
-</span><span style="color:#e6db74">    echo -n -e &#34;</span>$CMD_DELIM<span style="color:#e6db74">&#34;
-</span><span style="color:#e6db74">done
-</span><span style="color:#e6db74">eval ARG=\${</span>$i<span style="color:#e6db74">}
-</span><span style="color:#e6db74">if test -z &#34;</span>$ARG<span style="color:#e6db74">&#34;; then
-</span><span style="color:#e6db74">    # This test is for the specific case of { cmd yo yo yo | cmd - -d &#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;; }
-</span><span style="color:#e6db74">    test &#34;</span>$#<span style="color:#e6db74">&#34; -gt 0 &amp;&amp; printf &#39;&#34;&#34;&#39;
-</span><span style="color:#e6db74">else
-</span><span style="color:#e6db74">    # q-eval
-</span><span style="color:#e6db74">    # ARG=&#34;</span><span style="color:#66d9ef">$(</span>p <span style="color:#e6db74">&#34;</span>$ARG<span style="color:#e6db74">&#34;</span> | bs <span style="color:#e6db74">&#34;&#39;&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;
-</span><span style="color:#e6db74">    ARG=&#34;</span><span style="color:#66d9ef">$(</span>printf -- <span style="color:#e6db74">&#34;%s&#34;</span> <span style="color:#e6db74">&#34;</span>$ARG<span style="color:#e6db74">&#34;</span> | sed <span style="color:#e6db74">&#34;s/&#39;/&#39;\\\&#39;&#39;/g&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;
-</span><span style="color:#e6db74">    echo -n -e &#34;</span><span style="color:#e6db74">&#39;$ARG&#39;</span><span style="color:#e6db74">&#34;
-</span><span style="color:#e6db74">fi
-</span><span style="color:#e6db74">)&#34;</span></code></pre></td></tr></table>
+eval <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
 <h2 id="usage">Usage</h2>
