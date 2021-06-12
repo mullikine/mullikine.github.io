@@ -269,9 +269,6 @@ ssh.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># The following captures the arguments to the running script as a string.</span>
@@ -284,27 +281,47 @@ CMD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><
 ssh remotehost <span style="color:#e6db74">&#34;</span>$CMD<span style="color:#e6db74">&#34;</span>
 
 <span style="color:#75715e"># Or something like this.</span>
-ssh remotehost <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd echo <span style="color:#e6db74">&#34;This will run on the server&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
-
-
-ssh remotehost <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd echo <span style="color:#e6db74">&#34;This will run on the server&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd <span style="color:#e6db74">&#34;Now I don&#39;t need&#34;</span> <span style="color:#e6db74">&#34;to worry&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd About <span style="color:#e6db74">&#34;escaping escapes&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+ssh remotehost <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd echo <span style="color:#e6db74">&#34;This will run on the server&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
 <p>The real power is in <span class="underline">nesting</span>!</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh remotehost <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd echo <span style="color:#e6db74">&#34;This will run on the server&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd <span style="color:#e6db74">&#34;Now I don&#39;t need&#34;</span> <span style="color:#e6db74">&#34;to worry&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd About <span style="color:#e6db74">&#34;escaping escapes&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh remotehost <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd echo <span style="color:#e6db74">&#34;This will run on the server&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd <span style="color:#e6db74">&#34;Now I don&#39;t need&#34;</span> <span style="color:#e6db74">&#34;to worry&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cmd About <span style="color:#e6db74">&#34;escaping escapes&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
+<p>That will generate these escapes.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">&#39;command&#39; &#39;ssh&#39; &#39;-o&#39; &#39;LogLevel=QUIET&#39; &#39;remotehost&#39; &#39;&#39;\&#39;&#39;echo&#39;\&#39;&#39; &#39;\&#39;&#39;This will run on the server&#39;\&#39;&#39; &#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;Now I don&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;t need&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39; &#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;to worry&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39; &#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;About&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39; &#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;escaping escapes&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">&#39;ssh&#39; &#39;remotehost&#39; &#39;&#39;\&#39;&#39;echo&#39;\&#39;&#39; &#39;\&#39;&#39;This will \
+    run on the server&#39;\&#39;&#39; &#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;Now I \
+    don&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;t \
+    need&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39; &#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;to \
+    worry&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39; &#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;\ \
+    &#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;About&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39; \
+    \&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39; &#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;\&#39; \
+    \&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;escaping escapes&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39; \
+    \&#39;&#39;\&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39;&#39;\&#39;\&#39;&#39;&#39;\&#39;&#39;&#39;\&#39; \
+    &#39;&#39;</code></pre></td></tr></table>
 </div>
 </div>
 <p><code>myeval</code>, on the other hand is like <code>eval</code> but
