@@ -213,7 +213,7 @@ So far, I have not implemented any kind of pseudo-memory system for rolling conv
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/gpt-3/">GPT-3</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/gpt/">gpt</a></div></div>
     </header>
     
 
@@ -963,6 +963,13 @@ repl_run<span style="color:#f92672">()</span> <span style="color:#f92672">{</spa
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun comint-quick (cmd <span style="color:#66d9ef">&amp;optional</span> dir)
@@ -974,7 +981,14 @@ repl_run<span style="color:#f92672">()</span> <span style="color:#f92672">{</spa
       (turn-on-comint-history (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;/home/shane/notes/programs/comint/history/&#34;</span> slug)))))
 
 <span style="color:#75715e">;; &#34;OS which have a bash-like shell of some kind installed&#34;</span>
-(defset list-of-sh-operating-systems <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">&#34;GNU Guix System&#34;</span>
+(defset list-of-sh-operating-systems <span style="color:#f92672">&#39;</span>(
+                                       <span style="color:#75715e">;;  There has been a name change</span>
+                                       <span style="color:#75715e">;; That&#39;s why this is giving bad results</span>
+                                       <span style="color:#75715e">;; &#34;GNU Guix System&#34;</span>
+                                       <span style="color:#e6db74">&#34;GuixSD&#34;</span>
+                                       <span style="color:#e6db74">&#34;Alpine Linux&#34;</span>
+                                       <span style="color:#e6db74">&#34;RHEL Red Hat Enterprise Linux&#34;</span>
+                                       <span style="color:#e6db74">&#34;Amazon Linux 2&#34;</span>
                                        <span style="color:#e6db74">&#34;NixOS&#34;</span>
                                        <span style="color:#e6db74">&#34;Ubuntu 20.04&#34;</span>
                                        <span style="color:#e6db74">&#34;Arch Linux&#34;</span>))
