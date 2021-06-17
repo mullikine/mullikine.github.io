@@ -207,7 +207,7 @@ Also, using Chrome to obtain a DOM for eww is slower and I&rsquo;d like to cache
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          6 min read
+          7 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -726,6 +726,117 @@ transfer-encoding: chunked
       __perfMark(&#34;first_post_title_image_loaded&#34;);
     }
     ...</code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="make-cached-links-visible">Make cached links visible</h2>
+<h3 id="demo">demo</h3>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/wt34s08tPbMN6YFjADxh8MR60" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/wt34s08tPbMN6YFjADxh8MR60.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/wt34s08tPbMN6YFjADxh8MR60.js" id="asciicast-wt34s08tPbMN6YFjADxh8MR60" async></script>
+<h3 id="elisp">elisp</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defsetface eww-cached
+  <span style="color:#f92672">&#39;</span>((<span style="color:#66d9ef">t</span> :foreground <span style="color:#e6db74">&#34;#4444ff&#34;</span>
+       :background <span style="color:#e6db74">&#34;#000044&#34;</span>
+       :weight bold
+       :underline <span style="color:#66d9ef">t</span>))
+  <span style="color:#e6db74">&#34;Face for cached urls.&#34;</span>)
+
+(defun shr-urlify (start url <span style="color:#66d9ef">&amp;optional</span> title)
+  (if (my-url-cache-exists url)
+      <span style="color:#75715e">;; (shr-add-font start (point) &#39;shr-link)</span>
+      <span style="color:#75715e">;; link-visited</span>
+      (shr-add-font start (<span style="color:#a6e22e">point</span>) <span style="color:#e6db74">&#39;eww-cached</span>)
+    (shr-add-font start (<span style="color:#a6e22e">point</span>) <span style="color:#e6db74">&#39;shr-link</span>))
+
+  (<span style="color:#a6e22e">add-text-properties</span>
+   start (<span style="color:#a6e22e">point</span>)
+   (<span style="color:#a6e22e">list</span> <span style="color:#e6db74">&#39;shr-url</span> url
+         <span style="color:#e6db74">&#39;button</span> <span style="color:#66d9ef">t</span>
+         <span style="color:#e6db74">&#39;category</span> <span style="color:#e6db74">&#39;shr</span>                 <span style="color:#75715e">; For button.el button buffers.</span>
+  	     <span style="color:#e6db74">&#39;help-echo</span> (let ((parsed (url-generic-parse-url
+                                   (or (ignore-errors
+  				                               (<span style="color:#a6e22e">decode-coding-string</span>
+  				                                (url-unhex-string url)
+  				                                <span style="color:#e6db74">&#39;utf-8</span> <span style="color:#66d9ef">t</span>))
+  				                             url)))
+                          iri)
+                      <span style="color:#75715e">;; If we have an IDNA domain, then show the</span>
+                      <span style="color:#75715e">;; decoded version in the mouseover to let the</span>
+                      <span style="color:#75715e">;; user know that there&#39;s something possibly</span>
+                      <span style="color:#75715e">;; fishy.</span>
+                      (when (url-host parsed)
+                        (setf (url-host parsed)
+                              (puny-encode-domain (url-host parsed))))
+                      (setq iri (url-recreate-url parsed))
+  		                (if title
+                          (<span style="color:#a6e22e">format</span> <span style="color:#e6db74">&#34;%s (%s)&#34;</span> iri title)
+                        iri))
+  	     <span style="color:#e6db74">&#39;follow-link</span> <span style="color:#66d9ef">t</span>
+         <span style="color:#75715e">;; Make separate regions not `eq&#39; so that they&#39;ll get</span>
+         <span style="color:#75715e">;; separate mouse highlights.</span>
+  	     <span style="color:#e6db74">&#39;mouse-face</span> (<span style="color:#a6e22e">list</span> <span style="color:#e6db74">&#39;highlight</span>)))
+  <span style="color:#75715e">;; Don&#39;t overwrite any keymaps that are already in the buffer (i.e.,</span>
+  <span style="color:#75715e">;; image keymaps).</span>
+  (while (and start
+              (<span style="color:#a6e22e">&lt;</span> start (<span style="color:#a6e22e">point</span>)))
+    (let ((next (<span style="color:#a6e22e">next-single-property-change</span> start <span style="color:#e6db74">&#39;keymap</span> <span style="color:#66d9ef">nil</span> (<span style="color:#a6e22e">point</span>))))
+      (if (<span style="color:#a6e22e">get-text-property</span> start <span style="color:#e6db74">&#39;keymap</span>)
+          (setq start next)
+        (<span style="color:#a6e22e">put-text-property</span> start (or next (<span style="color:#a6e22e">point</span>)) <span style="color:#e6db74">&#39;keymap</span> shr-map)))))</code></pre></td></tr></table>
 </div>
 </div>
 
