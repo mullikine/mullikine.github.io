@@ -207,7 +207,7 @@ Also, using Chrome to obtain a DOM for eww is slower and I&rsquo;d like to cache
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          7 min read
+          9 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -735,6 +735,7 @@ transfer-encoding: chunked
 <!-- Play on the blog -->
 <script src="https://asciinema.org/a/wt34s08tPbMN6YFjADxh8MR60.js" id="asciicast-wt34s08tPbMN6YFjADxh8MR60" async></script>
 <h3 id="elisp">elisp</h3>
+<p>Make cached links show up in blue in <code>eww</code>.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -837,6 +838,172 @@ transfer-encoding: chunked
       (if (<span style="color:#a6e22e">get-text-property</span> start <span style="color:#e6db74">&#39;keymap</span>)
           (setq start next)
         (<span style="color:#a6e22e">put-text-property</span> start (or next (<span style="color:#a6e22e">point</span>)) <span style="color:#e6db74">&#39;keymap</span> shr-map)))))</code></pre></td></tr></table>
+</div>
+</div>
+<p>Make cached links show up in blue in <code>org</code>.</p>
+<p>The key bit is where I have placed the following:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(if (my-url-cache-exists link)
+    <span style="color:#e6db74">&#39;eww-cached</span>
+  <span style="color:#e6db74">&#39;org-link</span>)</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun org-activate-links (limit)
+  <span style="color:#e6db74">&#34;Add link properties to links.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">This includes angle, plain, and bracket links.&#34;</span>
+  (catch :exit
+    (while (<span style="color:#a6e22e">re-search-forward</span> org-link-any-re limit <span style="color:#66d9ef">t</span>)
+      (let* ((start (<span style="color:#a6e22e">match-beginning</span> <span style="color:#ae81ff">0</span>))
+             (end (<span style="color:#a6e22e">match-end</span> <span style="color:#ae81ff">0</span>))
+             (visible-start (or (<span style="color:#a6e22e">match-beginning</span> <span style="color:#ae81ff">3</span>) (<span style="color:#a6e22e">match-beginning</span> <span style="color:#ae81ff">2</span>)))
+             (visible-end (or (<span style="color:#a6e22e">match-end</span> <span style="color:#ae81ff">3</span>) (<span style="color:#a6e22e">match-end</span> <span style="color:#ae81ff">2</span>)))
+             (style (cond ((<span style="color:#a6e22e">eq</span> <span style="color:#e6db74">?&lt;</span> (<span style="color:#a6e22e">char-after</span> start)) <span style="color:#e6db74">&#39;angle</span>)
+                          ((<span style="color:#a6e22e">eq</span> <span style="color:#e6db74">?\[</span> (<span style="color:#a6e22e">char-after</span> (<span style="color:#a6e22e">1+</span> start))) <span style="color:#e6db74">&#39;bracket</span>)
+                          (<span style="color:#66d9ef">t</span> <span style="color:#e6db74">&#39;plain</span>))))
+        (when (and (<span style="color:#a6e22e">memq</span> style org-highlight-links)
+                   <span style="color:#75715e">;; Do not span over paragraph boundaries.</span>
+                   (not (string-match-p org-element-paragraph-separate
+                                        (match-string <span style="color:#ae81ff">0</span>)))
+                   <span style="color:#75715e">;; Do not confuse plain links with tags.</span>
+                   (not (and (<span style="color:#a6e22e">eq</span> style <span style="color:#e6db74">&#39;plain</span>)
+                             (let ((face (<span style="color:#a6e22e">get-text-property</span>
+                                          (<span style="color:#a6e22e">max</span> (<span style="color:#a6e22e">1-</span> start) (<span style="color:#a6e22e">point-min</span>)) <span style="color:#e6db74">&#39;face</span>)))
+                               (if (<span style="color:#a6e22e">consp</span> face) (<span style="color:#a6e22e">memq</span> <span style="color:#e6db74">&#39;org-tag</span> face)
+                                 (<span style="color:#a6e22e">eq</span> <span style="color:#e6db74">&#39;org-tag</span> face))))))
+          (let* ((link-object (save-excursion
+                                (<span style="color:#a6e22e">goto-char</span> start)
+                                (save-match-data (org-element-link-parser))))
+                 (link (org-element-property :raw-link link-object))
+                 (type (org-element-property :type link-object))
+                 (path (org-element-property :path link-object))
+                 (properties            <span style="color:#75715e">;for link&#39;s visible part</span>
+                  (<span style="color:#a6e22e">list</span>
+                   <span style="color:#e6db74">&#39;face</span> (pcase (org-link-get-parameter type :face)
+                           ((and (pred <span style="color:#a6e22e">functionp</span>) face) (<span style="color:#a6e22e">funcall</span> face path))
+                           ((and (pred facep) face) face)
+                           ((and (pred <span style="color:#a6e22e">consp</span>) face) face) <span style="color:#75715e">;anonymous</span>
+                           (_
+                            (if (my-url-cache-exists link)
+                                <span style="color:#e6db74">&#39;eww-cached</span>
+                              <span style="color:#e6db74">&#39;org-link</span>)))
+                   <span style="color:#e6db74">&#39;mouse-face</span> (or (org-link-get-parameter type :mouse-face)
+                                   <span style="color:#e6db74">&#39;highlight</span>)
+                   <span style="color:#e6db74">&#39;keymap</span> (or (org-link-get-parameter type :keymap)
+                               org-mouse-map)
+                   <span style="color:#e6db74">&#39;help-echo</span> (pcase (org-link-get-parameter type :help-echo)
+                                ((and (pred <span style="color:#a6e22e">stringp</span>) echo) echo)
+                                ((and (pred <span style="color:#a6e22e">functionp</span>) echo) echo)
+                                (_ (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;LINK: &#34;</span> link)))
+                   <span style="color:#e6db74">&#39;htmlize-link</span> (pcase (org-link-get-parameter type
+                                                                :htmlize-link)
+                                   ((and (pred <span style="color:#a6e22e">functionp</span>) f) (<span style="color:#a6e22e">funcall</span> f))
+                                   (_ <span style="color:#f92672">`</span>(:uri <span style="color:#f92672">,</span>link)))
+                   <span style="color:#e6db74">&#39;font-lock-multiline</span> <span style="color:#66d9ef">t</span>)))
+            (org-remove-flyspell-overlays-in start end)
+            (org-rear-nonsticky-at end)
+            (if (not (<span style="color:#a6e22e">eq</span> <span style="color:#e6db74">&#39;bracket</span> style))
+                (<span style="color:#a6e22e">add-text-properties</span> start end properties)
+              <span style="color:#75715e">;; Handle invisible parts in bracket links.</span>
+              (<span style="color:#a6e22e">remove-text-properties</span> start end <span style="color:#f92672">&#39;</span>(invisible <span style="color:#66d9ef">nil</span>))
+              (let ((hidden
+                     (<span style="color:#a6e22e">append</span> <span style="color:#f92672">`</span>(invisible
+                               <span style="color:#f92672">,</span>(or (org-link-get-parameter type :display)
+                                    <span style="color:#e6db74">&#39;org-link</span>))
+                             properties)))
+                (<span style="color:#a6e22e">add-text-properties</span> start visible-start hidden)
+                (<span style="color:#a6e22e">add-text-properties</span> visible-start visible-end properties)
+                (<span style="color:#a6e22e">add-text-properties</span> visible-end end hidden)
+                (org-rear-nonsticky-at visible-start)
+                (org-rear-nonsticky-at visible-end)))
+            (let ((f (org-link-get-parameter type :activate-func)))
+              (when (<span style="color:#a6e22e">functionp</span> f)
+                (<span style="color:#a6e22e">funcall</span> f start end path (<span style="color:#a6e22e">eq</span> style <span style="color:#e6db74">&#39;bracket</span>))))
+            (throw :exit <span style="color:#66d9ef">t</span>)))))         <span style="color:#75715e">;signal success</span>
+    <span style="color:#66d9ef">nil</span>))</code></pre></td></tr></table>
 </div>
 </div>
 
