@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>COSC420: Neural Networks - Assignment 2 // Bodacious Blog</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.82.0-DEV" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Shane Mulligan" />
+    <meta name="description" content="" />
+
+    
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                                                          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                                                                                                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                                                                                                      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-P2LH46P');</script>
+    
+
+    <link rel="stylesheet" href="https://mullikine.github.io/css/main.min.74b7ce8969da573c135a6e8e56284812583cc4a84e83b075f17ca5a7f84a7d40.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="COSC420: Neural Networks - Assignment 2"/>
+<meta name="twitter:description" content="Introduction / Background There are many activation and error functions available to choose from when designing a NN to solve a particular task. One could even design their own if they wanted.
+There are rules of thumb for selecting functions that have been shown empiracally to give you better results. I&rsquo;ve decided to explore the difference that choice can make on the time it takes to train my delta rule network."/>
+
+    <meta property="og:title" content="COSC420: Neural Networks - Assignment 2" />
+<meta property="og:description" content="Introduction / Background There are many activation and error functions available to choose from when designing a NN to solve a particular task. One could even design their own if they wanted.
+There are rules of thumb for selecting functions that have been shown empiracally to give you better results. I&rsquo;ve decided to explore the difference that choice can make on the time it takes to train my delta rule network." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mullikine.github.io/posts/ir-assignment-2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-23T00:00:00&#43;12:00" />
+<meta property="article:modified_time" content="2021-06-23T00:00:00&#43;12:00" /><meta property="og:site_name" content="Bodacious Blog" />
+
+
+
+    
+    
+    
+
+  </head>
+  <body>
+
+    
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P2LH46P"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    
+
+
+    <header class="app-header">
+
+<a href="https://mullikine.github.io"><img class="app-header-avatar" src="http://mullikine.github.io/fievel.png" alt="Shane Mulligan" /></a>
+      <h1>Bodacious Blog</h1>
+      
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://linkedin.com/in/shane-mulligan-811b942b/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>linkedin</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg></a>
+        
+          <a target="_blank" href="https://gitlab.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-gitlab">
+  <title>gitlab</title>
+  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://twitter.com/mullikine"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+        <a href="https://mullikine.github.io/cv/">CV</a>
+      </div>
+<div class="highlights">
+<a href="https://mullikine.github.io/posts/practical-macros-in-racket-and-how-to-work-with-them/">Practical macros in Racket</a>
+<br />
+<a href="https://mullikine.github.io/posts/generating-hyperlinks-for-glossaries-and-other-parsers-in-emacs/">Hyperlink generation in emacs</a>
+<br />
+<a href="https://mullikine.github.io/posts/github-search-with-bigquery/">Searching GitHub with BigQuery</a>
+
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-case-for-learned-index-structures/">Case for Learned Index Structures</a>
+<br />
+<a href="https://mullikine.github.io/posts/arbitrary-interpreters-for-babel/">Arbitrary interpreters for Babel</a>
+<br />
+<a href="https://mullikine.github.io/glossary.html">Glossary A-Z (298 topics)</a> <a href="https://github.com/mullikine/glossaries-gh">code</a>
+<br />
+<a href="https://mullikine.github.io/posts/dwarf-fortress-macros-with-emacs-and-tmux/">Automating Dwarf Fortress</a>
+<br />
+<a href="https://mullikine.github.io/posts/review-of-the-illustrated-transformer/">The Illustrated Transformer</a>
+<br />
+<a href="https://mullikine.github.io/codelingo-vs-linters/summary/">CodeLingo vs Linters</a>
+<br />
+<a class="big" href="https://infogetics.github.io/">Infogetics on GitHub</a>
+<br />
+<a class="big" href="https://github.com/semiosis">Semiosis on GitHub</a>
+<br />
+<a class="big" href="https://takaheai.github.io/">TakaheAI on GitHub</a>
+<br />
+<div class="taglist">
+
+  <a class="tag" href="https://mullikine.github.io/tags/gpt/">GPT (Generative Pre-trained Transformer)</a>
+<a class="tag" href="https://mullikine.github.io/tags/biosemiotics/">biosemiotics</a>
+<a class="tag" href="https://mullikine.github.io/tags/xenolinguistics/">xenolinguistics</a>
+<a class="tag big" href="https://mullikine.github.io/tags/emacs/">emacs</a>
+<a class="tag" href="https://mullikine.github.io/tags/elisp/">elisp</a>
+<a class="tag" href="https://mullikine.github.io/tags/racket/">racket</a>
+<a class="tag" href="https://mullikine.github.io/tags/haskell/">haskell</a>
+<a class="tag" href="https://mullikine.github.io/tags/nlp/">NLP</a>
+<a class="tag" href="https://mullikine.github.io/tags/docker/">docker</a>
+<a class="tag" href="https://mullikine.github.io/tags/feature-engineering/">feature-engineering</a>
+<a class="tag big" href="https://mullikine.github.io/tags/ir/">IR</a>
+<a class="tag" href="https://mullikine.github.io/tags/games/">games</a>
+<a class="tag" href="https://mullikine.github.io/tags/data/">data</a>
+<a class="tag" href="https://mullikine.github.io/tags/info/">info theory</a>
+<a class="tag" href="https://mullikine.github.io/tags/probability/">probability</a>
+<a class="tag" href="https://mullikine.github.io/tags/problog/">problog</a>
+<a class="tag big" href="https://mullikine.github.io/tags/shell/">shell</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/tooling/">tooling</a>
+<a class="tag" href="https://mullikine.github.io/tags/iac/">IaC</a>
+<a class="tag big" href="https://mullikine.github.io/tags/facebook/">Facebook</a>
+<a class="tag" href="https://mullikine.github.io/tags/wfh/">WFH</a>
+
+
+<a class="tag" href="https://mullikine.github.io/tags/babel/">babel</a>
+
+<a class="tag" href="https://mullikine.github.io/tags/gcp/">GCP</a>
+<a class="tag big" href="https://mullikine.github.io/tags/github/">GitHub</a>
+<a class="tag" href="https://mullikine.github.io/tags/parsers/">parsers</a>
+<a class="tag" href="https://mullikine.github.io/tags/rust/">rust</a>
+<a class="tag" href="https://mullikine.github.io/tags/cpp/">c++</a>
+<a class="tag" href="https://mullikine.github.io/tags/review/">review</a>
+<a class="tag" href="https://mullikine.github.io/tags/kaggle/">kaggle</a>
+<a class="tag" href="https://mullikine.github.io/tags/dl/">deep learning</a>
+<a class="tag" href="https://mullikine.github.io/tags/dsl/">DSL</a>
+<a class="tag" href="https://mullikine.github.io/tags/music/">music</a>
+<a class="tag" href="https://mullikine.github.io/tags/df/">dwarf fortress</a>
+<a class="tag" href="https://mullikine.github.io/tags/spacy/">spacy</a>
+<a class="tag" href="https://mullikine.github.io/tags/latex/">latex</a>
+<a class="tag" href="https://mullikine.github.io/tags/nix/">Nix</a>
+<a class="tag" href="https://mullikine.github.io/tags/diagrams/">diagrams</a>
+<a class="tag" href="https://mullikine.github.io/tags/python/">python</a>
+<a class="tag" href="https://mullikine.github.io/tags/neural-engineering/">neural-engineering</a>
+<a class="tag" href="https://mullikine.github.io/tags/golang/">golang</a>
+<a class="tag" href="https://mullikine.github.io/tags/codelingo/">codelingo</a>
+<a class="tag" href="https://mullikine.github.io/tags/aws/">AWS</a>
+<a class="tag" href="https://mullikine.github.io/tags/perl/">perl</a>
+<a class="tag big" href="https://mullikine.github.io/tags/vim/">vim</a>
+<a class="tag" href="https://mullikine.github.io/tags/telco/">telco</a>
+<a class="tag" href="https://mullikine.github.io/tags/automation/">automation</a>
+<a class="tag" href="https://mullikine.github.io/tags/optimisation/">optimisation</a>
+<a class="tag" href="https://mullikine.github.io/tags/release/">release</a>
+<a class="tag" href="https://mullikine.github.io/tags/dotnet/">.NET</a>
+<a class="tag" href="https://mullikine.github.io/tags/csharp/">csharp</a>
+<a class="tag big" href="https://mullikine.github.io/tags/uber/">Uber</a>
+<a class="tag" href="https://mullikine.github.io/tags/math/">math</a>
+<a class="tag" href="https://mullikine.github.io/tags/microsoft/">Microsoft</a>
+<a class="tag big" href="https://mullikine.github.io/tags/neuralink/">Neuralink</a>
+<a class="tag big" href="https://mullikine.github.io/tags/openai/">OpenAI</a>
+<a class="tag" href="https://mullikine.github.io/tags/terminals/">terminals</a>
+<a class="tag" href="https://mullikine.github.io/tags/transformer/">transformer</a>
+<a class="tag big" href="https://mullikine.github.io/tags/codegen/">code-gen</a>
+<a class="tag" href="https://mullikine.github.io/tags/rosie/">rosie</a>
+<a class="tag" href="https://mullikine.github.io/tags/terraform/">Terraform</a>
+<a class="tag" href="https://mullikine.github.io/tags/elasticsearch/">ELK</a>
+<a class="tag" href="https://mullikine.github.io/tags/semmle/">Semmle</a>
+<a class="tag" href="https://mullikine.github.io/tags/expect/">tcl/expect</a>
+<a class="tag" href="https://mullikine.github.io/tags/solr/">solr</a>
+</div>
+</div>
+
+
+
+</div>
+<div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <div class="post-footer phone">
+      <p>
+        <a href="https://mullikine.github.io/">Latest articles</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/tags/">Site Map</a>
+      </p>
+    </div>
+    <header class="post-header">
+      <h1 class ="post-title">COSC420: Neural Networks - Assignment 2</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jun 23, 2021
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          10 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+          <a class="tag" href="https://mullikine.github.io/tags/dl/">dl</a></div></div>
+    </header>
+    
+
+<link rel="stylesheet" type="text/css" href="https://mullikine.github.io/css/magit.css"/>
+
+<script src="https://mullikine.github.io/js/mathjax-config.js"></script>
+ 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+
+    <div class="post-content">
+      <h2 id="introduction-background">Introduction / Background</h2>
+<p>There are many activation and error functions
+available to choose from when designing a NN
+to solve a particular task. One could even
+design their own if they wanted.</p>
+<p>There are rules of thumb for selecting
+functions that have been shown empiracally to
+give you better results. I&rsquo;ve decided to
+explore the difference that choice can make on
+the time it takes to train my delta rule
+network. To test this I&rsquo;ve trained my network
+on the given datasets using each function
+under observation against a set of controlled
+values. To provide more evidence I&rsquo;ve also
+run each experiment over a range of values for
+regularization and learing rate decay.</p>
+<p>Finally I compare the different functions
+results by interpretting the data plotted side
+by side.</p>
+<h2 id="experiments">Experiments</h2>
+<p>In all experiments the <span class="underline">regularization factor</span> and <span class="underline">decay rate</span> parameters were iterated from 0.0 to 0.5 (inclusive) to provide a larger set of data for us to compare the effect of the functions under investigation.</p>
+<h3 id="experiment-1-of-5-comparing-activation-functions-for-the-hidden-layer">Experiment 1 of 5 &ndash; Comparing activation functions for the hidden layer</h3>
+<h4 id="description">Description</h4>
+<p>In this experiment, the Relu, softmax, sigmoid and tanh functions will be compared for their performance as the activation function of the hidden layer.</p>
+<h4 id="questions">Questions</h4>
+<ol>
+<li>Do we see evidence supporting any of these rules of thumb in our results?
+<ol>
+<li>ReLU is used usually for hidden layers as it avoids vanishing gradient problem.</li>
+<li>softmax will provide greater accuracy multiclass logistic regression datasets (Iris).</li>
+</ol>
+</li>
+</ol>
+<h4 id="hypotheses">Hypotheses</h4>
+<ol>
+<li>
+<p>We will see evidence of of the vanishing gradient problem when ussing sigmoid or tanh.</p>
+<p>See appendix 1.</p>
+</li>
+<li>
+<p>softmax will provide greater accuracy and faster training than relu, sigmoid or tanh.</p>
+</li>
+<li>
+<p>Tanh vs sigmoid results in faster learning, generally.</p>
+</li>
+</ol>
+<h4 id="method">Method</h4>
+<p>I chose to implement a simple fully connected feedforward network with just 1 hidden layer and to stick to the given values from the param.txt file, modifying only the regularization factor and decay rate.</p>
+<!--list-separator-->
+<ul>
+<li>
+<p>Independent variables</p>
+<p>These are the variables under investigation. For this experiment, there is only one, the activation function.</p>
+<ol>
+<li>
+<p><span class="underline"><strong>Activation function</strong></span></p>
+<p>We observe what side effects result from changing activation function to each of the following:</p>
+<ul>
+<li><strong>Relu function:</strong> \(f(x) = max(0, x)\)</li>
+<li><strong>Sigmoid function:</strong> \(f(x) = 1 / (1 + exp(-x))\)</li>
+<li><strong>Softmax function:</strong> \(f(x) = e / sum(e), e = exp(x - amax(x))\)</li>
+<li><strong>Tanh function:</strong> \(f(x) = tanh(x)\)</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Controlled variables</p>
+<ul>
+<li>Dataset: Iris</li>
+<li>Input units: 4</li>
+<li>Hidden units: 4</li>
+<li>Output units: 3</li>
+<li>Learning constant: 0.5</li>
+<li>Momentum constant: 0.5</li>
+<li>Error criterion: 0.02</li>
+<li>Max epochs: 1000</li>
+<li>Regularization factor: [0.0, 0.1, 0.2, 0.3, 0.4, 0.5]</li>
+<li>Decay rate: [0.0, 0.1, 0.2, 0.3, 0.4, 0.5]</li>
+</ul>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Results</p>
+ <!--list-separator-->
+<ul>
+<li>
+<p>Figure 1: Sigmoid vs Softmax on Iris dataset</p>
+<p><a id="code-snippet--tab:sigmoid-vs-softmax-iris"></a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> shanepy <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+
+<span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+<span style="color:#f92672">import</span> matplotlib <span style="color:#f92672">as</span> mpl
+<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+
+fig<span style="color:#f92672">=</span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">2</span>))
+
+data <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>genfromtxt(<span style="color:#e6db74">&#34;regularization-0-0-1000i-iris-sigmoid.time-vs-error.log&#34;</span>,
+    delimiter<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;,&#39;</span>, skip_header<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, skip_footer<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, names<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;time&#39;</span>, <span style="color:#e6db74">&#39;error&#39;</span>])
+
+p <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>plot(data[<span style="color:#e6db74">&#39;time&#39;</span>], data[<span style="color:#e6db74">&#39;error&#39;</span>])
+
+data <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>genfromtxt(<span style="color:#e6db74">&#34;regularization-0-0-1000i-iris-softmax.time-vs-error.log&#34;</span>,
+    delimiter<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;,&#39;</span>, skip_header<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, skip_footer<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, names<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;time&#39;</span>, <span style="color:#e6db74">&#39;error&#39;</span>])
+
+p <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>plot(data[<span style="color:#e6db74">&#39;time&#39;</span>], data[<span style="color:#e6db74">&#39;error&#39;</span>])
+
+fig<span style="color:#f92672">.</span>tight_layout()
+
+fig<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74">&#39;figures/regularization-0-0-1000i-iris-sigmoid-vs-softmax-time-vs-error.png&#39;</span>)
+<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;figures/regularization-0-0-1000i-iris-sigmoid-vs-softmax-time-vs-error.png&#39;</span>
+</code></pre></div><figure>
+    <img src="https://mullikine.github.io/ox-hugo/regularization-0-0-1000i-iris-sigmoid-vs-softmax-time-vs-error.png"/> 
+</figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="discussion">Discussion</h4>
+<p>When regularization is enabled, the error immediately goes up to 75. This is clearly a bug in my NN.</p>
+<p>It appears that systemic problems have caused the results to be unreliable. I suspect there is something wrong with my code.</p>
+<p>Disabling regularization, I&rsquo;m able to at least get two meaningful graphs from my experiment.</p>
+<p>I am unable to come to any conclusinos.</p>
+<p>I would have liked to have seen the vanishing gradient problem when testing sigmoid and tanh as the activation function for the hidden layer.</p>
+<p>Best practice however says that Relu is a better than function for hidden layers.</p>
+<h4 id="conclusions">Conclusions</h4>
+<p>The experiment was inconclusive.</p>
+<h3 id="experiments-2-to-4">Experiments 2 to 4</h3>
+<p>I have decided to abandon the remaining experiments but here they are for posterity.</p>
+<h4 id="comparing-softmax-to-tanh-for-the-output-layer-in-an-encoder">Comparing softmax to tanh for the output layer in an encoder</h4>
+<!--list-separator-->
+<ul>
+<li>
+<p>Questions</p>
+<ol>
+<li>Do we see evidence supporting any of these rules of thumb in our results?
+<ol>
+<li>
+<p>Softmax is important if you have multiple groups for classification.</p>
+<p>How does tanh compare to softmax as the activation function for the output layer?</p>
+</li>
+</ol>
+</li>
+<li>For output layer, use softmax to get probabilities for possible outputs.</li>
+<li>Is it possible to encode the desired behaviour of the training set?</li>
+</ol>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Controlled variables</p>
+<ul>
+<li>Dataset: Encoder</li>
+</ul>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Method</p>
+<p>I need fewer hidden nodes than the input and output for the encoder.</p>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Hypotheses</p>
+<ol>
+<li>tanh is better suited to be the activation for the output layer of a generator network?</li>
+</ol>
+</li>
+</ul>
+<h4 id="comparing-softmax-to-sigmoid-with-the-iris-dataset">Comparing softmax to sigmoid with the Iris dataset</h4>
+<!--list-separator-->
+<ul>
+<li>
+<p>Hypothesis</p>
+<ol>
+<li>Softmax is important if you have multiple groups for classification</li>
+</ol>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Conclusions</p>
+<ol>
+<li>Use softmax for both hidden and output.</li>
+<li>Softmax should be used for hidden.</li>
+</ol>
+</li>
+</ul>
+<h4 id="comparing-cost-functions-sum-of-squares-vs-negative-log-likelihood">Comparing cost functions: Sum of squares vs Negative log likelihood</h4>
+<p>As we seek are the minimum of the cost function during training, selecting a cost function that is accurate is improtant.</p>
+<!--list-separator-->
+<ul>
+<li>
+<p>Method</p>
+<p>The tasks I will test my network on are:</p>
+<ol>
+<li>3 bit parity :: 3:3:1 network</li>
+<li>4 bit parity :: 4:4:1 network</li>
+<li>Encoder :: 3:3:8 network</li>
+<li>XOR :: 2:2:1 network</li>
+</ol>
+<p>We set the population error function to be the sum of squares.</p>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Possible discussion</p>
+<p>The shape of negative log-likelihood curves becomes steeper and more compressed as sample size increases, indicating greater certainty in our parameter estimate.</p>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>sum of squares</p>
+<p>The lowest sum of squares corresponds to the least error.</p>
+<p>One advantage to using negative log likelihoods is that we might have multiple observations, and we might want to find their joint probability</p>
+</li>
+</ul>
+<h3 id="future-experiments">Future experiments</h3>
+<h4 id="tan-hidden-vs-output-layer">tan hidden vs output layer</h4>
+<!--list-separator-->
+<ul>
+<li>
+<p>Questions</p>
+<ol>
+<li>Do we see evidence supporting any of these rules of thumb in our results?
+<ol>
+<li>Hyperbolic tangent activation function is more suitable to the hidden layer than the output layer.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="appendix">Appendix</h2>
+<h3 id="appendix-1-using-the-neural-network">Appendix 1 :: Using the neural network</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">
+</code></pre></div><h4 id="files">Files</h4>
+<table>
+<thead>
+<tr>
+<th>path</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>test.sh</td>
+<td>An example shell invokation of the neural network for a one-off fit.</td>
+</tr>
+<tr>
+<td>perceptron.py</td>
+<td>The bulk of the code for the Neural Network.</td>
+</tr>
+<tr>
+<td>mynumpy.py</td>
+<td>Some supporting code for the Neural Network.</td>
+</tr>
+<tr>
+<td>lab/</td>
+<td>This is the directory where invocatinos of the NN should take place.</td>
+</tr>
+<tr>
+<td>datasets/</td>
+<td>This is the directory where data sets are stored.</td>
+</tr>
+<tr>
+<td>lab/do-experiments.sh</td>
+<td>This is the script where you can describe multiple experiments and gather the results.</td>
+</tr>
+<tr>
+<td>lab/results</td>
+<td>This is where the result logs appear.</td>
+</tr>
+<tr>
+<td>lab/results/*.time-vs-error.log</td>
+<td>These logs contain time,error tuples that can be used to make charts.</td>
+</tr>
+<tr>
+<td>lab/results/*.1.log</td>
+<td>standard out for each experiment run. these files are usually empty.</td>
+</tr>
+<tr>
+<td>lab/results/*.2.log</td>
+<td>standard error for each experiment run. this will contain a report of the experiment</td>
+</tr>
+</tbody>
+</table>
+<!--list-separator-->
+<ul>
+<li>
+<p>Example of a report in lab/results/*.2.log</p>
+<ul>
+<li>These files are comprised of
+<ol>
+<li>Command that was run</li>
+<li>The parameters that were set</li>
+<li>The population error every 100 epochs</li>
+<li>The result of the criterion</li>
+</ol>
+</li>
+</ul>
+ <!--listend-->
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">python2 ../perceptron.py
+    -e1000 -l0.5 -d0 -a sigmoid
+    -t &#34;../datasets/Iris&#34;
+    -o results/learning-rate-0-0-1000i-iris-sigmoid.time_vs_error.log
+
+Running with parameters:
+------------------------
+1000 max epochs
+0.02 g_criterion
+4 input units and 1 bias unit
+4 hidden units
+3 output units
+learning rate = 0.5
+regularization factor = 0.5
+momentum = 0.5
+decay rate = 0.0
+Epoch 100, Population error 0.12
+Epoch 200, Population error 0.12
+Epoch 300, Population error 0.12
+Epoch 400, Population error 0.12
+Epoch 500, Population error 0.12
+Epoch 600, Population error 0.12
+Epoch 700, Population error 0.12
+Epoch 800, Population error 0.12
+Epoch 900, Population error 0.12
+Epoch 1000, Population error 0.12
+Input Weights
+[[-0.00049395 -0.00049395 -0.00049395 -0.00049395]
+ [-0.00064174 -0.00064174 -0.00064174 -0.00064174]
+ [-0.00040358 -0.00040358 -0.00040358 -0.00040358]
+ [-0.00034673 -0.00034673 -0.00034673 -0.00034673]
+ [-0.00169323 -0.00169323 -0.00169323 -0.00169323]]
+Output Weights
+[[ 0.02201845 -0.04136443 -0.0920555 ]
+ [ 0.02201845 -0.04136443 -0.0920555 ]
+ [ 0.02201845 -0.04136443 -0.0920555 ]
+ [ 0.02201845 -0.04136443 -0.0920555 ]]
+Input activations
+[ 0.667  0.459  0.627  0.584]
+Hidden activations
+[ 0.50004923  0.50004923  0.50004923  0.50004923]
+Epoch 1000, Population error 0.12
+0.122454076358 &gt;= 0.02; Error criterion was not reached
+</code></pre></div></li>
+</ul>
+<h3 id="appendix-2-vanishing-gradient-problem-explained">Appendix 2 :: Vanishing gradient problem explained</h3>
+<p>If your input is on a higher side (where sigmoid goes flat) then the gradient will be near zero.
+This will cause very slow or no learning during backpropagation as weights will be updated with really small values.</p>
+<h3 id="stochastic-gradient-descent-algorithm-for-a-3-layer-network">Stochastic gradient descent algorithm for a 3-layer network</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Pseudocode
+
+  init network weights (often small random values)
+  do
+     forEach example named ex
+        prediction = neural-net-output(network, ex)  // forward pass
+        actual = teacher-output(ex)
+        compute error (prediction - actual) at the output units
+
+        // backward pass
+        compute {\displaystyle \Delta w_{h}} \Delta w_h for all w from hidden to output
+
+        // backward pass continued
+        compute {\displaystyle \Delta w_{i}} \Delta w_i for all w from input to hidden
+        update network weights // input layer not modified by error estimate
+  until all examples classified correctly or another stopping criterion satisfied
+  return the network
+</code></pre></div><h3 id="appendix-2-logistic-and-softmax-regression">Appendix 2 :: Logistic and Softmax Regression</h3>
+<p>binary classification that y can take two values</p>
+<h3 id="learning-rate-vs-momentum">Learning rate vs Momentum</h3>
+<p>We take steps proportional to the size of the gradient vector. The constant of proportionality is called the learning rate.
+momentum - the algorithm remembers its last step, and adds some proportion of it to the current step. This way, even if the algorithm is stuck in a flat region, or a small local minimum, it can get out and continue towards the true minimum.</p>
+<p>When performing gradient descent, learning rate measures how much the current situation affects the next step, while momentum measures how much past steps affect the next step.</p>
+<h3 id="delta-rule-least-mean-square">Delta Rule / Least Mean Square</h3>
+<p>Training is done by subtracting from each weight a small fraction of its corresponding derivative</p>
+<h3 id="decay-function">Decay function</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Every epoch, do this</span>
+learn_rate <span style="color:#f92672">=</span> learn_rate <span style="color:#f92672">*</span> (learn_rate <span style="color:#f92672">/</span> (learn_rate <span style="color:#f92672">+</span> (learn_rate <span style="color:#f92672">*</span> decay_rate)))
+</code></pre></div><h3 id="error-functions">Error functions</h3>
+<ul>
+<li>See: <a href="https://ljvmiranda921.github.io/notebook/2017/08/13/softmax-and-the-negative-log-likelihood/#negative-log-likelihood">ljvmiranda921.github.io</a></li>
+</ul>
+<h3 id="delta-rule-and-backpropagation">Delta rule and backpropagation</h3>
+<p>The core idea behind back-propagation is backward differentiation or reverse mode differentiation.</p>
+<h4 id="see">See:</h4>
+<p><a href="https://www.quora.com/How-do-you-understand-the-Delta-in-Back-Propagation-Algorithm">How to understand the Delta in Back Propagation Algorithm - Quora</a></p>
+<p>\(dy/d(y) = 1 = dy/d[(x1 + x2)*x3]\)</p>
+<p>Previously we applied d/dx, now we apply dy/d.</p>
+<p>This is only three inputs with two nodes but NNs usually consist of millions of inputs.
+Back-prop is &ldquo;computationally cheap&rdquo;. One forward differentiation gives the derivative of one output with respect to &ldquo;one&rdquo; input but one backward differentiation can give you the derivative of one output with respect to all inputs including weights and biases.</p>
+<h4 id="disambiguation">Disambiguation</h4>
+<!--list-separator-->
+<ul>
+<li>
+<p>Delta Rule / Least Squares Criterion is not the same delta rule</p>
+<p>Best linear model has smallest value for D.
+\(D = (d_1)^2 + (d_2)^2 &hellip; (d_n)^2\)
+D is the sum of vertical diffs between points on the graph and the linear model.</p>
+</li>
+</ul>
+<h3 id="neural-transfer-function">[Neural] Transfer function</h3>
+<p>Transfer functions calculate a layer’s output from its net input.</p>
+<h4 id="examples">Examples</h4>
+<ol>
+<li>tansig :: \(n = 2/(1+exp(-2*n))-1\)</li>
+</ol>
+<h4 id="transfer-function-vs-activation-function">Transfer function vs activation function</h4>
+<p>Two functions determine the way signals are processed by neurons; ie. Two functions determine a neuron’s signal processing.</p>
+<dl>
+<dt>Activation function</dt>
+<dd>determines the total signal a neuron receives.
+The value of the activation function is usually scalar and the arguments are vectors.</dd>
+<dt>Output function o(I)</dt>
+<dd>operating on scalar activations and returning scalar values.
+Typically a squashing function is used to keep the output values within specified bounds.</dd>
+</dl>
+<p>These two functions together determine the values of the neuron outgoing signals.</p>
+<p>The composition of the activation and the output function is called the transfer function o(I(x)).</p>
+<h4 id="reference">Reference</h4>
+<p><a href="https://www.mathworks.com/help/nnet/ref/tansig.html">Tansig (Neural Network Toolbox)</a></p>
+<h3 id="activation-functions">Activation functions</h3>
+<h4 id="see">See:</h4>
+<ol>
+<li><a href="https://en.wikipedia.org/wiki/Activation%5Ffunction">Activation function - Wikipedia</a>
+There is a great table describing various activation functions..</li>
+<li><a href="http://cs231n.github.io/neural-networks-1/">CS231n Convolutional Neural Networks for Visual Recognition</a></li>
+</ol>
+<h4 id="sigmoid">Sigmoid</h4>
+<p>Sigmoid function is a special case of the Logistic function.</p>
+<!--list-separator-->
+<ul>
+<li>
+<p><a href="https://theclevermachine.wordpress.com/tag/tanh-function/">Tanh Function | The Clever Machine</a></p>
+<p>The logistic sigmoid has a nice biological interpretation but it turns out that the logistic sigmoid can cause a neural network to get &ldquo;stuck&rdquo; during training in part because a strongly-negative input is provided to the logistic sigmoid, it outputs values very near zero.</p>
+</li>
+</ul>
+<h4 id="tanh">tanh</h4>
+<!--list-separator-->
+<ul>
+<li>
+<p>There are two reasons for tanh instead of sigmoid (assuming you have normalized your data, and this is very important):</p>
+ <!--list-separator-->
+<ul>
+<li>
+<p>Having stronger gradients</p>
+<p>Since data is centered around 0, the derivatives are higher.
+To see this, calculate the derivative of the tanh function and notice that its range (output values) is [0,1].
+The range of the tanh function is [-1,1] and that of the sigmoid function is [0,1]</p>
+</li>
+</ul>
+ <!--list-separator-->
+<ul>
+<li>
+<p>Avoiding bias in the gradients</p>
+<p>This is explained very well in &ldquo;Efficient Backprop by LeCun et al&rdquo;.</p>
+</li>
+</ul>
+</li>
+</ul>
+<!--list-separator-->
+<ul>
+<li>
+<p>Tanh() in the output layer of generator network</p>
+<p><a href="https://stackoverflow.com/questions/44525338/use-of-tanh-in-the-output-layer-of-generator-network?utm%5Fmedium=organic&amp;utm%5Fsource=google%5Frich%5Fqa&amp;utm%5Fcampaign=google%5Frich%5Fqa">machine learning - use of Tanh() in the output layer of generator network - Stack Overflow</a></p>
+</li>
+</ul>
+<h4 id="tan-sigmoid">tan-sigmoid</h4>
+<p>The most exact and accurate prediction of neural networks is made using tan-sigmoid function for hidden layer neurons and purelin function for output layer neurons.I</p>
+<h4 id="relu">relu</h4>
+<p>problem with ReLu is that some gradients can be fragile during training and can die.
+It can cause a weight update which will makes it never activate on any data point again.
+Simply saying that ReLu could result in Dead Neurons.</p>
+<h4 id="leaky-relu">leaky relu</h4>
+<p>Leaky ReLu to fix the problem of dying neurons. It introduces a small slope to keep the updates alive.</p>
+
+    </div>
+    <div class="post-footer">
+        <p>
+        <a href="https://mullikine.github.io/">Latest articles</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/about/">About this weblog</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://asciinema.org/~mullikine">Asciinema recordings</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/posts/blogs-and-vlogs/">Blogs and Vlogs</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/cv/">CV</a>
+        &nbsp;
+        ⚔
+        &nbsp;
+        <a href="https://mullikine.github.io/tags/">Site Map</a>
+        </p>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
