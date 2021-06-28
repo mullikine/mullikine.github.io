@@ -209,7 +209,7 @@ The trick is to expand the snippet in a temporary buffer and then insert the con
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -336,6 +336,118 @@ insert function.</p>
         (setq s (buffer-to-string b))
         (<span style="color:#a6e22e">kill-buffer</span> b)))
     (vterm-insert s)))</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="supporting-functions">Supporting functions</h3>
+<p><code>fz</code> is similar to the <code>completing-read</code> function.</p>
+<p><code>sn</code> is a function which runs a shell command, similar to <code>sh-notty</code> here.</p>
+<p>Creating <code>fz</code> and <code>sn</code>, I leave up to you.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defun sh-notty (<span style="color:#66d9ef">&amp;optional</span> cmd stdin dir)
+    <span style="color:#e6db74">&#34;Runs command in shell and return the result.
+</span><span style="color:#e6db74">This appears to strip ansi codes.&#34;</span>
+    (interactive)
+    (if (not cmd)
+        (setq cmd <span style="color:#e6db74">&#34;false&#34;</span>))
+
+    (if (not dir)
+        (setq dir (get-dir)))
+
+    (setq tf (make-temp-file <span style="color:#e6db74">&#34;elispbash&#34;</span>))
+
+    (setq final_cmd (<span style="color:#a6e22e">concat</span> <span style="color:#e6db74">&#34;( cd &#34;</span> (e/q dir) <span style="color:#e6db74">&#34;; &#34;</span> cmd <span style="color:#e6db74">&#34;) &gt; &#34;</span> tf))
+
+    (if (not stdin)
+        (progn
+          (shell-command final_cmd))
+      (with-temp-buffer
+        (<span style="color:#a6e22e">insert</span> stdin)
+        (shell-command-on-region (<span style="color:#a6e22e">point-min</span>) (<span style="color:#a6e22e">point-max</span>) final_cmd)))
+    (setq output (with-temp-buffer
+                   (<span style="color:#a6e22e">insert-file-contents</span> tf)
+                   (<span style="color:#a6e22e">buffer-string</span>)))
+
+    output)</code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defalias <span style="color:#e6db74">&#39;str2sym</span> <span style="color:#e6db74">&#39;intern</span>)
+
+(defun my-new-buffer-frame (<span style="color:#66d9ef">&amp;optional</span> contents bufname mode nodisplay)
+  <span style="color:#e6db74">&#34;Create a new frame with a new empty buffer.&#34;</span>
+  (interactive)
+  (if (not bufname)
+      (setq bufname <span style="color:#e6db74">&#34;*untitled*&#34;</span>))
+  (let ((buffer (generate-new-buffer bufname)))
+    (<span style="color:#a6e22e">set-buffer-major-mode</span> buffer)
+    <span style="color:#75715e">;; (display-buffer buffer &#39;(display-buffer-pop-up-frame . nil))</span>
+    (if (not nodisplay)
+        (display-buffer buffer <span style="color:#f92672">&#39;</span>(display-buffer-same-window <span style="color:#f92672">.</span> <span style="color:#66d9ef">nil</span>)))
+    (with-current-buffer buffer
+      (if contents (<span style="color:#a6e22e">insert</span> (str contents)))
+      (company-mode <span style="color:#ae81ff">1</span>)
+      (beginning-of-buffer)
+      <span style="color:#75715e">;; A hack to get the modeline to not display -- though this makes huge delays if there is docker, aws, etc.</span>
+      (ignore-errors (toggle-chrome))
+      (ignore-errors (toggle-chrome))
+      (if mode (call-function mode))
+      (<span style="color:#a6e22e">run-hooks</span> <span style="color:#e6db74">&#39;new-buffer-hooks</span>))
+    buffer))
+(defalias <span style="color:#e6db74">&#39;new-buffer-from-string</span> <span style="color:#e6db74">&#39;my-new-buffer-frame</span>)</code></pre></td></tr></table>
 </div>
 </div>
 <h3 id="then-create-a-keybinding">Then create a keybinding</h3>
