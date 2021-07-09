@@ -15,20 +15,16 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="GPT-3 assistants for emacs modes"/>
-<meta name="twitter:description" content="Summary I&rsquo;m looking for places to integrate GPT-3 into emacs.
-Context menus for refactoring stuff is good.
-I&rsquo;d also like to make some personal assistants, so I can do things like select error messages and ask what they mean.
-Please see my article on Pen (Prompt Engineering in emacs) Pen // Bodacious Blog.
-Please email me if you would like to help: mailto:mullikine@gmail.com.
-Pen facilitates the creation, development, discovery and usage of prompts to a LM such as GPT-3 and GPT-j."/>
+<meta name="twitter:description" content="Summary In this article I will show how I transition from using shell script to emacs lisp with my &lsquo;any topic&rsquo; tutor in emacs lisp.
+I am working on integrating GPT-3, GPT-j and more GPT completion engines into emacs, and connecting more and more emacs packages to GPT-3.
+Some ideas I have:
+ Correct spelling and grammar in conversations over erc and other emacs chat modes. Select error messages and ask what they mean."/>
 
     <meta property="og:title" content="GPT-3 assistants for emacs modes" />
-<meta property="og:description" content="Summary I&rsquo;m looking for places to integrate GPT-3 into emacs.
-Context menus for refactoring stuff is good.
-I&rsquo;d also like to make some personal assistants, so I can do things like select error messages and ask what they mean.
-Please see my article on Pen (Prompt Engineering in emacs) Pen // Bodacious Blog.
-Please email me if you would like to help: mailto:mullikine@gmail.com.
-Pen facilitates the creation, development, discovery and usage of prompts to a LM such as GPT-3 and GPT-j." />
+<meta property="og:description" content="Summary In this article I will show how I transition from using shell script to emacs lisp with my &lsquo;any topic&rsquo; tutor in emacs lisp.
+I am working on integrating GPT-3, GPT-j and more GPT completion engines into emacs, and connecting more and more emacs packages to GPT-3.
+Some ideas I have:
+ Correct spelling and grammar in conversations over erc and other emacs chat modes. Select error messages and ask what they mean." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/gpt-3-assistants-for-emacs-modes/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-06-02T00:00:00&#43;12:00" />
@@ -200,7 +196,7 @@ Pen facilitates the creation, development, discovery and usage of prompts to a L
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -219,28 +215,55 @@ Pen facilitates the creation, development, discovery and usage of prompts to a L
 
     <div class="post-content">
       <h2 id="summary">Summary</h2>
-<p>I&rsquo;m looking for places to integrate GPT-3 into emacs.</p>
-<p>Context menus for refactoring stuff is good.</p>
-<p>I&rsquo;d also like to make some personal
-assistants, so I can do things like select
-error messages and ask what they mean.</p>
-<p>Please see my article on <code>Pen</code> (Prompt Engineering in emacs) <a href="https://mullikine.github.io/posts/pen/">Pen // Bodacious Blog</a>.</p>
-<p>Please email me if you would like to help: <a href="mailto:mullikine@gmail.com">mailto:mullikine@gmail.com</a>.</p>
+<p>In this article I will show how I transition
+from using shell script to emacs lisp with my
+&lsquo;any topic&rsquo; tutor in emacs lisp.</p>
+<p>I am working on integrating GPT-3, GPT-j and
+more GPT completion engines into emacs, and
+connecting more and more emacs packages to
+GPT-3.</p>
+<p>Some ideas I have:</p>
+<ul>
+<li>Correct spelling and grammar in conversations over <code>erc</code> and other <code>emacs</code> chat modes.</li>
+<li>Select error messages and ask what they mean.</li>
+</ul>
+<p>What I&rsquo;ve already built:</p>
+<ul>
+<li>Context menus for selecting text and running prompt functions on that text
+<ul>
+<li>Translating</li>
+<li>Context-aware functions</li>
+<li>Natural language shell for any OS.</li>
+<li>Explain shell code.</li>
+<li>Get a code snippet.</li>
+<li>Get a code one-liner.</li>
+<li>Generate code from comments.</li>
+<li>Automatically add comments to code</li>
+<li>Ask GPT-3, &ldquo;What is the word for &hellip;&rdquo;</li>
+<li>Abstractive summarization of text within emacs.</li>
+<li>Subtopic generation for mind maps</li>
+<li>Tutor for any topic
+<ul>
+<li>e.g. JavaScript. Ask it which version of node was available in 2018.</li>
+</ul>
+</li>
+<li>Generate lists of things</li>
+</ul>
+</li>
+</ul>
+<h3 id="introducing-pen-dot-el--prompt-engineering-in-emacs">Introducing <code>pen.el</code> (Prompt Engineering in emacs)</h3>
+<p>Please see my article on <code>Pen</code>  <a href="https://mullikine.github.io/posts/pen/">Pen // Bodacious Blog</a>.</p>
 <p>Pen facilitates the creation, development,
 discovery and usage of prompts to a LM such as
 GPT-3 and GPT-j.</p>
+<p>And please email me if you would like to help: <a href="mailto:mullikine@gmail.com">mailto:mullikine@gmail.com</a>.</p>
 <dl>
-<dt><code>pen.el</code> code</dt>
+<dt>Pen Project on GitHub</dt>
 <dd><a href="https://github.com/semiosis/pen.el">https://github.com/semiosis/pen.el</a></dd>
 </dl>
-<h2 id="shell"><code>shell</code></h2>
-<p>This is what I want to integrate into emacs.</p>
-<h3 id="asktutor"><code>asktutor</code></h3>
-<dl>
-<dt>Code</dt>
-<dd><a href="https://github.com/semiosis/pen.el/blob/master/scripts/openai-complete.sh">https://github.com/semiosis/pen.el/blob/master/scripts/openai-complete.sh</a></dd>
-</dl>
-<!--listend-->
+<h2 id="original-shell-script-asktutor">Original <code>shell</code> script, <code>asktutor</code></h2>
+<p><code>asktutor</code> queries the OpenAI API via the python library (<code>pip install openai</code>).</p>
+<p>This is how it is called:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -249,6 +272,7 @@ GPT-3 and GPT-j.</p>
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">asktutor haskell ghc <span style="color:#e6db74">&#34;What does could not deduce mean?&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
+<p>Here is its code:</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -269,12 +293,10 @@ GPT-3 and GPT-j.</p>
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span>export TTY
-
+</span><span style="color:#75715e"></span>
 topic<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
 test -n <span style="color:#e6db74">&#34;</span>$topic<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">||</span> exit <span style="color:#ae81ff">1</span>
 shift
@@ -293,17 +315,23 @@ test -n <span style="color:#e6db74">&#34;</span>$question<span style="color:#e6d
 oci openai-complete $MYGIT/semiosis/prompts/prompts/tutor.prompt <span style="color:#e6db74">&#34;</span>$topic<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$in_the_context_of<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$question<span style="color:#e6db74">&#34;</span> | pavs</code></pre></td></tr></table>
 </div>
 </div>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cq haskell could not deduce from the context</code></pre></td></tr></table>
-</div>
-</div>
 <h2 id="converting-above-into-elisp-together-with-a-prompt-function">Converting above into elisp together with a prompt function</h2>
-<p><code>pen-pf-asktutor</code> is generated from a <code>.prompt</code> file.</p>
-<h3 id="pen-tutor-mode-assist"><code>pen-tutor-mode-assist</code></h3>
+<p><code>pen-pf-asktutor</code> is generated from a <code>.prompt</code> file (<a href="http://github.com/semiosis/prompts/blob/master/prompts/tutor.prompt">http://github.com/semiosis/prompts/blob/master/prompts/tutor.prompt</a>).</p>
+<p>Here is the generation function, <code>pen-generate-prompt-functions</code>: <a href="https://github.com/semiosis/pen.el/blob/master/pen.el#L131">https://github.com/semiosis/pen.el/blob/master/pen.el#L131</a></p>
+<p>Now we can use <code>pen-pf-asktutor</code> inside <code>org- brain</code>. We supply the parent node as the
+context to the function.</p>
+<dl>
+<dt>Org-brain tutor code</dt>
+<dd><a href="https://github.com/semiosis/pen.el/blob/master/pen-brain.el#L98">https://github.com/semiosis/pen.el/blob/master/pen-brain.el#L98</a></dd>
+</dl>
+<p>The prompt function calls a simple shell script (<code>openai-complete.sh</code>) which sends the final templated prompt to the OpenAI API.</p>
+<p>This can be substituted for other completers such as GPT-j.</p>
+<dl>
+<dt><code>openai-complete.sh</code></dt>
+<dd><a href="https://github.com/semiosis/pen.el/blob/master/scripts/openai-complete.sh">https://github.com/semiosis/pen.el/blob/master/scripts/openai-complete.sh</a></dd>
+</dl>
+<p><code>pen-tutor-mode-assist</code> is another example of using the same prompt function.</p>
+<p><code>M-x pen-tutor-mode-assist</code>, enter your query and have the answer displayed in a new buffer.</p>
 <dl>
 <dt>Code</dt>
 <dd><a href="http://github.com/semiosis/pen.el/blob/master/pen-contrib.el">http://github.com/semiosis/pen.el/blob/master/pen-contrib.el</a></dd>
@@ -329,7 +357,10 @@ oci openai-complete $MYGIT/semiosis/prompts/prompts/tutor.prompt <span style="co
   (pen-pf-asktutor bl bl query))</code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="right-click-context-click-menu"><code>right-click-context-click-menu</code></h3>
+<h2 id="right-click-context-click-menu"><code>right-click-context-click-menu</code></h2>
+<p>This is an example of connecting a prompt function to <code>right-click-context-menu</code>.</p>
+<p>GPT language models are capable of classification as well as generation.</p>
+<p>Classification is just a downstream task of generation, it seems.</p>
 <dl>
 <dt>Right click menu code</dt>
 <dd><a href="https://github.com/semiosis/pen.el/blob/master/pen-right-click-menu.el#L126">https://github.com/semiosis/pen.el/blob/master/pen-right-click-menu.el#L126</a></dd>
@@ -360,13 +391,6 @@ oci openai-complete $MYGIT/semiosis/prompts/prompts/tutor.prompt <span style="co
     <img src="https://mullikine.github.io/ox-hugo/tutor-code.png"/> 
 </figure>
 
-<p><code>tutor.prompt</code></p>
-<dl>
-<dt>Tutor prompt</dt>
-<dd><a href="http://github.com/semiosis/prompts/blob/master/prompts/tutor.prompt">http://github.com/semiosis/prompts/blob/master/prompts/tutor.prompt</a></dd>
-<dt>Tutor elisp code</dt>
-<dd><a href="https://github.com/semiosis/pen.el/blob/master/pen-brain.el#L98">https://github.com/semiosis/pen.el/blob/master/pen-brain.el#L98</a></dd>
-</dl>
 
     </div>
     <div class="post-footer">
