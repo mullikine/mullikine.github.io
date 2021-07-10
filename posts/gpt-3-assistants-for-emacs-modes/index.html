@@ -315,7 +315,7 @@ test -n <span style="color:#e6db74">&#34;</span>$question<span style="color:#e6d
 oci openai-complete $MYGIT/semiosis/prompts/prompts/tutor.prompt <span style="color:#e6db74">&#34;</span>$topic<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$in_the_context_of<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$question<span style="color:#e6db74">&#34;</span> | pavs</code></pre></td></tr></table>
 </div>
 </div>
-<h2 id="converting-above-into-elisp-together-with-a-prompt-function">Converting above into elisp together with a prompt function</h2>
+<h3 id="converting-above-into-elisp-together-with-a-prompt-function">Converting above into elisp together with a prompt function</h3>
 <p><code>pen-pf-asktutor</code> is generated from a <code>.prompt</code> file (<a href="http://github.com/semiosis/prompts/blob/master/prompts/tutor.prompt">http://github.com/semiosis/prompts/blob/master/prompts/tutor.prompt</a>).</p>
 <p>Here is the generation function, <code>pen-generate-prompt-functions</code>: <a href="https://github.com/semiosis/pen.el/blob/master/pen.el#L131">https://github.com/semiosis/pen.el/blob/master/pen.el#L131</a></p>
 <p>Now we can use <code>pen-pf-asktutor</code> inside <code>org- brain</code>. We supply the parent node as the
@@ -357,6 +357,70 @@ context to the function.</p>
   (pen-pf-asktutor bl bl query))</code></pre></td></tr></table>
 </div>
 </div>
+<h2 id="original-shell-script-cq">Original <code>shell</code> script, <code>cq</code></h2>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>export TTY
+
+<span style="color:#f92672">(</span> hs <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>basename <span style="color:#e6db74">&#34;</span>$0<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;#&#34;</span> <span style="color:#e6db74">&#34;&lt;==&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>ps -o comm<span style="color:#f92672">=</span> $PPID<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> 0&lt;/dev/null <span style="color:#f92672">)</span> &amp;&gt;/dev/null
+
+topic<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span>
+test -n <span style="color:#e6db74">&#34;</span>$topic<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">||</span> exit <span style="color:#ae81ff">1</span>
+shift
+
+task<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$@<span style="color:#e6db74">&#34;</span>
+test -n <span style="color:#e6db74">&#34;</span>$task<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">||</span> exit <span style="color:#ae81ff">1</span>
+
+openai-complete code-snippet.prompt <span style="color:#e6db74">&#34;</span>$topic<span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span>$task<span style="color:#e6db74">&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="converting-above-into-elisp-together-with-a-prompt-function">Converting above into elisp together with a prompt function</h3>
+<p><code>pen-pf-cq</code> is generated from a <code>.prompt</code> file (<a href="http://github.com/semiosis/prompts/blob/master/prompts/code-snippet.prompt">http://github.com/semiosis/prompts/blob/master/prompts/code-snippet.prompt</a>).</p>
+<p>Documentation for generated function:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">pen-pf-cq is an alias for ‘pen-pf-code-snippet-from-natural-language’
+in ‘pen-example-config.el’.
+
+(pen-pf-cq LANGUAGE TASK)
+
+code snippet from natural language
+Get a bash one liner from natural langauge
+future-titles:- Get code snippet
+- Get snippet</code></pre></td></tr></table>
+</div>
+</div>
+<!-- Play on asciinema.com -->
+<p><a title="asciinema recording" href="https://asciinema.org/a/foNqrgSZLJcDPDsaqanffOJSY" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/foNqrgSZLJcDPDsaqanffOJSY.svg" /></a></p>
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/foNqrgSZLJcDPDsaqanffOJSY.js" id="asciicast-foNqrgSZLJcDPDsaqanffOJSY" async></script>
 <h2 id="right-click-context-click-menu"><code>right-click-context-click-menu</code></h2>
 <p>This is an example of connecting a prompt function to <code>right-click-context-menu</code>.</p>
 <p>GPT language models are capable of classification as well as generation.</p>
