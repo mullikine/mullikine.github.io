@@ -18,13 +18,13 @@
 <meta name="twitter:description" content="Summary This is a tutorial for how to use pen.el.
 Default Key bindings    kb f      H-TAB g pen-generate-prompt-functions pen-map   H-TAB r pen-run-prompt-function pen-map   SPC pen-run-prompt-function selected-map    H is the Hyper key, which works similar to Escape, Meta, Alt, Control or Shift.
 pen.el emulates a Hyper key with C-M-\.
-Regenerate key bindings Running pen-generate-prompt-functions will load all prompts from the prompts directory, which is typically located here: ~/."/>
+Usage Running pen-generate-prompt-functions will load all prompts from the prompts directory, which is typically located here: ~/."/>
 
     <meta property="og:title" content="Pen Tutorial" />
 <meta property="og:description" content="Summary This is a tutorial for how to use pen.el.
 Default Key bindings    kb f      H-TAB g pen-generate-prompt-functions pen-map   H-TAB r pen-run-prompt-function pen-map   SPC pen-run-prompt-function selected-map    H is the Hyper key, which works similar to Escape, Meta, Alt, Control or Shift.
 pen.el emulates a Hyper key with C-M-\.
-Regenerate key bindings Running pen-generate-prompt-functions will load all prompts from the prompts directory, which is typically located here: ~/." />
+Usage Running pen-generate-prompt-functions will load all prompts from the prompts directory, which is typically located here: ~/." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/pen-tutorial/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-07-11T00:00:00&#43;12:00" />
@@ -193,13 +193,13 @@ Regenerate key bindings Running pen-generate-prompt-functions will load all prom
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          3 min read
+          4 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
   <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
 </svg>
-          <a class="tag" href="https://mullikine.github.io/tags/gpt/">gpt</a></div></div>
+          <a class="tag" href="https://mullikine.github.io/tags/gpt/">gpt</a><a class="tag" href="http://mullikine.github.io/tags/emacs/">emacs</a></div></div>
     </header>
     
 
@@ -242,7 +242,7 @@ Regenerate key bindings Running pen-generate-prompt-functions will load all prom
 </table>
 <p><code>H</code> is the Hyper key, which works similar to Escape, Meta, Alt, Control or Shift.</p>
 <p><code>pen.el</code> emulates a Hyper key with <code>C-M-\</code>.</p>
-<h2 id="regenerate-key-bindings">Regenerate key bindings</h2>
+<h3 id="usage">Usage</h3>
 <p>Running <code>pen-generate-prompt-functions</code> will
 load all prompts from the prompts directory,
 which is typically located here: <code>~/.emacs.d/prompts</code>.</p>
@@ -410,14 +410,23 @@ cd pen.el/src
 <script src="https://asciinema.org/a/EzlkZpFMS0NVEUOjcNnlKEJao.js" id="asciicast-EzlkZpFMS0NVEUOjcNnlKEJao" async></script>
 <h3 id="ensure-the-following-or-similar-file-structure">Ensure the following or similar file structure</h3>
 <p>Or make the additions / adjustments to your own emacs config.</p>
+<p>Take the parts you need from the <code>init.el</code> and place inside your own <code>~/.emacs</code>.</p>
+<p>If you don&rsquo;t have an init file of your own then run this.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ln -sf ~/.emacs.d/pen.el/init.el ~/.emacs
-git checkout <span style="color:#e6db74">&#34;https://github.com/semiosis/prompts/tree/master/prompts&#34;</span> ~/.emacs.d/prompts</code></pre></td></tr></table>
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ln -sf ~/.emacs.d/pen.el/init.el ~/.emacs</code></pre></td></tr></table>
+</div>
+</div>
+<p>Ensure you have the prompts repository in place.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git checkout <span style="color:#e6db74">&#34;https://github.com/semiosis/prompts/tree/master/prompts&#34;</span> ~/.emacs.d/prompts</code></pre></td></tr></table>
 </div>
 </div>
 <h3 id="openai-just-request-a-key-and-place-it-here">OpenAI - Just request a key and place it here</h3>
@@ -440,6 +449,79 @@ vim ~/.pen/openai_api_key</code></pre></td></tr></table>
 <!-- <a title="asciinema recording" href="https://asciinema.org/a/gwnk0DXnHKSzvUfLmfnQegfCx" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/gwnk0DXnHKSzvUfLmfnQegfCx.svg" /></a> -->
 <!-- Play on the blog -->
 <script src="https://asciinema.org/a/gwnk0DXnHKSzvUfLmfnQegfCx.js" id="asciicast-gwnk0DXnHKSzvUfLmfnQegfCx" async></script>
+<h3 id="prompt-engineering-workflow">Prompt Engineering Workflow</h3>
+<ul>
+<li>
+<p>Setup</p>
+<ul>
+<li>Install <code>prompt</code> snippet into yasnippet.</li>
+<li>M-x <code>yas/reload-all</code></li>
+<li>M-x <code>yas-insert-snippet</code></li>
+</ul>
+</li>
+<li>
+<p>Prompt design</p>
+<ul>
+<li>
+<ol>
+<li>Come up with a task. Let&rsquo;s call it &ldquo;Negate sentence&rdquo;</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Insert the prompt snippet into a new prompt file.</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>Remove keys from prompts file which we don&rsquo;t need.</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li><code>var-defaults</code> is an advanced usage of prompts</li>
+</ol>
+<ul>
+<li>But we will remove them</li>
+</ul>
+</li>
+<li>
+<ol start="5">
+<li>Now load the prompt with <code>M-x pen-generate-prompt-functions</code></li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>Now look at the prompt function documentation</li>
+</ol>
+<ul>
+<li>The binding <code>C-h C-f</code> is used to bring up help for a function</li>
+</ul>
+</li>
+<li>
+<ol start="7">
+<li>Looks like we made an error: &ldquo;The Mars is very far away.&rdquo;</li>
+</ol>
+<ul>
+<li>Change it and update the version of the prompt</li>
+</ul>
+</li>
+<li>
+<ol start="8">
+<li>Reload functions</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p>Test it out.</p>
+<p>I want to eat dinner now.</p>
+<p>It didn&rsquo;t work. hurm.</p>
+<p>Well, here is the basic process anyway. I&rsquo;ll try and debug this.</p>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/ofJjyh1A696NDOjwNx0zR6DAI" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/ofJjyh1A696NDOjwNx0zR6DAI.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/ofJjyh1A696NDOjwNx0zR6DAI.js" id="asciicast-ofJjyh1A696NDOjwNx0zR6DAI" async></script>
     </div>
     <div class="post-footer">
         <p>
