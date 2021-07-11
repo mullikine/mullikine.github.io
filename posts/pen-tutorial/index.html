@@ -193,7 +193,7 @@ Regenerate key bindings Running pen-generate-prompt-functions will load all prom
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          2 min read
+          3 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -345,6 +345,46 @@ the prompt function.</p>
 documentation for the function.</p>
 <p>The prompt is using the <code>Input</code> <code>Output</code>
 pattern.</p>
+<p><code>engine</code> is the name of a language model.</p>
+<p>An API such as the <code>OpenAI API</code> (<code>GPT-3</code>) may serve
+several different models.</p>
+<ul>
+<li>Some alternative models for <code>GPT-3</code>:
+<ul>
+<li>babbage</li>
+<li>content-filter-alpha-c4</li>
+<li>content-filter-dev</li>
+<li>curie</li>
+<li>cursing-filter-v6</li>
+<li>davinci</li>
+<li>instruct-curie-beta</li>
+<li>instruct-davinci-beta</li>
+</ul>
+</li>
+</ul>
+<p><code>vars</code> is a list of variable names. Each
+variable is substituted into the prompt if it
+has a corresponding template placeholder.</p>
+<p>For example, the <code>&lt;1&gt;</code> in the prompt
+corresponds to where the first variable
+(<code>text-or-code</code>) will be substituted.</p>
+<p><code>examples</code> is a list with the same number of
+elements as <code>vars</code>. The values in <code>examples</code>
+may be suggested as initial input when
+running the prompt function and may be used in
+test cases. They also serve as documentation
+for the user.</p>
+<p><code>preprocessors</code> are a list of shell
+pipelineable commands (stream filters) which
+expect both input and output and can be used
+to preprocess the variables before they are
+substituted into the prompt template.</p>
+<p>This prompt doesn&rsquo;t have a <code>postprocessor</code>,
+but if it did it would postprocess the
+returned completions in a similar fashion to
+how the variables are preprocessed.</p>
+<p>Finally, <code>aliases</code> is a list of alternative
+function names for this prompt.</p>
 
     </div>
     <div class="post-footer">
