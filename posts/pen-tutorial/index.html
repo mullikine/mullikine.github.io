@@ -392,10 +392,14 @@ function names for this prompt.</p>
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git checkout <span style="color:#e6db74">&#34;https://github.com/semiosis/pen.el&#34;</span>
 cd pen.el/src
+<span style="color:#75715e"># Careful with setup script.</span>
+<span style="color:#75715e"># Run the commands manually as this is designed for root user, intended for a Docker container.</span>
 ./setup.sh</code></pre></td></tr></table>
 </div>
 </div>
@@ -404,6 +408,18 @@ cd pen.el/src
 <!-- <a title="asciinema recording" href="https://asciinema.org/a/EzlkZpFMS0NVEUOjcNnlKEJao" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/EzlkZpFMS0NVEUOjcNnlKEJao.svg" /></a> -->
 <!-- Play on the blog -->
 <script src="https://asciinema.org/a/EzlkZpFMS0NVEUOjcNnlKEJao.js" id="asciicast-EzlkZpFMS0NVEUOjcNnlKEJao" async></script>
+<h3 id="ensure-the-following-or-similar-file-structure">Ensure the following or similar file structure</h3>
+<p>Or make the additions / adjustments to your own emacs config.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ln -sf ~/.emacs.d/pen.el/init.el ~/.emacs
+git checkout <span style="color:#e6db74">&#34;https://github.com/semiosis/prompts/tree/master/prompts&#34;</span> ~/.emacs.d/prompts</code></pre></td></tr></table>
+</div>
+</div>
 <h3 id="openai-just-request-a-key-and-place-it-here">OpenAI - Just request a key and place it here</h3>
 <p>Install OpenAI API key.</p>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
