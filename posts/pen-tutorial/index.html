@@ -193,7 +193,7 @@ Usage Running pen-generate-prompt-functions will load all prompts from the promp
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          4 min read
+          6 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -522,6 +522,236 @@ vim ~/.pen/openai_api_key</code></pre></td></tr></table>
 <!-- <a title="asciinema recording" href="https://asciinema.org/a/ofJjyh1A696NDOjwNx0zR6DAI" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/ofJjyh1A696NDOjwNx0zR6DAI.svg" /></a> -->
 <!-- Play on the blog -->
 <script src="https://asciinema.org/a/ofJjyh1A696NDOjwNx0zR6DAI.js" id="asciicast-ofJjyh1A696NDOjwNx0zR6DAI" async></script>
+<h2 id="another-dot-prompt-exhibition">Another <code>.prompt</code> exhibition</h2>
+<h3 id="i-create-a-new-prompt-here-for-translating-between-any-world-language">I create a new prompt here for translating between any world language</h3>
+<!-- Play on asciinema.com -->
+<!-- <a title="asciinema recording" href="https://asciinema.org/a/jiBD5ZpRJQWXFMlHdvGGgSxjk" target="_blank"><img alt="asciinema recording" src="https://asciinema.org/a/jiBD5ZpRJQWXFMlHdvGGgSxjk.svg" /></a> -->
+<!-- Play on the blog -->
+<script src="https://asciinema.org/a/jiBD5ZpRJQWXFMlHdvGGgSxjk.js" id="asciicast-jiBD5ZpRJQWXFMlHdvGGgSxjk" async></script>
+<p>Maori isn&rsquo;t a very prominent language on the
+web, but it still managed to capture the idea
+of a welcome message, which I think is
+amazing! I am Maori, so I appreciate this!</p>
+<p>I want to demonstrate the usage of two more <code>.prompt</code> keys.</p>
+<dl>
+<dt>The technical jargon</dt>
+<dd><code>var-defaults</code> overrides the default behaviour of the <code>(interactive)</code> form in emacs.</dd>
+</dl>
+<p>By specifying <code>var-defaults</code>, you can change
+what functions or expressions are run to
+acquire the values for the parameters to the
+prompt.</p>
+<p>The prompt here captures the selected text and
+puts it into the second placeholder, <code>&lt;2&gt;</code>.</p>
+<p>By default, that would go into the first one, <code>&lt;1&gt;</code>.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">var-defaults</span>:
+- <span style="color:#e6db74">&#34;(read-string \&#34;language: \&#34;)&#34;</span>
+- <span style="color:#e6db74">&#34;(pen-selected-text)&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="original-prompt">Original prompt</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
+<span style="color:#f92672">title</span>: <span style="color:#ae81ff">Translate from English to</span>
+<span style="color:#f92672">prompt-version</span>: <span style="color:#ae81ff">2</span>
+<span style="color:#f92672">doc</span>: <span style="color:#ae81ff">This prompt translates English text to any world langauge</span>
+<span style="color:#f92672">issues</span>:
+- <span style="color:#ae81ff">I think the unicode characters may be multibyte causing issues with completion</span>
+<span style="color:#f92672">prompt</span>: |<span style="color:#e6db74">
+</span><span style="color:#e6db74">  ###
+</span><span style="color:#e6db74">  # English: Hello
+</span><span style="color:#e6db74">  # Russian: Zdravstvuyte
+</span><span style="color:#e6db74">  # Italian: Salve
+</span><span style="color:#e6db74">  # Japanese: Konnichiwa
+</span><span style="color:#e6db74">  # German: Guten Tag
+</span><span style="color:#e6db74">  # French: Bonjour
+</span><span style="color:#e6db74">  # Spanish: Hola
+</span><span style="color:#e6db74">  ###
+</span><span style="color:#e6db74">  # English: Happy birthday!
+</span><span style="color:#e6db74">  # French: Bon anniversaire !
+</span><span style="color:#e6db74">  # German: Alles Gute zum Geburtstag!
+</span><span style="color:#e6db74">  # Italian: Buon compleanno!
+</span><span style="color:#e6db74">  # Indonesian: Selamat ulang tahun!
+</span><span style="color:#e6db74">  ###
+</span><span style="color:#e6db74">  # English: &lt;2&gt;
+</span><span style="color:#e6db74">  # &lt;1&gt;:</span>  
+<span style="color:#f92672">engine</span>: <span style="color:#ae81ff">davinci</span>
+<span style="color:#f92672">temperature</span>: <span style="color:#ae81ff">0.5</span>
+<span style="color:#f92672">max-tokens</span>: <span style="color:#ae81ff">200</span>
+<span style="color:#f92672">top-p</span>: <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">stop-sequences</span>:
+- <span style="color:#e6db74">&#34;#&#34;</span>
+<span style="color:#f92672">vars</span>:
+- <span style="color:#ae81ff">language</span>
+- <span style="color:#ae81ff">phrase</span>
+<span style="color:#75715e"># ascification of the prompt is not ideal</span>
+<span style="color:#f92672">prompt-filter</span>: <span style="color:#ae81ff">pen-c ascify</span>
+<span style="color:#f92672">examples</span>:
+- <span style="color:#ae81ff">French</span>
+- <span style="color:#ae81ff">Goodnight</span>
+<span style="color:#f92672">var-defaults</span>:
+- <span style="color:#e6db74">&#34;(read-string \&#34;language: \&#34;)&#34;</span>
+- <span style="color:#e6db74">&#34;(pen-selected-text)&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="i-create-this-prompt">I create this prompt</h3>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">prompt-filter: pen-c ascify</code></pre></td></tr></table>
+</div>
+</div>
+<p>The <code>prompt-filter</code> is a final filter script
+to transform the prompt before sending to the
+<code>API</code> / <code>LM</code> for completion.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
+<span style="color:#f92672">title</span>: <span style="color:#ae81ff">Translate from world language X to Y</span>
+<span style="color:#f92672">prompt-version</span>: <span style="color:#ae81ff">2</span>
+<span style="color:#f92672">doc</span>: <span style="color:#ae81ff">This prompt translates English text to any world langauge</span>
+<span style="color:#f92672">issues</span>:
+- <span style="color:#ae81ff">I think the unicode characters may be multibyte causing issues with completion</span>
+<span style="color:#f92672">prompt</span>: |<span style="color:#e6db74">
+</span><span style="color:#e6db74">  ###
+</span><span style="color:#e6db74">  # English: Hello
+</span><span style="color:#e6db74">  # Russian: Zdravstvuyte
+</span><span style="color:#e6db74">  # Italian: Salve
+</span><span style="color:#e6db74">  # Japanese: Konnichiwa
+</span><span style="color:#e6db74">  # German: Guten Tag
+</span><span style="color:#e6db74">  # French: Bonjour
+</span><span style="color:#e6db74">  # Spanish: Hola
+</span><span style="color:#e6db74">  ###
+</span><span style="color:#e6db74">  # English: Happy birthday!
+</span><span style="color:#e6db74">  # French: Bon anniversaire !
+</span><span style="color:#e6db74">  # German: Alles Gute zum Geburtstag!
+</span><span style="color:#e6db74">  # Italian: Buon compleanno!
+</span><span style="color:#e6db74">  # Indonesian: Selamat ulang tahun!
+</span><span style="color:#e6db74">  ###
+</span><span style="color:#e6db74">  # &lt;1&gt;: &lt;3&gt;
+</span><span style="color:#e6db74">  # &lt;2&gt;:</span>  
+<span style="color:#f92672">engine</span>: <span style="color:#ae81ff">davinci</span>
+<span style="color:#f92672">temperature</span>: <span style="color:#ae81ff">0.5</span>
+<span style="color:#f92672">max-tokens</span>: <span style="color:#ae81ff">200</span>
+<span style="color:#f92672">top-p</span>: <span style="color:#ae81ff">1</span>
+<span style="color:#f92672">stop-sequences</span>:
+- <span style="color:#e6db74">&#34;#&#34;</span>
+<span style="color:#f92672">vars</span>:
+- <span style="color:#ae81ff">from-language</span>
+- <span style="color:#ae81ff">to-language</span>
+- <span style="color:#ae81ff">phrase</span>
+<span style="color:#75715e"># ascification of the prompt is not ideal</span>
+<span style="color:#f92672">prompt-filter</span>: <span style="color:#ae81ff">pen-c ascify</span>
+<span style="color:#f92672">examples</span>:
+- <span style="color:#ae81ff">English</span>
+- <span style="color:#ae81ff">French</span>
+- <span style="color:#ae81ff">Goodnight</span>
+<span style="color:#f92672">var-defaults</span>:
+- <span style="color:#e6db74">&#34;(read-string \&#34;From language: \&#34;)&#34;</span>
+- <span style="color:#e6db74">&#34;(read-string \&#34;To language: \&#34;)&#34;</span>
+- <span style="color:#e6db74">&#34;(pen-selected-text)&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+
     </div>
     <div class="post-footer">
         <p>
