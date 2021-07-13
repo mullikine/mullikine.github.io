@@ -17,12 +17,14 @@
 <meta name="twitter:title" content="Pen Tutorial"/>
 <meta name="twitter:description" content="Summary This is a tutorial for how to use pen.el.
 The following command starts pen.el. You only need to have docker installed and an OpenAI GPT-3 key to try this out.
-1  docker run --rm -ti --entrypoint= semiosis/pen.el:latest ./run.sh   Default Key bindings    kb f       H-TAB g pen-generate-prompt-functions pen-map    H-TAB r pen-run-prompt-function pen-map    SPC pen-run-prompt-function selected-map    H-TAB c pen-company-complete pen-map This is like nearly working   H-TAB l pen-complete-long pen-map     H is the Hyper key, which works similar to Escape, Meta, Alt, Control or Shift that is present on the Space Cadet Keyboard."/>
+1  docker run --rm -ti --entrypoint= semiosis/pen.el:latest ./run.sh    Project code https://github.com/semiosis/pen.el/  For GPT-neo, GPT-2 and booste support, and latest updates, please install from master branch. Docker support coming. GPT-j also in the works.
+Default Key bindings    kb f       H-TAB g pen-generate-prompt-functions pen-map    H-TAB r pen-run-prompt-function pen-map    SPC pen-run-prompt-function selected-map    H-TAB l pen-complete-long pen-map     H is the Hyper key, which works similar to Escape, Meta, Alt, Control or Shift that is present on the Space Cadet Keyboard."/>
 
     <meta property="og:title" content="Pen Tutorial" />
 <meta property="og:description" content="Summary This is a tutorial for how to use pen.el.
 The following command starts pen.el. You only need to have docker installed and an OpenAI GPT-3 key to try this out.
-1  docker run --rm -ti --entrypoint= semiosis/pen.el:latest ./run.sh   Default Key bindings    kb f       H-TAB g pen-generate-prompt-functions pen-map    H-TAB r pen-run-prompt-function pen-map    SPC pen-run-prompt-function selected-map    H-TAB c pen-company-complete pen-map This is like nearly working   H-TAB l pen-complete-long pen-map     H is the Hyper key, which works similar to Escape, Meta, Alt, Control or Shift that is present on the Space Cadet Keyboard." />
+1  docker run --rm -ti --entrypoint= semiosis/pen.el:latest ./run.sh    Project code https://github.com/semiosis/pen.el/  For GPT-neo, GPT-2 and booste support, and latest updates, please install from master branch. Docker support coming. GPT-j also in the works.
+Default Key bindings    kb f       H-TAB g pen-generate-prompt-functions pen-map    H-TAB r pen-run-prompt-function pen-map    SPC pen-run-prompt-function selected-map    H-TAB l pen-complete-long pen-map     H is the Hyper key, which works similar to Escape, Meta, Alt, Control or Shift that is present on the Space Cadet Keyboard." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mullikine.github.io/posts/pen-tutorial/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-07-11T00:00:00&#43;12:00" />
@@ -194,7 +196,7 @@ The following command starts pen.el. You only need to have docker installed and 
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          7 min read
+          8 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
   <title>tag</title>
@@ -225,6 +227,14 @@ only need to have docker installed and an
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">docker run --rm -ti --entrypoint<span style="color:#f92672">=</span> semiosis/pen.el:latest ./run.sh</code></pre></td></tr></table>
 </div>
 </div>
+<dl>
+<dt>Project code</dt>
+<dd><a href="https://github.com/semiosis/pen.el/">https://github.com/semiosis/pen.el/</a></dd>
+</dl>
+<p>For <code>GPT-neo</code>, <code>GPT-2</code> and <code>booste</code> support,
+and latest updates, please install from master
+branch. Docker support coming. <code>GPT-j</code> also in
+the works.</p>
 <h2 id="default-key-bindings">Default Key bindings</h2>
 <table>
 <thead>
@@ -253,12 +263,6 @@ only need to have docker installed and an
 <td><code>pen-run-prompt-function</code></td>
 <td><code>selected-map</code></td>
 <td></td>
-</tr>
-<tr>
-<td><code>H-TAB c</code></td>
-<td><code>pen-company-complete</code></td>
-<td><code>pen-map</code></td>
-<td>This is like nearly working</td>
 </tr>
 <tr>
 <td><code>H-TAB l</code></td>
@@ -818,6 +822,44 @@ to transform the prompt before sending to the
 - <span style="color:#e6db74">&#34;(pen-selected-text)&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
+<h2 id="current-development">Current Development</h2>
+<h3 id="company-mode"><code>company-mode</code></h3>
+<p>I&rsquo;m trying to do something a little more
+ambitious than simply having a single
+completion function.</p>
+<p>There will be infinitely many completion functions that you can select from.</p>
+<table>
+<thead>
+<tr>
+<th>kb</th>
+<th>f</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>H-TAB c</code></td>
+<td><code>pen-company-complete</code></td>
+<td><code>pen-map</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="huggingface-transformers">HuggingFace transformers</h3>
+<p>Mark Watson in his book &ldquo;Practical Artificial
+Intelligence Programming With Clojure&rdquo; uses
+spaCy and the HuggingFace transformers library
+from Clojure. I would like to connect to
+HuggingFace&rsquo;s transformers library in this way.</p>
+<p>See &ldquo;<a href="https://markwatson.com/">https://markwatson.com/</a>&rdquo;.</p>
+<h3 id="gpt-neo">GPT-neo</h3>
+<p><a href="https://github.com/samrawal/emacs-secondmate/">https://github.com/samrawal/emacs-secondmate/</a></p>
+<h3 id="gpt-2">GPT-2</h3>
+<p>Thank you <code>@Samin</code> and <code>@erik</code> for the
+<code>booste</code> API support in integrating a free to
+use GPT-2.</p>
+<p>Please visit <a href="https://www.booste.io/">https://www.booste.io/</a> to get your key.</p>
+<h3 id="gpt-j"><code>GPT-j</code></h3>
+<p>Currently working on a way to integrate this.</p>
 
     </div>
     <div class="post-footer">
