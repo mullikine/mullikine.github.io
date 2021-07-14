@@ -524,10 +524,8 @@ helm Select from a list There are different ways to select from a list.
   (insert-with-completion (read-lines <span style="color:#e6db74">&#34;~/path/to/my-list.txt&#34;</span>)))</code></pre></td></tr></table>
 </div>
 </div>
-<ul>
-<li>Cache it</li>
-</ul>
-<pre><code><div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<p><span class="underline"><strong>Cache it</strong></span></p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
@@ -541,25 +539,22 @@ helm Select from a list There are different ways to select from a list.
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">    (defvar *my-list* <span style="color:#66d9ef">nil</span>)
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-emacs-lisp" data-lang="emacs-lisp">(defvar *my-list* <span style="color:#66d9ef">nil</span>)
 
-    (defun refresh-my-list ()
-      <span style="color:#e6db74">&#34;Reread list of things.&#34;</span>
-      (interactive)
-      (setq *my-list* (read-lines <span style="color:#e6db74">&#34;~/path/to/my-list.txt&#34;</span>)))
+(defun refresh-my-list ()
+  <span style="color:#e6db74">&#34;Reread list of things.&#34;</span>
+  (interactive)
+  (setq *my-list* (read-lines <span style="color:#e6db74">&#34;~/path/to/my-list.txt&#34;</span>)))
 
-    (defun insert-from-my-list-cached ()
-      <span style="color:#e6db74">&#34;Insert a line into the current buffer, with completion.&#34;</span>
-      (interactive)
-      (unless *my-list* (refresh-my-list))
-      (insert-with-completion *my-list*))
-    </code></pre></td></tr></table>
+(defun insert-from-my-list-cached ()
+  <span style="color:#e6db74">&#34;Insert a line into the current buffer, with completion.&#34;</span>
+  (interactive)
+  (unless *my-list* (refresh-my-list))
+  (insert-with-completion *my-list*))</code></pre></td></tr></table>
 </div>
 </div>
-</code></pre>
 <h2 id="icomplete"><span class="org-todo todo TODO">TODO</span> icomplete</h2>
 <h2 id="misc"><span class="org-todo todo TODO">TODO</span> misc</h2>
 <div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
